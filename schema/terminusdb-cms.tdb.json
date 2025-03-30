@@ -1,0 +1,461 @@
+[
+  {
+    "@base": "terminusdb:///documentation/data/",
+    "@metadata": {
+      "DFRNT": {
+        "defaultLabelProperty": [
+          "name",
+          "label"
+        ]
+      }
+    },
+    "@schema": "terminusdb:///documentation/schema#",
+    "@type": "@context"
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "slug"
+      ]
+    },
+    "@id": "Page",
+    "@metadata": {
+      "order_by": [
+        "slug",
+        "title",
+        "subtitle",
+        "body",
+        "media",
+        "seo_metadata"
+      ]
+    },
+    "@inherits": [
+      "PageData"
+    ],
+    "title": "Title",
+    "subtitle": {
+      "@class": "Subtitle",
+      "@type": "Optional"
+    },
+    "slug": "xsd:string",
+    "seo_metadata": {
+      "@class": "SEOMetadata",
+      "@type": "Optional"
+    },
+    "media": {
+      "@class": "Media",
+      "@type": "Set"
+    },
+    "body": {
+      "@class": "Body",
+      "@type": "Optional"
+    }
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Random"
+    },
+    "@id": "PageData"
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Random"
+    },
+    "@id": "Menus"
+  },
+  {
+    "@type": "Enum",
+    "@id": "Language",
+    "@value": [
+      "Python",
+      "Javascript"
+    ]
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Random"
+    },
+    "@id": "Subtitle",
+    "@subdocument": [],
+    "value": "xsd:string"
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "ValueHash"
+    },
+    "@id": "Module",
+    "@inherits": [
+      "Documented"
+    ],
+    "definitions": {
+      "@class": "Definition",
+      "@type": "Set"
+    },
+    "classes": {
+      "@class": "Class",
+      "@type": "Set"
+    }
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Random"
+    },
+    "@id": "Class",
+    "@inherits": [
+      "Documented"
+    ],
+    "name": "xsd:string",
+    "memberVariables": {
+      "@class": "Parameter",
+      "@type": "Set"
+    },
+    "memberFunctions": {
+      "@class": "Definition",
+      "@type": "Set"
+    }
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Hash",
+      "@fields": [
+        "name",
+        "version"
+      ]
+    },
+    "@id": "Application",
+    "@inherits": [
+      "Documented"
+    ],
+    "version": "xsd:string",
+    "modules": {
+      "@class": "Module",
+      "@type": "Set"
+    },
+    "license": "xsd:string",
+    "language": "Language"
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "MenuTitle"
+      ]
+    },
+    "@id": "Menu",
+    "@inherits": [
+      "Menus"
+    ],
+    "menu_order": {
+      "@class": "xsd:integer",
+      "@type": "Optional"
+    },
+    "Order": {
+      "@class": "xsd:integer",
+      "@type": "Optional"
+    },
+    "MenuTitle": {
+      "@class": "xsd:string",
+      "@type": "Optional"
+    },
+    "MenuPage": {
+      "@class": "Page",
+      "@type": "Optional"
+    },
+    "Level1": {
+      "@class": "Menu1",
+      "@type": "Set"
+    }
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "ValueHash"
+    },
+    "@id": "Exception",
+    "@inherits": [
+      "Documented"
+    ],
+    "parameters": {
+      "@class": "xsd:string",
+      "@type": "List"
+    }
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "ValueHash"
+    },
+    "@id": "Parameter",
+    "@inherits": [
+      "Documented"
+    ],
+    "type": "xsd:string",
+    "default": {
+      "@class": "xsd:string",
+      "@type": "Optional"
+    }
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "ValueHash"
+    },
+    "@id": "Returns",
+    "@inherits": [
+      "Documented"
+    ],
+    "type": "xsd:string"
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Random"
+    },
+    "@id": "Title",
+    "@subdocument": [],
+    "value": "xsd:string"
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Random"
+    },
+    "@id": "Media",
+    "@unfoldable": [],
+    "@inherits": [
+      "PageData"
+    ],
+    "value": "xsd:anyURI",
+    "title": "Title",
+    "media_type": "MediaType",
+    "caption": "xsd:string",
+    "alt": "xsd:string"
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Random"
+    },
+    "@id": "Documented",
+    "@inherits": [
+      "Named",
+      "Summarized"
+    ],
+    "@abstract": []
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "Menu1Label",
+        "Order"
+      ]
+    },
+    "@id": "Menu1",
+    "@inherits": [
+      "Menus"
+    ],
+    "Order": {
+      "@class": "xsd:integer",
+      "@type": "Optional"
+    },
+    "Menu1Page": {
+      "@class": "Page",
+      "@type": "Optional"
+    },
+    "Menu1Label": "xsd:string",
+    "Level2": {
+      "@class": "Menu2",
+      "@type": "Set"
+    }
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "ValueHash"
+    },
+    "@id": "Definition",
+    "@inherits": [
+      "Documented"
+    ],
+    "signature": {
+      "@class": "xsd:string",
+      "@type": "Optional"
+    },
+    "seeAlso": {
+      "@class": "Definition",
+      "@type": "Set"
+    },
+    "section": {
+      "@class": "xsd:string",
+      "@type": "Optional"
+    },
+    "references": {
+      "@class": "xsd:string",
+      "@type": "Optional"
+    },
+    "raises": {
+      "@class": "Exception",
+      "@type": "Set"
+    },
+    "notes": {
+      "@class": "xsd:string",
+      "@type": "Optional"
+    },
+    "index": {
+      "@class": "xsd:integer",
+      "@type": "Optional"
+    },
+    "extendedSummary": {
+      "@class": "xsd:string",
+      "@type": "Optional"
+    },
+    "examples": {
+      "@class": "xsd:string",
+      "@type": "Array",
+      "@dimensions": 1
+    },
+    "@oneOf": [
+      {
+        "receives": {
+          "@class": "Parameter",
+          "@type": "List"
+        },
+        "parameters": {
+          "@class": "Parameter",
+          "@type": "List"
+        }
+      },
+      {
+        "yields": "Returns",
+        "returns_multiple": {
+          "@class": "Returns",
+          "@type": "List"
+        },
+        "returns": "Returns"
+      }
+    ]
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Random"
+    },
+    "@id": "Body",
+    "@metadata": {
+      "render_as": {
+        "value": "markdown"
+      }
+    },
+    "@unfoldable": [],
+    "@inherits": [
+      "PageData"
+    ],
+    "value": "xsd:string"
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Random"
+    },
+    "@id": "Summarized",
+    "@abstract": [],
+    "summary": {
+      "@class": "xsd:string",
+      "@type": "Optional"
+    }
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "Menu2Label",
+        "Order"
+      ]
+    },
+    "@id": "Menu2",
+    "@inherits": [
+      "Menus"
+    ],
+    "Order": {
+      "@class": "xsd:integer",
+      "@type": "Optional"
+    },
+    "Menu2Page": "Page",
+    "Menu2Label": {
+      "@class": "xsd:string",
+      "@type": "Optional"
+    },
+    "Level3": {
+      "@class": "Menu3",
+      "@type": "Set"
+    }
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "Menu3Label"
+      ]
+    },
+    "@id": "Menu3",
+    "@inherits": [
+      "Menus"
+    ],
+    "Order": {
+      "@class": "xsd:integer",
+      "@type": "Optional"
+    },
+    "Menu3Page": "Page",
+    "Menu3Label": "xsd:string"
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "Random"
+    },
+    "@id": "SEOMetadata",
+    "@subdocument": [],
+    "title": {
+      "@class": "xsd:string",
+      "@type": "Optional"
+    },
+    "og_image": {
+      "@class": "xsd:anyURI",
+      "@type": "Optional"
+    },
+    "description": {
+      "@class": "xsd:string",
+      "@type": "Optional"
+    }
+  },
+  {
+    "@type": "Enum",
+    "@id": "MediaType",
+    "@value": [
+      "Image",
+      "Video"
+    ]
+  },
+  {
+    "@type": "Class",
+    "@key": {
+      "@type": "ValueHash"
+    },
+    "@id": "Named",
+    "@abstract": [],
+    "name": "xsd:string"
+  }
+]
