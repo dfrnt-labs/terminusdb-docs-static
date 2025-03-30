@@ -27,7 +27,7 @@
           },
           {
             "@type": "Menu2",
-            "Menu2Label": "Teams & Users",
+            "Menu2Label": "Teams \u0026 Users",
             "Order": "4",
             "Menu2Page": "Page/manage-teams-users-terminuscms-tour",
             "Level3": []
@@ -48,7 +48,7 @@
           },
           {
             "@type": "Menu2",
-            "Menu2Label": "GraphQL & WOQL Query",
+            "Menu2Label": "GraphQL \u0026 WOQL Query",
             "Order": "7",
             "Menu2Page": "Page/graphql-and-woql-query-terminuscms-tour",
             "Level3": []
@@ -328,7 +328,7 @@
               },
               {
                 "@type": "Menu3",
-                "Menu3Label": "Diff & Patch with JS",
+                "Menu3Label": "Diff \u0026 Patch with JS",
                 "Order": "42",
                 "Menu3Page": "Page/diff-and-patch-operations"
               }
@@ -645,7 +645,7 @@
       },
       {
         "@type": "Menu1",
-        "Menu1Label": "Curate & Import Data",
+        "Menu1Label": "Curate \u0026 Import Data",
         "Order": "93",
         "Menu1Page": "Page/curate-and-import-data",
         "Level2": [
@@ -1016,21 +1016,21 @@
       {
         "@type": "Menu1",
         "Menu1Label": "TerminusDB",
-        "Order": "145",
+        "Order": "144",
         "Menu1Page": "Page/terminusdb-explanation",
         "Level2": []
       },
       {
         "@type": "Menu1",
         "Menu1Label": "Schema Weakening",
-        "Order": "146",
+        "Order": "145",
         "Menu1Page": "Page/what-is-schema-weakening",
         "Level2": []
       },
       {
         "@type": "Menu1",
         "Menu1Label": "WOQL",
-        "Order": "147",
+        "Order": "146",
         "Menu1Page": "Page/woql-explanation",
         "Level2": []
       }
