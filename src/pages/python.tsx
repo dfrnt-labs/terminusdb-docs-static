@@ -103,7 +103,7 @@ export async function getStaticProps(context) {
   }
 
   const application = await axios.post(
-    "https://cloud.terminusdb.com/TerminatorsX/api/graphql/TerminatorsX/terminusCMS_docs",
+    `${process.env.TERMINUSDB_API_ENDPOINT}/api/graphql/${process.env.TERMINUSDB_TEAM}/${process.env.TERMINUSDB_DB}`,
     {
       query: `query {
             Application(filter: {language: {eq: Python} } ) {

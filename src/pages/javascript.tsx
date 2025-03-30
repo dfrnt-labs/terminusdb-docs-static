@@ -72,11 +72,11 @@ export default function JavaScript(props) {
 
 export async function getStaticProps(context) {
   const client = new TerminusClient.WOQLClient(
-    "https://cloud.terminusdb.com/TerminatorsX",
+    process.env.TERMINUSDB_API_ENDPOINT,
     {
       user: "robin@terminusdb.com",
-      organization: "TerminatorsX",
-      db: "terminusCMS_docs",
+      organization: process.env.TERMINUSDB_TEAM,
+      db: process.env.TERMINUSDB_DB,
       token: process.env.TERMINUSDB_API_TOKEN,
     }
   )
@@ -97,7 +97,7 @@ export async function getStaticProps(context) {
   // provide entry slug
 
   const application = await axios.post(
-    "https://cloud.terminusdb.com/TerminatorsX/api/graphql/TerminatorsX/terminusCMS_docs",
+    `${process.env.TERMINUSDB_API_ENDPOINT}/api/graphql/${process.env.TERMINUSDB_TEAM}/${process.env.TERMINUSDB_DB}`,
     {
       query: `query {
             Application(filter: {language: {eq: Javascript} } ) {

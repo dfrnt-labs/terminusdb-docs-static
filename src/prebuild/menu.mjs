@@ -7,7 +7,7 @@ async function fetchMenu() {
     headers: { Authorization: `Token ${process.env.TERMINUSDB_API_TOKEN}` },
   }
   const req = await axios.post(
-    "https://cloud.terminusdb.com/TerminatorsX/api/graphql/TerminatorsX/terminusCMS_docs",
+    `${process.env.TERMINUSDB_API_ENDPOINT}/api/graphql/${process.env.TERMINUSDB_TEAM}/${process.env.TERMINUSDB_DB}`,
     {
       query: `query {
         Menu(orderBy: {Order:ASC}) {

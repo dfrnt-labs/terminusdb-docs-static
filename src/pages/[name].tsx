@@ -69,15 +69,12 @@ export default function Doc(
 
 export async function getStaticPaths() {
   // Connect and configure the TerminusClient
-  const client = new TerminusClient.WOQLClient(
-    "https://cloud.terminusdb.com/TerminatorsX",
-    {
-      user: "robin@terminusdb.com",
-      organization: "TerminatorsX",
-      db: "terminusCMS_docs",
-      token: process.env.TERMINUSDB_API_TOKEN,
-    }
-  )
+  const client = new TerminusClient.WOQLClient(process.env.TERMINUSDB_API_ENDPOINT, {
+    user: process.env.TERMINUSDB_USER,
+    organization: process.env.TERMINUSDB_TEAM,
+    db: process.env.TERMINUSDB_DB,
+    token: process.env.TERMINUSDB_API_TOKEN,
+  })
   const docs = await client.getDocument({ "@type": "Page", as_list: true })
   const exceptions = ["python", "openapi", "javascript"]
   const paths = docs
@@ -93,10 +90,10 @@ export async function getStaticProps({ params }) {
     headers: { Authorization: `Token ${process.env.TERMINUSDB_API_TOKEN}` },
   }
   const doc = await axios.post(
-    "https://cloud.terminusdb.com/TerminatorsX/api/graphql/TerminatorsX/terminusCMS_docs",
+    `${process.env.TERMINUSDB_API_ENDPOINT}/api/graphql/${process.env.TERMINUSDB_TEAM}/${process.env.TERMINUSDB_DB}`,
     {
       query: `query {
-    Page(filter: {slug: {eq: "${params['name']}"}}) {
+    Page(filter: {slug: {eq: "${params["name"]}"}}) {
     slug,
     title {
       value
@@ -117,7 +114,7 @@ export async function getStaticProps({ params }) {
   const docResult = doc.data.data.Page[0]
   let html = ""
   if (docResult["body"] !== null) {
-    html = await renderMarkdown(docResult["body"]["value"])
+    html = await renderMarkdown(docResult["body"]?.["value"]??"")
   }
   const entry = { html: html, document: docResult }
   return { props: { entry, menu } }
