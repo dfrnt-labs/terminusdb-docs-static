@@ -1,12 +1,23 @@
 name: Publish
 
 on:
+  push:
+    branches: [ "main" ]
+    paths: [ "**", ".github/workflows/publish.yml" ]
   schedule:
-    # Every 30 minutes
-    - cron: '0 6-18/2 * * *'
+    # Nightly at 1am
+    - cron: '0 1 * * *'
   workflow_call:
   workflow_dispatch:
 
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+concurrency:
+  group: "pages-prod"
+  cancel-in-progress: true
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   build:
@@ -17,7 +28,28 @@ jobs:
       - run: npm run build
         env:
           TERMINUSDB_API_TOKEN: ${{ secrets.TERMINUSDB_API_TOKEN }}
-      - run: curl -X POST ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }} -o /dev/null
-      - run: cd utils/ && npm i && node parse_to_sections.js
-        env:
-          TERMINUSDB_API_TOKEN: ${{ secrets.TERMINUSDB_API_TOKEN }}
+          TERMINUSDB_API_ENDPOINT: ${{ vars.TERMINUSDB_API_ENDPOINT }}
+          TERMINUSDB_TEAM: ${{ vars.TERMINUSDB_TEAM }}
+          TERMINUSDB_DB: ${{ vars.TERMINUSDB_DB }}
+          TERMINUSDB_USER: ${{ vars.TERMINUSDB_USER }}
+#      - run: curl -X POST ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }} -o /dev/null
+#      - run: cd utils/ && npm i && node parse_to_sections.js
+#        env:
+#          TERMINUSDB_API_TOKEN: ${{ secrets.TERMINUSDB_API_TOKEN }}
+#          TERMINUSDB_API_ENDPOINT: ${{ env.TERMINUSDB_API_ENDPOINT }}
+#          TERMINUSDB_TEAM: ${{ env.TERMINUSDB_TEAM }}
+#          TERMINUSDB_DB: ${{ env.TERMINUSDB_DB }}
+#          TERMINUSDB_USER: ${{ env.TERMINUSDB_USER }}
+
+      - name: Build And Deploy
+        id: builddeploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_DEPLOY_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "out"
+          skip_app_build: true
+          skip_api_build: true
+          output_location: ''
+          deployment_environment: ''
