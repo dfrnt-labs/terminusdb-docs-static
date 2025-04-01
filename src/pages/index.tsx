@@ -18,9 +18,9 @@ export default function Home(props: { menu: any[]; entry: any[] }) {
       menu={props.menu}
       entry={props.entry}
       displayElement={displayElement}
-      heading={props.entry.document.title.value}
+      heading={props.entry.document?.title?.value ?? ""}
       subtitle={getSubTitle(props.entry.document)}
-      seo_metadata={props.entry.document.seo_metadata}
+      seo_metadata={props.entry.document?.seo_metadata}
     />
   )
 }
@@ -28,11 +28,11 @@ export default function Home(props: { menu: any[]; entry: any[] }) {
 export async function getStaticProps({ params }) {
   // Connect and configure the TerminusClient
   const client = new TerminusClient.WOQLClient(
-    "https://cloud.terminusdb.com/TerminatorsX",
+    process.env.TERMINUSDB_API_ENDPOINT,
     {
-      user: "robin@terminusdb.com",
-      organization: "TerminatorsX",
-      db: "terminusCMS_docs",
+      user: process.env.TERMINUSDB_USER,
+      organization: process.env.TERMINUSDB_TEAM,
+      db: process.env.TERMINUSDB_DB,
       token: process.env.TERMINUSDB_API_TOKEN,
     }
   )
@@ -46,7 +46,7 @@ export async function getStaticProps({ params }) {
     query: query,
   })
   const docResult = docs[0]
-  let html = await renderMarkdown(docResult["body"]["value"])
-  const entry = { html: html, document: docResult }
+  let html = await renderMarkdown(docResult?.["body"]?.["value"] ?? "")
+  const entry = { html: html, document: docResult ?? null }
   return { props: { menu: menu, entry: entry } }
 }

@@ -1,0 +1,766 @@
+[
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "Getting Started"
+    },
+    "slug": "index",
+    "body": {
+      "@type": "Body",
+      "value": "## Getting started with TerminusCMS takes a minute\n\nTerminusCMS is a headless content management system. It is designed to give devs a solution for complex content and knowledge infrastructures. Bringing together change request workflows, analytics, and complex integrations, TerminusCMS aims to be a content platform that sits at the convergence of content and knowledge.\n\nTerminusCMS is free to get started. When you sign up, you are assigned the community package. This comes with generous limits to allow you to build for free, and then upgrade when needed.\n\n### Steps to get started\n\n1.  Sign up at [https://dashboard.terminusdb.com](https://dashboard.terminusdb.com)\n2.  Take a look through the [product tour](/docs/projects-terminuscms-tour/) to familiarise yourself with TerminusCMS\n3.  Install the [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-the-python-client/) Client\n4.  [Get your API key to use a client with TerminusCMS.](/docs/how-to-connect-terminuscms/)\n5.  [Familiarize yourself with the client API](/docs/connect-with-the-javascript-client/) to start building with TerminusCMS.\n\n### Demo Projects\n\nThere are several demo projects available to clone and experiment with. Sign up and visit your team home page to clone these projects.\n\n![Clone a demo data product from the TerminusCMS dashboard](https://assets.terminusdb.com/docs/how-to-clone-a-demo.png)\n\nYour team home page features a number of demo projects to clone and experiment with."
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "TerminusDB/CMS Technical Documentation",
+      "description": "Technical documentation for TerminusDB and TerminusCMS. ",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    },
+    "media": [
+      {
+        "@type": "Media",
+        "alt": "Clone a demo data product from the TerminusCMS dashboard",
+        "caption": "Your team home page features a number of demo projects to clone and experiment with.",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Clone a demo data product from the TerminusCMS dashboard"
+        },
+        "value": "https://assets.terminusdb.com/docs/how-to-clone-a-demo.png"
+      }
+    ]
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "Getting Started"
+    },
+    "slug": "get-started",
+    "body": {
+      "@type": "Body",
+      "value": "TerminusCMS is a headless content management system. It is designed to give devs a solution for complex content and knowledge infrastructures. Bringing together change request workflows, analytics, and complex integrations, TerminusCMS aims to be a content platform that sits at the convergence of content and knowledge.\n\nTerminusCMS is free to get started. When you sign up, you are assigned the community package. This comes with generous limits to allow you to build for free, and then upgrade when needed.\n\n### Steps to get started\n\n1.  Sign up at [https://dashboard.terminusdb.com](https://dashboard.terminusdb.com)\n2.  Take a look through the [product tour](/docs/projects-terminuscms-tour/) to familiarise yourself with TerminusCMS\n3.  Install the [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-the-python-client/) Client\n4.  [Get your API key to use a client with TerminusCMS.](/docs/how-to-connect-terminuscms/)\n5.  [Familiarize yourself with the client API](/docs/connect-with-the-javascript-client/) to start building with TerminusCMS.\n\n### Demo Projects\n\nThere are several demo projects available to clone and experiment with. Sign up and visit your team home page to clone these projects.\n\n![Clone a demo data product from the TerminusCMS dashboard](https://assets.terminusdb.com/docs/how-to-clone-a-demo.png)\n\nYour team home page features a number of demo projects to clone and experiment with."
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "TerminusDB/CMS Technical Documentation",
+      "description": "Technical documentation for TerminusDB and TerminusCMS. ",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    },
+    "media": [
+      {
+        "@type": "Media",
+        "alt": "Clone a demo data product from the TerminusCMS dashboard",
+        "caption": "Your team home page features a number of demo projects to clone and experiment with.",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Clone a demo data product from the TerminusCMS dashboard"
+        },
+        "value": "https://assets.terminusdb.com/docs/how-to-clone-a-demo.png"
+      }
+    ]
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "TerminusCMS Product Tour"
+    },
+    "slug": "product-tour",
+    "body": {
+      "@type": "Body",
+      "value": "TerminusCMS includes many features to build content infrastructures for complex environments. This product tour aims to provide you with an understanding of how to navigate the product and get started on your projects.\n\n*   [Creating projects, managing them, and designing your schema](/docs/projects-terminuscms-tour/)\n*   [Content and data curation](/docs/content-curation-terminuscms-tour/)\n*   [Change request workflows for collaborative content management](/docs/change-request-workflows-terminuscms-tour/)\n*   [Managing teams and users](/docs/manage-teams-users-terminuscms-tour/)\n*   [GraphQL and WOQL playgrounds to build and test queries](/docs/graphql-and-woql-query-terminuscms-tour/)\n\n### Sign Up and Try Out a Demo Project\n\nSign up for TerminusCMS for free at: [https://dashboard.terminusdb.com](https://dashboard.terminusdb.com).\n\nVerify your email address by clicking on the link emailed to you and logging in.\n\nClick 'get started' on the Community Package and then select the automatically generated team.\n\nFrom here, clone one of the demo projects to play around with -\n\n![Try out TerminusCMS by clone a demo data product](https://assets.terminusdb.com/docs/profile-option.png)"
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "TerminusCMS Product Tour",
+      "description": "This page provides an overview of the TerminusCMS dashboard to help you navigate its features.",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    },
+    "media": [
+      {
+        "@type": "Media",
+        "alt": "Try out TerminusCMS by clone a demo data product",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Try out TerminusCMS by clone a demo data product"
+        },
+        "value": "https://assets.terminusdb.com/docs/profile-option.png"
+      }
+    ]
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "Projects Overview - TerminusCMS Tour"
+    },
+    "slug": "projects-terminuscms-tour",
+    "body": {
+      "@type": "Body",
+      "value": "## Create a new data product\n\nCreating a data product by -\n\n1.  Select ‘New Data Product’\n2.  Give it an ID (only alphanumeric characters and underscores are allowed)\n3.  Name it something meaningful\n4.  Give it a description so that team members can see its purpose.\n\n![Create a new data product](https://assets.terminusdb.com/docs/new-data-product2.png)\n\nAll projects/data products within a team are listed on the left.\n\nSelect the data product by clicking it.\n\n## Adding a Schema\n\nBuild a project's schemas using the user interface or develop it in code.\n\nFor a detailed overview of the schema language, which is based on JSON syntax refer to the [schema reference guide](/docs/schema-reference-guide/).\n\n### Visual Interface\n\n![UI schema builder](https://assets.terminusdb.com/docs/schema-graph-view.png)\n\n1.  Choose Data Product Model from the lefthand menu - the second icon\n2.  In the window, you will see an oval called your data product name schema. Click on the oval and select the + symbol\n3.  Add a document or enum\n\n*   JSON documents form the nodes of the graph\n*   Enumerated types are a set of possible choices\n\n5.  Select add document\n6.  On the right, you will see a set of options to define the document\n\n*   Give it a unique ID (no spaces)\n*   Define the document key, choose from [this blog will help you decide what key to use](https://terminusdb.com/blog/uri-generation/)\n\n*   Lexical (need to set up document properties first)\n*   Hash (need to set up document properties first)\n*   Random\n*   ValueHash\n\n8.  Add the document properties, choose from:\n\n*   Enum - Need to create the enums before this option becomes available\n*   Numeric\n*   String\n*   Geo\n*   Temporal\n*   Boolean\n*   JSON\n*   Link - building the relationships in the graph\n\n10.  On the next tab, you can see the relationships in the graph, this will show links between objects. You can also set the document as a parent/child of another document.\n11.  The final tab when creating the document shows it in its JSON format.\n12.  Save your document by clicking on the disk icon.\n\nCreating subdocuments and enums can be achieved in much the same way.\n\n#### Schema as Code\n\n![Develop a schema with code](https://assets.terminusdb.com/docs/schema-as-code.png)\n\nUsing a visual editor to build a schema isn’t for everybody. Users can also design schema as code.\n\n1.  Choose Data Product Model from the lefthand menu - the second icon.\n2.  In the window, there are two tabs, ‘Graph View’ and ‘JSON View’.\n3.  Select JSON View.\n4.  Click on the edit icon.\n5.  Add or copy and paste the JSON schema into the window and save.\n\nThe schema should now display in the graph view.\n\n## Version Control Features\n\nTerminusCMS has collaboration and version control features. Some of these are available via the dashboard. From the left select the first icon to navigate to your project home page -\n\n![Manage your project](https://assets.terminusdb.com/docs/project-admin.png)\n\nOn this page, you can -\n\n*   See a snapshot of the latest activities.\n*   See the project details.\n*   Clone the project - name it and decide which team you want to clone it to.\n*   Delete the project.\n*   Branch the project - along with reset and squash.\n*   Time travel to any previous commit to inspect the project in the past.\n\n![Time travel to a previous commit](https://assets.terminusdb.com/docs/time-travel2.png)\n\n### Branch Projects\n\nAt the bottom of the project home page is the branch button.\n\n![Branch the project](https://assets.terminusdb.com/docs/branch-project.png)\n\nEach project can have one or more branches, the default is called main. Each branch contains a snapshot of the data as it was at the time of branching. This is useful for experimenting or providing data to other teams when you want to keep them away from main.\n\nUsers can reset a branch to a specific commit or can delete the commit history by squashing it. They do this by selecting the ellipsis symbol next to the branch and then following the prompts.\n\n![Branch Options](https://assets.terminusdb.com/docs/branch-options.png)\n\n### Reset Project\n\nTerminusCMS enables users to reset the project database to a particular commit. To do this, scroll to the bottom of the project home page and click branches.\n\nSelect the ellipsis symbol next to main. Here users can reset to a specific commit, or delete the commit history by squashing it.\n\n![Reset the project](https://assets.terminusdb.com/docs/reset-to-commit.png)"
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "Projects Overview - TerminusCMS Tour",
+      "description": "How to add and manage projects/data products within TerminusCMS",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    },
+    "media": [
+      {
+        "@type": "Media",
+        "alt": "Create a new data product",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Create a new data product"
+        },
+        "value": "https://assets.terminusdb.com/docs/new-data-product2.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "UI schema builder",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "UI schema builder"
+        },
+        "value": "https://assets.terminusdb.com/docs/schema-graph-view.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Develop a schema with code",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Develop a schema with code"
+        },
+        "value": "https://assets.terminusdb.com/docs/schema-as-code.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Manage your project",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Manage your project"
+        },
+        "value": "https://assets.terminusdb.com/docs/project-admin.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Time travel to a previous commit",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Time travel to a previous commit"
+        },
+        "value": "https://assets.terminusdb.com/docs/time-travel2.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Branch the project",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Branch the project"
+        },
+        "value": "https://assets.terminusdb.com/docs/branch-project.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Branch Options",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Branch Options"
+        },
+        "value": "https://assets.terminusdb.com/docs/branch-options.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Reset the project",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Reset the project"
+        },
+        "value": "https://assets.terminusdb.com/docs/reset-to-commit.png"
+      }
+    ]
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "Manage Teams & Users in TerminusCMS"
+    },
+    "slug": "manage-teams-users-terminuscms-tour",
+    "body": {
+      "@type": "Body",
+      "value": "## Manage Your Teams\n\nTerminusCMS generates a team based on your registration credentials.\n\nThe pricing page is the first screen displayed when logging in for the first time, click on '**Get Started**' under the community package. The next screen is the teams home page that lists all of the teams a user belongs to.\n\n![The first page you'll see when first logging into TerminusCMS](https://assets.terminusdb.com/docs/pricing-page.png)\n\n![Teams home page](https://assets.terminusdb.com/docs/teams-home-page.png)\n\nCreate a new team or select the autogenerated team. All of the teams a user is a member of will appear on the team's home page. Switch between teams using the dropdown from the top menu.\n\nTo create a new team from the top menu:\n\n1.  Click the arrow next to the profile icon in the top right corner.\n2.  Select profile.\n3.  From the resulting window, select ‘Create a new team’\n4.  Name the team - note that no two team names can be the same.\n\n![Create a new team](https://assets.terminusdb.com/docs/create-new-team.png)\n\n![Select profile to create a new team](https://assets.terminusdb.com/docs/profile-option.png)\n\n### **Adding Users**\n\n![Manage your team's users](https://assets.terminusdb.com/docs/users-home-page.png)\n\nTo invite team members and manage the team, do the following:\n\n1.  Click the arrow next to your profile icon in the top right corner\n2.  Select 'Team Members'.\n3.  In the following screen, select 'Invite a Member'.\n4.  In the pop-up window, enter the user’s email address and select one of the following access permissions - \\_this will be applied to team-level permissions so will apply to all data products within your team. If you want to only give read-write access to a specific data product, it makes sense to give the user low-level permissions and assign higher permissions for that data product only - we will explain this next\\_.\n\n*   Admin - can add and remove users and permissions and has total access to data products\n*   Collaborator - Able to access data products.\n*   Data Updater - Read and write access to data products.\n*   Data Reader - Read-only access to data products.\n*   Info Reader - Schema-level access but not data-level access.\n\n6.  The user will be sent an email with a link they need to click (if they don’t receive it, tell them to check their spam folder).\n7.  When the user has accepted the invitation, their details will display within the Team Members section.\n\n### **Editing & Removing Users**\n\nTo edit the role given to a user:\n\n1.  Navigate to the Team Members section from the profile dropdown.\n2.  Find the user to change from the list and click on the second icon.\n3.  From the pop-up window, select the new role to give them.\n\nTo delete a user from a team, do the same as above, but select the third icon in red.\n\n> Hover over the icons for information about what they do.\n\n### **Granular Permissions**\n\nGrant different permissions for different data products/projects. To do this do the following:\n\n1.  Navigate to the Team Members section from the profile dropdown.\n2.  Find the user to add specific data product permissions for and click on the first icon.\n3.  The resulting table below will list all of the data products in the team.\n4.  Choose the data product to change the user’s role for by clicking on the edit permissions icon.\n5.  Choose from the list of permissions\n\n![](https://assets.terminusdb.com/docs/granular-permissions.png)\n\n> Users can only have permissions higher than the team permissions, so if someone needs read/write permissions for only one data product, ensure that the team permissions are set at a lower level."
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "Manage Teams & Users - TerminusCMS Tour",
+      "description": "A quick overview for how to manage your teams and users in the TerminusCMS dashboard",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    },
+    "media": [
+      {
+        "@type": "Media",
+        "alt": "The first page you'll see when first logging into TerminusCMS",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "The first page you'll see when first logging into TerminusCMS"
+        },
+        "value": "https://assets.terminusdb.com/docs/pricing-page.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Teams home page",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Teams home page"
+        },
+        "value": "https://assets.terminusdb.com/docs/teams-home-page.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Create a new team",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Create a new team"
+        },
+        "value": "https://assets.terminusdb.com/docs/create-new-team.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Select profile to create a new team",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Select profile to create a new team"
+        },
+        "value": "https://assets.terminusdb.com/docs/profile-option.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Manage your team's users",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Manage your team's users"
+        },
+        "value": "https://assets.terminusdb.com/docs/users-home-page.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Image 6"
+        },
+        "value": "https://assets.terminusdb.com/docs/granular-permissions.png"
+      }
+    ]
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "Content & Data Curation in TerminusCMS"
+    },
+    "slug": "content-curation-terminuscms-tour",
+    "body": {
+      "@type": "Body",
+      "value": "TerminusCMS automatically generates document editing frames from the schema. Users can then add, edit, and delete content and data as needed.\n\nFirst, navigate to the document explorer from the left menu -\n\n![TerminusCMS document explorer](https://assets.terminusdb.com/docs/document-explorer.png)\n\nThe document explorer lists all of the document types within the schema and displays how many of each there are.\n\nThe left-hand menu also details the document names with the ability to search for something specific.\n\n## Filtering and Searching Documents\n\nClicking on a document type displays a list of matching documents -\n\n![Document display](https://assets.terminusdb.com/docs/document-display.png)\n\nThe document table allows users to -\n\n*   Choose the properties to display in the table\n*   Search properties\n*   Perform advanced filters\n\n## GraphQL Query\n\nThe GraphQL tab provides front-end developers with an overview of the GraphQL query structure of the document and includes JSON-LD details for applied filters -\n\n![GraphQL query generated from filter results](https://assets.terminusdb.com/docs/document-view-graphql-query.png)\n\n## Adding, Editing, & Deleting Docs\n\nIn order to make changes to content and data, users need to create a change request. This is automated when selecting to edit, delete, or add content. Please refer to the [change request workflows section](/docs/change-request-workflows-terminuscms-tour/) for full details.\n\nA change request dialogue box opens and prompts the user to add a change request title and description. They can then go and make changes.\n\n### Adding Content & Data\n\nTo add content and data, either click on the + symbol next to the document type name from the left menu or select the 'add new' button from the document explorer page -\n\n![](https://assets.terminusdb.com/docs/add-new-document.png)\n\nThe document editing frame is generated from the schema and this includes things like -\n\n*   Validation\n*   Localization\n*   Markdown\n*   Property types such as data, currency, and lists.\n\nThe editing interface can also include links to other documents and subdocuments and this is all specified in the schema. The example below is a test project working on the TerminusDB documentation and features links to other document types.\n\nA page for example can link to sections and a body so the same piece of content can be used in multiple locations. The schema can also specify that the linked document types unfolded so they display ready for editing within a piece of content -\n\n![Linking to other documents](https://assets.terminusdb.com/docs/linking-to-other-documents.png)\n\n![Unfolded documents ](https://assets.terminusdb.com/docs/unfolded-documents.png)\n\nFor details on how to specify markdown, unfolded, and other properties within the schema, please read the [schema reference guide](/docs/schema-reference-guide/).\n\n### Editing and Deleting Content & Data\n\nTo edit a document, select the document to edit by clicking on it from the document explorer. This will open up the document for editing.\n\nMake the changes and ensure to press select submit to ensure changes are saved.\n\n![How to edit documents in the TerminusCMS dashboard](https://assets.terminusdb.com/docs/edit-documents.png)\n\nTo delete a document, select the red bin icon. A warning message will display to confirm the deletion."
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "Content & Data Curation - TerminusCMS Tour",
+      "description": "Technical and non-technical users can curate content and data using the TerminusCMS dashboard",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    },
+    "media": [
+      {
+        "@type": "Media",
+        "alt": "TerminusCMS document explorer",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "TerminusCMS document explorer"
+        },
+        "value": "https://assets.terminusdb.com/docs/document-explorer.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Document display",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Document display"
+        },
+        "value": "https://assets.terminusdb.com/docs/document-display.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "GraphQL query generated from filter results",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "GraphQL query generated from filter results"
+        },
+        "value": "https://assets.terminusdb.com/docs/document-view-graphql-query.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Image 4"
+        },
+        "value": "https://assets.terminusdb.com/docs/add-new-document.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Linking to other documents",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Linking to other documents"
+        },
+        "value": "https://assets.terminusdb.com/docs/linking-to-other-documents.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Unfolded documents ",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Unfolded documents "
+        },
+        "value": "https://assets.terminusdb.com/docs/unfolded-documents.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "How to edit documents in the TerminusCMS dashboard",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "How to edit documents in the TerminusCMS dashboard"
+        },
+        "value": "https://assets.terminusdb.com/docs/edit-documents.png"
+      }
+    ]
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "Change Request Workflows in TerminusCMS"
+    },
+    "slug": "change-request-workflows-terminuscms-tour",
+    "body": {
+      "@type": "Body",
+      "value": "TerminusCMS features change request workflows to ensure that changes to data and content are made safely with reviews in place to check changes.\n\n## Creating a Change Request\n\nWhen someone goes to make a change to content and data, TerminusCMS automatically opens a change request. This is a branch of the database that does not impact main. Users can make one or many changes within the change request -\n\n![Opening a change request](https://assets.terminusdb.com/docs/open-change-request.png)\n\n## In a Change Request\n\nUsers will see when they are in a change request. A banner with various options is included at the top of the page and there is also a notice on the left informing the user what they are connected to -\n\n![In a change request](https://assets.terminusdb.com/docs/in-change-request.png)\n\n> It is important to submit edits or additions in a change request. Without hitting the submit button, changes will not be saved to the change request.\n\nWhen in a change request a user has three options -\n\n1.  Continue to make edits, deletions, and additions to the change request.\n2.  Exit the change request - This leaves the change request open and available to come back to at a later stage.\n3.  Submit the change request for review.\n\n## Change Request Admin\n\nChange requests are managed from the change request screen.\n\n![TerminusCMS change request screen](https://assets.terminusdb.com/docs/change-request-screen.png)\n\nThe screen has four tabs -\n\n1.  Open - Open change requests that can be continued with or submitted for review.\n2.  Review - Change requests that have been submitted for review.\n3.  Merged - Previous approved commits to the database.\n4.  Rejected - Rejected change requests.\n\n## Review Change Requests\n\nOn the change request screen, select 'review'. Change requests that users have submitted for review are listed in chronological order.\n\n![Change Request diff viewer](https://assets.terminusdb.com/docs/cr-diff.png)\n\n_Change requests feature a diff viewer to see what's changed_\n\n![See messages in a change request for context](https://assets.terminusdb.com/docs/cr-review-messages.png)\n\n_Write messages to add more context_\n\n![List of change requests for review](https://assets.terminusdb.com/docs/cr-review-home.png)\n\n![Change request screen](https://assets.terminusdb.com/docs/cr-review-page.png)\n\nTo review a change request, do the following -\n\n*   Click the 'review' button for the corresponding change request.\n*   The next screen has all of the details of the change request with two tabs -\n\n*   The first is the diff view with drop-down options to display the changes that have been made\n*   The second is the messages tab, this displays the messages entered when creating and submitting the change request and can provide context.\n\n*   Users can either accept or reject a change request and leave a message explaining their reasoning behind each\n*   Accepted change requests will move the change request into the merged tab - users are able to view the diff to see the changes of past commits\n*   Rejected change requests move into the rejected tab on the change request home screen\n\n## Conflicts & Collaboration\n\nIn order to avoid changes being squashed by other users when multiple people make changes to data and content, TerminusCMS checks the database to see if there have been changes made before a user reviews and merges a change request.\n\nIn order to proceed. The user must rebase their change request to incorporate the latest changes into their own change request. A prompt tells the user what to do."
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "Change Request Workflows - TerminusCMS Tour",
+      "description": "This page details how change request workflows function in TerminusCMS to enable safe collaboration",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    },
+    "media": [
+      {
+        "@type": "Media",
+        "alt": "Opening a change request",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Opening a change request"
+        },
+        "value": "https://assets.terminusdb.com/docs/open-change-request.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "In a change request",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "In a change request"
+        },
+        "value": "https://assets.terminusdb.com/docs/in-change-request.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "TerminusCMS change request screen",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "TerminusCMS change request screen"
+        },
+        "value": "https://assets.terminusdb.com/docs/change-request-screen.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Change Request diff viewer",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Change Request diff viewer"
+        },
+        "value": "https://assets.terminusdb.com/docs/cr-diff.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "See messages in a change request for context",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "See messages in a change request for context"
+        },
+        "value": "https://assets.terminusdb.com/docs/cr-review-messages.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "List of change requests for review",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "List of change requests for review"
+        },
+        "value": "https://assets.terminusdb.com/docs/cr-review-home.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Change request screen",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Change request screen"
+        },
+        "value": "https://assets.terminusdb.com/docs/cr-review-page.png"
+      }
+    ]
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "GraphQL & WOQL Query Tools"
+    },
+    "slug": "graphql-and-woql-query-terminuscms-tour",
+    "body": {
+      "@type": "Body",
+      "value": "TerminusCMS features query panes for [GraphQL](/docs/graphql-basics/) and [WOQL](/docs/woql-basics/).\n\n## GraphQL Query Pane\n\n![GraphQL playground](https://assets.terminusdb.com/docs/graphql-playground.png)\n\nTerminusCMS includes GraphiQL to experiment and test queries. It automatically generates the GraphQL schema based on the project's schema.\n\nIt includes -\n\n*   List of root types within the project\n*   Autofill to aid query construction\n*   Pretty print\n*   Results panel\n*   Error reporting\n\nFor more details about the types of queries available with GraphQL, such as path queries, filters, and arguments, please refer to the [GraphQL reference guide](/docs/graphql-query-reference/).\n\n### WOQL Query Pane\n\n![Test out your WOQL queries in the TerminusCMS dashboard](https://assets.terminusdb.com/docs/woql-playground.jpg)\n\nWeb Object Query Language ([WOQL](/docs/woql-explanation/)) is a powerful and sophisticated query language which allows you to concisely express complex patterns over arbitrary data structures.\n\nThe playground enables users to build WOQL queries to experiment and test. Users can also -\n\n*   Add, edit, and delete documents\n*   View query as JSON-LD format\n*   Copy the query\n*   See results\n*   Select query parameters based on the schema (left side of the screen)\n\nPlease see these other resources for understanding and using WOQL -\n\n*   [WOQL Basics](/docs/woql-basics/)\n*   [WOQL reference guide](/docs/woql-class-reference-guide/)"
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "GraphQL & WOQL Query Tools - TerminusCMS Tour",
+      "description": "An overview of the GraphQL and WOQL tools in the TerminusCMS dashboard",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    },
+    "media": [
+      {
+        "@type": "Media",
+        "alt": "GraphQL playground",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "GraphQL playground"
+        },
+        "value": "https://assets.terminusdb.com/docs/graphql-playground.png"
+      },
+      {
+        "@type": "Media",
+        "alt": "Test out your WOQL queries in the TerminusCMS dashboard",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Test out your WOQL queries in the TerminusCMS dashboard"
+        },
+        "value": "https://assets.terminusdb.com/docs/woql-playground.jpg"
+      }
+    ]
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "How to connect to TerminusCMS"
+    },
+    "slug": "how-to-connect-terminuscms",
+    "body": {
+      "@type": "Body",
+      "value": "Go to [https://dashboard.terminusdb.com](https://dashboard.terminusdb.com) to sign in to TerminusCMS. Register an account if you haven't already.\n\nIf you haven't selected a subscription yet, choose one. The subscription selection screen will only appear when you haven't done so already.\n\nClick on the **team** that you wish to use or create a new one. A default one will be already created for you. After selecting your team, click on your profile icon in the upper-right corner and click on `Profile`.\n\nIn this screen, you can create an API Token and view instructions for different clients. Give the token a description and click \"Generate New Token\". The token will appear on the screen. Be sure to save it somewhere safe, as the token gives access to your databases. For security reasons, we only display it once on this screen.\n\nChoose one of the code snippets. Which is either Python, JavaScript, or a cURL example.\n\n![Client examples](https://cdn.terminusdb.com/img/terminus-cms/client_api_connection.jpeg)"
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "How to connect with TerminusCMS",
+      "description": "How to connect with TerminusCMS using an API key",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    },
+    "media": [
+      {
+        "@type": "Media",
+        "alt": "Client examples",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "Client examples"
+        },
+        "value": "https://cdn.terminusdb.com/img/terminus-cms/client_api_connection.jpeg"
+      }
+    ]
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "Get Started with TerminusDB"
+    },
+    "slug": "get-started-with-terminusdb",
+    "body": {
+      "@type": "Body",
+      "value": "TerminusDB is an open-source document graph database with a collaboration model providing Git-like features. It stores documents as [JSON documents](/docs/documents-explanation/) and the schema language connects these into a [graph](/docs/graphs-explanation/). It comes with [GraphQL](/docs/graphql-query-reference/), User Interface, [CLI](/docs/terminusdb-cli-commands/), [JavaScript](/docs/use-the-javascript-client/), and [Python Clients](/docs/use-the-python-client/).\n\n### Starting overview\n\nGet started in minutes on Windows, macOS, or Linux with the steps below.\n\n#### Install\n\nInstall a TerminusDB server.\n\n#### Run\n\nStart a TerminusDB server.\n\n#### Go\n\nCreate, query, and maintain your databases using several [programmatic interfaces](#interfacesoverview).\n\n### Installation Overview\n\nInteraction with TerminusDB databases is through the TerminusBD Server. The server provides a **RESTful** API using the **JSON-LD** exchange format. This enables you to develop applications with your toolchain to utilize the powerful features of graph search and storage.\n\nTo install a TerminusDB server and use TerminusDB databases programmatically in your applications, the installation options below are available. Click on an option for detailed install instructions.\n\n#### Source code\n\nInstall from the [source code](/docs/install-terminusdb-from-source-code/) in [GitHub](https://github.com/terminusdb/terminusdb).\n\n#### Docker container\n\nInstall as a [Docker container](/docs/install-terminusdb-as-a-docker-container/) also referred to as the **TerminusDB bootstrap**.\n\n### GraphQL\n\nTerminusDB comes with GraphQL for more information visit the [GraphQL reference guide](/docs/graphql-query-reference/).\n\n### Javascript client\n\nInstall as a [Node.js](https://nodejs.org/en/download/)\\-based [JavaScript Client](/docs/install-terminusdb-js-client/).\n\n### Python client\n\nInstall as a [Python Client](/docs/install-the-python-client/). Also requires a [Docker container](/docs/install-terminusdb-as-a-docker-container/) installation.\n\n### Interfaces Overview\n\nTerminusDB provides several interfaces for creating, querying, and maintaining your databases. Depending on the component/s you choose to install, you can interact with TerminusDB using one or more of the available interfaces listed below.\n\nUse one or a combination of several TerminusDB interfaces.\n\n#### GraphQL\n\nTerminusDB automatically generates GraphQL schema to query data. Read the [GraphQL reference](/docs/graphql-query-reference/) guide for more information.\n\n#### Command Line Interface\n\nThe TerminusDB [Command Line Interface](/docs/terminusdb-cli-commands/) (CLI.)\n\n#### Dashboard\n\nThe TerminusDB [dashboard](https://dashboard.terminusdb.com) provides a visual interface.\n\n#### APIs\n\nThe TerminusDB [Javascript](/docs/use-the-javascript-client/) and [Python Client](/docs/use-the-python-client/) APIs.\n\n#### Query\n\nThe TerminusDB [Web Object Query Language](/docs/woql-explanation/) (WOQL.)"
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "Get Started with TerminusDB",
+      "description": " An overview of the ways to get started with TerminusDB.",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    }
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "TerminusDB Installation Options"
+    },
+    "slug": "terminusdb-install-options",
+    "body": {
+      "@type": "Body",
+      "value": "[Install on Kubernetes](/docs/install-on-kubernetes/)[Install as a Docker Container](/docs/install-terminusdb-as-a-docker-container/)[Install from Source Code](/docs/install-terminusdb-from-source-code/)"
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "TerminusDB Installation Options",
+      "description": "Choose how you'd like to install TerminusDB",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    }
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "Install on Kubernetes"
+    },
+    "slug": "install-on-kubernetes",
+    "body": {
+      "@type": "Body",
+      "value": "TerminusDB can also be deployed on Kubernetes. There are several strategies to do this. One is a high-availability solution using shared storage like NFS and one is a more simple strategy that is more performant on reads/writes by using one deployment at the cost of scalability. In this document, we will guide you on how to deploy using the latter strategy with a very minimal example.\n\n## Prerequisites\n\nWe assume that you have `minikube` set up locally or have a Kubernetes cluster set up somewhere else that you can reach through `kubectl`. Therefore, when you run `kubectl apply -f some_yaml_file.yaml` we assume that it will deploy on a cluster, locally or remotely on a cloud provider.\n\n## Creating a TerminusDB deployment\n\n```\napiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2\nkind: Deployment\nmetadata:\n  name: terminusdb-server\nspec:\n  selector:\n    matchLabels:\n      app: terminusdb-server\n  replicas: 1\n  template:\n    metadata:\n      labels:\n        app: terminusdb-server\n    spec:\n      terminationGracePeriodSeconds: 30\n      nodeSelector:\n        organization: terminusdb\n      containers:\n        - name: terminusdb-server\n          image: terminusdb/terminusdb-server:latest\n          tty: true\n          stdin: true\n          livenessProbe:\n            httpGet:\n              path: /api/ok\n              port: 6363\n            initialDelaySeconds: 30\n            periodSeconds: 180\n          ports:\n            - containerPort: 6363\n          envFrom:\n            - secretRef:\n                name: db-user-pass\n          env:\n            - name: TERMINUSDB_SERVER_PORT\n              value: \"6363\"\n            - name: TERMINUSDB_ENABLE_DASHBOARD\n              value: \"false\"\n            - name: TERMINUSDB_SERVER_NAME\n              valueFrom:\n                fieldRef:\n                  fieldPath: metadata.name\n            - name: TERMINUSDB_LOG_LEVEL\n              value: DEBUG\n            - name: TERMINUSDB_LOG_FORMAT\n              value: json\n            - name: TERMINUSDB_LRU_CACHE_SIZE\n              value: \"1200\"\n          volumeMounts:\n            - name: pvc-storage\n              mountPath: \"/app/terminusdb/storage\"\n      volumes:\n        - name: pvc-storage\n          persistentVolumeClaim:\n            claimName: pv-claim\n```\n\nSome interesting things to note in this example are that we set `TERMINUSDB_ENABLE_DASHBOARD` to false. If you are using TerminusDB in a Kubernetes deployment, you probably don’t want to expose the dashboard to other applications, unless you want your users to use the dashboard themselves. The `LOG_FORMAT` is set to `json` because this makes the logs easier to parse and search for in different cloud logging environments. We also inherit the ENV variables from a secret called `db-user-pass`. We assume that the environment variable `TERMINUSDB_ADMIN_PASS` is set to the appropriate password. If you are just playing around with this deployment, you could leave it out and it will default as `root`. But don’t do this for any application.\n\nThe livenessProbe will take every 180 seconds whether TerminusDB is still up by calling the `ok` endpoint. This is a lightweight endpoint that just returns 200 if the request succeeds.\n\nWe assume that a volume claim has been created for a specific cloud environment or for Minikube using the hostPath option.\n\n## Creating a service for the deployment\n\nIn order to make the deployment easily available for other Kubernetes applications, we have to create a service.\n\nThe service can look like this:\n\n```\napiVersion: v1\nkind: Service\nmetadata:\n  name: terminusdb-server\nspec:\n  selector:\n    app: terminusdb-server\n  ports:\n    - protocol: TCP\n      port: 6363\n      targetPort: 6363\n```\n\nIt will expose the TerminusDB server deployment on port 6363 with the DNS name http://terminusdb-server:6363. Any Kubernetes application in the same namespace will be able to access TerminusDB server this way.\n\n## Testing the deployment\n\nTo test whether the deployment is available, we will be using the port-forwarding features of `kubectl`. To expose the TerminusDB service to your local computer, run:\n\n`kubectl port-forward service/terminusdb-server 6363:6363`\n\nThis will expose TerminusDB locally on your computer on `localhost:6363`. You can see whether the deployment is successful by running `curl http://localhost:6363/api/info`. If the deployment is successful, it will return information about the version of TerminusDB running on the cluster. For instance:\n\n```\n{\"@type\":\"api:InfoResponse\", \"api:info\":\n{\"authority\":\"terminusdb://system/data/User/anonymous\", \"storage\": \n{\"version\":\"2\"}, \"terminusdb\": \n{\"git_hash\":\"19029acffcd25c9277451aa30ee0ff4c3029ae67\", \n\"version\":\"11.1.0\"}, \"terminusdb_store\": {\"version\":\"0.19.8\"}}, \n\"api:status\":\"api:success\"}\n```"
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "TerminusDB on Kubernetes",
+      "description": "Install TerminusDB on a Kubernetes cluster"
+    }
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "Install TerminusDB as a Docker Container"
+    },
+    "slug": "install-terminusdb-as-a-docker-container",
+    "body": {
+      "@type": "Body",
+      "value": "> **Docker memory allocation on Windows**\\\\ On Windows, the default memory allocated for the Docker is **2GB**. TerminusDB is an in-memory database so it is advised to increase the allocation in Docker desktop settings. **Install TerminusDB on Windows with Docker Guide**\n> \n> For a comprehensive guide to installing on Windows, our friends at DFRNT put this blog together - [Run TerminusDB on Windows with Docker](https://dfrnt.com/blog/2023-02-25-run-terminusdb-on-windows-with-docker/)\n> \n> **Linux package manager**\\\\ On Linux, use your distro's package manager for containerized deployments or [find more information here](https://www.docker.com/products/container-runtime).\n\n## Install steps\n\nInstall and run the TerminusDB container with the following steps.\n\n*   [Clone the TerminusDB repo](#cloneterminusdb)\n*   [Run the container](#runthecontainer)\n*   [Use the console](#usetheconsole)\n\n### Clone TerminusDB\n\n`clone` the `terminusdb` repository and `cd` to it.\n\n```\ngit clone https://github.com/terminusdb/terminusdb\n```\n\n```\ncd terminusdb\n```\n\n### Run the container\n\nRun the container using `docker compose`.\n\n#### Running for the first time\n\nFirst, set up a `.env` in the cloned directory with the following contents:\n\n```\nOPENAI_KEY=YOUR_OPENAI_KEY_HERE\n# And optionally specify number of pages for the vector database\n# for instance\nBUFFER_AMOUNT=120000\n```\n\nThe OPENAI\\_KEY is not mandatory to use, but without it, the AI indexing will not work. Of course, all the document graph database functionality will still work as intended.\n\nRun the container with the command `docker compose up`. See [Environment configuration](#environmentconfiguration) for further configuration options.\n\n```\ndocker compose up\n```\n\nThis generates the message: `terminusdb-server container started http://127.0.0.1:6363/`. This is the TerminusDB Server and [Console](#usetheconsole) URL.\n\n#### Subsequent runs\n\n*   Remove previous volumes. Enter `y` to confirm removal when prompted.\n*   Rerun the container.\n\n> **Warning:** Removing previous volumes will erase local data.\n\n```\ndocker compose rm\ndocker compose run\n```\n\n### Use the console\n\nOpen the TerminusDB console in a web browser using the URL.\n\n```\nhttp://127.0.0.1:6363/dashboard\n```\n\n### Use the Dashboard\n\nThe TerminusDB local dashboard is included within TerminusDB. The dashboard is a UI to create and manage data products, model data, and test queries. To use the dashboard visit:\n\n```\nlocalhost:6363/dashboard/\n```\n\n### Use GraphQL\n\nTerminusDB hosts a GraphQL endpoint at:\n\n```\nSERVERNAME/api/graphql/ORG/DATAPRODUCT\n```\n\nFor instance, with a data product named `admin/people`, and a locally installed TerminusDB, you can query it at:\n\n```\nhttp://127.0.0.1:6363/api/graphql/admin/people\n```\n\nTerminusDB ships with a GraphiQL graphical GraphQL query interface and schema browser. This is a quick way to get acquainted with GraphQL in TerminusDB.\n\nYou can reach this browser at:\n\n```\nhttp://127.0.0.1:6363/api/graphiql/admin/people\n```\n\n## Environment configuration\n\nThe container uses a set of environment variables with default values. You can configure the environment by setting these variables. You can set additional ENV variables or override already set ones by creating a `.env` file.\n\n## Migrating from terminusdb-bootstrap\n\nIn order to migrate from the default terminusdb-bootstrap installation while stil keeping the data of your previous installation, run the docker compose commands the following way:\n\n```\ndocker compose -f docker-compose.yml -f distribution/docker-compose/bootstrap_storage.yaml\n```\n\nFor instance, for the `up` command to start the server, run:\n\n```\ndocker compose -f docker-compose.yml -f distribution/docker-compose/bootstrap_storage.yaml up\n```\n\n## Using the CLI\n\nTo access the TerminusDB CLI from the Docker Compose, run:\n\n```\ndocker compose run terminusdb-server ./terminusdb\n```\n\nOr use `exec` when you have the service already running\n\n## Server deployment\n\n> The TerminusDB server is deployed to your computer by default.\n\n### Local computer deployment\n\nBy default, the Docker container binds to IP `127.0.0.1`. This prevents insecure deployments and ensures the TerminusDB server is accessible on a local computer only.\n\n### Remote server deployment\n\nTo deploy the TerminusDB server to a remote machine:\n\n*   Enable HTTPS with a remote proxy like Nginx\n*   Don't use the `X-Forward-Header` ENV variables unless you really know what you are doing"
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "Install TerminusDB as a Docker Container",
+      "description": "Everything you need to install and run TerminusDB server as a docker container on your computer or on a remote server",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    }
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "Install TerminusDB from Source Code"
+    },
+    "slug": "install-terminusdb-from-source-code",
+    "body": {
+      "@type": "Body",
+      "value": "## Install steps\n\nInstall, build and run TerminusDB from source code with the following steps.\n\n*   [Install SWI-Prolog](#installswiprolog)\n*   [Clone the TerminusDB repository](#clonetheterminusdbrepository)\n*   [Make the TerminusDB Command Line Interface](#maketheterminusdbcommandlineinterface)\n*   [Run the TerminusDB system database](#runtheterminusdbsystemdatabase)\n\n> **Install from source code on Windows:**  \n>   \n> Install [WSL](https://ubuntu.com/wsl) and [Ubuntu](https://ubuntu.com/#download)  \n>   \n> In Ubuntu terminal: `sudo apt install make libgmp-dev`  \n>   \n> In Ubuntu terminal: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`  \n>   \n> Follow the install steps below for **Debian or Ubuntu**\n\n## Install SWI-Prolog, Rust and clang\n\n### Linux\n\nInstall [Rust](https://www.rust-lang.org/tools/install) by following the Rust installation guide.\n\n* * *\n\n**Arch Linux**\n\nInstall all dependencies of all the required libraries using [sudo](https://www.sudo.ws/download.html) and [git](https://git-scm.com/downloads).\n\n```\nsudo pacman -S git swi-prolog make automake autoconf libtool zlib pkgconf gcc clang gmp\n```\n\n* * *\n\n**Debian or Ubuntu**\n\nInstall using the apt package manager.\n\n```\ncat /etc/*release | grep ubuntu > /dev/null && (sudo apt-get install software-properties-common; sudo apt-add-repository ppa:swi-prolog/stable)\nsudo apt-get update\nsudo apt install swi-prolog clang libgmp-dev\n```\n\n* * *\n\n**Fedora or Red Hat**\n\nInstall using [sudo](https://www.sudo.ws/download.html).\n\n```\nsudo dnf install pl pl-devel clang gmp-devel\n```\n\n### macOS\n\nInstall `swi-prolog` and `rust` using [homebrew](https://brew.sh).\n\n```\nbrew install gmp\nbrew install swi-prolog\nbrew install rust\n```\n\n## Clone the TerminusDB repository\n\nIdentical for all operating systems: Clone the `terminusdb` repository from GitHub.\n\n```\ngit clone https://github.com/terminusdb/terminusdb\n```\n\n## Make the TerminusDB Command Line Interface\n\n`make` the `terminusdb` [Command Line Interface (CLI)](/docs/terminusdb-cli-commands/) binary.\n\n### Linux\n\n```\ncd terminusdb\nmake install-tus\nmake\nmake install-dashboard\n```\n\n### macOS\n\n```\ncd  terminusdb\nmake install-tus\nmake\nmake install-dashboard\n```\n\n## Run the TerminusDB system database\n\n### Linux\n\nInitialize the system database and choose a password for the admin user.\n\n*   Server starts on `http://127.0.0.1:6363`\n\n```\n./terminusdb store init --key \"my_password_here\"\n./terminusdb serve\n```\n\n### macOS\n\n*   Initialize the system database.\n*   Server starts on `http://127.0.0.1:6363`\n\n```\n./terminusdb store init --key root\n./terminusdb serve\n```\n\n## Further Reading\n\n[**The TerminusDB Command Line Interface**](/docs/terminusdb-cli-commands/)"
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "Install TerminusDB from Source Code",
+      "description": "Everything you need to install TerminusDB from source code.",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    }
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "TerminusDB CLI Commands"
+    },
+    "slug": "terminusdb-cli-commands",
+    "body": {
+      "@type": "Body",
+      "value": "## SYNOPSIS\n\n`terminusdb [command subcommand positional_arguments] flags`\n\n## DESCRIPTION\n\nThe terminusdb(1) command line tool allows users to interact with a database, allowing common operations such as querying (and updating), database creation, data ingestion and maintainence.\n\n## COMMANDS\n\nterminusdb accepts a command, sometimes followed by a subcommand. The accepted commands are given here, along with their arguments.\n\n### help\n\n`terminusdb help`\n\nDisplay help regarding terminusdb.\n\n*   `-m`, `--markdown`\\=\\[value\\]: generate help as markdown\n\n### test\n\n`terminusdb test OPTIONS`\n\nRun internal TerminusDB tests.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for `test` command\n    \n*   `-t`, `--test`\\=\\[value\\]: Run a specific test\n    \n\n### serve\n\n`terminusdb serve OPTIONS`\n\nRun the TerminusDB server.\n\n*   `-h`, `--help`\\=\\[value\\]: Print help for `serve` command\n    \n*   `-i`, `--interactive`\\=\\[value\\]: Run server in interactive mode\n    \n*   `-m`, `--memory`\\=\\[value\\]: Run server in-memory, without a persistent store. Takes a password as an optional argument. The in-memory store will be initialized with an admin account with the given password. If absent, the admin account will have 'root' as a password.\n    \n\n### list\n\n`terminusdb list OPTIONS`\n\nList available databases. \\[DEPRECATED\\]\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `list` command\n    \n*   `-b`, `--branches`\\=\\[value\\]: also describe the available branches\n    \n*   `-j`, `--json`\\=\\[value\\]: Return a JSON as the result of the `list` command\n    \n\n### optimize\n\n`terminusdb optimize DB_SPEC OPTIONS`\n\nOptimize a database (including \\_system and \\_meta).\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `optimize` command\n    \n\n### query\n\n`terminusdb query DB_SPEC QUERY OPTIONS`\n\nQuery a database.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `query` command\n    \n*   `-m`, `--message`\\=\\[value\\]: message to associate with the commit\n    \n*   `-a`, `--author`\\=\\[value\\]: author to place on the commit\n    \n*   `-j`, `--json`\\=\\[value\\]: return results as a json object\n    \n\n### push\n\n`terminusdb push DB_SPEC`\n\nPush a branch.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `push` command\n    \n*   `-b`, `--branch`\\=\\[value\\]: set the origin branch for push\n    \n*   `-e`, `--remote-branch`\\=\\[value\\]: set the branch on the remote for push\n    \n*   `-r`, `--remote`\\=\\[value\\]: the name of the remote to use\n    \n*   `-x`, `--prefixes`\\=\\[value\\]: send prefixes for database\n    \n*   `-t`, `--token`\\=\\[value\\]: machine access token\n    \n*   `-u`, `--user`\\=\\[value\\]: the user on the remote\n    \n*   `-p`, `--password`\\=\\[value\\]: the password on the remote\n    \n\n### clone\n\n`terminusdb clone URI <DB_SPEC>`\n\nClone a database (into DB\\_SPEC).\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `clone` command\n    \n*   `-t`, `--token`\\=\\[value\\]: machine access token\n    \n*   `-u`, `--user`\\=\\[value\\]: the user on the remote\n    \n*   `-p`, `--password`\\=\\[value\\]: the password on the remote\n    \n*   `-o`, `--organization`\\=\\[value\\]: organizational owner of the cloned database\n    \n*   `-l`, `--label`\\=\\[value\\]: label to use for this database\n    \n*   `-r`, `--remote`\\=\\[value\\]: remote to use for this database\n    \n*   `-c`, `--comment`\\=\\[value\\]: long description of the cloned database\n    \n*   `-b`, `--public`\\=\\[value\\]: whether the cloned database is to be public\n    \n\n### pull\n\n`terminusdb pull BRANCH_SPEC`\n\nPull a branch from a database.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `pull` command\n    \n*   `-e`, `--remote-branch`\\=\\[value\\]: set the branch on the remote for pull\n    \n*   `-r`, `--remote`\\=\\[value\\]: the name of the remote to use\n    \n*   `-t`, `--token`\\=\\[value\\]: machine access token\n    \n*   `-u`, `--user`\\=\\[value\\]: the user on the remote\n    \n*   `-p`, `--password`\\=\\[value\\]: the password on the remote\n    \n\n### fetch\n\n`terminusdb fetch DB_SPEC`\n\nfetch data from a remote.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `fetch` command\n    \n*   `-r`, `--remote`\\=\\[value\\]: the name of the remote to use\n    \n*   `-t`, `--token`\\=\\[value\\]: machine access token\n    \n*   `-u`, `--user`\\=\\[value\\]: the user on the remote\n    \n*   `-p`, `--password`\\=\\[value\\]: the password on the remote\n    \n\n### rebase\n\n`terminusdb rebase TO_DATABASE_SPEC FROM_DATABASE_SPEC OPTIONS`\n\nRebase a database with commits from FROM_DATABASE_SPEC into TO_DATABASE_SPEC.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `rebase` command\n    \n*   `-a`, `--author`\\=\\[value\\]: The author of the rebase\n    \n\n### squash\n\n`terminusdb squash DATABASE_SPEC OPTIONS`\n\nSquash a commit.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `squash` command\n    \n*   `-j`, `--json`\\=\\[value\\]: output result status as JSON\n    \n*   `-m`, `--message`\\=\\[value\\]: message to associate with the commit\n    \n*   `-a`, `--author`\\=\\[value\\]: author to place on the commit\n    \n\n### rollup\n\n`terminusdb rollup DATABASE_SPEC OPTIONS`\n\nCreates an optimisation layer for queries on the given commit.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `rollup` command\n    \n\n### bundle\n\n`terminusdb bundle DATABASE_SPEC OPTIONS`\n\nCreate a pack for a given DATABASE\\_SPEC that can then be reconsistuted with `terminusdb unbundle`.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `bundle` command\n    \n*   `-o`, `--output`\\=\\[value\\]: file name to use for pack output file (defaults to descriptor based name).\n    \n\n### unbundle\n\n`terminusdb unbundle DATABASE_SPEC FILE OPTIONS`\n\nUnbundle a bundle file.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `unbundle` command\n    \n\n### diff\n\n`terminusdb diff [Path] OPTIONS`\n\nCreate a diff between two JSONs, a JSON and a commit (path required), or two commits (path required).\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `diff` command\n    \n*   `-b`, `--before`\\=\\[value\\]: JSON document which is the _before_\n    \n*   `-a`, `--after`\\=\\[value\\]: JSON document which is the _after_\n    \n*   `-k`, `--keep`\\=\\[value\\]: Skeleton of the document to retain as context\n    \n*   `-c`, `--copy-value`, `--copy_value`\\=\\[value\\]: Maintain explit copies of diffs in lists\n    \n*   `-d`, `--docid`\\=\\[value\\]: document id to use for comparisons\n    \n*   `-p`, `--before_commit`, `--before-commit`\\=\\[value\\]: Commit or branch of the _before_ document(s)\n    \n*   `-s`, `--after_commit`, `--after-commit`\\=\\[value\\]: Commit or branch of the _after_ document(s)\n    \n*   `-n`, `--start`\\=\\[value\\]: How many diff results to skip before returning (ignored if not comparing resources)\n    \n*   `-l`, `--count`\\=\\[value\\]: Number of results to return (ignored if not comparing resources)\n    \n\n### apply\n\n`terminusdb apply [Path] OPTIONS`\n\nApply a diff to path which is obtained from the differences between two commits\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `apply` command\n    \n*   `-m`, `--message`\\=\\[value\\]: message to associate with the commit\n    \n*   `-a`, `--author`\\=\\[value\\]: author to place on the commit\n    \n*   `-k`, `--keep`\\=\\[value\\]: Skeleton of the document to retain as context\n    \n*   `-t`, `--type`\\=\\[value\\]: Variety of commit to create on apply (currently only squash)\n    \n*   `-f`, `--match-final-state`, `--match_final_state`\\=\\[value\\]: Allow conflicting patch to apply if patch would yield the same final state\n    \n*   `-p`, `--before_commit`, `--before-commit`\\=\\[value\\]: Commit of the _before_ document(s)\n    \n*   `-s`, `--after_commit`, `--after-commit`\\=\\[value\\]: Commit of the _after_ document(s)\n    \n\n### log\n\n`terminusdb log DB_SPEC`\n\nGet the log for a branch given by DB\\_SPEC.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `log` command\n    \n*   `-j`, `--json`\\=\\[value\\]: return log as JSON\n    \n*   `-s`, `--start`\\=\\[value\\]: How far back in commit log to start giving results\n    \n*   `-c`, `--count`\\=\\[value\\]: Number of results to return\n    \n*   `-v`, `--verbose`\\=\\[value\\]: Give back additional information on commits\n    \n\n### history\n\n`terminusdb history DB_SPEC`\n\nGet the history for a given document by id in DB\\_SPEC.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `history` command\n    \n*   `-i`, `--id`\\=\\[value\\]: The id of the document to provide history for\n    \n*   `-j`, `--json`\\=\\[value\\]: return history as JSON\n    \n*   `-s`, `--start`\\=\\[value\\]: How far back in commit history to start giving results\n    \n*   `-k`, `--created`\\=\\[value\\]: return time of creation (does not report all history)\n    \n*   `-u`, `--updated`\\=\\[value\\]: return time of last update (does not report all history)\n    \n*   `-c`, `--count`\\=\\[value\\]: Number of results to return\n    \n*   `-v`, `--verbose`\\=\\[value\\]: give back schema update information\n    \n\n### reset\n\n`terminusdb reset BRANCH_SPEC COMMIT_OR_COMMIT_SPEC`\n\nReset the branch at BRANCH_SPEC to the COMMIT_OR_COMMIT_SPEC\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `reset` command\n    \n\n### migration\n\n`terminusdb migration BRANCH_SPEC`\n\nReset the branch at BRANCH_SPEC to the COMMIT_OR_COMMIT_SPEC\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `migration` command\n    \n*   `-a`, `--author`\\=\\[value\\]: author to place on the commit\n    \n*   `-m`, `--message`\\=\\[value\\]: message to associate with the commit\n    \n*   `-o`, `--operations`\\=\\[value\\]: operations to perform on the schema\n    \n*   `-t`, `--target`\\=\\[value\\]: resource with a schema as migration target\n    \n*   `-v`, `--verbose`\\=\\[value\\]: give back schema update information\n    \n*   `-d`, `--dry_run`\\=\\[value\\]: provide information about what would occur if the operations were performed\n    \n\n### concat\n\n`terminusdb concat DB_SPEC`\n\nConcatenate any number of space-separated COMMIT_SPEC or BRANCH_SPEC (provided they are base layers only) passed on standard-input into a commit on DB\\_SPEC\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `concat` command\n    \n*   `-a`, `--author`\\=\\[value\\]: author to place on the commit\n    \n*   `-m`, `--message`\\=\\[value\\]: message to associate with the commit\n    \n*   `-j`, `--json`\\=\\[value\\]: Return a JSON readable commit identifier\n    \n\n### branch create\n\n`terminusdb branch create BRANCH_SPEC OPTIONS`\n\nCreate a branch.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `branch create` sub command\n    \n*   `-o`, `--origin`\\=\\[value\\]: the origin branch to use (false for none)\n    \n\n### branch delete\n\n`terminusdb branch delete BRANCH_SPEC OPTIONS`\n\nDelete a branch.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `branch delete` sub command\n    \n\n### db list\n\n`terminusdb list DB_SPEC [.. DB_SPECN] OPTIONS`\n\nList available databases.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `list` command\n    \n*   `-b`, `--branches`\\=\\[value\\]: also describe the available branches\n    \n*   `-v`, `--verbose`\\=\\[value\\]: return lots of metadata\n    \n*   `-j`, `--json`\\=\\[value\\]: Return a JSON as the result of the `list` command\n    \n\n### db create\n\n`terminusdb db create DATABASE_SPEC OPTIONS`\n\nCreate a database.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `db create` sub command\n    \n*   `-o`, `--organization`\\=\\[value\\]: organizational owner of the database\n    \n*   `-l`, `--label`\\=\\[value\\]: label to use for this database\n    \n*   `-c`, `--comment`\\=\\[value\\]: long description of this database\n    \n*   `-p`, `--public`\\=\\[value\\]: whether this database is to be public\n    \n*   `-k`, `--schema`\\=\\[value\\]: whether to use a schema\n    \n*   `-d`, `--data_prefix`, `--data-prefix`\\=\\[value\\]: uri prefix to use for data\n    \n*   `-s`, `--schema_prefix`, `--schema-prefix`\\=\\[value\\]: uri prefix to use for schema\n    \n*   `-x`, `--prefixes`\\=\\[value\\]: additional defined prefixes in JSON\n    \n\n### db delete\n\n`terminusdb db delete DATABASE_SPEC OPTIONS`\n\nDelete a database.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `db delete` sub command\n    \n*   `-o`, `--organization`\\=\\[value\\]: organizational owner of the database\n    \n*   `-f`, `--force`\\=\\[value\\]: force the deletion of the database (unsafe)\n    \n\n### db update\n\n`terminusdb db update DATABASE_SPEC OPTIONS`\n\nUpdate a database setting the OPTIONS in an existing database.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `db update` sub command\n    \n*   `-l`, `--label`\\=\\[value\\]: label to use for this database\n    \n*   `-c`, `--comment`\\=\\[value\\]: long description of this database\n    \n*   `-p`, `--public`\\=\\[value\\]: whether this database is to be public\n    \n*   `-k`, `--schema`\\=\\[value\\]: whether to use a schema\n    \n*   `-x`, `--prefixes`\\=\\[value\\]: Explicitly defined prefix set (in JSON)\n    \n\n### doc insert\n\n`terminusdb doc insert DATABASE_SPEC OPTIONS`\n\nInsert documents.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `doc insert` sub command\n    \n*   `-m`, `--message`\\=\\[value\\]: message to associate with the commit\n    \n*   `-a`, `--author`\\=\\[value\\]: author to place on the commit\n    \n*   `-g`, `--graph_type`, `--graph-type`\\=\\[value\\]: graph type (instance or schema)\n    \n*   `-r`, `--require-migration`\\=\\[value\\]: require an inferred migration (assuming this is a schema change)\n    \n*   `-x`, `--allow-destructive-migration`\\=\\[value\\]: allow inferred migration to be destructive (assuming this is a schema change)\n    \n*   `-d`, `--data`\\=\\[value\\]: document data\n    \n*   `-j`, `--raw_json`, `--raw-json`\\=\\[value\\]: inserts as raw json\n    \n*   `-f`, `--full_replace`, `--full-replace`\\=\\[value\\]: delete all previous documents and substitute these\n    \n\n### doc delete\n\n`terminusdb doc delete DATABASE_SPEC OPTIONS`\n\nDelete documents.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `doc delete` sub command\n    \n*   `-m`, `--message`\\=\\[value\\]: message to associate with the commit\n    \n*   `-a`, `--author`\\=\\[value\\]: author to place on the commit\n    \n*   `-g`, `--graph_type`, `--graph-type`\\=\\[value\\]: graph type (instance or schema)\n    \n*   `-r`, `--require-migration`\\=\\[value\\]: require an inferred migration (assuming this is a schema change)\n    \n*   `-x`, `--allow-destructive-migration`\\=\\[value\\]: allow inferred migration to be destructive (assuming this is a schema change)\n    \n*   `-i`, `--id`\\=\\[value\\]: document id to delete\n    \n*   `-d`, `--data`\\=\\[value\\]: document data\n    \n*   `-n`, `--nuke`\\=\\[value\\]: nuke all documents\n    \n\n### doc replace\n\n`terminusdb doc replace DATABASE_SPEC OPTIONS`\n\nReplace documents.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `doc replace` sub command\n    \n*   `-m`, `--message`\\=\\[value\\]: message to associate with the commit\n    \n*   `-a`, `--author`\\=\\[value\\]: author to place on the commit\n    \n*   `-g`, `--graph_type`, `--graph-type`\\=\\[value\\]: graph type (instance or schema)\n    \n*   `-r`, `--require-migration`\\=\\[value\\]: require an inferred migration (assuming this is a schema change)\n    \n*   `-x`, `--allow-destructive-migration`\\=\\[value\\]: allow inferred migration to be destructive (assuming this is a schema change)\n    \n*   `-d`, `--data`\\=\\[value\\]: document data\n    \n*   `-j`, `--raw_json`, `--raw-json`\\=\\[value\\]: replace as raw json\n    \n*   `-c`, `--create`\\=\\[value\\]: create document if it does not exist\n    \n\n### doc get\n\n`terminusdb doc get DATABASE_SPEC OPTIONS`\n\nQuery documents.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `doc get` sub command\n    \n*   `-g`, `--graph_type`, `--graph-type`\\=\\[value\\]: graph type (instance or schema)\n    \n*   `-s`, `--skip`\\=\\[value\\]: number of documents to skip\n    \n*   `-c`, `--count`\\=\\[value\\]: number of documents to return\n    \n*   `-m`, `--minimized`\\=\\[value\\]: return minimized prefixes\n    \n*   `-l`, `--as_list`, `--as-list`\\=\\[value\\]: return results as a JSON list (as opposed to JSON-lines)\n    \n*   `-u`, `--unfold`\\=\\[value\\]: include subdocuments, or only subdocument ids\n    \n*   `-i`, `--id`\\=\\[value\\]: id of document to retrieve\n    \n*   `-t`, `--type`\\=\\[value\\]: type of document to retrieve\n    \n*   `-z`, `--compress_ids`, `--compress-ids`\\=\\[value\\]: return compressed / minimized ids using default prefixes\n    \n*   `-q`, `--query`\\=\\[value\\]: document query search template\n    \n\n### role create\n\n`terminusdb role create ROLE_NAME ACTION_1 .. ACTION_N OPTIONS`\n\nCreate a new role with the listed actions. Actions may be any of: \"create_database\", \"delete_database\", \"class_frame\", \"clone\", \"fetch\", \"push\", \"branch\", \"rebase\", \"instance_read_access\", \"instance_write_access\", \"schema_read_access\", \"schema_write_access\", \"meta_read_access\", \"meta_write_access\", \"commit_read_access\", \"commit_write_access\", \"manage_capabilities\"\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `role create` sub command\n    \n\n### role delete\n\n`terminusdb role create ROLE_ID_OR_ROLE_NAME`\n\nDelete a role from the system database\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `role delete` sub command\n    \n*   `-i`, `--id`\\=\\[value\\]: Interpret argument as a role Id rather than a name.\n    \n\n### role update\n\n`terminusdb role update ROLE_ID_OR_ROLE_NAME ACTIONS OPTIONS`\n\nUpdate a role from the system database\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `role update` sub command\n    \n*   `-i`, `--id`\\=\\[value\\]: Interpret argument as a role Id rather than a name.\n    \n\n### role get\n\n`terminusdb role get <ROLE_ID_OR_ROLE_NAME>`\n\nGet a role description from name or id, or all roles if unspecified.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `role get` sub command\n    \n*   `-i`, `--id`\\=\\[value\\]: Interpret argument as a role id rather than a name.\n    \n*   `-j`, `--json`\\=\\[value\\]: Return answer as a JSON document\n    \n\n### organization create\n\n`terminusdb organization create ORGANIZATION_NAME`\n\nCreate an organization with a given name.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `organization create` sub command\n    \n\n### organization delete\n\n`terminusdb organization delete ORGANIZATION_NAME_OR_ID`\n\nCreate an organization with a given name or id.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `organization delete` sub command\n    \n*   `-i`, `--id`\\=\\[value\\]: Interpret argument as an organization id rather than a name.\n    \n\n### organization get\n\n`terminusdb organization get <ORGANIZATION_NAME_OR_ID>`\n\nGet an organization from its name or id, or list all if unspecified.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `organization get` sub command\n    \n*   `-i`, `--id`\\=\\[value\\]: Interpret argument as an organization id rather than a name.\n    \n*   `-j`, `--json`\\=\\[value\\]: Return answer as a JSON document\n    \n\n### user create\n\n`terminusdb user create USER`\n\nCreate a user with a given name USER\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `user create` sub command\n    \n*   `-p`, `--password`\\=\\[value\\]: Specify the password to use for the user\n    \n\n### user delete\n\n`terminusdb organization delete USER`\n\nDelete a user with a given name or ID.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `user delete` sub command\n    \n*   `-i`, `--id`\\=\\[value\\]: Interpret argument as an organization id rather than a name.\n    \n\n### user get\n\n`terminusdb user get <USER_NAME_OR_ID>`\n\nGet a user from its name or id, or list all if unspecified.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `organization get` sub command\n    \n*   `-i`, `--id`\\=\\[value\\]: Interpret argument as an organization id rather than a name.\n    \n*   `-c`, `--capability`\\=\\[value\\]: Report on all capabilities of this user.\n    \n*   `-j`, `--json`\\=\\[value\\]: Return answer as a JSON document\n    \n\n### user password\n\n`terminusdb user password USER`\n\nChange password for user USER\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `user create` sub command\n    \n*   `-p`, `--password`\\=\\[value\\]: Specify the password to use for the user\n    \n\n### capability grant\n\n`terminusdb capability grant USER SCOPE ROLE1 <...ROLEN>`\n\nGrant ROLE1 … ROLEN over SCOPE to USER\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `store init` sub command\n    \n*   `-s`, `--scope_type`, `--scope-type`\\=\\[value\\]: Should the scope be interpreted as a `database` (default) or an `organization`. If `ids` is specified then the parameters are assumed to be ids rather than names.\n    \n\n### capability revoke\n\n`terminusdb capability revoke USER SCOPE ROLE1 <...ROLEN>`\n\nRevoke ROLE1 … ROLEN over SCOPE from USER\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `store init` sub command\n    \n*   `-s`, `--scope_type`, `--scope-type`\\=\\[value\\]: Should the scope be interpreted as a `database` (default) or an `organization`. If `ids` is specified then the parameters are assumed to be ids rather than names.\n    \n\n### store init\n\n`terminusdb store init OPTIONS`\n\nInitialize a store for TerminusDB.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `store init` sub command\n    \n*   `-k`, `--key`\\=\\[value\\]: key to use for admin login\n    \n*   `-f`, `--force`\\=\\[value\\]: force the creation of a new store even when one already exists\n    \n\n### triples dump\n\n`terminusdb triples dump GRAPH_SPEC`\n\nDump an RDF string.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `triples dump` sub command\n    \n*   `-f`, `--format`\\=\\[value\\]: format of RDF (can be one of: \\[turtle\\])\n    \n\n### triples update\n\n`terminusdb triples update GRAPH_SPEC FILE`\n\nUpdate from an RDF file (replaces current content).\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `triples update` sub command\n    \n*   `-m`, `--message`\\=\\[value\\]: message to associate with the commit\n    \n*   `-a`, `--author`\\=\\[value\\]: author to place on the commit\n    \n*   `-f`, `--format`\\=\\[value\\]: format of RDF (can be one of: \\[turtle\\])\n    \n\n### triples load\n\n`terminusdb triples load GRAPH_SPEC FILE`\n\nLoad triples from RDF file (Appending new).\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `triples load` sub command\n    \n*   `-m`, `--message`\\=\\[value\\]: message to associate with the commit\n    \n*   `-a`, `--author`\\=\\[value\\]: author to place on the commit\n    \n*   `-f`, `--format`\\=\\[value\\]: format of RDF (can be one of: \\[turtle\\])\n    \n\n### remote add\n\n`terminusdb remote add DATABASE_SPEC REMOTE_NAME REMOTE_LOCATION OPTIONS`\n\nAdd a remote.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `remote add` sub command\n    \n\n### remote remove\n\n`terminusdb remote remove DATABASE_SPEC REMOTE_NAME OPTIONS`\n\nRemove a remote.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `remote remove` sub command\n    \n\n### remote set-url\n\n`terminusdb remote set-url DATABASE_SPEC REMOTE_NAME REMOTE_LOCATION OPTIONS`\n\nSet the URL of a remote.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `remote set-url` sub command\n    \n\n### remote get-url\n\n`terminusdb remote get-url DATABASE_SPEC REMOTE_NAME OPTIONS`\n\nGet the URL of a remote.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `remote get-url` sub command\n    \n*   `-r`, `--remote`\\=\\[value\\]: the name of the remote to use\n    \n\n### remote list\n\n`terminusdb remote list DATABASE_SPEC OPTIONS`\n\nList remotes.\n\n*   `--impersonate`\\=\\[value\\]: impersonate a particular user\n    \n*   `-h`, `--help`\\=\\[value\\]: print help for the `remote list` sub command\n    \n\n## SYNTAX\n\nThe designation of databases, repositories, the associated commit graph of a database, and various graphs as used in the above command requires the use of an appropriate descriptor path which is referred to as the DB\\_SPEC.\n\n*   `_system`: This is the system meta-data, which contains the user information, organization information and database records.\n    \n*   `<organization>/<database>`: This is the most basic descriptor path and actually refers to the more specific default path `<organization>/<database>/local/branch/main`.\n    \n*   `<organization>/<database>/_meta`: This is the repository graph associated with `database`. It contains information about the local repository and all known remotes.\n    \n*   `<organization>/<database>/<repository>`: This is a longer form database designator which specifies which respository we would like to address. It refers implicitly to `<organization>/<database>/<repository>/branch/main`.\n    \n*   `<organization>/<database>/<repository>/_commits`: The commit graph associated with a given database. This graph contains metadata about branch histories with their commit objects including the authorship and time.\n    \n*   `<organization>/<database>/<repository>/branch/<branch>`: The most specific branch descriptor, allows you to address a branch other than main.\n    \n*   `<organization>/<database>/<repository>/commit/<commit>`: The descriptor which allows an individual commit to be addressed directly.\n    \n\nFor commands that refer to a GRAPH_SPEC, it should be a DB_SPEC (specifying the precise branch if a database) followed by one of:\n\n*   `DB_SPEC/instance`\n    \n*   `DB_SPEC/schema`\n    \n\nFor example:\n\n`terminusdb triples dump admin/people/local/branch/main/schema`\n\n## ENVIRONMENT\n\n*   `TERMINUSDB_SERVER_NAME`: Set the servername to use for`terminusdb serve`. Default is `127.0.0.1`.\n    \n*   `TERMINUSDB_SERVER_PORT`: Set the port to use for`terminusdb serve`. Default is `6363`.\n    \n*   `TERMINUSDB_SERVER_WORKERS`: Set the number of worker threads to use for `terminusdb serve`. Default is `8`.\n    \n*   `TERMINUSDB_SERVER_MAX_TRANSACTION_RETRIES`: Set the transaction retry count. Default is `3`.\n    \n*   `TERMINUSDB_SERVER_DB_PATH`: Set the location of the storage volume to be used by `terminusdb` operations. Can be addressed relative to current path using `./`. Default is `./storage/db`.\n    \n*   `TERMINUSDB_SERVER_JWT_PUBLIC_KEY_PATH`: Set the public key path for JWT. Default is `''`.\n    \n*   `TERMINUSDB_SERVER_JWT_PUBLIC_KEY_ID`: Set the public key identifier for JWT. Default is `''`.\n    \n*   `TERMINUSDB_CONSOLE_BASE_URL`: Set the console javascript load URL. Default is `https://cdn.terminusdb.com/js_libs/terminusdb_console/dev`.\n    \n*   `TERMINUSDB_AUTOLOGIN_ENABLED`: If `true` then attempt to login automatically with default password. Default is `true`.\n    \n*   `TERMINUSDB_SERVER_PACK_DIR`: Location of the prolog pack directory if loading third party modules.\n    \n*   `TERMINUSDB_SERVER_TMP_PATH`: Path to use for temporary files.\n    \n*   `TERMINUSDB_IGNORE_REF_AND_REPO_SCHEMA`: Assume that ref and repo operations are inherently correct.\n    \n\n## EXIT STATUS\n\n*   0: Successfully program execution. Associated with `api:success`.\n    \n*   1: A generic failure of the API to carry out the operation. Associated with `api:failure`.\n    \n*   2: The resource which was being requested was not found. Associated with `api:not_found`.\n    \n*   13: The user attempted to carry out an operation without appropriately authorizing or without permission. Associated with `api:unauthorized` or `api:forbidden`.\n    \n*   13: Unauthorized access attempted. Associated with `api:unauthorized`.\n    \n*   126: An api command was attempted which is not possible. Associated with `api:method_not_allowed`.\n    \n*   131: Internal server error. Associated with `api:server_error`.\n    \n\n## EXAMPLES\n\n*   `terminusdb db create admin/foo`: Create a database in the organization `admin` with the identifier `foo`.\n    \n*   `terminusdb db create admin/foo --label=\"Foo\"`: Create a database in the organization `admin` with the identifier `foo` and name `Foo`.\n    \n\n## COPYRIGHT\n\nCopyright 2021 TerminusDB\n\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.\n\n## AUTHORS\n\nGavin Mendel-Gleason [gavin@terminusdb.com](mailto:gavin@terminusdb.com)\n\nMatthijs van Otterdijk [matthijs@terminusdb.com](mailto:matthijs@terminusdb.com)\n\nRobin de Rooij [robin@terminusdb.com](mailto:robin@terminusdb.com)\n\nAnne Ogborn [anne@swi-prolog.org](mailto:anne@swi-prolog.org)\n\nDmytri Kleiner [dk@terminusdb.com](mailto:dk@terminusdb.com)\n\n[Paulo Moura](https://github.com/pmoura)\n\nSean Leather [sean@terminusdb.com](mailto:sean@terminusdb.com)"
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "TerminusDB CLI Commands",
+      "description": "A list of the TerminusDB command line interface commands.",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    }
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "Clone a Demo Project"
+    },
+    "slug": "clone-a-demo-terminuscms-project",
+    "body": {
+      "@type": "Body",
+      "value": "You can clone a demo database by logging in to TerminusCMS and selecting a Team. Once selected you will see a \"Create New Data Product\" or a number of possible data sets to clone. To clone the data set, just click on the card, and it will clone it into your currently selected team.\n\nThis clone is now yours to use. It shares data with the original, so cloning is fast even if the data set is very large. When you make edits, they will be private to you, but it will be indistinguishable to you from editing the main database.\n\nTo get started with a demo dataset you can choose any of:\n\n*   Star Wars\n*   Lego\n*   Nuclear\n*   CAMS (Critical Asset Management System)\n\n![clone a demo project to get started with TerminusCMS](https://assets.terminusdb.com/docs/how-to-clone-a-demo.png)"
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "How to clone a TerminusCMS demo project",
+      "description": "A guide to show how to clone TerminusCMS demo projects to explore and play with. ",
+      "og_image": "https://assets.terminusdb.com/docs/how-to-clone-a-demo.png"
+    },
+    "media": [
+      {
+        "@type": "Media",
+        "alt": "clone a demo project to get started with TerminusCMS",
+        "caption": "",
+        "media_type": "Image",
+        "title": {
+          "@type": "Title",
+          "value": "clone a demo project to get started with TerminusCMS"
+        },
+        "value": "https://assets.terminusdb.com/docs/how-to-clone-a-demo.png"
+      }
+    ]
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "How to Use the Clients"
+    },
+    "slug": "use-the-clients",
+    "body": {
+      "@type": "Body",
+      "value": "[Use the JS Client](/docs/use-the-javascript-client/)[Use the Python Client](/docs/use-the-python-client/)"
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "How to Use the Clients with TerminusCMS and TerminusDB",
+      "description": "How to guides to use the JavaScrip and Python Clients with TerminusCMS and TerminusDB",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    }
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "How to Use the JavaScript Client"
+    },
+    "slug": "use-the-javascript-client",
+    "body": {
+      "@type": "Body",
+      "value": "[Install JS Client](/docs/install-terminusdb-js-client/)[Connect to JS Client](/docs/connect-with-the-javascript-client/)[Create DB with JS](/docs/create-a-database/)[Connect to DB with JS](/docs/connect-to-a-database/)[Add a Schema with JS](/docs/add-a-schema/)[Add Doc with JS](/docs/add-a-document/)[Edit Docs with JS](/docs/edit-a-document/)[Delete Docs with JS](/docs/delete-a-document/)[Get Docs with JS](/docs/get-documents/)[Query Docs with JS](/docs/query-documents/)[Run WOQL Query](/docs/run-woql-query/)"
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "How to Use the JavaScript Client",
+      "description": "Bite sized how to guides to get you up and running with the JavaScript Client",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    }
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "Install the TerminusDB JavaScript Client"
+    },
+    "slug": "install-terminusdb-js-client",
+    "body": {
+      "@type": "Body",
+      "value": "## Requirements\n\nNode.js version 10+ if using the TerminusDB client library as a Node.js package\n\n## Installation\n\nThe TerminusDB JavaScript client library can be used either as a Node.js package or as a script that runs in the browser.\n\n### NPM Package\n\n> If you don't already have Node.js installed, install it first. [node-install](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)\n\nTo install the `terminusdb-client` package as a dependency in an existing package, run:\n\n```\n$ npm install --save @terminusdb/terminusdb-client\n```\n\nThis command updates your `package.json`.\n\n### Script\n\nTo use the `terminusdb-client` script on a webpage sourced from a CDN, add this to your HTML:\n\n```\n<script src=\"https://unpkg.com/@terminusdb/terminusdb-client/dist/terminusdb-client.min.js\"></script>\n```\n\nAlternatively, you can download the latest [`terminusdb-client.min.js`](https://unpkg.com/@terminusdb/terminusdb-client/dist/terminusdb-client.min.js), add it to your sources, and use that in the `<script>` instead."
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "Install the TerminusDB JavaScript Client",
+      "description": "Installation instruction for the TerminusDB JavaScript Client",
+      "og_image": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png"
+    }
+  },
+  {
+    "@type": "Page",
+    "title": {
+      "@type": "Title",
+      "value": "Connect with the JavaScript Client"
+    },
+    "slug": "connect-with-the-javascript-client",
+    "body": {
+      "@type": "Body",
+      "value": "Ensure you have installed the JavaScript Client. See here for [installation instructions](/docs/install-terminusdb-js-client/)\n\n## Connecting with the JavaScript Client\n\nDepending on whether you are connecting to an instance you have set up yourself, or whether you are using TerminusCMS in the cloud, there are two different methods of connection.\n\nIn both cases, you should load the TerminusDB client in your script with the following:\n\n```javascript\nconst TerminusClient = require(\"@terminusdb/terminusdb-client\");\n```\n\n## TerminusCMS\n\nThe TerminusCMS endpoint has the form https://cloud.terminusdb.com/TEAM/ where TEAM is the name of the team you are using in TerminusCMS for the data products you want to access.\n\nIn order to connect to this team, you will need to [get your API key](/docs/how-to-connect-terminuscms/) after selecting the team you want to use.\n\nTo create a client use the following code within your script, ensuring to use your credentials.\n\n```javascript\nconst client = new TerminusClient.WOQLClient('https://cloud.terminusdb.com/Team',\n                     {user:\"myemail@something.com\", organization:'Team'})\n​\nclient.setApiKey(MY_ACCESS_TOKEN)\n```\n\n## Connecting to a TerminusDB installation\n\nWhether you are connecting to a local docker, a local server, or a server that you've set up somewhere, you can use the following to log in to TerminusDB.\n\n```javascript\nconst client = new TerminusClient.WOQLClient(SERVER_URL,{user:\"admin\",key:\"myKey\"})\n\nasync function getSchema() {\n     client.db(\"DB_NAME\")\n     const schema = await client.getSchema()\n}\n```\n\n> Try out the [Getting Started with the TerminusDB JavaScript Client](https://github.com/terminusdb/terminusdb-tutorials/blob/main/getting_started/javascript-client/lesson_1.md) five-part tutorial to get to grips with it."
+    },
+    "seo_metadata": {
+      "@type": "SEOMetadata",
+      "title": "Connect with the JavaScript Client",
+      "description": "A guide to show how to connect to TerminusDB and TerminusCMS using the JavaScript Client",
+      "og_image": "https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-connect-with-js-client.png?raw=true"
+    }
+  }
+]
