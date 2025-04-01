@@ -14,3 +14,4 @@ jobs:
       - run: npm run build
         env:
           TERMINUSDB_API_TOKEN: ${{ secrets.TERMINUSDB_API_TOKEN }}
+          TERMINUSDB_API_ENDPOINT: ${{ secrets.TERMINUSDB_API_ENDPOINT }}
