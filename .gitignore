@@ -3,6 +3,8 @@
 #
 .next
 .env
+bun.lock
+src/menu.json
 
 # dependencies
 /node_modules

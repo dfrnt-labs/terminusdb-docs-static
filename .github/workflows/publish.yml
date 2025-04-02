@@ -24,8 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: npm ci
-      - run: npm run build
+      - run: npx bun install
+      - run: npx bun run build
         env:
           TERMINUSDB_API_TOKEN: ${{ secrets.TERMINUSDB_API_TOKEN }}
           TERMINUSDB_API_ENDPOINT: ${{ vars.TERMINUSDB_API_ENDPOINT }}
