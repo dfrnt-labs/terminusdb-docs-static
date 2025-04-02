@@ -14,6 +14,7 @@ export default function SeoComponent(props) {
           name="description"
           content="The documentation of TerminusCMS and TerminusDB"
         />
+        <CommonHeaders/>
       </Head>
     )
   }
@@ -27,6 +28,12 @@ export default function SeoComponent(props) {
       />
       <meta name="description" content={props.seo_metadata.description} />
       <meta property="og:image" content={props.seo_metadata.og_image} />
+      <CommonHeaders/>
     </Head>
   )
 }
+
+export const CommonHeaders = (props) => <>
+  <meta name="algolia-site-verification"  content="63A98BB8F7D12CB0" />
+</>
+
