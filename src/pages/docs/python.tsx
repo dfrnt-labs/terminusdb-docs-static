@@ -1,15 +1,15 @@
 import axios from "axios"
+const TerminusClient = require("@terminusdb/terminusdb-client")
 import {
   renderCodeTable,
   renderExamples,
   formatShortHandAnchorIds,
   formatAnchorIds,
-} from "../utils"
-const TerminusClient = require("@terminusdb/terminusdb-client")
-import menu from "../menu.json"
-import { Layout } from "../components/_layout"
+} from "../../utils"
+import menu from "../../menu.json"
+import { Layout } from "../../components/_layout"
 
-export default function JavaScript(props) {
+export default function Python(props) {
   const modules = props.application.modules
   const layout = modules.map((mod) => {
     const classes = mod.classes
@@ -30,12 +30,11 @@ export default function JavaScript(props) {
             typeof func.examples !== "undefined" &&
             func.examples.length > 0
           ) {
-            examples = renderExamples(func.examples, "javascript", func.name)
+            examples = renderExamples(func.examples, "python", func.name)
           }
           return (
             <div key={func.name}>
               <h4
-                className="divider"
                 id={formatAnchorIds(
                   formatShortHandAnchorIds(func.name, shortArgs)
                 )}
@@ -57,8 +56,14 @@ export default function JavaScript(props) {
           </div>
         )
       })
-    return <div key={mod.name}>{classes}</div>
+    return (
+      <div key={mod.name}>
+        <h2 id={formatAnchorIds(mod.name)}>{mod.name}</h2>
+        {classes}
+      </div>
+    )
   })
+
   return (
     <Layout
       menu={props.menu}
@@ -82,7 +87,7 @@ export async function getStaticProps(context) {
   )
   const query = {
     "@type": "Page",
-    slug: "javascript",
+    slug: "python",
   }
   const docs = await client.getDocument({
     "@type": "Page",
@@ -90,27 +95,30 @@ export async function getStaticProps(context) {
     query: query,
   })
   const docResult = docs[0]
+
+  // provide entry slug
   const entry = { document: docResult }
   const config = {
     headers: { Authorization: `Token ${process.env.TERMINUSDB_API_TOKEN}` },
   }
-  // provide entry slug
 
   const application = await axios.post(
     `${process.env.TERMINUSDB_API_ENDPOINT}/api/graphql/${process.env.TERMINUSDB_TEAM}/${process.env.TERMINUSDB_DB}`,
     {
       query: `query {
-            Application(filter: {language: {eq: Javascript} } ) {
+            Application(filter: {language: {eq: Python} } ) {
                 name,
                 modules {
                    name,
-                   classes(orderBy: {name: ASC}) {
+                   classes {
                       name,
                       memberFunctions(orderBy: {name: ASC}) {
                           name,
                           examples,
+                          section,
                           summary,
                            parameters {
+                           default
                            summary
                            name
                            type

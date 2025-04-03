@@ -17,7 +17,7 @@ function getSlug(slug: string) {
   if (slug[0] === "/") {
     return slug
   }
-  return "/" + slug
+  return "/docs/" + slug
 }
 
 function getMenuId(menuLabel: string) {

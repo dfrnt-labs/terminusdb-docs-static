@@ -1,0 +1,18 @@
+{
+  "trailingSlash": "auto",
+  "globalHeaders": {
+    "X-Frame-Options": "deny"
+  },
+  "routes": [
+    {
+      "route": "/",
+      "redirect": "https://docs.terminusdb.org/docs/",
+      "statusCode": 301
+    }
+  ],
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/404.tsx"
+    }
+  }
+}

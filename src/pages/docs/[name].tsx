@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 const TerminusClient = require("@terminusdb/terminusdb-client")
 import axios from "axios"
-import Seo from "../components/seo"
-import { Layout } from "../components/_layout"
-import { getHtml, getSubTitle } from "../utils"
-import menu from "../menu.json"
+import Seo from "../../components/seo"
+import { Layout } from "../../components/_layout"
+import { getHtml, getSubTitle } from "../../utils"
+import menu from "../../menu.json"
 import Link from "next/link"
-import { renderMarkdown } from "../lib/markdown"
+import { renderMarkdown } from "../../lib/markdown"
 
 function getChildren(document, menu, level) {
   const menuPageSlug = menu[`Menu${level}Page`]["slug"]
@@ -14,7 +14,7 @@ function getChildren(document, menu, level) {
     const deeperLevel = level + 1
     const children = menu[`Level${deeperLevel}`].map((child) => {
       return {
-        slug: child[`Menu${deeperLevel}Page`]["slug"],
+        slug: "docs/" + child[`Menu${deeperLevel}Page`]["slug"],
         label: child[`Menu${deeperLevel}Label`],
       }
     })
@@ -81,7 +81,7 @@ export async function getStaticPaths() {
     .filter((x) => {
       return typeof x["slug"] !== "undefined" && !exceptions.includes(x["slug"])
     })
-    .map((x) => "/" + x["slug"])
+    .map((x) => "/docs/" + x["slug"])
   return { paths: paths, fallback: false }
 }
 
