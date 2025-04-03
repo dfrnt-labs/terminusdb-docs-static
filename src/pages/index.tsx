@@ -5,10 +5,10 @@ import { Inter } from "next/font/google"
 const inter = Inter({ subsets: ["latin"] })
 import axios from "axios"
 import "flowbite"
-import { getHtml, getSubTitle } from "../../utils"
-import menu from "../../menu.json"
-import { Layout } from "../../components/_layout"
-import { renderMarkdown } from "../../lib/markdown"
+import { getHtml, getSubTitle } from "../utils"
+import menu from "../menu.json"
+import { Layout } from "../components/_layout"
+import { renderMarkdown } from "../lib/markdown"
 
 export default function Home(props: { menu: any[]; entry: any[] }) {
   let html = getHtml(props.entry)

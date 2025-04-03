@@ -77,11 +77,11 @@ export default function Python(props) {
 
 export async function getStaticProps(context) {
   const client = new TerminusClient.WOQLClient(
-    "https://cloud.terminusdb.com/TerminatorsX",
+    process.env.TERMINUSDB_API_ENDPOINT,
     {
       user: "robin@terminusdb.com",
-      organization: "TerminatorsX",
-      db: "terminusCMS_docs",
+      organization: process.env.TERMINUSDB_TEAM,
+      db: process.env.TERMINUSDB_DB,
       token: process.env.TERMINUSDB_API_TOKEN,
     }
   )
