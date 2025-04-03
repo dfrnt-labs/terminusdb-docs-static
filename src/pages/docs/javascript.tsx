@@ -4,10 +4,10 @@ import {
   renderExamples,
   formatShortHandAnchorIds,
   formatAnchorIds,
-} from "../utils"
+} from "../../utils"
 const TerminusClient = require("@terminusdb/terminusdb-client")
-import menu from "../menu.json"
-import { Layout } from "../components/_layout"
+import menu from "../../menu.json"
+import { Layout } from "../../components/_layout"
 
 export default function JavaScript(props) {
   const modules = props.application.modules

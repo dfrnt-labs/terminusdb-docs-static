@@ -1,9 +1,9 @@
-import { OnThisPageContent } from "../components/_onThisPage"
-import menu from "../menu.json"
+import { OnThisPageContent } from "../../components/_onThisPage"
+import menu from "../../menu.json"
 import dynamic from "next/dynamic"
 const SwaggerUI = dynamic(import("swagger-ui-react"), { ssr: false })
 import "swagger-ui-react/swagger-ui.css"
-import { Layout } from "../components/_layout"
+import { Layout } from "../../components/_layout"
 
 //        <div dangerouslySetInnerHTML={{__html: props.html }}/>
 export default function Home(props) {

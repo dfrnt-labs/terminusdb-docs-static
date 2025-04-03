@@ -5,9 +5,9 @@ import {
   renderExamples,
   formatShortHandAnchorIds,
   formatAnchorIds,
-} from "../utils"
-import menu from "../menu.json"
-import { Layout } from "../components/_layout"
+} from "../../utils"
+import menu from "../../menu.json"
+import { Layout } from "../../components/_layout"
 
 export default function Python(props) {
   const modules = props.application.modules
