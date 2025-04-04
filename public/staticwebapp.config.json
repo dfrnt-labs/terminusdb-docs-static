@@ -6,7 +6,7 @@
   "routes": [
     {
       "route": "/",
-      "redirect": "https://docs.terminusdb.org/docs/",
+      "redirect": "https://terminusdb.org/docs/",
       "statusCode": 301
     }
   ],
