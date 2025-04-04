@@ -7,7 +7,7 @@
     {
       "route": "/",
       "redirect": "https://terminusdb.org/docs/",
-      "statusCode": 301
+      "statusCode": 302
     }
   ],
   "responseOverrides": {
