@@ -1,9 +1,9 @@
 ---
-title: How to connect to TerminusCMS
+title: How to connect to TerminusDB
 slug: how-to-connect-terminuscms
 seo:
-  title: How to connect with TerminusCMS
-  description: How to connect with TerminusCMS using an API key
+  title: How to connect with TerminusDB
+  description: How to connect with TerminusDB using an API key
   og_image: >-
     https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
@@ -14,7 +14,7 @@ media:
     value: https://cdn.terminusdb.com/img/terminus-cms/client_api_connection.jpeg
 ---
 
-Go to [https://dashboard.terminusdb.com](https://dashboard.terminusdb.com) to sign in to TerminusCMS. Register an account if you haven't already.
+Go to [https://dfrnt.com](https://dfrnt.com) to sign in to TerminusDB hosted at DFRNT. Register an account or sign up if you haven't already.
 
 If you haven't selected a subscription yet, choose one. The subscription selection screen will only appear when you haven't done so already.
 
@@ -24,4 +24,6 @@ In this screen, you can create an API Token and view instructions for different 
 
 Choose one of the code snippets. Which is either Python, JavaScript, or a cURL example.
 
-![Client examples](https://cdn.terminusdb.com/img/terminus-cms/client_api_connection.jpeg)
+![Client examples](https://dfrnt.com/static/aea014768b104377ca7fb7ffd671029c/fee1b/screenshot-new-graph-workspaces.webp)
+
+[Demo of DFRNT](https://dfrnt.com/demo/)

@@ -3,13 +3,7 @@
   "globalHeaders": {
     "X-Frame-Options": "deny"
   },
-  "routes": [
-    {
-      "route": "/",
-      "redirect": "https://terminusdb.org/docs/",
-      "statusCode": 302
-    }
-  ],
+  "routes": [],
   "responseOverrides": {
     "404": {
       "rewrite": "/404"

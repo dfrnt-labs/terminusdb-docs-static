@@ -16,21 +16,28 @@ media:
     value: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
 ---
 
-TerminusCMS is a headless content management system. It is designed to give devs a solution for complex content and knowledge infrastructures. Bringing together change request workflows, analytics, and complex integrations, TerminusCMS aims to be a content platform that sits at the convergence of content and knowledge.
+## Getting started with TerminusDB in less than a minute
 
-TerminusCMS is free to get started. When you sign up, you are assigned the community package. This comes with generous limits to allow you to build for free, and then upgrade when needed.
+TerminusDB is a versatile content storage system for model-based hierarchically structured records. It is straightforward to use as a flexible headless content management system.
 
-## Steps to get started
+It is designed to give technical professionals and linked data professionals a solution for complex content, knowledge and semantic infrastructures. Bringing together change request workflows, analytics, and complex integrations, TerminusDB aims to be a content platform that sits at the convergence of content and knowledge.
 
-1.  Sign up at [https://dashboard.terminusdb.com](https://dashboard.terminusdb.com)
-2.  Take a look through the [product tour](/docs/projects-terminuscms-tour/) to familiarise yourself with TerminusCMS
+TerminusDB is open source and free to use, maintained by the team at DFRNT in collaboration with the community.
+
+Commercial hosting with a powerful modeller, visualisation, WOQL studio, and record editor user interface is available at [DFRNT.com](https://dfrnt.com) with a free trial. It works with both localhost open source TerminusDB and TerminusDB hosted in the cloud environments, including git-for-data synchronization of content repositories. 
+
+When you sign up, you get full commercial hosting. This comes with generous limits to allow you to build without constraints, and then upgrade when needed.
+
+### Steps to get started
+
+1.  Sign up at [https://dfrnt.com/signup](https://dfrnt.com/signup), or use it with [Docker](/docs/install-terminusdb-as-a-docker-container/)
 3.  Install the [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-the-python-client/) Client
-4.  [Get your API key to use a client with TerminusCMS.](/docs/how-to-connect-terminuscms/)
-5.  [Familiarize yourself with the client API](/docs/connect-with-the-javascript-client/) to start building with TerminusCMS.
+4.  [Get your API key to use a client with DFRNT (similar to the discontinued TerminusCMS)](/docs/how-to-connect-terminuscms/)
+5.  [Familiarize yourself with the client API](/docs/connect-with-the-javascript-client/) to start building with TerminusDB.
 
 ## Demo Projects
 
-There are several demo projects available to clone and experiment with. Sign up and visit your team home page to clone these projects.
+Coming back soon: There are several demo projects available to clone and experiment with. Sign up and visit your team home page to clone these projects.
 
 ![Clone a demo data product from the TerminusCMS dashboard](https://assets.terminusdb.com/docs/how-to-clone-a-demo.png)
 
