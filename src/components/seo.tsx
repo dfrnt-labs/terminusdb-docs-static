@@ -1,4 +1,5 @@
 import Head from "next/head"
+import Script from "next/script"
 
 export default function SeoComponent(props) {
   if (typeof props.seo_metadata === "undefined") {

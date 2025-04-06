@@ -68,12 +68,12 @@ export const OnThisPageContent = (props) => {
 
   if (!listArray.length)
     return (
-      <div className="sticky mr-8 hidden w-64 flex-none pl-8 xl:block xl:text-sm" />
+      <div className="sticky mr-8 hidden w-64 flex-none pl-8 lg:block lg:text-sm" />
     )
 
   return (
-    <div className="mr-8 hidden w-64 flex-none pl-8 xl:block xl:text-sm">
-      <div className="sticky top-28 flex h-[calc(100vh-5rem)] flex-col justify-between overflow-y-auto pb-6 pt-10">
+    <div className="mr-8 hidden w-72 flex-none pl-8 lg:block xl:text-sm">
+      <div className="sticky flex h-[calc(100vh-5rem)] flex-col justify-between overflow-y-auto pb-24">
         <div className="mb-8">
           <h4 className="mb-2 pl-2.5 text-sm font-semibold uppercase tracking-wide text-gray-900 dark:text-white lg:text-xs">
             On this page
