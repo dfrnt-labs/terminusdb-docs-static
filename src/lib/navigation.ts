@@ -341,7 +341,6 @@ export const navigation: Navigation[] = [
         links: [
           {
             title: 'Query Examples',
-            href: '/docs/woql-query-examples',
             links: [
               {
                 title: 'Customer Data Processing',
