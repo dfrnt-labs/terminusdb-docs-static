@@ -1,5 +1,5 @@
+@import "tailwindcss/preflight";
 @tailwind base;
-@tailwind components;
 @tailwind utilities;
 /*@import url("https://fonts.cdnfonts.com/css/lexend-deca");
 //@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
@@ -100,22 +100,27 @@ h4.divider {
 
 @layer base {
   h1 {
-    @apply relative scroll-mt-20 text-4xl font-extrabold leading-none  tracking-tight text-gray-900  dark:text-white sm:text-3xl;
+    @apply relative text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white;
+    scroll-margin-top: 5rem;
   }
   aside {
     @apply top-16 !important;
   }
   h2 {
-    @apply relative mb-5 scroll-mt-20 font-barlow text-3xl font-extrabold font-semibold dark:text-white;
+    @apply relative mb-5 font-barlow text-3xl font-extrabold font-semibold dark:text-white;
+    scroll-margin-top: 5rem;
   }
   h3 {
-    @apply relative mb-5 scroll-mt-20 font-barlow text-2xl font-bold font-semibold dark:text-white;
+    @apply relative mb-5 font-barlow text-2xl font-bold font-semibold dark:text-white;
+    scroll-margin-top: 5rem;
   }
   h4 {
-    @apply relative mb-5 scroll-mt-20 text-xl font-bold font-semibold dark:text-white;
+    @apply relative mb-5 text-xl font-bold font-semibold dark:text-white;
+    scroll-margin-top: 5rem;
   }
   h5 {
-    @apply scroll-mt-20 font-bold font-semibold dark:text-white;
+    @apply font-bold font-semibold dark:text-white;
+    scroll-margin-top: 5rem;
   }
   p {
     @apply mb-8 text-lg font-normal dark:text-gray-50 md:text-lg md:leading-9 lg:leading-9;

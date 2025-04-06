@@ -5,6 +5,7 @@ module.exports = {
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/app/**/*.{js,ts,jsx,tsx}',
+    './src/styles/**/*.css',
     "./node_modules/flowbite/**/*.js"
   ],
   theme: {
@@ -17,6 +18,9 @@ module.exports = {
       fontFamily: {
         'lexend': ["Lexend Deca"],
         'barlow': ["Barlow Semi Condensed", "Sans-serif"]
+      },
+      scrollMargin: {
+        '20': '5rem',
       }
     }
   },
