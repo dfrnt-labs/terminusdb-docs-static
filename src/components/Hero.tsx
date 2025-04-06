@@ -56,7 +56,7 @@ export function Hero() {
                 for hierarchical records with a git-for-data collaboration model at its heart.
               </p>
               <div className="mt-8 flex gap-4 md:justify-center lg:justify-start">
-                <Button href="/getting-started">Get started</Button>
+                <Button href="/docs/get-started/">Get started</Button>
                 <Button href="https://github.com/terminusdb/terminusdb" variant="secondary">
                   View on GitHub
                 </Button>
