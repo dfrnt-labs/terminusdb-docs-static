@@ -1,11 +1,11 @@
 ---
-title: Advanced Filtering with GraphQL
-slug: advanced-filtering-with-graphql
-seo:
-  title: Advanced Filtering
-  description: Advanced Filtering with GraphQL
-  og_image: https://assets.terminusdb.com/docs/graphql-advanced-filter.png
-media: []
+nextjs:
+  metadata:
+    title: Advanced Filtering
+    description: Advanced Filtering with GraphQL
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/graphql-advanced-filter.png
 ---
 
 > To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusCMS. You will then have full access to the data needed for this tutorial.

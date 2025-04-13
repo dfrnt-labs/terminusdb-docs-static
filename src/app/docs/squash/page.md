@@ -1,13 +1,13 @@
 ---
-title: Squash Commits with the TerminusCMS Dashboard
-slug: squash
-seo:
-  title: Squash Commits with the TerminusCMS Dashboard
-  description: >-
-    A guide to show how to squash the commits of a branch or main into one large
-    commit using the TerminusCMS dashboard.
-  og_image: >-
-    https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/squashed-branch.png?raw=true
+nextjs:
+  metadata:
+    title: Squash Commits with the TerminusCMS Dashboard
+    description: >-
+      A guide to show how to squash the commits of a branch or main into one large
+      commit using the TerminusCMS dashboard.
+    openGraph:
+      images: >-
+        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/squashed-branch.png?raw=true
 media:
   - alt: Branch options with the ability to squash the branch of the database
     caption: ''

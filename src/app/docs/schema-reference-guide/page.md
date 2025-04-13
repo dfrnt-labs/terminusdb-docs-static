@@ -1,10 +1,58 @@
 ---
-title: Schema Reference Guide
-slug: schema-reference-guide
-seo:
-  title: TerminusCMS Schema Reference Guide
-  description: A reference guide for the TerminusCMS and TerminusDB schema
-  og_image: >-
+nextjs:
+  metadata:
+    title: TerminusCMS Schema Reference Guide
+    description: A reference guide for the TerminusCMS and TerminusDB schema
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+media: []
+---
+
+The TerminusDB schema language enables documents and their relationships to be specified using simple JSON syntax. This syntax makes it as easy as possible to specify a JSON object to automatically convert to a graph. This approach enables data to be viewed as collections of documents or as knowledge graphs of interconnected objects.
+
+## Schema Objects
+
+A JSON object in TerminusDB schema is composed of **key-value** pairs.
+
+#### Key
+
+A key is one of two values, **keyword** or **property**, described in the table below. The full schema definition is a stream or list of these values or JSON objects.
+
+#### Table: Types of keys
+
+{%table%}
+
+- Key type
+- Example
+- Description
+
+---
+
+- **keyword**
+- `@id`
+- Starts with `@`, has a value with a special meaning.
+---
+
+- **property**
+- `name`
+- Does not start with `@`, has a value with a **range** type.
+
+{%/table%}
+
+### Class definition
+
+The basic unit of specification is a **class**. A class definition is a schema object with the keyword `@type` with type value `Class`. The keyword `@id` specifies the name of the class. The example below define a class named `Person` with a property `name` of type `xsd:string`. Search XSD definitions for more information about types.
+
+#### Code: The basic unit of specification
+
+```json
+{ 
+    "@type" : "Class",
+    "@id"   : "Person",
+    "name"  : "xsd:string" 
+}
+```
     https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---

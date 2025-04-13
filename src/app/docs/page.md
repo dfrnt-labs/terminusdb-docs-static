@@ -1,11 +1,12 @@
 ---
-title: Getting Started
-slug: index
-seo:
-  title: TerminusDB/CMS Technical Documentation
-  description: 'Technical documentation for TerminusDB and TerminusCMS. '
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Getting Started
+    description: >-
+      TerminusDB Technical Documentation
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
   - alt: Clone a demo data product from the TerminusCMS dashboard
     caption: >-

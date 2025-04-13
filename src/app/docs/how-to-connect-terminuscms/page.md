@@ -1,11 +1,11 @@
 ---
-title: How to connect to TerminusDB
-slug: how-to-connect-terminuscms
-seo:
-  title: How to connect with TerminusDB
-  description: How to connect with TerminusDB using an API key
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: How to connect to TerminusDB
+    description: How to connect with TerminusDB using an API key
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
   - alt: Client examples
     caption: ''
@@ -14,9 +14,7 @@ media:
     value: https://cdn.terminusdb.com/img/terminus-cms/client_api_connection.jpeg
 ---
 
-Go to [https://dfrnt.com](https://dfrnt.com) to sign in to TerminusDB hosted at DFRNT. Register an account or sign up if you haven't already.
-
-If you haven't selected a subscription yet, choose one. The subscription selection screen will only appear when you haven't done so already.
+Cloud hosted TemrinusDB is available from [https://dfrnt.com](https://dfrnt.com). Register an account or sign up if you haven't already to get started fast.
 
 Click on the **team** that you wish to use or create a new one. A default one will be already created for you. After selecting your team, click on your profile icon in the upper-right corner and click on `Profile`.
 

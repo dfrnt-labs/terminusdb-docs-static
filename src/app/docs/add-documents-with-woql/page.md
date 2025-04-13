@@ -1,13 +1,13 @@
 ---
-title: Add a document in WOQL
-slug: add-documents-with-woql
-seo:
-  title: How to add documents using WOQL
-  description: >-
-    A how-to guide  with an example showing how to add documents using a WOQL
-    query.
-  og_image: https://assets.terminusdb.com/docs/woql-add-documents.png
-media: []
+nextjs:
+  metadata:
+    title: How to add documents using WOQL
+    description: >-
+      A how-to guide  with an example showing how to add documents using a WOQL
+      query.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/woql-add-documents.png
 ---
 
 > To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusCMS. You will then have full access to the data needed for this tutorial.

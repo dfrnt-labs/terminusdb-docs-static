@@ -1,13 +1,13 @@
 ---
-title: Manage Teams & Users in TerminusCMS
-slug: manage-teams-users-terminuscms-tour
-seo:
-  title: Manage Teams & Users - TerminusCMS Tour
-  description: >-
-    A quick overview for how to manage your teams and users in the TerminusCMS
-    dashboard
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Manage Teams & Users in TerminusCMS
+    description: >-
+      A quick overview for how to manage your teams and users in the TerminusCMS
+      dashboard
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
   - alt: The first page you'll see when first logging into TerminusCMS
     caption: ''

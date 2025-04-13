@@ -1,11 +1,11 @@
 ---
-title: Create a Team with the TerminusCMS Dashboard
-slug: create-a-team-with-terminuscms
-seo:
-  title: Create teams using TerminusCMS
-  description: A how-to guide for creating teams using the TerminusCMS dashboard.
-  og_image: >-
-    https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.pn
+nextjs:
+  metadata:
+    title: Create teams using TerminusCMS
+    description: A how-to guide for creating teams using the TerminusCMS dashboard.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.pn
 media:
   - alt: select profile from the top menu
     caption: ''

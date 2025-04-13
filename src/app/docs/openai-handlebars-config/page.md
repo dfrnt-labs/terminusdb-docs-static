@@ -1,10 +1,11 @@
 ---
-title: OpenAI and Handlebars Configuration
-slug: openai-handlebars-config
-seo:
-  title: How to configure high-quality text embeddings for OpenAI
-  description: OpenAI and Handlebars Configuration
-  og_image: https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
+nextjs:
+  metadata:
+    title: OpenAI and Handlebars Configuration
+    description: OpenAI and Handlebars Configuration
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
 media:
   - alt: >-
       High quality text embeddings for OpenAI using GraphQL query with

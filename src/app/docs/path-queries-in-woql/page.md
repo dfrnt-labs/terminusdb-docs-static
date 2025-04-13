@@ -1,12 +1,13 @@
 ---
-title: Path Queries in WOQL
-slug: path-queries-in-woql
-seo:
-  title: How to do Path Queries in WOQL - TerminusDB
-  description: >-
-    A guide to show how to do path queries in WOQL for your TerminusCMS and
-    TerminusDB projects.
-  og_image: https://assets.terminusdb.com/docs/woql-path-query.png
+nextjs:
+  metadata:
+    title: Path Queries in WOQL
+    description: >-
+      A guide to show how to do path queries in WOQL for your TerminusCMS and
+      TerminusDB projects.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/woql-path-query.png
 media: []
 ---
 

@@ -1,11 +1,11 @@
 ---
-title: Install the TerminusCMS & DB Python Client
-slug: install-the-python-client
-seo:
-  title: Install the TerminusCMS & DB Python Client
-  description: A guide showing how to install the TerminusCMS/DB Python Client.
-  og_image: >-
-    https://assets.terminusdb.com/docs/python-client-use-install-python-client.png
+nextjs:
+  metadata:
+    title: Install the TerminusCMS & DB Python Client
+    description: A guide showing how to install the TerminusCMS/DB Python Client.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/python-client-use-install-python-client.png
 media: []
 ---
 

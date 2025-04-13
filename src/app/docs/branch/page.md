@@ -1,10 +1,11 @@
 ---
-title: Branch a Project with the TerminusCMS Dashboard
-slug: branch
-seo:
-  title: Branch a Project using the TerminusCMS Dashboard
-  description: A guide to show how to branch projects using the TerminusCMS dashboard.
-  og_image: https://assets.terminusdb.com/docs/branch-project.png
+nextjs:
+  metadata:
+    title: Branch a Project with the TerminusCMS Dashboard
+    description: A guide to show how to branch projects using the TerminusCMS dashboard.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/branch-project.png
 media:
   - alt: Branch the project
     caption: ''

@@ -1,10 +1,11 @@
 ---
-title: Offset to Provide Paging
-slug: offset-to-provide-paging
-seo:
-  title: GraphQL Offset to Provide Pagination
-  description: A guide showing how to use offset in GraphQL to provide pagination
-  og_image: https://assets.terminusdb.com/docs/graphql-offset.png
+nextjs:
+  metadata:
+    title: Offset to Provide Paging
+    description: A guide showing how to use offset in GraphQL to provide pagination
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/graphql-offset.png
 media:
   - alt: Clone the Star Wars demo from the TerminusCMS dashboard
     caption: ''

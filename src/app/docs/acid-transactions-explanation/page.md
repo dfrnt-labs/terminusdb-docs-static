@@ -1,14 +1,13 @@
 ---
-title: Acid Transaction Explanation
-slug: acid-transactions-explanation
-seo:
-  title: Acid Transactions Explanation
-  description: >-
-    An explanation about Acid Transactions and how TerminusDB and TerminusCMS
-    ensures acid compliance
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
-media: []
+nextjs:
+  metadata:
+    title: Acid Transactions Explanation
+    description: >-
+      An explanation about Acid Transactions and how TerminusDB and TerminusCMS
+      ensures acid compliance
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
 
 ## What is ACID?

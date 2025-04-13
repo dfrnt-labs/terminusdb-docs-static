@@ -1,13 +1,13 @@
 ---
-title: Schema Migration Reference Guide
-slug: schema-migration-reference-guide
-seo:
-  title: Schema Migration Reference Guide
-  description: >-
-    A reference guide explaining the schema migration capabilities of
-    TerminusCMS and TerminusDB
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Schema Migration Reference Guide
+    description: >-
+      A reference guide explaining the schema migration capabilities of
+      TerminusCMS and TerminusDB
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

@@ -1,12 +1,13 @@
 ---
-title: Get Documents with the Python Client
-slug: get-documents-with-python-client
-seo:
-  title: Get Documents with the Python Client
-  description: >-
-    A guide to show how-to get documents from TerminusDB and TerminusCMS using
-    the Python Client
-  og_image: https://assets.terminusdb.com/docs/python-client-use-get-documents.png
+nextjs:
+  metadata:
+    title: Get Documents with the Python Client
+    description: >-
+      A guide to show how-to get documents from TerminusDB and TerminusCMS using
+      the Python Client
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/python-client-use-get-documents.png
 media: []
 ---
 

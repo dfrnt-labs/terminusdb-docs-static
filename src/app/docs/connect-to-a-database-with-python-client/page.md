@@ -1,12 +1,13 @@
 ---
-title: Connect to a Database using the Python Client
-slug: connect-to-a-database-with-python-client
-seo:
-  title: Connect to a Database using the Python Client
-  description: >-
-    A guide to show how to connect to a TerminusCMS project using the Python
-    client.
-  og_image: https://assets.terminusdb.com/docs/python-client-use-connect-database.png
+nextjs:
+  metadata:
+    title: Connect to a Database using the Python Client
+    description: >-
+      A guide to show how to connect to a TerminusCMS project using the Python
+      client.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/python-client-use-connect-database.png
 media: []
 ---
 

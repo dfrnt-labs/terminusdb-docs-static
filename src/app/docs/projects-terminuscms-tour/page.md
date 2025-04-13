@@ -1,11 +1,11 @@
 ---
-title: Projects Overview - TerminusCMS Tour
-slug: projects-terminuscms-tour
-seo:
-  title: Projects Overview - TerminusCMS Tour
-  description: How to add and manage projects/data products within TerminusCMS
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Projects Overview - TerminusCMS Tour
+    description: How to add and manage projects/data products within TerminusCMS
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
   - alt: Create a new data product
     caption: ''

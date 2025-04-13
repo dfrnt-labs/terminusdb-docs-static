@@ -1,10 +1,11 @@
 ---
-title: Index Your Data
-slug: index-your-data
-seo:
-  title: Index Your Data with VectorLink
-  description: How to index your content and data with VectorLink
-  og_image: https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
+nextjs:
+  metadata:
+    title: Index Your Data
+    description: How to index your content and data with VectorLink
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
 media: []
 ---
 

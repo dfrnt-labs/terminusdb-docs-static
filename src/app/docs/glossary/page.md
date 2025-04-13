@@ -1,11 +1,11 @@
 ---
-title: Glossary of Terms
-slug: glossary
-seo:
-  title: TerminusCMS/DB Glossary of Terms
-  description: A glossary of terms for TerminusDB and TerminusCMS
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Glossary of Terms
+    description: A glossary of terms for TerminusDB and TerminusCMS
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

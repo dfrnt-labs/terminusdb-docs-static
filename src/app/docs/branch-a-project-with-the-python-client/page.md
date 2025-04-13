@@ -1,10 +1,11 @@
 ---
-title: Branch a Project Using the Python Client
-slug: branch-a-project-with-the-python-client
-seo:
-  title: Branch a Project Using the Python Client
-  description: A guide to show how to branch a TerminusCMS project using the Python Client.
-  og_image: https://assets.terminusdb.com/docs/python-client-collaboration-branch.png
+nextjs:
+  metadata:
+    title: Branch a Project Using the Python Client
+    description: A guide to show how to branch a TerminusCMS project using the Python Client.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/python-client-collaboration-branch.png
 media: []
 ---
 

@@ -1,13 +1,13 @@
 ---
-title: Access Control with the JavaScript Client Reference Guide
-slug: js-client-access-control-reference
-seo:
-  title: Access Control with the JavaScript Client Reference Guide
-  description: >-
-    A reference guide to help you understand access control using the JavaScript
-    Client
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Access Control with the JavaScript Client Reference Guide
+    description: >-
+      A reference guide to help you understand access control using the JavaScript
+      Client
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

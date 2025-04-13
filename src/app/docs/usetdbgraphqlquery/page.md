@@ -1,13 +1,13 @@
 ---
-title: useTDBGraphqlQuery
-slug: usetdbgraphqlquery
-seo:
-  title: useTDBGraphqlQuery Hook
-  description: >-
-    useTDBGraphqlQuery` is the main hook to connect
-    @terminusdb/terminusdb-react-table with TerminusCMS server
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: useTDBGraphqlQuery
+    description: >-
+      useTDBGraphqlQuery` is the main hook to connect
+      @terminusdb/terminusdb-react-table with TerminusCMS server
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 
@@ -17,16 +17,33 @@ media: []
 
 `useTDBGraphqlQuery(apolloClient:ApolloClient, graphqlQuery:gql, documentType:String, options:Object)`
 
-*   `apolloClient : ApolloClient`
-*   Required
-*   An Apollo Client instance with your connections settings
-*   `graphqlQuery : gql`
-*   Required
-*   A GraphQL query
-*   `documentType : string`
-*   Required
-*   The document type
-*   `options : object`
+{% table %}
+
+---
+
+- `apolloClient : ApolloClient`
+- Required
+- An Apollo Client instance with your connections settings
+
+---
+
+- `graphqlQuery : gql`
+- Required
+- A GraphQL query
+
+---
+
+- `documentType : string`
+- Required
+- The document type
+
+---
+
+- `options : object`
+- Optional
+- The options object
+
+{% /table %}
 
 The following options are supported via the main options object passed to useTDBGraphqlQuery
 

@@ -1,11 +1,11 @@
 ---
-title: Order By Using @metadata
-slug: orderby
-seo:
-  title: Order By Using @metadata
-  description: How to order properties in the document UI
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Order By Using @metadata
+    description: How to order properties in the document UI
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

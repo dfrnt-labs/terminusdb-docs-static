@@ -1,12 +1,13 @@
 ---
-title: Writing a filter in WOQL
-slug: filter-with-woql
-seo:
-  title: How to filter with WOQL
-  description: >-
-    A guide showing how to filter with WOQL in your TerminusCMS and TerminusDB
-    projects 
-  og_image: https://assets.terminusdb.com/docs/woql-filter.png
+nextjs:
+  metadata:
+    title: How to filter with WOQL
+    description: >-
+      A guide showing how to filter with WOQL in your TerminusCMS and TerminusDB
+      projects 
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/woql-filter.png
 media: []
 ---
 

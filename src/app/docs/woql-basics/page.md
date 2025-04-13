@@ -1,10 +1,12 @@
 ---
-title: WOQL Basics
-slug: woql-basics
-seo:
-  title: Learn the WOQL query basics for TerminusDB and TerminusCMS
-  description: A guide to show  the WOQL query basics in TerminusDB and TerminusCMS.
-  og_image: https://assets.terminusdb.com/docs/woql-basics.png
+nextjs:
+  metadata:
+    title: WOQL Basics
+    description: >-
+      Learn the WOQL query basics for TerminusDB and TerminusCMS
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/woql-basics.png
 media:
   - alt: WOQL query playground in the TerminusCMS dashboard
     caption: ''

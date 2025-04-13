@@ -1,11 +1,11 @@
 ---
-title: Render As Markdown Using @metadata
-slug: render-as
-seo:
-  title: Render As Markdown Using @metadata
-  description: How to render properties as markdown in the document UI
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Render As Markdown Using @metadata
+    description: How to render properties as markdown in the document UI
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

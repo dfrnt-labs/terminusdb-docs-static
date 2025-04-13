@@ -1,12 +1,13 @@
 ---
-title: Invite Users to Your Team
-slug: invite-users-using-terminuscms
-seo:
-  title: How to invite team members to TerminusCMS
-  description: >-
-    A how-to guide for inviting collaborators to your team using the TerminusCMS
-    dashboard.
-  og_image: https://assets.terminusdb.com/docs/manage-your-projects-add-a-new-user.png
+nextjs:
+  metadata:
+    title: Invite Users to Your Team
+    description: >-
+      A how-to guide for inviting collaborators to your team using the TerminusCMS
+      dashboard.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/manage-your-projects-add-a-new-user.png
 media:
   - alt: add a new user to your team
     caption: ''

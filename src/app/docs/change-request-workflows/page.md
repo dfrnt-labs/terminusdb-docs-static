@@ -1,12 +1,12 @@
 ---
-title: Change Request Workflows in TerminusCMS
-slug: change-request-workflows-terminuscms-tour
-seo:
-  title: Change Request Workflows - TerminusCMS Tour
-  description: >-
-    This page details how change request workflows function in TerminusCMS to
-    enable safe collaboration
-  og_image: >-
+nextjs:
+  metadata:
+    title: Change Request Workflows - TerminusCMS Tour
+    description: >-
+      This page details how change request workflows function in TerminusCMS to
+      enable safe collaboration
+    openGraph:
+      images: >-
     https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
   - alt: Opening a change request

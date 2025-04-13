@@ -1,9 +1,8 @@
 ---
-title: Document Insertion Reference Guide
-slug: document-insertion
-seo:
-  title: TerminusCMS/DB Document Insertion Reference Guide
-  description: A reference guide for the TerminusCMS/DB document interface.
+nextjs:
+  metadata:
+    title: TerminusCMS/DB Document Insertion Reference Guide
+    description: A reference guide for the TerminusCMS/DB document interface.
 media: []
 ---
 

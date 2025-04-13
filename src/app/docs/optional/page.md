@@ -1,10 +1,19 @@
 ---
-title: Optional Properties
-slug: optional
-seo:
-  title: Optional Properties - Document UI TerminusDB
-  description: How optional properties work in the document UI
-  og_image: >-
+nextjs:
+  metadata:
+    title: Optional Properties
+    description: How optional properties work in the document UI
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+media: []
+---
+
+This example shows how `<FrameViewier/>` appears for a document `Person_Optional` with optional fields in Create/ Edit and View mode.
+
+## Demo
+
+Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb
     https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---

@@ -1,12 +1,13 @@
 ---
-title: How to Group Results in WOQL
-slug: group-query-results
-seo:
-  title: How to Group Results in WOQL
-  description: >-
-    A guide to show how to group results of data in your TerminusCMS and
-    TerminusDB projects using WOQL.
-  og_image: https://assets.terminusdb.com/docs/woql-group-query-results.png
+nextjs:
+  metadata:
+    title: How to Group Results in WOQL
+    description: >-
+      A guide to show how to group results of data in your TerminusCMS and
+      TerminusDB projects using WOQL.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/woql-group-query-results.png
 media: []
 ---
 

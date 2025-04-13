@@ -1,13 +1,13 @@
 ---
-title: Create a Database
-slug: create-a-database
-seo:
-  title: Create a Database using the JavaScript Client
-  description: >-
-    A guide to show how to create a database using the TerminusDB JavaScript
-    Client.
-  og_image: >-
-    https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-create-a-db.png?raw=true
+nextjs:
+  metadata:
+    title: Create a Database using the JavaScript Client
+    description: >-
+      A guide to show how to create a database using the TerminusDB JavaScript
+      Client.
+    openGraph:
+      images: >-
+        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-create-a-db.png?raw=true
 media: []
 ---
 

@@ -1,13 +1,13 @@
 ---
-title: Reset a Project with the TerminusCMS Dashboard
-slug: reset
-seo:
-  title: Reset a Project with the TerminusCMS Dashboard
-  description: >-
-    A guide to show how to reset to a particular commit of a branch or main
-    using the TerminusCMS dashboard.
-  og_image: >-
-    https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/reset-a-branch.png?raw=true
+nextjs:
+  metadata:
+    title: Reset a Project with the TerminusCMS Dashboard
+    description: >-
+      A guide to show how to reset to a particular commit of a branch or main
+      using the TerminusCMS dashboard.
+    openGraph:
+      images: >-
+        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/reset-a-branch.png?raw=true
 media:
   - alt: Branch options with the ability to squash the branch of the database
     caption: ''

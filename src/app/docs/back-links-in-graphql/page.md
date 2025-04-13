@@ -1,11 +1,11 @@
 ---
-title: Back Links in GraphQL
-slug: back-links-in-graphql
-seo:
-  title: Back Links
-  description: Back Links in GraphQL
-  og_image: https://assets.terminusdb.com/docs/graphql-backlink.png
-media: []
+nextjs:
+  metadata:
+    title: Back Links
+    description: Back Links in GraphQL
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/graphql-backlink.png
 ---
 
 > To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusCMS. You will then have full access to the data needed for this tutorial.

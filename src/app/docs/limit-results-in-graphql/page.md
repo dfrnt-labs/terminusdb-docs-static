@@ -1,10 +1,11 @@
 ---
-title: Limit Results with GraphQL
-slug: limit-results-in-graphql
-seo:
-  title: Limit Results with GraphQL in TerminusCMS
-  description: How to use limit to limit query results with GraphQL
-  og_image: https://assets.terminusdb.com/docs/graphql-limit.png
+nextjs:
+  metadata:
+    title: Limit Results with GraphQL
+    description: How to use limit to limit query results with GraphQL
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/graphql-limit.png
 media:
   - alt: Clone the Star Wars demo from the TerminusCMS dashboard
     caption: ''

@@ -1,12 +1,14 @@
 ---
-title: TerminusDB Installation Options
-slug: terminusdb-install-options
-seo:
-  title: TerminusDB Installation Options
-  description: Choose how you'd like to install TerminusDB
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: TerminusDB Installation Options
+    description: Choose how you'd like to install TerminusDB
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 
-[Install on Kubernetes](/docs/install-on-kubernetes/)[Install as a Docker Container](/docs/install-terminusdb-as-a-docker-container/)[Install from Source Code](/docs/install-terminusdb-from-source-code/)
+* [Install on Kubernetes](/docs/install-on-kubernetes/)
+* [Install as a Docker Container](/docs/install-terminusdb-as-a-docker-container/)
+* [Install from Source Code](/docs/install-terminusdb-from-source-code/)

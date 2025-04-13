@@ -1,13 +1,13 @@
 ---
-title: Add a schema to TerminusCMS with the Python Client
-slug: add-a-schema-with-the-python-client
-seo:
-  title: Add a schema to TerminusCMS with the Python Client
-  description: >-
-    A guide to show how to add a schema to TerminusCMS projects with the Python
-    Client.
-  og_image: https://assets.terminusdb.com/docs/python-client-use-add-a-schema.png
-media: []
+nextjs:
+  metadata:
+    title: Add a schema to TerminusCMS with the Python Client
+    description: >-
+      A guide to show how to add a schema to TerminusCMS projects with the Python
+      Client.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/python-client-use-add-a-schema.png
 ---
 
 After you have imported the `terminusdb_client`, and [created a client](/docs/create-database-with-python-client/), and [connected to a database](/docs/connect-to-a-database-with-python-client/) you can create a schema.

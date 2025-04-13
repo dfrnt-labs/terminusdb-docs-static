@@ -1,12 +1,13 @@
 ---
-title: Use the TerminusCMS Dashboard to Curate Data & Content
-slug: use-the-admin-ui-curate-and-import-data
-seo:
-  title: Curate Data with the TerminusCMS Dashboard
-  description: >-
-    A how-to guide describing how to use the TerminusCMS dashboard to add, edit,
-    and delete content and data
-  og_image: https://assets.terminusdb.com/docs/document-explorer-home.png
+nextjs:
+  metadata:
+    title: Use the TerminusCMS Dashboard to Curate Data & Content
+    description: >-
+      A how-to guide describing how to use the TerminusCMS dashboard to add, edit,
+      and delete content and data
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/document-explorer-home.png
 media:
   - alt: TerminusCMS document explorer to edit content via the UI
     caption: ''

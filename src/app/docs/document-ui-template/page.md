@@ -1,11 +1,11 @@
 ---
-title: Document UI Template
-slug: document-ui-template
-seo:
-  title: Document UI Template
-  description: 'The document ui template has components to assemble a dashboard quickly. '
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Document UI Template
+    description: 'The document ui template has components to assemble a dashboard quickly. '
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

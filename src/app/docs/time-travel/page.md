@@ -1,12 +1,13 @@
 ---
-title: Time Travel using the TerminusCMS Dashboard
-slug: time-travel
-seo:
-  title: Time Travel using the TerminusCMS Dashboard
-  description: >-
-    A guide to show how to time travel to any previous commit using the
-    TerminusCMS dashboard.
-  og_image: https://assets.terminusdb.com/docs/time-travel.png
+nextjs:
+  metadata:
+    title: Time Travel using the TerminusCMS Dashboard
+    description: >-
+      A guide to show how to time travel to any previous commit using the
+      TerminusCMS dashboard.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/time-travel.png
 media:
   - alt: Time travel to any previous commit using the TerminusCMS dashboard
     caption: ''

@@ -44,7 +44,7 @@ export const navigation: Navigation[] = [
         ],
       },
       {
-        title: 'Connect to TerminusCMS',
+        title: 'Connect to TerminusDB',
         href: '/docs/how-to-connect-terminuscms',
       },
     ],
@@ -715,7 +715,7 @@ export const old = [
         ],
       },
       {
-        title: 'Connect to TerminusCMS',
+        title: 'Connect to TerminusDB',
         href: '/docs/how-to-connect-terminuscms',
       },
     ],

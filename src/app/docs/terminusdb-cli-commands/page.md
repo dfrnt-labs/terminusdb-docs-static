@@ -1,10 +1,33 @@
 ---
-title: TerminusDB CLI Commands
-slug: terminusdb-cli-commands
-seo:
-  title: TerminusDB CLI Commands
-  description: A list of the TerminusDB command line interface commands.
-  og_image: >-
+nextjs:
+  metadata:
+    title: TerminusDB CLI Commands
+    description: A list of the TerminusDB command line interface commands.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+media: []
+---
+
+## SYNOPSIS
+
+`terminusdb [command subcommand positional_arguments] flags`
+
+## DESCRIPTION
+
+The terminusdb(1) command line tool allows users to interact with a database, allowing common operations such as querying (and updating), database creation, data ingestion and maintainence.
+
+## COMMANDS
+
+terminusdb accepts a command, sometimes followed by a subcommand. The accepted commands are given here, along with their arguments.
+
+### help
+
+`terminusdb help`
+
+Display help regarding terminusdb.
+
+*   `-m`, `--markdown`\
     https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---

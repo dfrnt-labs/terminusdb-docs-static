@@ -1,4 +1,4 @@
-import { type Metadata } from 'next'
+import { ResolvingMetadata, type Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import clsx from 'clsx'
@@ -9,6 +9,8 @@ import { Layout } from '@/components/Layout'
 // import '@/styles/globals.css'
 import '@/styles/tailwind.css'
 import Script from 'next/script'
+import { getServerSideProps } from 'next/dist/build/templates/pages'
+import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -25,14 +27,15 @@ const lexend = localFont({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s - Docs',
-    default: 'TerminusDB - Git-for-data graph database for model-based hierarchical records.',
+    template: '%s - TerminusDB Documentation',
+    default:
+      'TerminusDB - Git-for-data graph database for model-based hierarchical records.',
   },
   description:
     'TerminusDB provides Semantic Document Graph Infrastructure; with a model-based, in-memory, and distributed graph database for hierarchical records with a git-for-data collaboration model at its heart.',
 }
 
-export default function RootLayout({
+export default function RootLayout({ 
   children,
 }: {
   children: React.ReactNode
@@ -43,19 +46,18 @@ export default function RootLayout({
       className={clsx('h-full antialiased', inter.variable, lexend.variable)}
       suppressHydrationWarning
     >
-      <head>
-      </head>
+      <head></head>
       <body className="flex min-h-full bg-white dark:bg-slate-900">
         <Providers>
           <Layout>{children}</Layout>
         </Providers>
-      <Script
+        <Script
           strategy="lazyOnload"
           data-domain="terminusdb.org"
           src="https://plausible.io/js/script.outbound-links.js"
         ></Script>
       </body>
-
     </html>
   )
 }
+

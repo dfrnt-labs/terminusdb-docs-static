@@ -1,10 +1,11 @@
 ---
-title: Edit documents in WOQL
-slug: edit-documents-with-woql
-seo:
-  title: Edit Documents using WOQL
-  description: A guide with example showing how to edit documents using WOQL
-  og_image: https://assets.terminusdb.com/docs/woql-edit-documents.png
+nextjs:
+  metadata:
+    title: Edit Documents using WOQL
+    description: A guide with example showing how to edit documents using WOQL
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/woql-edit-documents.png
 media: []
 ---
 

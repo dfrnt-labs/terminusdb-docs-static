@@ -1,13 +1,13 @@
 ---
-title: UI SDK GeoJSON
-slug: ui-sdk-geojson
-seo:
-  title: UI SDK GeoJSON
-  description: >-
-    Understand how <FrameViewer/> can load geoJSON to display geographic data
-    structures in Create, Edit or View Mode
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: UI SDK GeoJSON
+    description: >-
+      Understand how <FrameViewer/> can load geoJSON to display geographic data
+      structures in Create, Edit or View Mode
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

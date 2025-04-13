@@ -1,11 +1,11 @@
 ---
-title: Choice Document
-slug: choice-document
-seo:
-  title: Choice Document in the Document UI
-  description: How document choice works in the document UI
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Choice Document in the Document UI
+    description: How document choice works in the document UI
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

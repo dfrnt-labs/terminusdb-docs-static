@@ -1,10 +1,9 @@
 ---
-title: Python WOQL Customer Data Processing Example
-slug: python-woql-customer-data-processing-example
-seo:
-  title: Python WOQL Customer Data Processing Example
-  description: >-
-    A guide to show how to perform basic document queries using the Python Client for customer management.
+nextjs:
+  metadata:
+    title: Python WOQL Customer Data Processing Example
+    description: >-
+      A guide to show how to perform basic document queries using the Python Client for customer management.
 media: []
 ---
 

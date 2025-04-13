@@ -1,13 +1,14 @@
 ---
-title: Use the Model Builder UI
-slug: use-the-model-builder-ui
-seo:
-  title: Use the Model Builder UI to Build Schema
-  description: >-
-    The model builder UI allows you to construct classes of objects and define
-    what data they have, and what links (or relationships) they have between
-    them.
-  og_image: https://assets.terminusdb.com/docs/schema-ui-doc-properties.png
+nextjs:
+  metadata:
+    title: Use the Model Builder UI
+    description: >-
+      The model builder UI allows you to construct classes of objects and define
+      what data they have, and what links (or relationships) they have between
+      them.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/schema-ui-doc-properties.png
 media:
   - alt: Create a new data product using the TerminusDB/TerminusCMS dashboard
     caption: ''

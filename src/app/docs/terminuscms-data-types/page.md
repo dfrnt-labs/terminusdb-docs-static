@@ -1,300 +1,312 @@
 ---
-title: TerminusCMS Data Types
-slug: terminuscms-data-types
-seo:
-  title: TerminusCMS and TerminusDB Data Types
-  description: The core data types for TerminusDB and TerminusCMS.
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: TerminusCMS Data Types
+    description: The core data types for TerminusDB and TerminusCMS.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 
-FIXME: Tables need to be updated
+{% table %}
 
-**Type**
+- **Type**
+- **W3C spec**
+- **Description**
 
-**W3C spec**
+--- 
 
-**Description**
+- `xsd:string`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#string)
+- Character strings (but not all Unicode character strings)
 
-`xsd:string`
+---
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#string)
+- `xsd:boolean`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#boolean)
+- true, false
 
-Character strings (but not all Unicode character strings)
+---
 
-`xsd:boolean`
+- `xsd:decimal`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#decimal)
+- Equivalent to `xsd:double`
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#boolean)
+---
 
-true, false
+- `xsd:integer`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#integer)
+- Arbitrary-size integer numbers
 
-`xsd:decimal`
-
-[W3C](https://www.w3.org/TR/xmlschema-2/#decimal)
-
-Equivalent to `xsd:double`
-
-`xsd:integer`
-
-[W3C](https://www.w3.org/TR/xmlschema-2/#integer)
-
-Arbitrary-size integer numbers
+{% /table %}
 
 ## IEEE floating-point numbers
 
-**Type**
+{% table %}
 
-**W3C spec**
+- **Type**
+- **W3C spec**
+- **Description**
 
-**Description**
+---
 
-`xsd:double`
+- `xsd:double`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#double)
+- 64-bit floating point numbers incl. ∓Inf, ∓0, NaN
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#double)
+---
 
-64-bit floating point numbers incl. ∓Inf, ∓0, NaN
+- `xsd:float`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#float)
+- 32-bit floating point numbers incl. ∓Inf, ∓0, NaN
 
-`xsd:float`
-
-[W3C](https://www.w3.org/TR/xmlschema-2/#float)
-
-32-bit floating point numbers incl. ∓Inf, ∓0, NaN
+{% /table %}
 
 ## Time and date
 
-**Type**
+{% table %}
 
-**W3C spec**
+- **Type**
+- **W3C spec**
+- **Description**
 
-**Description**
+---
 
-`xsd:date`
+- `xsd:date`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#date)
+- Dates (yyyy-mm-dd) with or without timezone
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#date)
+---
 
-Dates (yyyy-mm-dd) with or without timezone
+- `xsd:time`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#time)
+- Times (`hh:mm:ss.sss`) with or without timezone
 
-`xsd:time`
+---
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#time)
+- `xsd:dateTime`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#dateTime)
+- Date and time with or without timezone
 
-Times (`hh:mm:ss.sss`) with or without timezone
+---
 
-`xsd:dateTime`
+- `xsd:dateTimeStamp`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#dateTimeStamp)
+- Date and time with required timezone
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#dateTime)
-
-Date and time with or without timezone
-
-`xsd:dateTimeStamp`
-
-\-
-
-Date and time with required timezone
+{% /table %}
 
 ## Recurring and partial dates
 
-**Type**
+{% table %}
 
-**W3C spec**
+- **Type**
+- **W3C spec**
+- **Description**
 
-**Description**
+---
 
-`xsd:gYear`
+- `xsd:gYear`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#gYear)
+- Gregorian calendar year
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#gYear)
+---
 
-Gregorian calendar year
+- `xsd:gMonth`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#gMonth)
+- Gregorian calendar month
 
-`xsd:gMonth`
+---
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#gMonth)
+- `xsd:gDay`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#gDay)
+- Gregorian calendar day of the month
 
-Gregorian calendar month
+---
 
-`xsd:gDay`
+- `xsd:gYearMonth`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#gYearMonth)
+- Gregorian calendar year and month
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#gDay)
+---
 
-Gregorian calendar day of the month
+- `xsd:gMonthDay`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#gMonthDay)
+- Gregorian calendar month and day
 
-`xsd:gYearMonth`
+---
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#gYearMonth)
+- `xsd:duration`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#duration)
+- Duration of time
 
-Gregorian calendar year and month
+---
 
-`xsd:gMonthDay`
+- `xsd:yearMonthDuration`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#yearMonthDuration)
+- Duration of time (months and years only)
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#gMonthDay)
+---
 
-Gregorian calendar month and day
+- `xsd:dayTimeDuration`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#dayTimeDuration)
+- Duration of time (days, hours, minutes, seconds only)
 
-`xsd:duration`
-
-[W3C](https://www.w3.org/TR/xmlschema-2/#duration)
-
-Duration of time
-
-`xsd:yearMonthDuration`
-
-\-
-
-Duration of time (months and years only)
-
-`xsd:dayTimeDuration`
-
-\-
-
-Duration of time (days, hours, minutes, seconds only)
+{% /table %}
 
 ## Limited-range integer numbers
 
-**Type**
+{% table %}
 
-**W3C spec**
+- **Type**
+- **W3C spec**
+- **Description**
 
-**Description**
+---
 
-`xsd:byte`
+- `xsd:byte`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#byte)
+- \-128…+127 (8 bit)
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#byte)
+---
 
-\-128…+127 (8 bit)
+- `xsd:short`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#short)
+- \-32768…+32767 (16 bit)
 
-`xsd:short`
+---
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#short)
+- `xsd:int`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#int)
+- \-2147483648…+2147483647 (32 bit)
 
-\-32768…+32767 (16 bit)
+---
 
-`xsd:int`
+- `xsd:long`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#long)
+- \-9223372036854775808…+9223372036854775807 (64 bit)
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#int)
+---
 
-\-2147483648…+2147483647 (32 bit)
+- `xsd:unsignedByte`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#unsignedByte)
+- 0…255 (8 bit)
 
-`xsd:long`
+---
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#long)
+- `xsd:unsignedShort`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#unsignedShort)
+- 0…65535 (16 bit)
 
-\-9223372036854775808…+9223372036854775807 (64 bit)
+---
 
-`xsd:unsignedByte`
+- `xsd:unsignedInt`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#unsignedInt)
+- 0…4294967295 (32 bit)
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#unsignedByte)
+---
 
-0…255 (8 bit)
+- `xsd:unsignedLong`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#unsignedLong)
+- 0…18446744073709551615 (64 bit)
 
-`xsd:unsignedShort`
+---
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#unsignedShort)
+- `xsd:positiveInteger`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#positiveInteger)
+- Integer numbers >0
 
-0…65535 (16 bit)
+---
 
-`xsd:unsignedInt`
+- `xsd:nonNegativeInteger`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger)
+- Integer numbers ≥0
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#unsignedInt)
+---
 
-0…4294967295 (32 bit)
+- `xsd:negativeInteger`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#negativeInteger)
+- Integer numbers <0
 
-`xsd:unsignedLong`
+---
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#unsignedLong)
+- `xsd:nonPositiveInteger`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#nonPositiveInteger)
+- Integer numbers ≤0
 
-0…18446744073709551615 (64 bit)
-
-`xsd:positiveInteger`
-
-[W3C](https://www.w3.org/TR/xmlschema-2/#positiveInteger)
-
-Integer numbers >0
-
-`xsd:nonNegativeInteger`
-
-[W3C](https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger)
-
-Integer numbers ≥0
-
-`xsd:negativeInteger`
-
-[W3C](https://www.w3.org/TR/xmlschema-2/#negativeInteger)
-
-Integer numbers <0
-
-`xsd:nonPositiveInteger`
-
-[W3C](https://www.w3.org/TR/xmlschema-2/#nonPositiveInteger)
-
-Integer numbers ≤0
+{% /table %}
 
 ## Encoded binary data
 
-**Type**
+{% table %}
 
-**W3C spec**
+- **Type**
+- **W3C spec**
+- **Description**
 
-**Description**
+---
 
-`xsd:hexBinary`
+- `xsd:hexBinary`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#hexBinary)
+- Hex-encoded binary data
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#hexBinary)
+---
 
-Hex-encoded binary data
+- `xsd:base64Binary`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#base64Binary)
+- Base64-encoded binary data
 
-`xsd:base64Binary`
-
-[W3C](https://www.w3.org/TR/xmlschema-2/#base64Binary)
-
-Base64-encoded binary data
+{% /table %}
 
 ## Miscellaneous XSD types
 
-**Type**
+{% table %}
 
-**W3C spec**
+- **Type**
+- **W3C spec**
+- **Description**
 
-**Description**
+---
 
-`xsd:anyURI`
+- `xsd:anyURI`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#anyURI)
+- Absolute or relative URIs and IRIs
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#anyURI)
+---
 
-Absolute or relative URIs and IRIs
+- `xsd:language`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#language)
+- Language tags per [BCP47](https://en.wikipedia.org/wiki/IETF_language_tag)
 
-`xsd:language`
+---
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#language)
+- `xsd:normalizedString`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#normalizedString)
+- Whitespace-normalized strings
 
-Language tags per [BCP47](https://en.wikipedia.org/wiki/IETF_language_tag)
+---
 
-`xsd:normalizedString`
+- `xsd:token`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#token)
+- Tokenized strings
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#normalizedString)
+---
 
-Whitespace-normalized strings
+- `xsd:NMTOKEN`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#NMTOKEN)
+- XML NMTOKENs
 
-`xsd:token`
+---
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#token)
+- `xsd:Name`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#Name)
+- XML Names
 
-Tokenized strings
+---
 
-`xsd:NMTOKEN`
+- `xsd:NCName`
+- [W3C](https://www.w3.org/TR/xmlschema-2/#NCName)
+- XML NCNames
 
-[W3C](https://www.w3.org/TR/xmlschema-2/#NMTOKEN)
-
-XML NMTOKENs
-
-`xsd:Name`
-
-[W3C](https://www.w3.org/TR/xmlschema-2/#Name)
-
-XML Names
-
-`xsd:NCName`
-
-[W3C](https://www.w3.org/TR/xmlschema-2/#NCName)
-
-XML NCNames
+{% /table %}

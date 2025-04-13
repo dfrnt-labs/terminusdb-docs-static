@@ -1,13 +1,13 @@
 ---
-title: Connect to a Database
-slug: connect-to-a-database
-seo:
-  title: Connect to a Database using the JavaScript Client
-  description: >-
-    A guide to show how to connect to an existing database using the TerminusDB
-    JavaScript Client.
-  og_image: >-
-    https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-connect.png?raw=true
+nextjs:
+  metadata:
+    title: Connect to a Database using the JavaScript Client
+    description: >-
+      A guide to show how to connect to an existing database using the TerminusDB
+      JavaScript Client.
+    openGraph:
+      images: >-
+        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-connect.png?raw=true
 media: []
 ---
 

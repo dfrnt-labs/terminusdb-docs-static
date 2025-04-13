@@ -1,10 +1,11 @@
 ---
-title: Clone a Project
-slug: clone
-seo:
-  title: Clone a Project using the TerminusCMS Dashboard
-  description: A guide to show how to clone a project using the TerminusCMS dashboard.
-  og_image: https://assets.terminusdb.com/docs/project-admin.png
+nextjs:
+  metadata:
+    title: Clone a Project using the TerminusCMS Dashboard
+    description: A guide to show how to clone a project using the TerminusCMS dashboard.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/project-admin.png
 media:
   - alt: Clone a project from the project home page
     caption: ''

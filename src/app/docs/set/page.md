@@ -1,11 +1,11 @@
 ---
-title: Set Properties in the Document UI
-slug: set
-seo:
-  title: Set Properties in the Document UI
-  description: How to use set properties in the document UI
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Set Properties in the Document UI
+    description: How to use set properties in the document UI
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

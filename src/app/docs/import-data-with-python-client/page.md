@@ -1,12 +1,13 @@
 ---
-title: Import Data with the Python Client
-slug: import-data-with-python-client
-seo:
-  title: Import Data with the Python Client
-  description: >-
-    A guide to show how to import CSV data into TerminusCMS & DB using the
-    Python Client
-  og_image: https://assets.terminusdb.com/docs/python-client-use-import-data.png
+nextjs:
+  metadata:
+    title: Import Data with the Python Client
+    description: >-
+      A guide to show how to import CSV data into TerminusCMS & DB using the
+      Python Client
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/python-client-use-import-data.png
 media: []
 ---
 

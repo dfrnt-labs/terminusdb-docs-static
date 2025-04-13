@@ -1,10 +1,11 @@
 ---
-title: Delete a document in WOQL
-slug: delete-documents-with-woql
-seo:
-  title: How to delete documents using WOQL
-  description: A how-to guide showing how to construct a WOQL query to delete documents.
-  og_image: https://assets.terminusdb.com/docs/woql-delete-documents.png
+nextjs:
+  metadata:
+    title: How to delete documents using WOQL
+    description: A how-to guide showing how to construct a WOQL query to delete documents.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/woql-delete-documents.png
 media: []
 ---
 

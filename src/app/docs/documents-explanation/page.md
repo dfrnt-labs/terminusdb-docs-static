@@ -1,13 +1,13 @@
 ---
-title: Documents Explanation
-slug: documents-explanation
-seo:
-  title: TerminusCMS Documents Explanation
-  description: >-
-    The types of documents available in TerminusDB and TerminusCMS with examples
-    of their definitions and interactions.
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: TerminusCMS Documents Explanation
+    description: >-
+      The types of documents available in TerminusDB and TerminusCMS with examples
+      of their definitions and interactions.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
   - alt: ''
     caption: ''

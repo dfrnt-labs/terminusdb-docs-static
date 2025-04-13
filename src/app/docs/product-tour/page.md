@@ -1,13 +1,13 @@
 ---
-title: TerminusCMS Product Tour
-slug: product-tour
-seo:
-  title: TerminusCMS Product Tour
-  description: >-
-    This page provides an overview of the TerminusCMS dashboard to help you
-    navigate its features.
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: TerminusCMS Product Tour
+    description: >-
+      This page provides an overview of the TerminusCMS dashboard to help you
+      navigate its features.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
   - alt: Try out TerminusCMS by clone a demo data product
     caption: ''

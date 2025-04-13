@@ -57,7 +57,7 @@
       },
       {
         "@type": "Menu1",
-        "Menu1Label": "Connect to TerminusCMS",
+        "Menu1Label": "Connect to TerminusDB",
         "Order": "8",
         "Menu1Page": "Page/how-to-connect-terminuscms",
         "Level2": []

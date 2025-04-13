@@ -1,13 +1,13 @@
 ---
-title: Immutability Explanation
-slug: immutability-explanation
-seo:
-  title: TerminusCMS Immutability Explanation
-  description: >-
-    An explanation of how TerminusDB & TerminusCMS implements immutability, and
-    handles deleted and new data.
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Immutability Explanation
+    description: >-
+      An explanation of how TerminusDB & TerminusCMS implements immutability, and
+      handles deleted and new data.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 
@@ -17,11 +17,12 @@ TerminusDB is an immutable data store. When data is written to a store, it does 
 
 Immutability has several advantages, including:
 
-*   [Transaction safety](#transactionsafety)
-*   [Lock-free concurrency](#lockfreeconcurrency)
-*   [Commit and branch time travel](#commitandbranchtimetravel)
-*   [Change audit](#changeaudit)
-*   [Collaboration and synchronization](#collaborationandsynchronization)
+- [Advantages of immutability](#advantages-of-immutability)
+  - [Transaction safety](#transaction-safety)
+  - [Lock-free concurrency](#lock-free-concurrency)
+  - [Commit and branch time travel](#commit-and-branch-time-travel)
+  - [Change audit](#change-audit)
+  - [Collaboration and synchronization](#collaboration-and-synchronization)
 
 ### Transaction safety
 

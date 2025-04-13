@@ -1,11 +1,11 @@
 ---
-title: Cloning a Database
-slug: clone-a-project
-seo:
-  title: Cloning a Database
-  description: A guide to show how to clone a database with the JS WOQLClient.
-  og_image: >-
-    https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-collaboration-clone.png?raw=true
+nextjs:
+  metadata:
+    title: Cloning a Database
+    description: A guide to show how to clone a database with the JS WOQLClient.
+    openGraph:
+      images: >-
+        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-collaboration-clone.png?raw=true
 media: []
 ---
 

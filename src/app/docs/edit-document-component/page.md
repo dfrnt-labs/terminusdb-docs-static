@@ -1,13 +1,13 @@
 ---
-title: EditDocumentComponent
-slug: edit-document-component
-seo:
-  title: EditDocumentComponent
-  description: >-
-    The EditDocumentComponent allows you to edit an existing document using the
-    FrameViewer component
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: EditDocumentComponent
+    description: >-
+      The EditDocumentComponent allows you to edit an existing document using the
+      FrameViewer component
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

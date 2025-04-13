@@ -1,13 +1,13 @@
 ---
-title: DocumentClassesSummary Component
-slug: documentclassessummary
-seo:
-  title: DocumentClassesSummary Component
-  description: >-
-    The DocumentClassesSummary component allows you to visualize document
-    classes using interactive cards.
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: DocumentClassesSummary Component
+    description: >-
+      The DocumentClassesSummary component allows you to visualize document
+      classes using interactive cards.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

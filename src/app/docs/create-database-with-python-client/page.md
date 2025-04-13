@@ -1,12 +1,13 @@
 ---
-title: Create a Database with the Python Client
-slug: create-database-with-python-client
-seo:
-  title: Create a Database with the Python Client
-  description: >-
-    A guide showing how to create a TerminusDB or TerminusCMS database using the
-    Python Client.
-  og_image: https://assets.terminusdb.com/docs/python-client-use-create-a-db.png
+nextjs:
+  metadata:
+    title: Create a Database with the Python Client
+    description: >-
+      A guide showing how to create a TerminusDB or TerminusCMS database using the
+      Python Client.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/python-client-use-create-a-db.png
 media: []
 ---
 

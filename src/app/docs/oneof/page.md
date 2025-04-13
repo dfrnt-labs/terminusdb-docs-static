@@ -1,11 +1,11 @@
 ---
-title: One Of
-slug: oneof
-seo:
-  title: One Of Documents in the Document UI
-  description: An example of how one of properties work in the document UI
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: One Of
+    description: An example of how one of properties work in the document UI
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

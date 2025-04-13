@@ -1,12 +1,13 @@
 ---
-title: Create a Project/Data Project in TerminusCMS
-slug: create-a-project-with-terminuscms
-seo:
-  title: How to create a project with TerminusCMS
-  description: >-
-    A how-to guide showing you how to create a new project using the TerminusCMS
-    dashboard
-  og_image: https://assets.terminusdb.com/docs/new-data-product.png
+nextjs:
+  metadata:
+    title: How to create a project with TerminusCMS
+    description: >-
+      A how-to guide showing you how to create a new project using the TerminusCMS
+      dashboard
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/new-data-product.png
 media:
   - alt: how to create a project in the TerminusCMS dashboard
     caption: ''

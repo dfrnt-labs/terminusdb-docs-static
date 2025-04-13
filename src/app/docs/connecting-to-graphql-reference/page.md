@@ -1,13 +1,13 @@
 ---
-title: Connecting to GraphQL Reference Guide
-slug: connecting-to-graphql-reference
-seo:
-  title: Connecting to GraphQL Reference Guide
-  description: >-
-    A reference guide detailing connecting to GraphQL with TerminusDB and
-    TerminusCMS.
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Connecting to GraphQL Reference Guide
+    description: >-
+      A reference guide detailing connecting to GraphQL with TerminusDB and
+      TerminusCMS.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
   - alt: GraphiQL interface screen shot
     caption: ''

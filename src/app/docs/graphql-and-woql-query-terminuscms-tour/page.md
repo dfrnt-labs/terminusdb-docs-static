@@ -1,10 +1,43 @@
 ---
-title: GraphQL & WOQL Query Tools
-slug: graphql-and-woql-query-terminuscms-tour
-seo:
-  title: GraphQL & WOQL Query Tools - TerminusCMS Tour
-  description: An overview of the GraphQL and WOQL tools in the TerminusCMS dashboard
-  og_image: >-
+nextjs:
+  metadata:
+    title: GraphQL & WOQL Query Tools
+    description: An overview of the GraphQL and WOQL tools in the TerminusCMS dashboard
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+media:
+  - alt: GraphQL playground
+    caption: ''
+    media_type: Image
+    title: GraphQL playground
+    value: https://assets.terminusdb.com/docs/graphql-playground.png
+  - alt: Test out your WOQL queries in the TerminusCMS dashboard
+    caption: ''
+    media_type: Image
+    title: Test out your WOQL queries in the TerminusCMS dashboard
+    value: https://assets.terminusdb.com/docs/woql-playground.jpg
+---
+
+TerminusCMS features query panes for [GraphQL](/docs/graphql-basics/) and [WOQL](/docs/woql-basics/).
+
+## GraphQL Query Pane
+
+![GraphQL playground](https://assets.terminusdb.com/docs/graphql-playground.png)
+
+TerminusCMS includes GraphiQL to experiment and test queries. It automatically generates the GraphQL schema based on the project's schema.
+
+It includes -
+
+*   List of root types within the project
+*   Autofill to aid query construction
+*   Pretty print
+*   Results panel
+*   Error reporting
+
+For more details about the types of queries available with GraphQL, such as path queries, filters, and arguments, please refer to the [GraphQL reference guide](/docs/graphql-query-reference/).
+
+### WOQL Query Pane
     https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
   - alt: GraphQL playground

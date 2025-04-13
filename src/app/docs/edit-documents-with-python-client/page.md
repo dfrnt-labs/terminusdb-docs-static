@@ -1,12 +1,13 @@
 ---
-title: Edit a Document with the Python Client
-slug: edit-documents-with-python-client
-seo:
-  title: Edit a Document with the Python Client
-  description: >-
-    A guide to show how to update a document in TerminusDB and TerminusCMS using
-    the Python Client
-  og_image: https://assets.terminusdb.com/docs/python-client-use-edit-a-document.png
+nextjs:
+  metadata:
+    title: Edit a Document with the Python Client
+    description: >-
+      A guide to show how to update a document in TerminusDB and TerminusCMS using
+      the Python Client
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/python-client-use-edit-a-document.png
 media: []
 ---
 

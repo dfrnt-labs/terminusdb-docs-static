@@ -1,12 +1,13 @@
 ---
-title: Query with GraphQL
-slug: graphql-basics
-seo:
-  title: Learn the GraphQL Basics for TerminusCMS
-  description: >-
-    Learn to query TerminusDB and TerminusCMS using GraphQL and a Star Wars data
-    project that you can clone from the dashboard.
-  og_image: https://assets.terminusdb.com/docs/graphqll-basics.png
+nextjs:
+  metadata:
+    title: Learn the GraphQL Basics for TerminusCMS
+    description: >-
+      Learn to query TerminusDB and TerminusCMS using GraphQL and a Star Wars data
+      project that you can clone from the dashboard.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/graphqll-basics.png
 media:
   - alt: Clone a demo project from the dashboard
     caption: ''

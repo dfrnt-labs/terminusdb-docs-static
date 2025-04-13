@@ -1,10 +1,11 @@
 ---
-title: How to Order Results in WOQL
-slug: order-by-with-woql
-seo:
-  title: How to Order Results in WOQL - TerminusDB
-  description: A guide to show you how to order results using order_by in WOQL.
-  og_image: https://assets.terminusdb.com/docs/woql-order-by.png
+nextjs:
+  metadata:
+    title: How to Order Results in WOQL
+    description: A guide to show you how to order results using order_by in WOQL.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/woql-order-by.png
 media: []
 ---
 

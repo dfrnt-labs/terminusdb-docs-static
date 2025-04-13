@@ -1,11 +1,11 @@
 ---
-title: Get Started with TerminusDB
-slug: get-started-with-terminusdb
-seo:
-  title: Get Started with TerminusDB
-  description: ' An overview of the ways to get started with TerminusDB.'
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Get Started with TerminusDB
+    description: ' An overview of the ways to get started with TerminusDB.'
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

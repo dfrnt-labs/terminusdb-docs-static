@@ -1,13 +1,13 @@
 ---
-title: TerminusDB React Table
-slug: tdb-react-table
-seo:
-  title: TerminusDB React Table
-  description: >-
-    Learn how to include TerminusDB React Table components in your projects to
-    display documents in an interactive table
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: TerminusDB React Table
+    description: >-
+      Learn how to include TerminusDB React Table components in your projects to
+      display documents in an interactive table
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

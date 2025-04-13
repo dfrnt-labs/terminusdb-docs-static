@@ -1,12 +1,13 @@
 ---
-title: Get your API key from TerminusCMS
-slug: get-your-api-key-from-terminuscms
-seo:
-  title: How to get your API key using TerminusCMS
-  description: >-
-    A how-to guide showing how to get your API key to set up and configure your
-    environment to use with a client.
-  og_image: https://assets.terminusdb.com/docs/get-your-api-key.png
+nextjs:
+  metadata:
+    title: How to get your API key using TerminusCMS
+    description: >-
+      A how-to guide showing how to get your API key to set up and configure your
+      environment to use with a client.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/get-your-api-key.png
 media: []
 ---
 

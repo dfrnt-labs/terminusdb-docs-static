@@ -1,13 +1,13 @@
 ---
-title: Branch a Project using the TerminusDB JS Client
-slug: branch-a-project
-seo:
-  title: Branch a Project using the JavaScript Client
-  description: >-
-    A guide to show how to create a new branch in TerminusDB and TerminusCMS
-    using the JavaScript Client.
-  og_image: >-
-    https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/JS-client-collaboration-branch.png?raw=true
+nextjs:
+  metadata:
+    title: Branch a Project using the TerminusDB JS Client
+    description: >-
+      A guide to show how to create a new branch in TerminusDB and TerminusCMS
+      using the JavaScript Client.
+    openGraph:
+      images: >-
+        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/JS-client-collaboration-branch.png?raw=true
 media: []
 ---
 

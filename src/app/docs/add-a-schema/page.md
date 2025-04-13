@@ -1,14 +1,13 @@
 ---
-title: Add a Schema
-slug: add-a-schema
-seo:
-  title: Add a Schema using the JavaScript Client
-  description: >-
-    A guide to show how to add a schema to TerminusDB and TerminusCMS using the
-    TerminusDB JavaScript Client.
-  og_image: >-
-    https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-add-a-schema.png?raw=true
-media: []
+nextjs:
+  metadata:
+    title: Add a Schema using the JavaScript Client
+    description: >-
+      A guide to show how to add a schema to TerminusDB and TerminusCMS using the
+      TerminusDB JavaScript Client.
+    openGraph:
+      images: >-
+        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-add-a-schema.png?raw=true
 ---
 
 After you have imported the terminusdb\_client, [created a client](/docs/connect-with-the-javascript-client/), and [connected to a database](/docs/connect-to-a-database/) you can create a schema.

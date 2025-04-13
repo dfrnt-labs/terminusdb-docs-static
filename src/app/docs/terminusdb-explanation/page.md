@@ -1,13 +1,13 @@
 ---
-title: TerminusDB Explanation
-slug: terminusdb-explanation
-seo:
-  title: TerminusDB Explanation
-  description: >-
-    A high-level description of what TerminusDB is, reasons for using
-    TerminusDB, and its Git-like features.
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: TerminusDB Explanation
+    description: >-
+      A high-level description of what TerminusDB is, reasons for using
+      TerminusDB, and its Git-like features.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
   - alt: ''
     caption: ''

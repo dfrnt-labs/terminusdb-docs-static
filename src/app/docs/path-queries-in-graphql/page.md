@@ -1,12 +1,13 @@
 ---
-title: Path Queries in GraphQL
-slug: path-queries-in-graphql
-seo:
-  title: How to perform path queries with GraphQL
-  description: >-
-    How to do path queries on TerminusDB and TerminusCMS data products using
-    GraphQL
-  og_image: https://assets.terminusdb.com/docs/graphql-path-query.png
+nextjs:
+  metadata:
+    title: Path Queries in GraphQL
+    description: >-
+      How to do path queries on TerminusDB and TerminusCMS data products using
+      GraphQL
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/graphql-path-query.png
 media: []
 ---
 

@@ -1,12 +1,13 @@
 ---
-title: Order By in GraphQL
-slug: order-by-in-graphql
-seo:
-  title: Order By GraphQL Queries in TerminusCMS
-  description: >-
-    How to use the order by argument in GraphQL queries with TerminusCMS and
-    TerminusDB
-  og_image: https://assets.terminusdb.com/docs/graphql-order-by.png
+nextjs:
+  metadata:
+    title: Order By in GraphQL
+    description: >-
+      How to use the order by argument in GraphQL queries with TerminusCMS and
+      TerminusDB
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/graphql-order-by.png
 media: []
 ---
 

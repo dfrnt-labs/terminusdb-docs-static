@@ -1,10 +1,11 @@
 ---
-title: Mathematical Operations in WOQL
-slug: maths-based-queries-in-woql
-seo:
-  title: Mathematical Operations in WOQL - TerminusDB
-  description: 'A guide to show how to how to perform mathematical operations using WOQL '
-  og_image: https://assets.terminusdb.com/docs/woql-maths-query.png
+nextjs:
+  metadata:
+    title: Mathematical Operations in WOQL
+    description: 'A guide to show how to how to perform mathematical operations using WOQL '
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/woql-maths-query.png
 media: []
 ---
 

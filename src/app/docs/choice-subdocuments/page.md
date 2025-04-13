@@ -1,13 +1,13 @@
 ---
-title: Choice Sub-Documents
-slug: choice-subdocuments
-seo:
-  title: TerminusDB Document UI SDK - Using Choice Subdocuments
-  description: >-
-    A guide showing how to use multiple choice subdocuments with the TerminusDB
-    document UI SDK
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: TerminusDB Document UI SDK - Using Choice Subdocuments
+    description: >-
+      A guide showing how to use multiple choice subdocuments with the TerminusDB
+      documen t UI SDK
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

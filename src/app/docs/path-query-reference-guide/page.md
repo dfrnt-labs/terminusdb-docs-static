@@ -1,10 +1,103 @@
 ---
-title: TerminusCMS Path Query Reference Guide
-slug: path-query-reference-guide
-seo:
-  title: TerminusCMS Path Query Reference Guide
-  description: A reference guide to path queries in TerminusCMS and TerminusDB.
-  og_image: >-
+nextjs:
+  metadata:
+    title: TerminusCMS Path Query Reference Guide
+    description: A reference guide to path queries in TerminusCMS and TerminusDB.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+media: []
+---
+
+TerminusDB & TerminusCMS allows _path regular expressions_ as a way to describe multi-hop searches in a concise fashion. When you need to follow a link repeatedly for shortest path queries or to find all linked documents meeting some specification you can often use a _path query_.
+
+> For guidance on back-links and path queries using GraphQL visit the [GraphQL reference guide](/docs/graphql-query-reference/#backlinks)
+
+The syntax of path expressions, for expressions `A`, `B` and fields `F` is as follows:
+
+{%table%}
+
+- Expression
+- Example
+- Name
+- Description
+
+---
+
+- `A,B`
+- `friend,name`
+- Sequence
+- First follow expression `A`, then from that node expression `B`
+
+---
+
+- `A|B`
+- `friend|foe`
+- Choice
+- Follow expression `A` or expression `B`
+
+---
+
+- `F+`
+- `friend+`
+- Plus
+- Follow the field `F` any number of times, but at least once
+
+---
+
+- `F*`
+- `friend*`
+- Star
+- Follow the field `F` any number of times, including zero
+
+---
+
+- `.`
+- `.`
+- Any
+- Follow the field `F` any number of times, including zero
+
+---
+
+- `.`
+- `.`
+- Any
+- Follow any field `F` regardless of name
+
+---
+
+- `F`
+- `friend`
+- Field
+- Follow the field `F`
+
+---
+
+- `F{n,m}`
+- `friend{1,3}`
+- Times
+- Follow the field `F` between `n` and `m` times
+
+---
+
+- `(A)`
+- `(friend|foe)`
+- Group
+- Group the expression for inclusion in a larger expression
+
+---
+
+- `F>`
+- `friend>`
+- Forward
+- Follow the field `F` forward. This is the same as `F`.
+
+---
+
+- `<F`
+- `<friend`
+- Backward
+- Follow the field `F` backward (who is linked to this node by `F`
     https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---

@@ -1,13 +1,13 @@
 ---
-title: ViewDocumentComponent
-slug: viewdocumentcomponent
-seo:
-  title: ViewDocumentComponent
-  description: >-
-    The ViewDocumentComponent allows you to view existing documents using the
-    FrameViewer component
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: ViewDocumentComponent
+    description: >-
+      The ViewDocumentComponent allows you to view existing documents using the
+      FrameViewer component
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

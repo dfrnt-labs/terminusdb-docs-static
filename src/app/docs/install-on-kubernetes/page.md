@@ -1,9 +1,11 @@
 ---
-title: Install on Kubernetes
-slug: install-on-kubernetes
-seo:
-  title: TerminusDB on Kubernetes
-  description: Install TerminusDB on a Kubernetes cluster
+nextjs:
+  metadata:
+    title: Install on Kubernetes
+    description: Install TerminusDB on a Kubernetes cluster
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

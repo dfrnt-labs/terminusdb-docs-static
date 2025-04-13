@@ -1,13 +1,13 @@
 ---
-title: Edit a Document with the JavaScript Client
-slug: edit-a-document
-seo:
-  title: Edit a Document using the JavaScript Client
-  description: >-
-    A guide to show how to update a document in TerminusDB and TerminusCMS using
-    the JavaScript Client.
-  og_image: >-
-    https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-edit-a-document.png?raw=true
+nextjs:
+  metadata:
+    title: Edit a Document with the JavaScript Client
+    description: >-
+      A guide to show how to update a document in TerminusDB and TerminusCMS using
+      the JavaScript Client.
+    openGraph:
+      images: >-
+        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-edit-a-document.png?raw=true
 media: []
 ---
 

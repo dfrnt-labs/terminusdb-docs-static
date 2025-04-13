@@ -1,13 +1,13 @@
 ---
-title: Graphs Explanation
-slug: graphs-explanation
-seo:
-  title: Graphs Explanation
-  description: >-
-    An introduction to the hierarchy and system of graphs used by TerminusDB and
-    TerminusCMS for collaboration and revision control.
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Graphs Explanation
+    description: >-
+      An introduction to the hierarchy and system of graphs used by TerminusDB and
+      TerminusCMS for collaboration and revision control.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

@@ -1,13 +1,13 @@
 ---
-title: System Graph Interface to GraphQL
-slug: system-graph-graphql-interface-reference
-seo:
-  title: System Graph Interface to GraphQL
-  description: >-
-    TerminusCMS and TerminusDB technical documentation - System Graph Interface
-    to GraphQL
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: System Graph Interface to GraphQL
+    description: >-
+      TerminusCMS and TerminusDB technical documentation - System Graph Interface
+      to GraphQL
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

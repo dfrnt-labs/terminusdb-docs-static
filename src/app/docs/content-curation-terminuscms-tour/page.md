@@ -1,13 +1,13 @@
 ---
-title: Content & Data Curation in TerminusCMS
-slug: content-curation-terminuscms-tour
-seo:
-  title: Content & Data Curation - TerminusCMS Tour
-  description: >-
-    Technical and non-technical users can curate content and data using the
-    TerminusCMS dashboard
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Content & Data Curation in TerminusCMS
+    description: >-
+      Technical and non-technical users can curate content and data using the
+      TerminusCMS dashboard
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
   - alt: TerminusCMS document explorer
     caption: ''

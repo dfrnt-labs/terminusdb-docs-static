@@ -1,11 +1,11 @@
 ---
-title: Filter with GraphQL
-slug: filter-with-graphql
-seo:
-  title: Filter
-  description: Filter with GraphQL
-  og_image: >-
-    https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/graphql-filter.png?raw=true
+nextjs:
+  metadata:
+    title: Filter with GraphQL
+    description: Filter with GraphQL
+    openGraph:
+      images: >-
+        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/graphql-filter.png?raw=true
 media: []
 ---
 

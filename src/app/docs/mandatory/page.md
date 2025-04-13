@@ -1,10 +1,23 @@
 ---
-title: Mandatory
-slug: mandatory
-seo:
-  title: Mandatory Properties in the Document UI
-  description: How mandatory properties work in the document user interface.
-  og_image: >-
+nextjs:
+  metadata:
+    title: Mandatory Properties in the Document UI
+    description: How mandatory properties work in the document user interface.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+media: []
+---
+
+This example shows how `<FrameViewer/>` appears for a document called `Person` with mandatory fields in Create/ Edit and View mode. A required tag will appear against every mandatory field.
+
+## Demo
+
+Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Mandatory) to view the `<FrameViewer/>` with mandatory properties in Create, Edit and View mode.
+
+## Frame
+
+The below frame consists of a `Person` document with mandatory fields -
     https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
@@ -13,7 +26,7 @@ This example shows how `<FrameViewier/>` appears for a document called `Person` 
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Mandatory) to view the `<FrameViewier/>` with mandatory properties in Create, Edit and View mode.
+Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Mandatory) to view the `<FrameViewer/>` with mandatory properties in Create, Edit and View mode.
 
 ## Frame
 

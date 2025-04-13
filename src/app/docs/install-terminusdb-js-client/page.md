@@ -1,11 +1,11 @@
 ---
-title: Install the TerminusDB JavaScript Client
-slug: install-terminusdb-js-client
-seo:
-  title: Install the TerminusDB JavaScript Client
-  description: Installation instruction for the TerminusDB JavaScript Client
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Install the TerminusDB JavaScript Client
+    description: Installation instruction for the TerminusDB JavaScript Client
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

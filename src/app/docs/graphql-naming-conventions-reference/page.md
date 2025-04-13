@@ -1,13 +1,13 @@
 ---
-title: GraphQL Naming Conventions Reference Guide
-slug: graphql-naming-conventions-reference
-seo:
-  title: GraphQL Naming Conventions Reference Guide
-  description: >-
-    A reference guide detail the GraphQL naming conventions in TerminusDB and
-    TerminusCMS.
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: GraphQL Naming Conventions Reference Guide
+    description: >-
+      A reference guide detail the GraphQL naming conventions in TerminusDB and
+      TerminusCMS.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

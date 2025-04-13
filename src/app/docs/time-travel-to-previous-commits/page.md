@@ -1,12 +1,13 @@
 ---
-title: Time Travel through your Database History
-slug: time-travel-to-previous-commits
-seo:
-  title: Time Travel to a Specific Commit in your Database
-  description: >-
-    A guide showing how to time travel to a specific commit in TerminusCMS and
-    TerminusDB
-  og_image: https://assets.terminusdb.com/docs/js-client-collaboration-time-travel.png
+nextjs:
+  metadata:
+    title: Time Travel through your Database History
+    description: >-
+      A guide showing how to time travel to a specific commit in TerminusCMS and
+      TerminusDB
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/js-client-collaboration-time-travel.png
 media: []
 ---
 

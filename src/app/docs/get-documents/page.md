@@ -1,13 +1,13 @@
 ---
-title: Get Documents
-slug: get-documents
-seo:
-  title: Get Documents using the JavaScript Client
-  description: >-
-    A guide to show how to get documents to TerminusDB and TerminusCMS using the
-    JavaScript Client
-  og_image: >-
-    https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-get-documents.png?raw=true
+nextjs:
+  metadata:
+    title: Get Documents using the JavaScript Client
+    description: >-
+      A guide to show how to get documents to TerminusDB and TerminusCMS using the
+      JavaScript Client
+    openGraph:
+      images: >-
+        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-get-documents.png?raw=true
 media: []
 ---
 

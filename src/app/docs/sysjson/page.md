@@ -1,11 +1,11 @@
 ---
-title: sys:JSON Properties in the Document UI
-slug: sysjson
-seo:
-  title: 'sys:JSON Properties in the Document UI '
-  description: How to use sys:JSON properties in the document UI
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: 'sys:JSON Properties in the Document UI'
+    description: How to use sys:JSON properties in the document UI
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

@@ -1,10 +1,11 @@
 ---
-title: Cloning a Database with the Python Client
-slug: clone-a-database-with-python
-seo:
-  title: Cloning a Database with the Python Client
-  description: A guide to show how to clone a database using the Python Client.
-  og_image: https://assets.terminusdb.com/docs/python-client-collaboration-clone.png
+nextjs:
+  metadata:
+    title: Cloning a Database with the Python Client
+    description: A guide to show how to clone a database using the Python Client.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/python-client-collaboration-clone.png
 media: []
 ---
 

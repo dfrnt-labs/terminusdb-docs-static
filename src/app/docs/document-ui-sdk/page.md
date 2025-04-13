@@ -1,15 +1,13 @@
 ---
-title: How to Use the Document UI SDK
-slug: document-ui-sdk
-seo:
-  title: How to use the TerminusCMS Document UI SDK
-  description: How to use the TerminusCMS Document UI SDK
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: How to use the TerminusCMS Document UI SDK
+    description: How to use the TerminusCMS Document UI SDK
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
-
-FIXME: Tables need to be updated
 
 Use the TerminusDB documents User Interface (UI) utility `terminusdb-documents-ui` to automatically generate user interfaces for the document definitions in your TerminusDB schema. The utility takes frames as input and outputs forms in HTML format. A frame is the JSON structure of a JSON document, including the document's inherited properties and IRIs.
 
@@ -47,69 +45,90 @@ Use the `FrameViewer` object of `terminusdb-documents-ui` to configure and displ
 
 #### FrameViewer parameters
 
-**Parameter**
+{% table %}
 
-**Description**
+- **Parameter**
+- **Description**
 
-`frame`
+---
 
-The JSON frame structure of a TerminusDB schema.
+- `frame`
+- The JSON frame structure of a TerminusDB schema.
 
-`mode`
+---
 
-Form modes - `Create`, `Edit`, or `View`.
+- `mode`
+- Form modes - `Create`, `Edit`, or `View`.
 
-`formData`
+---
 
-The data entered into or provided for a form. Specify `formData` in `Edit` and `View` modes to display data.
+- `formData`
+- The data entered into or provided for a form. Specify `formData` in `Edit` and `View` modes to display data.
 
-`type`
+---
 
-document type of interest to be displayed in form.
+- `type`
+- document type of interest to be displayed in form.
 
-`language`
+---
 
-language code parameters to support a wide variety of languages in UI as defined in schema
+- `language`
+- language code parameters to support a wide variety of languages in UI as defined in schema
+
+{% /table %}
 
 #### FrameViewer functions
 
-**Function**
+{% table %}
 
-**Description**
+- **Function**
+- **Description**
 
-`onSubmit`
+---
 
-A customizable JavaScrpt (JS) callback function to process data submitted via a form.
+- `onSubmit`
+- A customizable JavaScrpt (JS) callback function to process data submitted via a form.
 
-`onSelect`
+---
 
-JS callback function to retrieve the selected values from a `Select` component.
+- `onSelect`
+- JS callback function to retrieve the selected values from a `Select` component.
 
-`onTraverse`
+---
 
-Return the ID of a document on a click event. Useful for binding an `onClick` event with a document.
+- `onTraverse`
+- Return the ID of a document on a click event. Useful for binding an `onClick` event with a document.
+
+{% /table %}
 
 #### FrameViewer Mandatory props
 
-props
+{% table %}
 
-Mandatory
+- props
+- Mandatory
 
-frame
+---
 
-true
+- frame
+- true
 
-type
+---
 
-true
+- type
+- true
 
-mode
+---
 
-true
+- mode
+- true
 
-formData
+---
 
-formData has to be mandatory in Edit or View mode. If nothing to display then pass empty json {}
+- formData
+- formData has to be mandatory in Edit or View mode. If nothing to display then pass empty json {}
+
+{% /table %}
 
 ### FrameViewer common usage
 

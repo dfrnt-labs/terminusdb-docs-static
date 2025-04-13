@@ -1,12 +1,13 @@
 ---
-title: How to Connect with the Python Client
-slug: connect-with-python-client
-seo:
-  title: How to Connect with the Python Client
-  description: >-
-    A guide to show how to connect with the Python Client for TerminusDB and
-    TerminusCMS.
-  og_image: https://assets.terminusdb.com/docs/python-client-use-connect.png
+nextjs:
+  metadata:
+    title: How to Connect with the Python Client
+    description: >-
+      A guide to show how to connect with the Python Client for TerminusDB and
+      TerminusCMS.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/python-client-use-connect.png
 media: []
 ---
 

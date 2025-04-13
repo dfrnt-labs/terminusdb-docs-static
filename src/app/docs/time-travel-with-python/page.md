@@ -1,13 +1,13 @@
 ---
-title: Time Travel Through your Database History
-slug: time-travel-with-python
-seo:
-  title: Time Travel Through your Database History
-  description: >-
-    A guide to show to time travel through your TerminusDB and TerminusCMS
-    projects using the Python Client.
-  og_image: >-
-    https://assets.terminusdb.com/docs/python-client-collaboration-time-travel.png
+nextjs:
+  metadata:
+    title: Time Travel Through your Database History
+    description: >-
+      A guide to show to time travel through your TerminusDB and TerminusCMS
+      projects using the Python Client.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/python-client-collaboration-time-travel.png
 media: []
 ---
 

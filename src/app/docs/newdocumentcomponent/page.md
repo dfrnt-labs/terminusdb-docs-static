@@ -1,13 +1,13 @@
 ---
-title: NewDocumentComponent
-slug: newdocumentcomponent
-seo:
-  title: NewDocumentComponent
-  description: >-
-    The NewDocumentComponent allows you to create new documents using the
-    FrameViewer
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: NewDocumentComponent
+    description: >-
+      The NewDocumentComponent allows you to create new documents using the
+      FrameViewer
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

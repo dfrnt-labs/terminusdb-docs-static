@@ -1,14 +1,13 @@
 ---
-title: ListDocumentsComponent
-slug: list-documents-component
-seo:
-  title: ListDocumentsComponent
-  description: >-
-    The ListDocumentsComponent element allows you to visualize the documents
-    inside the TDBReactTable and query the documents using the advanced search
-    component
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: ListDocumentsComponent
+    description: >-
+      The ListDocumentsComponent element allows you to visualize the documents inside the TDBReactTable and query the documents using the advanced search
+      component
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

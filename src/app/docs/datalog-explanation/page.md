@@ -1,11 +1,11 @@
 ---
-title: Datalog Explanation
-slug: datalog-explanation
-seo:
-  title: Datalog Explanation | TerminusCMS & TerminusDB
-  description: A brief explanation of Datalog and its benefits in database queries.
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Datalog Explanation | TerminusCMS & TerminusDB
+    description: A brief explanation of Datalog and its benefits in database queries.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

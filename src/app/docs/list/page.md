@@ -1,11 +1,11 @@
 ---
-title: List
-slug: list
-seo:
-  title: List Properties in the Document UI
-  description: How list properties work in the document UI software development kit.
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: List Properties in the Document UI
+    description: How list properties work in the document UI software development kit.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

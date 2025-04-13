@@ -1,12 +1,13 @@
 ---
-title: TerminusCMS Dashboard Reference Guide
-slug: terminuscms-dashboard-reference
-seo:
-  title: TerminusCMS Dashboard Reference Guide
-  description: >-
-    A conceptual overview of the TerminusCMS dashboard describing its features
-    and their purpose.
-  og_image: https://assets.terminusdb.com/docs/document-explorer-home.png
+nextjs:
+  metadata:
+    title: TerminusCMS Dashboard Reference Guide
+    description: >-
+      A conceptual overview of the TerminusCMS dashboard describing its features
+      and their purpose.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/document-explorer-home.png
 media:
   - alt: How teams, users and projects are structured.
     caption: ''

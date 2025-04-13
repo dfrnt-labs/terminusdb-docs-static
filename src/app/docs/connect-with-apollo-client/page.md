@@ -1,13 +1,13 @@
 ---
-title: Connect with Apollo Client
-slug: connect-with-apollo-client
-seo:
-  title: Connect with Apollo Client to use GraphQL with TerminusCMS
-  description: >-
-    A reference guide to get you up and running with TerminusDB & TerminusCMS 
-    using GraphQL and Apollo Client
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: Connect with Apollo Client to use GraphQL with TerminusCMS
+    description: >-
+      A reference guide to get you up and running with TerminusDB & TerminusCMS 
+      using GraphQL and Apollo Client
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

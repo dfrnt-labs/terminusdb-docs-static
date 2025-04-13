@@ -1,12 +1,11 @@
 ---
-title: Access Control Reference Guide
-slug: js-access-control
-seo:
-  title: Access Control Reference Guide
-  description: 'A driver to manage access control with the JS Client '
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
-media: []
+nextjs:
+  metadata:
+    title: Access Control Reference Guide
+    description: A driver to manage access control with the JS Client
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
 
 **License**: Apache Version 2

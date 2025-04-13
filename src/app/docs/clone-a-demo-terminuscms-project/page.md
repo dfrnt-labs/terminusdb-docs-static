@@ -1,12 +1,13 @@
 ---
-title: Clone a Demo Project
-slug: clone-a-demo-terminuscms-project
-seo:
-  title: How to clone a TerminusCMS demo project
-  description: >-
-    A guide to show how to clone TerminusCMS demo projects to explore and play
-    with. 
-  og_image: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
+nextjs:
+  metadata:
+    title: How to clone a TerminusCMS demo project
+    description: >-
+      A guide to show how to clone TerminusCMS demo projects to explore and play
+      with.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
 media:
   - alt: clone a demo project to get started with TerminusCMS
     caption: ''

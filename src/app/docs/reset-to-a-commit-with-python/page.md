@@ -1,12 +1,13 @@
 ---
-title: Reset to a Particular Commit with the Python Client
-slug: reset-to-a-commit-with-python
-seo:
-  title: Reset to a Particular Commit with the Python Client
-  description: >-
-    A guide to show how to reset your TerminusDB project, or project branch, to
-    a specific commit using Python.
-  og_image: https://assets.terminusdb.com/docs/python-client-collaboration-reset.png
+nextjs:
+  metadata:
+    title: Reset to a Particular Commit with the Python Client
+    description: >-
+      A guide to show how to reset your TerminusDB project, or project branch, to
+      a specific commit using Python.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/python-client-collaboration-reset.png
 media: []
 ---
 

@@ -1,13 +1,13 @@
 ---
-title: Add Documents with the Python Client
-slug: add-documents-with-python-client
-seo:
-  title: How To Add Documents with the Python Client
-  description: >-
-    A guide to show how to add documents to your TerminusCMS projects using the
-    Python Client.
-  og_image: https://assets.terminusdb.com/docs/python-client-use-add-documents.png
-media: []
+nextjs:
+  metadata:
+    title: How To Add Documents with the Python Client
+    description: >-
+      A guide to show how to add documents to your TerminusCMS projects using the
+      Python Client.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/python-client-use-add-documents.png
 ---
 
 After you have imported the `terminusdb_client`, and [created a client](/docs/connect-with-python-client/), [connected to a database](/docs/connect-with-python-client/), and [added a schema](/docs/add-a-schema-with-the-python-client/), you can then use this client to insert a document that conforms to the schema.

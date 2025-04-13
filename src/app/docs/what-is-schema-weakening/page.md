@@ -1,13 +1,13 @@
 ---
-title: What is Schema Weakening
-slug: what-is-schema-weakening
-seo:
-  title: What is Schema Weakening | TerminusCMS
-  description: >-
-    An explanation about schema weakening  and why you need it to change a
-    schema.
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: What is Schema Weakening
+    description: >-
+      An explanation about schema weakening  and why you need it to change a
+      schema.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 

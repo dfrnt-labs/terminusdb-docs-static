@@ -1,11 +1,11 @@
 ---
-title: JSON Diff and Patch with TerminusDB and TerminusCMS
-slug: json-diff-and-patch
-seo:
-  title: JSON Diff and Patch with TerminusCMS and TerminusDB
-  description: JSON Diff and Patch reference guide to compare JSON documents.
-  og_image: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+nextjs:
+  metadata:
+    title: JSON Diff and Patch with TerminusDB and TerminusCMS
+    description: JSON Diff and Patch reference guide to compare JSON documents.
+    openGraph:
+      images: >-
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 
