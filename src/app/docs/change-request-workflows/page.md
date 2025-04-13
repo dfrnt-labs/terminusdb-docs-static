@@ -7,7 +7,7 @@ nextjs:
       enable safe collaboration
     openGraph:
       images: >-
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
   - alt: Opening a change request
     caption: ''
