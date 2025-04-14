@@ -6,6 +6,7 @@ import * as path from 'path'
 import { createLoader } from 'simple-functional-loader'
 import * as url from 'url'
 import javascript from "../../schema/javascript.json" assert { type: "json" };
+import python from '../../schema/python.json' assert { type: "json" }
 
 const __filename = url.fileURLToPath(import.meta.url)
 const slugify = slugifyWithCounter()
@@ -42,10 +43,96 @@ function extractSections(node, sections, isRoot = true) {
   }
 }
 
+/**
+ * Extract searchable sections from JavaScript and Python JSON documentation files
+ * @param {Object} jsonData - The JSON documentation object
+ * @returns {Array} - Array of url and sections for search indexing
+ */
+function extractJSONSections(jsonData, basePath) {
+  const result = []
+  slugify.reset()
+  const title = `${jsonData.language}`
+
+  // Extract from modules
+  if (jsonData.modules && Array.isArray(jsonData.modules)) {
+    // For each module
+    jsonData.modules.forEach(module => {
+      // For each class in the module
+      if (module.classes && Array.isArray(module.classes)) {
+        module.classes.forEach(classObj => {
+          // Create a section for the class itself
+          const className = `${title} ${classObj.name}`
+          const classHash = [classObj.name, ...classObj.memberFunctions.map(p => p.name)].join('').replaceAll(/[^a-zA-Z0-9]/g, '').toLowerCase();
+          const classContent = [classObj.summary || '']
+          
+          result.push({
+            url: `${basePath}`,
+            sections: [[className, classHash, classContent]]
+          })
+
+          // Process member functions
+          if (classObj.memberFunctions && Array.isArray(classObj.memberFunctions)) {
+            classObj.memberFunctions.forEach(func => {
+              const functionName = `${className}.${func.name}`
+              
+              // Generate the correct anchor based on function name only
+              // This ensures clean, predictable anchor links
+              
+              // Create a clean hash with no special characters
+              const functionHash = [func.name, ...func.parameters.map(p => p.name)].join('').replaceAll(/[^a-zA-Z0-9]/g, '').toLowerCase();
+              
+              // Gather content for this function
+              const functionContent = []
+              
+              // Add summary
+              if (func.summary) {
+                functionContent.push(func.summary)
+              }
+              
+              // Add examples
+              if (func.examples && Array.isArray(func.examples) && func.examples.length > 0) {
+                functionContent.push('Examples:')
+                func.examples.forEach(example => {
+                  functionContent.push(example)
+                })
+              }
+              
+              // Add parameters
+              if (func.parameters && Array.isArray(func.parameters) && func.parameters.length > 0) {
+                functionContent.push('Parameters:')
+                func.parameters.forEach(param => {
+                  const paramDesc = `${param.name} (${param.type})${param.summary ? ': ' + param.summary : ''}`
+                  functionContent.push(paramDesc)
+                })
+              }
+              
+              // Add return type
+              if (func.returns) {
+                const returnDesc = `Returns: ${func.returns.type}${func.returns.summary ? ' - ' + func.returns.summary : ''}`
+                functionContent.push(returnDesc)
+              }
+              
+              // Create section for this function
+              const functionTitle = `${functionName}`
+              result.push({
+                url: `${basePath}`,
+                sections: [[functionTitle, functionHash, functionContent]]
+              })
+            })
+          }
+        })
+      }
+    })
+  }
+  
+  return result
+}
+
 export default function withSearch(nextConfig = {}) {
   let cache = new Map()
 
-  return Object.assign({}, nextConfig, {
+  return {
+    ...nextConfig,
     webpack(config, options) {
       config.module.rules.push({
         test: __filename,
@@ -77,12 +164,13 @@ export default function withSearch(nextConfig = {}) {
 
               return { url, sections }
             })
-
-            // FIXME: Enable search of javascript and python too
-            // const javascriptSections = javascript.modules.map((module) => {
-
-            //   return [module.title, null, []]
-            // })
+            
+            // Extract sections from JavaScript and Python JSON files
+            const javascriptSections = extractJSONSections(javascript, '/docs/javascript')
+            const pythonSections = extractJSONSections(python, '/docs/python')
+            
+            // Add JSON documentation sections to the search data
+            data = [...data, ...javascriptSections, ...pythonSections]
 
             // When this file is imported within the application
             // the following module is loaded:
@@ -107,8 +195,12 @@ export default function withSearch(nextConfig = {}) {
 
               for (let { url, sections } of data) {
                 for (let [title, hash, content] of sections) {
+                  // Check if the URL already contains a hash to avoid duplication
+                  const urlAlreadyHasHash = url.includes('#');
+                  const finalUrl = urlAlreadyHasHash ? url : url + (hash ? ('#' + hash) : '');
+                  
                   sectionIndex.add({
-                    url: url + (hash ? ('#' + hash) : ''),
+                    url: finalUrl,
                     title,
                     content: [title, ...content].join('\\n'),
                     pageTitle: hash ? sections[0][0] : undefined,
@@ -140,6 +232,6 @@ export default function withSearch(nextConfig = {}) {
       }
 
       return config
-    },
-  })
+    }
+  }
 }
