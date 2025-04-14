@@ -48,7 +48,9 @@ function Header() {
       </div>
       <div className="relative flex grow basis-0 items-center">
         <Link href="/" aria-label="Home page">
-          <Logo className="hidden h-14 w-auto fill-slate-700 lg:block dark:fill-sky-100" />
+          <div className="hidden h-8 w-auto fill-slate-700 lg:block dark:fill-sky-100">
+            <Logo className="hidden w-auto fill-slate-700 lg:block dark:fill-sky-100" />
+          </div>
         </Link>
       </div>
       <div className="-my-5 mr-6 sm:mr-8 md:mr-0">
@@ -56,7 +58,11 @@ function Header() {
       </div>
       <div className="relative flex basis-0 justify-end gap-6 sm:gap-8 md:grow">
         <ThemeSelector className="relative z-10" />
-        <Link href="https://github.com/terminusdb/terminusdb" className="group" aria-label="GitHub">
+        <Link
+          href="https://github.com/terminusdb/terminusdb"
+          className="group"
+          aria-label="GitHub"
+        >
           <GitHubIcon className="h-6 w-6 fill-slate-400 group-hover:fill-slate-500 dark:group-hover:fill-slate-300" />
         </Link>
       </div>
