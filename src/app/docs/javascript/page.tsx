@@ -78,7 +78,7 @@ export default function JavaScript() {
         </div>
         <div className='hidden lg:block sm:mr-64 w-32 lg:mr-40 relative '>
         </div>
-        <div className="fixed md:right-12 top-24 lg:right-12 w-64 flex-none pl-8 text-xs xl:block xl:text-sm">
+        <div className="fixed scroll-mt-[8.5rem] md:right-12 top-24 lg:right-12 w-64 flex-none pl-8 text-xs xl:block xl:text-sm">
           {onPageContent}
         </div>
       </article>
