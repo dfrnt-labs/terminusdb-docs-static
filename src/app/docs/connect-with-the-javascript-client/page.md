@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Connect with the JavaScript Client
     description: >-
-      A guide to show how to connect to TerminusDB and TerminusCMS using the
+      A guide to show how to connect to TerminusDB using the
       JavaScript Client
     openGraph:
       images: >-
@@ -15,7 +15,7 @@ Ensure you have installed the JavaScript Client. See here for [installation inst
 
 ## Connecting with the JavaScript Client
 
-Depending on whether you are connecting to an instance you have set up yourself, or whether you are using TerminusCMS in the cloud, there are two different methods of connection.
+Depending on whether you are connecting to an instance you have set up yourself, or whether you are using DFRNT TerminusDB in the cloud, there are two different methods of connection.
 
 In both cases, you should load the TerminusDB client in your script with the following:
 
@@ -23,16 +23,16 @@ In both cases, you should load the TerminusDB client in your script with the fol
 const TerminusClient = require("@terminusdb/terminusdb-client");
 ```
 
-## TerminusCMS
+## DFRNT TerminusDB cloud
 
-The TerminusCMS endpoint has the form https://cloud.terminusdb.com/TEAM/ where TEAM is the name of the team you are using in TerminusCMS for the data products you want to access.
+The DFRNT TerminusDB endpoint has the form https://dfrnt.com/api/hosted/TEAM/ where TEAM is the username or the team you are using in DFRNT for the data products you want to access.
 
 In order to connect to this team, you will need to [get your API key](/docs/how-to-connect-terminuscms/) after selecting the team you want to use.
 
 To create a client use the following code within your script, ensuring to use your credentials.
 
 ```javascript
-const client = new TerminusClient.WOQLClient('https://cloud.terminusdb.com/Team',
+const client = new TerminusClient.WOQLClient('https://dfrnt.com/api/hosted/TEAM',
                      {user:"myemail@something.com", organization:'Team'})
 ​
 client.setApiKey(MY_ACCESS_TOKEN)

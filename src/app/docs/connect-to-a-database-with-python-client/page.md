@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Connect to a Database using the Python Client
     description: >-
-      A guide to show how to connect to a TerminusCMS project using the Python
+      A guide to show how to connect to a TerminusDB project using the Python
       client.
     openGraph:
       images: >-
@@ -11,9 +11,9 @@ nextjs:
 media: []
 ---
 
-## TerminusCMS
+## TerminusDB
 
-If you have created a Team in TerminusCMS, and put an [API key](/docs/how-to-connect-terminuscms/) in your environment you can connect to an existing database in the following way:
+If you have created a Team in DFRNT TerminusDB cloud, and put an [API key](/docs/how-to-connect-terminuscms/) in your environment you can connect to an existing database in the following way:
 
 ```python
 team = "MyTeam",

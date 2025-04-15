@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Edit a Document with the JavaScript Client
     description: >-
-      A guide to show how to update a document in TerminusDB and TerminusCMS using
+      A guide to show how to update a document in TerminusDB using
       the JavaScript Client.
     openGraph:
       images: >-

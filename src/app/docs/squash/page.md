@@ -1,10 +1,10 @@
 ---
 nextjs:
   metadata:
-    title: Squash Commits with the TerminusCMS Dashboard
+    title: Squash Commits with the TerminusDB Dashboard
     description: >-
       A guide to show how to squash the commits of a branch or main into one large
-      commit using the TerminusCMS dashboard.
+      commit using the TerminusDB dashboard.
     openGraph:
       images: >-
         https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/squashed-branch.png?raw=true

@@ -1,8 +1,8 @@
 ---
 nextjs:
   metadata:
-    title: Install the TerminusCMS & DB Python Client
-    description: A guide showing how to install the TerminusCMS/DB Python Client.
+    title: Install the TerminusDB Python Client
+    description: A guide showing how to install the TerminusDB Client.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/python-client-use-install-python-client.png

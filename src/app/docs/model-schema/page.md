@@ -4,7 +4,7 @@ nextjs:
     title: How to Model Schema
     description: >-
       Bit sized how to guides to help you model and build schema for TerminusDB
-      and TerminusCMS projects.
+      projects.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

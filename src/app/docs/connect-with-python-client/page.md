@@ -4,7 +4,7 @@ nextjs:
     title: How to Connect with the Python Client
     description: >-
       A guide to show how to connect with the Python Client for TerminusDB and
-      TerminusCMS.
+      TerminusDB.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/python-client-use-connect.png
@@ -15,7 +15,7 @@ First, you should install the Python client. For installation instructions, see 
 
 ## Connecting with the Python Client
 
-Depending on whether you are connecting to an instance you have set up yourself, or whether you are using TerminusCMS in the cloud, there are two different methods of connection.
+Depending on whether you are connecting to an instance you have set up yourself, or whether you are using DFRNT TerminusDB in the cloud, there are two different methods of connection.
 
 In both cases, you should load TerminusDB in your script with the following:
 
@@ -23,9 +23,9 @@ In both cases, you should load TerminusDB in your script with the following:
 from terminusdb_client import Client
 ```
 
-### TerminusCMS
+### DFRNT TerminusDB cloud
 
-The TerminusCMS endpoint has the form `https://cloud.terminusdb.com/TEAM/` where `TEAM` is the name of the team you are using in TerminusCMS for the data products you want to access.
+The DFRNT TerminusDB endpoint has the form `https://dfrnt.com/api/hosted/TEAM/` where `TEAM` is your username or the team you are using in DFRNT for the data products you want to access.
 
 In order to connect to this team, you will need to [get your API key](/docs/how-to-connect-terminuscms/) after selecting the team you want to use.
 

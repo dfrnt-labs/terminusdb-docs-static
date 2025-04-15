@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Delete a Document using the JavaScript Client
     description: >-
-      A guide to show how to delete a document in TerminusDB and TerminusCMS using
+      A guide to show how to delete a document in TerminusDB using
       the JavaScript Client.
     openGraph:
       images: >-

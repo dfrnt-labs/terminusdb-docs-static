@@ -3,15 +3,14 @@ nextjs:
   metadata:
     title: Order By in GraphQL
     description: >-
-      How to use the order by argument in GraphQL queries with TerminusCMS and
-      TerminusDB
+      How to use the order by argument in GraphQL queries with TerminusDB
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/graphql-order-by.png
 media: []
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusCMS. You will then have full access to the data needed for this tutorial.
+> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have full access to the data needed for this tutorial.
 
 ## Ordering results of a GraphQL query
 

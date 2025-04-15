@@ -1,37 +1,36 @@
 ---
 nextjs:
   metadata:
-    title: Use the TerminusCMS Dashboard to Curate Data & Content
+    title: Use the DFRNT TerminusDB cloud Dashboard to Curate Data & Content
     description: >-
-      A how-to guide describing how to use the TerminusCMS dashboard to add, edit,
-      and delete content and data
+      A how-to guide describing how to use the DFRNT TerminusDB cloud dashboard to add, edit, and delete content and data
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/document-explorer-home.png
 media:
-  - alt: TerminusCMS document explorer to edit content via the UI
+  - alt: TerminusDB document explorer to edit content via the UI
     caption: ''
     media_type: Image
-    title: TerminusCMS document explorer to edit content via the UI
+    title: TerminusDB document explorer to edit content via the UI
     value: https://assets.terminusdb.com/docs/document-explorer-home.png
   - alt: >-
       Filtering documents based on its properties in the document explorer
-      section of the TerminusCMS dashboard
+      section of the TerminusDB cloud dashboard
     caption: ''
     media_type: Image
     title: >-
       Filtering documents based on its properties in the document explorer
-      section of the TerminusCMS dashboard
+      section of the TerminusDB cloud dashboard
     value: https://assets.terminusdb.com/docs/document-explorer-filter-view.png
   - alt: create a new change request to make changes to content.
     caption: ''
     media_type: Image
     title: create a new change request to make changes to content.
     value: https://assets.terminusdb.com/docs/create-a-new-change-request.png
-  - alt: Manage change requests in the TerminusCMS dashboard
+  - alt: Manage change requests in the TerminusDB cloud dashboard
     caption: ''
     media_type: Image
-    title: Manage change requests in the TerminusCMS dashboard
+    title: Manage change requests in the TerminusDB cloud dashboard
     value: https://assets.terminusdb.com/docs/change-request-screen-open.png
   - alt: Change requests ready for review are listed in chronological order
     caption: ''
@@ -55,27 +54,27 @@ media:
     value: https://assets.terminusdb.com/docs/change-request-out-of-date-message.png
   - alt: >-
       Filtering documents based on its properties in the document explorer
-      section of the TerminusCMS dashboard
+      section of the TerminusDB cloud dashboard
     caption: ''
     media_type: Image
     title: >-
       Filtering documents based on its properties in the document explorer
-      section of the TerminusCMS dashboard
+      section of the TerminusDB cloud dashboard
     value: https://assets.terminusdb.com/docs/document-explorer-filter-view.png
-  - alt: Edit or delete a document from within TerminusCMS's Document Explorer
+  - alt: Edit or delete a document from within TerminusDB's Document Explorer
     caption: ''
     media_type: Image
-    title: Edit or delete a document from within TerminusCMS's Document Explorer
+    title: Edit or delete a document from within TerminusDB's Document Explorer
     value: https://assets.terminusdb.com/docs/document-explorer-edit-or-delete.png
 ---
 
-The TerminusCMS dashboard features a data and content editing section called the Document Explorer. It is here where users can add, edit and delete content and data directly into the backend.
+The TerminusDB cloud dashboard features a data and content editing section called the Document Explorer. It is here where users can add, edit and delete content and data directly into the backend.
 
 In this example, we've cloned the [Star Wars demo project](/docs/clone-a-demo-terminuscms-project/).
 
 First, select the Star Wars project (or an existing project of your own) and navigate to the document explorer section by selecting the third icon on the left, the document with a tick.
 
-![TerminusCMS document explorer to edit content via the UI](https://assets.terminusdb.com/docs/document-explorer-home.png)
+![TerminusDB document explorer to edit content via the UI](https://assets.terminusdb.com/docs/document-explorer-home.png)
 
 The screen displays a list of documents that are included within the project's schema and the number of documents within the database. It also includes a list of the documents on the left with a `+` symbol to add a new one.
 
@@ -85,7 +84,7 @@ Click on film (from the left or on the main screen). This will produce a list of
 
 If it is a long list, you can use the filter to narrow down the results. In this example, we have added a rule to filter the films using the director property of the document specifying it equals _George Lucas_.
 
-![Filtering documents based on its properties in the document explorer section of the TerminusCMS dashboard](https://assets.terminusdb.com/docs/document-explorer-filter-view.png)
+![Filtering documents based on its properties in the document explorer section of the TerminusDB dashboard](https://assets.terminusdb.com/docs/document-explorer-filter-view.png)
 
 Depending on the property you filter by, you can use these filter parameters -
 
@@ -131,7 +130,7 @@ For this how-to guide's flow, we'll skip adding the document here and continue i
 
 For open change requests, ones sent for review, and approved or rejected change requests, you need to navigate to the change request section by clicking the last icon on the left, with the merge symbol.
 
-![Manage change requests in the TerminusCMS dashboard](https://assets.terminusdb.com/docs/change-request-screen-open.png)
+![Manage change requests in the TerminusDB dashboard](https://assets.terminusdb.com/docs/change-request-screen-open.png)
 
 There are four tabs on this screen:
 
@@ -162,7 +161,7 @@ To accept or reject the change request. Press the corresponding button.
 
 In some cases when a change request has been opened and worked on, other users may have merged change requests. This results in your change request becoming out-of-date as it was a snapshot of before the recently merged change requests took place.
 
-TerminusCMS checks the commit history when you begin to review a change request to ensure it includes the latest data. If it is out-of-date it flags a message and prompts you to update it to ensure no past changes are stomped.
+TerminusDB checks the commit history when you begin to review a change request to ensure it includes the latest data. If it is out-of-date it flags a message and prompts you to update it to ensure no past changes are stomped.
 
 ![A message to update the change request to the latest database.](https://assets.terminusdb.com/docs/change-request-out-of-date-message.png)
 
@@ -174,7 +173,7 @@ Adding, editing, and deleting documents is straightforward.
 
 Navigate to the Document Explorer by clicking on the document with a tick icon on the left.
 
-![Filtering documents based on its properties in the document explorer section of the TerminusCMS dashboard](https://assets.terminusdb.com/docs/document-explorer-filter-view.png)
+![Filtering documents based on its properties in the document explorer section of the TerminusDB dashboard](https://assets.terminusdb.com/docs/document-explorer-filter-view.png)
 
 Either -
 
@@ -195,7 +194,7 @@ Let's assume you're in a change request.
 
 Find the document you want to edit and click on it.
 
-![Edit or delete a document from within TerminusCMS's Document Explorer](https://assets.terminusdb.com/docs/document-explorer-edit-or-delete.png)
+![Edit or delete a document from within TerminusDB's Document Explorer](https://assets.terminusdb.com/docs/document-explorer-edit-or-delete.png)
 
 Press the `Edit` button.
 

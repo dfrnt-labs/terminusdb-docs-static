@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Invite Users to Your Team
     description: >-
-      A how-to guide for inviting collaborators to your team using the TerminusCMS
+      A how-to guide for inviting collaborators to your team using the TerminusDB
       dashboard.
     openGraph:
       images: >-

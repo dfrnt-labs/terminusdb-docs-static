@@ -1,9 +1,9 @@
 ---
 nextjs:
   metadata:
-    title: Create a Database with the Python Client
+    title: Create a database with the Python Client
     description: >-
-      A guide showing how to create a TerminusDB or TerminusCMS database using the
+      A guide showing how to create a TerminusDB database using the
       Python Client.
     openGraph:
       images: >-

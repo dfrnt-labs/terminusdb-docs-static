@@ -12,7 +12,7 @@ nextjs:
 
 ## new AccessControl()
 
-AccessControl is a driver to work with the TerminusDB and TerminusCMS access control API.
+AccessControl is a driver to work with the TerminusDB and DFRNT TerminusDB cloud access control API once launched.
 
 For credentials, you can use a JWT token, an API token or basic authentication with username and password.
 
@@ -94,7 +94,7 @@ The jwt api token to use
 
 ##### accessControl.setApiToken(atokenpi)
 
-Sets the API token for the object. Create a TerminusCMS account to [get your API token](/docs/how-to-connect-terminuscms/).
+Sets the API token for the object. Create a DFRNT TerminusDB cloud account to [get your API token](/docs/how-to-connect-terminuscms/).
 
 Param
 
@@ -106,7 +106,7 @@ atokenpi
 
 `string`
 
-The API token to use to connect with TerminusCMS
+The API token to use to connect with DFRNT TerminusDB cloud
 
 ## setApiKey
 
@@ -124,7 +124,7 @@ atokenpi
 
 `string`
 
-The API token to use to connect with TerminusCMS
+The API token to use to connect with TerminusDB
 
 ## getAPIUrl
 
@@ -447,7 +447,7 @@ client.manageCapability(myUser,myteam/db__001,[writer],"grant","database").then(
 
 ##### accessControl.getAccessRoles() ⇒ `Promise`
 
-\--TerminusCMS and TerminusDB API --- Get all the system database roles types.
+\--TerminusDB and TerminusDB API --- Get all the system database roles types.
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
@@ -455,7 +455,7 @@ client.manageCapability(myUser,myteam/db__001,[writer],"grant","database").then(
 
 ##### accessControl.getOrgUsers(\[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS and TerminusDB API -- Get all the organization's users and roles,
+\-- TerminusDB and TerminusDB API -- Get all the organization's users and roles,
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
@@ -479,7 +479,7 @@ accessControl.getOrgUsers().then(result=>{
 })
 
 //this function will return an array of capabilities with users and roles
-//-- TerminusCMS --  response array example
+//-- TerminusDB --  response array example
 //[{capability: "Capability/3ea26e1d698821c570afe9cb4fe81a3......"
 //     email: {@type: "xsd:string", @value: "user@terminusdb.com"}
 //     picture: {@type: "xsd:string",…}
@@ -506,7 +506,7 @@ accessControl.getOrgUsers().then(result=>{
 
 ##### accessControl.getTeamUserRoles(\[userName\], \[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS and TerminusDB API -- Get the user roles for a given organization or the default organization,
+\-- TerminusDB and TerminusDB API -- Get the user roles for a given organization or the default organization,
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
@@ -561,7 +561,7 @@ accessControl.getTeamUserRole("myUser").then(result=>{
 
 ##### accessControl.ifOrganizationExists(orgName) ⇒ `Promise`
 
-\-- TerminusCMS API --- Check if the organization exists. it is a Head call . IMPORTANT This does not work with the API-TOKEN.
+\-- TerminusDB API --- Check if the organization exists. it is a Head call . IMPORTANT This does not work with the API-TOKEN.
 
 **Returns**: `Promise` - A promise that returns the call status object, 200: if the organization exists and 404: if the organization does not exist
 
@@ -581,7 +581,7 @@ The organization name to check if exists.
 
 ##### accessControl.createOrganizationRemote(orgName) ⇒ `Promise`
 
-\-- TerminusCMS API ---
+\-- TerminusDB API ---
 
 IMPORTANT This does not work with the API-TOKEN. Create an organization
 
@@ -611,7 +611,7 @@ accessControl.createOrganization("my_org_name").then(result=>{
 
 ##### accessControl.getPendingOrgInvites(\[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS API ---
+\-- TerminusDB API ---
 
 Get the pending invitations list.
 
@@ -651,7 +651,7 @@ cb0988d992c4bce82b3fa5d25"
 
 ##### accessControl.sendOrgInvite(userEmail, role, \[note\], \[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS API ---
+\-- TerminusDB API ---
 
 Send a new invitation
 
@@ -700,7 +700,7 @@ accessControl.sendOrgInvite("new_user@terminusdb.com","Role/admin",
 
 ##### accessControl.getOrgInvite(inviteId, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS API --- Get the invitation info
+\-- TerminusDB API --- Get the invitation info
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
@@ -736,7 +736,7 @@ accessControl.getOrgInvite(fullInviteId).then(result=>{
 
 ##### accessControl.deleteOrgInvite(inviteId, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS API ---
+\-- TerminusDB API ---
 
 Delete an invitation
 
@@ -774,7 +774,7 @@ accessControl.deleteOrgInvite(fullInviteId).then(result=>{
 
 ##### accessControl.updateOrgInviteStatus(inviteId, accepted, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS API ---
+\-- TerminusDB API ---
 
 Accept /Reject invitation. if the invitation has been accepted we add the current user to the organization.
 
@@ -820,7 +820,7 @@ accessControl.updateOrgInviteStatus(fullInviteId,true).then(result=>{
 
 ##### accessControl.getTeamUserRole(\[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS API ---
+\-- TerminusDB API ---
 
 Get the user role for a given organization or the default organization The user is identified by the jwt or the access token
 
@@ -853,7 +853,7 @@ accessControl.getTeamUserRole().then(result=>{
 
 ##### accessControl.removeUserFromOrg(userId, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS API -- Remove an user from an organization, only an admin user can remove an user from an organization
+\-- TerminusDB API -- Remove an user from an organization, only an admin user can remove an user from an organization
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
@@ -887,7 +887,7 @@ accessControl.removeUserFromOrg("User/auth0%7C613f5dnndjdjkTTT","my_org_name").t
 
 ##### accessControl.getDatabaseRolesOfUser(userId, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS API --
+\-- TerminusDB API --
 
 Get the user's role for every databases under the organization
 
@@ -939,7 +939,7 @@ same of the team
 
 ##### accessControl.createUserRole(userId, scope, role, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS API --
+\-- TerminusDB API --
 
 Create a user's a role for a resource (organization/database)
 
@@ -990,9 +990,9 @@ accessControl.assignUserRole('User/auth0%7C61790e11a3966d006906596a',dbId,
 
 ##### accessControl.updateUserRole(userId, capabilityId, scope, role, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS API --
+\-- TerminusDB API --
 
-Update user's a role for a resource (organization/database), (this api works only in TerminusCMS)
+Update user's a role for a resource (organization/database), (this api works only in TerminusDB)
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
@@ -1048,7 +1048,7 @@ accessControl.updateUserRole('User/auth0%7C61790e11a3966d006906596a',capId,dbId,
 
 ##### accessControl.accessRequestsList(\[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS API --
+\-- TerminusDB API --
 
 Get all the access request list for a specify organization
 
@@ -1078,7 +1078,7 @@ accessControl.accessRequestsList().then(result=>{
 
 ##### accessControl.sendAccessRequest(\[email\], \[affiliation\], \[note\], \[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS API --
+\-- TerminusDB API --
 
 Get all the access request list for a specify organization
 
@@ -1129,7 +1129,7 @@ accessControl.sendAccessRequest("myemail@terminusdb.com",
 
 ##### accessControl.deleteAccessRequest(\[orgName\]) ⇒ `Promise`
 
-\-- TerminusCMS API --
+\-- TerminusDB API --
 
 Delete an access request to join your team, only an admin user can delete it
 

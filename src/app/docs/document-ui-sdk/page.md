@@ -1,8 +1,8 @@
 ---
 nextjs:
   metadata:
-    title: How to use the TerminusCMS Document UI SDK
-    description: How to use the TerminusCMS Document UI SDK
+    title: How to use the TerminusDB Document UI SDK
+    description: How to use the TerminusDB Document UI SDK
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

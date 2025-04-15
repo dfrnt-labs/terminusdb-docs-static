@@ -1,8 +1,8 @@
 ---
 nextjs:
   metadata:
-    title: Projects Overview - TerminusCMS Tour
-    description: How to add and manage projects/data products within TerminusCMS
+    title: Projects Overview - TerminusDB Tour
+    description: How to add and manage projects/data products within TerminusDB
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
@@ -125,7 +125,7 @@ The schema should now display in the graph view.
 
 ## Version Control Features
 
-TerminusCMS has collaboration and version control features. Some of these are available via the dashboard. From the left select the first icon to navigate to your project home page -
+TerminusDB has collaboration and version control features. Some of these are available via the dashboard. From the left select the first icon to navigate to your project home page -
 
 ![Manage your project](https://assets.terminusdb.com/docs/project-admin.png)
 
@@ -154,7 +154,7 @@ Users can reset a branch to a specific commit or can delete the commit history b
 
 ### Reset Project
 
-TerminusCMS enables users to reset the project database to a particular commit. To do this, scroll to the bottom of the project home page and click branches.
+TerminusDB enables users to reset the project database to a particular commit. To do this, scroll to the bottom of the project home page and click branches.
 
 Select the ellipsis symbol next to main. Here users can reset to a specific commit, or delete the commit history by squashing it.
 

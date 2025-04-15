@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Add a Schema using the JavaScript Client
     description: >-
-      A guide to show how to add a schema to TerminusDB and TerminusCMS using the
+      A guide to show how to add a schema to TerminusDB using the
       TerminusDB JavaScript Client.
     openGraph:
       images: >-

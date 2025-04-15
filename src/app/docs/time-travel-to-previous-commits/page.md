@@ -3,8 +3,7 @@ nextjs:
   metadata:
     title: Time Travel through your Database History
     description: >-
-      A guide showing how to time travel to a specific commit in TerminusCMS and
-      TerminusDB
+      A guide showing how to time travel to a specific commit in TerminusDB
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/js-client-collaboration-time-travel.png

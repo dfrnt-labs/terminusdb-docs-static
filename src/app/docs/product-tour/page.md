@@ -1,22 +1,22 @@
 ---
 nextjs:
   metadata:
-    title: TerminusCMS Product Tour
+    title: TerminusDB Product Tour
     description: >-
-      This page provides an overview of the TerminusCMS dashboard to help you
+      This page provides an overview of the TerminusDB dashboard to help you
       navigate its features.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
-  - alt: Try out TerminusCMS by clone a demo data product
+  - alt: Try out TerminusDB by clone a demo data product
     caption: ''
     media_type: Image
-    title: Try out TerminusCMS by clone a demo data product
+    title: Try out TerminusDB by clone a demo data product
     value: https://assets.terminusdb.com/docs/profile-option.png
 ---
 
-TerminusCMS includes many features to build content infrastructures for complex environments. This product tour aims to provide you with an understanding of how to navigate the product and get started on your projects.
+TerminusDB includes many features to build content infrastructures for complex environments. This product tour aims to provide you with an understanding of how to navigate the product and get started on your projects.
 
 *   [Creating projects, managing them, and designing your schema](/docs/projects-terminuscms-tour/)
 *   [Content and data curation](/docs/content-curation-terminuscms-tour/)
@@ -26,7 +26,7 @@ TerminusCMS includes many features to build content infrastructures for complex 
 
 ## Sign Up and Try Out a Demo Project
 
-Sign up for TerminusCMS for free at: [https://dashboard.terminusdb.com](https://dashboard.terminusdb.com).
+Sign up for DFRNT TerminusDB cloud for free at: [https://dfrnt.com](https://dfrnt.com).
 
 Verify your email address by clicking on the link emailed to you and logging in.
 
@@ -34,4 +34,4 @@ Click 'get started' on the Community Package and then select the automatically g
 
 From here, clone one of the demo projects to play around with -
 
-![Try out TerminusCMS by clone a demo data product](https://assets.terminusdb.com/docs/profile-option.png)
+![Try out TerminusDB by clone a demo data product](https://assets.terminusdb.com/docs/profile-option.png)

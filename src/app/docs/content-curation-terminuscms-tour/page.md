@@ -1,18 +1,18 @@
 ---
 nextjs:
   metadata:
-    title: Content & Data Curation in TerminusCMS
+    title: Content & Data Curation in TerminusDB
     description: >-
       Technical and non-technical users can curate content and data using the
-      TerminusCMS dashboard
+      TerminusDB dashboard
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
-  - alt: TerminusCMS document explorer
+  - alt: TerminusDB document explorer
     caption: ''
     media_type: Image
-    title: TerminusCMS document explorer
+    title: TerminusDB document explorer
     value: https://assets.terminusdb.com/docs/document-explorer.png
   - alt: Document display
     caption: ''
@@ -39,18 +39,18 @@ media:
     media_type: Image
     title: 'Unfolded documents '
     value: https://assets.terminusdb.com/docs/unfolded-documents.png
-  - alt: How to edit documents in the TerminusCMS dashboard
+  - alt: How to edit documents in the TerminusDB dashboard
     caption: ''
     media_type: Image
-    title: How to edit documents in the TerminusCMS dashboard
+    title: How to edit documents in the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/edit-documents.png
 ---
 
-TerminusCMS automatically generates document editing frames from the schema. Users can then add, edit, and delete content and data as needed.
+DFRNT TerminusDB cloud automatically generates document editing frames from the schema. Users can then add, edit, and delete content and data as needed.
 
 First, navigate to the document explorer from the left menu -
 
-![TerminusCMS document explorer](https://assets.terminusdb.com/docs/document-explorer.png)
+![TerminusDB document explorer](https://assets.terminusdb.com/docs/document-explorer.png)
 
 The document explorer lists all of the document types within the schema and displays how many of each there are.
 
@@ -109,6 +109,6 @@ To edit a document, select the document to edit by clicking on it from the docum
 
 Make the changes and ensure to press select submit to ensure changes are saved.
 
-![How to edit documents in the TerminusCMS dashboard](https://assets.terminusdb.com/docs/edit-documents.png)
+![How to edit documents in the TerminusDB dashboard](https://assets.terminusdb.com/docs/edit-documents.png)
 
 To delete a document, select the red bin icon. A warning message will display to confirm the deletion.

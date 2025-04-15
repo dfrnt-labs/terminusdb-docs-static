@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Collaboration Features with the JavaScript Client
     description: >-
-      How to guides to help you use TerminusCMS and TerminusDB's collaboration
+      How to guides to help you use TerminusDB collaboration
       features using the JavaScript Client
     openGraph:
       images: >-

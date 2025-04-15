@@ -25,7 +25,7 @@ npm install @terminusdb/terminusdb-documents-ui-templates
 
 ## Run a Dashboard Example in Code Sandbox
 
-`terminusdb-documents-ui-templates` are a collection of hooks to connect with the TerminusCMS server and a number of templates (components) for building a dashboard.
+`terminusdb-documents-ui-templates` are a collection of hooks to connect with the TerminusDB server and a number of templates (components) for building a dashboard.
 
 The sandbox features an example and how to use the components and hooks to assemble your pages.
 

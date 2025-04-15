@@ -1,9 +1,9 @@
 ---
 nextjs:
   metadata:
-    title: Connect with Apollo Client to use GraphQL with TerminusCMS
+    title: Connect with Apollo Client to use GraphQL with TerminusDB
     description: >-
-      A reference guide to get you up and running with TerminusDB & TerminusCMS 
+      A reference guide to get you up and running with TerminusDB & TerminusDB 
       using GraphQL and Apollo Client
     openGraph:
       images: >-
@@ -89,9 +89,9 @@ apolloClient
   .catch(err =>console.log(err.message));
 ```
 
-## Connect with TerminusCMS
+## Connect with DFRNT TerminusDB cloud
 
-> You will need to [get your API key](/docs/how-to-connect-terminuscms/) to connect with terminusCMS
+> You will need to [get your API key](/docs/how-to-connect-terminuscms/) to connect with DFRNT TerminusDB cloud
 
 ```javascript
 const orgName = "myOrganizationName"
@@ -100,7 +100,7 @@ const myBranch = "main"
 
 const myAPIToken = 'replaceYourToken'
 
-const terminusdbURL = `https://cloud.terminusdb.com/${orgName}/api/graphql/${orgName}/${dbName}/local/branch/${myBranch}/`
+const terminusdbURL = `https://dfrnt.com/api/hosted/${orgName}/api/graphql/${orgName}/${dbName}/local/branch/${myBranch}/`
 
 const httpLink = new HttpLink({ uri: terminusdbURL });
 const authMiddleware = new ApolloLink((operation, forward) => {

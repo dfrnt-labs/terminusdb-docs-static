@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: How to Use the Collaboration Features
     description: >-
-      How to guides for using TerminusCMS & TerminusDB's collaboration features
+      How to guides for using TerminusDB collaboration features
       using the clients and dashboard.
     openGraph:
       images: >-

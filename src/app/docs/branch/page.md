@@ -1,8 +1,8 @@
 ---
 nextjs:
   metadata:
-    title: Branch a Project with the TerminusCMS Dashboard
-    description: A guide to show how to branch projects using the TerminusCMS dashboard.
+    title: Branch a Project with the TerminusDB Dashboard
+    description: A guide to show how to branch projects using the TerminusDB dashboard.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/branch-project.png
@@ -12,10 +12,10 @@ media:
     media_type: Image
     title: Branch the project
     value: https://assets.terminusdb.com/docs/branch-project.png
-  - alt: Create a new project branch in TerminusCMS
+  - alt: Create a new project branch in TerminusDB
     caption: ''
     media_type: Image
-    title: Create a new project branch in TerminusCMS
+    title: Create a new project branch in TerminusDB
     value: https://assets.terminusdb.com/docs/branch-new.png
   - alt: Branch Options
     caption: ''
@@ -24,7 +24,7 @@ media:
     value: https://assets.terminusdb.com/docs/branch-options.png
 ---
 
-The TerminusCMS dashboard enables you to branch projects. To do this, choose the team and project you want to branch. You will be directed to the project home page. This is where you can branch it.
+The DFRNT TerminusDB cloud dashboard enables you to branch projects and work with the data product in a bitemporal manner, including the revision history. To do this, choose the team and project you want to branch. You will be directed to the project home page. This is where you can branch it.
 
 Scroll down to see the manage `branch` section.
 
@@ -36,7 +36,7 @@ Each project can have one or more branches, the default is called main. Each bra
 
 Click the `new branch` button.
 
-![Create a new project branch in TerminusCMS](https://assets.terminusdb.com/docs/branch-new.png)
+![Create a new project branch in TerminusDB](https://assets.terminusdb.com/docs/branch-new.png)
 
 Give the branch and ID.
 

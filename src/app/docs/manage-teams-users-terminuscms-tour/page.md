@@ -1,18 +1,18 @@
 ---
 nextjs:
   metadata:
-    title: Manage Teams & Users in TerminusCMS
+    title: Manage Teams & Users in TerminusDB
     description: >-
-      A quick overview for how to manage your teams and users in the TerminusCMS
+      A quick overview for how to manage your teams and users in the TerminusDB
       dashboard
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
-  - alt: The first page you'll see when first logging into TerminusCMS
+  - alt: The first page you'll see when first logging into TerminusDB
     caption: ''
     media_type: Image
-    title: The first page you'll see when first logging into TerminusCMS
+    title: The first page you'll see when first logging into TerminusDB
     value: https://assets.terminusdb.com/docs/pricing-page.png
   - alt: Teams home page
     caption: ''
@@ -43,11 +43,11 @@ media:
 
 ## Manage Your Teams
 
-TerminusCMS generates a team based on your registration credentials.
+TerminusDB generates a team based on your registration credentials.
 
 The pricing page is the first screen displayed when logging in for the first time, click on '**Get Started**' under the community package. The next screen is the teams home page that lists all of the teams a user belongs to.
 
-![The first page you'll see when first logging into TerminusCMS](https://assets.terminusdb.com/docs/pricing-page.png)
+![The first page you'll see when first logging into TerminusDB](https://assets.terminusdb.com/docs/pricing-page.png)
 
 ![Teams home page](https://assets.terminusdb.com/docs/teams-home-page.png)
 

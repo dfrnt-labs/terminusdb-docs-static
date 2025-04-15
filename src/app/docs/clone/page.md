@@ -1,8 +1,8 @@
 ---
 nextjs:
   metadata:
-    title: Clone a Project using the TerminusCMS Dashboard
-    description: A guide to show how to clone a project using the TerminusCMS dashboard.
+    title: Clone a Project using the TerminusDB Dashboard
+    description: A guide to show how to clone a project using the TerminusDB dashboard.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/project-admin.png

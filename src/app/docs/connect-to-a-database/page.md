@@ -11,7 +11,7 @@ nextjs:
 media: []
 ---
 
-Assuming you have [connected with the JavaScript Client](/docs/connect-with-the-javascript-client/), connecting to a database is the same for TerminusDB and TerminusCMS -
+Assuming you have [connected with the JavaScript Client](/docs/connect-with-the-javascript-client/), connecting to a database is the same for TerminusDB and DFRNT TerminusDB cloud -
 
 The example code below registers your database in woqlClient parameters and then all your calls will be made to this db -
 

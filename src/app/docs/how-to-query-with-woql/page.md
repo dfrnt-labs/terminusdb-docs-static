@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: How to Query with WOQL
     description: >-
-      Bite sized how to guides to query TerminusCMS and TerminusDB using WOQL
+      Bite sized how to guides to query TerminusDB using WOQL
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

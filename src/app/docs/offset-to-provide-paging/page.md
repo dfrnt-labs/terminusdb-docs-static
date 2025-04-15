@@ -7,25 +7,25 @@ nextjs:
       images: >-
         https://assets.terminusdb.com/docs/graphql-offset.png
 media:
-  - alt: Clone the Star Wars demo from the TerminusCMS dashboard
+  - alt: Clone the Star Wars demo from the TerminusDB dashboard
     caption: ''
     media_type: Image
-    title: Clone the Star Wars demo from the TerminusCMS dashboard
+    title: Clone the Star Wars demo from the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
-  - alt: GraphQL query playground in TerminusCMS
+  - alt: GraphQL query playground in TerminusDB
     caption: ''
     media_type: Image
-    title: GraphQL query playground in TerminusCMS
+    title: GraphQL query playground in TerminusDB
     value: https://assets.terminusdb.com/docs/how-to-query-graphql.png
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusCMS. You will then have full access to the data needed for this tutorial.
+> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusDB. You will then have full access to the data needed for this tutorial.
 
-![Clone the Star Wars demo from the TerminusCMS dashboard](https://assets.terminusdb.com/docs/how-to-clone-a-demo.png)
+![Clone the Star Wars demo from the TerminusDB dashboard](https://assets.terminusdb.com/docs/how-to-clone-a-demo.png)
 
 Once you have cloned the database, go to the GraphQL icon (triangle in hexagon) on the left hand side and select the filing cabinet icon.
 
-![GraphQL query playground in TerminusCMS](https://assets.terminusdb.com/docs/how-to-query-graphql.png)
+![GraphQL query playground in TerminusDB](https://assets.terminusdb.com/docs/how-to-query-graphql.png)
 
 There are two panels, one on the left for query, and one on the right for results.
 

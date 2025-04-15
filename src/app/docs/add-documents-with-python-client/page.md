@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: How To Add Documents with the Python Client
     description: >-
-      A guide to show how to add documents to your TerminusCMS projects using the
+      A guide to show how to add documents to your TerminusDB projects using the
       Python Client.
     openGraph:
       images: >-

@@ -8,12 +8,12 @@ nextjs:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media:
-  - alt: Clone a demo data product from the TerminusCMS dashboard
+  - alt: Clone a demo data product from the TerminusDB dashboard
     caption: >-
       Your team home page features a number of demo projects to clone and
       experiment with.
     media_type: Image
-    title: Clone a demo data product from the TerminusCMS dashboard
+    title: Clone a demo data product from the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
 ---
 
@@ -33,13 +33,13 @@ When you sign up, you get full commercial hosting. This comes with generous limi
 
 1.  Sign up at [https://dfrnt.com/signup](https://dfrnt.com/signup), or use it with [Docker](/docs/install-terminusdb-as-a-docker-container/)
 3.  Install the [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-the-python-client/) Client
-4.  [Get your API key to use a client with DFRNT (similar to the discontinued TerminusCMS)](/docs/how-to-connect-terminuscms/)
+4.  [Get your API key to use a client with DFRNT TerminusDB cloud](/docs/how-to-connect-terminuscms/)
 5.  [Familiarize yourself with the client API](/docs/connect-with-the-javascript-client/) to start building with TerminusDB.
 
 ### Demo Projects
 
 Coming back soon: There are several demo projects available to clone and experiment with. Sign up and visit your team home page to clone these projects.
 
-![Clone a demo data product from the TerminusCMS dashboard](https://assets.terminusdb.com/docs/how-to-clone-a-demo.png)
+![Clone a demo data product from the DFRNT TerminusDB cloud dashboard](https://assets.terminusdb.com/docs/how-to-clone-a-demo.png)
 
 Your team home page features a number of demo projects to clone and experiment with.

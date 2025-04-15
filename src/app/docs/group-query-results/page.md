@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: How to Group Results in WOQL
     description: >-
-      A guide to show how to group results of data in your TerminusCMS and
+      A guide to show how to group results of data in your
       TerminusDB projects using WOQL.
     openGraph:
       images: >-
@@ -11,7 +11,7 @@ nextjs:
 media: []
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusCMS. You will then have full access to the data needed for this tutorial.
+> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have full access to the data needed for this tutorial.
 
 ## How to use Group By
 

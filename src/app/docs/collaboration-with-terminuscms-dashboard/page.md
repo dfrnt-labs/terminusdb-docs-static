@@ -1,9 +1,9 @@
 ---
 nextjs:
   metadata:
-    title: Collaboration Features with the TerminusCMS Dashboard
+    title: Collaboration Features with the TerminusDB Dashboard
     description: >-
-      How to guides for leveraging collaboration features using TerminusCMS
+      How to guides for leveraging collaboration features using TerminusDB
       dashboard. 
     openGraph:
       images: >-

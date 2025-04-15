@@ -4,7 +4,7 @@ nextjs:
     title: Schema Migration Reference Guide
     description: >-
       A reference guide explaining the schema migration capabilities of
-      TerminusCMS and TerminusDB
+      TerminusDB
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
@@ -15,7 +15,7 @@ Schema migration allows us to move schema and instance data together automatical
 
 The schema operations can be performed directly on the branch of interest, or you can _target_ the schema of a given branch in another branch, allowing the migrations to be re-performed such that a new common schema is obtained.
 
-In addition, schema migrations can be _inferred_ in some cases, and TerminusCMS will attempt to silently infer migrations which will not impact instance data.
+In addition, schema migrations can be _inferred_ in some cases, and TerminusDB will attempt to silently infer migrations which will not impact instance data.
 
 However, some schema operations require instance data to change, and such alterations must be asked for explicitly.
 

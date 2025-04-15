@@ -1,15 +1,15 @@
 ---
 nextjs:
   metadata:
-    title: TerminusCMS Path Query Reference Guide
-    description: A reference guide to path queries in TerminusCMS and TerminusDB.
+    title: TerminusDB Path Query Reference Guide
+    description: A reference guide to path queries in TerminusDB.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 
-TerminusDB & TerminusCMS allows _path regular expressions_ as a way to describe multi-hop searches in a concise fashion. When you need to follow a link repeatedly for shortest path queries or to find all linked documents meeting some specification you can often use a _path query_.
+TerminusDB allows _path regular expressions_ as a way to describe multi-hop searches in a concise fashion. When you need to follow a link repeatedly for shortest path queries or to find all linked documents meeting some specification you can often use a _path query_.
 
 > For guidance on back-links and path queries using GraphQL visit the [GraphQL reference guide](/docs/graphql-query-reference/#backlinks)
 
@@ -102,7 +102,7 @@ The syntax of path expressions, for expressions `A`, `B` and fields `F` is as fo
 media: []
 ---
 
-TerminusDB & TerminusCMS allows _path regular expressions_ as a way to describe multi-hop searches in a concise fashion. When you need to follow a link repeatedly for shortest path queries or to find all linked documents meeting some specification you can often use a _path query_.
+TerminusDB allows _path regular expressions_ as a way to describe multi-hop searches in a concise fashion. When you need to follow a link repeatedly for shortest path queries or to find all linked documents meeting some specification you can often use a _path query_.
 
 > For guidance on back-links and path queries using GraphQL visit the [GraphQL reference guide](/docs/graphql-query-reference/#backlinks)
 

@@ -96,9 +96,9 @@ Read our [white paper on succinct data structures and delta encoding in modern d
 
 [Get Started](/docs/get-started-with-terminusdb/) with an overview of the available [Installation Options](/docs/terminusdb-install-options/) and then check out the [how-to guides](/docs/use-the-clients/) for step-by-step help.
 
-### TerminusCMS
+### TerminusDB
 
-Take a look at the [product tour of TerminusCMS](/docs/product-tour/) for information about the headless content management system.
+Take a look at the [product tour of TerminusDB](/docs/product-tour/) for information about the headless content management system.
 
 ### Documents
 

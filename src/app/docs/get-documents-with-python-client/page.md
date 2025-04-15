@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Get Documents with the Python Client
     description: >-
-      A guide to show how-to get documents from TerminusDB and TerminusCMS using
+      A guide to show how-to get documents from TerminusDB using
       the Python Client
     openGraph:
       images: >-

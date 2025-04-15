@@ -3,23 +3,23 @@ nextjs:
   metadata:
     title: WOQL Basics
     description: >-
-      Learn the WOQL query basics for TerminusDB and TerminusCMS
+      Learn the TerminusDB WOQL query basics for TerminusDB
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/woql-basics.png
 media:
-  - alt: WOQL query playground in the TerminusCMS dashboard
+  - alt: WOQL query playground in the TerminusDB dashboard
     caption: ''
     media_type: Image
-    title: WOQL query playground in the TerminusCMS dashboard
+    title: WOQL query playground in the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/how-to-query-woql.png
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusCMS. You will then have full access to the data needed for this tutorial.
+> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusDB. You will then have full access to the data needed for this tutorial.
 
 ## Writing a WOQL Query
 
-![WOQL query playground in the TerminusCMS dashboard](https://assets.terminusdb.com/docs/how-to-query-woql.png)
+![WOQL query playground in the TerminusDB dashboard](https://assets.terminusdb.com/docs/how-to-query-woql.png)
 
 First, go to the WOQL Query Panel in the UI. Now you can type a query using the syntax of the JS client in the panel.
 

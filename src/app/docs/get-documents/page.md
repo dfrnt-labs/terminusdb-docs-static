@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Get Documents using the JavaScript Client
     description: >-
-      A guide to show how to get documents to TerminusDB and TerminusCMS using the
+      A guide to show how to get documents to TerminusDB and TerminusDB using the
       JavaScript Client
     openGraph:
       images: >-

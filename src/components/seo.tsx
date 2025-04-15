@@ -5,15 +5,15 @@ export default function SeoComponent(props) {
   if (typeof props.seo_metadata === "undefined") {
     return (
       <Head>
-        <title>TerminusCMS/DB documentation</title>
+        <title>TerminusDB documentation</title>
         <meta
           property="og:title"
-          content="TerminusCMS/DB documentation"
+          content="TerminusDB documentation"
           key="title"
         />
         <meta
           name="description"
-          content="The documentation of TerminusCMS and TerminusDB"
+          content="The documentation of TerminusDB and TerminusDB"
         />
         <CommonHeaders/>
       </Head>

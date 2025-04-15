@@ -3,19 +3,18 @@ nextjs:
   metadata:
     title: Schema Queries with WOQL
     description: >-
-      A guide to show how to query schema with WOQL in your TerminusDB and
-      TerminusCMS projects.
+      A guide to show how to query schema with WOQL in your TerminusDB projects.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/woql-query-schema.png
 media: []
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusCMS. You will then have access to the data needed for this tutorial.
+> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have access to the data needed for this tutorial.
 
 ## Finding elements from the schema.
 
-In order to query the schema, you can use _graph_ arguments to WOQL. TerminusCMS stores each branch as a pair of graphs, an instance graph and a schema graph.
+In order to query the schema, you can use _graph_ arguments to WOQL. TerminusDB stores each branch as a pair of graphs, an instance graph and a schema graph.
 
 We can specify the graph by passing it as an argument to the `quad` word.
 

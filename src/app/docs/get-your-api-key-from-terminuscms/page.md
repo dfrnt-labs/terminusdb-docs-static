@@ -1,7 +1,7 @@
 ---
 nextjs:
   metadata:
-    title: How to get your API key using TerminusCMS
+    title: How to get your API key using the DFRNT TerminusDB cloud
     description: >-
       A how-to guide showing how to get your API key to set up and configure your
       environment to use with a client.
@@ -13,19 +13,19 @@ media: []
 
 ## Generate your API key
 
-To use the Python or JavaScropt client with TerminusCMS, an API key is required. The API key is obtained in the TerminusCMS dashboard by using the steps below.
+To use the Python or JavaScript client with TerminusDB, an API key is required. The API key is obtained in the DFRNT TerminusDB cloud by using the steps below.
 
 **1\. Log in**
 
-Log in to the user interface dashboard [dashboard.terminusdb.com](https://dashboard.terminusdb.com)
+Log in to the modeller user interface [dfrnt.com](https://dfrnt.com)
 
 **2\. Select a Team**
 
-The teams are listed in the centre of the screen after logging in (and selecting a plan if you have not already done so). This will be the team in which the API key will be generated.
+The teams are listed in the settings section after logging in (and selecting a plan if you have not already done so). This will be the team in which the API key will be generated.
 
 **3\. Select your profile**
 
-Select your `Profile` by clicking on ▼ at the top-right corner of the screen.
+Select your `API Tokens` in the menu.
 
 **4\. Generate a Personal Access Token**
 

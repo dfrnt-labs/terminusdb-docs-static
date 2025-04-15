@@ -4,7 +4,7 @@ nextjs:
     title: GraphQL Naming Conventions Reference Guide
     description: >-
       A reference guide detail the GraphQL naming conventions in TerminusDB and
-      TerminusCMS.
+      TerminusDB.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

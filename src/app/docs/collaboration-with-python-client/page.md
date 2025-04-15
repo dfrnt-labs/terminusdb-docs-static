@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Collaboration Features with the Python Client
     description: >-
-      How to guides to help you get to grips with TerminusCMS and TerminusDB's
+      How to guides to help you get to grips with TerminusDB
       collaboration features using the Python Client.
     openGraph:
       images: >-

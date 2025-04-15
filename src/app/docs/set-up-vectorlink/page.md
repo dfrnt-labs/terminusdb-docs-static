@@ -14,7 +14,7 @@ media:
     value: https://assets.terminusdb.com/docs/vectorlink-openai-key.png
 ---
 
-VectorLink is a semantic indexer for TerminusCMS. It is a vector database that uses OpenAI, vector embeddings and GraphQL to provide AI-assisted semantic search, similar search, clustering and entity resolution.
+VectorLink is a semantic indexer for TerminusDB. It is a vector database that uses OpenAI, vector embeddings and GraphQL to provide AI-assisted semantic search, similar search, clustering and entity resolution.
 
 To use VectorLink you need an OpenAI API key. The OpenAI key applies to the team and all data products within that team.
 

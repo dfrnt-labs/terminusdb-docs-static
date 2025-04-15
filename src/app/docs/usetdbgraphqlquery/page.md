@@ -4,14 +4,14 @@ nextjs:
     title: useTDBGraphqlQuery
     description: >-
       useTDBGraphqlQuery` is the main hook to connect
-      @terminusdb/terminusdb-react-table with TerminusCMS server
+      @terminusdb/terminusdb-react-table with TerminusDB server
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 
-`useTDBGraphqlQuery` is the main hook to connect @terminusdb/terminusdb-react-table with TerminusCMS server. To use it, pass it with an instance of [ApolloClient](https://www.apollographql.com/docs/react/).
+`useTDBGraphqlQuery` is the main hook to connect @terminusdb/terminusdb-react-table with TerminusDB server. To use it, pass it with an instance of [ApolloClient](https://www.apollographql.com/docs/react/).
 
 ## useTDBGraphqlQuery parameters
 

@@ -1,8 +1,8 @@
 ---
 nextjs:
   metadata:
-    title: Create teams using TerminusCMS
-    description: A how-to guide for creating teams using the TerminusCMS dashboard.
+    title: Create teams using TerminusDB
+    description: A how-to guide for creating teams using the TerminusDB dashboard.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.pn
@@ -21,7 +21,7 @@ media:
       https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.png
 ---
 
-Follow these instruction to create a new team in the TerminusCMS dashboard -
+Follow these instruction to create a new team in the TerminusDB dashboard -
 
 > Note, if it is your first time logging in you will see the pricing page. Select Community Package to proceed and follow these instructions.\*
 

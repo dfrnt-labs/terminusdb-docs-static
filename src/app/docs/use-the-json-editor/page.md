@@ -3,35 +3,35 @@ nextjs:
   metadata:
     title: Use the JSON View for building a Schema
     description: >-
-      Use the JSON editor to build your TerminusCMS schema. Define documents,
+      Use the JSON editor to build your TerminusDB schema. Define documents,
       properties, links, and enums. 
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/schema-as-code.png
 media:
-  - alt: Create a new product with the TerminusCMS or TerminusDB dashboard
+  - alt: Create a new product with the TerminusDB dashboard
     caption: ''
     media_type: Image
-    title: Create a new product with the TerminusCMS or TerminusDB dashboard
+    title: Create a new product with the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/new-data-product.png
-  - alt: TerminusCMS schema editor JSON view
+  - alt: TerminusDB schema editor JSON view
     caption: ''
     media_type: Image
-    title: TerminusCMS schema editor JSON view
+    title: TerminusDB schema editor JSON view
     value: https://assets.terminusdb.com/docs/schema-as-code.png
 ---
 
 ## Make a New Data Product
 
-First, log in to TerminusCMS, choose (or create) a team, and then click on "New Data Product".
+First, log in to DFRNT TerminusDB cloud, choose (or create) a team, and then click on "New Data Product".
 
-![Create a new product with the TerminusCMS or TerminusDB dashboard](https://assets.terminusdb.com/docs/new-data-product.png)
+![Create a new product with the DFRNT TerminusDB cloud or TerminusDB dashboard](https://assets.terminusdb.com/docs/new-data-product.png)
 
 ## Create a schema as JSON
 
 Now click on the pink bubbles on the left panel. This takes you to the schema builder page. Select JSON view from the tab and you'll see your entire schema as JSON.
 
-![TerminusCMS schema editor JSON view](https://assets.terminusdb.com/docs/schema-as-code.png)
+![TerminusDB schema editor JSON view](https://assets.terminusdb.com/docs/schema-as-code.png)
 
 If you click on the Edit button in the upper right-hand corner, you'll be able to directly edit the schema.
 

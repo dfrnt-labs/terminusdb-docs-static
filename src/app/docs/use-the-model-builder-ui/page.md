@@ -10,15 +10,15 @@ nextjs:
       images: >-
         https://assets.terminusdb.com/docs/schema-ui-doc-properties.png
 media:
-  - alt: Create a new data product using the TerminusDB/TerminusCMS dashboard
+  - alt: Create a new data product using the TerminusDB dashboard
     caption: ''
     media_type: Image
-    title: Create a new data product using the TerminusDB/TerminusCMS dashboard
+    title: Create a new data product using the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/new-data-product.png
-  - alt: JSON schema editor in the TerminusCMS dashboard
+  - alt: JSON schema editor in the TerminusDB dashboard
     caption: ''
     media_type: Image
-    title: JSON schema editor in the TerminusCMS dashboard
+    title: JSON schema editor in the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/schema-ui-no-docs.png
   - alt: Add document properties using the schema builder UI
     caption: ''
@@ -44,9 +44,9 @@ media:
 
 ## Make a New Data Product
 
-First, log in to TerminusCMS, choose (or create) a team, and then click on `New Data Product`.
+First, log in to DFRNT TerminusDB cloud, choose (or create) a team, and then click on `New Data Product`.
 
-![Create a new data product using the TerminusDB/TerminusCMS dashboard](https://assets.terminusdb.com/docs/new-data-product.png)
+![Create a new data product using the TerminusDB dashboard](https://assets.terminusdb.com/docs/new-data-product.png)
 
 ## Create a Class
 
@@ -54,7 +54,7 @@ Now click on the pink bubbles on the left panel. This takes you to the schema bu
 
 Hover over the gray schema bubble in the center of the graph view.
 
-![JSON schema editor in the TerminusCMS dashboard](https://assets.terminusdb.com/docs/schema-ui-no-docs.png)
+![JSON schema editor in the TerminusDB dashboard](https://assets.terminusdb.com/docs/schema-ui-no-docs.png)
 
 This will give you a `+` icon. This will allow you to add either a document class or an enum. Choose _document_.
 

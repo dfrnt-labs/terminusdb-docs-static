@@ -1,7 +1,7 @@
 ---
 nextjs:
   metadata:
-    title: JSON Diff and Patch with TerminusDB and TerminusCMS
+    title: JSON Diff and Patch with TerminusDB
     description: JSON Diff and Patch reference guide to compare JSON documents.
     openGraph:
       images: >-
@@ -55,7 +55,7 @@ Install a [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/in
 
 Get started with the simple steps below.
 
-> If using **TerminusCMS with Python**, connect to your TerminusCMS cloud instance first - see [Connect with the Python Client](/docs/connect-with-python-client/) for instructions if required.
+> If using **TerminusDB with Python**, connect to your TerminusDB cloud instance first - see [Connect with the Python Client](/docs/connect-with-python-client/) for instructions if required.
 
 1.  [Create an endpoint](#createanendpoint)
     

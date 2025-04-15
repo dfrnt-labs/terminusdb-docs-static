@@ -1,7 +1,7 @@
 ---
 nextjs:
   metadata:
-    title: How to Query TerminusCMS and TerminusDB
+    title: How to Query TerminusDB
     description: Guides showing how to query using GraphQL and WOQL
     openGraph:
       images: >-

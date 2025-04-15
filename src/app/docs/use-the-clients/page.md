@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: How to Use the Clients
     description: >-
-      How to guides to use the JavaScrip and Python Clients with TerminusCMS and
+      How to guides to use the JavaScrip and Python Clients with
       TerminusDB
     openGraph:
       images: >-

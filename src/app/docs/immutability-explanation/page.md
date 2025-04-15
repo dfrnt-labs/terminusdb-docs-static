@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Immutability Explanation
     description: >-
-      An explanation of how TerminusDB & TerminusCMS implements immutability, and
+      An explanation of how TerminusDB implements immutability, and
       handles deleted and new data.
     openGraph:
       images: >-

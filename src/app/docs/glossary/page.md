@@ -2,7 +2,7 @@
 nextjs:
   metadata:
     title: Glossary of Terms
-    description: A glossary of terms for TerminusDB and TerminusCMS
+    description: A glossary of terms for TerminusDB and DFRNT TerminusDB cloud
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

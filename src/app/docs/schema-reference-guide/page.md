@@ -1,8 +1,8 @@
 ---
 nextjs:
   metadata:
-    title: TerminusCMS Schema Reference Guide
-    description: A reference guide for the TerminusCMS and TerminusDB schema
+    title: TerminusDB Schema Reference Guide
+    description: A reference guide for the TerminusDB schema
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

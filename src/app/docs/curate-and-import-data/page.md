@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: How to Curate & Import Data
     description: >-
-      How to guides for curating and importing data into TerminusCMS and
+      How to guides for curating and importing data into TerminusDB and
       TerminusDB
     openGraph:
       images: >-

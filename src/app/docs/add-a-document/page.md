@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Add Documents using the JavaScript Client
     description: >-
-      A guide to show how to add documents to TerminusDB and TerminusCMS using the
+      A guide to show how to add documents to TerminusDB using the
       JavaScript Client.
     openGraph:
       images: >-

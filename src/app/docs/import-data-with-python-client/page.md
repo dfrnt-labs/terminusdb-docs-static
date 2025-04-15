@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Import Data with the Python Client
     description: >-
-      A guide to show how to import CSV data into TerminusCMS & DB using the
+      A guide to show how to import CSV data into TerminusDB using the
       Python Client
     openGraph:
       images: >-

@@ -1,18 +1,18 @@
 ---
 nextjs:
   metadata:
-    title: Time Travel using the TerminusCMS Dashboard
+    title: Time Travel using the DFRNT TerminusDB cloud dashboard
     description: >-
       A guide to show how to time travel to any previous commit using the
-      TerminusCMS dashboard.
+      DFRNT TerminusDB cloud dashboard.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/time-travel.png
 media:
-  - alt: Time travel to any previous commit using the TerminusCMS dashboard
+  - alt: Time travel to any previous commit using the DFRNT TerminusDB cloud dashboard
     caption: ''
     media_type: Image
-    title: Time travel to any previous commit using the TerminusCMS dashboard
+    title: Time travel to any previous commit using the DFRNT TerminusDB cloud dashboard
     value: https://assets.terminusdb.com/docs/time-travel.png
   - alt: See what data used to look like in a previou commit
     caption: ''
@@ -21,13 +21,13 @@ media:
     value: https://assets.terminusdb.com/docs/travel-back-in-time.png
 ---
 
-It is possible in the TerminusCMS dashboard to time travel to any previous commit to examine the data and schema. This is particularly useful if you want to see what something looked like at a particular date, or if something has broken and you want to see when the last stable state was so you can revert back to it.
+It is possible in the DFRNT TerminusDB cloud dashboard to time travel to any previous commit to examine the data and schema. This is particularly useful if you want to see what something looked like at a particular date, or if something has broken and you want to see when the last stable state was so you can revert back to it.
 
 Time travel is each to do. From any screen when viewing a project (apart from the project home page), you will see a `stopwatch symbol` in the top bar.
 
 Select this and a panel will appear from the right.
 
-![Time travel to any previous commit using the TerminusCMS dashboard](https://assets.terminusdb.com/docs/time-travel.png)
+![Time travel to any previous commit using the DFRNT TerminusDB cloud dashboard](https://assets.terminusdb.com/docs/time-travel.png)
 
 Each commit in the list features the comments from the merged change request.
 

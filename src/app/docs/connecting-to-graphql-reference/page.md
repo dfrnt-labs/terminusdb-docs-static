@@ -3,8 +3,8 @@ nextjs:
   metadata:
     title: Connecting to GraphQL Reference Guide
     description: >-
-      A reference guide detailing connecting to GraphQL with TerminusDB and
-      TerminusCMS.
+      A reference guide detailing connecting to GraphQL with 
+      TerminusDB.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
@@ -28,13 +28,13 @@ For instance, with a data product named `admin/people`, and a locally installed 
 http://127.0.0.1:6363/api/graphql/admin/people
 ```
 
-For TerminusCMS you can use the following URL:
+For DFRNT TerminusDB cloud you can use the following URL:
 
 ```url
-https://cloud.terminusdb.com/ORG/api/graphql/ORG/DATA_PRODUCT
+https://dfrnt.com/api/hosted/TEAM/api/graphql/TEAM/DATA_PRODUCT
 ```
 
-Where `ORG` is your organization, and `DATA_PRODUCT` is the name of your data product.
+Where `TEAM` is your team/organization (initially the same as your username), and `DATA_PRODUCT` is the name of your data product.
 
 ## Authentication
 
@@ -50,17 +50,17 @@ For example, if you would like to connect to `admin/people` with the apollo clie
 npx apollo client:download-schema --endpoint=http://127.0.0.1:6363/api/graphql/admin/people schema.graphql --header='Authorization: Basic YWRtaW46cm9vdA=='
 ```
 
-### TerminusCMS
+### DFRNT TerminusDB Cloud
 
-In TerminusCMS you can use an API key with the following header.
+For the DFRNT TerminusDB cloud hosting, you can use an API key with the following header.
 
 For instance, with the apollo client, you can download your schema as follows:
 
 ```bash
-npx apollo client:download-schema --endpoint=https://cloud.terminusdb.com/TEAM/api/graphql/TEAM/people schema.graphql --header="Authorization: Token $(cat ~/my_token_file)"
+npx apollo client:download-schema --endpoint=https://dfrnt.com/api/hosted/TEAM/api/graphql/TEAM/people schema.graphql --header="Authorization: Token $(cat ~/my_token_file)"
 ```
 
-Where `my_token_file` contains an API token for TerminusCMS.
+Where `my_token_file` contains an API token for the DFRNT TerminusDB cloud.
 
 ## GraphiQL
 

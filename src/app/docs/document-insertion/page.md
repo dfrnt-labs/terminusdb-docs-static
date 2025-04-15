@@ -1,8 +1,8 @@
 ---
 nextjs:
   metadata:
-    title: TerminusCMS/DB Document Insertion Reference Guide
-    description: A reference guide for the TerminusCMS/DB document interface.
+    title: TerminusDB Document Insertion Reference Guide
+    description: A reference guide for the TerminusDB document interface.
 media: []
 ---
 

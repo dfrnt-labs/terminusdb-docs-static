@@ -1,9 +1,9 @@
 ---
 nextjs:
   metadata:
-    title: Change Request Workflows - TerminusCMS Tour
+    title: Change Request Workflows - TerminusDB Tour
     description: >-
-      This page details how change request workflows function in TerminusCMS to
+      This page details how change request workflows function in TerminusDB to
       enable safe collaboration
     openGraph:
       images: >-
@@ -19,10 +19,10 @@ media:
     media_type: Image
     title: In a change request
     value: https://assets.terminusdb.com/docs/in-change-request.png
-  - alt: TerminusCMS change request screen
+  - alt: TerminusDB change request screen
     caption: ''
     media_type: Image
-    title: TerminusCMS change request screen
+    title: TerminusDB change request screen
     value: https://assets.terminusdb.com/docs/change-request-screen.png
   - alt: Change Request diff viewer
     caption: ''
@@ -46,11 +46,11 @@ media:
     value: https://assets.terminusdb.com/docs/cr-review-page.png
 ---
 
-TerminusCMS features change request workflows to ensure that changes to data and content are made safely with reviews in place to check changes.
+TerminusDB features change request workflows to ensure that changes to data and content are made safely with reviews in place to check changes.
 
 ## Creating a Change Request
 
-When someone goes to make a change to content and data, TerminusCMS automatically opens a change request. This is a branch of the database that does not impact main. Users can make one or many changes within the change request -
+When someone goes to make a change to content and data, TerminusDB automatically opens a change request. This is a branch of the database that does not impact main. Users can make one or many changes within the change request -
 
 ![Opening a change request](https://assets.terminusdb.com/docs/open-change-request.png)
 
@@ -72,7 +72,7 @@ When in a change request a user has three options -
 
 Change requests are managed from the change request screen.
 
-![TerminusCMS change request screen](https://assets.terminusdb.com/docs/change-request-screen.png)
+![TerminusDB change request screen](https://assets.terminusdb.com/docs/change-request-screen.png)
 
 The screen has four tabs -
 
@@ -111,6 +111,6 @@ To review a change request, do the following -
 
 ## Conflicts & Collaboration
 
-In order to avoid changes being squashed by other users when multiple people make changes to data and content, TerminusCMS checks the database to see if there have been changes made before a user reviews and merges a change request.
+In order to avoid changes being squashed by other users when multiple people make changes to data and content, TerminusDB checks the database to see if there have been changes made before a user reviews and merges a change request.
 
 In order to proceed. The user must rebase their change request to incorporate the latest changes into their own change request. A prompt tells the user what to do.

@@ -3,19 +3,19 @@ nextjs:
   metadata:
     title: Path Queries in WOQL
     description: >-
-      A guide to show how to do path queries in WOQL for your TerminusCMS and
-      TerminusDB projects.
+      A guide to show how to do path queries in WOQL for your TerminusDB
+      projects.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/woql-path-query.png
 media: []
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusCMS. You will then have full access to the data needed for this tutorial.
+> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have full access to the data needed for this tutorial.
 
 ## How to use `path`
 
-TerminusCMS gives us [path queries](/docs/path-query-reference-guide/) which allow us to succinctly express chains of relationships.
+TerminusDB gives us [path queries](/docs/path-query-reference-guide/) which allow us to succinctly express chains of relationships.
 
 The `path` keyword allows you to find a path through the graph traversing intermediate edges. An example would be finding a group of individuals who have at some point shared a vehicle as a pilot or piloted another vehicle that in turn was shared with someone. This is a _transitive_ relationship and will explore the entire graph.
 

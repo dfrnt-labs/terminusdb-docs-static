@@ -1,9 +1,9 @@
 ---
 nextjs:
   metadata:
-    title: Add a schema to TerminusCMS with the Python Client
+    title: Add a schema to TerminusDB with the Python Client
     description: >-
-      A guide to show how to add a schema to TerminusCMS projects with the Python
+      A guide to show how to add a schema to TerminusDB projects with the Python
       Client.
     openGraph:
       images: >-

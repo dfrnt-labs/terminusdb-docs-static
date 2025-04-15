@@ -11,7 +11,7 @@ export interface SubNavigation {
 
 export const navigation: Navigation[] = [
   {
-    title: 'Start with TerminusCMS',
+    title: 'Start with TerminusDB',
     links: [
       {
         title: 'Get Started',
@@ -512,7 +512,7 @@ export const navigation: Navigation[] = [
         href: '/docs/document-insertion',
       },
       {
-        title: 'TerminusCMS Dashboard',
+        title: 'TerminusDB Dashboard',
         href: '/docs/terminuscms-dashboard-reference',
       },
       {
@@ -682,7 +682,7 @@ export const navigation: Navigation[] = [
 
 export const old = [
   {
-    title: 'Start with TerminusCMS',
+    title: 'Start with TerminusDB',
     links: [
       {
         title: 'Get Started',

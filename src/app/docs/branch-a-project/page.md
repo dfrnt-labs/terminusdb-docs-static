@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Branch a Project using the TerminusDB JS Client
     description: >-
-      A guide to show how to create a new branch in TerminusDB and TerminusCMS
+      A guide to show how to create a new branch in TerminusDB
       using the JavaScript Client.
     openGraph:
       images: >-
@@ -13,7 +13,7 @@ media: []
 
 Assuming you have [connected with the JavaScript Client](/docs/connect-with-the-javascript-client/) and [created a database](/docs/create-a-database/) you can then create a branch of your project.
 
-Creating a branch is the same for TerminusDB and TerminusCMS. By default, in TerminusDB or TerminusCMS you are working in the main branch.
+Creating a branch is the same for TerminusDB and DFRNT TerminusDB cloud. By default, in TerminusDB or DFRNT, you are working in the main branch.
 
 ## Create a new branch from main branch
 

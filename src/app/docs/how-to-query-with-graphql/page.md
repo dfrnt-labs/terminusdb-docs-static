@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: How to Query with GraphQL
     description: >-
-      Bit sized how to guides for querying TerminusCMS and TerminusDB with GraphQL
+      Bit sized how to guides for querying TerminusDB with GraphQL
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

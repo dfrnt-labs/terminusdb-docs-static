@@ -2,7 +2,7 @@
 nextjs:
   metadata:
     title: Branch a Project Using the Python Client
-    description: A guide to show how to branch a TerminusCMS project using the Python Client.
+    description: A guide to show how to branch a TerminusDB project using the Python Client.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/python-client-collaboration-branch.png
@@ -11,7 +11,7 @@ media: []
 
 Assuming you have [connected with the Python Client](/docs/connect-with-python-client/) and [created a database](/docs/create-database-with-python-client/) you can then create a branch of your project.
 
-Creating a branch is the same for TerminusDB and TerminusCMS. By default, in TerminusDB or TerminusCMS you are working in the main branch.
+Creating a branch is the same for TerminusDB and DFRNT TerminusDB cloud. By default, in TerminusDB or DFRNT, you are working in the main branch.
 
 ## Create a new branch from main branch
 

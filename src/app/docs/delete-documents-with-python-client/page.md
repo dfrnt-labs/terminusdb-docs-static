@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: How to delete a document using the Python client
     description: >-
-      A guide to show how to delete a document from TerminusCMS using the Python
+      A guide to show how to delete a document from TerminusDB using the Python
       Client
     openGraph:
       images: >-

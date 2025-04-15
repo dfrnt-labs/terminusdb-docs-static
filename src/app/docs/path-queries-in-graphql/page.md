@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Path Queries in GraphQL
     description: >-
-      How to do path queries on TerminusDB and TerminusCMS data products using
+      How to do path queries on TerminusDB data products using
       GraphQL
     openGraph:
       images: >-
@@ -11,11 +11,11 @@ nextjs:
 media: []
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusCMS. You will then have full access to the data needed for this tutorial.
+> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have full access to the data needed for this tutorial.
 
 ## Using a Path Query
 
-Sometimes we want to search for links that are not immediate, but need to follow a chain of links to get the object of interest. TerminusCMS gives us [path queries](/docs/path-query-reference-guide/) which allow us to succinctly express this.
+Sometimes we want to search for links that are not immediate, but need to follow a chain of links to get the object of interest. TerminusDB gives us [path queries](/docs/path-query-reference-guide/) which allow us to succinctly express this.
 
 We can find a path in GraphQL by using the `_path_to_CLASS` query, where CLASS is the name of one of our classes. One path should be populated for each of the available classes.
 

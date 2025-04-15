@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: Time Travel Through your Database History
     description: >-
-      A guide to show to time travel through your TerminusDB and TerminusCMS
+      A guide to show to time travel through your TerminusDB
       projects using the Python Client.
     openGraph:
       images: >-
@@ -18,9 +18,9 @@ Assuming you have [connected with the Python Client](/docs/connect-with-python-c
 You can use the Python WOQL Client Library method to get a list of branch commits. This example uses pagination to get the last 10 commits starting from the branch head -
 
 ```python
-// For TerminusCMS
+// For TerminusDB
 from terminusdb_client import Client
-client = Client('https://cloud.terminusdb.com/MyTeam')
+client = Client('https://dfrnt.com/api/hosted/TEAM')
 client.connect(team='MyTeam' db='your_db', api_token='YOUR_API_TOKEN_HERE')
 commits = client.logs(count=10)
 print(commits)

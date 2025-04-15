@@ -3,15 +3,14 @@ nextjs:
   metadata:
     title: How to filter with WOQL
     description: >-
-      A guide showing how to filter with WOQL in your TerminusCMS and TerminusDB
-      projects 
+      A guide showing how to filter with WOQL in your TerminusDB projects
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/woql-filter.png
 media: []
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusCMS. You will then have access to the data needed for this tutorial.
+> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have access to the data needed for this tutorial.
 
 Since WOQL is a datalog, filters are just part of the query. You can express negative information, or constraints on the variables in order to get a restriction down to the things you want.
 

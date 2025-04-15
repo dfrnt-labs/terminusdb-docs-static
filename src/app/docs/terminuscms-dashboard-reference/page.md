@@ -1,9 +1,9 @@
 ---
 nextjs:
   metadata:
-    title: TerminusCMS Dashboard Reference Guide
+    title: TerminusDB Dashboard Reference Guide
     description: >-
-      A conceptual overview of the TerminusCMS dashboard describing its features
+      A conceptual overview of the TerminusDB dashboard describing its features
       and their purpose.
     openGraph:
       images: >-
@@ -18,23 +18,23 @@ media:
 
 ## Overview
 
-The TerminusCMS dashboard is a place to -
+The DFRNT TerminusDB cloud dashboard is a place to -
 
 *   Manage your teams and collaborators
 *   Manage your data products/projects
 *   Model schema or edit in code
 *   Manual data and content curation
 *   Test and build queries
-*   Collaborate on other user's TerminusCMS projects
+*   Collaborate on other user's TerminusDB projects
 *   Manage, review, and accept or reject change requests.
 
 For details about how to achieve any of the list above, please take a look at the [product tour](/docs/product-tour/).
 
-TerminusCMS is structured in such a way -
+TerminusDB is structured in such a way -
 
 ![How teams, users and projects are structured.](https://assets.terminusdb.com/docs/teams-users-and-projects2.png)
 
-When you sign up for TerminusCMS is automatically generates a team for you based on your login credentials. You can create other teams too. You will be an admin user for any of your teams.
+When you sign up for DFRNT TerminusDB cloud, it automatically generates a team for you based on your login credentials. You will be an admin user for any of your teams.
 
 You can then invite collaborators to your team. The permissions you grant them for the team will be applied to all projects within that team.
 
@@ -74,19 +74,19 @@ For more informaiton about schema modeling, visit the [how-to model schema guide
 
 The third icon, the document with a tick, takes you to the document curation section. On the left and in the main section of the screen it will list all of the documents within the project schema. Here you can click through to view, sort, and filter existing documents. Or add, edit, and delete documents.
 
-TerminusCMS automatically constructs document frames from the schema. These frames are rendered as forms in the dashboard and all users to add and edit data and content directly into the backend.
+TerminusDB automatically constructs document frames from the schema. These frames are rendered as forms in the dashboard and all users to add and edit data and content directly into the backend.
 
-TerminusCMS comes with change requests workflows for data and content curation.
+TerminusDB comes with change requests workflows for data and content curation.
 
-### TerminusCMS Change Request Workflows
+### TerminusDB Change Request Workflows
 
-Change request workflows in TerminusCMS are an automated process. When a user tries to edit, delete, or add a document they are prompted to create a change request by giving it a name and description. The change request creates a new branch of the data where the user can make changes away from main. They can exit the change request and pick it up later, or submit it for review. A review can accept and merge the change request, or reject and delete it.
+Change request workflows in TerminusDB are an automated process. When a user tries to edit, delete, or add a document they are prompted to create a change request by giving it a name and description. The change request creates a new branch of the data where the user can make changes away from main. They can exit the change request and pick it up later, or submit it for review. A review can accept and merge the change request, or reject and delete it.
 
 To ensure that other changes don't get stamped the change request workflows check the database to see if it has changed since the branch was created, and if so, update the change request with the latest changes prior to it being reviewed and merged.
 
 ## Query Playgrounds
 
-The TerminusCMS dashboards come with WOQL and GraphQL query playgrounds.
+The TerminusDB dashboards come with WOQL and GraphQL query playgrounds.
 
 ### WOQL Query Playground
 
@@ -96,8 +96,8 @@ The playground features query panels to write your schema. You can have several 
 
 ### GraphQL Query Playground
 
-GraphQL is typically an API language, but TerminusCMS has incorporated some of WOQLs features to allow you to perform graph queries using GraphQL. The playground features a query input area and a results panel. The playground is tab based and you can have many tabs open to experiment and tweak queries.
+GraphQL is typically an API language, but TerminusDB has incorporated some of WOQLs features to allow you to perform graph queries using GraphQL. The playground features a query input area and a results panel. The playground is tab based and you can have many tabs open to experiment and tweak queries.
 
-TerminusCMS automatically generates the GraphQL schema from the project's schema. This enables features such as autofill and a dropdown of classes and properties.
+TerminusDB automatically generates the GraphQL schema from the project's schema. This enables features such as autofill and a dropdown of classes and properties.
 
 For more information about querying with GraphQL, visit the [GraphQL Query how-to guide](/docs/graphql-basics/).

@@ -3,7 +3,7 @@ nextjs:
   metadata:
     title: System Graph Interface to GraphQL
     description: >-
-      TerminusCMS and TerminusDB technical documentation - System Graph Interface
+      TerminusDB technical documentation - System Graph Interface
       to GraphQL
     openGraph:
       images: >-

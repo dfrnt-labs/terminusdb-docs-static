@@ -26,7 +26,7 @@ To use VectorLink’s semantic search you first need to configure the Handlebars
 
 You need to create a Handlebars embedding for each document class that you want to index.
 
-Assuming you have logged into TerminusCMS, selected a team and data product, do the following -
+Assuming you have logged into TerminusDB, selected a team and data product, do the following -
 
 1.  Choose the OpenAI icon from the menu on the left
 2.  Using the dropdown menu, select the document class you want to generate an embedding for.
@@ -44,7 +44,7 @@ This generates the GraphQL query to include in the template. Check that all of t
 
 ## Write Handlebars Semantic Templates
 
-> If you clone the Star Wars data product from TerminusCMS, this comes with a working Handlebars template for you to copy.
+> If you clone the Star Wars data product from TerminusDB, this comes with a working Handlebars template for you to copy.
 
 This is currently a manual process. The templates are written in an easy-to-understand way.
 
