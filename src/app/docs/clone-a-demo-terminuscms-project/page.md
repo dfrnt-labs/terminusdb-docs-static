@@ -1,18 +1,18 @@
 ---
 nextjs:
   metadata:
-    title: How to clone a TerminusCMS demo project
+    title: How to clone a TerminusDB demo project
     description: >-
-      A guide to show how to clone TerminusCMS demo projects to explore and play
+      A guide to show how to clone TerminusDB demo projects to explore and play
       with.
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
 media:
-  - alt: clone a demo project to get started with TerminusCMS
+  - alt: clone a demo project to get started with TerminusDB
     caption: ''
     media_type: Image
-    title: clone a demo project to get started with TerminusCMS
+    title: clone a demo project to get started with TerminusDB
     value: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
 ---
 

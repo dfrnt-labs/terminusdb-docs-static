@@ -27,7 +27,7 @@ Time travel is each to do. From any screen when viewing a project (apart from th
 
 Select this and a panel will appear from the right.
 
-![Time travel to any previous commit using the DFRNT TerminusDB cloud dashboard](https://assets.terminusdb.com/docs/time-travel.png)
+![Time travel to any previous commit using the DFRNT TerminusDB cloud  dashboard](https://assets.terminusdb.com/docs/time-travel.png)
 
 Each commit in the list features the comments from the merged change request.
 

@@ -1,9 +1,9 @@
 ---
 nextjs:
   metadata:
-    title: TerminusCMS Documents Explanation
+    title: TerminusDB Documents Explanation
     description: >-
-      The types of documents available in TerminusDB and TerminusCMS with examples
+      The types of documents available in TerminusDB and TerminusDB with examples
       of their definitions and interactions.
     openGraph:
       images: >-
