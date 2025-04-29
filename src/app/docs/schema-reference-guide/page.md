@@ -1411,7 +1411,7 @@ The actual definition of person might be given in its home data product as:
 And to use a field with an optional `Person` foreign field, this is how to define the property, just like any other reference, using the `@class`.
 
 ```json
-  "Test": {
+  "person": {
     "@class": "Person",
     "@type": "Optional"
   }
