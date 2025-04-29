@@ -1408,6 +1408,15 @@ The actual definition of person might be given in its home data product as:
   "name" : "xsd:string" }
 ```
 
+And to use a field with an optional `Person` foreign field, this is how to define the property, just like any other reference, using the `@class`.
+
+```json
+  "Test": {
+    "@class": "Person",
+    "@type": "Optional"
+  }
+```
+
 #### Code: An example creating and referring to a foreign type
 
 From the command line we can see how an HR data product might interact with an Events data product.
