@@ -346,6 +346,10 @@ export const navigation: Navigation[] = [
                 title: 'Customer Data Processing',
                 href: '/docs/python-woql-customer-data-processing-example',
               },
+              {
+                title: 'WOQL Getting Started',
+                href: '/docs/woql-getting-started',
+              },
             ],
           },
           {

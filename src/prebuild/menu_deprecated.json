@@ -588,6 +588,13 @@
                 "Menu3Page": {
                   "slug": "python-woql-customer-data-processing-example"
                 }
+              },
+              {
+                "Menu3Label": "WOQL Getting Started",
+                "Order": "2001",
+                "Menu3Page": {
+                  "slug": "woql-getting-started"
+                }
               }
             ]
           },
