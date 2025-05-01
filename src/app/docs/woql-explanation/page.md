@@ -69,13 +69,15 @@ triple(a, b, c).triple(d, e, f)
 
 In the example above, fluent style 3 is more concise and unambiguous where WOQL functions that are chained together do not take sub-clauses (or commands.) As conjunction is frequently used, this concise form, where the `and()` is implicit, is more convenient in many situations.
 
-!> Use implicit `and()` with care.
+{% callout type="warning" title="Use implicit `and()` with care" %}
 
-?> if in doubt, use the explicit `and()` functional style as this clarifies which functions are sub-clauses of other functions.
+If in doubt, use the explicit `and()` functional style as this clarifies which functions are sub-clauses of other functions.
 
 The conjunction is always applied to the function immediately to the left of the period `.` in the chain, and not to any functions further up the chain. If used improperly with clauses that take sub-clauses, it will produce improperly specified queries, especially with negation (`not`) and optional functions (`opt`).
 
 For example, consider the following three queries. The first two are equivalent. However, the first query is incorrect and easy to misinterpret when the intended expression is that shown in the third query.
+
+{% /callout %}
 
 ### Code: Fluent style implicit conjunction
 
