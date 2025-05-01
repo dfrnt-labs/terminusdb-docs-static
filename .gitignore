@@ -4,7 +4,8 @@
 .next
 .env
 bun.lock
-src/menu.json
+# Currently not built from TerminusCMS
+# src/menu.json
 
 # dependencies
 /node_modules

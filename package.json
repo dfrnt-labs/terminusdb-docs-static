@@ -5,8 +5,10 @@
   "scripts": {
     "sitemap": "next-sitemap",
     "prebuild": "node src/prebuild/menu.mjs",
-    "dev": "npm run prebuild && next dev",
-    "build": "npm run prebuild && next build",
+    "dev": "next dev",
+    "build": "next build",
+    "cmsdev": "npm run prebuild && next dev",
+    "cmsbuild": "npm run prebuild && next build",
     "postbuild": "npm run sitemap",
     "start": "next start",
     "lint": "next lint"
