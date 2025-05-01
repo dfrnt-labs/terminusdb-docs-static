@@ -205,6 +205,10 @@ WOQL goes a step beyond supporting prefixes by automatically applying prefixes w
 
 ## Further Reading
 
+### WOQL Getting Started
+
+Read the [WOQL Getting Started](/docs/woql-getting-started/) guide for more examples and putting it all together!
+
 ### WOQL Reference
 
 [JavaScript](/docs/javascript/) and [Python](/docs/python/) WOQL Reference guides
