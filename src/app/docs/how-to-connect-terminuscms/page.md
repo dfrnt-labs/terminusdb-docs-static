@@ -14,7 +14,7 @@ media:
     value: https://cdn.terminusdb.com/img/terminus-cms/client_api_connection.jpeg
 ---
 
-Cloud hosted TemrinusDB is available from [https://dfrnt.com](https://dfrnt.com). Register an account or sign up if you haven't already to get started fast.
+Cloud hosted TemrinusDB is available from [https://dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). Register an account or sign up if you haven't already to get started fast.
 
 Click on the **team** that you wish to use or create a new one. A default one will be already created for you. After selecting your team, click on your profile icon in the upper-right corner and click on `Profile`.
 

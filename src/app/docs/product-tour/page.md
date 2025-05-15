@@ -26,7 +26,7 @@ TerminusDB includes many features to build content infrastructures for complex e
 
 ## Sign Up and Try Out a Demo Project
 
-Sign up for DFRNT TerminusDB cloud for free at: [https://dfrnt.com](https://dfrnt.com).
+Sign up for DFRNT TerminusDB cloud for free at: [https://dfrnt.com](https://dfrnt.com/hypergraph-content-studio/).
 
 Verify your email address by clicking on the link emailed to you and logging in.
 

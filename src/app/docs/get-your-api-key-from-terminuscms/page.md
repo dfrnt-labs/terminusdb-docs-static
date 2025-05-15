@@ -17,7 +17,7 @@ To use the Python or JavaScript client with TerminusDB, an API key is required. 
 
 **1\. Log in**
 
-Log in to the modeller user interface [dfrnt.com](https://dfrnt.com)
+Log in to the modeller user interface [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/)
 
 **2\. Select a Team**
 

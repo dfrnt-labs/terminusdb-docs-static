@@ -478,6 +478,20 @@ export const navigation: Navigation[] = [
         href: '/docs/python',
       },
       {
+        title: 'Git-for-Data Reference',
+        href: '/docs/git-for-data-reference',
+        links: [
+          {
+            title: 'Manual reverse branch cloning',
+            href: '/docs/manual-reverse-branch-cloning',
+          },
+          {
+            title: 'Strictly segmented environments',
+            href: '/docs/operational-technologies-transfer',
+          },
+        ],
+      },
+      {
         title: 'GraphQL Reference',
         href: '/docs/graphql-query-reference',
         links: [

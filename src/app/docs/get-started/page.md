@@ -24,7 +24,7 @@ It is designed to give technical professionals and linked data professionals a s
 
 TerminusDB is open source and free to use, maintained by the team at DFRNT in collaboration with the community.
 
-Commercial hosting with a powerful modeller, visualisation, WOQL studio, and record editor user interface is available at [DFRNT.com](https://dfrnt.com) with a free trial. It works with both localhost open source TerminusDB and TerminusDB hosted in the cloud environments, including git-for-data synchronization of content repositories. 
+Commercial hosting with a powerful modeller, visualisation, WOQL studio, and record editor user interface is available at [DFRNT.com](https://dfrnt.com/hypergraph-content-studio/) with a free trial. It works with both localhost open source TerminusDB and TerminusDB hosted in the cloud environments, including git-for-data synchronization of content repositories. 
 
 When you sign up, you get full commercial hosting. This comes with generous limits to allow you to build without constraints, and then upgrade when needed.
 

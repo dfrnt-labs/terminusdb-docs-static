@@ -18,7 +18,7 @@ media:
 
 Follow this instructions to create a project/data product in DFRNT TerminusDB cloud -
 
-1.  Login to the dashboard at [dfrnt.com](https://dfrnt.com).
+1.  Login to the dashboard at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/).
 2.  Select the team that you want the project to live.
 3.  Choose 'New Data Product' from the top menu.
 4.  Provide your project ID - this can only contain alphanumeric characters and underscores.

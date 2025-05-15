@@ -22,7 +22,7 @@ This page provides examples of WOQL queries and explanations for how to use it i
 
 In the tutorial we will use the Javascript/Typescript dialect of WOQL. The logic is the same, but the syntax for Python follows traditional Python patterns. For details, refer to the syntax of each.
 
-All examples have been tested in the TerminusDB Logical Studio provided by [DFRNT](https://dfrnt.com). The reader will be expected to have already built a few first classes and stored documents in TerminusDB before embarking on the examples in the tutorial.
+All examples have been tested in the TerminusDB Logical Studio provided by [DFRNT](https://dfrnt.com/hypergraph-content-studio/). The reader will be expected to have already built a few first classes and stored documents in TerminusDB before embarking on the examples in the tutorial.
 
 ## Predicates, literals and variables in WOQL
 
