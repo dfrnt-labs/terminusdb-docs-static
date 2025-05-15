@@ -69,7 +69,7 @@ The TerminusDB [Command Line Interface](/docs/terminusdb-cli-commands/) (CLI.)
 
 ### Dashboard
 
-The TerminusDB [dashboard](https://dashboard.terminusdb.com) provides a visual interface.
+The TerminusDB [dashboard](https://dfrnt.com/hypergraph-content-studio/) provides a visual interface.
 
 ### APIs
 
