@@ -25,7 +25,7 @@ It is designed to give technical professionals and linked data professionals a s
 
 TerminusDB is open source and free to use, maintained by the team at DFRNT in collaboration with the community. 
 
-Commercial hosting with a powerful modeller, visualisation, WOQL studio, and record editor user interface is available at [DFRNT.com](https://dfrnt.com/hypergraph-content-studio/) with a free trial. It works with both localhost open source TerminusDB and TerminusDB hosted in the cloud environments, including git-for-data synchronization of content repositories. 
+Get a hosting, a powerful modeller, visualisations, logical query studio, and record editor user interface at [DFRNT.com](https://dfrnt.com/hypergraph-content-studio/) with a free trial. It works with both localhost open source TerminusDB and TerminusDB hosted in the cloud environments, including git-for-data synchronization of content repositories. 
 
 When you sign up, you get full commercial hosting. This comes with generous limits to allow you to build without constraints, and then upgrade when needed.
 
@@ -36,10 +36,6 @@ When you sign up, you get full commercial hosting. This comes with generous limi
 4.  [Get your API key to use a client with DFRNT TerminusDB cloud](/docs/how-to-connect-terminuscms/)
 5.  [Familiarize yourself with the client API](/docs/connect-with-the-javascript-client/) to start building with TerminusDB.
 
-### Demo Projects
+### Collaborate through TerminusDB cloud teams
 
-Coming back soon: There are several demo projects available to clone and experiment with. Sign up and visit your team home page to clone these projects.
-
-![Clone a demo data product from the DFRNT TerminusDB cloud dashboard](https://assets.terminusdb.com/docs/how-to-clone-a-demo.png)
-
-Your team home page features a number of demo projects to clone and experiment with.
+Request shared teams in the [DFRNT](https://dfrnt.com/hypergraph-content-studio/) cloud environment to collaborate on data products in shared instances, and for pushing and pulling data products with a local TerminusDB instance, similar to how software engineers collaborate on code.

@@ -69,7 +69,7 @@ export function ThemeSelector(
     <Listbox as="div" value={theme} onChange={setTheme} {...props}>
       <Label className="sr-only">Theme</Label>
       <ListboxButton
-        className="flex h-6 w-6 items-center justify-center rounded-lg ring-1 shadow-md shadow-black/5 ring-black/5 dark:bg-slate-700 dark:ring-white/5 dark:ring-inset"
+        className="flex h-6 w-6 dark:ring-white/5 cursor-pointer dark:ring-slate-400 hover:dark:ring-slate-400 items-center justify-center rounded-lg ring-1 shadow-md shadow-black/5 ring-black/5 dark:bg-slate-700 dark:ring-inset"
         aria-label="Theme"
       >
         <LightIcon

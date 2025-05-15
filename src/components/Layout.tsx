@@ -58,6 +58,15 @@ function Header() {
       </div>
       <div className="relative flex basis-0 justify-end gap-6 sm:gap-8 md:grow">
         <ThemeSelector className="relative z-10" />
+        
+        <Link
+          href="https://dfrnt.com/hypergraph-content-studio"
+          className="group"
+          aria-label="GitHub"
+        >
+          <span className="px-2 py-1 rounded-lg ring-1 dark:text-sky-200 dark:hover:text-sky-50  shadow-md hover:shadow-black/15 shadow-black/5 ring-black/5 dark:hover:ring-white/20 dark:bg-slate-700 dark:ring-white/5 dark:ring-inset text-sm font-semibold uppercase">Sign up</span>
+        </Link>
+        
         <Link
           href="https://github.com/terminusdb/terminusdb"
           className="group"

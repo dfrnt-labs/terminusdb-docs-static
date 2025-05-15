@@ -30,15 +30,7 @@ When you sign up, you get full commercial hosting. This comes with generous limi
 
 ### Steps to get started
 
-1.  Sign up at [https://dfrnt.com/signup](https://dfrnt.com/signup), or use it with [Docker](/docs/install-terminusdb-as-a-docker-container/)
-3.  Install the [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-the-python-client/) Client
-4.  [Get your API key to use a client with the DFRNT TerminusDB cloud](/docs/how-to-connect-terminuscms/)
-5.  [Familiarize yourself with the client API](/docs/connect-with-the-javascript-client/) to start building with TerminusDB.
-
-## Demo Projects
-
-Coming back soon: There are several demo projects available to clone and experiment with. Sign up and visit your team home page to clone these projects.
-
-![Clone a demo data product from the DFRNT TerminusDB cloud dashboard](https://assets.terminusdb.com/docs/how-to-clone-a-demo.png)
-
-Your team home page features a number of demo projects to clone and experiment with.
+1.  Sign up at [https://dfrnt.com/signup](https://dfrnt.com/signup) for hosting an a complete user interface, or install with [Docker](/docs/install-terminusdb-as-a-docker-container/) locally.
+2.  Install the [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-the-python-client/) Client
+3.  [Get your API key to use a client with the DFRNT TerminusDB cloud](/docs/how-to-connect-terminuscms/)
+4.  [Familiarize yourself with the client API](/docs/connect-with-the-javascript-client/) to start building with TerminusDB.

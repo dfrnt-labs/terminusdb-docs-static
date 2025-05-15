@@ -29,13 +29,11 @@ Our customers use TerminusDB for various complex information processing needs: s
 
 We maintain close communications with the original TerminusDB development team who support our efforts, and of course welcome contributions from the community!
 
----
-
 ## Quick start
 
-The easiest way to get started with the open source community version on your own computer is by [getting started with Docker](/docs/install-terminusdb-as-a-docker-container/).
+The easiest way to get started with TerminusDB knowledge graphs is by using the official hosting privider [DFRNT.com](https://dfrnt.com/hypergraph-content-studio/). It provides a complete enhanced entity relations knowldge graph data modeller, git-for-data synchronization, graph visualisations, the WOQL logical studio, and an easy-to-use model-driven form-based record editor.
 
-TerminusDB is open source and free to use. Commercial hosting with a powerful modeller, visualisation, WOQL studio, and record editor user interface is available at [DFRNT](https://dfrnt.com/hypergraph-content-studio/) with a free trial. 
+TerminusDB is open source and free to use under the Apache 2.0 license. Get started with the open source community version on your own computer, by [getting started with Docker](/docs/install-terminusdb-as-a-docker-container/).
 
-The commercial modeller, visualisations and records management tool works with both localhost open source TerminusDB and TerminusDB hosted in the cloud environments, including git-for-data synchronization of content repositories between cloud and localhost.
+The cloud modeller, visualisations and records management tool works with both localhost open source TerminusDB (connecting to your localhost:6363 port) and TerminusDB hosted in the cloud environments. Your can use git-for-data synchronizations of content repositories between cloud and localhost as a backup and for collaboration with peers.
 
