@@ -27,21 +27,45 @@ A **patch** applies a diff to two objects to obtain a new object with any differ
 
 ## Public Endpoint
 
-Use our public endpoints for each operation:
+The diff and patch endpoints can be used directly as an API without data products, using the [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/) cloud hosting.
 
-**JSON Diff**
+Use our endpoints for each operation, get your API token ready to run below commands.
 
-```text
-https://cloud.terminusdb.com/jsondiff
+**JSON Diff example **
+
+Have a token and your username that can be found in the profile section to use with the below example where the cloud diff and patch operations are used.
+
+```bash
+TOKEN=01234567-0123-0123-0123...
+DFRNT_USER=00000000-0000-0000...
+curl -H "Authorization: Token $TOKEN" -X POST -H "Content-Type: application/json" "https://dfrnt.com/api/hosted/${DFRNT_USER}/api/diff" -d \
+  '{ "before" : { "asdf" : "foo", "fdsa" : "bar"}, "after" : { "asdf" : "bar", "fdsa" : "bar"}, "keep" : { "fdsa" : true}}'
+```
+
+Result:
+```json
+{"asdf": {"@after":"bar", "@before":"foo", "@op":"SwapValue"},"fdsa":"bar"}
 ```
 
 **JSON Patch**
 
-```text
-https://cloud.terminusdb.com/jsonpatch
+Have a token and your username that can be found in the profile section to use with the below example where the cloud diff and patch operations are used.
+
+```bash
+TOKEN=01234567-0123-0123-0123...
+DFRNT_USER=00000000-0000-0000...
+curl -H "Authorization: Token $TOKEN" -X POST -H "Content-Type: application/json" "https://dfrnt.com/api/hosted/${DFRNT_USER}/api/patch" -d \
+  '{ "before" : { "alpha" : 1, "asdf" : { "fdsa" : "quux"}}, "patch" : {
+      "asdf": {"fdsa": {"@after":"quuz", "@before":"quux", "@op":"SwapValue"}}
+}}'
 ```
 
-See [Diff and Patch Endpoints](#diffandpatchendpoints) for more information, and examples of [diff](#diffexamplesusingcurl) and [patch](#patchexamplesusingcurl) using curl.
+Result:
+```json
+{"alpha":1, "asdf": {"fdsa":"quuz"}}
+```
+
+See [Diff and Patch Endpoints](#diffandpatchendpoints) for more information, and examples of [diff](#diffexamplesusingcurl) and [patch](#patchexamplesusingcurl) using curl for more examples.
 
 ## Diff & Patch with Client
 
