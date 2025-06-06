@@ -1,9 +1,9 @@
 ---
 nextjs:
   metadata:
-    title: How to add documents using WOQL
+    title: How to add and delete documents and subdocuments using WOQL
     description: >-
-      A how-to guide  with an example showing how to add documents using a WOQL
+      A how-to guide  with an example showing how to add documents and subdocuments using a WOQL
       query.
     openGraph:
       images: >-
@@ -30,7 +30,7 @@ and(isa(v.person, "People"),
     insert_document(doc({'@type' : 'Planet', label: v.name})))
 ```
 
-## Create and link a subdocument
+## Create and link a subdocument in WOQL
 
 Subdocuments have two components linking them to their parent, one triple, and one subdocument, which are required by the schema checker to accept the document. The triple links the parent with the subdocument, and the subdocument is linked to the parent using the special property `@linked-by`.
 
@@ -43,7 +43,7 @@ and(
 )
 ```
 
-## Delete a subdocument
+## Delete a subdocument in WOQL
 
 Subdocuments can be deleted using the `delete_document` keyword, but it's important to also delete the triple that links the subdocument from the parent document. Here we resolve the parent document in the variable `v:parentdoc`.
 
@@ -56,7 +56,7 @@ and(
 )
 ```
 
-## Update a subdocument
+## Update a subdocument in WOQL
 
 Let's combine creating and deleting a document into a single query to update the subdocument.
 
