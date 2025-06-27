@@ -15,57 +15,16 @@ The TerminusDB schema language enables documents and their relationships to be s
 
 ## Schema Objects
 
-A JSON object in TerminusDB schema is composed of **key-value** pairs.
+A JSON object in TerminusDB schema is composed of **key-value** pairs. There are two main types of schema objects, one `@context` typed schema object, and different kinds of structures, including the following:
 
-#### Key
+* **Class**:definitions for document and subdocument instances
+* **Enum**: definitions for enum values
+* **Foreign**: definitions for foreign IRI references (arbitrary IRIs)
+* **TaggedUnion**: definitions for tagged union types (one of property definitions)
 
-A key is one of two values, **keyword** or **property**, described in the table below. The full schema definition is a stream or list of these values or JSON objects.
+Each of the above types of schema objects has a `@type` property with the value of the type, and several other definition keywords as described next.
 
-#### Table: Types of keys
-
-{%table%}
-
-- Key type
-- Example
-- Description
-
----
-
-- **keyword**
-- `@id`
-- Starts with `@`, has a value with a special meaning.
----
-
-- **property**
-- `name`
-- Does not start with `@`, has a value with a **range** type.
-
-{%/table%}
-
-### Class definition
-
-The basic unit of specification is a **class**. A class definition is a schema object with the keyword `@type` with type value `Class`. The keyword `@id` specifies the name of the class. The example below define a class named `Person` with a property `name` of type `xsd:string`. Search XSD definitions for more information about types.
-
-#### Code: The basic unit of specification
-
-```json
-{ 
-    "@type" : "Class",
-    "@id"   : "Person",
-    "name"  : "xsd:string" 
-}
-```
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
-media: []
----
-
-The TerminusDB schema language enables documents and their relationships to be specified using simple JSON syntax. This syntax makes it as easy as possible to specify a JSON object to automatically convert to a graph. This approach enables data to be viewed as collections of documents or as knowledge graphs of interconnected objects.
-
-## Schema Objects
-
-A JSON object in TerminusDB schema is composed of **key-value** pairs.
-
-#### Key
+### Key
 
 A key is one of two values, **keyword** or **property**, described in the table below. The full schema definition is a stream or list of these values or JSON objects.
 
@@ -90,7 +49,7 @@ A key is one of two values, **keyword** or **property**, described in the table 
 
 {%/table%}
 
-### Class definition
+## Class definition
 
 The basic unit of specification is a **class**. A class definition is a schema object with the keyword `@type` with type value `Class`. The keyword `@id` specifies the name of the class. The example below define a class named `Person` with a property `name` of type `xsd:string`. Search XSD definitions for more information about types.
 
@@ -104,7 +63,7 @@ The basic unit of specification is a **class**. A class definition is a schema o
 }
 ```
 
-### Context object
+## Context object
 
 The **context object** is a special schema object affecting the entire schema. The context object is specified by the special `@type` value `@context`. An example:
 
@@ -139,7 +98,7 @@ This example does the following:
 *   `@authors`
 *   `@description`
 
-#### Context Prefixes
+### Context Prefixes
 
 All properties in the context object that do not start with `@`, such as `xsd`, are URI definitions. They must be of the form shown below. Prefix and URI are defined by their respective regular expressions. That is, a prefix has an identifier starting with an alphabetic character followed by alphanumeric characters. The URI has a protocol followed by valid URI characters. Each prefix is paired with a URI.
 
@@ -152,11 +111,11 @@ URI    := ":alpha:alphaNum:*://:uriChar:*"
     ... }
 ```
 
-## Context keywords
+### Context keywords
 
 A list of keywords used in the context object.
 
-### @schema
+#### @schema
 
 The `@schema` keyword specifies the default URI expansion to use for all elements of the schema. In the example below, the class name `NamedQuery` expands to `http://terminusdb.com/schema/woql#NamedQuery`.
 
@@ -199,7 +158,7 @@ The `@schema` keyword specifies the default URI expansion to use for all element
 }
 ```
 
-### @documentation
+#### @documentation
 
 `@documentation` specifies documentation global to the entire schema. See the `@documentation` section in the previous context object example. The `@documentation` tag can be a single value, or it can be a list with each element having an additional `@langugage` tag. The `@language` tag must have an IANA language code, and this will be used to select appropriate descriptions when internationalising the schema.
 
@@ -255,7 +214,7 @@ An example of the `@language` tag for a context is as follows:
 }
 ```
 
-## Document definition keywords
+## Document structure definition keywords
 
 A document definition includes several properties, and the keywords, prefixed `@`, describing class behavior.
 
@@ -322,7 +281,7 @@ You can specify the order of properties within your schema so that it is display
 ...
 ```
 
-### Class schema type
+## Class schema type
 
 `Class` designates a standard class document. It contains the definition of several properties and keywords describing various class attributes. An example of a class, and an instance of the class:
 
@@ -343,7 +302,7 @@ You can specify the order of properties within your schema so that it is display
 }
 ```
 
-#### Code: An example of a class instance
+### Code: An example of a class instance
 
 ```json
 { 
@@ -359,11 +318,11 @@ You can specify the order of properties within your schema so that it is display
 }
 ```
 
-### Enum schema type
+## Enum schema type
 
 An `Enum` is a non-standard class in which each instance is a simple URI with no additional structure. To be a member of the class, you must be one of the referent URIs. An `Enum` example with an extension `Blue` is s shown below. In the database, the actual URI for an Enum is expanded with the preceding type name, so the `blue` extension becomes `http://s#PrimaryColour/blue`
 
-#### Code: An example of an enum class
+### Code: An example of an enum class
 
 ```json
 { 
@@ -378,13 +337,13 @@ An `Enum` is a non-standard class in which each instance is a simple URI with no
 }
 ```
 
-### TaggedUnion schema type
+## TaggedUnion schema type
 
 A `TaggedUnion` specifies mutually exclusive properties. This is useful when there is a disjoint choice between options.
 
 Examples below of a schema with a TaggedUnion and a concrete TaggedUnion class extension. In these examples, the `BinaryTree` class specifies a `TaggedUnion` enabling a choice between a `leaf` (with no value), or a `node` class with a value and branches.
 
-#### Code: An example schema with a TaggedUnion
+### Code: An example schema with a TaggedUnion
 
 ```json
 { 
@@ -416,7 +375,7 @@ Examples below of a schema with a TaggedUnion and a concrete TaggedUnion class e
 }
 ```
 
-#### Code: An example TaggedUnion class extension
+### Code: An example TaggedUnion class extension
 
 ```json
 { 
@@ -435,13 +394,13 @@ Examples below of a schema with a TaggedUnion and a concrete TaggedUnion class e
 }
 ```
 
-### @oneOf
+## @oneOf in a Class definition
 
 The `TaggedUnion` is a special case and syntactic sugar for the more general case of collections of disjoint properties. These more complex cases can be represented by inheriting from a number of `TaggedUnion`s, but they may also be given explicitly using the `@oneOf` field, together with a Class.
 
 The value of the `@oneOf` field is a set, so can be any number of documents all of which have mutually disjoint properties, but which can coexist. Examples with more than one disjoint property are given below.
 
-#### Code: An example schema with @oneOf
+### Code: An example schema with @oneOf
 
 ```json
 {
@@ -495,7 +454,7 @@ The value of the `@oneOf` field is a set, so can be any number of documents all 
 }
 ```
 
-#### Code: Examples of `@oneOf` class extensions
+### Code: Examples of `@oneOf` class extensions
 
 ```json
 {
@@ -553,6 +512,8 @@ But not:
 ### Unit
 
 The `Unit` type has a single extension `[]`. This is used when only the presence of the property is interesting, but it has no interesting value. See the `BinaryTree` in the [TaggedUnion class extension](#codeanexampletaggedunionclassextension) example above.
+
+## Class definition details
 
 ### @id
 
@@ -1015,7 +976,7 @@ An example of inheritance of properties and an object meeting this specification
 }
 ```
 
-## @unfoldable
+### @unfoldable
 
 The `@unfoldable` key is present with the value `[]` or it is not present.
 
@@ -1025,7 +986,7 @@ The `@unfoldable` option can only be set on a class which does not directly or i
 
 The purpose of `@unfoldable` is to be able to treat linked (top-level) documents as subdocuments in representation. Subdocuments can only be linked by one document, its owner, whereas normal documents can be linked by any number of other documents. If the desired result is to have a document linked by several other documents, but still have it fully unfolded on retrieval like a subdocument, use this option.
 
-### Code: An example unfoldable
+#### Code: An example unfoldable
 
 ```json
 {
@@ -1102,7 +1063,7 @@ The above example shows both Doug and Phil using the same address document. On r
 
 The address is fully unfolded in both documents despite not being a subdocument.
 
-## Class properties
+### Class properties
 
 All non-keywords are treated as properties of the class, with the form:
 
