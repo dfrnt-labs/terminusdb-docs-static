@@ -322,7 +322,7 @@ You can specify the order of properties within your schema so that it is display
 ...
 ```
 
-### Class
+### Class schema type
 
 `Class` designates a standard class document. It contains the definition of several properties and keywords describing various class attributes. An example of a class, and an instance of the class:
 
@@ -359,7 +359,7 @@ You can specify the order of properties within your schema so that it is display
 }
 ```
 
-### Enum
+### Enum schema type
 
 An `Enum` is a non-standard class in which each instance is a simple URI with no additional structure. To be a member of the class, you must be one of the referent URIs. An `Enum` example with an extension `Blue` is s shown below. In the database, the actual URI for an Enum is expanded with the preceding type name, so the `blue` extension becomes `http://s#PrimaryColour/blue`
 
@@ -378,7 +378,7 @@ An `Enum` is a non-standard class in which each instance is a simple URI with no
 }
 ```
 
-### TaggedUnion
+### TaggedUnion schema type
 
 A `TaggedUnion` specifies mutually exclusive properties. This is useful when there is a disjoint choice between options.
 
@@ -1382,7 +1382,7 @@ An example of an object `Person` that can have 0 to any number of friends. This 
 }
 ```
 
-### Foreign Types
+### Foreign schema type (foreign references)
 
 Use `Foreign` to specify types that are to be references to external data products. Foreign types are types that are opaque in the current data product. This allows us to give them identifiers although we don't actually store the objects locally. Foreign types have _no_ referential integrity checking, and as they refer to opaque identifiers, the schema is checked by the data product in which they are referred.
 
