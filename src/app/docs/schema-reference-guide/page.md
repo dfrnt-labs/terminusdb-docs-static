@@ -1,13 +1,15 @@
 ---
 nextjs:
   metadata:
-    title: TerminusDB Schema Reference Guide
+    title: Schema Reference Guide
     description: A reference guide for the TerminusDB schema
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
+
+# Schema Reference Guide
 
 The TerminusDB schema language enables documents and their relationships to be specified using simple JSON syntax. This syntax makes it as easy as possible to specify a JSON object to automatically convert to a graph. This approach enables data to be viewed as collections of documents or as knowledge graphs of interconnected objects.
 
@@ -359,7 +361,7 @@ You can specify the order of properties within your schema so that it is display
 
 ### Enum
 
-An `Enum` is a non-standard class in which each instance is a simple URI with no additional structure. To be a member of the class, you must be one of the referent URIs. An `Enum` example with an extension `Blue` is s shown below. In the database, the actual URI for an Enum is expanded with the preceding type name, so the `Blue` extension becomes `http://s#PrimaryColour/Blue`
+An `Enum` is a non-standard class in which each instance is a simple URI with no additional structure. To be a member of the class, you must be one of the referent URIs. An `Enum` example with an extension `Blue` is s shown below. In the database, the actual URI for an Enum is expanded with the preceding type name, so the `blue` extension becomes `http://s#PrimaryColour/blue`
 
 #### Code: An example of an enum class
 
@@ -369,15 +371,11 @@ An `Enum` is a non-standard class in which each instance is a simple URI with no
     "@id"     : "PrimaryColour",
     "@value" : 
     [
-        "Red", 
-        "Blue", 
-        "Yellow"
+        "red", 
+        "blue", 
+        "yellow"
     ] 
 }
-```
-
-```json
-"Blue"
 ```
 
 ### TaggedUnion

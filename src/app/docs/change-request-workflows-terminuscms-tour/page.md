@@ -46,6 +46,8 @@ media:
     value: https://assets.terminusdb.com/docs/cr-review-page.png
 ---
 
+# Change Request Workflows
+
 TerminusDB features change request workflows to ensure that changes to data and content are made safely with reviews in place to check changes.
 
 ## Creating a Change Request

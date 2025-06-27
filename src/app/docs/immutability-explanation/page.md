@@ -11,18 +11,21 @@ nextjs:
 media: []
 ---
 
+# Immutability Explanation
+
 TerminusDB is an immutable data store. When data is written to a store, it does not change or mutate existing data. Any deleted data is masked, any new data resulting from a transaction is added on top of the mask.
 
 ## Advantages of immutability
 
 Immutability has several advantages, including:
 
-- [Advantages of immutability](#advantages-of-immutability)
-  - [Transaction safety](#transaction-safety)
-  - [Lock-free concurrency](#lock-free-concurrency)
-  - [Commit and branch time travel](#commit-and-branch-time-travel)
-  - [Change audit](#change-audit)
-  - [Collaboration and synchronization](#collaboration-and-synchronization)
+- [Immutability Explanation](#immutability-explanation)
+  - [Advantages of immutability](#advantages-of-immutability)
+    - [Transaction safety](#transaction-safety)
+    - [Lock-free concurrency](#lock-free-concurrency)
+    - [Commit and branch time travel](#commit-and-branch-time-travel)
+    - [Change audit](#change-audit)
+    - [Collaboration and synchronization](#collaboration-and-synchronization)
 
 ### Transaction safety
 

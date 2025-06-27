@@ -14,6 +14,8 @@ media:
     value: https://assets.terminusdb.com/docs/project-admin.png
 ---
 
+# Clone a Project
+
 From the project home page, on the right you will see the `Clone Project` section.
 
 ![Clone a project from the project home page](https://assets.terminusdb.com/docs/project-admin.png)

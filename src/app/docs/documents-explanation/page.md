@@ -16,9 +16,15 @@ media:
     value: https://assets.terminusdb.com/docs/terminusdb-contact-graph-diagram.png
 ---
 
-## The TerminusDB document store
+# Documents Explanation
+
+## The TerminusDB hierarchical document store
 
 TerminusDB is a document store as well as a knowledge graph database. TerminusDB [schemata](/docs/schema-reference-guide/) describe how to interpret segments of graphs as self-contained documents.
+
+From a knowledge graph perspective, what is unique about TerminusDB is that the triples of a document are transactionally enforced to a shape defined by the schema, and the triples of the document are part of a shape and have a lifecycle that follows the defined schema.
+
+Documents are similar and adhere to a special-purpose subset of the JSON-LD. 
 
 ### TerminusDB storage structure
 

@@ -10,6 +10,8 @@ nextjs:
         https://assets.terminusdb.com/docs/woql-add-documents.png
 ---
 
+# Add Documents with WOQL
+
 > To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have full access to the data needed for this tutorial.
 
 ## Add a document in WOQL
@@ -42,53 +44,3 @@ and(
   add_triple("Person/John", "role", "v:SubdocumentId"),
 )
 ```
-
-## Delete a subdocument in WOQL
-
-Subdocuments can be deleted using the `delete_document` keyword, but it's important to also delete the triple that links the subdocument from the parent document. Here we resolve the parent document in the variable `v:parentdoc`.
-
-```javascript
-and(
-  eq("v:subdoc", "Person/John/role/PersonRole/cxW1Egirxm8-QYrq"),
-  triple("v:parentdoc", "role", "v:subdoc"),
-  delete_document("v:subdoc"),
-  delete_triple("v:parentdoc", "role", "v:subdoc"),
-)
-```
-
-## Update a subdocument in WOQL
-
-Let's combine creating and deleting a document into a single query to update the subdocument.
-
-Subdocuments can't be updated in place using the `update_document` keyword which exists only for top level documents. You can update a subdocument by deleting the old subdocument and creating a new one with the updated content, including the `@linked-by` property, and updating the triple that links the subdocument.
-
-This in place operation is only possible using random keyed identifiers on the subdocument. The alternative is to update the top level document.
-
-```javascript
-select("v:oldsubdoc", "v:newsubdoc").
-and(
-    eq("v:subdoc", "Person/John/role/PersonRole/cxW1Egirxm8-QYrq"),
-    and(
-        triple("v:parentdoc", "role", "v:oldsubdoc"),
-
-        delete_document("v:oldsubdoc"),
-        insert_document(new doc({"@type": "PersonRole", "@linked-by": {"@id": "v:parentdoc", "@property": "role"}}),"v:newsubdoc"),
-        
-        update_triple("v:parentdoc", "role", "v:newsubdoc", "v:oldsubdoc"),
-    )
-)
-```
-
-The parent document is resolved for the specific predicate, the old document gets deleted and a new document is created, linked to the parent document and the triple that links from the parent document is updated.
-
-The old and new subdocuments are provided in the returned bindings via the selections of variables to return.
-
-
-
-
-
-
-
-
-
-

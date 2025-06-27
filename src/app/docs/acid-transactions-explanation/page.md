@@ -10,6 +10,8 @@ nextjs:
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
 
+# Acid Transactions Explanation
+
 ## What is ACID?
 
 ACID ([Atomicity](#atomicity), [Consistency](#consistency), [Isolation](#isolation), [Durability](#durability)) are properties of database transactions that are generally considered desirable for many applications.

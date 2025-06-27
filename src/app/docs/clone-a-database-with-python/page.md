@@ -9,6 +9,8 @@ nextjs:
 media: []
 ---
 
+# Clone a Database with the Python Client
+
 > Before starting, you should create an account on the DFRNT TerminusDB cloud and get an API Token. You can read about this [here](/docs/how-to-connect-terminuscms/).
 
 This how-to will show how to clone a public database from the DFRNT TerminusDB cloud into your own DFRNT team.

@@ -9,6 +9,8 @@ nextjs:
 media: []
 ---
 
+# Branch a Project in Python
+
 Assuming you have [connected with the Python Client](/docs/connect-with-python-client/) and [created a database](/docs/create-database-with-python-client/) you can then create a branch of your project.
 
 Creating a branch is the same for TerminusDB and DFRNT TerminusDB cloud. By default, in TerminusDB or DFRNT, you are working in the main branch.

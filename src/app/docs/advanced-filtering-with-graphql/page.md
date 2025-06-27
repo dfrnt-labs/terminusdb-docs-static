@@ -8,6 +8,8 @@ nextjs:
         https://assets.terminusdb.com/docs/graphql-advanced-filter.png
 ---
 
+# Advanced Filtering
+
 > To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have full access to the data needed for this tutorial.
 
 TerminusDB exposes a _filter_ object, which can be used to select specific documents. See here for basic [Filtering](/docs/filter-with-graphql/)

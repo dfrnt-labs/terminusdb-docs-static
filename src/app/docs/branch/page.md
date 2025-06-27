@@ -24,6 +24,8 @@ media:
     value: https://assets.terminusdb.com/docs/branch-options.png
 ---
 
+# Branch a Project with the TerminusDB Dashboard
+
 The DFRNT TerminusDB cloud dashboard enables you to branch projects and work with the data product in a bitemporal manner, including the revision history. To do this, choose the team and project you want to branch. You will be directed to the project home page. This is where you can branch it.
 
 Scroll down to see the manage `branch` section.

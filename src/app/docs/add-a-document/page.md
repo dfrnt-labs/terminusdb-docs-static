@@ -10,6 +10,8 @@ nextjs:
         https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-add-documents.png?raw=true
 ---
 
+# Add Documents using Javascript
+
 After you have imported the terminusdb\_client, [created a client](/docs/connect-with-the-javascript-client/), [connected to a database](/docs/connect-to-a-database/), and [added a schema](/docs/add-a-schema/), you can then use this client to insert a document that conforms to the schema.
 
 ## Insert documents

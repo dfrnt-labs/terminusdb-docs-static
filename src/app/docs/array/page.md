@@ -8,6 +8,8 @@ nextjs:
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
 
+# Array fields in the document UI
+
 This example shows how `<FrameViewier/>` appears for a document `ArrayExamplePerson` with array fields in Create/ Edit or View mode. If a field is described as array it means the field can have more than one value to it in an ordered fashion. The field can also be considered as an optional field meaning it can be empty or filled.
 
 ## Demo

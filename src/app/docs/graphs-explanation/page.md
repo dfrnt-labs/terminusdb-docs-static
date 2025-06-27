@@ -11,6 +11,8 @@ nextjs:
 media: []
 ---
 
+# Graph Hierarchy Explanation
+
 ## Graph hierarchy
 
 A TerminusDB database is a hierarchical collection of [data graphs](#datagraphs) and [control graphs](#controlgraphs). These graphs are key to providing a graph database system with **collaboration** and **revision control**.
@@ -92,4 +94,4 @@ A transaction in a graph is also a hierarchical operation, ensuring [ACID transa
 
 ## Further Reading
 
-### [Documents in a knowledge graph and how to use them](/docs/documents-explanation/)
+[Documents in a knowledge graph and how to use them](/docs/documents-explanation/)

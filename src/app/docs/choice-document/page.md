@@ -9,6 +9,8 @@ nextjs:
 media: []
 ---
 
+# Choice Document in the Document UI
+
 This example shows how `<FrameViewier/>` appears for a document `Guy` with choice document fields in Create/ Edit or View mode.
 
 In this example `Guy` has a mandatory property called `favorite_group` with the choice of documents called Art, Dance or Music, an optional `"second_favorite_group"` property also with the choice Art, Dance or Music, a set `member_of` property with the same choices, and a list `attends_group_in_order` property with the above same choices, in an ordered fashion.

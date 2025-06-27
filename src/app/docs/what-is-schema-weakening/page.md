@@ -11,6 +11,8 @@ nextjs:
 media: []
 ---
 
+# Schema Weakening
+
 A schema describes the shape of data in a data product. It provides constraints and assurances about what kind of data will be retrieved.
 
 However, often you need to _change_ the schema in the process of developing a data product.

@@ -16,22 +16,23 @@ Learn how to get TerminusDB set up in your project in under thirty minutes. {% .
 
 {% /quick-links %}
 
-TerminusDB includes many features to build content infrastructures for complex environments with content repositories at it's heart, also known as data products. The [product tour](/docs/product-tour/) aims to provide you with an understanding of how to navigate the product and get started on your projects.
+TerminusDB provides a special-purpose closed-world assumption RDF knowledge graph implementation with high performance in-memory performance leveraging succinct auto-indexing datastructures.
+
+It offers controlled document API interfaces with a terse JSON-LD-like syntax, GraphQL for precise data query needs and a datalog logical engine with variables bindings for complex queries across the graph.
+
+It includes features that are important when building semantic content infrastructures for complex environments: with immutable history and git-for-data/git-for-graphs branching, merging and synchronization. In effect, it provides a foundation for building a graph data mesh with RDF closed world data products.
+
+The [product tour](/docs/product-tour/) aims to provide you with an understanding of how to navigate the product and get started on your projects.
 
 ## Community
 
-* Come visit us on [Discord](https://discord.gg/yTJKAma)
-* [GitHub](https://github.com/terminusdb/terminusdb)
+Join the TerminusDB Community [Discord](https://discord.gg/yTJKAma) to get help and support from the community and see what others are building.
 
-[DFRNT](https://dfrnt.com/hypergraph-content-studio/) took the lead of the continued development of TerminusDB in 2025 as main sponsors of the project, and community efforts. We offer cloud and managed service TerminusDB hosting, and an advanced data product modeller that can also be used with locally installed open source TerminusDB instances. We have been building our dedicated modeller since 2021.
-
-Our customers use TerminusDB for various complex information processing needs: such as Product Information Management, Reference Data Management, Cultural Heritage, special purpose Customer Relationship Management, Non-Profit Records Management, Linked Data, and more. 
-
-We maintain close communications with the original TerminusDB development team who support our efforts, and of course welcome contributions from the community!
+More ways to connect is on [GitHub](https://github.com/terminusdb/terminusdb), or explore the [DFRNT Studio](https://dfrnt.com/hypergraph-content-studio/) modeller product by the new maintainers of TerminusDB since 2025.
 
 ## Quick start
 
-The easiest way to get started with TerminusDB knowledge graphs is by using the official hosting privider [DFRNT.com](https://dfrnt.com/hypergraph-content-studio/). It provides a complete enhanced entity relations knowldge graph data modeller, git-for-data synchronization, graph visualisations, the WOQL logical studio, and an easy-to-use model-driven form-based record editor.
+The easiest way to get started with TerminusDB knowledge graphs is with a cloud instance from the official TerminusDB hosting provider, [DFRNT.com](https://dfrnt.com/hypergraph-content-studio/). It provides a complete enhanced entity relations knowledge graph data modeller, git-for-data synchronization, graph visualisations, GraphQL, APIs and a complete datalog studio with and an easy-to-use model-driven form-based record editor.
 
 TerminusDB is open source and free to use under the Apache 2.0 license. Get started with the open source community version on your own computer, by [getting started with Docker](/docs/install-terminusdb-as-a-docker-container/).
 
