@@ -11,6 +11,8 @@ nextjs:
 media: []
 ---
 
+This page explains various topics regarding the WOQL datalog query language. 
+
 ## WOQL fluent vs. functional style
 
 WOQL supports both **functional** and **fluent** styles for writing queries. Overall, the functional style is recommended to avoid snags. The fluent style may help for simplifying complex compound query expressions.
@@ -112,9 +114,11 @@ and(
 
 ## WOQL and JSON-LD
 
-WOQL uses JSON-LD and a formally specified [ontology](/docs/glossary/#ontology) to define the language and transmit queries.
+The WOQL composable logic is expressed internally in JSON-LD and a formally specified [ontology](/docs/glossary/#ontology) to define the language and transmit queries.
 
 JSON-LD is sometimes tedious for us to read and write. Therefore, WOQL.js is designed to be as easy as possible for developers to write. All WOQL.js queries are translated into the equivalent JSON-LD format for transmission over networks.
+
+Javascript and Python clients convert the in-language supported WOQL queries to an internal Abstract Syntax Tree for transmission to the server, enabling advanced software to compose logic on the fly. This allows higher order logical constructs to be generated automatically. 
 
 ### The WOQLQuery object
 
@@ -145,17 +149,23 @@ triple(a, b, 1) == triple(a, b, {"@type": "xsd:integer", "@value": 1})
 
 WOQL allows variables or constants to be substituted for any argument to all its functions, except for the resource identifier functions: `using`, `with`, `into`, `from`. These functions are used for specifying the graphs against which operations such as queries are carried out.
 
+### Variable scope
+
+Variables are locally scoped to be available across the WOQL query. They can be further scoped down using the `select()` WOQL function that filters the result of a subfunction so that only the selected variables are exposed to the rest of the query.
+
+This is useful for creating powerful higher order constructs. Make sure to clarify what variables are made available through such composable logic block and use unique and specific names for them so that the higher order functions do not conflict.
+
 ### Unification
 
 WOQL uses the formal-logical approach to variables known as unification borrowed from the Prolog engine that implements WOQL within TerminusDB.
 
+This means that variables start as floating variables that can match any possible value in a range, initially any value in scope, such as the subject, predicate or objects of triples and quads.
+
+Some variables are deterministic, such as when a CSV file has been loaded, and bound to their specific values which prevents values that reference them to for example have optional values.
+
 ### Unification in variables
 
 Unification in variables means each valid value for a variable, as constrained by the totality of the query, will produce a new row in the results. For multiple variables, the rows returned are the cartesian product of all the possible combinations of variable values in the query.
-
-### Unification in functions
-
-Unification in functions enables most WOQL functions to serve as both pattern matchers and pattern generators, depending on whether a variable or constant is provided as an argument. If a variable is provided, WOQL will generate all possible valid solutions which fill the variable value. If a constant is provided, WOQL will match only those solutions with exactly that value. Except for resource identifiers, WOQL functions accept either variables or constants in virtually all of their arguments.
 
 ### Expressing variables
 
@@ -173,6 +183,12 @@ triple(a, b, c)
 ```javascript
 triple('v:a', 'v:b', 'v:c')
 ```
+
+## Unification in functions
+
+Unification in functions enables most WOQL functions to serve as both pattern matchers and pattern generators, depending on whether a variable or constant is provided as an argument. If a variable is provided, WOQL will generate all possible valid solutions which fill the variable value.
+
+If a constant is provided, WOQL will match only those solutions with exactly that value. Except for resource identifiers, WOQL functions accept either variables or constants in virtually all of their arguments.
 
 ## WOQL prefixes
 
