@@ -130,7 +130,7 @@ function SubNavigationMap({
                   'block w-full pl-3.5 before:pointer-events-none before:absolute before:top-1/2 before:-left-1 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full',
                   
                   isActive
-                    ? 'font-semibold text-sky-500 before:bg-sky-500'
+                    ? 'font-semibold dark:text-sky-300 text-sky-700 before:bg-sky-500'
                     : 'text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300',
                 )}
               >
@@ -155,7 +155,7 @@ function SubNavigationMap({
                   }}
                 >
                   <h2 className="font-display font-medium">
-                    {link.title}
+                    <span className={clsx(isOpen ? "text-sky-700 dark:text-sky-300 font-bold" : "text-slate-900 dark:text-white")}>{link.title}</span>
                     {/* Indicator based on selected style */}
                     {indicatorStyle === 'plusMinus' && (
                       <span className="ml-2 h-5 w-5 rounded-sm text-sm font-medium text-sky-600 transition-colors dark:text-sky-400">

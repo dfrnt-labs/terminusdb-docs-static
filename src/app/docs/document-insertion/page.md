@@ -497,9 +497,9 @@ The result of this POST request is either an updated branch with a successful ap
 
 ## Version control commit id feedback
 
-When a commit is made, the `Terminusdb-Data-Version` header is returned, which is the reference to the commit made in the [version history](/docs/immutability-explanation). This header can be used to retrieve the exact copy of the document from the specific version in the immutable history.
+When a commit is made, the `TerminusDB-Data-Version` header is returned, which is the reference to the commit made in the [version history](/docs/immutability-explanation). This header can be used to retrieve the exact copy of the document from the specific version in the immutable history.
 
-To get the specific version, use the branchspec `org/dataproduct/local/commit/:commitId` where `:commitId` is the value of the right hand side of the colon separated value in the `Terminusdb-Data-Version` header.
+To get the specific version, use the branchspec `org/dataproduct/local/commit/:commitId` where `:commitId` is the value of the right hand side of the colon separated value in the `TerminusDB-Data-Version` header.
 
 ## Further Reading
 
