@@ -155,6 +155,15 @@ Variables are locally scoped to be available across the WOQL query. They can be 
 
 This is useful for creating powerful higher order constructs. Make sure to clarify what variables are made available through such composable logic block and use unique and specific names for them so that the higher order functions do not conflict.
 
+Example:
+
+```javascript
+and(
+    select("v:subject", triple("v:subject", "rdf:type", "v:type")),
+    eq("v:type", "does-not-unify with v:type because not selected above")
+)
+```
+
 ### Unification
 
 WOQL uses the formal-logical approach to variables known as unification borrowed from the Prolog engine that implements WOQL within TerminusDB.
