@@ -10,8 +10,6 @@ nextjs:
       images: https://assets.terminusdb.com/docs/python-client-use-add-a-schema.png
 ---
 
-# Add schema with Python
-
 After you have imported the `terminusdb_client`, and [created a client](/docs/create-database-with-python-client/), and [connected to a database](/docs/connect-to-a-database-with-python-client/) you can create a schema.
 
 ## Insert schema document(s)

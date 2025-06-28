@@ -1,5 +1,5 @@
 ---
-title: TerminusDB CLI Commands
+title: Command Line Interface (CLI) Commands
 nextjs:
   metadata:
     title: TerminusDB CLI Commands
@@ -10,8 +10,6 @@ nextjs:
       canonical: https://terminusdb.org/docs/terminusdb-cli-commands/
 media: []
 ---
-
-# Command Line Interface (CLI) Commands
 
 ## SYNOPSIS
 

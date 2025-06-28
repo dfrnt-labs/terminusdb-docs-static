@@ -11,8 +11,6 @@ nextjs:
 media: []
 ---
 
-# The WOQL beginners guide
-
 The thinking behind the Web Object Query Language is well explained on the [WOQL explanation](/docs/woql-explanation) page. As mentioned there, it is a formal language for querying and updating TerminusDB databases. As a language is builds on a declarative datalog foundation, and is evaluated by binding variables as the abstract syntax tree is read.
 
 This means that some logical behaviours depend on the order of binding the variables to values in the current instance or schema graph that is addressed. 

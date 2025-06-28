@@ -46,8 +46,6 @@ media:
     value: https://assets.terminusdb.com/docs/cr-review-page.png
 ---
 
-# Change Request Workflows
-
 The DFRNT TerminusDB cloud is not yet hosting the change request workflow API to ensure that changes to data and content are made safely with reviews in place to check changes. It can be run locally with TerminusDB
 
 ## Creating a Change Request

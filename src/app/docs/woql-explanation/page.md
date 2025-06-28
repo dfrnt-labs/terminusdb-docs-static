@@ -11,8 +11,6 @@ nextjs:
 media: []
 ---
 
-# WOQL Explanation
-
 ## WOQL fluent vs. functional style
 
 WOQL supports both **functional** and **fluent** styles for writing queries. Overall, the functional style is recommended to avoid snags. The fluent style may help for simplifying complex compound query expressions.

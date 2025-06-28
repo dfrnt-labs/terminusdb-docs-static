@@ -11,8 +11,6 @@ nextjs:
 media: []
 ---
 
-# Schema Reference Guide
-
 The TerminusDB schema language enables documents and their relationships to be specified using simple JSON syntax. This syntax makes it as easy as possible to specify a JSON object to automatically convert to a graph. This approach enables data to be viewed as collections of documents or as knowledge graphs of interconnected objects.
 
 ## Schema Objects

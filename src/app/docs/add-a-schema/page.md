@@ -10,8 +10,6 @@ nextjs:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-add-a-schema.png?raw=true
 ---
 
-# Add Schema using Javascript
-
 After you have imported the terminusdb\_client, [created a client](/docs/connect-with-the-javascript-client/), and [connected to a database](/docs/connect-to-a-database/) you can create a schema.
 
 ## Create a schema

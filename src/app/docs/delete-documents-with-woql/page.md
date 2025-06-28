@@ -11,8 +11,6 @@ nextjs:
 media: []
 ---
 
-# Delete Documents with WOQL
-
 > To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on the DFRNT TerminusDB cloud. You will then have access to the data needed for this tutorial.
 
 ## Delete a document in WOQL

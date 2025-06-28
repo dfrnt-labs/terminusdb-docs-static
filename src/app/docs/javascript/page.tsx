@@ -5,7 +5,6 @@ import {
   formatShortHandAnchorIds,
   formatAnchorIds,
 } from '../../../utils'
-import menu from '../../../menu.json'
 import { Layout } from '../../../components/_layout'
 import props from '../../../../schema/javascript.json'
 import { OnThisPageContent } from '@/components/_onThisPage'

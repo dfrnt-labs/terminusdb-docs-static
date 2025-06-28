@@ -10,8 +10,6 @@ nextjs:
       images: https://assets.terminusdb.com/docs/python-client-use-add-documents.png
 ---
 
-# Add documents with Python
-
 After you have imported the `terminusdb_client`, and [created a client](/docs/connect-with-python-client/), [connected to a database](/docs/connect-with-python-client/), and [added a schema](/docs/add-a-schema-with-the-python-client/), you can then use this client to insert a document that conforms to the schema.
 
 ## Insert a document

@@ -1,5 +1,5 @@
 ---
-title: TerminusDB Documents Explanation
+title: Documents Explanation
 nextjs:
   metadata:
     title: TerminusDB Documents Explanation
@@ -15,8 +15,6 @@ media:
     title: Image 1
     value: https://assets.terminusdb.com/docs/terminusdb-contact-graph-diagram.png
 ---
-
-# Documents Explanation
 
 ## The TerminusDB hierarchical document store
 

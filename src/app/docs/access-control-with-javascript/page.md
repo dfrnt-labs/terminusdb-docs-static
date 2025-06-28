@@ -10,8 +10,6 @@ nextjs:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
 
-# Access Control Reference Guide
-
 **License**: Apache Version 2
 
 ## new AccessControl()

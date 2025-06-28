@@ -11,8 +11,6 @@ nextjs:
 media: []
 ---
 
-# Choice Subdocuments in the Document UI
-
 This example shows how `<FrameViewier/>` appears for a document called `Student` with choice subdocument fields in Create/ Edit or View mode.
 
 `Student` has a mandatory `favorite_subject` property with the choices of Zoology, Botony or Maths, an optional `"second_favorite_subject"` property with the same document choices, a set `studied` property with the above choices, and a list `study_time_table` property with the same choices in an ordered fashion.

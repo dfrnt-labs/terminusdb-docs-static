@@ -10,8 +10,6 @@ nextjs:
       canonical: https://terminusdb.org/docs/add-documents-with-woql/
 ---
 
-# Add Documents with WOQL
-
 > To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have full access to the data needed for this tutorial.
 
 ## Add a document in WOQL

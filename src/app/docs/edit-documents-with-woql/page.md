@@ -11,8 +11,6 @@ nextjs:
 media: []
 ---
 
-# Edit Documents with WOQL
-
 > To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have full access to the data needed for this tutorial.
 
 We can get a document by Id, by using `read_document`. For instance, we can write:

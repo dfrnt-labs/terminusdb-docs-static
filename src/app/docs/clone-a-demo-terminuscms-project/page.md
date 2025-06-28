@@ -16,8 +16,6 @@ media:
     value: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
 ---
 
-# Clone a Demo Project
-
 You can clone a demo database by logging in to the DFRNT TerminusDB cloud and selecting a Team. Once selected you will see a "Create New Data Product" or a number of possible data sets to clone. To clone the data set, just click on the card, and it will clone it into your currently selected team.
 
 This clone is now yours to use. It shares data with the original, so cloning is fast even if the data set is very large. When you make edits, they will be private to you, but it will be indistinguishable to you from editing the main database.
