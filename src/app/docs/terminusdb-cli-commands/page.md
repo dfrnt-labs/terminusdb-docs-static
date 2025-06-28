@@ -1,4 +1,5 @@
 ---
+title: TerminusDB CLI Commands
 nextjs:
   metadata:
     title: TerminusDB CLI Commands
@@ -8,6 +9,8 @@ nextjs:
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
+
+# Command Line Interface (CLI) Commands
 
 ## SYNOPSIS
 
