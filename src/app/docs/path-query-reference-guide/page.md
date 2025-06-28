@@ -17,7 +17,7 @@ TerminusDB allows _path regular expressions_ as a way to describe multi-hop sear
 
 The syntax of path expressions, for expressions `A`, `B` and fields `F` is as follows:
 
-{%table%}
+{% table %}
 
 - Expression
 - Example
@@ -100,9 +100,8 @@ The syntax of path expressions, for expressions `A`, `B` and fields `F` is as fo
 - `<friend`
 - Backward
 - Follow the field `F` backward (who is linked to this node by `F`
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
-media: []
----
+
+{% /table %}
 
 TerminusDB allows _path regular expressions_ as a way to describe multi-hop searches in a concise fashion. When you need to follow a link repeatedly for shortest path queries or to find all linked documents meeting some specification you can often use a _path query_.
 

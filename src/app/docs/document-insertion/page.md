@@ -1,17 +1,17 @@
 ---
-title: TerminusDB Document Insertion Reference Guide
+title: Document API Reference Guide
 nextjs:
   metadata:
-    title: TerminusDB Document Insertion Reference Guide
-    description: A reference guide for the TerminusDB document interface.
+    title: Document API Reference Guide
+    description: A reference guide for the TerminusDB document API interface.
     alternates:
       canonical: https://terminusdb.org/docs/document-insertion/
 media: []
 ---
 
-FIXME: Tables need to be updated to new MarkDoc
+The document interface consists of two endpoints, one for instance documents, and one for schema documents. Documents look like typed JSON documents, and implement a subset of JSON-LD functionalities suitable for closed world knowledge graph processing.
 
-The document interface consists of two endpoints. The first endpoint, `document`, is how we get documents into and out of TerminusDB. Since schemas consist of documents too, this is also how you'd update the schema.
+The first endpoint, `document`, is how we get documents into and out of TerminusDB. Since schemas consist of documents too, this is also how you'd update the schema. Documents in TerminusDB are checked against the enhanced entity relationship model implemented through schema documents.
 
 The second endpoint, `schema`, is how we can easily get schema information out of TerminusDB. While technically it is possible to get all schema information through the document interface, the schema interface is more convenient for this purpose, as it takes class inheritance into account to give a complete image of all the properties that are usable on a certain class.
 
@@ -31,57 +31,67 @@ By default, this will return a stream of all documents to be found at this locat
 
 #### Parameters
 
-parameter
+{% table %}
 
-default
+- parameter
+- default
+- explanation
 
-explanation
+--- 
 
-graph\_type
+- graph\_type
+-
+- either instance or schema. Used to switch between getting documents from the instance or the schema graph.
 
-either instance or schema. Used to switch between getting documents from the instance or the schema graph.
+---
 
-type
+- type
+-
+- If given, only documents of the given type are returned.
 
-If given, only documents of the given type are returned.
+---
 
-id
+- id
+- 
+- If given, only the document with the given ID is returned.
 
-If given, only the document with the given ID is returned.
+---
 
-prefixed
+- prefixed
+- true
+- If true (the default), return IRIs using a prefixed notation wherever possible. If false, full IRIs are used.
 
-true
+---
 
-If true (the default), return IRIs using a prefixed notation wherever possible. If false, full IRIs are used.
+- minimized
+- false
+- If true, forego pretty printing, and return the documents with very little whitespace. Each json document will be on its own line.
 
-minimized
+---
 
-false
+- unfold
+- true
+- If true (the default), any subdocuments contained in the returned document are returned too. If false, these are referred to by their ID instead.
 
-If true, forego pretty printing, and return the documents with very little whitespace. Each json document will be on its own line.
+---
 
-unfold
+- skip
+- 0
+- How many results to skip
 
-true
+---
 
-If true (the default), any subdocuments contained in the returned document are returned too. If false, these are referred to by their ID instead.
+- count
+- 
+- How many results to return. If this option is absent, all results are returned.
 
-skip
+---
 
-0
+- as\_list
+- false
+- If true, don't return a stream of json objects, but a list. This makes parsing the json easier in some environments.
 
-How many results to skip
-
-count
-
-How many results to return. If this option is absent, all results are returned.
-
-as\_list
-
-false
-
-If true, don't return a stream of json objects, but a list. This makes parsing the json easier in some environments.
+{% /table %}
 
 #### Alternate query mechanism
 
@@ -115,37 +125,43 @@ The documents to be submitted are given as post data. Multiple documents can be 
 
 #### Parameters
 
-parameter
+{% table %}
 
-default
+- parameter
+- default
+- explanation
 
-explanation
+---
 
-author
+- author
+- 
+- The commit author
 
-The commit author
+---
 
-message
+- message
+- 
+- The commit message
 
-The commit message
+---
 
-graph\_type
+- graph\_type
+- instance
+- either instance or schema. Used to switch between submitting to the instance or the schema graph.
 
-instance
+---
 
-either instance or schema. Used to switch between submitting to the instance or the schema graph.
+- full\_replace
+- false
+- If true, all existing documents are deleted before inserting the posted documents. This allows the full replacement of the contents of a database. This is especially useful for replacing the schema.
 
-full\_replace
+---
 
-false
+- raw\_json
+- false
+- If true, the input documents are treated as raw JSON , inserted as type `sys:JSONDocument` and are not subject to schema restrictions.
 
-If true, all existing documents are deleted before inserting the posted documents. This allows the full replacement of the contents of a database. This is especially useful for replacing the schema.
-
-raw\_json
-
-false
-
-If true, the input documents are treated as raw JSON , inserted as type `sys:JSONDocument` and are not subject to schema restrictions.
+{% /table %}
 
 #### Result
 
@@ -165,37 +181,43 @@ The documents to be submitted are given as post data. Multiple documents can be 
 
 #### Parameters
 
-parameter
+{% table %}
 
-default
+- parameter
+- default
+- explanation
 
-explanation
+---
 
-author
+- author
+- 
+- The commit author
 
-The commit author
+---
 
-message
+- message
+- 
+- The commit message
 
-The commit message
+---
 
-graph\_type
+- graph\_type
+- instance
+- either instance or schema. Used to switch between submitting to the instance or the schema graph.
 
-instance
+---
 
-either instance or schema. Used to switch between submitting to the instance or the schema graph.
+- create
+- false
+- insert if the document was not already in the database.
 
-create
+---
 
-false
+- raw\_json
+- false
+- If true, the replaced documents are treated as raw JSON , they must be replacing a document of type `sys:JSONDocument` and they are not subject to schema restrictions.
 
-insert if the document was not already in the database.
-
-raw\_json
-
-false
-
-If true, the replaced documents are treated as raw JSON , they must be replacing a document of type `sys:JSONDocument` and they are not subject to schema restrictions.
+{% /table %}
 
 ### Deleting documents
 
@@ -209,35 +231,43 @@ Where resource path is the usual strings like `admin/foo` for database foo, or `
 
 #### Parameters
 
-parameter
+{% table %}
 
-default
+- parameter
+- default
+- explanation
 
-explanation
+---
 
-author
+- author
+- 
+- The commit author
 
-The commit author
+---
 
-message
+- message
+- 
+- The commit message
 
-The commit message
+---
 
-graph\_type
+- graph\_type
+- instance
+- either instance or schema. Used to switch between submitting to the instance or the schema graph.
 
-instance
+---
 
-either instance or schema. Used to switch between submitting to the instance or the schema graph.
+- id
+- 
+- If given, the document to delete. If not given, it is expected that the post data will contain a list of ids to delete.
 
-id
+---
 
-If given, the document to delete. If not given, it is expected that the post data will contain a list of ids to delete.
+- nuke
+- false
+- If true, delete everything at this resource location (dangerous!).
 
-nuke
-
-false
-
-If true, delete everything at this resource location (dangerous!).
+{% /table %}
 
 #### Specifying what documents to delete
 
@@ -351,15 +381,19 @@ The purpose of this endpoint is to quickly discover the supported fields of a pa
 
 #### Parameters
 
-parameter
+{% table %}
 
-default
+- parameter
+- default
+- explanation
 
-explanation
+---
 
-type
+- type
+- 
+- If given, the type to get information for. If omitted, information for all types is returned.
 
-If given, the type to get information for. If omitted, information for all types is returned.
+{% /table %}
 
 #### Result
 
@@ -377,23 +411,33 @@ POST /api/schema/<resource path>
 
 #### Parameters
 
-parameter
+{% table %}
 
-default
+- parameter
+- default
+- explanation
 
-explanation
+---
 
 author
 
-The commit author
+ - author
+ - 
+ - The commit author
 
-message
+---
 
-The commit message
+ - message
+ - 
+ - The commit message
 
-schema\_checking
+---
 
-Value should be either enabled or disabled
+ - schema\_checking
+ - 
+ - Value should be either enabled or disabled
+
+{% /table %}
 
 ## The apply endpoint
 
@@ -409,40 +453,55 @@ The purpose of this endpoint is to take the difference between any two commits a
 
 #### Parameters
 
-parameter
+{% table %}
 
-default
+- parameter
+- default
+- explanation
 
-explanation
+---
 
-before\_commit
+ - before\_commit
+ - 
+ - The first commit to compare in order to produce a diff
 
-The first commit to compare in order to produce a diff
+---
 
-after\_commit
+ - after\_commit
+ - 
+ - The last commit to compare in order to produce a diff
 
-The last commit to compare in order to produce a diff
+---
 
-commit\_info
+ - commit\_info
+ - 
+ - A JSON document with author and message
 
-A JSON document with author and message
+---
 
-match\_final\_state
+ - match\_final\_state
+ - true
+ - Ignores conflicts if the final state would remain the same
 
-true
+---
 
-Ignores conflicts if the final state would remain the same
+- type
+- squash
+- What type of application to perform - currently can only be squash
 
-type
-
-squash
-
-What type of application to perform - currently can only be squash
+{% /table %}
 
 #### Result
 
 The result of this POST request is either an updated branch with a successful application of the difference between two commits, or an error giving the reason for an unresolvable conflict.
 
+## Version control commit id feedback
+
+When a commit is made, the `Terminusdb-Data-Version` header is returned, which is the reference to the commit made in the [version history](/docs/immutability-explanation). This header can be used to retrieve the exact copy of the document from the specific version in the immutable history.
+
+To get the specific version, use the branchspec `org/dataproduct/local/commit/:commitId` where `:commitId` is the value of the right hand side of the colon separated value in the `Terminusdb-Data-Version` header.
+
 ## Further Reading
 
-**\*_[](/docs/documents-explanation/)_**_[Documents in a knowledge graph and how to use them](/docs/documents-explanation/)_[\*](/docs/documents-explanation/).
+* [Documents in a knowledge graph and how to use them](/docs/documents-explanation/)
+* [Immutability, version history, and revision control](/docs/immutability-explanation/)

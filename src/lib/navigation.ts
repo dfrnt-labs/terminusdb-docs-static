@@ -336,113 +336,120 @@ export const navigation: Navigation[] = [
         ],
       },
       {
-        title: 'Query',
-        href: '/docs/how-to-query',
+        title: 'Query Examples',
         links: [
           {
-            title: 'Query Examples',
-            links: [
-              {
-                title: 'Customer Data Processing',
-                href: '/docs/python-woql-customer-data-processing-example',
-              },
-              {
-                title: 'WOQL Getting Started',
-                href: '/docs/woql-getting-started',
-              },
-            ],
+            title: 'Customer Data Processing',
+            href: '/docs/python-woql-customer-data-processing-example',
           },
           {
-            title: 'GraphQL Query',
-            href: '/docs/how-to-query-with-graphql',
-            links: [
-              {
-                title: 'GraphQL Basics',
-                href: '/docs/graphql-basics',
-              },
-              {
-                title: 'GraphQL Filter',
-                href: '/docs/filter-with-graphql',
-              },
-              {
-                title: 'GraphQL Advanced Filter',
-                href: '/docs/advanced-filtering-with-graphql',
-              },
-              {
-                title: 'GraphQL Limit',
-                href: '/docs/limit-results-in-graphql',
-              },
-              {
-                title: 'GraphQL Order By',
-                href: '/docs/order-by-in-graphql',
-              },
-              {
-                title: 'GraphQL Offset',
-                href: '/docs/offset-to-provide-paging',
-              },
-              {
-                title: 'GraphQL Path Queries',
-                href: '/docs/path-queries-in-graphql',
-              },
-              {
-                title: 'GraphQL Back Links',
-                href: '/docs/back-links-in-graphql',
-              },
-            ],
+            title: 'WOQL Getting Started',
+            href: '/docs/woql-getting-started',
+          },
+        ],
+      },
+      {
+        title: 'Document Interface',
+        links: [
+          {
+            title: 'Document Graph Howto',
+            href: '/docs/document-graph-api',
           },
           {
-            title: 'WOQL Query',
-            href: '/docs/how-to-query-with-woql',
-            links: [
-              {
-                title: 'WOQL Basics',
-                href: '/docs/woql-basics',
-              },
-              {
-                title: 'WOQL Add Docs',
-                href: '/docs/add-documents-with-woql',
-              },
-              {
-                title: 'WOQL Edit Docs',
-                href: '/docs/edit-documents-with-woql',
-              },
-              {
-                title: 'WOQL Delete Docs',
-                href: '/docs/delete-documents-with-woql',
-              },
-              {
-                title: 'WOQL Read Docs',
-                href: '/docs/read-documents-with-woql',
-              },
-              {
-                title: 'WOQL Filter',
-                href: '/docs/filter-with-woql',
-              },
-              {
-                title: 'WOQL Order By',
-                href: '/docs/order-by-with-woql',
-              },
-              {
-                title: 'WOQL Query Arrays',
-                href: '/docs/query-arrays-and-sets-in-woql',
-              },
-              {
-                title: 'WOQL Group Results',
-                href: '/docs/group-query-results',
-              },
-              {
-                title: 'WOQL Path Queries',
-                href: '/docs/path-queries-in-woql',
-              },
-              {
-                title: 'WOQL Math Queries',
-                href: '/docs/maths-based-queries-in-woql',
-              },
-              {
-                title: 'WOQL Schema Queries',
-                href: '/docs/schema-queries-with-woql',
-              },
-            ],
+            title: 'Document Insertion API',
+            href: '/docs/document-insertion',
+          },
+        ],
+      },
+      {
+        title: 'GraphQL Query',
+        href: '/docs/how-to-query-with-graphql',
+        links: [
+          {
+            title: 'GraphQL Basics',
+            href: '/docs/graphql-basics',
+          },
+          {
+            title: 'GraphQL Filter',
+            href: '/docs/filter-with-graphql',
+          },
+          {
+            title: 'GraphQL Advanced Filter',
+            href: '/docs/advanced-filtering-with-graphql',
+          },
+          {
+            title: 'GraphQL Limit',
+            href: '/docs/limit-results-in-graphql',
+          },
+          {
+            title: 'GraphQL Order By',
+            href: '/docs/order-by-in-graphql',
+          },
+          {
+            title: 'GraphQL Offset',
+            href: '/docs/offset-to-provide-paging',
+          },
+          {
+            title: 'GraphQL Path Queries',
+            href: '/docs/path-queries-in-graphql',
+          },
+          {
+            title: 'GraphQL Back Links',
+            href: '/docs/back-links-in-graphql',
+          },
+        ],
+      },
+      {
+        title: 'WOQL Query',
+        href: '/docs/how-to-query-with-woql',
+        links: [
+          {
+            title: 'WOQL Basics',
+            href: '/docs/woql-basics',
+          },
+          {
+            title: 'WOQL Add Docs',
+            href: '/docs/add-documents-with-woql',
+          },
+          {
+            title: 'WOQL Edit Docs',
+            href: '/docs/edit-documents-with-woql',
+          },
+          {
+            title: 'WOQL Delete Docs',
+            href: '/docs/delete-documents-with-woql',
+          },
+          {
+            title: 'WOQL Read Docs',
+            href: '/docs/read-documents-with-woql',
+          },
+          {
+            title: 'WOQL Filter',
+            href: '/docs/filter-with-woql',
+          },
+          {
+            title: 'WOQL Order By',
+            href: '/docs/order-by-with-woql',
+          },
+          {
+            title: 'WOQL Query Arrays',
+            href: '/docs/query-arrays-and-sets-in-woql',
+          },
+          {
+            title: 'WOQL Group Results',
+            href: '/docs/group-query-results',
+          },
+          {
+            title: 'WOQL Path Queries',
+            href: '/docs/path-queries-in-woql',
+          },
+          {
+            title: 'WOQL Math Queries',
+            href: '/docs/maths-based-queries-in-woql',
+          },
+          {
+            title: 'WOQL Schema Queries',
+            href: '/docs/schema-queries-with-woql',
           },
         ],
       },
@@ -526,7 +533,7 @@ export const navigation: Navigation[] = [
         href: '/docs/terminuscms-data-types',
       },
       {
-        title: 'Document Insertion',
+        title: 'Document API Reference',
         href: '/docs/document-insertion',
       },
       {
@@ -562,7 +569,6 @@ export const navigation: Navigation[] = [
             title: 'UI SDK Data Types',
             href: '/docs/document-ui-sdk-data-types',
             links: [
-            
               {
                 title: 'Choice Document',
                 href: '/docs/choice-document',
@@ -571,7 +577,7 @@ export const navigation: Navigation[] = [
                 title: 'Choice Sub-Document',
                 href: '/docs/choice-subdocuments',
               },
-            
+
               {
                 title: 'Mandatory',
                 href: '/docs/mandatory',
@@ -592,7 +598,7 @@ export const navigation: Navigation[] = [
                 title: 'Render As',
                 href: '/docs/render-as',
               },
-            
+
               {
                 title: 'sysJSON',
                 href: '/docs/sysjson',
