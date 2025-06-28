@@ -452,7 +452,7 @@ export function Search() {
           Search docs
         </span>
         {modifierKey && (
-          <kbd className="ml-auto hidden font-medium text-slate-400 md:block dark:text-slate-500">
+          <kbd className="ml-auto hidden font-medium text-slate-500 md:block dark:text-slate-500">
             <kbd className="font-sans">{modifierKey}</kbd>
             <kbd className="font-sans">K</kbd>
           </kbd>
