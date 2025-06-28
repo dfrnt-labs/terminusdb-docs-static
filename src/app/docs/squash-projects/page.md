@@ -1,13 +1,13 @@
 ---
+title: Squashing Commits with the TerminusDB JS Client
 nextjs:
   metadata:
     title: Squashing Commits with the TerminusDB JS Client
-    description: >-
-      A guide to show how to use the JS Client to squash commits in your branch's
-      history.
+    description: A guide to show how to use the JS Client to squash commits in your branch's history.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/js-client-collaboration-squash.png
+      images: https://assets.terminusdb.com/docs/js-client-collaboration-squash.png
+    alternates:
+      canonical: https://terminusdb.org/docs/squash-projects/
 media: []
 ---
 

@@ -1,12 +1,13 @@
 ---
+title: How to Query with GraphQL
 nextjs:
   metadata:
     title: How to Query with GraphQL
-    description: >-
-      Bit sized how to guides for querying TerminusDB with GraphQL
+    description: Bit sized how to guides for querying TerminusDB with GraphQL
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/how-to-query-with-graphql/
 media: []
 ---
 

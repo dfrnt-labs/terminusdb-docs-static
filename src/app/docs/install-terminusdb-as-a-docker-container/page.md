@@ -1,13 +1,13 @@
 ---
+title: Install TerminusDB as a Docker Container
 nextjs:
   metadata:
     title: Install TerminusDB as a Docker Container
-    description: >-
-      Everything you need to install and run TerminusDB server as a docker
-      container on your computer or on a remote server
+    description: Everything you need to install and run TerminusDB server as a docker container on your computer or on a remote server
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/install-terminusdb-as-a-docker-container/
 media: []
 ---
 

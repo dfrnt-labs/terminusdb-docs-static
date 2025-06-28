@@ -1,20 +1,18 @@
 ---
+title: OpenAI and Handlebars Configuration
 nextjs:
   metadata:
     title: OpenAI and Handlebars Configuration
     description: OpenAI and Handlebars Configuration
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
+      images: https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
+    alternates:
+      canonical: https://terminusdb.org/docs/openai-handlebars-config/
 media:
-  - alt: >-
-      High quality text embeddings for OpenAI using GraphQL query with
-      Handlebars templates
-    caption: ''
+  - alt: High quality text embeddings for OpenAI using GraphQL query with Handlebars templates
+    caption: ""
     media_type: Image
-    title: >-
-      High quality text embeddings for OpenAI using GraphQL query with
-      Handlebars templates
+    title: High quality text embeddings for OpenAI using GraphQL query with Handlebars templates
     value: https://assets.terminusdb.com/docs/vectorlink-text-embeddings.png
 ---
 

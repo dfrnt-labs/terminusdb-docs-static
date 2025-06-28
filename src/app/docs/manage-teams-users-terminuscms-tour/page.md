@@ -1,41 +1,41 @@
 ---
+title: Manage Teams & Users in TerminusDB
 nextjs:
   metadata:
     title: Manage Teams & Users in TerminusDB
-    description: >-
-      A quick overview for how to manage your teams and users in the TerminusDB
-      dashboard
+    description: A quick overview for how to manage your teams and users in the TerminusDB dashboard
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/manage-teams-users-terminuscms-tour/
 media:
   - alt: The first page you'll see when first logging into TerminusDB
-    caption: ''
+    caption: ""
     media_type: Image
     title: The first page you'll see when first logging into TerminusDB
     value: https://assets.terminusdb.com/docs/pricing-page.png
   - alt: Teams home page
-    caption: ''
+    caption: ""
     media_type: Image
     title: Teams home page
     value: https://assets.terminusdb.com/docs/teams-home-page.png
   - alt: Create a new team
-    caption: ''
+    caption: ""
     media_type: Image
     title: Create a new team
     value: https://assets.terminusdb.com/docs/create-new-team.png
   - alt: Select profile to create a new team
-    caption: ''
+    caption: ""
     media_type: Image
     title: Select profile to create a new team
     value: https://assets.terminusdb.com/docs/profile-option.png
   - alt: Manage your team's users
-    caption: ''
+    caption: ""
     media_type: Image
     title: Manage your team's users
     value: https://assets.terminusdb.com/docs/users-home-page.png
-  - alt: ''
-    caption: ''
+  - alt: ""
+    caption: ""
     media_type: Image
     title: Image 6
     value: https://assets.terminusdb.com/docs/granular-permissions.png

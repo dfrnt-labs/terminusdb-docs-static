@@ -1,11 +1,13 @@
 ---
+title: Install the TerminusDB JavaScript Client
 nextjs:
   metadata:
     title: Install the TerminusDB JavaScript Client
     description: Installation instruction for the TerminusDB JavaScript Client
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/install-terminusdb-js-client/
 media: []
 ---
 

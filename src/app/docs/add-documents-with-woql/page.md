@@ -1,13 +1,13 @@
 ---
+title: How to add and delete documents and subdocuments using WOQL
 nextjs:
   metadata:
     title: How to add and delete documents and subdocuments using WOQL
-    description: >-
-      A how-to guide  with an example showing how to add documents and subdocuments using a WOQL
-      query.
+    description: A how-to guide  with an example showing how to add documents and subdocuments using a WOQL query.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/woql-add-documents.png
+      images: https://assets.terminusdb.com/docs/woql-add-documents.png
+    alternates:
+      canonical: https://terminusdb.org/docs/add-documents-with-woql/
 ---
 
 # Add Documents with WOQL

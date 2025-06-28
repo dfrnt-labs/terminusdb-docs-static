@@ -1,11 +1,13 @@
 ---
+title: Cloning a Database
 nextjs:
   metadata:
     title: Cloning a Database
     description: A guide to show how to clone a database with the JS WOQLClient.
     openGraph:
-      images: >-
-        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-collaboration-clone.png?raw=true
+      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-collaboration-clone.png?raw=true
+    alternates:
+      canonical: https://terminusdb.org/docs/clone-a-project/
 media: []
 ---
 

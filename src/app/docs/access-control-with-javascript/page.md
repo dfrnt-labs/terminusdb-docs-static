@@ -1,11 +1,13 @@
 ---
+title: Access Control Reference Guide
 nextjs:
   metadata:
     title: Access Control Reference Guide
     description: A driver to manage access control with the JS Client
+    alternates:
+      canonical: https://terminusdb.org/docs/access-control-with-javascript
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
 
 # Access Control Reference Guide

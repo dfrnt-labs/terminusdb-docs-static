@@ -1,13 +1,13 @@
 ---
+title: Edit a Document with the Python Client
 nextjs:
   metadata:
     title: Edit a Document with the Python Client
-    description: >-
-      A guide to show how to update a document in TerminusDB using
-      the Python Client
+    description: A guide to show how to update a document in TerminusDB using the Python Client
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/python-client-use-edit-a-document.png
+      images: https://assets.terminusdb.com/docs/python-client-use-edit-a-document.png
+    alternates:
+      canonical: https://terminusdb.org/docs/edit-documents-with-python-client/
 media: []
 ---
 

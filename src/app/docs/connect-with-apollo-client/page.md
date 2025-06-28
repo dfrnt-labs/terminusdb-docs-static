@@ -1,13 +1,13 @@
 ---
+title: Connect with Apollo Client to use GraphQL with TerminusDB
 nextjs:
   metadata:
     title: Connect with Apollo Client to use GraphQL with TerminusDB
-    description: >-
-      A reference guide to get you up and running with TerminusDB & TerminusDB 
-      using GraphQL and Apollo Client
+    description: A reference guide to get you up and running with TerminusDB & TerminusDB  using GraphQL and Apollo Client
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/connect-with-apollo-client/
 media: []
 ---
 

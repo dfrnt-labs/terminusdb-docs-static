@@ -1,11 +1,13 @@
 ---
+title: Datalog Explanation | DFRNT TerminusDB cloud & TerminusDB
 nextjs:
   metadata:
     title: Datalog Explanation | DFRNT TerminusDB cloud & TerminusDB
     description: A brief explanation of Datalog and its benefits in database queries.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/datalog-explanation/
 media: []
 ---
 

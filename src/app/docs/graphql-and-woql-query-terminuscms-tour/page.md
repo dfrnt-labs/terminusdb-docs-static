@@ -1,19 +1,21 @@
 ---
+title: GraphQL & WOQL Query Tools
 nextjs:
   metadata:
     title: GraphQL & WOQL Query Tools
     description: An overview of the GraphQL and WOQL tools in the TerminusDB dashboard
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/graphql-and-woql-query-terminuscms-tour/
 media:
   - alt: GraphQL playground
-    caption: ''
+    caption: ""
     media_type: Image
     title: GraphQL playground
     value: https://assets.terminusdb.com/docs/graphql-playground.png
   - alt: Test out your WOQL queries in the TerminusDB dashboard
-    caption: ''
+    caption: ""
     media_type: Image
     title: Test out your WOQL queries in the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/woql-playground.jpg

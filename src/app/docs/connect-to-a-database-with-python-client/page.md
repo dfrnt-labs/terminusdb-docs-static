@@ -1,13 +1,13 @@
 ---
+title: Connect to a Database using the Python Client
 nextjs:
   metadata:
     title: Connect to a Database using the Python Client
-    description: >-
-      A guide to show how to connect to a TerminusDB project using the Python
-      client.
+    description: A guide to show how to connect to a TerminusDB project using the Python client.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/python-client-use-connect-database.png
+      images: https://assets.terminusdb.com/docs/python-client-use-connect-database.png
+    alternates:
+      canonical: https://terminusdb.org/docs/connect-to-a-database-with-python-client/
 media: []
 ---
 

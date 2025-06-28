@@ -1,13 +1,13 @@
 ---
+title: useTDBGraphqlQuery
 nextjs:
   metadata:
     title: useTDBGraphqlQuery
-    description: >-
-      useTDBGraphqlQuery` is the main hook to connect
-      @terminusdb/terminusdb-react-table with TerminusDB server
+    description: useTDBGraphqlQuery` is the main hook to connect @terminusdb/terminusdb-react-table with TerminusDB server
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/usetdbgraphqlquery/
 media: []
 ---
 

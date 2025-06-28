@@ -1,11 +1,13 @@
 ---
+title: Advanced Filtering
 nextjs:
   metadata:
     title: Advanced Filtering
     description: Advanced Filtering with GraphQL
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/graphql-advanced-filter.png
+      images: https://assets.terminusdb.com/docs/graphql-advanced-filter.png
+    alternates:
+      canonical: https://terminusdb.org/docs/advanced-filtering-with-graphql/
 ---
 
 # Advanced Filtering

@@ -1,13 +1,13 @@
 ---
+title: How to Use the JavaScript Client
 nextjs:
   metadata:
     title: How to Use the JavaScript Client
-    description: >-
-      Bite sized how to guides to get you up and running with the JavaScript
-      Client
+    description: Bite sized how to guides to get you up and running with the JavaScript Client
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/use-the-javascript-client/
 media: []
 ---
 

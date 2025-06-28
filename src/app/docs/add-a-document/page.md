@@ -1,13 +1,13 @@
 ---
+title: Add Documents using the JavaScript Client
 nextjs:
   metadata:
     title: Add Documents using the JavaScript Client
-    description: >-
-      A guide to show how to add documents to TerminusDB using the
-      JavaScript Client.
+    description: A guide to show how to add documents to TerminusDB using the JavaScript Client.
+    alternates:
+      canonical: https://terminusdb.org/docs/add-a-document
     openGraph:
-      images: >-
-        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-add-documents.png?raw=true
+      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-add-documents.png?raw=true
 ---
 
 # Add Documents using Javascript

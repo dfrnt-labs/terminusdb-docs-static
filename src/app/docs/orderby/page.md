@@ -1,11 +1,13 @@
 ---
+title: Order By Using @metadata
 nextjs:
   metadata:
     title: Order By Using @metadata
     description: How to order properties in the document UI
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/orderby/
 media: []
 ---
 

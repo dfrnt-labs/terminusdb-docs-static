@@ -1,11 +1,13 @@
 ---
+title: Documents UI SDK Data Types
 nextjs:
   metadata:
     title: Documents UI SDK Data Types
     description: Understand the different data types to build data driven user interfaces
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/document-ui-sdk-data-types/
 media: []
 ---
 

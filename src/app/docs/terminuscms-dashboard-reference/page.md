@@ -1,16 +1,16 @@
 ---
+title: TerminusDB Dashboard Reference Guide
 nextjs:
   metadata:
     title: TerminusDB Dashboard Reference Guide
-    description: >-
-      A conceptual overview of the TerminusDB dashboard describing its features
-      and their purpose.
+    description: A conceptual overview of the TerminusDB dashboard describing its features and their purpose.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/document-explorer-home.png
+      images: https://assets.terminusdb.com/docs/document-explorer-home.png
+    alternates:
+      canonical: https://terminusdb.org/docs/terminuscms-dashboard-reference/
 media:
   - alt: How teams, users and projects are structured.
-    caption: ''
+    caption: ""
     media_type: Image
     title: How teams, users and projects are structured.
     value: https://assets.terminusdb.com/docs/teams-users-and-projects2.png

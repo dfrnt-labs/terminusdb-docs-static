@@ -1,13 +1,13 @@
 ---
+title: System Graph Interface to GraphQL
 nextjs:
   metadata:
     title: System Graph Interface to GraphQL
-    description: >-
-      TerminusDB technical documentation - System Graph Interface
-      to GraphQL
+    description: TerminusDB technical documentation - System Graph Interface to GraphQL
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/system-graph-graphql-interface-reference/
 media: []
 ---
 

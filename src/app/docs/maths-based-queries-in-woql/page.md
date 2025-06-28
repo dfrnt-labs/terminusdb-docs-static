@@ -1,11 +1,13 @@
 ---
+title: Mathematical Operations in WOQL
 nextjs:
   metadata:
     title: Mathematical Operations in WOQL
-    description: 'A guide to show how to how to perform mathematical operations using WOQL '
+    description: "A guide to show how to how to perform mathematical operations using WOQL "
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/woql-maths-query.png
+      images: https://assets.terminusdb.com/docs/woql-maths-query.png
+    alternates:
+      canonical: https://terminusdb.org/docs/maths-based-queries-in-woql/
 media: []
 ---
 

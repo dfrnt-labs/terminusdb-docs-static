@@ -1,11 +1,13 @@
 ---
+title: One Of
 nextjs:
   metadata:
     title: One Of
     description: An example of how one of properties work in the document UI
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/oneof/
 media: []
 ---
 

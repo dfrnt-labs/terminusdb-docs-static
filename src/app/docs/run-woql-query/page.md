@@ -1,11 +1,13 @@
 ---
+title: Run a WOQL Query using the JavaScript Client
 nextjs:
   metadata:
     title: Run a WOQL Query using the JavaScript Client
     description: A quick example to show you how to run a query using WOQL.
     openGraph:
-      images: >-
-        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-woql-query.png?raw=true
+      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-woql-query.png?raw=true
+    alternates:
+      canonical: https://terminusdb.org/docs/run-woql-query/
 media: []
 ---
 

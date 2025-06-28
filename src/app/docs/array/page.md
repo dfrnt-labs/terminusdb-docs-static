@@ -1,11 +1,13 @@
 ---
+title: Array fields in the document UI
 nextjs:
   metadata:
     title: Array fields in the document UI
-    description: 'Examples of how array fields in the document UI '
+    description: "Examples of how array fields in the document UI "
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/array/
 ---
 
 # Array fields in the document UI

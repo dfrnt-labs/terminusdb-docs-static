@@ -1,11 +1,13 @@
 ---
+title: TerminusDB Data Types
 nextjs:
   metadata:
     title: TerminusDB Data Types
     description: The core data types for TerminusDB and TerminusDB.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/terminuscms-data-types/
 media: []
 ---
 

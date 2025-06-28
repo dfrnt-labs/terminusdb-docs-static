@@ -1,11 +1,13 @@
 ---
+title: Branch a Project Using the Python Client
 nextjs:
   metadata:
     title: Branch a Project Using the Python Client
     description: A guide to show how to branch a TerminusDB project using the Python Client.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/python-client-collaboration-branch.png
+      images: https://assets.terminusdb.com/docs/python-client-collaboration-branch.png
+    alternates:
+      canonical: https://terminusdb.org/docs/branch-a-project-with-the-python-client/
 media: []
 ---
 

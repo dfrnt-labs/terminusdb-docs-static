@@ -1,19 +1,21 @@
 ---
+title: Limit Results with GraphQL
 nextjs:
   metadata:
     title: Limit Results with GraphQL
     description: How to use limit to limit query results with GraphQL
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/graphql-limit.png
+      images: https://assets.terminusdb.com/docs/graphql-limit.png
+    alternates:
+      canonical: https://terminusdb.org/docs/limit-results-in-graphql/
 media:
   - alt: Clone the Star Wars demo from the TerminusDB dashboard
-    caption: ''
+    caption: ""
     media_type: Image
     title: Clone the Star Wars demo from the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
   - alt: GraphQL query playground in TerminusDB
-    caption: ''
+    caption: ""
     media_type: Image
     title: GraphQL query playground in TerminusDB
     value: https://assets.terminusdb.com/docs/how-to-query-graphql.png

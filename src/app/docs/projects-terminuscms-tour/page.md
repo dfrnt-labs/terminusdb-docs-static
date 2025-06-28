@@ -1,49 +1,51 @@
 ---
+title: Projects Overview - TerminusDB Tour
 nextjs:
   metadata:
     title: Projects Overview - TerminusDB Tour
     description: How to add and manage projects/data products within TerminusDB
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/projects-terminuscms-tour/
 media:
   - alt: Create a new data product
-    caption: ''
+    caption: ""
     media_type: Image
     title: Create a new data product
     value: https://assets.terminusdb.com/docs/new-data-product2.png
   - alt: UI schema builder
-    caption: ''
+    caption: ""
     media_type: Image
     title: UI schema builder
     value: https://assets.terminusdb.com/docs/schema-graph-view.png
   - alt: Develop a schema with code
-    caption: ''
+    caption: ""
     media_type: Image
     title: Develop a schema with code
     value: https://assets.terminusdb.com/docs/schema-as-code.png
   - alt: Manage your project
-    caption: ''
+    caption: ""
     media_type: Image
     title: Manage your project
     value: https://assets.terminusdb.com/docs/project-admin.png
   - alt: Time travel to a previous commit
-    caption: ''
+    caption: ""
     media_type: Image
     title: Time travel to a previous commit
     value: https://assets.terminusdb.com/docs/time-travel2.png
   - alt: Branch the project
-    caption: ''
+    caption: ""
     media_type: Image
     title: Branch the project
     value: https://assets.terminusdb.com/docs/branch-project.png
   - alt: Branch Options
-    caption: ''
+    caption: ""
     media_type: Image
     title: Branch Options
     value: https://assets.terminusdb.com/docs/branch-options.png
   - alt: Reset the project
-    caption: ''
+    caption: ""
     media_type: Image
     title: Reset the project
     value: https://assets.terminusdb.com/docs/reset-to-commit.png

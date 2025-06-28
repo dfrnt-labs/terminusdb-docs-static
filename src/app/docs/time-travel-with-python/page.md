@@ -1,13 +1,13 @@
 ---
+title: Time Travel Through your Database History
 nextjs:
   metadata:
     title: Time Travel Through your Database History
-    description: >-
-      A guide to show to time travel through your TerminusDB
-      projects using the Python Client.
+    description: A guide to show to time travel through your TerminusDB projects using the Python Client.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/python-client-collaboration-time-travel.png
+      images: https://assets.terminusdb.com/docs/python-client-collaboration-time-travel.png
+    alternates:
+      canonical: https://terminusdb.org/docs/time-travel-with-python/
 media: []
 ---
 

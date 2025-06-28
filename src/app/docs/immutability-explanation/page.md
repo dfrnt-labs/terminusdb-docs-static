@@ -1,13 +1,13 @@
 ---
+title: Immutability Explanation
 nextjs:
   metadata:
     title: Immutability Explanation
-    description: >-
-      An explanation of how TerminusDB implements immutability, and
-      handles deleted and new data.
+    description: An explanation of how TerminusDB implements immutability, and handles deleted and new data.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/immutability-explanation/
 media: []
 ---
 

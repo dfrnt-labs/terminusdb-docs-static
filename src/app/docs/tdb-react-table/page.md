@@ -1,13 +1,13 @@
 ---
+title: TerminusDB React Table
 nextjs:
   metadata:
     title: TerminusDB React Table
-    description: >-
-      Learn how to include TerminusDB React Table components in your projects to
-      display documents in an interactive table
+    description: Learn how to include TerminusDB React Table components in your projects to display documents in an interactive table
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/tdb-react-table/
 media: []
 ---
 

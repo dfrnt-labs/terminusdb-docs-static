@@ -1,13 +1,13 @@
 ---
+title: Acid Transactions Explanation
 nextjs:
   metadata:
     title: Acid Transactions Explanation
-    description: >-
-      An explanation about Acid Transactions and how TerminusDB
-      ensures acid compliance
+    description: An explanation about Acid Transactions and how TerminusDB ensures acid compliance
+    alternates:
+      canonical: https://terminusdb.org/docs/acid-transactions-explanation
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
 
 # Acid Transactions Explanation

@@ -1,13 +1,13 @@
 ---
+title: How To Add Documents with the Python Client
 nextjs:
   metadata:
     title: How To Add Documents with the Python Client
-    description: >-
-      A guide to show how to add documents to your TerminusDB projects using the
-      Python Client.
+    description: A guide to show how to add documents to your TerminusDB projects using the Python Client.
+    alternates:
+      canonical: https://terminusdb.org/docs/add-documents-with-python-client/
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/python-client-use-add-documents.png
+      images: https://assets.terminusdb.com/docs/python-client-use-add-documents.png
 ---
 
 # Add documents with Python

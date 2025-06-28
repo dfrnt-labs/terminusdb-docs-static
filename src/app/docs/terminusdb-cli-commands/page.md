@@ -5,8 +5,9 @@ nextjs:
     title: TerminusDB CLI Commands
     description: A list of the TerminusDB command line interface commands.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/terminusdb-cli-commands/
 media: []
 ---
 

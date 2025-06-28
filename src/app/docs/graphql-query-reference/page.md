@@ -1,13 +1,13 @@
 ---
+title: GraphQL Query Reference Guide
 nextjs:
   metadata:
     title: GraphQL Query Reference Guide
-    description: >-
-      A GraphQL query reference guide explaining the workings of GraphQL queries
-      with TerminusDB
+    description: A GraphQL query reference guide explaining the workings of GraphQL queries with TerminusDB
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/graphql-query-reference/
 media: []
 ---
 

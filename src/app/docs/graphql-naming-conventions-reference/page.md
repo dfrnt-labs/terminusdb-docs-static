@@ -1,13 +1,13 @@
 ---
+title: GraphQL Naming Conventions Reference Guide
 nextjs:
   metadata:
     title: GraphQL Naming Conventions Reference Guide
-    description: >-
-      A reference guide detail the GraphQL naming conventions in TerminusDB and
-      TerminusDB.
+    description: A reference guide detail the GraphQL naming conventions in TerminusDB and TerminusDB.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/graphql-naming-conventions-reference/
 media: []
 ---
 

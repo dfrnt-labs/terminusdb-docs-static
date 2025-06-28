@@ -1,16 +1,16 @@
 ---
+title: TerminusDB Documents Explanation
 nextjs:
   metadata:
     title: TerminusDB Documents Explanation
-    description: >-
-      The types of documents available in TerminusDB and TerminusDB with examples
-      of their definitions and interactions.
+    description: The types of documents available in TerminusDB and TerminusDB with examples of their definitions and interactions.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/documents-explanation/
 media:
-  - alt: ''
-    caption: ''
+  - alt: ""
+    caption: ""
     media_type: Image
     title: Image 1
     value: https://assets.terminusdb.com/docs/terminusdb-contact-graph-diagram.png

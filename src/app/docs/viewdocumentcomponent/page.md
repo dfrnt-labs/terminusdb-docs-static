@@ -1,13 +1,13 @@
 ---
+title: ViewDocumentComponent
 nextjs:
   metadata:
     title: ViewDocumentComponent
-    description: >-
-      The ViewDocumentComponent allows you to view existing documents using the
-      FrameViewer component
+    description: The ViewDocumentComponent allows you to view existing documents using the FrameViewer component
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/viewdocumentcomponent/
 media: []
 ---
 

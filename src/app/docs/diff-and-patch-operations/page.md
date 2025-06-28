@@ -1,13 +1,13 @@
 ---
+title: Diff an Object or a Database Branch with the JS Client
 nextjs:
   metadata:
     title: Diff an Object or a Database Branch with the JS Client
-    description: >-
-      A guide to show how to use the JS Client to diff an object or a database
-      branch.
+    description: A guide to show how to use the JS Client to diff an object or a database branch.
     openGraph:
-      images: >-
-        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-collaboration-diff-patch.png?raw=true
+      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-collaboration-diff-patch.png?raw=true
+    alternates:
+      canonical: https://terminusdb.org/docs/diff-and-patch-operations/
 media: []
 ---
 

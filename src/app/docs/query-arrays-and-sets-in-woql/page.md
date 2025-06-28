@@ -1,13 +1,13 @@
 ---
+title: Query Arrays and Sets with WOQL
 nextjs:
   metadata:
     title: Query Arrays and Sets with WOQL
-    description: >-
-      A guide to show how to query arrays and sets with WOQL in your TerminusDB
-      projects.
+    description: A guide to show how to query arrays and sets with WOQL in your TerminusDB projects.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/woql-query-arrays-sets.png
+      images: https://assets.terminusdb.com/docs/woql-query-arrays-sets.png
+    alternates:
+      canonical: https://terminusdb.org/docs/query-arrays-and-sets-in-woql/
 media: []
 ---
 

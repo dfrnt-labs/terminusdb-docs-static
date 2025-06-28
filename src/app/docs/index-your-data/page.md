@@ -1,11 +1,13 @@
 ---
+title: Index Your Data
 nextjs:
   metadata:
     title: Index Your Data
     description: How to index your content and data with VectorLink
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
+      images: https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
+    alternates:
+      canonical: https://terminusdb.org/docs/index-your-data/
 media: []
 ---
 

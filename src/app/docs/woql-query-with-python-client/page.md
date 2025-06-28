@@ -1,13 +1,13 @@
 ---
+title: Run a WOQL Query with the Python Client
 nextjs:
   metadata:
     title: Run a WOQL Query with the Python Client
-    description: >-
-      This how-to guide provides an example of the WOQL query language using the
-      Python client
+    description: This how-to guide provides an example of the WOQL query language using the Python client
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/python-client-use-woql-query.png
+      images: https://assets.terminusdb.com/docs/python-client-use-woql-query.png
+    alternates:
+      canonical: https://terminusdb.org/docs/woql-query-with-python-client/
 media: []
 ---
 

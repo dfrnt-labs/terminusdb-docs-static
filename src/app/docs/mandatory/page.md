@@ -1,11 +1,13 @@
 ---
+title: Mandatory Properties in the Document UI
 nextjs:
   metadata:
     title: Mandatory Properties in the Document UI
     description: How mandatory properties work in the document user interface.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/mandatory/
 media: []
 ---
 

@@ -1,13 +1,13 @@
 ---
+title: How to Use the Clients
 nextjs:
   metadata:
     title: How to Use the Clients
-    description: >-
-      How to guides to use the JavaScrip and Python Clients with
-      TerminusDB
+    description: How to guides to use the JavaScrip and Python Clients with TerminusDB
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/use-the-clients/
 media: []
 ---
 

@@ -1,11 +1,13 @@
 ---
+title: How to Use the Python Client
 nextjs:
   metadata:
     title: How to Use the Python Client
     description: Bite sized how to guides to help you get started with the Python Client
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/use-the-python-client/
 media: []
 ---
 

@@ -1,13 +1,13 @@
 ---
+title: What is Schema Weakening
 nextjs:
   metadata:
     title: What is Schema Weakening
-    description: >-
-      An explanation about schema weakening  and why you need it to change a
-      schema.
+    description: An explanation about schema weakening  and why you need it to change a schema.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/what-is-schema-weakening/
 media: []
 ---
 

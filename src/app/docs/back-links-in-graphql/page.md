@@ -1,11 +1,13 @@
 ---
+title: Back Links
 nextjs:
   metadata:
     title: Back Links
     description: Back Links in GraphQL
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/graphql-backlink.png
+      images: https://assets.terminusdb.com/docs/graphql-backlink.png
+    alternates:
+      canonical: https://terminusdb.org/docs/back-links-in-graphql/
 ---
 
 # Back Links

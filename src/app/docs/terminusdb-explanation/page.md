@@ -1,26 +1,26 @@
 ---
+title: TerminusDB Explanation
 nextjs:
   metadata:
     title: TerminusDB Explanation
-    description: >-
-      A high-level description of what TerminusDB is, reasons for using
-      TerminusDB, and its Git-like features.
+    description: A high-level description of what TerminusDB is, reasons for using TerminusDB, and its Git-like features.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/terminusdb-explanation/
 media:
-  - alt: ''
-    caption: ''
+  - alt: ""
+    caption: ""
     media_type: Image
     title: Image 1
     value: https://assets.terminusdb.com/docs/terminusdb-what-is-it.png
-  - alt: ''
-    caption: ''
+  - alt: ""
+    caption: ""
     media_type: Image
     title: Image 2
     value: https://assets.terminusdb.com/docs/terminusdb-why-choose.png
-  - alt: ''
-    caption: ''
+  - alt: ""
+    caption: ""
     media_type: Image
     title: Image 3
     value: https://assets.terminusdb.com/docs/terminusdb-git-model.png

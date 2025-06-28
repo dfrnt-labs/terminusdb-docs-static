@@ -1,9 +1,11 @@
 ---
+title: Git-for-Data Reference
 nextjs:
   metadata:
     title: Git-for-Data Reference
-    description: >-
-      A how-to guide showing the main operations related to Git-for-Data with TerminusDB in the cloud environment
+    description: A how-to guide showing the main operations related to Git-for-Data with TerminusDB in the cloud environment
+    alternates:
+      canonical: https://terminusdb.org/docs/git-for-data-reference/
 media: []
 ---
 

@@ -1,13 +1,13 @@
 ---
+title: Path Queries in GraphQL
 nextjs:
   metadata:
     title: Path Queries in GraphQL
-    description: >-
-      How to do path queries on TerminusDB data products using
-      GraphQL
+    description: How to do path queries on TerminusDB data products using GraphQL
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/graphql-path-query.png
+      images: https://assets.terminusdb.com/docs/graphql-path-query.png
+    alternates:
+      canonical: https://terminusdb.org/docs/path-queries-in-graphql/
 media: []
 ---
 

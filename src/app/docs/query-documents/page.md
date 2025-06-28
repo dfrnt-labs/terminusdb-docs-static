@@ -1,13 +1,13 @@
 ---
+title: Query Documents using the JavaScript Client
 nextjs:
   metadata:
     title: Query Documents using the JavaScript Client
-    description: >-
-      A guide to show how to perform basic document queries using the JavaScript
-      Client.
+    description: A guide to show how to perform basic document queries using the JavaScript Client.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/query-documents/
 media: []
 ---
 

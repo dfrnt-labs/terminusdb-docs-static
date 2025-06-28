@@ -1,12 +1,13 @@
 ---
+title: How to filter with WOQL
 nextjs:
   metadata:
     title: How to filter with WOQL
-    description: >-
-      A guide showing how to filter with WOQL in your TerminusDB projects
+    description: A guide showing how to filter with WOQL in your TerminusDB projects
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/woql-filter.png
+      images: https://assets.terminusdb.com/docs/woql-filter.png
+    alternates:
+      canonical: https://terminusdb.org/docs/filter-with-woql/
 media: []
 ---
 

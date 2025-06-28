@@ -1,11 +1,13 @@
 ---
+title: Reset the Branch Head to a Specific Commit
 nextjs:
   metadata:
     title: Reset the Branch Head to a Specific Commit
     description: A guide to using the JS WOQLClient to reset a branch.
     openGraph:
-      images: >-
-        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-collaboration-reset.png?raw=true
+      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-collaboration-reset.png?raw=true
+    alternates:
+      canonical: https://terminusdb.org/docs/reset-a-project/
 media: []
 ---
 

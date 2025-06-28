@@ -1,24 +1,26 @@
 ---
+title: Branch a Project with the TerminusDB Dashboard
 nextjs:
   metadata:
     title: Branch a Project with the TerminusDB Dashboard
     description: A guide to show how to branch projects using the TerminusDB dashboard.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/branch-project.png
+      images: https://assets.terminusdb.com/docs/branch-project.png
+    alternates:
+      canonical: https://terminusdb.org/docs/branch/
 media:
   - alt: Branch the project
-    caption: ''
+    caption: ""
     media_type: Image
     title: Branch the project
     value: https://assets.terminusdb.com/docs/branch-project.png
   - alt: Create a new project branch in TerminusDB
-    caption: ''
+    caption: ""
     media_type: Image
     title: Create a new project branch in TerminusDB
     value: https://assets.terminusdb.com/docs/branch-new.png
   - alt: Branch Options
-    caption: ''
+    caption: ""
     media_type: Image
     title: Branch Options
     value: https://assets.terminusdb.com/docs/branch-options.png

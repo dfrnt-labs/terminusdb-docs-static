@@ -1,11 +1,13 @@
 ---
+title: Cloning a Database with the Python Client
 nextjs:
   metadata:
     title: Cloning a Database with the Python Client
     description: A guide to show how to clone a database using the Python Client.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/python-client-collaboration-clone.png
+      images: https://assets.terminusdb.com/docs/python-client-collaboration-clone.png
+    alternates:
+      canonical: https://terminusdb.org/docs/clone-a-database-with-python/
 media: []
 ---
 

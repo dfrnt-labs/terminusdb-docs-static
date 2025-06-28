@@ -1,9 +1,11 @@
 ---
+title: TerminusDB Internals
 nextjs:
   metadata:
     title: TerminusDB Internals
-    description: >-
-      Examples to use the internals of TerminusDB from the command line.
+    description: Examples to use the internals of TerminusDB from the command line.
+    alternates:
+      canonical: https://terminusdb.org/docs/terminusdb-internals/
 media: []
 ---
 

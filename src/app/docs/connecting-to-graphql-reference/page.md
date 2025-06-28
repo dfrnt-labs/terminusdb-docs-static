@@ -1,16 +1,16 @@
 ---
+title: Connecting to GraphQL Reference Guide
 nextjs:
   metadata:
     title: Connecting to GraphQL Reference Guide
-    description: >-
-      A reference guide detailing connecting to GraphQL with 
-      TerminusDB.
+    description: A reference guide detailing connecting to GraphQL with  TerminusDB.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/connecting-to-graphql-reference/
 media:
   - alt: GraphiQL interface screen shot
-    caption: ''
+    caption: ""
     media_type: Image
     title: GraphiQL interface screen shot
     value: https://assets.terminusdb.com/docs/how-to-query-graphql.png

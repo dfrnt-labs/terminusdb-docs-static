@@ -1,13 +1,13 @@
 ---
+title: Create a database with the Python Client
 nextjs:
   metadata:
     title: Create a database with the Python Client
-    description: >-
-      A guide showing how to create a TerminusDB database using the
-      Python Client.
+    description: A guide showing how to create a TerminusDB database using the Python Client.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/python-client-use-create-a-db.png
+      images: https://assets.terminusdb.com/docs/python-client-use-create-a-db.png
+    alternates:
+      canonical: https://terminusdb.org/docs/create-database-with-python-client/
 media: []
 ---
 

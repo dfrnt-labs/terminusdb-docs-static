@@ -1,12 +1,13 @@
 ---
+title: Read documents with WOQL
 nextjs:
   metadata:
     title: Read documents with WOQL
-    description: >-
-      A guide to show how to read documents with WOQL in your TerminusDB projects.
+    description: A guide to show how to read documents with WOQL in your TerminusDB projects.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/woql-read-documents.png
+      images: https://assets.terminusdb.com/docs/woql-read-documents.png
+    alternates:
+      canonical: https://terminusdb.org/docs/read-documents-with-woql/
 media: []
 ---
 

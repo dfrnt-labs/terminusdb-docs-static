@@ -1,16 +1,16 @@
 ---
+title: Getting Started
 nextjs:
   metadata:
     title: Getting Started
-    description: 'Technical documentation for TerminusDB and the DFRNT TerminusDB cloud.'
+    description: Technical documentation for TerminusDB and the DFRNT TerminusDB cloud.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/get-started/
 media:
   - alt: Clone a demo data product from the TerminusDB dashboard
-    caption: >-
-      Your team home page features a number of demo projects to clone and
-      experiment with.
+    caption: Your team home page features a number of demo projects to clone and experiment with.
     media_type: Image
     title: Clone a demo data product from the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png

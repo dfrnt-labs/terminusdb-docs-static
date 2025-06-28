@@ -1,11 +1,13 @@
 ---
+title: Install on Kubernetes
 nextjs:
   metadata:
     title: Install on Kubernetes
     description: Install TerminusDB on a Kubernetes cluster
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/install-on-kubernetes/
 media: []
 ---
 

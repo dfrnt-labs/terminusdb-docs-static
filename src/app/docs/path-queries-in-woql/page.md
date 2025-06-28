@@ -1,13 +1,13 @@
 ---
+title: Path Queries in WOQL
 nextjs:
   metadata:
     title: Path Queries in WOQL
-    description: >-
-      A guide to show how to do path queries in WOQL for your TerminusDB
-      projects.
+    description: A guide to show how to do path queries in WOQL for your TerminusDB projects.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/woql-path-query.png
+      images: https://assets.terminusdb.com/docs/woql-path-query.png
+    alternates:
+      canonical: https://terminusdb.org/docs/path-queries-in-woql/
 media: []
 ---
 

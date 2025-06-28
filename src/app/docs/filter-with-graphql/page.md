@@ -1,11 +1,13 @@
 ---
+title: Filter with GraphQL
 nextjs:
   metadata:
     title: Filter with GraphQL
     description: Filter with GraphQL
     openGraph:
-      images: >-
-        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/graphql-filter.png?raw=true
+      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/graphql-filter.png?raw=true
+    alternates:
+      canonical: https://terminusdb.org/docs/filter-with-graphql/
 media: []
 ---
 

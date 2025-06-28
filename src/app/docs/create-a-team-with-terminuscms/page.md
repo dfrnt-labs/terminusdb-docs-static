@@ -1,24 +1,24 @@
 ---
+title: Create teams using TerminusDB
 nextjs:
   metadata:
     title: Create teams using TerminusDB
     description: A how-to guide for creating teams using the TerminusDB dashboard.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.pn
+      images: https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.pn
+    alternates:
+      canonical: https://terminusdb.org/docs/create-a-team-with-terminuscms/
 media:
   - alt: select profile from the top menu
-    caption: ''
+    caption: ""
     media_type: Image
     title: select profile from the top menu
-    value: >-
-      https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team.png
+    value: https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team.png
   - alt: Name your team and press create new team button
-    caption: ''
+    caption: ""
     media_type: Image
     title: Name your team and press create new team button
-    value: >-
-      https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.png
+    value: https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.png
 ---
 
 Follow these instruction to create a new team in the TerminusDB dashboard -

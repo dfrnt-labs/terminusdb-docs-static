@@ -1,11 +1,13 @@
 ---
+title: TerminusDB Path Query Reference Guide
 nextjs:
   metadata:
     title: TerminusDB Path Query Reference Guide
     description: A reference guide to path queries in TerminusDB.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/path-query-reference-guide/
 media: []
 ---
 

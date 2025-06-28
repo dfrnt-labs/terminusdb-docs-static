@@ -1,21 +1,21 @@
 ---
+title: Use the JSON View for building a Schema
 nextjs:
   metadata:
     title: Use the JSON View for building a Schema
-    description: >-
-      Use the JSON editor to build your TerminusDB schema. Define documents,
-      properties, links, and enums. 
+    description: "Use the JSON editor to build your TerminusDB schema. Define documents, properties, links, and enums. "
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/schema-as-code.png
+      images: https://assets.terminusdb.com/docs/schema-as-code.png
+    alternates:
+      canonical: https://terminusdb.org/docs/use-the-json-editor/
 media:
   - alt: Create a new product with the TerminusDB dashboard
-    caption: ''
+    caption: ""
     media_type: Image
     title: Create a new product with the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/new-data-product.png
   - alt: TerminusDB schema editor JSON view
-    caption: ''
+    caption: ""
     media_type: Image
     title: TerminusDB schema editor JSON view
     value: https://assets.terminusdb.com/docs/schema-as-code.png

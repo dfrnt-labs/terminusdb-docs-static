@@ -1,13 +1,13 @@
 ---
+title: Get Documents using the JavaScript Client
 nextjs:
   metadata:
     title: Get Documents using the JavaScript Client
-    description: >-
-      A guide to show how to get documents to TerminusDB and TerminusDB using the
-      JavaScript Client
+    description: A guide to show how to get documents to TerminusDB and TerminusDB using the JavaScript Client
     openGraph:
-      images: >-
-        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-get-documents.png?raw=true
+      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-get-documents.png?raw=true
+    alternates:
+      canonical: https://terminusdb.org/docs/get-documents/
 media: []
 ---
 

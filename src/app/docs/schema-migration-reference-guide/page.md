@@ -1,13 +1,13 @@
 ---
+title: Schema Migration Reference Guide
 nextjs:
   metadata:
     title: Schema Migration Reference Guide
-    description: >-
-      A reference guide explaining the schema migration capabilities of
-      TerminusDB
+    description: A reference guide explaining the schema migration capabilities of TerminusDB
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/schema-migration-reference-guide/
 media: []
 ---
 

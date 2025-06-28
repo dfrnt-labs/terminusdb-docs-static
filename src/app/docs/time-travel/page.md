@@ -1,21 +1,21 @@
 ---
+title: Time Travel using the DFRNT TerminusDB cloud dashboard
 nextjs:
   metadata:
     title: Time Travel using the DFRNT TerminusDB cloud dashboard
-    description: >-
-      A guide to show how to time travel to any previous commit using the
-      DFRNT TerminusDB cloud dashboard.
+    description: A guide to show how to time travel to any previous commit using the DFRNT TerminusDB cloud dashboard.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/time-travel.png
+      images: https://assets.terminusdb.com/docs/time-travel.png
+    alternates:
+      canonical: https://terminusdb.org/docs/time-travel/
 media:
   - alt: Time travel to any previous commit using the DFRNT TerminusDB cloud dashboard
-    caption: ''
+    caption: ""
     media_type: Image
     title: Time travel to any previous commit using the DFRNT TerminusDB cloud dashboard
     value: https://assets.terminusdb.com/docs/time-travel.png
   - alt: See what data used to look like in a previou commit
-    caption: ''
+    caption: ""
     media_type: Image
     title: See what data used to look like in a previou commit
     value: https://assets.terminusdb.com/docs/travel-back-in-time.png

@@ -1,12 +1,13 @@
 ---
+title: WOQL Getting Started
 nextjs:
   metadata:
     title: WOQL Getting Started
-    description: >-
-      Examples to Get Started with the TerminusDB Web Object Query Langauge (WOQL)
+    description: Examples to Get Started with the TerminusDB Web Object Query Langauge (WOQL)
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/woql-getting-started/
 media: []
 ---
 

@@ -1,12 +1,13 @@
 ---
+title: WOQL Class Reference Guide
 nextjs:
   metadata:
     title: WOQL Class Reference Guide
-    description: >-
-      The JSON-LD definition of the WOQL language
+    description: The JSON-LD definition of the WOQL language
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/woql-class-reference-guide/
 media: []
 ---
 

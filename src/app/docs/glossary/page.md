@@ -1,11 +1,13 @@
 ---
+title: Glossary of Terms
 nextjs:
   metadata:
     title: Glossary of Terms
     description: A glossary of terms for TerminusDB and DFRNT TerminusDB cloud
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/glossary/
 media: []
 ---
 

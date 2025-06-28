@@ -1,13 +1,13 @@
 ---
+title: How to get your API key using the DFRNT TerminusDB cloud
 nextjs:
   metadata:
     title: How to get your API key using the DFRNT TerminusDB cloud
-    description: >-
-      A how-to guide showing how to get your API key to set up and configure your
-      environment to use with a client.
+    description: A how-to guide showing how to get your API key to set up and configure your environment to use with a client.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/get-your-api-key.png
+      images: https://assets.terminusdb.com/docs/get-your-api-key.png
+    alternates:
+      canonical: https://terminusdb.org/docs/get-your-api-key-from-terminuscms/
 media: []
 ---
 

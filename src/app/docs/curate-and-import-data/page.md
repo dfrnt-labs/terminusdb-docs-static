@@ -1,13 +1,13 @@
 ---
+title: How to Curate & Import Data
 nextjs:
   metadata:
     title: How to Curate & Import Data
-    description: >-
-      How to guides for curating and importing data into TerminusDB and
-      TerminusDB
+    description: How to guides for curating and importing data into TerminusDB and TerminusDB
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/curate-and-import-data/
 media: []
 ---
 

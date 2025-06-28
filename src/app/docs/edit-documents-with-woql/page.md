@@ -1,11 +1,13 @@
 ---
+title: Edit Documents using WOQL
 nextjs:
   metadata:
     title: Edit Documents using WOQL
     description: A guide with example showing how to edit documents using WOQL
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/woql-edit-documents.png
+      images: https://assets.terminusdb.com/docs/woql-edit-documents.png
+    alternates:
+      canonical: https://terminusdb.org/docs/edit-documents-with-woql/
 media: []
 ---
 

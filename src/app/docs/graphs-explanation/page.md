@@ -1,13 +1,13 @@
 ---
+title: Graphs Explanation
 nextjs:
   metadata:
     title: Graphs Explanation
-    description: >-
-      An introduction to the hierarchy and system of graphs used by TerminusDB for
-      collaboration and revision control.
+    description: An introduction to the hierarchy and system of graphs used by TerminusDB for collaboration and revision control.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/graphs-explanation/
 media: []
 ---
 

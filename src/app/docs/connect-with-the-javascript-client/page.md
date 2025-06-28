@@ -1,13 +1,13 @@
 ---
+title: Connect with the JavaScript Client
 nextjs:
   metadata:
     title: Connect with the JavaScript Client
-    description: >-
-      A guide to show how to connect to TerminusDB using the
-      JavaScript Client
+    description: A guide to show how to connect to TerminusDB using the JavaScript Client
     openGraph:
-      images: >-
-        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-connect-with-js-client.png?raw=true
+      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-connect-with-js-client.png?raw=true
+    alternates:
+      canonical: https://terminusdb.org/docs/connect-with-the-javascript-client/
 media: []
 ---
 

@@ -1,8 +1,11 @@
 ---
+title: TerminusDB Document Insertion Reference Guide
 nextjs:
   metadata:
     title: TerminusDB Document Insertion Reference Guide
     description: A reference guide for the TerminusDB document interface.
+    alternates:
+      canonical: https://terminusdb.org/docs/document-insertion/
 media: []
 ---
 

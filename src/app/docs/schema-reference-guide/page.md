@@ -1,11 +1,13 @@
 ---
+title: Schema Reference Guide
 nextjs:
   metadata:
     title: Schema Reference Guide
     description: A reference guide for the TerminusDB schema
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/schema-reference-guide/
 media: []
 ---
 

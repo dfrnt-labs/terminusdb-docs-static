@@ -1,14 +1,16 @@
 ---
+title: How to connect to TerminusDB
 nextjs:
   metadata:
     title: How to connect to TerminusDB
     description: How to connect with TerminusDB using an API key
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/how-to-connect-terminuscms/
 media:
   - alt: Client examples
-    caption: ''
+    caption: ""
     media_type: Image
     title: Client examples
     value: https://cdn.terminusdb.com/img/terminus-cms/client_api_connection.jpeg

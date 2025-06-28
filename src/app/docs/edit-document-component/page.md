@@ -1,13 +1,13 @@
 ---
+title: EditDocumentComponent
 nextjs:
   metadata:
     title: EditDocumentComponent
-    description: >-
-      The EditDocumentComponent allows you to edit an existing document using the
-      FrameViewer component
+    description: The EditDocumentComponent allows you to edit an existing document using the FrameViewer component
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/edit-document-component/
 media: []
 ---
 

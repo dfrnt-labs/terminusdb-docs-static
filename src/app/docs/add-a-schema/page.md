@@ -1,13 +1,13 @@
 ---
+title: Add a Schema using the JavaScript Client
 nextjs:
   metadata:
     title: Add a Schema using the JavaScript Client
-    description: >-
-      A guide to show how to add a schema to TerminusDB using the
-      TerminusDB JavaScript Client.
+    description: A guide to show how to add a schema to TerminusDB using the TerminusDB JavaScript Client.
+    alternates:
+      canonical: https://terminusdb.org/docs/add-a-schema
     openGraph:
-      images: >-
-        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-add-a-schema.png?raw=true
+      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-add-a-schema.png?raw=true
 ---
 
 # Add Schema using Javascript

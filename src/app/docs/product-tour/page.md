@@ -1,16 +1,16 @@
 ---
+title: TerminusDB Product Tour
 nextjs:
   metadata:
     title: TerminusDB Product Tour
-    description: >-
-      This page provides an overview of the TerminusDB dashboard to help you
-      navigate its features.
+    description: This page provides an overview of the TerminusDB dashboard to help you navigate its features.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/product-tour/
 media:
   - alt: Try out TerminusDB by clone a demo data product
-    caption: ''
+    caption: ""
     media_type: Image
     title: Try out TerminusDB by clone a demo data product
     value: https://assets.terminusdb.com/docs/profile-option.png

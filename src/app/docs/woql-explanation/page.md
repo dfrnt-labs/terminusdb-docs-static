@@ -1,12 +1,13 @@
 ---
+title: WOQL Explanation
 nextjs:
   metadata:
     title: WOQL Explanation
-    description: >-
-      A brief explanation of the TerminusDB Web Object Query Langauge (WOQL)
+    description: A brief explanation of the TerminusDB Web Object Query Langauge (WOQL)
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/woql-explanation/
 media: []
 ---
 

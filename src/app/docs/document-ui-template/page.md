@@ -1,11 +1,13 @@
 ---
+title: Document UI Template
 nextjs:
   metadata:
     title: Document UI Template
-    description: 'The document ui template has components to assemble a dashboard quickly. '
+    description: "The document ui template has components to assemble a dashboard quickly. "
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/document-ui-template/
 media: []
 ---
 

@@ -1,46 +1,46 @@
 ---
+title: Content & Data Curation in TerminusDB
 nextjs:
   metadata:
     title: Content & Data Curation in TerminusDB
-    description: >-
-      Technical and non-technical users can curate content and data using the
-      TerminusDB dashboard
+    description: Technical and non-technical users can curate content and data using the TerminusDB dashboard
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/content-curation-terminuscms-tour/
 media:
   - alt: TerminusDB document explorer
-    caption: ''
+    caption: ""
     media_type: Image
     title: TerminusDB document explorer
     value: https://assets.terminusdb.com/docs/document-explorer.png
   - alt: Document display
-    caption: ''
+    caption: ""
     media_type: Image
     title: Document display
     value: https://assets.terminusdb.com/docs/document-display.png
   - alt: GraphQL query generated from filter results
-    caption: ''
+    caption: ""
     media_type: Image
     title: GraphQL query generated from filter results
     value: https://assets.terminusdb.com/docs/document-view-graphql-query.png
-  - alt: ''
-    caption: ''
+  - alt: ""
+    caption: ""
     media_type: Image
     title: Image 4
     value: https://assets.terminusdb.com/docs/add-new-document.png
   - alt: Linking to other documents
-    caption: ''
+    caption: ""
     media_type: Image
     title: Linking to other documents
     value: https://assets.terminusdb.com/docs/linking-to-other-documents.png
-  - alt: 'Unfolded documents '
-    caption: ''
+  - alt: "Unfolded documents "
+    caption: ""
     media_type: Image
-    title: 'Unfolded documents '
+    title: "Unfolded documents "
     value: https://assets.terminusdb.com/docs/unfolded-documents.png
   - alt: How to edit documents in the TerminusDB dashboard
-    caption: ''
+    caption: ""
     media_type: Image
     title: How to edit documents in the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/edit-documents.png

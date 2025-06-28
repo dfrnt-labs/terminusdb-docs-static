@@ -1,68 +1,61 @@
 ---
+title: Use the DFRNT TerminusDB cloud Dashboard to Curate Data & Content
 nextjs:
   metadata:
     title: Use the DFRNT TerminusDB cloud Dashboard to Curate Data & Content
-    description: >-
-      A how-to guide describing how to use the DFRNT TerminusDB cloud dashboard to add, edit, and delete content and data
+    description: A how-to guide describing how to use the DFRNT TerminusDB cloud dashboard to add, edit, and delete content and data
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/document-explorer-home.png
+      images: https://assets.terminusdb.com/docs/document-explorer-home.png
+    alternates:
+      canonical: https://terminusdb.org/docs/use-the-admin-ui-curate-and-import-data/
 media:
   - alt: TerminusDB document explorer to edit content via the UI
-    caption: ''
+    caption: ""
     media_type: Image
     title: TerminusDB document explorer to edit content via the UI
     value: https://assets.terminusdb.com/docs/document-explorer-home.png
-  - alt: >-
-      Filtering documents based on its properties in the document explorer
-      section of the TerminusDB cloud dashboard
-    caption: ''
+  - alt: Filtering documents based on its properties in the document explorer section of the TerminusDB cloud dashboard
+    caption: ""
     media_type: Image
-    title: >-
-      Filtering documents based on its properties in the document explorer
-      section of the TerminusDB cloud dashboard
+    title: Filtering documents based on its properties in the document explorer section of the TerminusDB cloud dashboard
     value: https://assets.terminusdb.com/docs/document-explorer-filter-view.png
   - alt: create a new change request to make changes to content.
-    caption: ''
+    caption: ""
     media_type: Image
     title: create a new change request to make changes to content.
     value: https://assets.terminusdb.com/docs/create-a-new-change-request.png
   - alt: Manage change requests in the TerminusDB cloud dashboard
-    caption: ''
+    caption: ""
     media_type: Image
     title: Manage change requests in the TerminusDB cloud dashboard
     value: https://assets.terminusdb.com/docs/change-request-screen-open.png
   - alt: Change requests ready for review are listed in chronological order
-    caption: ''
+    caption: ""
     media_type: Image
     title: Change requests ready for review are listed in chronological order
     value: https://assets.terminusdb.com/docs/change-request-waiting-for-review.png
   - alt: accept or reject a change request and leave a comment to explain why.
-    caption: ''
+    caption: ""
     media_type: Image
     title: accept or reject a change request and leave a comment to explain why.
     value: https://assets.terminusdb.com/docs/change-request-review-comment.png
   - alt: change requests feature a diff viewer to make review processes quicker.
-    caption: ''
+    caption: ""
     media_type: Image
     title: change requests feature a diff viewer to make review processes quicker.
     value: https://assets.terminusdb.com/docs/change-request-review-diff.png
   - alt: A message to update the change request to the latest database.
-    caption: ''
+    caption: ""
     media_type: Image
     title: A message to update the change request to the latest database.
     value: https://assets.terminusdb.com/docs/change-request-out-of-date-message.png
-  - alt: >-
-      Filtering documents based on its properties in the document explorer
-      section of the TerminusDB cloud dashboard
-    caption: ''
+  - alt: Filtering documents based on its properties in the document explorer section of the TerminusDB cloud dashboard
+    caption: ""
     media_type: Image
-    title: >-
-      Filtering documents based on its properties in the document explorer
-      section of the TerminusDB cloud dashboard
+    title: Filtering documents based on its properties in the document explorer section of the TerminusDB cloud dashboard
     value: https://assets.terminusdb.com/docs/document-explorer-filter-view.png
   - alt: Edit or delete a document from within TerminusDB's Document Explorer
-    caption: ''
+    caption: ""
     media_type: Image
     title: Edit or delete a document from within TerminusDB's Document Explorer
     value: https://assets.terminusdb.com/docs/document-explorer-edit-or-delete.png

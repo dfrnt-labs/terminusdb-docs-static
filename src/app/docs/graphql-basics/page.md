@@ -1,21 +1,21 @@
 ---
+title: Learn the GraphQL Basics for TerminusDB
 nextjs:
   metadata:
     title: Learn the GraphQL Basics for TerminusDB
-    description: >-
-      Learn to query TerminusDB and TerminusDB using GraphQL and a Star Wars data
-      project that you can clone from the dashboard.
+    description: Learn to query TerminusDB and TerminusDB using GraphQL and a Star Wars data project that you can clone from the dashboard.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/graphqll-basics.png
+      images: https://assets.terminusdb.com/docs/graphqll-basics.png
+    alternates:
+      canonical: https://terminusdb.org/docs/graphql-basics/
 media:
   - alt: Clone a demo project from the dashboard
-    caption: ''
+    caption: ""
     media_type: Image
     title: Clone a demo project from the dashboard
     value: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
   - alt: GraphQL query playground
-    caption: ''
+    caption: ""
     media_type: Image
     title: GraphQL query playground
     value: https://assets.terminusdb.com/docs/how-to-query-graphql.png

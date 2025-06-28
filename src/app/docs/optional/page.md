@@ -1,11 +1,13 @@
 ---
+title: Optional Properties
 nextjs:
   metadata:
     title: Optional Properties
     description: How optional properties work in the document UI
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/optional/
 media: []
 ---
 

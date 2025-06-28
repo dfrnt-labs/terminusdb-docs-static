@@ -1,15 +1,16 @@
 ---
+title: WOQL Basics
 nextjs:
   metadata:
     title: WOQL Basics
-    description: >-
-      Learn the TerminusDB WOQL query basics for TerminusDB
+    description: Learn the TerminusDB WOQL query basics for TerminusDB
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/woql-basics.png
+      images: https://assets.terminusdb.com/docs/woql-basics.png
+    alternates:
+      canonical: https://terminusdb.org/docs/woql-basics/
 media:
   - alt: WOQL query playground in the TerminusDB dashboard
-    caption: ''
+    caption: ""
     media_type: Image
     title: WOQL query playground in the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/how-to-query-woql.png

@@ -1,16 +1,16 @@
 ---
+title: How to create a project with TerminusDB
 nextjs:
   metadata:
     title: How to create a project with TerminusDB
-    description: >-
-      A how-to guide showing you how to create a new project using the TerminusDB
-      dashboard
+    description: A how-to guide showing you how to create a new project using the TerminusDB dashboard
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/new-data-product.png
+      images: https://assets.terminusdb.com/docs/new-data-product.png
+    alternates:
+      canonical: https://terminusdb.org/docs/create-a-project-with-terminuscms/
 media:
   - alt: how to create a project in the TerminusDB dashboard
-    caption: ''
+    caption: ""
     media_type: Image
     title: how to create a project in the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/new-data-product.png

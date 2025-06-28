@@ -1,13 +1,13 @@
 ---
+title: DocumentClassesSummary Component
 nextjs:
   metadata:
     title: DocumentClassesSummary Component
-    description: >-
-      The DocumentClassesSummary component allows you to visualize document
-      classes using interactive cards.
+    description: The DocumentClassesSummary component allows you to visualize document classes using interactive cards.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/documentclassessummary/
 media: []
 ---
 

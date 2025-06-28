@@ -1,13 +1,13 @@
 ---
+title: Add a schema to TerminusDB with the Python Client
 nextjs:
   metadata:
     title: Add a schema to TerminusDB with the Python Client
-    description: >-
-      A guide to show how to add a schema to TerminusDB projects with the Python
-      Client.
+    description: A guide to show how to add a schema to TerminusDB projects with the Python Client.
+    alternates:
+      canonical: https://terminusdb.org/docs/add-a-schema-with-the-python-client/
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/python-client-use-add-a-schema.png
+      images: https://assets.terminusdb.com/docs/python-client-use-add-a-schema.png
 ---
 
 # Add schema with Python

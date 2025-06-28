@@ -1,11 +1,13 @@
 ---
+title: Install TerminusDB from Source Code
 nextjs:
   metadata:
     title: Install TerminusDB from Source Code
     description: Everything you need to install TerminusDB from source code.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/install-terminusdb-from-source-code/
 media: []
 ---
 

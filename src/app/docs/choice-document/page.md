@@ -1,11 +1,13 @@
 ---
+title: Choice Document in the Document UI
 nextjs:
   metadata:
     title: Choice Document in the Document UI
     description: How document choice works in the document UI
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/choice-document/
 media: []
 ---
 

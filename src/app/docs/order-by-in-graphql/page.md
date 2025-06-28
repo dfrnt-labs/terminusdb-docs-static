@@ -1,12 +1,13 @@
 ---
+title: Order By in GraphQL
 nextjs:
   metadata:
     title: Order By in GraphQL
-    description: >-
-      How to use the order by argument in GraphQL queries with TerminusDB
+    description: How to use the order by argument in GraphQL queries with TerminusDB
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/graphql-order-by.png
+      images: https://assets.terminusdb.com/docs/graphql-order-by.png
+    alternates:
+      canonical: https://terminusdb.org/docs/order-by-in-graphql/
 media: []
 ---
 

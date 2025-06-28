@@ -1,12 +1,13 @@
 ---
+title: Time Travel through your Database History
 nextjs:
   metadata:
     title: Time Travel through your Database History
-    description: >-
-      A guide showing how to time travel to a specific commit in TerminusDB
+    description: A guide showing how to time travel to a specific commit in TerminusDB
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/js-client-collaboration-time-travel.png
+      images: https://assets.terminusdb.com/docs/js-client-collaboration-time-travel.png
+    alternates:
+      canonical: https://terminusdb.org/docs/time-travel-to-previous-commits/
 media: []
 ---
 

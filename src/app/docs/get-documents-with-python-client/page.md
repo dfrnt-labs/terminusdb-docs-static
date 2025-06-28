@@ -1,13 +1,13 @@
 ---
+title: Get Documents with the Python Client
 nextjs:
   metadata:
     title: Get Documents with the Python Client
-    description: >-
-      A guide to show how-to get documents from TerminusDB using
-      the Python Client
+    description: A guide to show how-to get documents from TerminusDB using the Python Client
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/python-client-use-get-documents.png
+      images: https://assets.terminusdb.com/docs/python-client-use-get-documents.png
+    alternates:
+      canonical: https://terminusdb.org/docs/get-documents-with-python-client/
 media: []
 ---
 

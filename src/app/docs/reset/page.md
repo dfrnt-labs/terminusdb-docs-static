@@ -1,21 +1,21 @@
 ---
+title: Reset a Project with the TerminusDB Dashboard
 nextjs:
   metadata:
     title: Reset a Project with the TerminusDB Dashboard
-    description: >-
-      A guide to show how to reset to a particular commit of a branch or main
-      using the TerminusDB dashboard.
+    description: A guide to show how to reset to a particular commit of a branch or main using the TerminusDB dashboard.
     openGraph:
-      images: >-
-        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/reset-a-branch.png?raw=true
+      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/reset-a-branch.png?raw=true
+    alternates:
+      canonical: https://terminusdb.org/docs/reset/
 media:
   - alt: Branch options with the ability to squash the branch of the database
-    caption: ''
+    caption: ""
     media_type: Image
     title: Branch options with the ability to squash the branch of the database
     value: https://assets.terminusdb.com/docs/branch-options.png
   - alt: A squashed branch combines all commits into one big one
-    caption: ''
+    caption: ""
     media_type: Image
     title: A squashed branch combines all commits into one big one
     value: https://assets.terminusdb.com/docs/reset-a-branch.png

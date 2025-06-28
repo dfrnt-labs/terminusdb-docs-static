@@ -1,14 +1,16 @@
 ---
+title: Set up VectorLink
 nextjs:
   metadata:
     title: Set up VectorLink
     description: Steps to set up VectorLink to work with OpenAI
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
+      images: https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
+    alternates:
+      canonical: https://terminusdb.org/docs/set-up-vectorlink/
 media:
   - alt: Add your OpenAI key in the relevant section within your profile
-    caption: ''
+    caption: ""
     media_type: Image
     title: Add your OpenAI key in the relevant section within your profile
     value: https://assets.terminusdb.com/docs/vectorlink-openai-key.png

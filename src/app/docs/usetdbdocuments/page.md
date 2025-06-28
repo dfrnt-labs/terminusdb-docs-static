@@ -1,13 +1,13 @@
 ---
+title: useTDBDocuments hook
 nextjs:
   metadata:
     title: useTDBDocuments hook
-    description: >-
-      useTDBDocuments is the main hook to connect
-      @terminusdb/terminusdb-documents-ui with the TerminusDB server
+    description: useTDBDocuments is the main hook to connect @terminusdb/terminusdb-documents-ui with the TerminusDB server
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/usetdbdocuments/
 media: []
 ---
 

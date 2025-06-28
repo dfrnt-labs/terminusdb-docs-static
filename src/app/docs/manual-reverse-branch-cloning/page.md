@@ -1,8 +1,11 @@
 ---
+title: Manual reverse branch cloning
 nextjs:
   metadata:
     title: Manual reverse branch cloning
-    description: How to manually clone branches between data products 
+    description: How to manually clone branches between data products
+    alternates:
+      canonical: https://terminusdb.org/docs/manual-reverse-branch-cloning/
 media: []
 ---
 

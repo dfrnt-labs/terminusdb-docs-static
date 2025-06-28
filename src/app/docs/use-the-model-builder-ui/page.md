@@ -1,42 +1,41 @@
 ---
+title: Use the Model Builder UI
 nextjs:
   metadata:
     title: Use the Model Builder UI
-    description: >-
-      The model builder UI allows you to construct classes of objects and define
-      what data they have, and what links (or relationships) they have between
-      them.
+    description: The model builder UI allows you to construct classes of objects and define what data they have, and what links (or relationships) they have between them.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/schema-ui-doc-properties.png
+      images: https://assets.terminusdb.com/docs/schema-ui-doc-properties.png
+    alternates:
+      canonical: https://terminusdb.org/docs/use-the-model-builder-ui/
 media:
   - alt: Create a new data product using the TerminusDB dashboard
-    caption: ''
+    caption: ""
     media_type: Image
     title: Create a new data product using the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/new-data-product.png
   - alt: JSON schema editor in the TerminusDB dashboard
-    caption: ''
+    caption: ""
     media_type: Image
     title: JSON schema editor in the TerminusDB dashboard
     value: https://assets.terminusdb.com/docs/schema-ui-no-docs.png
   - alt: Add document properties using the schema builder UI
-    caption: ''
+    caption: ""
     media_type: Image
     title: Add document properties using the schema builder UI
     value: https://assets.terminusdb.com/docs/schema-ui-doc-properties.png
   - alt: Add link properties to a document using the schema builder UI
-    caption: ''
+    caption: ""
     media_type: Image
     title: Add link properties to a document using the schema builder UI
     value: https://assets.terminusdb.com/docs/schema-ui-doc-link-properties.png
   - alt: Create an enum for your schema using the schema builder UI
-    caption: ''
+    caption: ""
     media_type: Image
     title: Create an enum for your schema using the schema builder UI
     value: https://assets.terminusdb.com/docs/schema-ui-doc-enum.png
   - alt: Add an enum property to a document using the schema builder UI
-    caption: ''
+    caption: ""
     media_type: Image
     title: Add an enum property to a document using the schema builder UI
     value: https://assets.terminusdb.com/docs/schema-ui-doc-add-enum-property.png

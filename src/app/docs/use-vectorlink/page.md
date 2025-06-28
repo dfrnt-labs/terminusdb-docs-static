@@ -1,13 +1,13 @@
 ---
+title: How to Use VectorLink
 nextjs:
   metadata:
     title: How to Use VectorLink
-    description: >-
-      A series of how-to guides to get you started with VectorLink, the semantic
-      indexer
+    description: A series of how-to guides to get you started with VectorLink, the semantic indexer
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
+      images: https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
+    alternates:
+      canonical: https://terminusdb.org/docs/use-vectorlink/
 media: []
 ---
 

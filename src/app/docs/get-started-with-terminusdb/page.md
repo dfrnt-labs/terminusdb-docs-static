@@ -1,11 +1,13 @@
 ---
+title: Get Started with TerminusDB
 nextjs:
   metadata:
     title: Get Started with TerminusDB
-    description: ' An overview of the ways to get started with TerminusDB.'
+    description: " An overview of the ways to get started with TerminusDB."
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/get-started-with-terminusdb/
 media: []
 ---
 

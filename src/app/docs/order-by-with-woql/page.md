@@ -1,11 +1,13 @@
 ---
+title: How to Order Results in WOQL
 nextjs:
   metadata:
     title: How to Order Results in WOQL
     description: A guide to show you how to order results using order_by in WOQL.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/woql-order-by.png
+      images: https://assets.terminusdb.com/docs/woql-order-by.png
+    alternates:
+      canonical: https://terminusdb.org/docs/order-by-with-woql/
 media: []
 ---
 

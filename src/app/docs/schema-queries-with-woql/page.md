@@ -1,12 +1,13 @@
 ---
+title: Schema Queries with WOQL
 nextjs:
   metadata:
     title: Schema Queries with WOQL
-    description: >-
-      A guide to show how to query schema with WOQL in your TerminusDB projects.
+    description: A guide to show how to query schema with WOQL in your TerminusDB projects.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/woql-query-schema.png
+      images: https://assets.terminusdb.com/docs/woql-query-schema.png
+    alternates:
+      canonical: https://terminusdb.org/docs/schema-queries-with-woql/
 media: []
 ---
 

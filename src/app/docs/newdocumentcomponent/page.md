@@ -1,13 +1,13 @@
 ---
+title: NewDocumentComponent
 nextjs:
   metadata:
     title: NewDocumentComponent
-    description: >-
-      The NewDocumentComponent allows you to create new documents using the
-      FrameViewer
+    description: The NewDocumentComponent allows you to create new documents using the FrameViewer
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/newdocumentcomponent/
 media: []
 ---
 

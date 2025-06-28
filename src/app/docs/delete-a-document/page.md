@@ -1,13 +1,13 @@
 ---
+title: Delete a Document using the JavaScript Client
 nextjs:
   metadata:
     title: Delete a Document using the JavaScript Client
-    description: >-
-      A guide to show how to delete a document in TerminusDB using
-      the JavaScript Client.
+    description: A guide to show how to delete a document in TerminusDB using the JavaScript Client.
     openGraph:
-      images: >-
-        https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-delete-a-document.png?raw=true
+      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-delete-a-document.png?raw=true
+    alternates:
+      canonical: https://terminusdb.org/docs/delete-a-document/
 media: []
 ---
 

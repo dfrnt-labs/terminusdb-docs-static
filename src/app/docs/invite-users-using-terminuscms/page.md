@@ -1,16 +1,16 @@
 ---
+title: Invite Users to Your Team
 nextjs:
   metadata:
     title: Invite Users to Your Team
-    description: >-
-      A how-to guide for inviting collaborators to your team using the TerminusDB
-      dashboard.
+    description: A how-to guide for inviting collaborators to your team using the TerminusDB dashboard.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/manage-your-projects-add-a-new-user.png
+      images: https://assets.terminusdb.com/docs/manage-your-projects-add-a-new-user.png
+    alternates:
+      canonical: https://terminusdb.org/docs/invite-users-using-terminuscms/
 media:
   - alt: add a new user to your team
-    caption: ''
+    caption: ""
     media_type: Image
     title: add a new user to your team
     value: https://assets.terminusdb.com/docs/manage-your-projects-add-a-new-user.png

@@ -1,13 +1,13 @@
 ---
+title: Import Data with the Python Client
 nextjs:
   metadata:
     title: Import Data with the Python Client
-    description: >-
-      A guide to show how to import CSV data into TerminusDB using the
-      Python Client
+    description: A guide to show how to import CSV data into TerminusDB using the Python Client
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/python-client-use-import-data.png
+      images: https://assets.terminusdb.com/docs/python-client-use-import-data.png
+    alternates:
+      canonical: https://terminusdb.org/docs/import-data-with-python-client/
 media: []
 ---
 

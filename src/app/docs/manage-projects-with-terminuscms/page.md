@@ -1,13 +1,13 @@
 ---
+title: How to Manage Projects with TerminusDB
 nextjs:
   metadata:
     title: How to Manage Projects with TerminusDB
-    description: >-
-      Bit sized how to guides to get to know the TerminusDB dashboard to manage
-      your projects
+    description: Bit sized how to guides to get to know the TerminusDB dashboard to manage your projects
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/manage-projects-with-terminuscms/
 media: []
 ---
 

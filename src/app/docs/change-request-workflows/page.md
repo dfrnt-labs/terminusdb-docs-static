@@ -1,46 +1,46 @@
 ---
+title: Change Request Workflows - TerminusDB Tour
 nextjs:
   metadata:
     title: Change Request Workflows - TerminusDB Tour
-    description: >-
-      This page details how change request workflows function in TerminusDB to
-      enable safe collaboration
+    description: This page details how change request workflows function in TerminusDB to enable safe collaboration
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/change-request-workflows/
 media:
   - alt: Opening a change request
-    caption: ''
+    caption: ""
     media_type: Image
     title: Opening a change request
     value: https://assets.terminusdb.com/docs/open-change-request.png
   - alt: In a change request
-    caption: ''
+    caption: ""
     media_type: Image
     title: In a change request
     value: https://assets.terminusdb.com/docs/in-change-request.png
   - alt: TerminusDB change request screen
-    caption: ''
+    caption: ""
     media_type: Image
     title: TerminusDB change request screen
     value: https://assets.terminusdb.com/docs/change-request-screen.png
   - alt: Change Request diff viewer
-    caption: ''
+    caption: ""
     media_type: Image
     title: Change Request diff viewer
     value: https://assets.terminusdb.com/docs/cr-diff.png
   - alt: See messages in a change request for context
-    caption: ''
+    caption: ""
     media_type: Image
     title: See messages in a change request for context
     value: https://assets.terminusdb.com/docs/cr-review-messages.png
   - alt: List of change requests for review
-    caption: ''
+    caption: ""
     media_type: Image
     title: List of change requests for review
     value: https://assets.terminusdb.com/docs/cr-review-home.png
   - alt: Change request screen
-    caption: ''
+    caption: ""
     media_type: Image
     title: Change request screen
     value: https://assets.terminusdb.com/docs/cr-review-page.png

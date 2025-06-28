@@ -1,13 +1,13 @@
 ---
+title: Squashing Commits with the TerminusDB Python Client
 nextjs:
   metadata:
     title: Squashing Commits with the TerminusDB Python Client
-    description: >-
-      A guide to show how to squash commits into one big commit using the
-      TerminusDB Python Client.
+    description: A guide to show how to squash commits into one big commit using the TerminusDB Python Client.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/python-client-collaboration-squash.png
+      images: https://assets.terminusdb.com/docs/python-client-collaboration-squash.png
+    alternates:
+      canonical: https://terminusdb.org/docs/squash-a-project-with-python/
 media: []
 ---
 

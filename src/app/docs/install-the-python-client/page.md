@@ -1,11 +1,13 @@
 ---
+title: Install the TerminusDB Python Client
 nextjs:
   metadata:
     title: Install the TerminusDB Python Client
     description: A guide showing how to install the TerminusDB Client.
     openGraph:
-      images: >-
-        https://assets.terminusdb.com/docs/python-client-use-install-python-client.png
+      images: https://assets.terminusdb.com/docs/python-client-use-install-python-client.png
+    alternates:
+      canonical: https://terminusdb.org/docs/install-the-python-client/
 media: []
 ---
 
