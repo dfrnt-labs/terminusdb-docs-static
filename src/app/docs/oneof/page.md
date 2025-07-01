@@ -3,7 +3,7 @@ title: One Of for mutually disjoint properties (@oneof)
 nextjs:
   metadata:
     title: One Of for mutually disjoint properties (@oneof)
-    keywords: @oneof, one of, mutually disjoint properties
+    keywords: oneof, one of, mutually disjoint properties
     description: An example of how one of properties work in the document UI
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
