@@ -63,7 +63,7 @@ When a data product is to be cloned from a local instance to a cloud instance, t
 
 Instead, the set of layers to that are to be included has to be moved some other way, where the `fetch` and `push` commands are used.
 
-An example of how to use git-for-data is in how to move a data product from a local TerminusDB instance, to a cloud instance, is described in [Manual Reverse Branch Cloning](/docs/manual-reverse-branch-cloning).
+An example of how to use git-for-data is in how to move a data product from a local TerminusDB instance, to a cloud instance, is described in [Manual Reverse Branch Cloning](/docs/manual-reverse-branch-cloning/).
 
 ## Git-for-data branch operations
 

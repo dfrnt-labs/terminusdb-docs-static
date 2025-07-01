@@ -346,6 +346,10 @@ export const navigation: Navigation[] = [
             title: 'WOQL Getting Started',
             href: '/docs/woql-getting-started',
           },
+          {
+            title: 'How to query',
+            href: '/docs/how-to-query/',
+          },
         ],
       },
       {

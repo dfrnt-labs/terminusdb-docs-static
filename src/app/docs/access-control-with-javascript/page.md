@@ -6,7 +6,7 @@ nextjs:
     description: A driver to manage access control with the JS Client
     keywords: access control, javascript client
     alternates:
-      canonical: https://terminusdb.org/docs/access-control-with-javascript
+      canonical: https://terminusdb.org/docs/access-control-with-javascript/
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---

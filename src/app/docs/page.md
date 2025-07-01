@@ -1,4 +1,5 @@
 ---
+title: Getting Started
 nextjs:
   metadata:
     title: Getting Started

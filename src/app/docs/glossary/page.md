@@ -3,7 +3,7 @@ title: Glossary of Terms for TerminusDB
 nextjs:
   metadata:
     title: Glossary of Terms for TerminusDB
-    description: A glossary of terms for TerminusDB to ensure terms are clearly defined and understood in the same way across the community to enable better conversations and understanding of what TerminusDB is
+    description: A glossary of terms for TerminusDB to ensure terms are clearly defined and understood in the same way across the community to enable better conversations
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
