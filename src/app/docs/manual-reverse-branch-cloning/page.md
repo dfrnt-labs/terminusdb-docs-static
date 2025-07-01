@@ -24,4 +24,4 @@ How to reverse clone a data product branch from a localhost instance to a cloud 
 1. Move any additional branches that should be moved
 1. Copy title, description and other attributes of the data product to the cloud version. 
 
-Read more about [git-for-data](/docs/git-for-data-reference) for more information on how to use TerminusDB and git-for-data.
+Read more about [git-for-data](/docs/git-for-data-reference/) for more information on how to use TerminusDB and git-for-data.

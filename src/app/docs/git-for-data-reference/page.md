@@ -13,7 +13,7 @@ media: []
 
 Git-for-Data is a feature of TerminusDB that allows you to use git-like operations on TerminusDB data product branches, including the ability to transport data between TerminusDB instances using `clone`, `push`, `pull` and `fetch`.
 
-This is useful to collaborate on information by syncronizing content repositories with [cloud-hosted TerminusDB instances](https://dfrnt.com/hypergraph-content-studio/), and also between environments where network segmentation is strict, such as in IEC62443, Purdue model and other environments, as described in [Transfer data in operational technologies landscapes](/docs/operational-technologies-transfer). 
+This is useful to collaborate on information by syncronizing content repositories with [cloud-hosted TerminusDB instances](https://dfrnt.com/hypergraph-content-studio/), and also between environments where network segmentation is strict, such as in IEC62443, Purdue model and other environments, as described in [Transfer data in operational technologies landscapes](/docs/operational-technologies-transfer/). 
 
 In addition to the transportation of data between TerminusDB instances, Git-for-Data also allows you to manage data product branches using equivalents to `rebase` (replay commits onto a separate branch) and `merge` (apply) commands.
 
@@ -85,8 +85,8 @@ The `reset` operation resets a branch to a previous commit, discarding all commi
 
 ### Diff and patch
 
-`diff` and `patch` operations are available to compare and apply specific changes between branches of data products. These operations are described in [JSON Diff and Patch](/docs/json-diff-and-patch).
+`diff` and `patch` operations are available to compare and apply specific changes between branches of data products. These operations are described in [JSON Diff and Patch](/docs/json-diff-and-patch/).
 
 ## More about git-for-data
 
-Read more about how git-for-data can be used in operational technologies environments in [Transfer data in operational technologies landscapes](/docs/operational-technologies-transfer), and how to clone individual branches of data products in [Manual Reverse Branch Cloning](/docs/manual-reverse-branch-cloning).
+Read more about how git-for-data can be used in operational technologies environments in [Transfer data in operational technologies landscapes](/docs/operational-technologies-transfer/), and how to clone individual branches of data products in [Manual Reverse Branch Cloning](/docs/manual-reverse-branch-cloning/).

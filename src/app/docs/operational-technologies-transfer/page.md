@@ -19,4 +19,4 @@ TerminusDB is well positioned for data transports in such environments thanks to
 
 An analytics data product can be pushed in layers (between TerminusDB instances) all the way to a DMZ network handoff point, and then `pull`ed from the DMZ into the IT environment. This prevents any outbound communication from the DMZ environment, whilst the information can flow as part of a digital twin of the operational environment.
 
-Read more about the git-for-data of knowledge graphs in the [Git-for-Data Reference](/docs/git-for-data-reference) page.
+Read more about the git-for-data of knowledge graphs in the [Git-for-Data Reference](/docs/git-for-data-reference/) page.
