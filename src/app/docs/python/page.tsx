@@ -5,11 +5,19 @@ import {
   formatShortHandAnchorIds,
   formatAnchorIds,
 } from '../../../utils'
-import menu from '../../../menu.json'
-import { Layout } from '../../../components/_layout'
 import props from '../../../../schema/python.json'
 import { OnThisPageContent } from '@/components/_onThisPage'
 import { useEffect, useState } from 'react'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'TerminusDB Python Client API Reference',
+  description: 'TerminusDB Python Client API Reference documentation with every function and example for the Python Client library.',
+  metadataBase: new URL('https://terminusdb.org'),
+  alternates: {
+    canonical: '/docs/python/',
+  },
+}
 
 export default function Python() {
   const [onPageContent, setOnPageContent] = useState<JSX.Element | null>(null)

@@ -1,4 +1,15 @@
+import { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'TerminusDB Page Not Found',
+  description: 'TerminusDB 404 Page Not Found page, hope you find what you are looking for at our other pages and through the base homepage',
+  metadataBase: new URL('https://terminusdb.org'),
+  alternates: {
+    canonical: '/404/',
+  },
+}
+
 
 export default function NotFound() {
   return (

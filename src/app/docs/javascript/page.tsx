@@ -9,6 +9,16 @@ import { Layout } from '../../../components/_layout'
 import props from '../../../../schema/javascript.json'
 import { OnThisPageContent } from '@/components/_onThisPage'
 import { useEffect, useState } from 'react'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'TerminusDB Javascript Client API Reference',
+  description: 'TerminusDB Javascript Client API Reference documentation with every function and example for AccessControl, WOQLQuery, WOQLLibrary, View and WOQL.',
+  metadataBase: new URL('https://terminusdb.org'),
+  alternates: {
+    canonical: '/docs/javascript/',
+  },
+}
 
 export default function JavaScript() {
   const [onPageContent, setOnPageContent] = useState<JSX.Element | null>(null)
