@@ -3,6 +3,7 @@ title: TerminusDB Explanation
 nextjs:
   metadata:
     title: TerminusDB Explanation
+    keywords: terminusdb, explanation, git-like database, enterprise knowledge graph
     description: A high-level description of what TerminusDB is, reasons for using TerminusDB, and its Git-like features.
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

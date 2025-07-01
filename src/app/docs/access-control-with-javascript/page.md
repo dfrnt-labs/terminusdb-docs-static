@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Access Control Reference Guide
     description: A driver to manage access control with the JS Client
+    keywords: access control, javascript client
     alternates:
       canonical: https://terminusdb.org/docs/access-control-with-javascript
     openGraph:

@@ -1,5 +1,13 @@
 ---
-title: Getting started
+title: TerminusDB, a git-for-data graph and document database
+nextjs:
+  metadata:
+    title: TerminusDB, a git-for-data graph and document database
+    description: TerminusDB provides Semantic Document Graph Infrastructure; a model-based, in-memory, and distributed graph database with git-for-data collaboration
+    alternates:
+      canonical: https://terminusdb.org/docs
+    keywords: terminusdb, git-for-data, closed world, knowledge graph, RDF
+
 ---
 
 Learn how to get TerminusDB set up in your project in under thirty minutes. {% .lead %}
@@ -16,7 +24,7 @@ Learn how to get TerminusDB set up in your project in under thirty minutes. {% .
 
 {% /quick-links %}
 
-TerminusDB provides a special-purpose closed-world assumption RDF knowledge graph implementation with high performance in-memory performance leveraging succinct auto-indexing datastructures.
+TerminusDB provides a special-purpose closed world assumption RDF knowledge graph implementation with high performance in-memory performance leveraging succinct auto-indexing datastructures.
 
 It offers controlled document API interfaces with a terse JSON-LD-like syntax, GraphQL for precise data query needs and a datalog logical engine with variables bindings for complex queries across the graph.
 
