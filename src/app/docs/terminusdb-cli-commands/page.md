@@ -3,7 +3,7 @@ title: Command Line Interface (CLI) Commands
 nextjs:
   metadata:
     title: TerminusDB CLI Commands
-    description: A list of the TerminusDB command line interface commands.
+    description: Documentation of the TerminusDB command line interface (CLI) that enables users to interact with the local database using git-for-data and other operations
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

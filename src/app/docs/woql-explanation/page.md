@@ -3,7 +3,8 @@ title: WOQL Explanation
 nextjs:
   metadata:
     title: WOQL Explanation
-    description: A brief explanation of the TerminusDB Web Object Query Langauge (WOQL)
+    description: A brief explanation of the TerminusDB Web Object Query Langauge (WOQL) which with datalog, composable logic and unification of variables
+    keywords: TerminusDB, WOQL, datalog, composable logic, unification of variables
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

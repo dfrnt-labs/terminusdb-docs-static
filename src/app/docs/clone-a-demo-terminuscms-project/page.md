@@ -3,7 +3,8 @@ title: How to clone a TerminusDB demo project
 nextjs:
   metadata:
     title: How to clone a TerminusDB demo project
-    description: A guide to show how to clone TerminusDB demo projects to explore and play with.
+    description: A guide to show how to clone TerminusDB demo projects using git-for-data to explore and play with as part of the getting started instructions
+    keywords: knowledge graph, git-for-data, clone, demo project, getting started
     openGraph:
       images: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
     alternates:

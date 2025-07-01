@@ -3,7 +3,8 @@ title: TerminusDB Data Types
 nextjs:
   metadata:
     title: TerminusDB Data Types
-    description: The core data types for TerminusDB and TerminusDB.
+    description: The core data types for TerminusDB, derived from XML Data Types providing strong data interoperability
+    keywords: TerminusDB, data types, XML Data Types, data interoperability
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
