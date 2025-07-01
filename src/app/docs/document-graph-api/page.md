@@ -5,7 +5,7 @@ nextjs:
     title: Document Graph API Howto
     description: A howto guide for the TerminusDB document API interface.
     alternates:
-      canonical: https://terminusdb.org/docs/document-graph-api-howto/
+      canonical: https://terminusdb.org/docs/document-graph-api/
 media: []
 ---
 
@@ -33,4 +33,4 @@ The easiest way to get started with the document API is to use the TerminusDB cl
 * [Document Insertion Reference Guide](/docs/document-insertion/)
 * [Documents in a knowledge graph and how to use them](/docs/documents-explanation/)
 * [Immutability, version history, and revision control](/docs/immutability-explanation/)
-* [GraphQA API](/docs/how-to-query-with-graphql)
+* [GraphQL API](/docs/how-to-query-with-graphql)

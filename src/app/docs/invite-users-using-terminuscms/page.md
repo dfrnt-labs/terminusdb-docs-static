@@ -58,4 +58,4 @@ Grant different permissions for different data products/projects. To do this do 
 
 ## Manage Access Control with the JS Client
 
-[JS Client Access Control Reference Guide](/docs/js-client-access-control-reference/)
+[Access Control with the JavaScript Client, Reference Guide](/docs/js-access-control/)
