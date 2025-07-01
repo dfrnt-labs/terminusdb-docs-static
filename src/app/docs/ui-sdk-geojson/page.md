@@ -1,8 +1,8 @@
 ---
-title: UI SDK GeoJSON
+title: UI SDK GeoJSON for geographic data structures
 nextjs:
   metadata:
-    title: UI SDK GeoJSON
+    title: UI SDK GeoJSON for geographic data structures
     description: Understand how <FrameViewer/> can load geoJSON to display geographic data structures in Create, Edit or View Mode
     keywords: knowledge graph, GeoJSON, GIS, TerminusDB
     openGraph:

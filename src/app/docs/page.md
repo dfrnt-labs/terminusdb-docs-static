@@ -5,6 +5,8 @@ nextjs:
     description: >-
       TerminusDB Technical Documentation
     keywords: terminusdb, documentation, getting started, collaboration
+    alternates:
+      canonical: https://terminusdb.org/docs/
     openGraph:
       images: >-
         https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

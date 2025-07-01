@@ -1,8 +1,8 @@
 ---
-title: WOQL Basics
+title: TerminusDB Web Object Query Language (WOQL) Basics
 nextjs:
   metadata:
-    title: WOQL Basics
+    title: TerminusDB Web Object Query Language (WOQL) Basics
     description: Learn the TerminusDB WOQL query basics for TerminusDB
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-basics.png

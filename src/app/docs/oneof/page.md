@@ -1,8 +1,9 @@
 ---
-title: One Of
+title: One Of for mutually disjoint properties (@oneof)
 nextjs:
   metadata:
-    title: One Of
+    title: One Of for mutually disjoint properties (@oneof)
+    keywords: @oneof, one of, mutually disjoint properties
     description: An example of how one of properties work in the document UI
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
@@ -11,13 +12,13 @@ nextjs:
 media: []
 ---
 
-This example shows how `<FrameViewier/>` appears for a document called `Graduate` with a one of field in Create/ Edit and View mode. The value of the @oneOf field is a set, so can be any number of documents all of which have mutually disjointed properties, but which can coexist.
+This example shows how `<FrameViewer/>` appears for a document called `Graduate` with a one of field in Create/ Edit and View mode. The value of the @oneOf field is a set, so can be any number of documents all of which have mutually disjointed properties, but which can coexist.
 
 In this example `Graduate` has a property `scored` that points to `Grades`. `Grades` is defined as @oneOf that is an array of documents which can take any choice within. In this example, `Grades` can take any choice from `grade`, `marks` or `report`.
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/OneOfs) to view the `<FrameViewier/>` with the OneOfs properties in Create, Edit and View mode.
+Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/OneOfs) to view the `<FrameViewer/>` with the OneOfs properties in Create, Edit and View mode.
 
 ## Frame
 

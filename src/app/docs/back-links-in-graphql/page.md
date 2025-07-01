@@ -1,9 +1,10 @@
 ---
-title: Back Links
+title: Use GraphQL Back Links for easy queries
 nextjs:
   metadata:
-    title: Back Links
+    title: Use GraphQL Back Links for easy queries
     description: Back Links in GraphQL
+    keywords: backlink, inverseOf, inverse links, GraphQL, TerminusDB
     openGraph:
       images: https://assets.terminusdb.com/docs/graphql-backlink.png
     alternates:
@@ -61,4 +62,4 @@ This _back link_ will give us back the following:
 }
 ```
 
-Backlinking allows us to focus on modeling our data in a natural way, while still allowing us to follow the graph in either direction of a field or its opposite without bias.
+Backlinking allows us to focus on modeling our data in a natural way, while still allowing us to follow the graph in either direction of a field or its opposite without bias. Sometimes these backlinks are called inverseOf or inverse links. 
