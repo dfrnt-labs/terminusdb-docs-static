@@ -25,53 +25,55 @@ Take a look at the [**Document UI SDK Playground**](https://documents-ui-playgro
 
 The table below lists the basic data types supported and their specifications.
 
-**Data type**
+{% table %}
 
-**Declaration**
+- **Data type**
+- **Declaration**
+- **Example**
 
-**Example**
+---
 
-Boolean
+- Boolean
+- `"xsd:boolean"`
+- `"active": "xsd:boolean"`
 
-`"xsd:boolean"`
+---
 
-`"active": "xsd:boolean"`
+- Decimal
+- `"xsd:decimal"`
+- `"age": "xsd:decimal"`
 
-Decimal
+---
 
-`"xsd:decimal"`
+- Enum
+- `"@type: "Enum"`
+- `"@values": ["red", "blue", "yellow", "green"]`
 
-`"age": "xsd:decimal"`
+---
 
-Enum
+- Integer
+- `"xsd:integer"`
+- `"age": "xsd:integer"`
 
-`"@type: "Enum"`
+---
 
-`"@values": ["red", "blue", "yellow", "green"]`
+- Decimal
+- `"xsd:decimal"`
+- `"age": "xsd:decimal"`
 
-Integer
+---
 
-`"xsd:integer"`
+- String
+- `"xsd:string"`
+- `"name": "xsd:string"`
 
-`"age": "xsd:integer"`
+---
 
-Decimal
+- Temporal
+- `"xsd:dateTime"`
+- `"DOB": "xsd:dateTime"`
 
-`"xsd:decimal"`
-
-`"age": "xsd:decimal"`
-
-String
-
-`"xsd:string"`
-
-`"name": "xsd:string"`
-
-Temporal
-
-`"xsd:dateTime"`
-
-`"DOB": "xsd:dateTime"`
+{% /table %}
 
 ### Data value optionality
 
@@ -79,9 +81,8 @@ If a property in the Form is displayed with a (Required) tab, that means the pro
 
 A property can also be defined as an array in the following ways -
 
-`"@type": "Set"` - property can hold multiple values in an unordered fashion & can be optional
-
-`"@type": "List"` - property can hold multiple values in an ordered fashion & requires at least one entry
+* `"@type": "Set"` - property can hold multiple values in an unordered fashion & can be optional
+* `"@type": "List"` - property can hold multiple values in an ordered fashion & requires at least one entry
 
 ### An example of all basic types
 
