@@ -16,7 +16,7 @@ In order to delete a document you need to know the document id.
 ```javascript
 const deleteDoc = async () => {
   const docId = "Player/George"
-  await client.deleteDoc({id:docId});
+  await client.deleteDocument({id:docId});
   console.log(`the ${docId} has been deleted`)
 }
 ```
