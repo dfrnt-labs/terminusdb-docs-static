@@ -4,6 +4,8 @@ nextjs:
   metadata:
     title: Manual reverse branch cloning
     description: How to manually clone branches between data products
+    openGraph:
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/manual-reverse-branch-cloning/
 media: []

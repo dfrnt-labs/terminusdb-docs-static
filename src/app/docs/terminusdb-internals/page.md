@@ -4,6 +4,8 @@ nextjs:
   metadata:
     title: TerminusDB Internals
     description: Examples to use the internals of TerminusDB from the command line.
+    openGraph:
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/terminusdb-internals/
 media: []

@@ -4,6 +4,8 @@ nextjs:
   metadata:
     title: Python WOQL Customer Data Processing Example
     description: A guide to show how to perform basic document queries using the Python Client for customer management.
+    openGraph:
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/python-woql-customer-data-processing-example/
 media: []

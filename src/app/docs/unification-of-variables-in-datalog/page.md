@@ -4,7 +4,9 @@ nextjs:
   metadata:
     title: Unification of Variables in Datalog
     description: Understand unification of variables, a unique and powerful datalog concept included in TerminusDB
-    keywords: unification, datalog, prolog, variable, concept
+    keywords: unification, prolog, datalog, variable, concept
+    openGraph:
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/unification-of-variables-in-datalog/
 media: []

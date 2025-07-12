@@ -6,6 +6,8 @@ nextjs:
     description: Learn how to use datalog with knowledge graphs in data products to encode data in a way that resembles the real world, and easily query and manipulate it.
     alternates:
       canonical: https://medium.com/the-semantic-data-practitioner/datalog-with-knowledge-graphs-as-data-products-in-terminusdb-3239c800bb98
+    openGraph:
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
 
