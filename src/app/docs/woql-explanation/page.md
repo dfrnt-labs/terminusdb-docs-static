@@ -232,17 +232,15 @@ WOQL goes a step beyond supporting prefixes by automatically applying prefixes w
 
 ## Further Reading
 
-### WOQL Getting Started
-
-Read the [WOQL Getting Started](/docs/woql-getting-started/) guide for more examples and putting it all together!
-
-### WOQL Reference
-
-[JavaScript](/docs/javascript/) and [Python](/docs/python/) WOQL Reference guides
+Read more:
+* the [Unification of Variables](/docs/unification-of-variables-in-datalog/)
+* how to [Query with WOQL](/docs/how-to-query-with-woql/).
+* [WOQL Getting Started](/docs/woql-getting-started/) guide for more examples and putting it all together!
+* [JavaScript](/docs/javascript/) and [Python](/docs/python/) WOQL Reference guides
 
 ### How-to guides
 
-See the [How-to Guides](/docs/use-the-clients/) for further examples of using WOQL.
+See the [How-to Guides](/docs/use-the-clients/) for further examples of using WOQL in the clients.
 
 ### Documents
 

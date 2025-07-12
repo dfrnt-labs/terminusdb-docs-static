@@ -178,3 +178,10 @@ Remember that unification evaluates all possible solutions. When working with la
 The engine will try to optimize certain aspects of the query through the built-in optimizations of Prolog, but some optimizations may be required to help the execution plan generator of the database.
 
 Understanding unification empowers you to write more effective WOQL queries that leverage TerminusDB’s graph capabilities. By thinking in terms of variable binding and pattern matching, you can construct queries that efficiently discover the relationships and data patterns hidden within your knowledge graphs.
+
+## Further Reading
+
+Read more:
+* the [Datalog Engine Explanation](/docs/datalog-explanation)
+* the [WOQL Explanation](/docs/woql-explanation/)
+* how to [Query with WOQL](/docs/how-to-query-with-woql/).

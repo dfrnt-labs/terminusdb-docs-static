@@ -61,6 +61,18 @@ triple("v:Intermediate", "v:Predicate", "v:Object")
 
 And here we refer to a specific starting node and search for every two-hop path starting from _this_ object.
 
-### Further Reading
+## Further Reading
 
-[**Documents in a knowledge graph and how to use them**](/docs/documents-explanation/).
+Read more:
+* the [Unification of Variables](/docs/unification-of-variables-in-datalog/)
+* how to [Query with WOQL](/docs/how-to-query-with-woql/).
+* [WOQL Getting Started](/docs/woql-getting-started/) guide for more examples and putting it all together!
+* [JavaScript](/docs/javascript/) and [Python](/docs/python/) WOQL Reference guides
+
+### How-to guides
+
+See the [How-to Guides](/docs/use-the-clients/) for further examples of using WOQL in the clients.
+
+### Documents
+
+[Documents](/docs/documents-explanation/) in a knowledge graph and how to use them.
