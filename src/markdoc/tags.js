@@ -24,8 +24,8 @@ const tags = {
     render: ({ src, alt = '', caption }) => (
       <figure>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt={alt} />
-        <figcaption>{caption}</figcaption>
+        <img className="rounded-md shadow-md border border-gray-200" src={src} alt={alt} />
+        <figcaption className='text-center'> {caption}</figcaption>
       </figure>
     ),
   },

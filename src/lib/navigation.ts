@@ -173,6 +173,10 @@ export const navigation: Navigation[] = [
                 title: 'How to query',
                 href: '/docs/how-to-query/',
               },
+              {
+                title: 'Query between Data Products',
+                href: '/docs/datalog-queries-between-data-products/',
+              },
             ],
           },
           {
