@@ -16,10 +16,10 @@ In the enterprise world you’re often faced with digital business information t
 
 We believe that human agency can be improved by offering generic, highly performant and accurate platforms for rapid digital innovation.
 
-All images are generated via the dfrnt.com data product builder.
+All images were generated via the dfrnt.com data product builder.
 
 {% figure src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*V1qW8MHyao1Gk2UmSqoYrw.png" alt="Visualisation showing how SKUs are connected through a product taxonomy. This is a narrow set, supporting the example where some record properties get inherited through the classes of the taxonomy." caption="Visualisation showing how SKUs are connected through a product taxonomy. This is a narrow set, supporting the example where some record properties get inherited through the classes of the taxonomy." %}
-{% Learn how to get TerminusDB set up in your project in under thirty minutes %}
+{% /figure %}
 
 It is crucial to have generic problem-solving capabilities at hand. We believe digital exoskeletons is an apt term for what we provide, let us know in the comments below what you think of as more approachable terms!
 
@@ -59,7 +59,7 @@ In essence, what is needed is the ability to build a data structure where you ha
 The Legal Entity record would then have connected sub-objects for the legal entity’s Supplier Record and Customer Record respectively (and more), that are part of the Legal Entity record. Ideally, they are connected to the lifecycle with the Legal Entity top-level record in the system-of-record. When the Legal Entity record is deleted, the more specific records of it will be deleted as well. Setting up such restrictions is important to support.
 
 {% figure src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*5xUSuv-6mfgvdI17I9HqWQ.png" alt="Information on a Legal Entity Record could be mirrored into Supplier or Customer representations when defined as part of the Legal Entity document. And they should include relevant properties of LegalEntity." caption="Information on a Legal Entity Record could be mirrored into Supplier or Customer representations when defined as part of the Legal Entity document. And they should include relevant properties of LegalEntity." %}
-{% Learn how to get TerminusDB set up in your project in under thirty minutes %}
+{% /figure %}
 
 Below is what a very simplified JSON-LD record of what a Legal Entity could look like. Note the customerEntity and supplierEntity subdocuments in the JSON-LD document that must share their lifecycle with the master record. This would be controlled through for example cascading deletes in a traditional database.
 
@@ -109,12 +109,12 @@ Consider a product taxonomy, here is a generic one with 6 levels that is sane en
 Each Stock Keeping Unit would be fantastic to define in the same way, inheriting properties from the taxonomy but also keeping consistency across all SKU. For this example, we keep the Taxonomy Elements and Stock Keeping Units separate, but link them together.
 
 {% figure src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*n976E91YPP3bT8IqejPijQ.png" alt="This is what the taxonomy looks like, with the SKUs for the examples on the left, all the way to the top level categories on the right" caption="This is what the taxonomy looks like, with the SKUs for the examples on the left, all the way to the top level categories on the right" %}
-{% Learn how to get TerminusDB set up in your project in under thirty minutes %}
+{% /figure %}
 
 A common mistake to make is to not think through the relationship properly, each Taxonomy Element has an is-part-of relationship with the parent, and is not an is-a relationship tied to the type classifications (super-classing, sub-classing). This is why keep each type in a flat list as per below.
 
 {% figure src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*Tqm3qld4cY2QI_gyKCuMSw.png" alt="The SKU has an isPartOf relationship to 5-ProductVariant, to 4, 3, 2, 1. SKU could arguably also be placed in the product taxonomy, here it was a preference to make the product taxonomy more manageable." caption="The SKU has an isPartOf relationship to 5-ProductVariant, to 4, 3, 2, 1. SKU could arguably also be placed in the product taxonomy, here it was a preference to make the product taxonomy more manageable." %}
-{% Learn how to get TerminusDB set up in your project in under thirty minutes %}
+{% /figure %}
 
 All sub-classed types of the TaxonomyElements will include all properties from TaxonomyElement, including the faceting properties we want to support.
 
@@ -145,7 +145,7 @@ optionally, if defined, get steward either from this record, or from parent reco
 By allowing the business logic to be expressed simply and the information, as above, it is easy to understand, and it becomes easier to make a more formal representation. Again, here is the simple model, which can also be exported as JSON Schema for use outside of the system.
 
 {% figure src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*CVaKpw8vjWcLV38l1Qg8fw.png" alt="A UML diagram indicating composition of CustomerEntry and SupplierEntry to LegalEntity" caption="A UML diagram indicating composition of CustomerEntry and SupplierEntry to LegalEntity" %}
-{% Learn how to get TerminusDB set up in your project in under thirty minutes %}
+{% /figure %}
 
 The duns, name and steward are mandatory on the LegalEntity record information model, to ensure there is at least one value in the hierarchy, and optional in the sub-objects. Illustration is directly from the tool.
 
