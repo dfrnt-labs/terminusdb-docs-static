@@ -22,7 +22,8 @@ DFRNT includes a full high quality modeller, visualisation and git-for-data supp
 
 DFRNT is offered as a SaaS platform, complete with the TerminusDB data product API and where API tokens can be generated for your cloud instance in the settings section. It naturally supports a graphical UI for git-for-data actions like clone, push, pull, merge, rebase etc.
 
-![Client examples](https://dfrnt.com/static/aea014768b104377ca7fb7ffd671029c/fee1b/screenshot-new-graph-workspaces.webp)
+{% figure src="https://dfrnt.com/static/aea014768b104377ca7fb7ffd671029c/fee1b/screenshot-new-graph-workspaces.webp" alt="Visualisation of connections between documents with cloud hosting (dfrnt.com)" caption="Visualisation of connections between documents with cloud hosting (dfrnt.com)" %}
+{% /figure %}
 
 [Sign up today to try the modern modelling experience](https://dfrnt.com/sign-up/).
 

@@ -18,7 +18,7 @@ Unification is the cornerstone of query evaluation in TerminusDB’s WOQL (Web O
 
 ## Core Principles of Variable Binding
 
-Variables are defined in WOQL by prefixing them with the letter "v:", or by using the built in variables generation functions in the clients. They are initially not bound, floating, and will take any value.
+Variables are defined in WOQL by prefixing them with the letter `v:`, or by using the built in variables generation functions in the clients. They are initially not bound, floating, and will take any value.
 
 In WOQL, they can be bound to constants, or other variables using the `eq()` predicate, or they can get values by letting the WOQL engine match them with knowledge graph data, constrained by the logic of the query.
 
