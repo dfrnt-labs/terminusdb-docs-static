@@ -111,7 +111,7 @@ URI    := ":alpha:alphaNum:*://:uriChar:*"
     ... }
 ```
 
-### Context keywords
+### Context Keywords
 
 A list of keywords used in the context object.
 
@@ -144,7 +144,20 @@ The `@schema` keyword specifies the default URI expansion to use for all element
 
 `@base` specifies the default URI expansion used for all elements of instance data. In the previous schema definition, and given the document in the instance graph example below, the id `NamedQuery_my_query` expands to `terminusdb://woql/data/NamedQuery_my_query`.
 
-#### Code: A document in the instance graph
+#### Code: How `NamedQuery_my_query` expands to `terminusdb://woql/data/NamedQuery_my_query`
+
+This is an instance document in the instance graph.
+
+The `@id` property is used to specify the id, the subject of the document, which identifies it uniquely in the graph.
+
+The context for all instance graph documents is specified in the context object of the schema graph:
+
+* The `@base` is defined in the `@context` schema object
+* The `@context` schema object is defined in the schema graph (see above)
+* The `@base` is defined to be `terminusdb://woql/data/`.
+* Therefore, `NamedQuery_my_query` expands to `terminusdb://woql/data/NamedQuery_my_query` IRI during processing.
+
+A custom `@base` can be defined for a type that overrides the default `@base` value. 
 
 ```json
 { 
@@ -158,27 +171,29 @@ The `@schema` keyword specifies the default URI expansion to use for all element
 }
 ```
 
-#### @documentation
+### @documentation
 
 `@documentation` specifies documentation global to the entire schema. See the `@documentation` section in the previous context object example. The `@documentation` tag can be a single value, or it can be a list with each element having an additional `@langugage` tag. The `@language` tag must have an IANA language code, and this will be used to select appropriate descriptions when internationalising the schema.
 
 The documentation section contains the keywords:
 
-#### @title
+### @title
 
 The `@title` of the schema to display.
 
-#### @description
+### @description
 
 A long-form `@description` of the purpose of the schema, the type of documents contained in the schema, and keywords useful for searching for the type of content that the schema encodes.
 
-#### @authors
+### @authors
 
 A list of strings of `@authors` involved in writing the schema.
 
-#### @metadata
+### @metadata
 
-If you would like to add arbitrary JSON structured metadata to a schema, you can place it in the `@metadata` field of the context object. This can be used to store data product-wide information in a structured format. For instance:
+If you would like to add arbitrary JSON structured metadata to a the `@context` object of schema, you can place it in the `@metadata` field of the context object. This can be used to store metadata information for the branch or data product in a structured format.
+
+An example of metadata for a branch, such as `main` of a data product:
 
 ```json
 { "@type" : "@context",
@@ -188,7 +203,7 @@ If you would like to add arbitrary JSON structured metadata to a schema, you can
 }
 ```
 
-#### @language
+### @language
 
 If you use the `@language` code, specific documentation results can appear in different circumstances depending on the users language preferences.
 
@@ -220,11 +235,13 @@ A document definition includes several properties, and the keywords, prefixed `@
 
 ### @type
 
-The `@type` of the object. At the schema level, this is one of: `Enum`, `Class`, `TaggedUnion` and `Unit`.
+The `@type` of the object. At the schema level, this is one of: `Enum`, `Class`, `TaggedUnion`, `Foreign` and `Unit`. Classes can be subdivided into document classes and subdocument classes, where only document classes can be instantiated. 
 
 ### @metadata
 
-If you would like to add arbitrary JSON structured metadata to a class, you can place it in the `@metadata` field of the class. This can be used to direct various approaches to display of the class, or associated information for backend or front-ends which may have different requirements. It is generally good practice to keep important metadata one level deeper in a JSON object so as to leave space for other kinds of metadata. For instance:
+If you would like to add arbitrary JSON structured metadata to a class, you can place it in the `@metadata` field of the class. This can be used to direct various approaches to display of the class, or associated information for backend or front-ends which may have different requirements.
+
+It is generally good practice to keep important metadata one level deeper in a JSON object so as to leave space for other kinds of metadata. For instance:
 
 ```json
 { "@type" : "Class",
@@ -233,9 +250,13 @@ If you would like to add arbitrary JSON structured metadata to a class, you can 
   "name" : "xsd:string" }
 ```
 
-#### Render as Markdown
+#### De facto class metadata: Render as Markdown
 
-To render properties as Markdown to enable users to curate data using a Markdown editor, specify `render_as` and the property in the `@metadata` field. The example below shows a document with the ID `People` with the `desc` string property set to render as Markdown:
+To instruct the client to render properties as Markdown, which enables users to curate data using a Markdown editor, specify `render_as` and the property in the `@metadata` field. 
+
+Generally, it is a recommendation to populate the `render_as` with a mime-type, such as `text/markdown` or `text/plain` (for plain text) for any other uses than the originally envisioned "markdown".
+
+The example below shows a document with the ID `People` with the `desc` string property set to render as Markdown:
 
 ```json
 {
@@ -261,7 +282,7 @@ To render properties as Markdown to enable users to curate data using a Markdown
     }
 ```
 
-#### Order By
+#### De facto class metadata: Order By
 
 You can specify the order of properties within your schema so that it is displayed in the document explorer in an order specified by you. Using `order_by` in the `metadata` field in square brackets, list the property order you want, for example:
 
@@ -283,7 +304,11 @@ You can specify the order of properties within your schema so that it is display
 
 ## Class schema type
 
-`Class` designates a standard class document. It contains the definition of several properties and keywords describing various class attributes. An example of a class, and an instance of the class:
+`Class` designates a standard class document. It contains the definition of several properties and keywords describing various class attributes.
+
+Classes comes in two types: document classes, and subdocument classes. Document classes can be instantiated, while subdocument classes cannot. Subdocuments enable the ability to describe data structures in a documents, frame by frame.
+
+An example of a class, and then instance of the class below.
 
 #### Code: An example of a class
 
@@ -302,7 +327,7 @@ You can specify the order of properties within your schema so that it is display
 }
 ```
 
-### Code: An example of a class instance
+#### Code: An example of a class instance
 
 ```json
 { 
@@ -322,7 +347,7 @@ You can specify the order of properties within your schema so that it is display
 
 An `Enum` is a non-standard class in which each instance is a simple URI with no additional structure. To be a member of the class, you must be one of the referent URIs. An `Enum` example with an extension `Blue` is s shown below. In the database, the actual URI for an Enum is expanded with the preceding type name, so the `blue` extension becomes `http://s#PrimaryColour/blue`
 
-### Code: An example of an enum class
+#### Code: An example of an enum class
 
 ```json
 { 
@@ -343,7 +368,7 @@ A `TaggedUnion` specifies mutually exclusive properties. This is useful when the
 
 Examples below of a schema with a TaggedUnion and a concrete TaggedUnion class extension. In these examples, the `BinaryTree` class specifies a `TaggedUnion` enabling a choice between a `leaf` (with no value), or a `node` class with a value and branches.
 
-### Code: An example schema with a TaggedUnion
+#### Code: An example schema with a TaggedUnion
 
 ```json
 { 
@@ -375,7 +400,7 @@ Examples below of a schema with a TaggedUnion and a concrete TaggedUnion class e
 }
 ```
 
-### Code: An example TaggedUnion class extension
+#### Code: An example TaggedUnion class extension
 
 ```json
 { 
@@ -394,124 +419,91 @@ Examples below of a schema with a TaggedUnion and a concrete TaggedUnion class e
 }
 ```
 
-## @oneOf in a Class definition
+See also `@oneOf` in the class definition that is similar to `TaggedUnion`.
 
-The `TaggedUnion` is a special case and syntactic sugar for the more general case of collections of disjoint properties. These more complex cases can be represented by inheriting from a number of `TaggedUnion`s, but they may also be given explicitly using the `@oneOf` field, together with a Class.
 
-The value of the `@oneOf` field is a set, so can be any number of documents all of which have mutually disjoint properties, but which can coexist. Examples with more than one disjoint property are given below.
+## Foreign schema type (foreign references)
 
-### Code: An example schema with @oneOf
+Use `Foreign` to specify types that are to be references to external data products. Foreign types are types that are opaque in the current data product. This allows us to give them identifiers although we don't actually store the objects locally. Foreign types have _no_ referential integrity checking, and as they refer to opaque identifiers, the schema is checked by the data product in which they are referred.
 
-```json
-{
-    "@type"      : "@context",
-    "@base"      : "http://i/",
-    "@schema"    : "http://s#"
-}
-{
-    "@id"        : "IntOrString",
-    "@type"      : "Class",
-    "@oneOf"     :
-    {
-        "integer": "xsd:integer",
-        "string" : "xsd:string"
-    }
-}
-{
-    "@id"        : "Friend",
-    "@type"      : "Class",
-    "@key"       :
-    {
-        "@type"  : "Lexical",
-        "@fields": ["name"]
-    },
-    "name"       : "xsd:string"
-}
-{
-    "@id"        : "Toy",
-    "@type"      : "Class",
-    "@key"       :
-    {
-        "@type"  : "Lexical",
-        "@fields": ["name"]
-    },
-    "name"       : "xsd:string"
-}
-{
-    "@id"       : "Pet",
-    "@type"     : "Class",
-    "name"      : "xsd:string",
-    "@oneOf"    : [
-        {
-            "cat" : "Toy",
-            "dog" : "Friend"
-        },
-        {
-            "employers" : "xsd:positiveInteger",
-            "unemployed": "xsd:string"
-        },
-    ]
-}
-```
+A foreign type must be declared explicitly by giving the name of the type to be treated as foreign using the `Foreign` designation in the schema.
 
-### Code: Examples of `@oneOf` class extensions
+Foreign references is in essence a specialization of the `xsd:anyURI` type, where Foreign are stored in one succinct auto-indexing data structure with fast lookup references to a URI reference to any external data product or RDF knowledge graph subject.
+
+#### Code: An example of adding a foreign Person type
+
+For instance, to add a foreign type of type Person, we can write:
 
 ```json
-{
-    "@type"     : "IntOrString",
-    "integer"   : 0
-}
+{ "@type" : "Foreign",
+  "@id" : "Person"}
 ```
+
+The actual definition of person might be given in its home data product as:
 
 ```json
-{
-    "@type"     : "IntOrString",
-    "string"    : "zero"
-}
+{ "@type" : "Person",
+  "@key" : { "@type" : "Lexical",
+             "@fields" : [ "name " ] },
+  "name" : "xsd:string" }
 ```
+
+And to use a field with an optional `Person` foreign field, this is how to define the property, just like any other reference, using the `@class`.
 
 ```json
-{
-    "@type"    : "Pet",
-    "cat"      : {
-        "@type": "Toy",
-        "name" : "ball of string"
-    },
-    "employers": 5
-}
+  "person": {
+    "@class": "Person",
+    "@type": "Optional"
+  }
 ```
 
-```json
-{
-    "@type"    : "Pet",
-    "dog"      : {
-        "@type": "Person",
-        "name" : "Jim"
-    },
-    "unemployed": "A house pet."
-}
+#### Code: An example creating and referring to a foreign type
+
+From the command line we can see how an HR data product might interact with an Events data product.
+
+Create the HR data product:
+
+```bash
+terminusdb db create admin/hr
 ```
 
-```json
-{
-    "@type"     : "Pet",
-    "string"    : "zero"
-}
+Add the HR schema:
+
+```bash
+echo '{ "@type" : "Class", "@id" : "Person", "@key" : { "@type" : "Lexical", "@fields" : ["name"]}, "name" : "xsd:string" }' | terminusdb doc insert admin/hr --graph_type=schema
 ```
 
-But not:
+Create the Events data product:
 
-```json
-{
-    "@type"     : "IntOrString",
-    "integer"   : 0,
-    "string"    : "zero"
-}
+```bash
+terminusdb db create admin/events
 ```
 
-### Unit
+Add events, and a foreign type designation:
 
-The `Unit` type has a single extension `[]`. This is used when only the presence of the property is interesting, but it has no interesting value. See the `BinaryTree` in the [TaggedUnion class extension](#codeanexampletaggedunionclassextension) example above.
+```bash
+echo '{ "@type" : "Foreign", "@id" : "Person"}{ "@type" : "Class", "@id" : "Event", "date" : "xsd:date", "person" : "Person" }' | terminusdb doc insert admin/events --graph_type=schema
+```
+
+Add a person to HR:
+
+```bash
+echo '{ "@type" : "Person", "name" : "Gavin" }' | terminusdb doc insert admin/hr
+```
+
+Add an event referring to the person:
+
+```bash
+echo '{ "@type" : "Event", "date" : "2022-10-05", "person" : "terminusdb:///data/Person/Gavin"}' | terminusdb doc insert admin/events
+```
+
+Recover the event:
+
+```bash
+terminusdb doc get admin/events --id='Event/9b3c5b174cb1f157dcdcedb692ed57f82ba31193fb81652dc602915732ae94e1'
+```
+
+
 
 ## Class definition details
 
@@ -937,6 +929,8 @@ Or
 
 Multiple inheritance is allowed as long as all inherited properties of the same name have the same range class. If range classes conflict, the schema check fails.
 
+Both document and subdocument classes observe the same inheritance rules for properties of the class. The inheritance model is a directed acyclical graph, DAG, including multiple inheritance of properties to support both property mix-in and taxonomy-style classifications. Read more about inheritance further below.
+
 An example of inheritance of properties and an object meeting this specification:
 
 #### Code: An example of inheritance
@@ -1063,6 +1057,122 @@ The above example shows both Doug and Phil using the same address document. On r
 
 The address is fully unfolded in both documents despite not being a subdocument.
 
+
+### @oneOf in a Class definition
+
+The `TaggedUnion` is a special case and syntactic sugar for the more general case of collections of disjoint properties. These more complex cases can be represented by inheriting from a number of `TaggedUnion`s, but they may also be given explicitly using the `@oneOf` field, together with a Class.
+
+The value of the `@oneOf` field is a set, so can be any number of documents all of which have mutually disjoint properties, but which can coexist. Examples with more than one disjoint property are given below.
+
+#### Code: An example schema with @oneOf
+
+```json
+{
+    "@type"      : "@context",
+    "@base"      : "http://i/",
+    "@schema"    : "http://s#"
+}
+{
+    "@id"        : "IntOrString",
+    "@type"      : "Class",
+    "@oneOf"     :
+    {
+        "integer": "xsd:integer",
+        "string" : "xsd:string"
+    }
+}
+{
+    "@id"        : "Friend",
+    "@type"      : "Class",
+    "@key"       :
+    {
+        "@type"  : "Lexical",
+        "@fields": ["name"]
+    },
+    "name"       : "xsd:string"
+}
+{
+    "@id"        : "Toy",
+    "@type"      : "Class",
+    "@key"       :
+    {
+        "@type"  : "Lexical",
+        "@fields": ["name"]
+    },
+    "name"       : "xsd:string"
+}
+{
+    "@id"       : "Pet",
+    "@type"     : "Class",
+    "name"      : "xsd:string",
+    "@oneOf"    : [
+        {
+            "cat" : "Toy",
+            "dog" : "Friend"
+        },
+        {
+            "employers" : "xsd:positiveInteger",
+            "unemployed": "xsd:string"
+        },
+    ]
+}
+```
+
+#### Code: Examples of `@oneOf` class extensions
+
+```json
+{
+    "@type"     : "IntOrString",
+    "integer"   : 0
+}
+```
+
+```json
+{
+    "@type"     : "IntOrString",
+    "string"    : "zero"
+}
+```
+
+```json
+{
+    "@type"    : "Pet",
+    "cat"      : {
+        "@type": "Toy",
+        "name" : "ball of string"
+    },
+    "employers": 5
+}
+```
+
+```json
+{
+    "@type"    : "Pet",
+    "dog"      : {
+        "@type": "Person",
+        "name" : "Jim"
+    },
+    "unemployed": "A house pet."
+}
+```
+
+```json
+{
+    "@type"     : "Pet",
+    "string"    : "zero"
+}
+```
+
+But not:
+
+```json
+{
+    "@type"     : "IntOrString",
+    "integer"   : 0,
+    "string"    : "zero"
+}
+```
+
 ### Class properties
 
 All non-keywords are treated as properties of the class, with the form:
@@ -1154,11 +1264,17 @@ In the example range class below, `first_name` and `last_name` are strings, `yea
 }
 ```
 
-#### JSON Type
+### JSON Types, sys:JSON and sys:JSONDocument (experimental and unsupported)
+
+{% callout type="warning" title="WARNING: Unsupported experimental feature" %}
+The `"sys:JSON"` and the type `"sys:JSONDocument"` types are currently experimental and unsupported. There are known issues where they are not properly cleaned up in some circumstances and it is generally advised to not use arbitrary JSON typed properties until this feature is marked as supported.
+
+See these `wontfix` marked issues [#2148](https://github.com/terminusdb/terminusdb/issues/2128), [#2121](https://github.com/terminusdb/terminusdb/issues/2121), [#2102](https://github.com/terminusdb/terminusdb/issues/2102), [#2086](https://github.com/terminusdb/terminusdb/issues/2086), [#1926](https://github.com/terminusdb/terminusdb/issues/1926). Fixing this is in the long term roadmap, but not a priority and won't be fixed in a near future. For some use cases it can work, with manual cleanup after deletion which is why it is left as experimental. Contributions and PR:s are more than welcome.
+{% /callout %}
 
 Two special JSON types exist in TerminusDB. One is for use as a subdocument, and is called `"sys:JSON"` and the type `"sys:JSONDocument"` which is used for type level. Both allow un-constrained and untypechecked documents which can be stored or retrieved as apparently unmodified JSON, but which are still indexed and searchable using WOQL.
 
-Ids for subdocuments of type `"sys:JSON"` are formed from a hash of the content, meaning that subdocuments are shared if their content is the same.
+Is for subdocuments of type `"sys:JSON"` are formed from a hash of the content, meaning that subdocuments are shared if their content is the same.
 
 However, those of type `"sys:JSONDocument"` are assigned a random id, such that they can be retrieved, modified etc. Alternatively they can be assigned an id by passing in an id of the form `{ "@id" : "JSONDocument/my_id_here", ...}` making sure to use the prefix `"JSONDocument"` so as not to ensure we do not have any id conflicts with other document types.
 
@@ -1343,85 +1459,6 @@ An example of an object `Person` that can have 0 to any number of friends. This 
 }
 ```
 
-### Foreign schema type (foreign references)
-
-Use `Foreign` to specify types that are to be references to external data products. Foreign types are types that are opaque in the current data product. This allows us to give them identifiers although we don't actually store the objects locally. Foreign types have _no_ referential integrity checking, and as they refer to opaque identifiers, the schema is checked by the data product in which they are referred.
-
-A foreign type must be declared explicitly by giving the name of the type to be treated as foreign using the `Foreign` designation in the schema.
-
-#### Code: An example of adding a foreign Person type
-
-For instance, to add a foreign type of type Person, we can write:
-
-```json
-{ "@type" : "Foreign",
-  "@id" : "Person"}
-```
-
-The actual definition of person might be given in its home data product as:
-
-```json
-{ "@type" : "Person",
-  "@key" : { "@type" : "Lexical",
-             "@fields" : [ "name " ] },
-  "name" : "xsd:string" }
-```
-
-And to use a field with an optional `Person` foreign field, this is how to define the property, just like any other reference, using the `@class`.
-
-```json
-  "person": {
-    "@class": "Person",
-    "@type": "Optional"
-  }
-```
-
-#### Code: An example creating and referring to a foreign type
-
-From the command line we can see how an HR data product might interact with an Events data product.
-
-Create the HR data product:
-
-```bash
-terminusdb db create admin/hr
-```
-
-Add the HR schema:
-
-```bash
-echo '{ "@type" : "Class", "@id" : "Person", "@key" : { "@type" : "Lexical", "@fields" : ["name"]}, "name" : "xsd:string" }' | terminusdb doc insert admin/hr --graph_type=schema
-```
-
-Create the Events data product:
-
-```bash
-terminusdb db create admin/events
-```
-
-Add events, and a foreign type designation:
-
-```bash
-echo '{ "@type" : "Foreign", "@id" : "Person"}{ "@type" : "Class", "@id" : "Event", "date" : "xsd:date", "person" : "Person" }' | terminusdb doc insert admin/events --graph_type=schema
-```
-
-Add a person to HR:
-
-```bash
-echo '{ "@type" : "Person", "name" : "Gavin" }' | terminusdb doc insert admin/hr
-```
-
-Add an event referring to the person:
-
-```bash
-echo '{ "@type" : "Event", "date" : "2022-10-05", "person" : "terminusdb:///data/Person/Gavin"}' | terminusdb doc insert admin/events
-```
-
-Recover the event:
-
-```bash
-terminusdb doc get admin/events --id='Event/9b3c5b174cb1f157dcdcedb692ed57f82ba31193fb81652dc602915732ae94e1'
-```
-
 ### Cardinality
 
 Use `Cardinality` to specify an unordered set of values of a class or datatype in which the property has a limited number of elements as specified by the cardinality constraint properties.
@@ -1578,7 +1615,7 @@ An example of a polygon object `GeoPolygon` points to a 2D array of coordinates 
 }
 ```
 
-## Inference
+## Document type inferencing engine
 
 TerminusDB is equipped with a type inference engine that allows types to be inferred under certain conditions.
 
