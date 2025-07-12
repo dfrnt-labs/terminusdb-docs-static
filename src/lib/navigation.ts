@@ -158,27 +158,7 @@ export const navigation: Navigation[] = [
               },
             ],
           },
-          {
-            title: 'Query Examples',
-            links: [
-              {
-                title: 'Customer Data Processing',
-                href: '/docs/python-woql-customer-data-processing-example',
-              },
-              {
-                title: 'WOQL Getting Started',
-                href: '/docs/woql-getting-started',
-              },
-              {
-                title: 'How to query',
-                href: '/docs/how-to-query/',
-              },
-              {
-                title: 'Query between Data Products',
-                href: '/docs/datalog-queries-between-data-products/',
-              },
-            ],
-          },
+
           {
             title: 'Document Interface',
             links: [
@@ -284,6 +264,29 @@ export const navigation: Navigation[] = [
               },
             ],
           },
+
+          {
+            title: 'WOQL Cookbooks',
+            href: '/docs/terminusdb-query-cookbook',
+            links: [
+              {
+                title: 'Getting Started',
+                href: '/docs/woql-getting-started',
+              },
+              {
+                title: 'Cookbook: Datatypes',
+                href: '/docs/cookbook-woql-type-of-datatype',
+              },
+              {
+                title: 'Cookbook: Many Graphs',
+                href: '/docs/datalog-queries-between-data-products/',
+              },
+              {
+                title: 'Cookbook: Pattern Generation',
+                href: '/docs/pattern-generation-cookbook/',
+              },
+            ],
+          },
           {
             title: 'Collaboration Features',
             href: '/docs/use-the-collaboration-features',
@@ -379,7 +382,7 @@ export const navigation: Navigation[] = [
                         title: 'Choice Sub-Document',
                         href: '/docs/choice-subdocuments',
                       },
-    
+
                       {
                         title: 'Mandatory',
                         href: '/docs/mandatory',
@@ -400,7 +403,7 @@ export const navigation: Navigation[] = [
                         title: 'Render As',
                         href: '/docs/render-as',
                       },
-    
+
                       {
                         title: 'sysJSON',
                         href: '/docs/sysjson',
@@ -506,7 +509,7 @@ export const navigation: Navigation[] = [
           //         },
           //       ],
           //     },
-    
+
           //     {
           //       title: 'Clone a Demo Project',
           //       href: '/docs/clone-a-demo-terminuscms-project',
@@ -585,6 +588,15 @@ export const navigation: Navigation[] = [
           //     },
           //   ],
           // },
+        ],
+      },
+      {
+        title: 'Complete Examples',
+        links: [
+          {
+            title: 'Customer Data Processing',
+            href: '/docs/python-woql-customer-data-processing-example',
+          },
         ],
       },
       {
@@ -727,8 +739,6 @@ export const navigation: Navigation[] = [
       },
     ],
   },
-
-
 ]
 
 export const old = [
