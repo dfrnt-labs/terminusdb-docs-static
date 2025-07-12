@@ -9,17 +9,17 @@ nextjs:
 
 ---
 
-Learn how to get TerminusDB set up in your project in under thirty minutes. {% .lead %}
+TerminusDB is the modern graph database for knowledge graphs and semantic content infrastructures. Learn how to get started with TerminusDB in under thirty minutes. {% .lead %}
 
 {% quick-links %}
 
 {% quick-link title="Installation" icon="installation" href="/docs/get-started/" description="Step-by-step guides to setting up your system and installing the library." /%}
 
-{% quick-link title="Architecture guide" icon="presets" href="/docs/terminusdb-explanation/" description="Learn how the internals work and contribute." /%}
+{% quick-link title="Query unification" icon="presets" href="/docs/unification-of-variables-in-datalog/" description="Learn about the core differentiator of the query engine: query variable unification." /%}
 
-{% quick-link title="Plugins" icon="plugins" href="/docs/documents-explanation/" description="Extend TerminusDB with third-party plugins or write your own." /%}
+{% quick-link title="TerminusDB Open Source" icon="plugins" href="/docs/terminusdb-explanation/" description="Learn more about the Apache 2.0 licensed TerminusDB database." /%}
 
-{% quick-link title="API reference" icon="theming" href="/docs/openapi/" description="Learn to easily customize and modify your app's visual design to fit your brand." /%}
+{% quick-link title="Documents and Git-for-Data" icon="theming" href="/docs/documents-explanation/" description="Learn about the RDF Graph Documents API and Git-for-Data features." /%}
 
 {% /quick-links %}
 
