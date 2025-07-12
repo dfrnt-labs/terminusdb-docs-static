@@ -48,7 +48,19 @@ export const navigation: Navigation[] = [
           },
         ],
       },
-
+      {
+        title: 'Contributed examples',
+        links: [
+          {
+            title: 'Customer Data Processing',
+            href: '/docs/python-woql-customer-data-processing-example',
+          },
+          {
+            title: 'Taxonomy inheritance',
+            href: '/docs/cookbook-taxonomy-inheritance/',
+          },
+        ],
+      },
       {
         title: 'How-To Guides',
         links: [
@@ -588,15 +600,6 @@ export const navigation: Navigation[] = [
           //     },
           //   ],
           // },
-        ],
-      },
-      {
-        title: 'Complete Examples',
-        links: [
-          {
-            title: 'Customer Data Processing',
-            href: '/docs/python-woql-customer-data-processing-example',
-          },
         ],
       },
       {
