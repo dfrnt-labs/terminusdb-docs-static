@@ -1,5 +1,4 @@
 ---
-title: TerminusDB, a git-for-data graph and document database
 nextjs:
   metadata:
     title: TerminusDB, a git-for-data graph and document database
