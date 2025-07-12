@@ -50,9 +50,10 @@ All solutions that are possible are brought by the engine, and this enables some
 ### How Variables Get Their Values
 
 Variables obtain concrete values through three primary mechanisms:
-	*	From equations - Direct assignments or comparisons
-  * From consequences of predicates
-	*	From predicate definitions - Through pattern matching against existing data in the graph
+
+  * From equations - Direct assignments or comparisons
+  * From logic constraints applied to values of variables
+  * From predicate definitions - Through pattern matching against existing data in the graph
 
 ## Unification in WOQL Context
 
