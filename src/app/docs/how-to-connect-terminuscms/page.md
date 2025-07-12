@@ -16,14 +16,14 @@ media:
     value: https://cdn.terminusdb.com/img/terminus-cms/client_api_connection.jpeg
 ---
 
-Cloud hosted TemrinusDB is available from [https://dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). Register an account or sign up if you haven't already to get started fast.
+Cloud hosted TerminusDB is available from [https://dfrnt.com](https://dfrnt.com/hypergraph-content-studio/) that is maintaining TerminusDB since 2025. Register an account or sign up if you haven't already, to get started fast.
 
-Click on the **team** that you wish to use or create a new one. A default one will be already created for you. After selecting your team, click on your profile icon in the upper-right corner and click on `Profile`.
+DFRNT includes a full high quality modeller, visualisation and git-for-data support for all supported TerminusDB features. It enables a "closed-world" document-oriented knowledge graph with a datalog with variable unification, for a precise and small subset of JSON-LD-like document representation and advanced knowledge graph querying.
 
-In this screen, you can create an API Token and view instructions for different clients. Give the token a description and click "Generate New Token". The token will appear on the screen. Be sure to save it somewhere safe, as the token gives access to your databases. For security reasons, we only display it once on this screen.
-
-Choose one of the code snippets. Which is either Python, JavaScript, or a cURL example.
+DFRNT is offered as a SaaS platform, complete with the TerminusDB data product API and where API tokens can be generated for your cloud instance in the settings section. It naturally supports a graphical UI for git-for-data actions like clone, push, pull, merge, rebase etc.
 
 ![Client examples](https://dfrnt.com/static/aea014768b104377ca7fb7ffd671029c/fee1b/screenshot-new-graph-workspaces.webp)
 
-[Demo of DFRNT](https://dfrnt.com/demo/)
+[Sign up today to try the modern modelling experience](https://dfrnt.com/sign-up/).
+
+[Read more about the DFRNT content studio](https://dfrnt.com/hypergraph-content-studio/).

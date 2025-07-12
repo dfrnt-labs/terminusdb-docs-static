@@ -11,11 +11,11 @@ nextjs:
 media: []
 ---
 
-This example shows how `<FrameViewier/>` appears for a document `UnorderedPerson` with set fields in Create/ Edit or View mode. If a field is described as a Set it means the field can have more than one value to it in any unordered fashion. The field can also be considered optional, meaning it can be empty.
+This example shows how `<FrameViewer/>` appears for a document `UnorderedPerson` with set fields in Create/ Edit or View mode. If a field is described as a Set it means the field can have more than one value to it in any unordered fashion. The field can also be considered optional, meaning it can be empty.
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Set) to view `<FrameViewier/>` with set properties in Create, Edit or View mode.
+Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Set) to view `<FrameViewer/>` with set properties in Create, Edit or View mode.
 
 ## Frame
 

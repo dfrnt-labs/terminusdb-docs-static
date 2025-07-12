@@ -11,7 +11,7 @@ nextjs:
 media: []
 ---
 
-This example shows how `<FrameViewier/>` appears for a document `Person_Optional` with optional fields in Create/ Edit and View mode.
+This example shows how `<FrameViewer/>` appears for a document `Person_Optional` with optional fields in Create/ Edit and View mode.
 
 ## Demo
 
@@ -20,11 +20,11 @@ Take a look at the [**Demo Playground**](https://documents-ui-playground.terminu
 media: []
 ---
 
-This example shows how `<FrameViewier/>` appears for a document `Person_Optional` with optional fields in Create/ Edit and View mode.
+This example shows how `<FrameViewer/>` appears for a document `Person_Optional` with optional fields in Create/ Edit and View mode.
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Optional)\*\* to view `<FrameViewier/>` with Optional properties in Create, Edit and View mode.
+Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Optional)\*\* to view `<FrameViewer/>` with Optional properties in Create, Edit and View mode.
 
 ## Frame
 

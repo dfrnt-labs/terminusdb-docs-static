@@ -24,7 +24,7 @@ The below frame consists of a `Person` document with mandatory fields -
 media: []
 ---
 
-This example shows how `<FrameViewier/>` appears for a document called `Person` with mandatory fields in Create/ Edit and View mode. A required tag will appear against every mandatory field.
+This example shows how `<FrameViewer/>` appears for a document called `Person` with mandatory fields in Create/ Edit and View mode. A required tag will appear against every mandatory field.
 
 ## Demo
 

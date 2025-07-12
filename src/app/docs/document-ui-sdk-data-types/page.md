@@ -17,7 +17,7 @@ The TerminusDB documents user interface generates forms representing the propert
 
 ## Demo
 
-Take a look at the [**Document UI SDK Playground**](https://documents-ui-playground.terminusdb.com) to view the `<FrameViewier/>` demo in Create, edit or view mode.
+Take a look at the [**Document UI SDK Playground**](https://documents-ui-playground.terminusdb.com) to view the `<FrameViewer/>` demo in Create, edit or view mode.
 
 ## Data types
 

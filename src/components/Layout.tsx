@@ -60,7 +60,7 @@ function Header() {
         <ThemeSelector className="relative z-10" />
         
         <Link
-          href="https://dfrnt.com/hypergraph-content-studio"
+          href="https://dfrnt.com/sign-up/"
           className="group"
           aria-label="GitHub"
         >

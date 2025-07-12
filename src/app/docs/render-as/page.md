@@ -11,11 +11,11 @@ nextjs:
 media: []
 ---
 
-This example shows how `<FrameViewier/>` appears for a document `metaDataExample` with the fields `body` & `title` in Create/ Edit or View mode. The Frame below shows `@metadata` with the `render_as` tag included that tells `<FrameViewier/>` to render field `body` as Markdown.
+This example shows how `<FrameViewer/>` appears for a document `metaDataExample` with the fields `body` & `title` in Create/ Edit or View mode. The Frame below shows `@metadata` with the `render_as` tag included that tells `<FrameViewer/>` to render field `body` as Markdown.
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Render%20As) to view `<FrameViewier/>` with properties where render\_as is defined in @metadata tag - in Create, Edit or View mode.
+Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Render%20As) to view `<FrameViewer/>` with properties where render\_as is defined in @metadata tag - in Create, Edit or View mode.
 
 ## Frame
 

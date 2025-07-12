@@ -11,11 +11,11 @@ nextjs:
 media: []
 ---
 
-This example shows how `<FrameViewier/>` appears for a document called `OrderedPerson` with list fields in Create/ Edit and View mode. If a field is described as a List it means the field can have one or more values and is ordered. The field must have at least one entry.
+This example shows how `<FrameViewer/>` appears for a document called `OrderedPerson` with list fields in Create/ Edit and View mode. If a field is described as a List it means the field can have one or more values and is ordered. The field must have at least one entry.
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/List) to view the `<FrameViewier/>` with list properties in Create, Edit and View mode.
+Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/List) to view the `<FrameViewer/>` with list properties in Create, Edit and View mode.
 
 ## Frame
 

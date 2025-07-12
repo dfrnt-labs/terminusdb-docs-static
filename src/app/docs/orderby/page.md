@@ -11,13 +11,13 @@ nextjs:
 media: []
 ---
 
-This example shows how `<FrameViewier/>` appears for a document `OrderByExample` in Create/ Edit and View mode.
+This example shows how `<FrameViewer/>` appears for a document `OrderByExample` in Create/ Edit and View mode.
 
-The Frame below to shows `@metadata` with an `order_by` tag which tells `<FrameViewier/>` to order fields according to the `order_by` array. Note there is a `@metadata` tag in the `SubBody` class definition which also tells `<FrameViewier/>` to order the subdocument's internal fields in the order included in the `@metadata` `order_by` array.
+The Frame below to shows `@metadata` with an `order_by` tag which tells `<FrameViewer/>` to order fields according to the `order_by` array. Note there is a `@metadata` tag in the `SubBody` class definition which also tells `<FrameViewer/>` to order the subdocument's internal fields in the order included in the `@metadata` `order_by` array.
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Order%20By) to view `<FrameViewier/>` with properties where order\_by is defined in the `@metadata` tag - in Create, Edit and view mode.
+Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Order%20By) to view `<FrameViewer/>` with properties where order\_by is defined in the `@metadata` tag - in Create, Edit and view mode.
 
 ## Frame
 
