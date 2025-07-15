@@ -170,10 +170,13 @@ export const navigation: Navigation[] = [
               },
             ],
           },
-
           {
             title: 'Document Interface',
             links: [
+              {
+                title: 'HTTP Documents API',
+                href: '/docs/http-documents-api',
+              },
               {
                 title: 'Document Graph Howto',
                 href: '/docs/document-graph-api',
@@ -620,6 +623,12 @@ export const navigation: Navigation[] = [
           {
             title: 'TerminusDB CLI Reference',
             href: '/docs/terminusdb-cli-commands',
+            links: [
+              {
+                title: 'TerminusDB CLI Querying',
+                href: '/docs/terminusdb-db-cli-querying',
+              },
+            ],
           },
           {
             title: 'Git-for-Data Reference',
