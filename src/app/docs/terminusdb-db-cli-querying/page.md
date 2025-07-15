@@ -70,13 +70,23 @@ Some additional notes:
 Or, to see the capabilities of all users, don't check for a specific user:
 
 ```bash
-./terminusdb query _system "select([User,Role,Scope],(
-  t(Capability,rdf:type,'@schema':'Capability'),
-  t(Capability,role,Role),
-  t(Capability,scope,Scope),
-  t(User,capability,Capability)
-))"
+./terminusdb query _system "select([User,Role,Scope],
+  ( t(Capability,rdf:type,'@schema':'Capability')
+  , t(Capability,role,Role)
+  , t(Capability,scope,Scope)
+  , t(User,capability,Capability)
+  )
+)"
 ```
+
+### Other special syntaxes
+
+The command line is in essence a datalog prolog operating on the graph provided by TerminusDB and is excellent for solving small problems quickly.
+
+* Instead of `lexical`, use `0^^xsd:unsignedInt`, or `0^^_`
+* Variables can either be specified with a capital initial character, like `Subject`, or using `v('subject')`
+* `once(...t()...)` is used to only get one answer
+* `_` is used to bind a variable to any value
 
 ### Graph Specifications, GRAPH_SPEC
 
@@ -86,4 +96,3 @@ To specify a graph to interact with, use the graph_spec before the query. Here a
 * `org/data_product`: main of a specific data product
 * `admin/data_product/local/branch/main` the main branch of the data product data_product in the admin organisation/team
 * `admin/data_product/local/commit/9w8hk3y6rb8tjdy961ed3i536ntkqd8` a specific commit in the data product data_product
-
