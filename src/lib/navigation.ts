@@ -289,16 +289,20 @@ export const navigation: Navigation[] = [
                 href: '/docs/woql-getting-started',
               },
               {
-                title: 'Cookbook: Datatypes',
+                title: 'Datatypes',
                 href: '/docs/cookbook-woql-type-of-datatype',
               },
               {
-                title: 'Cookbook: Many Graphs',
+                title: 'Many Graphs',
                 href: '/docs/datalog-queries-between-data-products/',
               },
               {
-                title: 'Cookbook: Pattern Generation',
+                title: 'Pattern Generation',
                 href: '/docs/pattern-generation-cookbook/',
+              },
+              {
+                title: 'Array Matching',
+                href: '/docs/cookbook-woql-arrays',
               },
             ],
           },
