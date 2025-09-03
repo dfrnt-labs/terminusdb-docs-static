@@ -227,6 +227,10 @@ export const navigation: Navigation[] = [
                 title: 'GraphQL Back Links',
                 href: '/docs/back-links-in-graphql',
               },
+              {
+                title: 'GraphQL IDs and RDF IRIs',
+                href: '/docs/graphql-with-rdf-iri',
+              },
             ],
           },
           {
