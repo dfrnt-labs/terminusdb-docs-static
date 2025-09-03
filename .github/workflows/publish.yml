@@ -6,7 +6,7 @@ on:
     paths: [ "**", ".github/workflows/publish.yml" ]
   schedule:
     # Nightly at 1am
-    - cron: '0 1 * * *'
+    - cron: '0 1 * * 0'
   workflow_call:
   workflow_dispatch:
 
