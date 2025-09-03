@@ -3,6 +3,7 @@ title: TerminusDB Web Object Query Language (WOQL) Basics
 nextjs:
   metadata:
     title: TerminusDB Web Object Query Language (WOQL) Basics
+    keywords: javascript datalog
     description: Learn the TerminusDB WOQL query basics for TerminusDB
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-basics.png
@@ -18,7 +19,7 @@ media:
 
 > To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusDB. You will then have full access to the data needed for this tutorial.
 
-## Writing a WOQL Query
+## Writing a WOQL Javascript Datalog Query
 
 ![WOQL query playground in the TerminusDB dashboard](https://assets.terminusdb.com/docs/how-to-query-woql.png)
 
@@ -52,41 +53,43 @@ limit(5)
 
 This query results in the following:
 
-Name
+{% table %}
 
-Eyes
+- Name
+- Eyes
+- Person
 
-Person
+---
 
-Luke Skywalker
+- Luke Skywalker
+- blue
+- People/1
 
-blue
+--- 
 
-People/1
+- Obi-Wan Kenobi
+- blue-gray
+- People/10
 
-Obi-Wan Kenobi
+---
 
-blue-gray
+- Anakin Skywalker
+- blue
+- People/11
 
-People/10
+---
 
-Anakin Skywalker
+- Wilhuff Tarkin
+- blue
+- People/12
 
-blue
+---
 
-People/11
+- Chewbacca
+- blue
+- People/13
 
-Wilhuff Tarkin
-
-blue
-
-People/12
-
-Chewbacca
-
-blue
-
-People/13
+{% /table %}
 
 ## and
 

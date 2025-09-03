@@ -3,6 +3,7 @@ title: How to Query with WOQL
 nextjs:
   metadata:
     title: How to Query with WOQL
+    keywords: woql query datalog
     description: Bite sized how to guides to query TerminusDB using WOQL
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

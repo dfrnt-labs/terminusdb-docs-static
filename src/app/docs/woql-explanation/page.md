@@ -1,10 +1,10 @@
 ---
-title: WOQL Explanation
+title: "What is datalog? A WOQL Explanation"
 nextjs:
   metadata:
-    title: WOQL Explanation
-    description: A brief explanation of the TerminusDB Web Object Query Langauge (WOQL) which with datalog, composable logic and unification of variables
-    keywords: TerminusDB, WOQL, datalog, composable logic, unification of variables
+    title: What is datalog? A WOQL Explanation
+    description: A brief explanation of the TerminusDB Web Object Query Langauge (WOQL), a datalog with composable logic and unification of variables
+    keywords: datalog, meaning, unification, composable logic, variables
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -12,7 +12,7 @@ nextjs:
 media: []
 ---
 
-This page explains various topics regarding the WOQL datalog query language. 
+This page explains various topics regarding the WOQL datalog query language with built in unification like in Prolog.
 
 ## WOQL fluent vs. functional style
 
