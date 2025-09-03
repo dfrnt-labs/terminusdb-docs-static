@@ -3,7 +3,7 @@ title: Git-for-Data Reference
 nextjs:
   metadata:
     title: Git-for-Data Reference
-    keywords: git-for-data
+    keywords: git-for-data, github, data, git
     description: A how-to guide showing the main operations related to Git-for-Data with TerminusDB in the cloud environment
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
