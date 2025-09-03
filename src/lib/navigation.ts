@@ -18,6 +18,10 @@ export const navigation: Navigation[] = [
         href: '/docs/get-started',
       },
       {
+        title: 'At a glance',
+        href: '/docs/at-a-glance',
+      },
+      {
         title: 'TerminusDB Cloud Service',
         href: '/docs/how-to-connect-terminuscms',
       },
