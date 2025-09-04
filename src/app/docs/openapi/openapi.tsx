@@ -12,7 +12,7 @@ export default function OpenApiTerminusDB() {
         <h2 className="font-display text-3xl tracking-tight text-slate-900 dark:text-white">
           OpenAPI spec
         </h2>
-        <div className="w-64 mt-8 rounded-md bg-slate-50 py-1">
+        <div className="w-64 mt-8 rounded-md w-full bg-slate-50 py-1">
           <SwaggerLight />
         </div>
       </div>
