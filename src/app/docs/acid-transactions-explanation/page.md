@@ -4,7 +4,7 @@ nextjs:
   metadata:
     title: ACID Transactions Explanation
     description: "An explanation about ACID Transactions and how TerminusDB ensures ACID compliance, Atomicity, Consistency, Isolation, and Durability"
-    keywords: acid transactions, knowledge graph, database, RDF, consistency
+    keywords: ACID transactions, knowledge graph, database, RDF, consistency
     alternates:
       canonical: https://terminusdb.org/docs/acid-transactions-explanation
     openGraph:
