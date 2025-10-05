@@ -26,20 +26,6 @@ jobs:
       - uses: actions/checkout@v3
       - run: npx bun install
       - run: npx bun run build
-        env:
-          TERMINUSDB_API_TOKEN: ${{ secrets.TERMINUSDB_API_TOKEN }}
-          TERMINUSDB_API_ENDPOINT: ${{ vars.TERMINUSDB_API_ENDPOINT }}
-          TERMINUSDB_TEAM: ${{ vars.TERMINUSDB_TEAM }}
-          TERMINUSDB_DB: ${{ vars.TERMINUSDB_DB }}
-          TERMINUSDB_USER: ${{ vars.TERMINUSDB_USER }}
-#      - run: curl -X POST ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }} -o /dev/null
-#      - run: cd utils/ && npm i && node parse_to_sections.js
-#        env:
-#          TERMINUSDB_API_TOKEN: ${{ secrets.TERMINUSDB_API_TOKEN }}
-#          TERMINUSDB_API_ENDPOINT: ${{ env.TERMINUSDB_API_ENDPOINT }}
-#          TERMINUSDB_TEAM: ${{ env.TERMINUSDB_TEAM }}
-#          TERMINUSDB_DB: ${{ env.TERMINUSDB_DB }}
-#          TERMINUSDB_USER: ${{ env.TERMINUSDB_USER }}
 
       - name: Build And Deploy
         id: builddeploy

@@ -4,11 +4,10 @@
   "private": true,
   "scripts": {
     "sitemap": "next-sitemap",
-    "prebuild": "node src/prebuild/menu.mjs",
     "dev": "next dev",
     "build": "next build",
-    "cmsdev": "npm run prebuild && next dev",
-    "cmsbuild": "npm run prebuild && next build",
+    "cmsdev": "next dev",
+    "cmsbuild": "next build",
     "postbuild": "npm run sitemap",
     "start": "next start",
     "lint": "next lint"
