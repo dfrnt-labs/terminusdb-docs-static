@@ -200,6 +200,10 @@ export const navigation: Navigation[] = [
                 href: '/docs/graphql-basics',
               },
               {
+                title: 'GraphQL Mutations',
+                href: '/docs/graphql-mutations',
+              },
+              {
                 title: 'GraphQL Filter',
                 href: '/docs/filter-with-graphql',
               },
@@ -663,6 +667,10 @@ export const navigation: Navigation[] = [
               {
                 title: 'Connecting to GraphQL',
                 href: '/docs/connecting-to-graphql-reference',
+              },
+              {
+                title: 'GraphQL Mutations Reference',
+                href: '/docs/graphql-mutations',
               },
               {
                 title: 'GraphQL Naming Conventions',
