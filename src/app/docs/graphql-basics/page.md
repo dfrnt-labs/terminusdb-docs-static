@@ -3,6 +3,7 @@ title: Learn the GraphQL Basics for TerminusDB
 nextjs:
   metadata:
     title: Learn the GraphQL Basics for TerminusDB
+    keywords: IRI, RDF, GraphQL, CMS
     description: Learn to query TerminusDB and TerminusDB using GraphQL and a Star Wars data project that you can clone from the dashboard.
     openGraph:
       images: https://assets.terminusdb.com/docs/graphqll-basics.png
