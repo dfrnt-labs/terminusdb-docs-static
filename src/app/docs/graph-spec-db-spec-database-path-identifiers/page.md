@@ -7,7 +7,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/graph_spec-db_spec-database-path-identifiers/
+      canonical: https://terminusdb.org/docs/graph-spec-db-spec-database-path-identifiers/
 media: []
 ---
 
