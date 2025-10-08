@@ -21,7 +21,7 @@ A **DB_SPEC** (Database Specification) is a path-based identifier that precisely
 
 The general format follows this pattern:
 
-```
+```text
 <organization>/<database>/<repository>/<ref_type>/<ref_name>
 ```
 
@@ -38,7 +38,7 @@ The general format follows this pattern:
 Here are the most frequently used DB_SPEC formats, and special ones:
 
 #### Simple Database Reference (Default Branch)
-```
+```text
 <organization>/<database>
 ```
 **Example:** `admin/my_database`
@@ -46,7 +46,7 @@ Here are the most frequently used DB_SPEC formats, and special ones:
 This is shorthand for `admin/my_database/local/branch/main` - it automatically points to the main branch of the local repository.
 
 #### Specific Branch
-```
+```text
 <organization>/<database>/local/branch/<branch_name>
 ```
 **Examples:**
@@ -55,7 +55,7 @@ This is shorthand for `admin/my_database/local/branch/main` - it automatically p
 - `admin/customers/local/branch/feature-updates`
 
 #### Specific Commit
-```
+```text
 <organization>/<database>/local/commit/<commit_id>
 ```
 **Example:** `admin/employees/local/commit/9w8hk3y6rb8tjdy961ed3i536ntkqd8`
@@ -63,7 +63,7 @@ This is shorthand for `admin/my_database/local/branch/main` - it automatically p
 Use this for time-travel queries or to reference a specific point in history.
 
 #### Repository Metadata
-```
+```text
 <organization>/<database>/_meta
 ```
 **Example:** `admin/employees/_meta`
@@ -71,7 +71,7 @@ Use this for time-travel queries or to reference a specific point in history.
 Access the repository graph containing information about the local repository and all known remotes.
 
 #### Commit Graph
-```
+```text
 <organization>/<database>/<repository>/_commits
 ```
 **Example:** `admin/employees/local/_commits`
@@ -79,7 +79,7 @@ Access the repository graph containing information about the local repository an
 Access the commit graph containing branch histories, commit objects, authorship, and timestamps.
 
 #### Remote Repository
-```
+```text
 <organization>/<database>/<remote_name>/branch/<branch_name>
 ```
 **Example:** `admin/employees/origin/branch/main`
@@ -87,7 +87,7 @@ Access the commit graph containing branch histories, commit objects, authorship,
 Reference a branch on a configured remote repository.
 
 #### System Database
-```
+```text
 _system
 ```
 Access the system metadata containing user information, organization data, and database records (requires system administrator permissions).
@@ -98,7 +98,7 @@ A **GRAPH_SPEC** (Graph Specification) extends a DB_SPEC to point to a specific 
 
 ### GRAPH_SPEC Structure
 
-```
+```text
 <DB_SPEC>/<graph_type>
 ```
 
@@ -109,19 +109,19 @@ Where `<graph_type>` is one of:
 ### GRAPH_SPEC Examples
 
 #### Access Schema Graph
-```
+```text
 admin/employees/local/branch/main/schema
 ```
 Read or modify the schema (data model) for the employees database.
 
 #### Access Instance Graph
-```
+```text
 admin/employees/local/branch/main/instance
 ```
 Query or update the actual data documents in the employees database.
 
 #### Schema on Specific Commit
-```
+```text
 admin/products/local/commit/abc123def456/schema
 ```
 View the schema as it existed at a specific commit.
@@ -203,7 +203,7 @@ When components are omitted, TerminusDB applies these defaults:
 
 ### Examples with Defaults
 
-```
+```text
 admin/mydb
 ↓ Expands to ↓
 admin/mydb/local/branch/main
