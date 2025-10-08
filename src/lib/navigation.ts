@@ -637,6 +637,10 @@ export const navigation: Navigation[] = [
             href: '/docs/python',
           },
           {
+            title: 'Database Path Identifiers',
+            href: '/docs/graph_spec-db_spec-database-path-identifiers',
+          },
+          {
             title: 'TerminusDB CLI Reference',
             href: '/docs/terminusdb-cli-commands',
             links: [
