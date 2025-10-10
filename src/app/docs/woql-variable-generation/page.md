@@ -715,7 +715,7 @@ WOQL.vars_unique_reset_start(0);
 
 - [JavaScript Client Reference](/docs/javascript/) - Complete JS client API
 - [WOQL Basics](/docs/woql-basics/) - Introduction to WOQL queries
-- [Unification](/docs/unification/) - Understanding how variables are resolved
+- [Unification of Variables in Datalog](/docs/unification-of-variables-in-datalog/) - Understanding how variables are resolved
 - [Query Documents with JS](/docs/query-documents/) - Document querying examples
 - [Run WOQL Query](/docs/run-woql-query/) - Execute queries with the client
 - [Database Path Identifiers](/docs/database-path-identifiers/) - Understanding DB_SPEC and GRAPH_SPEC
