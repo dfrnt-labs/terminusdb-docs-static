@@ -187,4 +187,5 @@ Understanding unification empowers you to write more effective WOQL queries that
 Read more:
 * the [Datalog Engine Explanation](/docs/datalog-explanation)
 * the [WOQL Explanation](/docs/woql-explanation/)
+* how to use [WOQL Variables](/docs/woql-variable-generation/)
 * how to [Query with WOQL](/docs/how-to-query-with-woql/).
