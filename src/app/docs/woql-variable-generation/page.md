@@ -388,10 +388,10 @@ const [innerPerson, details] = WOQL.vars_unique("person", "details");
 
 const query = WOQL.and(
   WOQL.triple(outerPerson, "rdf:type", "@schema:Person"),
-  WOQL.select([innerPerson, details],
+  WOQL.select([details],
     WOQL.and(
-      WOQL.triple(innerPerson, "details", details),
-      WOQL.eq(innerPerson, outerPerson)
+      WOQL.eq(innerPerson, outerPerson),
+      WOQL.triple(innerPerson, "details", details)
     )
   )
 );
