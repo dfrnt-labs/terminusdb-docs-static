@@ -246,7 +246,7 @@ export const navigation: Navigation[] = [
                 href: '/docs/woql-basics',
               },
               {
-                title: 'WOQL Variable Generation',
+                title: 'WOQL Variables',
                 href: '/docs/woql-variable-generation',
               },
               {
