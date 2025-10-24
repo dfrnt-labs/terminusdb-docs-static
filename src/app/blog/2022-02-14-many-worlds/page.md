@@ -336,7 +336,7 @@ collaboration puzzle?
 
 The first is the concept of structured patches. This issue is very
  close to my heart as it is what we are currently working on at
- [TerminusDB](https://terminusdb.com), and I've written some
+ [TerminusDB](https://terminusdb.org), and I've written some
  preliminary thoughts about it in a discussion on [patches](https://github.com/terminusdb/terminusdb/discussions/686).
 
 "There is nothing new under the sun" applies here. There are several

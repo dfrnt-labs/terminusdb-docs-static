@@ -204,12 +204,12 @@ suggestions.
 
 ## Documentation Links
 
-[Diff](https://terminusdb.com/docs/index/json-diff-and-patch)
+[Diff](https://terminusdb.org/docs/index/json-diff-and-patch)
 
-[Capture IDs](https://terminusdb.com/docs/index/terminusx-db/reference-guides/document-interface?swcfpc=1#capturing-ids-while-inserting-or-replacing-documents)
+[Capture IDs](https://terminusdb.org/docs/index/terminusx-db/reference-guides/document-interface?swcfpc=1#capturing-ids-while-inserting-or-replacing-documents)
 
-[Type Inference](https://terminusdb.com/docs/index/terminusx-db/reference-guides/schema?swcfpc=1#inference)
+[Type Inference](https://terminusdb.org/docs/index/terminusx-db/reference-guides/schema?swcfpc=1#inference)
 
-[Unconstrained JSON](https://terminusdb.com/docs/index/terminusx-db/reference-guides/schema?swcfpc=1#json-type)
+[Unconstrained JSON](https://terminusdb.org/docs/index/terminusx-db/reference-guides/schema?swcfpc=1#json-type)
 
-[Document UI](https://terminusdb.com/docs/index/terminusx-db/how-to-guides/generate-document-user-interfaces/get-started-with-the-documents-user-interface)
+[Document UI](https://terminusdb.org/docs/index/terminusx-db/how-to-guides/generate-document-user-interfaces/get-started-with-the-documents-user-interface)

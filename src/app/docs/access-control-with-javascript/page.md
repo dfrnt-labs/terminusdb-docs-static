@@ -23,7 +23,7 @@ For credentials, you can use a JWT token, an API token or basic authentication w
 
 ```javascript
 //connect with the API token
-//(to request a token create an account in  https://terminusdb.com/)
+//(to request a token create an account in  https://terminusdb.org/)
 const accessContol = new AccessControl("https://servername.com",
 {organization:"my_team_name",
 token:"dGVybWludXNkYjovLy9kYXRhL2tleXNfYXB........"})
@@ -115,7 +115,7 @@ The API token to use to connect with DFRNT TerminusDB cloud
 
 ##### accessControl.setApiKey(atokenpi)
 
-Sets the API token for the object, to request a token create an account in https://terminusdb.com/
+Sets the API token for the object, to request a token create an account in https://terminusdb.org/
 
 Param
 

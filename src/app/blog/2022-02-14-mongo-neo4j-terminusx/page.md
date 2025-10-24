@@ -67,7 +67,7 @@ reference and a way to ensure that we have referential integrity
 storage data structures such that we can follow these links
 efficiently.
 
-In [TerminusDB](https://terminusdb.com/), we do this using URLs. This borrows from the original
+In [TerminusDB](https://terminusdb.org/), we do this using URLs. This borrows from the original
 concept of the HTML page, which is itself a structured document with
 hyper-links, but one designed for rendering rather than data
 manipulation.
@@ -86,9 +86,9 @@ look something like:
 
 We write down the references relative to the base URL prefix which we
 assume for our collection, which might be something like
-`http://terminusdb.com/db/Terminators/Humans/`. The fully-qualified
+`http://terminusdb.org/db/Terminators/Humans/`. The fully-qualified
 URL would be rendered as something like:
-`http://terminusdb.com/db/Terminators/Humans/Person/Jim+Smith`. This
+`http://terminusdb.org/db/Terminators/Humans/Person/Jim+Smith`. This
 makes it easier to read and write. But how do we know this is a
 reference and not a string? This is an important distinction for
 several reasons. It tells us how to index our objects such that
@@ -141,7 +141,7 @@ Web3 existed as a concept.
 
 Unfortunately it never really took off. There are many reasons for
 this, some of which are explored in [Graph Fundamentals Part 4: Linked
-Data](https://terminusdb.com/blog/graph-fundamentals-part-4-linked-data/).
+Data](https://terminusdb.org/blog/graph-fundamentals-part-4-linked-data/).
 
 Part of the reason for this is that RDF is somewhat hard to read, but
 even harder to write. Data is *completely* represented in the

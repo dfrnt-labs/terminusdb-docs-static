@@ -53,7 +53,7 @@ Everything You Always Wanted to Know About Blank Nodes
 https://aidanhogan.com/docs/blank_nodes_jws.pdf
 ```
 
-[TerminusDB](https://terminusdb.com) makes this a lot easier with the latest release and provides capabilities to automatically derive subject/entity IDs based on either UUIDs, human-readable auto-incrementing values, or a content-aware hash.
+[TerminusDB](https://terminusdb.org) makes this a lot easier with the latest release and provides capabilities to automatically derive subject/entity IDs based on either UUIDs, human-readable auto-incrementing values, or a content-aware hash.
 
 Which is really really nice and straightforward.
 

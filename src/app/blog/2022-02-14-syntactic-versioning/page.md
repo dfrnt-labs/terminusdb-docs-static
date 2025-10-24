@@ -95,7 +95,7 @@ be found, communicated, and applied
 
 And if we were storing information as ASTs, rather than lines of text,
 we could store them in a [graph
-database](http://terminusdb.com). Imagine the kinds of testing and
+database](http://terminusdb.org). Imagine the kinds of testing and
 linting which could now take place. You could have a full graph query
 language at your disposal to search for problems and perform analysis!
 
