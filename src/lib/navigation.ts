@@ -66,6 +66,55 @@ export const navigation: Navigation[] = [
         ],
       },
       {
+        title: 'Blog',
+        links: [
+          {
+            title: "What's the Difference: JSON diff and patch",
+            href: '/blog/2022-02-14-json-diff-and-patch',
+          },
+          {
+            title: 'Many Worlds: a philosophy of data collaboration',
+            href: '/blog/2022-02-14-many-worlds',
+          },
+          {
+            title: 'What if MongoDB and Neo4j had a baby',
+            href: '/blog/2022-02-14-mongo-neo4j-terminusx',
+          },
+          {
+            title: 'Syntactic Versioning',
+            href: '/blog/2022-02-14-syntactic-versioning',
+          },
+          {
+            title: 'Why TerminusX',
+            href: '/blog/2022-02-14-why-terminusx',
+          },
+          {
+            title: "What's in a Name: URI Generation",
+            href: '/blog/2022-02-28-whats-in-a-name',
+          },
+          {
+            title: 'Mergeable Records',
+            href: '/blog/2022-03-04-mergeable-records',
+          },
+          {
+            title: 'TerminusDB v10.1.0: The Mule',
+            href: '/blog/2022-06-14-terminusdb-10.1.0-the-mule',
+          },
+          {
+            title: 'The Issue of Blank Nodes in RDF',
+            href: '/blog/2022-06-24-blank-nodes-in-rdf',
+          },
+          {
+            title: 'Schema Migration',
+            href: '/blog/2023-04-24-schema-migration',
+          },
+          {
+            title: 'We wrote a vector database in a week',
+            href: '/blog/2023-05-19-writing-a-vector-database-in-rust',
+          },
+        ],
+      },
+      {
         title: 'How-To Guides',
         links: [
           {
