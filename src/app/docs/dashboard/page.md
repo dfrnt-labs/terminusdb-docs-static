@@ -15,6 +15,8 @@ media: []
 
 As of **TerminusDB v11.2**, the built-in dashboard component has been **discontinued** and is no longer included with the core TerminusDB server distribution.
 
+The dashboard mounting feature still works perfectly and can be used for mounting either the discontinued dashboard component, or other custom react-style dashboards (see file structure further down).
+
 ### Why Was the Dashboard Discontinued?
 
 The decision to discontinue the dashboard was made to:
@@ -128,7 +130,7 @@ The dashboard must be explicitly enabled via an environment variable:
 |---------------------|-------|-------------|
 | `TERMINUSDB_DASHBOARD_ENABLED` | `true` | Enables the dashboard component |
 
-Without this variable set to `true`, TerminusDB will serve a discontinuation notice instead of the dashboard.
+Without this variable set to `true`, TerminusDB will serve neither the discontinuation notice, nor the dashboard.
 
 ### Step 4: Access the Dashboard
 
