@@ -756,6 +756,10 @@ export const navigation: Navigation[] = [
             href: '/docs/terminuscms-data-types',
           },
           {
+            title: 'Numeric Precision Reference',
+            href: '/docs/numeric-precision-reference',
+          },
+          {
             title: 'Document API Reference',
             href: '/docs/document-insertion',
           },

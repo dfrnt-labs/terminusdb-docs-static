@@ -99,10 +99,11 @@ docker run -it \
 Create or update your `docker-compose.yml`:
 
 ```yaml
+# Use v11_2_rc2 until v11.2 is finally released
 version: '3'
 services:
   terminusdb:
-    image: terminusdb/terminusdb-server:v11.2
+    image: terminusdb/terminusdb-server:v11_2_rc2
     container_name: terminusdb
     ports:
       - "6363:6363"
@@ -148,16 +149,15 @@ The default credentials are:
 
 ## Directory Structure
 
-When mounting the dashboard, ensure the following structure:
+When mounting the dashboard, use the structure from the release.tar.gz file, and the assets are by default in the right location with no additional directory hierarchy needed.
 
 ```text
 /app/terminusdb/dashboard/
 ├── index.html          # Main dashboard entry point
-├── assets/            # CSS, JS, and other assets
-│   ├── css/
-│   ├── js/
-│   └── images/
-└── ...                # Other dashboard files
+└── assets/             # CSS, JS, and other assets
+    ├── css/
+    ├── js/
+    └── images/
 ```
 
 ---
