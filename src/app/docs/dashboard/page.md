@@ -134,7 +134,7 @@ Without this variable set to `true`, TerminusDB will serve a discontinuation not
 
 Once configured, access the dashboard at:
 
-```
+```text
 http://localhost:6363/dashboard
 ```
 
@@ -148,7 +148,7 @@ The default credentials are:
 
 When mounting the dashboard, ensure the following structure:
 
-```
+```text
 /app/terminusdb/dashboard/
 ├── index.html          # Main dashboard entry point
 ├── assets/            # CSS, JS, and other assets
