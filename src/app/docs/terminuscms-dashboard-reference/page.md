@@ -16,9 +16,13 @@ media:
     value: https://assets.terminusdb.com/docs/teams-users-and-projects2.png
 ---
 
+{% callout type="warning" title="Built-in Dashboard Discontinued" %}
+As of TerminusDB v11.2, the built-in dashboard component has been discontinued. This page documents the cloud dashboard interface. For information about the discontinued built-in dashboard, see the [Dashboard Status page](/docs/dashboard/).
+{% /callout %}
+
 ## Overview
 
-The DFRNT TerminusDB cloud dashboard is a place to -
+The TerminusDB cloud dashboard is a place to -
 
 *   Manage your teams and collaborators
 *   Manage your data products/projects
