@@ -783,6 +783,20 @@ export const navigation: Navigation[] = [
             title: 'WOQL Class Reference',
             href: '/docs/woql-class-reference-guide',
           },
+          {
+            title: 'TerminusDB Internals',
+            href: '/docs/terminusdb-internals',
+            links: [
+              {
+                title: 'Document Unfolding Reference',
+                href: '/docs/document-unfolding-reference',
+              },
+              {
+                title: 'Writing Plugins',
+                href: '/docs/writing-plugins',
+              },
+            ],
+          },
         ],
       },
     ],
