@@ -976,9 +976,14 @@ The `@unfoldable` key is present with the value `[]` or it is not present.
 
 In the document API, when retrieving documents, the default behavior is for any linked document to be returned as an IRI, while subdocuments are fully unfolded and returned as a nested document. With the `@unfoldable` option set, linked documents will behave just like subdocuments, and will also be unfolded on retrieval.
 
-The `@unfoldable` option can only be set on a class which does not directly or indirectly link to itself. This prevents a self-referencing document from being unfolded infinitely.
-
 The purpose of `@unfoldable` is to be able to treat linked (top-level) documents as subdocuments in representation. Subdocuments can only be linked by one document, its owner, whereas normal documents can be linked by any number of other documents. If the desired result is to have a document linked by several other documents, but still have it fully unfolded on retrieval like a subdocument, use this option.
+
+#### Cycle detection
+The `@unfoldable` option can be set on any class. Fields with unfoldable class fields may even link back directly or indirectly, forming cycles. 
+
+Self-referencing documents are prevented from being unfolded infinitely by cycle detection. When a cycle is present, the recurring leaf will not be unfolded and instead be represented by its IRI. The same behavior is applied when a document has too many unfolds, going beyong the configurable default of 500.000 documents.
+
+Read more about cycle detection in the [TerminusDB Internals](/docs/terminusdb-internals/), in the section [Document Unfolding Reference](/docs/document-unfolding-reference/).
 
 #### Code: An example unfoldable
 
