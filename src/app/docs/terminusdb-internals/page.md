@@ -11,9 +11,17 @@ nextjs:
 media: []
 ---
 
+## sys:JSON Storage
+
+TerminusDB provides the `sys:JSON` type for storing arbitrary JSON data with automatic content-addressed deduplication. JSON values are identified by SHA-1 hash, allowing multiple documents to safely share identical JSON structures without duplication or consistency issues.
+
+The implementation uses copy-on-write semantics and reference counting to ensure safe concurrent operations. When you update or delete documents with `sys:JSON` fields, TerminusDB tracks which JSON nodes are still referenced and only removes unused nodes when their reference count reaches zero.
+
+For detailed information on storage architecture, GraphQL behavior, supported types, and best practices, see the [sys:JSON Internals Guide](/docs/terminusdb-internals-sysjson).
+
 ## Document Unfolding
 
-TerminusDB provides automatic document unfolding for classes marked with the `@unfoldable` schema annotation. When retrieving documents through the Document API, GraphQL, or WOQL, referenced documents are automatically expanded inline instead of returning just ID references. This creates a seamless navigation experience for hierarchical and graph-structured data.
+ TerminusDB provides automatic document unfolding for classes marked with the `@unfoldable` schema annotation. When retrieving documents through the Document API, GraphQL, or WOQL, referenced documents are automatically expanded inline instead of returning just ID references. This creates a seamless navigation experience for hierarchical and graph-structured data.
 
 The unfolding implementation uses an optimized path stack for cycle detection, preventing infinite recursion when documents reference themselves directly or indirectly. When a cycle is detected, the system returns an ID reference instead of expanding the document again, ensuring all nodes are rendered without crashes. The `TERMINUSDB_DOC_WORK_LIMIT` environment variable (default: 500,000 operations) provides additional protection against excessive resource consumption during deep traversals of complex document graphs.
 

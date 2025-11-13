@@ -342,6 +342,10 @@ export const navigation: Navigation[] = [
                 title: 'WOQL Schema Queries',
                 href: '/docs/schema-queries-with-woql',
               },
+              {
+                title: 'WOQL JSON-LD Queries',
+                href: '/docs/woql-json-ld-queries',
+              },
             ],
           },
 
@@ -787,6 +791,10 @@ export const navigation: Navigation[] = [
             title: 'TerminusDB Internals',
             href: '/docs/terminusdb-internals',
             links: [
+              {
+                title: 'sys:JSON Deep Dive',
+                href: '/docs/terminusdb-internals-sysjson',
+              },
               {
                 title: 'Document Unfolding Reference',
                 href: '/docs/document-unfolding-reference',
