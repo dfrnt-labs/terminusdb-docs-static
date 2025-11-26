@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: System Graph Interface to GraphQL
     description: TerminusDB technical documentation - System Graph Interface to GraphQL
+    keywords: GraphQL, system graph, control graph, Commit Graph, meta Graph
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -36,3 +37,7 @@ To get access to branches, commits, commit logs, as well as the meta and system 
 ```url
 http://127.0.0.1:6363/api/graphql/ORG/DATA_PRODUCT/local/_commits
 ```
+
+## See also
+
+* [Querying Layers with GraphQL](/docs/querying-layers-with-graphql)

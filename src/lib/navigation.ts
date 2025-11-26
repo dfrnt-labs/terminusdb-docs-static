@@ -742,6 +742,10 @@ export const navigation: Navigation[] = [
                 href: '/docs/system-graph-graphql-interface-reference',
               },
               {
+                title: 'Querying Layers with GraphQL',
+                href: '/docs/querying-layers-with-graphql',
+              },
+              {
                 title: 'Connect with Apollo Client',
                 href: '/docs/connect-with-apollo-client',
               },
