@@ -93,4 +93,5 @@ A transaction in a graph is also a hierarchical operation, ensuring [ACID transa
 ## Further Reading
 
 * [Querying layers with GraphQL](/docs/querying-layers-with-graphql/)
+* [System Graph Interface using GraphQL](/docs/system-graph-graphql-interface-reference/)
 * [Documents in a knowledge graph and how to use them](/docs/documents-explanation/)
