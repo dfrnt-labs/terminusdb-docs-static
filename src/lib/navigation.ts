@@ -807,6 +807,10 @@ export const navigation: Navigation[] = [
                 title: 'Writing Plugins',
                 href: '/docs/writing-plugins',
               },
+              {
+                title: 'Dashboard component (discontinued)',
+                href: '/docs/dashboard',
+              },
             ],
           },
         ],
