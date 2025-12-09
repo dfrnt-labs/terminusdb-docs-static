@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'TerminusDB Page Not Found',
@@ -31,6 +32,10 @@ export default function NotFound() {
           Go back home
         </Link>
       </div>
+      <Script id="pagesense-404" strategy="afterInteractive">
+        {`window.pagesense = window.pagesense || [];
+window.pagesense.push(['trackEvent', '404']);`}
+      </Script>
     </div>
   )
 }
