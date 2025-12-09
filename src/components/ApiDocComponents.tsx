@@ -4,10 +4,10 @@ import { useState, useEffect, useCallback } from 'react'
 import { Fence } from './Fence'
 import { handleAnchorClick } from '@/utils/scroll'
 
-// Declare pagesense for TypeScript
+// Declare pagesense for TypeScript - can be array (queue mode) or object (initialized)
 declare global {
   interface Window {
-    pagesense?: any[]
+    pagesense?: any[] | { trackEvent: (event: string) => void }
   }
 }
 
@@ -36,9 +36,13 @@ export function CodeBlock({
     setCopied(true)
     
     // Track code copy event with Pagesense
-    if (typeof window !== 'undefined') {
-      window.pagesense = window.pagesense || []
-      window.pagesense.push(['trackEvent', 'code copy'])
+    if (typeof window !== 'undefined' && window.pagesense) {
+      // Check if pagesense is still in queue mode (array) or initialized (object)
+      if (Array.isArray(window.pagesense)) {
+        window.pagesense.push(['trackEvent', 'code copy'])
+      } else if (typeof window.pagesense.trackEvent === 'function') {
+        window.pagesense.trackEvent('code copy')
+      }
     }
   }
 
