@@ -1269,17 +1269,15 @@ In the example range class below, `first_name` and `last_name` are strings, `yea
 }
 ```
 
-### JSON Types, sys:JSON and sys:JSONDocument (experimental and unsupported)
+### JSON Types, sys:JSON and sys:JSONDocument
 
-{% callout type="warning" title="WARNING: Unsupported experimental feature" %}
-The `"sys:JSON"` and the type `"sys:JSONDocument"` types are currently experimental and unsupported. There are known issues where they are not properly cleaned up in some circumstances and it is generally advised to not use arbitrary JSON typed properties until this feature is marked as supported.
-
-See these `wontfix` marked issues [#2148](https://github.com/terminusdb/terminusdb/issues/2128), [#2121](https://github.com/terminusdb/terminusdb/issues/2121), [#2102](https://github.com/terminusdb/terminusdb/issues/2102), [#2086](https://github.com/terminusdb/terminusdb/issues/2086), [#1926](https://github.com/terminusdb/terminusdb/issues/1926). Fixing this is in the long term roadmap, but not a priority and won't be fixed in a near future. For some use cases it can work, with manual cleanup after deletion which is why it is left as experimental. Contributions and PR:s are more than welcome.
+{% callout type="note" title="New feature!" %}
+The `"sys:JSON"` and the type `"sys:JSONDocument"` types are now supported. This feature was marked as supported starting with TerminusDB 12.
 {% /callout %}
 
-Two special JSON types exist in TerminusDB. One is for use as a subdocument, and is called `"sys:JSON"` and the type `"sys:JSONDocument"` which is used for type level. Both allow un-constrained and untypechecked documents which can be stored or retrieved as apparently unmodified JSON, but which are still indexed and searchable using WOQL.
+Two special JSON types exist in TerminusDB. One is for use as a subdocument, and is called `"sys:JSON"` and the type `"sys:JSONDocument"` which is used for completely unstructured documents. Both allow un-constrained and non type checked documents to be stored or retrieved as arbitrary JSON, yet indexed and searchable using WOQL.
 
-Is for subdocuments of type `"sys:JSON"` are formed from a hash of the content, meaning that subdocuments are shared if their content is the same.
+Is for subdocuments of type `"sys:JSON"` are formed from a hash of the content, meaning that subdocuments are shared if their content is the same, deduplicated and reference counted.
 
 However, those of type `"sys:JSONDocument"` are assigned a random id, such that they can be retrieved, modified etc. Alternatively they can be assigned an id by passing in an id of the form `{ "@id" : "JSONDocument/my_id_here", ...}` making sure to use the prefix `"JSONDocument"` so as not to ensure we do not have any id conflicts with other document types.
 
