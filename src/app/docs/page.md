@@ -35,7 +35,7 @@ When you sign up, you get full commercial hosting. This comes with generous limi
 
 ### Steps to get started
 
-1.  Sign up at [https://dfrnt.com/signup](https://dfrnt.com/signup), or use it with [Docker](/docs/install-terminusdb-as-a-docker-container/)
+1.  Sign up at [https://dfrnt.com/sign-up](https://dfrnt.com/sign-up), or use it with [Docker](/docs/install-terminusdb-as-a-docker-container/)
 2.  Install the [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-the-python-client/) Client
 3.  [Get your API key to use a client with DFRNT TerminusDB cloud](/docs/how-to-connect-terminuscms/)
 4.  [Familiarize yourself with the client API](/docs/connect-with-the-javascript-client/) to start building with TerminusDB.
