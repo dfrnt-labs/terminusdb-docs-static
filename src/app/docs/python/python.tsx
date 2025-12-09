@@ -1,79 +1,101 @@
 'use client'
-import {
-  renderCodeTable,
-  renderExamples,
-  formatShortHandAnchorIds,
-  formatAnchorIds,
-} from '../../../utils'
 import props from '../../../../schema/python.json'
-import { OnThisPageContent } from '@/components/_onThisPage'
-import { useEffect, useState } from 'react'
+import {
+  ApiDocsHero,
+  ClassQuickNav,
+  ClassSection,
+  MethodCard,
+  ApiTableOfContents,
+} from '@/components/ApiDocComponents'
 
 export default function PythonArticle() {
-  const [onPageContent, setOnPageContent] = useState<JSX.Element | null>(null)
-  useEffect(() => {
-    setOnPageContent(<OnThisPageContent />)
-  }, [])
   const modules = props.modules
-  const layout = modules.map((mod) => {
-    const classes = mod.classes
+
+  // Build class navigation data (sorted)
+  const classNavData = modules.flatMap((mod) =>
+    mod.classes
       .filter((x) => x.memberFunctions.length > 0)
-      .map((class_) => {
-        const functions = class_.memberFunctions.map((func) => {
-          let args = null
-          let shortArgs = null
-          if (
-            typeof func.parameters !== 'undefined' &&
-            func.parameters.length > 0
-          ) {
-            args = renderCodeTable(func.parameters)
-            shortArgs = func.parameters.map((x) => x.name).join(', ')
-          }
-          let examples = null
-          if (
-            typeof func.examples !== 'undefined' &&
-            (func.examples?.length ?? 0) > 0
-          ) {
-            examples = renderExamples(func.examples, 'python', func.name)
-          }
-          return (
-            <div key={func.name}>
-              <h4
-                className="divider"
-                id={formatAnchorIds(
-                  formatShortHandAnchorIds(func.name, shortArgs),
-                )}
-              >
-                {func.name}({shortArgs})
-              </h4>
-              <div data-accordion="collapse">
-                <p>{func.summary}</p>
-                {args}
-                {examples}
-              </div>
-            </div>
-          )
-        })
-        return (
-          <div key={class_.name}>
-            <h3 id={formatAnchorIds(class_.name)}>{class_.name}</h3>
-            {functions}
-          </div>
-        )
-      })
-    return <div key={mod.name}>{classes}</div>
+      .map((cls) => ({
+        name: cls.name,
+        summary: cls.summary?.split('\n')[0] || '',
+        methodCount: cls.memberFunctions.length,
+      }))
+  ).sort((a, b) => a.name.localeCompare(b.name))
+
+  // Build TOC data with methods
+  const tocData = modules.flatMap((mod) =>
+    mod.classes
+      .filter((x) => x.memberFunctions.length > 0)
+      .map((cls) => ({
+        name: cls.name,
+        methods: cls.memberFunctions.map((func) => ({
+          name: func.name,
+          signature: func.parameters?.map((x) => x.name).join(', ') || '',
+        })),
+      }))
+  )
+
+  // Render classes and methods (sorted)
+  const sortedClasses = modules.flatMap((mod) =>
+    mod.classes.filter((x) => x.memberFunctions.length > 0)
+  ).sort((a, b) => a.name.localeCompare(b.name))
+
+  const content = sortedClasses.map((class_) => {
+    // Sort methods alphabetically within each class
+    const sortedMethods = [...class_.memberFunctions].sort((a, b) => 
+      a.name.localeCompare(b.name)
+    )
+    
+    const methods = sortedMethods.map((func) => {
+      const shortArgs = func.parameters?.map((x) => x.name).join(', ') || ''
+      return (
+        <MethodCard
+          key={`${class_.name}-${func.name}`}
+          name={func.name}
+          signature={shortArgs}
+          summary={func.summary || ''}
+          parameters={func.parameters}
+          returns={func.returns}
+          examples={func.examples || undefined}
+          language="python"
+          className={class_.name}
+        />
+      )
+    })
+
+    return (
+      <ClassSection
+        key={class_.name}
+        name={class_.name}
+        summary={class_.summary?.split('\n')[0]}
+      >
+        {methods}
+      </ClassSection>
+    )
   })
+
   return (
-    <article className="flex w-full flex-row">
-      <div id="mainContent" className="overflow-x-scroll">
-        <h1 className="tdb__subtitle font-display text-3xl tracking-tight text-slate-900 dark:text-white">
-          Python
-        </h1>
-        <div className="prose dark:prose-invert">{layout}</div>
+    <article className="flex w-full flex-row gap-8">
+      <div id="mainContent" className="flex-1 min-w-0 max-w-4xl">
+        <ApiDocsHero
+          title="Python Client"
+          description="The official TerminusDB Python client library for data science and backend applications. Integrate graph database capabilities into your Python workflows."
+          version={props.version}
+          installCommand="pip install terminusdb-client"
+          language="python"
+        />
+
+        <ClassQuickNav classes={classNavData} />
+
+        <div className="prose prose-slate dark:prose-invert max-w-none overflow-visible">
+          {content}
+        </div>
       </div>
-      <div className="relative hidden w-32 sm:mr-64 lg:mr-40 lg:block"></div>
-      <div className="fixed top-24 w-64 flex-none pl-8 text-xs md:right-12 lg:right-12 xl:block xl:text-sm">
-        {onPageContent}
+      
+      <div className="hidden xl:block w-56 flex-none">
+        <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-4">
+          <ApiTableOfContents classes={tocData} />
+        </div>
       </div>
     </article>
   )
