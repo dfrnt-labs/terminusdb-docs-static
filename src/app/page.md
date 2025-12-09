@@ -1,15 +1,18 @@
 ---
 nextjs:
   metadata:
-    title: TerminusDB, a git-for-data graph and document database
-    description: TerminusDB provides Semantic Document Graph Infrastructure; a model-based, in-memory, and distributed graph database with git-for-data collaboration
+    title: TerminusDB, a git-for-data JSON and RDF graph and document database
+    description: TerminusDB provides Semantic Document Graph Infrastructure; a model-based, in-memory, and distributed RDF and JSON graph database with git-for-data collaboration
     alternates:
       canonical: https://terminusdb.org
-    keywords: terminusdb, git-for-data, closed world, knowledge graph, RDF
-
+    keywords: git-for-data, graph, RDF, JSON, document, database
 ---
 
 TerminusDB is the modern graph database for knowledge graphs and semantic content infrastructures. Learn how to get started with TerminusDB in under thirty minutes. {% .lead %}
+
+{% callout type="note" title="TerminusDB version 12 released 2025-12-08" %}
+TerminusDB version 12 is out. It includes a number of new features and improvements. See [/blog/terminusdb-12-release](/blog/2025-12-08-terminusdb-12-release/) for more information.
+{% /callout %}
 
 {% quick-links %}
 

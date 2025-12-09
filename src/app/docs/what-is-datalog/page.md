@@ -14,21 +14,21 @@ media: []
 
 Datalog, a declarative subset of Prolog, is a flexible and powerful declarative query language proficient at dealing with the complex and multi-hop relationships that occur in graphs. Graph query languages not based on Datalog lack the level of clarity, simplicity, and logical framework that Datalog provides.
 
-### Predicates
+## Predicates
 
 Similar to its super-set Prolog, Datalog is based on **predicates**. Predicates are similar to relations in relational languages such as SQL. Queries can use predicates with _logical variables_ to represent unknowns to which meaning is assigned based on a logical formula. Meaning is assigned by joining predicates with logical connectives or operators such as `and` and `or` and [unifying](#unificationandquery) logical variables. Repeated occurrences of the same variable require the query has identical solutions at given points.
 
-### Advantages of Datalog in queries
+## Advantages of Datalog in queries
 
 Variables in Datalog are restricted to finite **atomic** values. The use of atomic values simplifies query optimization and guarantees the termination of queries even in the event of recursion. The finite atomic values restriction is relaxed in [WOQL](/docs/woql-explanation/) (the Web Object Query Language used in TerminusDB) to enable lists that are useful in aggregation and dis-aggregation queries such as `group by` and `member` respectively. However, TerminusDB retains the pure declarative quality of Datalog.
 
-#### Datalog compared with SQL
+### Datalog compared with SQL
 
 Compared with relational databases, Datalog provides a more flexible logical framework that is easier to extend consistently with recursive and path-centric operations. Datalog also enables complex joins to be expressed more elegantly with a less verbose syntax.
 
 Datalog represents a stepping-stone from relational languages such as SQL to more fully-featured programming languages while retaining the declarative, robust, pervasive, and resilient properties of query languages.
 
-### Unification and query
+## Unification and query
 
 Unification in Datalog is the process of finding values of logical variables which are consistent for a given logical sentence or query.
 
@@ -38,7 +38,7 @@ When we search using datalog in WOQL, we implicitly ask for _all_ solutions (thi
 
 Read more about [unification in Datalog](/docs/unification-of-variables-in-datalog/).
 
-#### An Example
+## An Example
 
 Perhaps the most important predicate in WOQL is `triple` which gives results about edges in the current graph.
 

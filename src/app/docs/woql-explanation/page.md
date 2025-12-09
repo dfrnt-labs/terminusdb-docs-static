@@ -1,8 +1,8 @@
 ---
-title: "What is datalog? A WOQL Explanation"
+title: "The WOQL Query Language, Explained"
 nextjs:
   metadata:
-    title: What is datalog? A WOQL Explanation
+    title: The WOQL Query Language, Explained
     description: A brief explanation of the TerminusDB Web Object Query Langauge (WOQL), a datalog with composable logic and unification of variables
     keywords: datalog, meaning, unification, composable logic, variables
     openGraph:

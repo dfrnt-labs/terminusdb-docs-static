@@ -982,7 +982,7 @@
         "@type": "Menu1",
         "Menu1Label": "Datalog",
         "Order": "140",
-        "Menu1Page": "Page/datalog-explanation",
+        "Menu1Page": "Page/what-is-datalog",
         "Level2": []
       },
       {

@@ -89,4 +89,4 @@ This page was adapted from a Medium article by `@hoijnet` with permission: [Data
 
 Learn more:
 
-* [Datalog explanation](/docs/datalog-explanation/)
+* [Datalog explanation](/docs/what-is-datalog/)

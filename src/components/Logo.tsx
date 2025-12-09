@@ -5,6 +5,7 @@ export const Logo: React.FC<{className?: string}> = (props) => (
     xmlns="http://www.w3.org/2000/svg"
     xmlSpace="preserve"
     id="Layer_1"
+    viewBox="0 0 230 50"
     x={0}
     y={0}
     {...props}
