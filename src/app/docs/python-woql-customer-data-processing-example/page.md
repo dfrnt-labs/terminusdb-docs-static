@@ -169,39 +169,22 @@ wq().select(attributes_id, at,
 
 The `triple()` function is used to query triples from the information in the database. Note that it uses the unification approach to variables, borrowed from the logical Prolog engine you may already know. This means that the following approaches are equivalent in WOQL:
 
-<table>
-<tr>
-<th>Extract and check if equal</th>
-<th>Do both in one single command</th>
-</tr>
-<tr>
-<td>
+**Extract and check if equal:**
 
 ```python
 wq().triple(purchase, "userId", user_id),
 wq().eq(user_id, wq().string(customer_id))
 ```
 
-</td>
-<td>
+**Do both in one single command:**
 
 ```python
 wq().triple(purchase, "userId", wq().string(customer_id))
 ```
 
-</td>
-</tr>
-</table>
-
 Then we filter by the time, using the WOQL query functions for comparisons. We can retrieve all that happened before a certain timestamp as timestamps that are not greater than it (or that are less than or equal to it).
 
-<table>
-<tr>
-<th>Not greater than</th>
-<th>Less than or equal to</th>
-</tr>
-<tr>
-<td>
+**Not greater than:**
 
 ```python
 wq().woql_not(
@@ -209,8 +192,7 @@ wq().woql_not(
 ),
 ```
 
-</td>
-<td>
+**Less than or equal to:**
 
 ```python
 wq().woql_or(
@@ -218,10 +200,6 @@ wq().woql_or(
     wq().equal(at, timestamp)
 ),
 ```
-
-</td>
-</tr>
-</table>
 
 Now, we have successfully collected all the IDs for the attribute subdocuments of the purchases, as well as the time they were made.
 
