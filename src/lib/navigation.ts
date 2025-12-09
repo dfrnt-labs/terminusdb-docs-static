@@ -713,6 +713,16 @@ export const navigation: Navigation[] = [
           {
             title: 'Access Control',
             href: '/docs/js-access-control',
+            links: [
+              {
+                title: 'RBAC Tutorial',
+                href: '/docs/access-control-tutorial',
+              },
+              {
+                title: 'Source Code Tutorial',
+                href: '/docs/access-control-tutorial-source',
+              },
+            ],
           },
           {
             title: 'Supported Data Types',

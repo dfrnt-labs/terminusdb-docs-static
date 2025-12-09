@@ -13,8 +13,6 @@ media: []
 
 **License**: Apache Version 2
 
-FIXME: Tables are not yet migrated. Formatting is incomplete and needs to be fixed. 
-
 
 ## new AccessControl()
 
@@ -59,17 +57,19 @@ Get a organization from parameters.
 
 **Returns**: `string` | `undefined` - - organization
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-params
+- params
+- `object`
+- The parameters
 
-`object`
-
-The parameters
+{% /table %}
 
 ## setJwtToken
 
@@ -77,17 +77,19 @@ The parameters
 
 Sets the Jwt token for the object
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-jwt
+- jwt
+- `string`
+- The jwt api token to use
 
-`string`
-
-The jwt api token to use
+{% /table %}
 
 ## setApiToken
 
@@ -95,17 +97,19 @@ The jwt api token to use
 
 Sets the API token for the object, to request a token create an account in https://terminusdb.com/
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-atokenpi
+- atokenpi
+- `string`
+- The API token to use to connect with TerminusX
 
-`string`
-
-The API token to use to connect with TerminusX
+{% /table %}
 
 ## setApiKey
 
@@ -113,17 +117,19 @@ The API token to use to connect with TerminusX
 
 Sets the API token for the object, to request a token create an account in https://terminusdb.com/
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-atokenpi
+- atokenpi
+- `string`
+- The API token to use to connect with TerminusX
 
-`string`
-
-The API token to use to connect with TerminusX
+{% /table %}
 
 ## getAPIUrl
 
@@ -133,17 +139,19 @@ Get a API url from cloudAPIUrl
 
 **Returns**: `string` - apiUrl
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-cloudAPIUrl
+- cloudAPIUrl
+- `string`
+- The base url for cloud
 
-`string`
-
-The base url for cloud
+{% /table %}
 
 ## customHeaders
 
@@ -151,13 +159,17 @@ The base url for cloud
 
 add extra headers to your request
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
 
-customHeaders
+---
 
-`object`
+- customHeaders
+- `object`
+
+{% /table %}
 
 ## getOrganization
 
@@ -167,17 +179,19 @@ customHeaders
 
 **Returns**: `object` - - organization
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-organization
+- organization
+- `string`
+- The organization
 
-`string`
-
-The organization
+{% /table %}
 
 ## getAllOrganizations
 
@@ -195,17 +209,19 @@ The organization
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-orgName
+- orgName
+- `string`
+- The organization name to create
 
-`string`
-
-The organization name to create
+{% /table %}
 
 **Example**
 
@@ -223,17 +239,19 @@ accessControl.createOrganization("my_org_name").then(result=>{
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-orgName
+- orgName
+- `string`
+- The organization name to delete
 
-`string`
-
-The organization name to delete
+{% /table %}
 
 **Example**
 
@@ -251,23 +269,25 @@ accessControl.createOrganization("my_org_name").then(result=>{
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-\[name\]
+- \[name\]
+- `string`
+- The role name.
 
-`string`
+---
 
-The role name.
+- \[actions\]
+- `typedef.RolesActions`
+- A list of actions
 
-\[actions\]
-
-`typedef.RolesActions`
-
-A list of actions
+{% /table %}
 
 **Example**
 
@@ -285,17 +305,19 @@ accessControl.createRole("Reader",[ACTIONS.INSTANCE_READ_ACCESS]).then(result=>{
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-\[name\]
+- \[name\]
+- `string`
+- The role name.
 
-`string`
-
-The role name.
+{% /table %}
 
 **Example**
 
@@ -328,23 +350,25 @@ accessControl.getAllUsers().then(result=>{
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-name
+- name
+- `string`
+- the user name
 
-`string`
+---
 
-the user name
+- \[password\]
+- `string`
+- you need the password for basic authentication
 
-\[password\]
-
-`string`
-
-you need the password for basic authentication
+{% /table %}
 
 **Example**
 
@@ -362,17 +386,19 @@ accessControl.createUser("myuser", "my_password").then(result=>{
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-userId
+- userId
+- `string`
+- the document user id
 
-`string`
-
-the document user id
+{% /table %}
 
 **Example**
 
@@ -390,41 +416,43 @@ accessControl.deleteUser(userId).then(result=>{
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-userName
+- userName
+- `string`
+- the document user id
 
-`string`
+---
 
-the document user id
+- resourceName
+- `string`
+- the name of a (database or team)
 
-resourceName
+---
 
-`string`
+- rolesArr
+- `array`
+- the roles name list
 
-the name of a (database or team)
+---
 
-rolesArr
+- operation
+- `typedef.CapabilityCommand`
+- grant/revoke operation
 
-`array`
+---
 
-the roles name list
+- scopeType
+- `typedef.ScopeType`
+- the resource type (database or organization)
 
-operation
-
-`typedef.CapabilityCommand`
-
-grant/revoke operation
-
-scopeType
-
-`typedef.ScopeType`
-
-the resource type (database or organization)
+{% /table %}
 
 **Example**
 
@@ -457,17 +485,19 @@ client.manageCapability(myUser,myteam/db__001,[writer],"grant","database").then(
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-\[orgName\]
+- \[orgName\]
+- `string`
+- The organization name.
 
-`string`
-
-The organization name.
+{% /table %}
 
 **Example**
 
@@ -507,23 +537,25 @@ accessControl.getOrgUsers().then(result=>{
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-\[userName\]
+- \[userName\]
+- `string`
+- The user name.
 
-`string`
+---
 
-The organization name.
+- \[orgName\]
+- `string`
+- The organization name.
 
-\[orgName\]
-
-`string`
-
-The organization name.
+{% /table %}
 
 **Example**
 
@@ -561,17 +593,19 @@ accessControl.getTeamUserRole("myUser").then(result=>{
 
 **Returns**: `Promise` - A promise that returns the call status object, 200: if the organization exists and 404: if the organization does not exist
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-orgName
+- orgName
+- `string`
+- The organization name to check if exists.
 
-`string`
-
-The organization name to check if exists.
+{% /table %}
 
 ## createOrganizationRemote
 
@@ -581,17 +615,19 @@ The organization name to check if exists.
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-orgName
+- orgName
+- `string`
+- The organization name to create
 
-`string`
-
-The organization name to create
+{% /table %}
 
 **Example**
 
@@ -609,17 +645,19 @@ accessControl.createOrganization("my_org_name").then(result=>{
 
 **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Param
+{% table %}
 
-Type
+- Param
+- Type
+- Description
 
-Description
+---
 
-\[orgName\]
+- \[orgName\]
+- `string`
+- The organization name.
 
-`string`
-
-The organization name.
+{% /table %}
 
 **Example**
 
@@ -642,37 +680,41 @@ cb0988d992c4bce82b3fa5d25"
 
 ##### accessControl.sendOrgInvite(userEmail, role, \[note\], \[orgName\]) ⇒ `Promise`
 
-\-- TerminusX API --- Send a new invitation **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
+\-- TerminusX API --- Send a new invitation
 
-Param
+**Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Type
+{% table %}
 
-Description
+- Param
+- Type
+- Description
 
-userEmail
+---
 
-`string`
+- userEmail
+- `string`
+- The email of user.
 
-The email of user.
+---
 
-role
+- role
+- `string`
+- The role for user. (the document @id role like Role/collaborator)
 
-`string`
+---
 
-The role for user. (the document @id role like Role/collaborator)
+- \[note\]
+- `string`
+- The note to send with the invitation.
 
-\[note\]
+---
 
-`string`
+- \[orgName\]
+- `string`
+- The organization name.
 
-The note to send with the invitation.
-
-\[orgName\]
-
-`string`
-
-The organization name.
+{% /table %}
 
 **Example**
 
@@ -687,25 +729,29 @@ accessControl.sendOrgInvite("new_user@terminusdb.com","Role/admin",
 
 ##### accessControl.getOrgInvite(inviteId, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusX API --- Get the invitation info **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
+\-- TerminusX API --- Get the invitation info
 
-Param
+**Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Type
+{% table %}
 
-Description
+- Param
+- Type
+- Description
 
-inviteId
+---
 
-`string`
+- inviteId
+- `string`
+- The invite id to retrieve.
 
-The invite id to retrieve.
+---
 
-\[orgName\]
+- \[orgName\]
+- `string`
+- The organization name.
 
-`string`
-
-The organization name.
+{% /table %}
 
 **Example**
 
@@ -721,25 +767,29 @@ accessControl.getOrgInvite(fullInviteId).then(result=>{
 
 ##### accessControl.deleteOrgInvite(inviteId, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusX API --- Delete an invitation **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
+\-- TerminusX API --- Delete an invitation
 
-Param
+**Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Type
+{% table %}
 
-Description
+- Param
+- Type
+- Description
 
-inviteId
+---
 
-`string`
+- inviteId
+- `string`
+- The invite id to delete.
 
-The invite id to delete.
+---
 
-\[orgName\]
+- \[orgName\]
+- `string`
+- The organization name.
 
-`string`
-
-The organization name.
+{% /table %}
 
 **Example**
 
@@ -755,31 +805,35 @@ accessControl.deleteOrgInvite(fullInviteId).then(result=>{
 
 ##### accessControl.updateOrgInviteStatus(inviteId, accepted, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusX API --- Accept /Reject invitation. if the invitation has been accepted we add the current user to the organization. the only user that can accept this invitation is the user registered with the invitation email, we indentify the user with the jwt token **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
+\-- TerminusX API --- Accept/Reject invitation. If the invitation has been accepted we add the current user to the organization. The only user that can accept this invitation is the user registered with the invitation email. We identify the user with the jwt token.
 
-Param
+**Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Type
+{% table %}
 
-Description
+- Param
+- Type
+- Description
 
-inviteId
+---
 
-`string`
+- inviteId
+- `string`
+- The invite id to update.
 
-The invite id to updated.
+---
 
-accepted
+- accepted
+- `boolean`
+- The status of the invitation.
 
-`boolean`
+---
 
-The status of the invitation.
+- \[orgName\]
+- `string`
+- The organization name.
 
-\[orgName\]
-
-`string`
-
-The organization name.
+{% /table %}
 
 **Example**
 
@@ -795,19 +849,23 @@ accessControl.updateOrgInviteStatus(fullInviteId,true).then(result=>{
 
 ##### accessControl.getTeamUserRole(\[orgName\]) ⇒ `Promise`
 
-\-- TerminusX API --- Get the user role for a given organization or the default organization The user is identified by the jwt or the access token **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
+\-- TerminusX API --- Get the user role for a given organization or the default organization. The user is identified by the jwt or the access token.
 
-Param
+**Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Type
+{% table %}
 
-Description
+- Param
+- Type
+- Description
 
-\[orgName\]
+---
 
-`string`
+- \[orgName\]
+- `string`
+- The organization name.
 
-The organization name.
+{% /table %}
 
 **Example**
 
@@ -823,25 +881,29 @@ accessControl.getTeamUserRole().then(result=>{
 
 ##### accessControl.removeUserFromOrg(userId, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusX API -- Remove an user from an organization, only an admin user can remove an user from an organization **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
+\-- TerminusX API -- Remove a user from an organization. Only an admin user can remove a user from an organization.
 
-Param
+**Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Type
+{% table %}
 
-Description
+- Param
+- Type
+- Description
 
-userId
+---
 
-`string`
+- userId
+- `string`
+- The id of the user to be removed. (this is the document user's @id)
 
-The id of the user to be removed. (this is the document user's @id)
+---
 
-\[orgName\]
+- \[orgName\]
+- `string`
+- The organization name in which the user is to be removed.
 
-`string`
-
-The organization name in which the user is to be removed.
+{% /table %}
 
 **Example**
 
@@ -855,25 +917,29 @@ accessControl.removeUserFromOrg("User/auth0%7C613f5dnndjdjkTTT","my_org_name").t
 
 ##### accessControl.getDatabaseRolesOfUser(userId, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusX API -- Get the user's role for every databases under the organization **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
+\-- TerminusX API -- Get the user's role for every database under the organization.
 
-Param
+**Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Type
+{% table %}
 
-Description
+- Param
+- Type
+- Description
 
-userId
+---
 
-`string`
+- userId
+- `string`
+- The user's id.
 
-The user's id.
+---
 
-\[orgName\]
+- \[orgName\]
+- `string`
+- The organization name.
 
-`string`
-
-The organization name.
+{% /table %}
 
 **Example**
 
@@ -901,37 +967,41 @@ same of the team
 
 ##### accessControl.createUserRole(userId, scope, role, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusX API -- Create a user's a role for a resource (organization/database) **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
+\-- TerminusX API -- Create a user's role for a resource (organization/database).
 
-Param
+**Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Type
+{% table %}
 
-Description
+- Param
+- Type
+- Description
 
-userId
+---
 
-`string`
+- userId
+- `string`
+- The user's id.
 
-The user's id.
+---
 
-scope
+- scope
+- `string`
+- The resource name/id.
 
-`string`
+---
 
-The resource name/id.
+- role
+- `string`
+- The user role to be assigned.
 
-role
+---
 
-`string`
+- \[orgName\]
+- `string`
+- The organization name.
 
-The user role to be assigned.
-
-\[orgName\]
-
-`string`
-
-The organization name.
+{% /table %}
 
 **Example**
 
@@ -947,43 +1017,47 @@ accessControl.assignUserRole('User/auth0%7C61790e11a3966d006906596a',dbId,
 
 ##### accessControl.updateUserRole(userId, capabilityId, scope, role, \[orgName\]) ⇒ `Promise`
 
-\-- TerminusX API -- Update user's a role for a resource (organization/database), (this api works only in terminusX) **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
+\-- TerminusX API -- Update user's role for a resource (organization/database). This API works only in TerminusX.
 
-Param
+**Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Type
+{% table %}
 
-Description
+- Param
+- Type
+- Description
 
-userId
+---
 
-`string`
+- userId
+- `string`
+- The user's id.
 
-The user's id.
+---
 
-capabilityId
+- capabilityId
+- `string`
+- The capability id.
 
-`string`
+---
 
-The capability id.
+- scope
+- `string`
+- The resource name/id.
 
-scope
+---
 
-`string`
+- role
+- `string`
+- The user role to be updated.
 
-The resource name/id.
+---
 
-role
+- \[orgName\]
+- `string`
+- The organization name.
 
-`string`
-
-The user role to be updated.
-
-\[orgName\]
-
-`string`
-
-The organization name.
+{% /table %}
 
 **Example**
 
@@ -1000,19 +1074,23 @@ accessControl.updateUserRole('User/auth0%7C61790e11a3966d006906596a',capId,dbId,
 
 ##### accessControl.accessRequestsList(\[orgName\]) ⇒ `Promise`
 
-\-- TerminusX API -- Get all the access request list for a specify organization **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
+\-- TerminusX API -- Get all the access request list for a specified organization.
 
-Param
+**Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Type
+{% table %}
 
-Description
+- Param
+- Type
+- Description
 
-\[orgName\]
+---
 
-`string`
+- \[orgName\]
+- `string`
+- The organization name.
 
-The organization name.
+{% /table %}
 
 **Example**
 
@@ -1026,37 +1104,41 @@ accessControl.accessRequestsList().then(result=>{
 
 ##### accessControl.sendAccessRequest(\[email\], \[affiliation\], \[note\], \[orgName\]) ⇒ `Promise`
 
-\-- TerminusX API -- Get all the access request list for a specify organization **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
+\-- TerminusX API -- Send an access request to join an organization.
 
-Param
+**Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Type
+{% table %}
 
-Description
+- Param
+- Type
+- Description
 
-\[email\]
+---
 
-`string`
+- \[email\]
+- `string`
+- The user email.
 
-the user email.
+---
 
-\[affiliation\]
+- \[affiliation\]
+- `string`
+- The user affiliation, company, university etc.
 
-`string`
+---
 
-the user affiliation, company, university etc..
+- \[note\]
+- `string`
+- The message for the team admin.
 
-\[note\]
+---
 
-`string`
+- \[orgName\]
+- `string`
+- The organization name.
 
-the message for the team admin
-
-\[orgName\]
-
-`string`
-
-The organization name.
+{% /table %}
 
 **Example**
 
@@ -1073,19 +1155,23 @@ accessControl.sendAccessRequest("myemail@terminusdb.com",
 
 ##### accessControl.deleteAccessRequest(\[orgName\]) ⇒ `Promise`
 
-\-- TerminusX API -- Delete an access request to join your team, only an admin user can delete it **Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
+\-- TerminusX API -- Delete an access request to join your team. Only an admin user can delete it.
 
-Param
+**Returns**: `Promise` - A promise that returns the call response object, or an Error if rejected.
 
-Type
+{% table %}
 
-Description
+- Param
+- Type
+- Description
 
-\[orgName\]
+---
 
-`string`
+- \[orgName\]
+- `string`
+- The organization name.
 
-The organization name.
+{% /table %}
 
 **Example**
 
