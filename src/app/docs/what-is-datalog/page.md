@@ -1,17 +1,16 @@
 ---
-title: Datalog Explanation
+title: What is Datalog?
 nextjs:
   metadata:
-    title: Datalog Explanation
-    description: A brief explanation of Datalog and its benefits in database queries.
+    title: What is Datalog?
+    description: A brief explanation of what Datalog is, its benefits in database queries, and how it's used in TerminusDB for graph querying.
+    keywords: what is datalog, unification, prolog, variables
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/datalog-explanation/
+      canonical: https://terminusdb.org/docs/what-is-datalog/
 media: []
 ---
-
-## What is Datalog?
 
 Datalog, a declarative subset of Prolog, is a flexible and powerful declarative query language proficient at dealing with the complex and multi-hop relationships that occur in graphs. Graph query languages not based on Datalog lack the level of clarity, simplicity, and logical framework that Datalog provides.
 
@@ -25,7 +24,9 @@ Variables in Datalog are restricted to finite **atomic** values. The use of atom
 
 #### Datalog compared with SQL
 
-Compared with relational databases, Datalog provides a more flexible logical framework that is easier to extend consistently with recursive and path-centric operations. Datalog also enables complex joins to be expressed more elegantly with a less verbose syntax. Datalog represents a stepping-stone from relational languages such as SQL to more fully-featured programming languages while retaining the declarative, robust, pervasive, and resilient properties of query languages.
+Compared with relational databases, Datalog provides a more flexible logical framework that is easier to extend consistently with recursive and path-centric operations. Datalog also enables complex joins to be expressed more elegantly with a less verbose syntax.
+
+Datalog represents a stepping-stone from relational languages such as SQL to more fully-featured programming languages while retaining the declarative, robust, pervasive, and resilient properties of query languages.
 
 ### Unification and query
 
@@ -34,6 +35,8 @@ Unification in Datalog is the process of finding values of logical variables whi
 A logical variable for a query can only take on one value in a given solution. If the variable is used in two places then these two values must be the same. We can get the concrete value of solutions for a logical value either from an equation or from the definition of a predicate.
 
 When we search using datalog in WOQL, we implicitly ask for _all_ solutions (this can be restricted by using additional words such as `limit(n,Q)`). This gives us back something that looks quite similar to a table, but it is a list of solutions with bindings for all logical variables that took on a value during the course of searching for the solutions to the query.
+
+Read more about [unification in Datalog](/docs/unification-of-variables-in-datalog/).
 
 #### An Example
 
@@ -60,6 +63,15 @@ triple("v:Intermediate", "v:Predicate", "v:Object")
 ```
 
 And here we refer to a specific starting node and search for every two-hop path starting from _this_ object.
+
+And in a 3rd query, we can join the two path hops through all edges via the predicate called "link":
+```
+triple("My_Object", "v:Predicate", "v:Intermediate")
+triple("v:Intermediate", "v:Predicate", "v:Object")
+path("v:Object", "(link>)+", "v:Linked")
+```
+
+Here we will match all linked nodes that has the first two hops, then any number of links out via a "link" predicate, via any number of paths between nodes in the graph. This is very powerful for network analyis often performed in languages like Prolog.
 
 ## Further Reading
 

@@ -1,24 +1,24 @@
 ---
-title: Unification of Variables in Datalog
+title: What is unification?
 nextjs:
   metadata:
-    title: Unification of Variables in Datalog
+    title: What is unification?
     description: Understand unification of variables, a unique and powerful datalog concept included in TerminusDB
     keywords: unification, prolog, datalog, variable, concept
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/unification-of-variables-in-datalog/
+      canonical: https://terminusdb.org/docs/what-is-unification/
 media: []
 ---
 
 TerminusDB has a relatively unique and very powerful feature of the datalog engine that is familiar to those that have used Prolog or certain dialects of datalog. 
 
-Unification is the cornerstone of query evaluation in TerminusDB’s WOQL (Web Object Query Language). It represents the process of finding values of logical variables which are consistent for a given logical sentence or query. 
+Unification is the cornerstone of query evaluation in TerminusDB’s WOQL (Web Object Query Language). It represents the process of finding values of logical variables which are consistent for a given logical sentence or query. It leverages progressive binding of variables with constraints such that two variables unify to the same set of values.
 
 ## Core Principles of Variable Binding
 
-Variables are defined in WOQL by prefixing them with the letter `v:`, or by using the built in variables generation functions in the clients. They are initially not bound, floating, and will take any value.
+Variables are defined in client language WOQL by prefixing them with the letter `v:`, or by using the built in variables generation functions in the clients. They are initially not bound, floating, and will take any value.
 
 In WOQL, they can be bound to constants, or other variables using the `eq()` predicate, or they can get values by letting the WOQL engine match them with knowledge graph data, constrained by the logic of the query.
 

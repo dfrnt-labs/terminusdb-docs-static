@@ -3,7 +3,18 @@
   "globalHeaders": {
     "X-Frame-Options": "deny"
   },
-  "routes": [],
+  "routes": [
+    {
+      "route": "/docs/unification-of-variables-in-datalog",
+      "redirect": "/docs/what-is-unification/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/datalog-explanation",
+      "redirect": "/docs/what-is-datalog/",
+      "statusCode": 301
+    }
+  ],
   "responseOverrides": {
     "404": {
       "rewrite": "/404"

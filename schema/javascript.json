@@ -3906,13 +3906,13 @@
                   "@type": "Parameter",
                   "name": "gvarlist",
                   "type": "array|string|Var",
-                  "summary": "Either a single variable or an array of variables"
+                  "summary": "Either a single variable name, an array of variable names, or a variable with names of variables"
                 },
                 {
                   "@type": "Parameter",
                   "name": "groupedvar",
                   "type": "array|string|Var",
-                  "summary": "Either a single variable or an array of variables"
+                  "summary": "Either a single variable name, an array of variable names, or a variable with names of variables"
                 },
                 {
                   "@type": "Parameter",
@@ -6290,13 +6290,13 @@
                   "@type": "Parameter",
                   "name": "varList",
                   "type": "array|string|Var",
-                  "summary": "Either a single variable or an array of variables"
+                  "summary": "Either a single variable name, an array of variable names, or a variable with names of variables"
                 },
                 {
                   "@type": "Parameter",
                   "name": "patternVars",
                   "type": "array|string|Var",
-                  "summary": "Either a single variable or an array of variables"
+                  "summary": "Either a single variable name, an array of variable names, or a variable with names of variables"
                 },
                 {
                   "@type": "Parameter",
