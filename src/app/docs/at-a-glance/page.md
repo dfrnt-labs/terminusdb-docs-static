@@ -78,4 +78,4 @@ TerminusDB is an open source platform maintained by [DFRNT®](https://dfrnt.com?
 
 ### Complete User Interface
 
-The [DFRNT Studio for TerminusDB](https://dfrnt.com/solutions-studio-demo) offers a commercially packaged solution, with hosting API tokens and collaborative environments, modelling environment and document UI that help you go from idea to prototype and production in a few hours or a few days.
+The [DFRNT Studio for TerminusDB](https://dfrnt.com/hypergraph-content-studio/) offers a commercially packaged solution, with hosting API tokens and collaborative environments, modelling environment and document UI that help you go from idea to prototype and production in a few hours or a few days.
