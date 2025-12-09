@@ -1,116 +1,10 @@
-'use client'
-
 import Link from 'next/link'
-import { extractDateFromSlug, formatBlogDate } from '@/lib/blog'
+import { getAllBlogPosts, formatBlogDate } from '@/lib/blog'
 import { RecentBlogPosts } from '@/components/RecentBlogPosts'
 
-interface BlogPost {
-  title: string
-  href: string
-  slug: string
-  date: string
-  description?: string
-}
-
-// Blog posts defined here - single source of truth for blog listing
-const blogPosts: Omit<BlogPost, 'date'>[] = [
-  {
-    title: 'TerminusDB 12: Precision, JSON Freedom, and a New Chapter',
-    href: '/blog/2025-12-08-terminusdb-12-release',
-    slug: '2025-12-08-terminusdb-12-release',
-    description: 'High-precision decimals, unstructured JSON with git-for-data versioning, and significant WOQL language improvements.',
-  },
-  {
-    title: 'Layer History and Branch Management: The Hidden Performance Cost',
-    href: '/blog/2024-11-24-layer-history-and-branch-management',
-    slug: '2024-11-24-layer-history-and-branch-management',
-    description: 'Understanding how commit history accumulates and strategies for maintaining peak performance.',
-  },
-  {
-    title: 'Layer Pinning and Caching: Keeping Your Data Hot',
-    href: '/blog/2024-11-23-layer-pinning-and-caching',
-    slug: '2024-11-23-layer-pinning-and-caching',
-    description: 'Understanding TerminusDB\'s layer pinning mechanism and LRU cache system for optimizing performance.',
-  },
-  {
-    title: 'We wrote a vector database in a week',
-    href: '/blog/2023-05-19-writing-a-vector-database-in-rust',
-    slug: '2023-05-19-writing-a-vector-database-in-rust',
-    description: 'Building VectorLink, a vector database extension for TerminusDB in Rust.',
-  },
-  {
-    title: 'Schema Migration',
-    href: '/blog/2023-04-24-schema-migration',
-    slug: '2023-04-24-schema-migration',
-    description: 'How to evolve your database schema safely with TerminusDB\'s migration tools.',
-  },
-  {
-    title: 'The Issue of Blank Nodes in RDF',
-    href: '/blog/2022-06-24-blank-nodes-in-rdf',
-    slug: '2022-06-24-blank-nodes-in-rdf',
-    description: 'Exploring the problems with blank nodes and how TerminusDB addresses them.',
-  },
-  {
-    title: 'TerminusDB v10.1.0: The Mule',
-    href: '/blog/2022-06-14-terminusdb-10.1.0-the-mule',
-    slug: '2022-06-14-terminusdb-10.1.0-the-mule',
-    description: 'Diff, Capture IDs, Type Inference, and Unconstrained JSON support.',
-  },
-  {
-    title: 'Mergeable Records',
-    href: '/blog/2022-03-04-mergeable-records',
-    slug: '2022-03-04-mergeable-records',
-    description: 'How TerminusDB handles merging of document records in collaborative scenarios.',
-  },
-  {
-    title: 'What\'s in a Name: URI Generation',
-    href: '/blog/2022-02-28-whats-in-a-name',
-    slug: '2022-02-28-whats-in-a-name',
-    description: 'Understanding URI generation strategies in TerminusDB.',
-  },
-  {
-    title: 'Why TerminusX',
-    href: '/blog/2022-02-14-why-terminusx',
-    slug: '2022-02-14-why-terminusx',
-    description: 'The vision behind TerminusX and what it means for data collaboration.',
-  },
-  {
-    title: 'Syntactic Versioning',
-    href: '/blog/2022-02-14-syntactic-versioning',
-    slug: '2022-02-14-syntactic-versioning',
-    description: 'A new approach to versioning that focuses on structural changes.',
-  },
-  {
-    title: 'What if MongoDB and Neo4j had a baby',
-    href: '/blog/2022-02-14-mongo-neo4j-terminusx',
-    slug: '2022-02-14-mongo-neo4j-terminusx',
-    description: 'Combining the best of document and graph databases.',
-  },
-  {
-    title: 'Many Worlds: a philosophy of data collaboration',
-    href: '/blog/2022-02-14-many-worlds',
-    slug: '2022-02-14-many-worlds',
-    description: 'Exploring the philosophy behind git-for-data and branching.',
-  },
-  {
-    title: 'What\'s the Difference: JSON diff and patch',
-    href: '/blog/2022-02-14-json-diff-and-patch',
-    slug: '2022-02-14-json-diff-and-patch',
-    description: 'Understanding JSON diff and patch operations in TerminusDB.',
-  },
-]
-
-function getBlogPosts(): BlogPost[] {
-  return blogPosts
-    .map((post) => ({
-      ...post,
-      date: extractDateFromSlug(post.slug),
-    }))
-    .sort((a, b) => b.date.localeCompare(a.date))
-}
-
-export default function BlogIndex() {
-  const posts = getBlogPosts()
+export default async function BlogIndex() {
+  // Automatically read blog posts from markdown files in /blog directory
+  const posts = await getAllBlogPosts()
 
   return (
     <div className="flex gap-16 pt-16 px-4 lg:px-16">
@@ -210,7 +104,7 @@ export default function BlogIndex() {
       {/* Sidebar with Recent Posts */}
       <div className="hidden xl:block xl:w-56 xl:flex-none">
         <div className="sticky top-[4.75rem]">
-          <RecentBlogPosts />
+          <RecentBlogPosts posts={posts.slice(0, 5).map(p => ({ title: p.title, href: p.href, date: p.date }))} />
         </div>
       </div>
     </div>

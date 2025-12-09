@@ -4,37 +4,29 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
-// Blog posts data - single source of truth
-const recentBlogPosts = [
-  {
-    title: 'TerminusDB 12: Precision, JSON Freedom, and a New Chapter',
-    href: '/blog/2025-12-08-terminusdb-12-release',
-    date: '2025-12-08',
-  },
-  {
-    title: 'Layer History and Branch Management',
-    href: '/blog/2024-11-24-layer-history-and-branch-management',
-    date: '2024-11-24',
-  },
-  {
-    title: 'Layer Pinning and Caching',
-    href: '/blog/2024-11-23-layer-pinning-and-caching',
-    date: '2024-11-23',
-  },
-  {
-    title: 'We wrote a vector database in a week',
-    href: '/blog/2023-05-19-writing-a-vector-database-in-rust',
-    date: '2023-05-19',
-  },
-  {
-    title: 'Schema Migration',
-    href: '/blog/2023-04-24-schema-migration',
-    date: '2023-04-24',
-  },
+export interface RecentPost {
+  title: string
+  href: string
+  date: string
+}
+
+interface RecentBlogPostsProps {
+  className?: string
+  posts?: RecentPost[]
+}
+
+// Default posts used when not provided (will be overridden by server-fetched data)
+const defaultPosts: RecentPost[] = [
+  { title: 'TerminusDB 12: Precision, JSON Freedom, and a New Chapter', href: '/blog/2025-12-08-terminusdb-12-release', date: '2025-12-08' },
+  { title: 'We wrote a vector database in a week', href: '/blog/2023-05-19-writing-a-vector-database-in-rust', date: '2023-05-19' },
+  { title: 'Schema Migration', href: '/blog/2023-04-24-schema-migration', date: '2023-04-24' },
+  { title: 'The Issue of Blank Nodes in RDF', href: '/blog/2022-06-24-blank-nodes-in-rdf', date: '2022-06-24' },
+  { title: 'TerminusDB v10.1.0: The Mule', href: '/blog/2022-06-14-terminusdb-10.1.0-the-mule', date: '2022-06-14' },
 ]
 
-export function RecentBlogPosts({ className }: { className?: string }) {
+export function RecentBlogPosts({ className, posts }: RecentBlogPostsProps) {
   const pathname = usePathname()
+  const recentBlogPosts = posts || defaultPosts
   
   return (
     <div className={clsx('', className)}>

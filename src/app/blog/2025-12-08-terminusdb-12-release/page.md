@@ -12,7 +12,7 @@ nextjs:
 media: []
 ---
 
-> Author: DFRNT Team, 2025-12-08
+> Author: Philippe Höij, DFRNT, 2025-12-08
 
 The release of TerminusDB 12 marks both a technical milestone and an organizational shift. [DFRNT](https://dfrnt.com?utm_source=terminusdb) assumed maintainership of TerminusDB during 2025, and this major release reflects our commitment to precision, reliability, and developer experience. The on-disk storage format remains unchanged since version 11, ensuring a smooth upgrade path, but the improvements to interfaces, numerical handling, and query capabilities are substantial.
 

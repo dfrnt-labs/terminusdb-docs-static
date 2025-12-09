@@ -210,3 +210,16 @@ export function formatBlogDate(dateStr: string): string {
     day: 'numeric',
   })
 }
+
+/**
+ * Get recent blog posts for sidebar display (top 5, newest first)
+ * This returns a simplified structure suitable for client components
+ */
+export async function getRecentBlogPosts(count: number = 5): Promise<Array<{ title: string; href: string; date: string }>> {
+  const allPosts = await getAllBlogPosts()
+  return allPosts.slice(0, count).map(post => ({
+    title: post.title,
+    href: post.href,
+    date: post.date,
+  }))
+}
