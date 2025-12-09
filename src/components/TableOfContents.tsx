@@ -5,6 +5,7 @@ import Link from 'next/link'
 import clsx from 'clsx'
 
 import { type Section, type Subsection } from '@/lib/sections'
+import { handleAnchorClick, SCROLL_OFFSET } from '@/utils/scroll'
 
 export function TableOfContents({
   tableOfContents,
@@ -20,10 +21,8 @@ export function TableOfContents({
         let el = document.getElementById(id)
         if (!el) return null
 
-        let style = window.getComputedStyle(el)
-        let scrollMt = parseFloat(style.scrollMarginTop)
-
-        let top = window.scrollY + el.getBoundingClientRect().top - scrollMt
+        // Use centralized SCROLL_OFFSET instead of reading CSS scroll-margin-top
+        let top = window.scrollY + el.getBoundingClientRect().top - SCROLL_OFFSET
         return { id, top }
       })
       .filter((x): x is { id: string; top: number } => x !== null)
@@ -78,6 +77,7 @@ export function TableOfContents({
                   <h3>
                     <Link
                       href={`#${section.id}`}
+                      onClick={handleAnchorClick}
                       className={clsx(
                         isActive(section)
                           ? 'text-sky-500'
@@ -94,8 +94,9 @@ export function TableOfContents({
                     >
                       {section.children.map((subSection) => (
                         <li key={subSection.id}>
-                          <Link
+                          <a
                             href={`#${subSection.id}`}
+                            onClick={handleAnchorClick}
                             className={
                               isActive(subSection)
                                 ? 'text-sky-500'
@@ -103,7 +104,7 @@ export function TableOfContents({
                             }
                           >
                             {subSection.title}
-                          </Link>
+                          </a>
                         </li>
                       ))}
                     </ol>

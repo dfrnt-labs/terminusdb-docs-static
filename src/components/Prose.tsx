@@ -14,8 +14,8 @@ export function Prose<T extends React.ElementType = 'div'>({
       className={clsx(
         className,
         'prose max-w-none prose-slate dark:text-slate-400 dark:prose-invert',
-        // headings
-        'prose-headings:scroll-mt-28 prose-headings:font-display prose-headings:font-normal lg:prose-headings:scroll-mt-[8.5rem]',
+        // headings - scroll-mt matches SCROLL_OFFSET in utils/scroll.ts (120px = 30 * 4px)
+        'prose-headings:scroll-mt-[120px] prose-headings:font-display prose-headings:font-normal',
         // lead
         'prose-lead:text-slate-500 dark:prose-lead:text-slate-400',
         // links

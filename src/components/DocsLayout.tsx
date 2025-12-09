@@ -2,6 +2,7 @@
 
 import { type Node } from '@markdoc/markdoc'
 import { usePathname } from 'next/navigation'
+import { useEffect } from 'react'
 
 import { DocsHeader } from '@/components/DocsHeader'
 import { PrevNextLinks } from '@/components/PrevNextLinks'
@@ -9,6 +10,7 @@ import { Prose } from '@/components/Prose'
 import { TableOfContents } from '@/components/TableOfContents'
 import { RecentBlogPosts } from '@/components/RecentBlogPosts'
 import { collectSections } from '@/lib/sections'
+import { scrollToHashOnLoad, handleAnchorClick } from '@/utils/scroll'
 
 export function DocsLayout({
   children,
@@ -24,6 +26,22 @@ export function DocsLayout({
   const isHomePage = pathname === '/' || pathname === ''
   const showRecentPosts = isBlogPage || isHomePage
   let tableOfContents = collectSections(nodes)
+
+  // Handle hash scroll on page load and navigation
+  useEffect(() => {
+    scrollToHashOnLoad()
+    
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1)
+      if (hash) {
+        const { scrollToAnchor } = require('@/utils/scroll')
+        scrollToAnchor(hash, { updateUrl: false })
+      }
+    }
+    
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [pathname])
 
   return (
     <>
@@ -66,6 +84,7 @@ function TableOfContentsInner({ tableOfContents }: { tableOfContents: Array<{ id
           <h3>
             <a
               href={`#${section.id}`}
+              onClick={handleAnchorClick}
               className="font-normal text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
             >
               {section.title}
@@ -80,6 +99,7 @@ function TableOfContentsInner({ tableOfContents }: { tableOfContents: Array<{ id
                 <li key={subSection.id}>
                   <a
                     href={`#${subSection.id}`}
+                    onClick={handleAnchorClick}
                     className="hover:text-slate-600 dark:hover:text-slate-300"
                   >
                     {subSection.title}

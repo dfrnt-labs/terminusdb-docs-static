@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { Fence } from './Fence'
+import { handleAnchorClick } from '@/utils/scroll'
 
 // Declare pagesense for TypeScript
 declare global {
@@ -93,35 +94,7 @@ export function CodeBlock({
   )
 }
 
-// Type links to documentation
-const typeDocLinks: Record<string, string> = {
-  // JavaScript built-in types
-  'string': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String',
-  'number': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number',
-  'boolean': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean',
-  'object': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object',
-  'array': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array',
-  'promise': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise',
-  'function': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function',
-  // Python built-in types
-  'str': 'https://docs.python.org/3/library/stdtypes.html#str',
-  'int': 'https://docs.python.org/3/library/functions.html#int',
-  'float': 'https://docs.python.org/3/library/functions.html#float',
-  'bool': 'https://docs.python.org/3/library/functions.html#bool',
-  'dict': 'https://docs.python.org/3/library/stdtypes.html#dict',
-  'list': 'https://docs.python.org/3/library/stdtypes.html#list',
-  'none': 'https://docs.python.org/3/library/constants.html#None',
-  // TerminusDB specific types - link to internal docs
-  'woqlquery': '#woqlquery',
-  'woqlclient': '#woqlclient',
-  'graphref': '/docs/database-path-identifiers/',
-  'docparamsget': '/docs/javascript/#typedef-docparamsget',
-  'docparamspost': '/docs/javascript/#typedef-docparamspost',
-  'docparamsput': '/docs/javascript/#typedef-docparamsput',
-  'docparamsdelete': '/docs/javascript/#typedef-docparamsdelete',
-}
-
-// Type badge component with modern styling and links
+// Type badge component with modern styling
 export function TypeBadge({ type }: { type: string }) {
   const getTypeColor = (t: string) => {
     const lower = t.toLowerCase()
@@ -136,35 +109,11 @@ export function TypeBadge({ type }: { type: string }) {
     return 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
   }
 
-  // Find link for this type
-  const getTypeLink = (t: string): string | null => {
-    const lower = t.toLowerCase().replace(/[^a-z]/g, '')
-    return typeDocLinks[lower] || null
-  }
-
-  const link = getTypeLink(type)
-  const badge = (
-    <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium font-mono ${getTypeColor(type)} ${link ? 'cursor-pointer hover:ring-2 hover:ring-offset-1 hover:ring-sky-400' : ''}`}>
+  return (
+    <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium font-mono ${getTypeColor(type)}`}>
       {type}
     </span>
   )
-
-  if (link) {
-    const isExternal = link.startsWith('http')
-    return (
-      <a 
-        href={link} 
-        target={isExternal ? '_blank' : undefined}
-        rel={isExternal ? 'noopener noreferrer' : undefined}
-        className="no-underline"
-        title={`View ${type} documentation`}
-      >
-        {badge}
-      </a>
-    )
-  }
-
-  return badge
 }
 
 // Parameter list as compact table
@@ -288,10 +237,11 @@ export function MethodCard({
   const id = `${classPrefix}${methodId}`
   
   return (
-    <div id={id} data-method={name} className="scroll-mt-48 relative border-b border-slate-200 dark:border-slate-700 pb-5 mb-5 last:border-b-0">
+    <div id={id} data-method={name} className="relative border-b border-slate-200 dark:border-slate-700 pb-5 mb-5 last:border-b-0">
       {/* Link button - far left gutter on lg+ */}
       <a 
-        href={`#${id}`} 
+        href={`#${id}`}
+        onClick={handleAnchorClick}
         className="absolute lg:-left-12 mt-6 hidden lg:flex items-center justify-center w-8 h-8 rounded-full bg-sky-600 hover:bg-sky-500 text-white shadow-sm transition-colors"
         title="Link to this method"
       >
@@ -304,7 +254,8 @@ export function MethodCard({
       <div className="flex items-center gap-2 mb-1">
         {/* Link button for mobile - inline */}
         <a 
-          href={`#${id}`} 
+          href={`#${id}`}
+          onClick={handleAnchorClick}
           className="lg:hidden flex items-center justify-center w-6 h-6 rounded-full bg-sky-600 hover:bg-sky-500 text-white transition-colors shrink-0"
           title="Link to this method"
         >
@@ -352,7 +303,7 @@ export function ClassSection({
   const id = name.toLowerCase().replace(/[^a-z0-9]/g, '')
   
   return (
-    <section id={id} className="scroll-mt-24 mb-10">
+    <section id={id} className="mb-10">
       <div className="sticky top-16 z-10 -mx-4 px-4 py-3 bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-800 dark:to-slate-900 backdrop-blur-sm border-l-4 border-l-sky-500 border-b border-slate-200 dark:border-slate-700 mb-6 shadow-sm">
         <h3 className="text-lg font-bold text-slate-900 dark:text-white m-0">
           {name}
@@ -378,6 +329,7 @@ export function ClassQuickNav({ classes }: { classes: { name: string; summary?: 
           <a
             key={cls.name}
             href={`#${cls.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
+            onClick={handleAnchorClick}
             className="group flex items-center gap-3 p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-sky-400 dark:hover:border-sky-500 hover:shadow-sm transition-all no-underline"
           >
             <div className="w-8 h-8 rounded-md bg-sky-100 dark:bg-sky-900/40 flex items-center justify-center text-sky-600 dark:text-sky-400 group-hover:bg-sky-200 dark:group-hover:bg-sky-800/60 transition-colors shrink-0">
@@ -535,6 +487,7 @@ export function ApiTableOfContents({
               <a
                 key={`section-${cls.name}`}
                 href={`#${classId}`}
+                onClick={handleAnchorClick}
                 className={`block py-1 px-2 rounded transition-colors ${
                   isActive
                     ? 'bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300 font-medium'
@@ -570,6 +523,7 @@ export function ApiTableOfContents({
                   <a
                     key={method.name}
                     href={`#${fullMethodId}`}
+                    onClick={handleAnchorClick}
                     className={`block py-0.5 px-1.5 rounded text-xs truncate transition-colors ${
                       isActiveMethod
                         ? 'bg-sky-50 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400 font-medium'
