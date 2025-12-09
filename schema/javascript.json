@@ -1,7 +1,7 @@
 {
   "@type": "Application",
   "language": "Javascript",
-  "version": "10.0.33",
+  "version": "12.0.0",
   "license": "Apache-2.0",
   "name": "@terminusdb/terminusdb-client",
   "summary": "TerminusDB client library",
@@ -1039,17 +1039,20 @@
                 {
                   "@type": "Parameter",
                   "name": "s",
-                  "type": "any"
+                  "type": "any",
+                  "summary": "the value of the literal"
                 },
                 {
                   "@type": "Parameter",
                   "name": "t",
-                  "type": "string"
+                  "type": "string",
+                  "summary": "the type of the literal, e.g. 'xsd:string', 'xsd:boolean'"
                 }
               ],
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "- a WOQL DataValue object with the given type and value",
                 "type": "object"
               }
             },
@@ -3048,6 +3051,32 @@
             },
             {
               "@type": "Definition",
+              "name": "evaluate",
+              "summary": "Evaluates the passed arithmetic expression and generates or matches the result value.\nAlias for eval() to support both naming conventions in fluent/chained style.",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "arithExp",
+                  "type": "object|WOQLQuery|string",
+                  "summary": "A WOQL query containing a valid arithmetic expression"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "resultVarName",
+                  "type": "string|number|Var",
+                  "summary": "Either a variable to store the result, or a numeric\nliteral to test against the evaluated expression"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
               "name": "plus",
               "summary": "Adds the numbers together",
               "examples": [],
@@ -3396,6 +3425,33 @@
                 "@type": "Returns",
                 "name": "",
                 "type": "void"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "idgen_random",
+              "summary": "Generates a random ID with a specified prefix\nUses cryptographically secure random base64 encoding to generate unique identifiers",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "prefix",
+                  "type": "string",
+                  "summary": "prefix for the generated ID"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "outputVar",
+                  "type": "string",
+                  "summary": "variable that stores the generated ID"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery which contains the random ID generation pattern\nidgen_random(\"Person/\", \"v:person_id\")",
+                "type": "WOQLQuery"
               }
             },
             {
@@ -3754,6 +3810,45 @@
             },
             {
               "@type": "Definition",
+              "name": "slice",
+              "summary": "Extracts a contiguous subsequence from a list, following JavaScript's slice() semantics",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "inputList",
+                  "type": "string|array|Var",
+                  "summary": "Either a variable representing a list or a list of\nvariables or literals"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "resultVarName",
+                  "type": "string|Var",
+                  "summary": "A variable in which the sliced list is stored"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "start",
+                  "type": "number|string|Var",
+                  "summary": "The start index (0-based, supports negative indices)"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "end",
+                  "type": "number|string|Var",
+                  "summary": "The end index (exclusive, optional - defaults to list length)"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery which contains the Slice pattern matching expression\nlet [result] = vars(\"result\")\nslice([\"a\", \"b\", \"c\", \"d\"], result, 1, 3)  // result = [\"b\", \"c\"]\nslice([\"a\", \"b\", \"c\", \"d\"], result, -2)    // result = [\"c\", \"d\"]",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
               "name": "not",
               "summary": "Logical negation of the contained subquery - if the subquery matches, the query\nwill fail to match",
               "examples": [],
@@ -3906,13 +4001,13 @@
                   "@type": "Parameter",
                   "name": "gvarlist",
                   "type": "array|string|Var",
-                  "summary": "Either a single variable name, an array of variable names, or a variable with names of variables"
+                  "summary": "Either a single variable or an array of variables"
                 },
                 {
                   "@type": "Parameter",
                   "name": "groupedvar",
                   "type": "array|string|Var",
-                  "summary": "Either a single variable name, an array of variable names, or a variable with names of variables"
+                  "summary": "Either a single variable or an array of variables"
                 },
                 {
                   "@type": "Parameter",
@@ -4934,8 +5029,10 @@
             {
               "@type": "Definition",
               "name": "substr",
-              "summary": "Substring",
-              "examples": [],
+              "summary": "Substring of string",
+              "examples": [
+                "let [after, result] = vars(\"after\", \"result\")\nsubstr(\"joe\", 1, 2, after, result)\n//result is \"oe\", after is 2"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -5750,6 +5847,62 @@
             },
             {
               "@type": "Definition",
+              "name": "idgen_random",
+              "summary": "Generates a random ID with a specified prefix",
+              "examples": [
+                "let [newid] = vars(\"newid\")\nidgen_random(\"Person/\", newid)"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "prefix",
+                  "type": "string",
+                  "summary": "prefix for the generated ID"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "resultVarName",
+                  "type": "string",
+                  "summary": "variable that stores the generated ID"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery object containing the random ID generation function",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "random_idgen",
+              "summary": "Backward-compatible alias for idgen_random",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "prefix",
+                  "type": "string",
+                  "summary": "prefix for the generated ID"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "resultVarName",
+                  "type": "string",
+                  "summary": "variable that stores the generated ID"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery object containing the random ID generation function",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
               "name": "upper",
               "summary": "Changes a string to upper-case",
               "examples": [
@@ -6001,6 +6154,47 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "- A WOQLQuery which contains the Sum expression",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "slice",
+              "summary": "Extracts a contiguous subsequence from a list, following JavaScript's slice() semantics",
+              "examples": [
+                "let [result] = vars(\"result\")\nslice([\"a\", \"b\", \"c\", \"d\"], result, 1, 3)  // result = [\"b\", \"c\"]\nslice([\"a\", \"b\", \"c\", \"d\"], result, -2)    // result = [\"c\", \"d\"]"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "inputList",
+                  "type": "string|array|Var",
+                  "summary": "Either a variable representing a list or a list of\nvariables or literals"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "resultVarName",
+                  "type": "string|Var",
+                  "summary": "A variable in which the sliced list is stored"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "start",
+                  "type": "number|string|Var",
+                  "summary": "The start index (0-based, supports negative indices)"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "end",
+                  "type": "number|string|Var",
+                  "summary": "The end index (exclusive, optional - defaults to list length)"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery which contains the Slice pattern matching expression",
                 "type": "WOQLQuery"
               }
             },
@@ -6290,13 +6484,13 @@
                   "@type": "Parameter",
                   "name": "varList",
                   "type": "array|string|Var",
-                  "summary": "Either a single variable name, an array of variable names, or a variable with names of variables"
+                  "summary": "Either a single variable or an array of variables"
                 },
                 {
                   "@type": "Parameter",
                   "name": "patternVars",
                   "type": "array|string|Var",
-                  "summary": "Either a single variable name, an array of variable names, or a variable with names of variables"
+                  "summary": "Either a single variable or an array of variables"
                 },
                 {
                   "@type": "Parameter",
@@ -6862,7 +7056,49 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "an array of javascript variables which can be dereferenced using the\narray destructuring operation",
-                "type": "array.<Var>"
+                "type": "Array.<Var>"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "vars_unique",
+              "summary": "Generates unique javascript variables for use as WOQL variables within a query",
+              "examples": [
+                "const [a, b, c] = WOQL.vars(\"a\", \"b\", \"c\")\n//a, b, c are javascript variables that are unique WOQL variables"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "varNames",
+                  "type": "string"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "an array of javascript variables which can be dereferenced using the\narray destructuring operation",
+                "type": "Array.<Var>"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "vars_unique_reset_start",
+              "summary": "Sets the unique variable counter to a specific value\nThis is particularly useful together with select() for locally scoped variables",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "start",
+                  "type": "number",
+                  "summary": "starting value"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
               }
             },
             {
@@ -6912,6 +7148,27 @@
               "name": "Vars",
               "examples": [
                 "const v = WOQL.Vars('var01', 'var02', 'var03');\ntriple(v.var01, v.var02, v.var03)"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "varNames",
+                  "type": "string"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "object.<Var>"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "VarsUnique",
+              "summary": "Produces variables with unique names by appending an incrementing counter to each variable name.\nThis is particularly useful together with select() for locally scoped variables",
+              "examples": [
+                "// Creates variables like \"a_4\", \"b_5\" - unique even with same input names\nconst v = WOQL.VarsUnique('var01', 'var02', 'var03');\ntriple(v.var01, v.var02, v.var03) // locally scoped"
               ],
               "section": null,
               "parameters": [
@@ -8113,6 +8370,110 @@
                   "name": "commitPath",
                   "type": "string",
                   "summary": "The commit path to set the current branch to"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A promise that returns the call response object, or an Error if rejected.",
+                "type": "Promise"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "createRemote",
+              "summary": "Creates a new remote connection for the database",
+              "examples": [
+                "client.createRemote(\"origin\", \"http://remote.server.com/org/db\")"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "remoteName",
+                  "type": "string",
+                  "summary": "The name of the remote to create"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "remoteLocation",
+                  "type": "string",
+                  "summary": "The URL of the remote repository"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A promise that returns the call response object, or an Error if rejected.",
+                "type": "Promise"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "getRemote",
+              "summary": "Gets information about a remote connection",
+              "examples": [
+                "const remote = await client.getRemote(\"origin\")"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "remoteName",
+                  "type": "string",
+                  "summary": "The name of the remote to retrieve"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A promise that returns the remote details, or an Error if rejected.",
+                "type": "Promise"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "updateRemote",
+              "summary": "Updates an existing remote connection",
+              "examples": [
+                "client.updateRemote(\"origin\", \"http://new.remote.server.com/org/db\")"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "remoteName",
+                  "type": "string",
+                  "summary": "The name of the remote to update"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "remoteLocation",
+                  "type": "string",
+                  "summary": "The new URL for the remote repository"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A promise that returns the call response object, or an Error if rejected.",
+                "type": "Promise"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "deleteRemote",
+              "summary": "Deletes a remote connection",
+              "examples": [
+                "client.deleteRemote(\"origin\")"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "remoteName",
+                  "type": "string",
+                  "summary": "The name of the remote to delete"
                 }
               ],
               "returns": {
