@@ -58,6 +58,11 @@ export default function RootLayout({
           data-domain="terminusdb.org"
           src="https://plausible.io/js/script.outbound-links.js"
         ></Script>
+        <Script
+          id="pagesense"
+          strategy="afterInteractive"
+          src="https://cdn-eu.pagesense.io/js/dfrntportal/f8362a538f154a008185ef60836499f5.js"
+        />
       </body>
     </html>
   )
