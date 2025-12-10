@@ -66,15 +66,21 @@ export function Fence({
     if (typeof document !== 'undefined') {
       const codeElement = document.activeElement?.closest('.group')
       if (codeElement) {
-        // Walk up and back to find preceding heading
-        let el: Element | null = codeElement
-        while (el) {
-          const prev: Element | null = el.previousElementSibling
-          if (prev?.tagName?.match(/^H[1-6]$/i)) {
-            nearestHeading = prev.textContent?.trim() || ''
-            break
+        // First check for API docs method card (has data-method-name attribute)
+        const methodCard = codeElement.closest('[data-method-name]')
+        if (methodCard) {
+          nearestHeading = methodCard.getAttribute('data-method-name') || ''
+        } else {
+          // Walk up and back to find preceding heading (for MDX/blog content)
+          let el: Element | null = codeElement
+          while (el && !nearestHeading) {
+            const prev: Element | null = el.previousElementSibling
+            if (prev?.tagName?.match(/^H[1-6]$/i)) {
+              nearestHeading = prev.textContent?.trim() || ''
+              break
+            }
+            el = prev ?? el.parentElement
           }
-          el = prev ?? el.parentElement
         }
       }
     }
