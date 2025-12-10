@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import Link from 'next/link'
 import clsx from 'clsx'
 
 import { type Section, type Subsection } from '@/lib/sections'
@@ -75,7 +74,7 @@ export function TableOfContents({
               {tableOfContents.map((section) => (
                 <li key={section.id}>
                   <h3>
-                    <Link
+                    <a
                       href={`#${section.id}`}
                       onClick={handleAnchorClick}
                       className={clsx(
@@ -85,7 +84,7 @@ export function TableOfContents({
                       )}
                     >
                       {section.title}
-                    </Link>
+                    </a>
                   </h3>
                   {section.children.length > 0 && (
                     <ol

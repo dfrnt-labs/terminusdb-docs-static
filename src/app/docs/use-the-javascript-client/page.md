@@ -22,3 +22,4 @@ media: []
 * [Get Docs with JS](/docs/get-documents/)
 * [Query Docs with JS](/docs/query-documents/)
 * [Run WOQL Query](/docs/run-woql-query/)
+* [API Reference for Javascript Client](/docs/javascript/)

@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import clsx from 'clsx'
+import { ScrollLink } from './ScrollLink'
 
 const variantStyles = {
   primary:
@@ -11,7 +11,7 @@ const variantStyles = {
 type ButtonProps = {
   variant?: keyof typeof variantStyles
 } & (
-  | React.ComponentPropsWithoutRef<typeof Link>
+  | React.ComponentPropsWithoutRef<typeof ScrollLink>
   | (React.ComponentPropsWithoutRef<'button'> & { href?: undefined })
 )
 
@@ -25,6 +25,6 @@ export function Button({
   return typeof props.href === 'undefined' ? (
     <button className={className} {...props} />
   ) : (
-    <Link className={className} {...props} />
+    <ScrollLink className={className} {...props} />
   )
 }

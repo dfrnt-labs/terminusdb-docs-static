@@ -1,12 +1,12 @@
-import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import clsx from 'clsx'
 
+import { ScrollLink } from '@/components/ScrollLink'
+import { navigation, SubNavigation } from '@/lib/navigation'
+
 // Define indicator style types
 type IndicatorStyle = 'plusMinus' | 'chevron' | 'border'
-
-import { navigation, SubNavigation } from '@/lib/navigation'
 
 export function Navigation({
   className,
@@ -123,7 +123,7 @@ function SubNavigationMap({
         return (
           <li key={key} className="relative">
             {link.href && !link.links && (
-              <Link
+              <ScrollLink
                 href={link.href}
                 onClick={onLinkClick}
                 className={clsx(
@@ -135,7 +135,7 @@ function SubNavigationMap({
                 )}
               >
                 {link.title}
-              </Link>
+              </ScrollLink>
             )}
             {link.links && (
               <>
@@ -150,7 +150,13 @@ function SubNavigationMap({
                     ],
                   )}
                   onClick={(e) => {
-                    link.href && router.push(link.href);
+                    if (link.href) {
+                      // Scroll to top before navigation
+                      window.scrollTo(0, 0)
+                      document.documentElement.scrollTop = 0
+                      document.body.scrollTop = 0
+                      router.push(link.href)
+                    }
                     toggleSection(key, e);
                   }}
                 >

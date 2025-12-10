@@ -22,3 +22,4 @@ media: []
 * [Delete Docs with Python](/docs/delete-documents-with-python-client/)
 * [Import Data with Python](/docs/import-data-with-python-client/)
 * [WOQL Query with Python](/docs/woql-query-with-python-client/)
+* [API Reference for Python Client](/docs/python/)

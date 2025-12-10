@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef, createContext, useContext } from 'react'
+import { usePathname } from 'next/navigation'
 import { Fence } from './Fence'
 import { handleAnchorClick } from '@/utils/scroll'
 
@@ -9,6 +10,56 @@ declare global {
   interface Window {
     pagesense?: any[] | { trackEvent: (event: string) => void }
   }
+}
+
+// ============================================================
+// GLOBAL METHOD FILTER CONTEXT
+// Shared filter state across all ClassSection components
+// ============================================================
+interface FilterContextType {
+  filter: string
+  setFilter: (filter: string) => void
+  activeFilterSection: string | null  // Which section shows the input
+  setActiveFilterSection: (sectionId: string | null) => void
+}
+
+const FilterContext = createContext<FilterContextType | null>(null)
+
+// Provider component to wrap API docs
+export function ApiFilterProvider({ children }: { children: React.ReactNode }) {
+  const [filter, setFilter] = useState('')
+  const [activeFilterSection, setActiveFilterSection] = useState<string | null>(null)
+  const pathname = usePathname()
+  
+  // Reset filter on navigation
+  useEffect(() => {
+    setFilter('')
+    setActiveFilterSection(null)
+  }, [pathname])
+  
+  return (
+    <FilterContext.Provider value={{ 
+      filter, setFilter, 
+      activeFilterSection, setActiveFilterSection
+    }}>
+      {children}
+    </FilterContext.Provider>
+  )
+}
+
+// Hook to use filter context
+function useFilter() {
+  const context = useContext(FilterContext)
+  // Return default values if not wrapped in provider (backward compatibility)
+  if (!context) {
+    return {
+      filter: '',
+      setFilter: () => {},
+      activeFilterSection: null,
+      setActiveFilterSection: () => {}
+    }
+  }
+  return context
 }
 
 // Reusable CodeBlock component with copy functionality and analytics
@@ -114,13 +165,13 @@ export function TypeBadge({ type }: { type: string }) {
   }
 
   return (
-    <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium font-mono ${getTypeColor(type)}`}>
+    <span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-medium font-mono ${getTypeColor(type)}`}>
       {type}
     </span>
   )
 }
 
-// Parameter list as compact table
+// Parameter list as compact table with horizontal scroll on mobile
 export function ParameterList({ parameters }: { parameters: any[] }) {
   if (!parameters || parameters.length === 0) return null
   
@@ -129,26 +180,28 @@ export function ParameterList({ parameters }: { parameters: any[] }) {
       <h5 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-white mb-2 flex items-center gap-2 border-b border-slate-200 dark:border-slate-700 pb-1">
         Parameters
       </h5>
-      <table className="w-full text-sm">
-        <tbody>
-          {parameters.map((param, idx) => (
-            <tr key={`param-${param.name}-${idx}`} className="border-b border-slate-100 dark:border-slate-800 last:border-b-0">
-              <td className="py-1.5 pr-3 align-top w-28">
-                <code className="text-xs font-medium text-slate-900 dark:text-white">{param.name}</code>
-              </td>
-              <td className="py-1.5 pr-3 align-top w-28">
-                <TypeBadge type={param.type} />
-              </td>
-              <td className="py-1.5 text-slate-600 dark:text-slate-400 text-xs">{param.summary || '—'}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+        <table className="w-full text-sm min-w-[400px]">
+          <tbody>
+            {parameters.map((param, idx) => (
+              <tr key={`param-${param.name}-${idx}`} className="border-b border-slate-100 dark:border-slate-800 last:border-b-0">
+                <td className="py-1.5 pr-3 align-top whitespace-nowrap">
+                  <code className="text-xs font-medium text-slate-900 dark:text-white">{param.name}</code>
+                </td>
+                <td className="py-1.5 pr-3 align-top whitespace-nowrap">
+                  <TypeBadge type={param.type} />
+                </td>
+                <td className="py-1.5 text-slate-600 dark:text-slate-400 text-xs">{param.summary || '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
 
-// Returns section as compact table
+// Returns section as compact table with horizontal scroll on mobile
 export function ReturnsSection({ returns }: { returns: any }) {
   if (!returns || !returns.type || returns.type === 'void') return null
   
@@ -157,16 +210,18 @@ export function ReturnsSection({ returns }: { returns: any }) {
       <h5 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-white mb-2 flex items-center gap-2 border-b border-slate-200 dark:border-slate-700 pb-1">
         Returns
       </h5>
-      <table className="w-full text-sm">
-        <tbody>
-          <tr>
-            <td className="py-1.5 pr-3 align-top w-28">
-              <TypeBadge type={returns.type} />
-            </td>
-            <td className="py-1.5 text-slate-600 dark:text-slate-400 text-xs">{returns.summary || ''}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+        <table className="w-full text-sm min-w-[300px]">
+          <tbody>
+            <tr>
+              <td className="py-1.5 pr-3 align-top whitespace-nowrap">
+                <TypeBadge type={returns.type} />
+              </td>
+              <td className="py-1.5 text-slate-600 dark:text-slate-400 text-xs">{returns.summary || ''}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
@@ -241,7 +296,7 @@ export function MethodCard({
   const id = `${classPrefix}${methodId}`
   
   return (
-    <div id={id} data-method={name} className="relative border-b border-slate-200 dark:border-slate-700 pb-5 mb-5 last:border-b-0">
+    <div id={id} data-method={name} data-method-name={name} className="relative border-b border-slate-200 dark:border-slate-700 pb-5 mb-5 last:border-b-0">
       {/* Link button - far left gutter on lg+ */}
       <a 
         href={`#${id}`}
@@ -294,29 +349,132 @@ export function MethodCard({
   )
 }
 
-// Class section with header
+// Class section with header and GLOBAL method filter
+// Filter is shared across all sections via context
 export function ClassSection({ 
   name, 
   summary, 
-  children 
+  children,
+  methodNames = []
 }: { 
   name: string
   summary?: string
-  children: React.ReactNode 
+  children: React.ReactNode
+  methodNames?: string[]  // List of method names for filtering
 }) {
   const id = name.toLowerCase().replace(/[^a-z0-9]/g, '')
+  const { filter, setFilter, activeFilterSection, setActiveFilterSection } = useFilter()
+  const sectionRef = useRef<HTMLDivElement>(null)
+  
+  // Whether this section shows the filter input
+  const isInputVisible = activeFilterSection === id
+  
+  // Toggle filter input for this section
+  const handleFilterToggle = () => {
+    if (isInputVisible) {
+      setActiveFilterSection(null)
+    } else {
+      setActiveFilterSection(id)
+    }
+  }
+  
+  // Filter methods by hiding non-matching ones via DOM (global filter)
+  useEffect(() => {
+    if (!sectionRef.current) return
+    
+    const methodCards = sectionRef.current.querySelectorAll('[data-method]')
+    const lowerFilter = filter.toLowerCase()
+    
+    methodCards.forEach((card) => {
+      const methodName = card.getAttribute('data-method-name')?.toLowerCase() || ''
+      const matches = !filter || methodName.includes(lowerFilter)
+      ;(card as HTMLElement).style.display = matches ? '' : 'none'
+    })
+  }, [filter])
+  
+  // Count visible methods in this section
+  const filteredCount = methodNames.filter(m => 
+    !filter || m.toLowerCase().includes(filter.toLowerCase())
+  ).length
   
   return (
     <section id={id} className="mb-10">
       <div className="sticky top-16 z-10 -mx-4 px-4 py-3 bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-800 dark:to-slate-900 backdrop-blur-sm border-l-4 border-l-sky-500 border-b border-slate-200 dark:border-slate-700 mb-6 shadow-sm">
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white m-0">
-          {name}
-        </h3>
-        {summary && (
-          <p className="text-sm text-slate-600 dark:text-slate-400 m-0 mt-1">{summary}</p>
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex-1 min-w-0">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white m-0">
+              {name}
+              {filter && (
+                <span className="ml-2 text-sm font-normal text-slate-500">
+                  ({filteredCount} match{filteredCount !== 1 ? 'es' : ''})
+                </span>
+              )}
+            </h3>
+            {summary && !filter && (
+              <p className="text-sm text-slate-600 dark:text-slate-400 m-0 mt-1">{summary}</p>
+            )}
+          </div>
+          
+          {/* Filter toggle button */}
+          <button
+            onClick={handleFilterToggle}
+            className={`shrink-0 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              isInputVisible || filter
+                ? 'bg-sky-100 text-sky-700 dark:bg-sky-900/50 dark:text-sky-300'
+                : 'bg-white/80 dark:bg-slate-700/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
+            }`}
+            title="Filter all methods"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+            <span className="hidden sm:inline">Filter</span>
+            {filter && (
+              <span className="bg-sky-500 text-white text-[10px] px-1.5 py-0.5 rounded-full ml-1">
+                {filteredCount}
+              </span>
+            )}
+          </button>
+        </div>
+        
+        {/* Filter input - only shown in the section where filter was clicked */}
+        {isInputVisible && (
+          <div className="mt-3 flex items-center gap-2">
+            <div className="relative flex-1">
+              <svg className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+              <input
+                type="text"
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                placeholder="Filter all methods..."
+                className="w-full pl-8 pr-8 py-2 text-base rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                autoFocus
+              />
+              {filter && (
+                <button
+                  onClick={() => setFilter('')}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
+          </div>
         )}
       </div>
-      <div className="space-y-0">
+      
+      {/* No matches message */}
+      {filter && filteredCount === 0 && (
+        <div className="py-4 text-center text-sm text-slate-500 dark:text-slate-400">
+          No methods matching &ldquo;<span className="font-medium">{filter}</span>&rdquo; in this section
+        </div>
+      )}
+      
+      <div ref={sectionRef} className="space-y-0">
         {children}
       </div>
     </section>

@@ -6,6 +6,7 @@ import {
   ClassSection,
   MethodCard,
   ApiTableOfContents,
+  ApiFilterProvider,
 } from '@/components/ApiDocComponents'
 
 export default function PythonArticle() {
@@ -63,11 +64,15 @@ export default function PythonArticle() {
       )
     })
 
+    // Extract method names for filtering
+    const methodNames = sortedMethods.map((func) => func.name)
+    
     return (
       <ClassSection
         key={class_.name}
         name={class_.name}
         summary={class_.summary?.split('\n')[0]}
+        methodNames={methodNames}
       >
         {methods}
       </ClassSection>
@@ -75,28 +80,30 @@ export default function PythonArticle() {
   })
 
   return (
-    <article className="flex w-full flex-row gap-8">
-      <div id="mainContent" className="flex-1 min-w-0 max-w-4xl">
-        <ApiDocsHero
-          title="Python Client"
-          description="The official TerminusDB Python client library for data science and backend applications. Integrate graph database capabilities into your Python workflows."
-          version={props.version}
-          installCommand="pip install terminusdb-client"
-          language="python"
-        />
+    <ApiFilterProvider>
+      <article className="flex w-full flex-row gap-8">
+        <div id="mainContent" className="flex-1 min-w-0 max-w-4xl">
+          <ApiDocsHero
+            title="Python Client"
+            description="The official TerminusDB Python client library for data science and backend applications. Integrate graph database capabilities into your Python workflows."
+            version={props.version}
+            installCommand="pip install terminusdb-client"
+            language="python"
+          />
 
-        <ClassQuickNav classes={classNavData} />
+          <ClassQuickNav classes={classNavData} />
 
-        <div className="prose prose-slate dark:prose-invert max-w-none overflow-visible">
-          {content}
+          <div className="prose prose-slate dark:prose-invert max-w-none overflow-visible">
+            {content}
+          </div>
         </div>
-      </div>
-      
-      <div className="hidden xl:block w-56 flex-none">
-        <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-4">
-          <ApiTableOfContents classes={tocData} />
+        
+        <div className="hidden xl:block w-56 flex-none">
+          <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-4">
+            <ApiTableOfContents classes={tocData} />
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </ApiFilterProvider>
   )
 }

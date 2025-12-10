@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
 import { navigation } from '@/lib/navigation'
+import { ScrollLink } from './ScrollLink'
 
 function ArrowIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -30,8 +31,8 @@ function PageLink({
         {dir === 'next' ? 'Next' : 'Previous'}
       </dt>
       <dd className="mt-1">
-        <Link
-          href={href}
+        <ScrollLink
+          href={href??"/"}
           className={clsx(
             'flex items-center gap-x-1 text-base font-semibold text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300',
             dir === 'previous' && 'flex-row-reverse',
@@ -44,7 +45,7 @@ function PageLink({
               dir === 'previous' && '-scale-x-100',
             )}
           />
-        </Link>
+        </ScrollLink>
       </dd>
     </div>
   )

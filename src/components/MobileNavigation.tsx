@@ -1,11 +1,11 @@
 'use client'
 
 import { Suspense, useCallback, useEffect, useState } from 'react'
-import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { Dialog, DialogPanel } from '@headlessui/react'
 
 import { Navigation } from '@/components/Navigation'
+import { ScrollLink } from '@/components/ScrollLink'
 import { Logo } from './Logo'
 
 function MenuIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -55,6 +55,14 @@ export function MobileNavigation() {
 
   function onLinkClick(event: React.MouseEvent<HTMLAnchorElement>) {
     let link = event.currentTarget
+    
+    // Scroll to top on mobile navigation (unless it's an anchor on same page)
+    if (!link.hash || link.pathname !== window.location.pathname) {
+      window.scrollTo(0, 0)
+      document.documentElement.scrollTop = 0
+      document.body.scrollTop = 0
+    }
+    
     if (
       link.pathname + link.search + link.hash ===
       window.location.pathname + window.location.search + window.location.hash
@@ -91,9 +99,9 @@ export function MobileNavigation() {
             >
               <CloseIcon className="h-6 w-6 stroke-slate-500" />
             </button>
-            <Link href="/" className="ml-6" aria-label="Home page">
+            <ScrollLink href="/" className="ml-6" aria-label="Home page">
               <Logo className="h-9 w-9" />
-            </Link>
+            </ScrollLink>
           </div>
           <Navigation className="mt-5 px-1" onLinkClick={onLinkClick} />
         </DialogPanel>

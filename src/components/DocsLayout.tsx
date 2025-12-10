@@ -27,8 +27,9 @@ export function DocsLayout({
   const showRecentPosts = isBlogPage || isHomePage
   let tableOfContents = collectSections(nodes)
 
-  // Handle hash scroll on page load and navigation
+  // Handle hash scroll on page load and hashchange events
   useEffect(() => {
+    // Handle hash scroll for initial load or direct navigation with hash
     scrollToHashOnLoad()
     
     const handleHashChange = () => {

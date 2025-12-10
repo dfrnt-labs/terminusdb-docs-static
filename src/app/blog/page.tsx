@@ -1,6 +1,6 @@
-import Link from 'next/link'
 import { getAllBlogPosts, formatBlogDate } from '@/lib/blog'
 import { RecentBlogPosts } from '@/components/RecentBlogPosts'
+import { ScrollLink } from '@/components/ScrollLink'
 
 export default async function BlogIndex() {
   // Automatically read blog posts from markdown files in /blog directory
@@ -23,7 +23,7 @@ export default async function BlogIndex() {
         {/* Blog post grid */}
         <div className="space-y-5">
           {posts.map((post, index) => (
-            <Link key={post.href} href={post.href} className="block group">
+            <ScrollLink key={post.href} href={post.href} className="block group">
               <article 
                 className={`
                   relative overflow-hidden rounded-xl p-6
@@ -88,7 +88,7 @@ export default async function BlogIndex() {
                 {/* Decorative gradient overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-r from-sky-500/0 via-sky-500/0 to-sky-500/0 group-hover:from-sky-500/5 group-hover:via-transparent group-hover:to-purple-500/5 transition-all duration-500 pointer-events-none" />
               </article>
-            </Link>
+            </ScrollLink>
           ))}
         </div>
 

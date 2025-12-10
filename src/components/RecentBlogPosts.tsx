@@ -1,8 +1,8 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
+import { ScrollLink } from './ScrollLink'
 
 export interface RecentPost {
   title: string
@@ -39,7 +39,7 @@ export function RecentBlogPosts({ className, posts }: RecentBlogPostsProps) {
             const isActive = pathname === post.href || pathname === post.href + '/'
             return (
               <li key={post.href}>
-                <Link
+                <ScrollLink
                   href={post.href}
                   className="block transition-colors"
                 >
@@ -59,18 +59,18 @@ export function RecentBlogPosts({ className, posts }: RecentBlogPostsProps) {
                   >
                     {post.title}
                   </span>
-                </Link>
+                </ScrollLink>
               </li>
             )
           })}
         </ul>
         <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700">
-          <Link
+          <ScrollLink
             href="/blog"
             className="text-sm font-medium text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
           >
             View all posts →
-          </Link>
+          </ScrollLink>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
+import { ScrollLink } from '@/components/ScrollLink'
 import { Metadata } from 'next'
-import Link from 'next/link'
 import Script from 'next/script'
 
 export const metadata: Metadata = {
@@ -25,12 +25,12 @@ export default function NotFound() {
         <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
           Sorry, we couldn’t find the page you’re looking for.
         </p>
-        <Link
+        <ScrollLink
           href="/"
           className="mt-8 text-sm font-medium text-slate-900 dark:text-white"
         >
           Go back home
-        </Link>
+        </ScrollLink>
       </div>
       <Script id="pagesense-404" strategy="afterInteractive">
         {`window.pagesense = window.pagesense || [];

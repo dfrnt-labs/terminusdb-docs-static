@@ -11,6 +11,7 @@ import { MobileNavigation } from '@/components/MobileNavigation'
 import { Navigation } from '@/components/Navigation'
 import { Search } from '@/components/Search'
 import { ThemeSelector } from '@/components/ThemeSelector'
+import { ScrollLink } from './ScrollLink'
 
 function GitHubIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -47,9 +48,9 @@ function Header() {
         <MobileNavigation />
       </div>
       <div className="relative flex grow basis-0 items-center">
-        <Link href="/" aria-label="Home page">
+        <ScrollLink href="/" aria-label="Home page">
           <Logo className="hidden h-8 w-auto fill-slate-700 lg:block dark:fill-sky-100" />
-        </Link>
+        </ScrollLink>
       </div>
       <div className="-my-5 mr-6 sm:mr-8 md:mr-0">
         <Search />
@@ -57,21 +58,21 @@ function Header() {
       <div className="relative flex basis-0 justify-end gap-6 sm:gap-8 md:grow">
         <ThemeSelector className="relative z-10" />
         
-        <Link
+        <ScrollLink
           href="https://dfrnt.com/sign-up/"
           className="group"
           aria-label="GitHub"
         >
           <span className="px-2 py-1 rounded-lg ring-1 dark:text-sky-200 dark:hover:text-sky-50  shadow-md hover:shadow-black/15 shadow-black/5 ring-black/5 dark:hover:ring-white/20 dark:bg-slate-700 dark:ring-white/5 dark:ring-inset text-sm font-semibold whitespace-nowrap uppercase">Sign up</span>
-        </Link>
+        </ScrollLink>
         
-        <Link
+        <ScrollLink
           href="https://github.com/terminusdb/terminusdb"
           className="group"
           aria-label="GitHub"
         >
           <GitHubIcon className="h-6 w-6 fill-slate-400 group-hover:fill-slate-500 dark:group-hover:fill-slate-300" />
-        </Link>
+        </ScrollLink>
       </div>
     </header>
   )
