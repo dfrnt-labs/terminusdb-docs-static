@@ -439,3 +439,5 @@ We welcome feedback on version 12. Whether you're upgrading an existing deployme
 ---
 
 **Full Changelog**: [v11.1.17...v12.0.0](https://github.com/terminusdb/terminusdb/compare/v11.1.17...v12.0.0)
+**Complete Release Notes**: [v12.0.0](https://github.com/terminusdb/terminusdb/releases/tag/v12.0.0)
+
