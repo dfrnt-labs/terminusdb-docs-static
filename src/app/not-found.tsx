@@ -1,6 +1,6 @@
 import { ScrollLink } from '@/components/ScrollLink'
+import { AnalyticsEvent } from '@/components/AnalyticsEvent'
 import { Metadata } from 'next'
-import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'TerminusDB Page Not Found',
@@ -32,10 +32,7 @@ export default function NotFound() {
           Go back home
         </ScrollLink>
       </div>
-      <Script id="pagesense-404" strategy="afterInteractive">
-        {`window.pagesense = window.pagesense || [];
-window.pagesense.push(['trackEvent', '404']);`}
-      </Script>
+      <AnalyticsEvent event="404" />
     </div>
   )
 }

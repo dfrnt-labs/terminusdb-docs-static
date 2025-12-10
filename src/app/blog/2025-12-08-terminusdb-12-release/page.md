@@ -38,29 +38,52 @@ For JSON storage, numbers can be stored with up to 256 decimal places for unstru
 
 Consider a simple financial calculation:
 
-```javascript
+```woql
 // Calculate compound interest with exact precision
-and(
-  eq("v:principal", 10000),
-  eq("v:rate", 0.075),  // 7.5% annual rate
-  eq("v:years", 5),
-  evaluate(
+select("v:final_amount", "v:type").and(   // filter out variables 
+  eq("v:principal", 10000),               // eq() and v: to set var
+  or(         // branch out with or() for each solution
+    eq("v:rate", literal(0.07, "xsd:decimal")),  // 7%, typecasted
+    eq("v:rate", literal(0.07, "xsd:double")),   // 7%, typecasted
+  ),
+  eq("v:years", 7),
+  evaluate(   // Server side mathematical evaluation
     times("v:principal", exp(plus(1, "v:rate"), "v:years")),
     "v:final_amount"
   ),
+  type_of("v:final_amount", "v:type") // show the resulting type
 )
 ```
 
-In previous versions, intermediate calculations could introduce floating-point drift. Version 12 maintains exact rational representation throughout, only converting to decimal notation at output boundaries.
+In previous versions, intermediate calculations were performed using double precision, introducing floating-point drift. Version 12 maintains exact rational representation throughout, only converting to decimal notation at output boundaries. This is a common problem with databases, which prevents usage in regulatory spaces.
+
+This is important for financial applications. Over the 7 years above, the difference accumulates, as we can see in the two solutions from TerminusDB where we [now have selectable precision](/docs/numeric-precision-reference/):
+
+{% table %}
+
+- final_amount
+- type
+
+---
+
+- 16057.8147647843
+- xsd:decimal (correct precision, [see Wolfram Alpha](https://www.wolframalpha.com/input?i2d=true&i=%5C%2840%2910000*Power%5B1.07%2C7%5D%5C%2841%29))
+
+---
+
+- 16057.814764784307
+- xsd:double (lost precision, calculated using IEE754 floating point)
+
+{% /table %}
 
 The division operator deserves special mention. WOQL now uses rational division (`rdiv`) by default when operands are decimals or integers:
 
-```javascript
+```woql
 // Exact division - no floating point artifacts
 evaluate(divide(1, 3), "v:result")  // Processed as exact rational 1/3
 ```
 
-Mixed-type arithmetic follows Prolog's natural semantics: if any operand is a float or double, the result becomes a double. Pure decimal/integer operations preserve rational precision as `xsd:decimal`.
+Mixed-type arithmetic follows Prolog/Swipl natural semantics: if any operand is a float or double, the result becomes a double. Pure decimal/integer operations preserve rational precision as `xsd:decimal`.
 
 ## Deep Dive: Unstructured JSON Support
 
@@ -68,7 +91,7 @@ The `sys:JSON` type returns with improved implementation, offering content-addre
 
 ### Defining sys:JSON Fields
 
-```javascript
+```json
 {
   "@type": "Class",
   "@id": "APIRequest",
@@ -107,22 +130,22 @@ The nested JSON structure—including the high-precision decimal amount—is sto
 
 ### Querying JSON with WOQL
 
-Version 12 introduces the ability to address fields within `sys:JSON` values using the `dot()` operator:
+Version 12 introduces the ability to address fields within `sys:JSON` values using the `dot()` operator, returning the amount 1523.47:
 
-```javascript
+```woql
 // Extract specific fields from JSON payload
 and(
   triple("v:request", "rdf:type", "@schema:APIRequest"),
-  triple("v:request", "payload", "v:payload"),
+  triple("v:request", "payload", "v:payload-id"),
+  read_document("v:payload-id", "v:payload"),
   dot("v:payload", "account_id", "v:account"),
-  dot("v:payload", "amount", "v:amount"),
-  greater("v:amount", 1000)
+  dot("v:payload", "amount", "v:amount")
 )
 ```
 
-JSON values can also be typecast to and from `xdd:json` strings, enabling interoperability with systems that expect stringified JSON:
+Structured JSON can now also be typecast to and from `xdd:json` strings, enabling interoperability with systems that expect stringified JSON. Also enabling processing CSVs with JSON strings as an example.
 
-```javascript
+```woql
 // Convert JSON to string
 typecast("v:json_value", "xdd:json", "v:json_string")
 
@@ -134,9 +157,9 @@ typecast("v:json_string", "sys:JSON", "v:parsed_json")
 
 ### The slice() Operator
 
-Working with WOQL lists is convenient with JavaScript-style slicing semantics, for post-processing requests server-side, needed by customers building WOQL-only APIs. 
+Working with WOQL lists is made convenient with JavaScript-style slicing semantics, for post-processing requests server-side, needed by customers building WOQL-only APIs. 
 
-```javascript
+```woql
 // Extract elements 2 through 5 (exclusive end)
 group_by("list", "list", "v:source_list").member("v:list", [1,2,3,4,5,6]),
 slice("v:source_list", "v:result", 2,5)
@@ -150,16 +173,61 @@ slice("v:source_list", "v:result", -3)
 
 ### Enhanced dot() for Path Variables
 
-The `dot()` operator now works with path query edge variable bindings, enabling extraction of relationship metadata and matching the right edges in a path query for information stored in the RDF graph:
+The `dot()` operator now works with path query edge variable bindings, enabling extraction of relationship metadata and matching the right edges in a path query for information stored in the RDF graph. This is very useful to process rdf:List structures in TerminusDB as JSON arrays are stored as `rdf:List` internally:
 
-```javascript
+```woql
 // Find paths and extract edge information
-and(
-  path("v:start", "(<manages,manages>)+", "v:end", "v:path_edges"),
-  dot("v:path_edges", 0, "v:first_edge"),  // First relationship in path
-  dot("v:first_edge", "from", "v:manager")
+select("v:head", "v:nodes", "v:direct").and(
+  eq("v:head", "Person/alice"),
+  // What is the chain of command reporting to head?
+  path("v:head", "(manages>)+", "v:direct", "v:path_edges"),
+  // Unwrap the edges, and wrap the connecting nodes
+  group_by("node", "node", "v:nodes").and(
+    member("v:edge", "v:path_edges"),
+    dot("v:edge", "woql:object", "v:node"),  
+   )
 )
 ```
+
+{% table %}
+
+- head
+- direct
+- via_nodes
+
+---
+
+- Person/alice
+- Person/bob
+- ["Person/bob"]
+
+---
+
+- Person/alice
+- Person/carol
+- ["Person/carol"]
+
+---
+
+- Person/alice
+- Person/dave
+- ["Person/bob","Person/dave"]
+
+---
+
+- Person/alice
+- Person/eve
+- ["Person/bob","Person/eve"]
+
+---
+
+- Person/alice
+- Person/frank
+- ["Person/carol","Person/frank"]
+
+{% /table %}
+
+This enables creative possibilities to filter solutions by paths. Unification on traversed nodes is something that we are looking into as well.
 
 ### The sys:Dictionary Type
 
@@ -169,7 +237,7 @@ An example for using the sys:Dictionary type is for converting a JSON string doc
 
 The `type_of()` predicate returns `sys:Dictionary` for document templates, enabling runtime type inspection:
 
-```javascript
+```woql
 type_of("v:some_doc_template", "v:doc_type")
 // v:value_type binds to sys:Dictionary for template structures
 ```
@@ -178,7 +246,7 @@ type_of("v:some_doc_template", "v:doc_type")
 
 The `idgen_random()` function generates random identifiers with configurable bases:
 
-```javascript
+```woql
 // Generate a random ID with custom prefix
 idgen_random("Order/", [], "v:new_order_id")
 // Result: "Order/a7Bx9kLmN2pQ..." (base64 random suffix)
@@ -186,7 +254,7 @@ idgen_random("Order/", [], "v:new_order_id")
 
 In the JavaScript client:
 
-```javascript
+```woql
 WOQL.idgen_random("Order/", [], "v:new_order_id")
 ```
 
@@ -245,14 +313,14 @@ Review any code that:
 
 ### Financial Transaction Processing
 
-Micropayment processing reveals subtle IEEE 754 floating-point precision issues. Consider processing fees of $0.07 per transaction, a value that cannot be exactly represented in binary floating-point:
+Micropayment processing reveals subtle IEEE 754 floating-point precision issues in many databases when using double or float precision. Consider processing fees of $0.07 per transaction, a value that cannot be exactly represented in binary floating-point. In TerminusDB, both precision styles can be processed:
 
-```javascript
+```woql
 // With xsd:double: 10 × $0.07 ≠ $0.70 (precision error!)
 and(
   equals("v:fee", literal("0.07", "xsd:double")),
   equals("v:count", literal("10", "xsd:double")),
-  eval(times("v:fee", "v:count"), "v:total")
+  evaluate(times("v:fee", "v:count"), "v:total")
 )
 // Result: 0.7000000000000001 (not exactly 0.70)
 
@@ -260,7 +328,7 @@ and(
 and(
   equals("v:fee", literal("0.07", "xsd:decimal")),
   equals("v:count", literal("10", "xsd:decimal")),
-  eval(times("v:fee", "v:count"), "v:total")
+  evaluate(times("v:fee", "v:count"), "v:total")
 )
 // Result: 0.7 (exact)
 ```
@@ -269,11 +337,21 @@ This isn't just about small errors—it's about whether `sum === expected` retur
 
 The new processing uses rationals within the WOQL math engine, unless float or double precision values are used. Using literal ensures a specified type, and typecasting can also be used to move between datatypes types. `xsd:decimal` is used by default, and leverages rational precision.
 
+A gentle question from the audience arises of course, why on earth would one want less than accurate precision? Good question, the answer is that it takes up much less storage and is faster to process with less precision, and some want faster calculations, some want precise calculations.
+
+With TerminusDB, you can both eat the cake, and keep it; which is a Swedish expression often used here in the Nordics.
+
+### Comparisons using different precision
+
+Comparisons with `greater()`, `less()` and other expressions between incommensurable datatypes now yield `BadCast` errors, instead of failing as errors when comparisons were either not precise, or having the errors above where the numbers should be the same, but due to calculation errors, they aren't.
+
+The engine checks the types before comparison and fails with an explicit error if the types are not controlled accurately. Go with `xsd:decimal` (rationals internally) to get correct precision, unless there are specific needs to use float and double precision.
+
 ### Research Data with Mixed Structure
 
 Scientific datasets often combine structured metadata with variable experimental results. With sys:JSON you now have the best of two worlds:
 
-```javascript
+```schema
 {
   "@type": "Class",
   "@id": "Experiment",
@@ -298,10 +376,11 @@ Version control for experiments means every parameter change, every result set, 
 Docker remains the simplest deployment option:
 
 ```bash
-docker pull terminusdb/terminusdb:v12
+docker 
+docker pull terminusdb/terminusdb-server:v12
 docker run -d -p 6363:6363 \
   -v terminusdb_data:/app/terminusdb/storage \
-  terminusdb/terminusdb:v12
+  terminusdb/terminusdb-server:v12
 ```
 
 ### Documentation

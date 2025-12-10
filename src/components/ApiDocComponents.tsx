@@ -86,13 +86,43 @@ export function CodeBlock({
     await navigator.clipboard.writeText(code)
     setCopied(true)
     
+    // Find nearest heading for context
+    let nearestHeading = ''
+    if (typeof document !== 'undefined') {
+      const codeElement = document.activeElement?.closest('.relative')
+      if (codeElement) {
+        // Look for parent section header or method name
+        const section = codeElement.closest('section')
+        const methodCard = codeElement.closest('[data-method-name]')
+        if (methodCard) {
+          nearestHeading = methodCard.getAttribute('data-method-name') || ''
+        } else if (section) {
+          const h3 = section.querySelector('h3')
+          nearestHeading = h3?.textContent?.trim() || ''
+        }
+      }
+    }
+    
+    const eventProps = {
+      language,
+      heading: nearestHeading || 'unknown'
+    }
+    
+    // Track code copy event with Plausible
+    if (typeof window !== 'undefined') {
+      const w = window as any
+      w.plausible = w.plausible || function() { (w.plausible.q = w.plausible.q || []).push(arguments) }
+      w.plausible('code_copy', { props: eventProps })
+    }
+    
     // Track code copy event with Pagesense
-    if (typeof window !== 'undefined' && window.pagesense) {
-      // Check if pagesense is still in queue mode (array) or initialized (object)
-      if (Array.isArray(window.pagesense)) {
-        window.pagesense.push(['trackEvent', 'code copy'])
-      } else if (typeof window.pagesense.trackEvent === 'function') {
-        window.pagesense.trackEvent('code copy')
+    if (typeof window !== 'undefined') {
+      const w = window as any
+      if (w.$PS && typeof w.$PS.trackEvent === 'function') {
+        w.$PS.trackEvent('code_copy', eventProps)
+      } else {
+        w.pagesense = w.pagesense || []
+        w.pagesense.push(['trackEvent', 'code_copy', eventProps])
       }
     }
   }

@@ -4,6 +4,7 @@ import yaml from 'js-yaml'
 
 import { DocsLayout } from '@/components/DocsLayout'
 import { Fence } from '@/components/Fence'
+import { TableWrapper } from '@/components/TableWrapper'
 
 let documentSlugifyMap = new Map()
 
@@ -39,6 +40,10 @@ const nodes = {
         children,
       )
     },
+  },
+  table: {
+    ...defaultNodes.table,
+    render: TableWrapper,
   },
   th: {
     ...defaultNodes.th,

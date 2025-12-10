@@ -56,7 +56,7 @@ export default function RootLayout({
         <Script
           strategy="lazyOnload"
           data-domain="terminusdb.org"
-          src="https://plausible.io/js/script.outbound-links.js"
+          src="https://plausible.io/js/script.manual.outbound-links.js"
         ></Script>
         <Script
           id="pagesense"
