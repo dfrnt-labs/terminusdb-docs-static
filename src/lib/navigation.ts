@@ -244,6 +244,10 @@ export const navigation: Navigation[] = [
               },
             ],
           },
+          {
+            title: 'API Reference',
+            href: '/docs/javascript',
+          },
         ],
       },
       {
@@ -321,17 +325,8 @@ export const navigation: Navigation[] = [
               },
             ],
           },
-        ],
-      },
-      {
-        title: 'Client API Reference',
-        links: [
           {
-            title: 'JavaScript API',
-            href: '/docs/javascript',
-          },
-          {
-            title: 'Python API',
+            title: 'API Reference',
             href: '/docs/python',
           },
         ],
