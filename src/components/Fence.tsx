@@ -41,9 +41,11 @@ const languageLabels: Record<string, string> = {
 export function Fence({
   children,
   language,
+  title,
 }: {
   children: string
   language?: string
+  title?: string
 }) {
   const [copied, setCopied] = useState(false)
   
@@ -89,15 +91,11 @@ export function Fence({
       w.plausible('code_copy', { props: eventProps })
     }
     
-    // Track code copy event with Pagesense
+    // Track code copy event with Pagesense (doesn't support custom props like Plausible)
     if (typeof window !== 'undefined') {
       const w = window as any
-      if (w.$PS && typeof w.$PS.trackEvent === 'function') {
-        w.$PS.trackEvent('code_copy', eventProps)
-      } else {
-        w.pagesense = w.pagesense || []
-        w.pagesense.push(['trackEvent', 'code_copy', eventProps])
-      }
+      w.pagesense = w.pagesense || []
+      w.pagesense.push(['trackActivity', 'code_copy', eventProps])
     }
   }
   
@@ -106,31 +104,33 @@ export function Fence({
   const highlightLang = languageAliases[originalLang] || originalLang
   const displayLabel = languageLabels[originalLang] || originalLang
   
+  const label = title || (displayLabel !== 'text' ? `Example: ${displayLabel}` : 'Code')
+
   return (
-    <div className="group relative">
-      {/* Header with language label and copy button */}
-      <div className="flex items-center justify-between rounded-t-xl bg-slate-800 px-4 py-2 text-xs">
-        <span className="font-medium text-slate-400">
-          {displayLabel !== 'text' ? `Example: ${displayLabel}` : 'Code'}
+    <div className="group relative rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+      {/* Header with label and copy button */}
+      <div className="flex items-center justify-between px-3 py-1.5 bg-slate-100 dark:bg-slate-800">
+        <span className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-white">
+          {label}
         </span>
         <button
           onClick={copyToClipboard}
-          className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors"
+          className="flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
           title="Copy code"
         >
           {copied ? (
             <>
-              <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              <span className="text-emerald-400">Copied!</span>
+              <span className="text-emerald-600 dark:text-emerald-400">Copied!</span>
             </>
           ) : (
             <>
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
-              <span className="hidden sm:inline">Copy</span>
+              <span>Copy</span>
             </>
           )}
         </button>
@@ -143,7 +143,7 @@ export function Fence({
         theme={{ plain: {}, styles: [] }}
       >
         {({ className, style, tokens, getTokenProps }) => (
-          <pre className={`${className} !mt-0 !rounded-t-none`} style={style}>
+          <pre className={`${className} !m-0 !rounded-none !bg-slate-900`} style={style}>
             <code>
               {tokens.map((line, lineIndex) => (
                 <Fragment key={lineIndex}>
@@ -152,7 +152,7 @@ export function Fence({
                     .map((token, tokenIndex) => (
                       <span key={tokenIndex} {...getTokenProps({ token })} />
                     ))}
-                  {'\n'}
+                  {lineIndex < tokens.length - 1 && '\n'}
                 </Fragment>
               ))}
             </code>

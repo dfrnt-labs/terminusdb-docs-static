@@ -100,7 +100,7 @@ export function MobileNavigation() {
               <CloseIcon className="h-6 w-6 stroke-slate-500" />
             </button>
             <ScrollLink href="/" className="ml-4" aria-label="Home page">
-              <Logo className="h-14 w-auto" />
+              <Logo className="h-9 w-auto" />
             </ScrollLink>
           </div>
           <Navigation className="mt-5 px-1" onLinkClick={onLinkClick} />

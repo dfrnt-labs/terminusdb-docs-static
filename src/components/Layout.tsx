@@ -49,7 +49,7 @@ function Header() {
       </div>
       <div className="relative flex grow basis-0 items-center">
         <ScrollLink href="/" aria-label="Home page">
-          <Logo className="hidden h-8 w-auto fill-slate-700 lg:block dark:fill-sky-100" />
+          <Logo className="hidden h-8 w-auto lg:block" />
         </ScrollLink>
       </div>
       <div className="-my-5 mr-6 sm:mr-8 md:mr-0">

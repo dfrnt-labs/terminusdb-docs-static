@@ -62,7 +62,7 @@ function useFilter() {
   return context
 }
 
-// Reusable CodeBlock component with copy functionality and analytics
+// CodeBlock delegates to Fence for DRY principle - one code display component
 export function CodeBlock({ 
   code, 
   language = 'javascript',
@@ -72,109 +72,9 @@ export function CodeBlock({
   language?: string
   title?: string
 }) {
-  const [copied, setCopied] = useState(false)
-
-  // Reset copied state after 2 seconds
-  useEffect(() => {
-    if (copied) {
-      const timer = setTimeout(() => setCopied(false), 2000)
-      return () => clearTimeout(timer)
-    }
-  }, [copied])
-
-  const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(code)
-    setCopied(true)
-    
-    // Find nearest heading for context
-    let nearestHeading = ''
-    if (typeof document !== 'undefined') {
-      const codeElement = document.activeElement?.closest('.relative')
-      if (codeElement) {
-        // Look for parent section header or method name
-        const section = codeElement.closest('section')
-        const methodCard = codeElement.closest('[data-method-name]')
-        if (methodCard) {
-          nearestHeading = methodCard.getAttribute('data-method-name') || ''
-        } else if (section) {
-          const h3 = section.querySelector('h3')
-          nearestHeading = h3?.textContent?.trim() || ''
-        }
-      }
-    }
-    
-    const eventProps = {
-      language,
-      heading: nearestHeading || 'unknown'
-    }
-    
-    // Track code copy event with Plausible
-    if (typeof window !== 'undefined') {
-      const w = window as any
-      w.plausible = w.plausible || function() { (w.plausible.q = w.plausible.q || []).push(arguments) }
-      w.plausible('code_copy', { props: eventProps })
-    }
-    
-    // Track code copy event with Pagesense
-    if (typeof window !== 'undefined') {
-      const w = window as any
-      if (w.$PS && typeof w.$PS.trackEvent === 'function') {
-        w.$PS.trackEvent('code_copy', eventProps)
-      } else {
-        w.pagesense = w.pagesense || []
-        w.pagesense.push(['trackEvent', 'code_copy', eventProps])
-      }
-    }
-  }
-
-  const languageLabels: Record<string, string> = {
-    javascript: 'JavaScript',
-    js: 'JavaScript',
-    typescript: 'TypeScript',
-    ts: 'TypeScript',
-    python: 'Python',
-    py: 'Python',
-    bash: 'Bash',
-    shell: 'Shell',
-    json: 'JSON',
-    text: 'Text',
-  }
-
-  const label = title || `Example: ${languageLabels[language] || language}`
-
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden mt-4">
-      {/* Header with label and copy button */}
-      <div className="flex items-center justify-between px-3 py-1.5 bg-slate-100 dark:bg-slate-800">
-        <span className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-white">
-          {label}
-        </span>
-        <button
-          onClick={copyToClipboard}
-          className="flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-          title="Copy code"
-        >
-          {copied ? (
-            <>
-              <svg className="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              <span className="text-emerald-600 dark:text-emerald-400">Copied!</span>
-            </>
-          ) : (
-            <>
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
-              <span>Copy</span>
-            </>
-          )}
-        </button>
-      </div>
-      {/* Code content with syntax highlighting - no gap */}
-      <div className="text-sm [&>pre]:!m-0 [&>pre]:!rounded-none">
-        <Fence language={language}>{code}</Fence>
-      </div>
+    <div className="mt-4">
+      <Fence language={language} title={title}>{code}</Fence>
     </div>
   )
 }

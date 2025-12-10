@@ -1,7 +1,8 @@
 {
   "trailingSlash": "auto",
   "globalHeaders": {
-    "X-Frame-Options": "deny"
+    "X-Frame-Options": "deny",
+    "Access-Control-Allow-Origin": "*"
   },
   "routes": [
     {
