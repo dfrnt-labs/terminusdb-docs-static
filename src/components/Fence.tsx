@@ -96,6 +96,7 @@ export function Fence({
       const w = window as any
       w.pagesense = w.pagesense || []
       w.pagesense.push(['trackActivity', 'code_copy', eventProps])
+      w.pagesense.push(['trackEvent', 'code_copy'])
     }
   }
   
