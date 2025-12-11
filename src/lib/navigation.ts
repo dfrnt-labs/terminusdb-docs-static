@@ -79,6 +79,28 @@ export const navigation: Navigation[] = [
       {
         title: 'DFRNT Cloud Service',
         href: '/docs/how-to-connect-terminuscms',
+        // links: [
+        //   {
+        //     title: 'Get Your API Key',
+        //     href: '/docs/get-your-api-key-from-terminuscms',
+        //   },
+        //   {
+        //     title: 'Create a Project',
+        //     href: '/docs/create-a-project-with-terminuscms',
+        //   },
+        //   {
+        //     title: 'Create a Team',
+        //     href: '/docs/create-a-team-with-terminuscms',
+        //   },
+        //   {
+        //     title: 'Invite Users',
+        //     href: '/docs/invite-users-using-terminuscms',
+        //   },
+        //   {
+        //     title: 'Manage Projects',
+        //     href: '/docs/manage-projects-with-terminuscms',
+        //   },
+        // ],
       },
     ],
   },
@@ -126,6 +148,32 @@ export const navigation: Navigation[] = [
           },
         ],
       },
+      // {
+      //   title: 'Dashboard Collaboration',
+      //   href: '/docs/collaboration-with-terminuscms-dashboard',
+      //   links: [
+      //     {
+      //       title: 'Clone',
+      //       href: '/docs/clone',
+      //     },
+      //     {
+      //       title: 'Branch',
+      //       href: '/docs/branch',
+      //     },
+      //     {
+      //       title: 'Reset',
+      //       href: '/docs/reset',
+      //     },
+      //     {
+      //       title: 'Squash',
+      //       href: '/docs/squash',
+      //     },
+      //     {
+      //       title: 'Time Travel',
+      //       href: '/docs/time-travel',
+      //     },
+      //   ],
+      // },
       {
         title: 'Query Languages',
         links: [
@@ -139,15 +187,15 @@ export const navigation: Navigation[] = [
           },
           {
             title: 'REST API (Direct)',
-            href: '/docs/openapi',
+            href: '/docs/http-documents-api',
           },
           {
             title: 'JavaScript Client',
-            href: '/docs/javascript',
+            href: '/docs/use-the-javascript-client',
           },
           {
             title: 'Python Client',
-            href: '/docs/python',
+            href: '/docs/use-the-python-client',
           },
         ],
       },
@@ -176,6 +224,10 @@ export const navigation: Navigation[] = [
           {
             title: 'Connect',
             href: '/docs/connect-with-the-javascript-client',
+          },
+          {
+            title: 'Connect to Database',
+            href: '/docs/connect-to-a-database',
           },
           {
             title: 'Create Database',
@@ -248,6 +300,10 @@ export const navigation: Navigation[] = [
             title: 'API Reference',
             href: '/docs/javascript',
           },
+          {
+            title: 'API Reference',
+            href: '/docs/js-access-control',
+          },
         ],
       },
       {
@@ -261,6 +317,10 @@ export const navigation: Navigation[] = [
           {
             title: 'Connect',
             href: '/docs/connect-with-python-client',
+          },
+          {
+            title: 'Connect to Database',
+            href: '/docs/connect-to-a-database-with-python-client',
           },
           {
             title: 'Create Database',
@@ -326,6 +386,10 @@ export const navigation: Navigation[] = [
             ],
           },
           {
+            title: 'WOQL Query with Python',
+            href: '/docs/woql-query-with-python-client',
+          },
+          {
             title: 'API Reference',
             href: '/docs/python',
           },
@@ -364,6 +428,12 @@ export const navigation: Navigation[] = [
           {
             title: 'Pagination (Limit/Offset)',
             href: '/docs/limit-results-in-graphql',
+            links: [
+              {
+                title: 'Offset for Paging',
+                href: '/docs/offset-to-provide-paging',
+              },
+            ],
           },
           {
             title: 'Sorting (Order By)',
@@ -538,6 +608,52 @@ export const navigation: Navigation[] = [
       {
         title: 'Data Types',
         href: '/docs/terminuscms-data-types',
+        links: [
+          {
+            title: 'Array',
+            href: '/docs/array',
+          },
+          {
+            title: 'List',
+            href: '/docs/list',
+          },
+          {
+            title: 'Set',
+            href: '/docs/set',
+          },
+          {
+            title: 'Optional',
+            href: '/docs/optional',
+          },
+          {
+            title: 'Mandatory',
+            href: '/docs/mandatory',
+          },
+          {
+            title: 'OneOf (@oneof)',
+            href: '/docs/oneof',
+          },
+          {
+            title: 'Choice Document',
+            href: '/docs/choice-document',
+          },
+          {
+            title: 'Choice Subdocuments',
+            href: '/docs/choice-subdocuments',
+          },
+          {
+            title: 'sys:JSON',
+            href: '/docs/sysjson',
+          },
+          {
+            title: '@metadata orderBy',
+            href: '/docs/orderby',
+          },
+          {
+            title: '@metadata renderAs',
+            href: '/docs/render-as',
+          },
+        ],
       },
       {
         title: 'Numeric Precision',
@@ -630,6 +746,12 @@ export const navigation: Navigation[] = [
       {
         title: 'JSON Diff & Patch',
         href: '/docs/json-diff-and-patch',
+        links: [
+          {
+            title: 'Patch Endpoint',
+            href: '/docs/patch-endpoint',
+          },
+        ],
       },
       {
         title: 'Schema Migration',
@@ -638,6 +760,38 @@ export const navigation: Navigation[] = [
       {
         title: 'Dashboard Reference',
         href: '/docs/terminuscms-dashboard-reference',
+        links: [
+          {
+            title: 'Model Builder UI',
+            href: '/docs/use-the-model-builder-ui',
+          },
+          {
+            title: 'JSON Schema Editor',
+            href: '/docs/use-the-json-editor',
+          },
+          {
+            title: 'Model Schema',
+            href: '/docs/model-schema',
+          },
+        ],
+      },
+      {
+        title: 'VectorLink',
+        href: '/docs/set-up-vectorlink',
+        links: [
+          {
+            title: 'How to Use VectorLink',
+            href: '/docs/use-vectorlink',
+          },
+          {
+            title: 'OpenAI & Handlebars Config',
+            href: '/docs/openai-handlebars-config',
+          },
+          {
+            title: 'Index Your Data',
+            href: '/docs/index-your-data',
+          },
+        ],
       },
       {
         title: 'TerminusDB Internals',
@@ -745,8 +899,8 @@ export const navigation: Navigation[] = [
             href: '/docs/what-is-datalog',
           },
           {
-            title: 'Unification Explained',
-            href: '/docs/unification-of-variables-in-datalog',
+            title: 'What is Unification?',
+            href: '/docs/what-is-unification',
           },
           {
             title: 'WOQL Concepts',
