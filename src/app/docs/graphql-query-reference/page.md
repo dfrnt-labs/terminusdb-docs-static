@@ -434,3 +434,9 @@ We can find everyone within 2-degrees of separation with the following path quer
 ```
 
 See the [complete syntax for path queries](/docs/path-query-reference-guide/) for more details on the semantics of the path argument.
+
+### Count
+
+`_count`
+
+The `_count` field returns the number of documents in the result set.
