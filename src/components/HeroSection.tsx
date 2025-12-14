@@ -20,7 +20,7 @@ export function HeroSection({
   secondaryCta,
 }: HeroSectionProps) {
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 px-8 py-16 text-white shadow-2xl sm:px-12 lg:px-16">
+    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 dark:from-slate-900 dark:via-slate-950 dark:to-slate-800 px-8 py-16 text-black dark:text-white shadow-2xl sm:px-12 lg:px-16">
       {/* Decorative background pattern */}
       <div className="absolute inset-0 opacity-10">
         <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +45,7 @@ export function HeroSection({
         <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
           {title}
         </h1>
-        <p className="mb-8 text-lg text-blue-100 sm:text-xl lg:text-2xl">
+        <p className="mb-8 text-lg text-blue-900 dark:text-blue-100 sm:text-xl lg:text-2xl">
           {subtitle}
         </p>
 
