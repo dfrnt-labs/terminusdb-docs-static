@@ -377,7 +377,7 @@ This returns the fully qualified URI of the given instance of the `Person` class
 
 This returns the class at which this instance is instantiated. This is useful when a super-class is queried, as we can obtain what concrete subclass it corresponds to.
 
-### Backlinks
+### _backlink Backlinks
 
 `_PROPERTY_of_CLASS`
 
@@ -406,7 +406,7 @@ We automatically get the backlink `_friend_of_Person` that says which people vie
 
 This will find the name of every person who views the top level `Person` us as their friend (i.e. has a `friend` link to the current person).
 
-### Path Queries
+### _path Path Queries
 
 `_path_to_CLASS`
 
@@ -435,8 +435,14 @@ We can find everyone within 2-degrees of separation with the following path quer
 
 See the [complete syntax for path queries](/docs/path-query-reference-guide/) for more details on the semantics of the path argument.
 
-### Count
+### _count Count Queries
 
 `_count`
 
 The `_count` field returns the number of documents in the result set.
+
+```graphql
+query {
+  _count (Person:{name:{startsWith:"Alice"}}) 
+}
+```
