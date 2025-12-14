@@ -449,12 +449,14 @@ export function ApiDocsHero({
   description, 
   version,
   installCommand,
+  howToUse,
   language = 'javascript'
 }: { 
   title: string
   description: string
   version?: string
   installCommand?: string
+  howToUse?: string
   language?: string
 }) {
   const [copied, setCopied] = useState(false)
@@ -480,6 +482,14 @@ export function ApiDocsHero({
         )}
       </div>
       <p className="text-base text-slate-600 dark:text-slate-400 m-0 mb-4 leading-relaxed">{description}</p>
+      {howToUse && (
+        <div className="flex items-center gap-2 mb-4 text-base text-slate-600 dark:text-slate-400">
+          <span className="text-sky-600 dark:text-sky-400">→</span>
+          <a href={howToUse} className="text-sky-600 dark:text-sky-400 hover:underline">
+            How to use the {title}
+          </a>
+        </div>
+      )}
       
       {installCommand && (
         <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-900 dark:bg-slate-800 font-mono text-xs">

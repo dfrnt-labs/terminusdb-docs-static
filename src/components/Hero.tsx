@@ -49,16 +49,18 @@ export function Hero() {
             />
             <div className="relative">
               <p className="inline bg-linear-to-r from-indigo-200 via-sky-400 to-indigo-200 bg-clip-text font-display text-5xl tracking-tight text-transparent">
-                Semantic Document Graph Infrastructure
+                Git-for-Data Document Graph Infrastructure
               </p>
               <p className="mt-3 text-2xl tracking-tight text-slate-400">
                 TerminusDB is the model-based, in-memory, and distributed graph database
                 for hierarchical records with a git-for-data collaboration model at its heart.
               </p>
               <div className="mt-8 flex gap-4 md:justify-center lg:justify-start">
-                <Button href="/docs/get-started/">Get started</Button>
-                <Button href="https://github.com/terminusdb/terminusdb" variant="secondary">
-                  View on GitHub
+                <Button href="/docs/start-here" variant="primary-inverted" size="lg">
+                  Get Started
+                </Button>
+                <Button href="https://dfrnt.com/sign-up" variant="secondary-outline" size="lg">
+                  Try Cloud Experience
                 </Button>
               </div>
             </div>
@@ -91,7 +93,7 @@ export function Hero() {
               <div className="relative rounded-2xl bg-[#0A101F]/80 ring-1 ring-white/10 backdrop-blur-sm">
                 <div className="absolute -top-px right-11 left-20 h-px bg-linear-to-r from-sky-300/0 via-sky-300/70 to-sky-300/0" />
                 <div className="absolute right-20 -bottom-px left-11 h-px bg-linear-to-r from-blue-400/0 via-blue-400 to-blue-400/0" />
-                <div className="pt-4 pl-4">
+                <div className="pt-6 pl-4 pb-4">
                   <TrafficLightsIcon className="h-2.5 w-auto stroke-slate-500/30" />
                   <div className="mt-4 flex space-x-2 text-xs">
                     {tabs.map((tab) => (

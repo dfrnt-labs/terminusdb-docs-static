@@ -1,8 +1,8 @@
 ---
-title: Get Started with TerminusDB
+title: Next steps with TerminusDB
 nextjs:
   metadata:
-    title: Get Started with TerminusDB
+    title: Next steps with TerminusDB
     description: "An overview of the ways to get started with TerminusDB with Javascript and Python on Windows, macOS, or Linux, and how to run it locally or in the cloud."
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

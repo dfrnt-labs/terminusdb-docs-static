@@ -186,7 +186,7 @@ Looking at the pure WOQL AST helps show the evaluation structure.
 ## Precision Loss: When and Why
 
 {% callout type="warning" title="Critical Understanding" %}
-Precision is lost **at parse time**, not during arithmetic!
+Precision is lost at *parse time*, not during arithmetic!
 {% /callout %}
 
 ### Example: The 0.1 + 0.2 Problem

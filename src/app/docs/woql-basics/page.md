@@ -19,8 +19,6 @@ media:
 
 > To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusDB. You will then have full access to the data needed for this tutorial.
 
-## Writing a WOQL Javascript Datalog Query
-
 ![WOQL query playground in the TerminusDB dashboard](https://assets.terminusdb.com/docs/how-to-query-woql.png)
 
 First, go to the WOQL Query Panel in the UI. Now you can type a query using the syntax of the JS client in the panel.

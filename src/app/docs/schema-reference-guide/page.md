@@ -1062,6 +1062,125 @@ The above example shows both Doug and Phil using the same address document. On r
 
 The address is fully unfolded in both documents despite not being a subdocument.
 
+### @unfold (field-level)
+
+The `@unfold` annotation can be applied to individual properties within a class definition, providing fine-grained control over which linked documents are automatically expanded during retrieval.
+
+Unlike class-level `@unfoldable` which applies globally to all references to a class, field-level `@unfold` allows different properties pointing to the same class to have different unfolding behavior.
+
+#### When to use field-level @unfold
+
+- A reusable class should be unfolded in some contexts but not others
+- Different properties pointing to the same class have different unfolding requirements
+- The target class is from an external schema that cannot be modified
+
+#### Syntax
+
+Add `"@unfold": true` to any complex property definition (Optional, Set, Array, List, or Cardinality):
+
+```json
+{
+    "@type"    : "Class",
+    "@id"      : "Order",
+    "customer" : {
+        "@type"   : "Optional",
+        "@class"  : "Customer",
+        "@unfold" : true
+    },
+    "product"  : {
+        "@type"   : "Optional",
+        "@class"  : "Product"
+    }
+}
+```
+
+In this example, when retrieving an Order document:
+- `customer` will be unfolded inline (full Customer object)
+- `product` will remain as an ID reference
+
+#### Interaction with @unfoldable
+
+| Class `@unfoldable` | Property `@unfold` | Behavior |
+|---------------------|-------------------|----------|
+| No | No | Return ID reference |
+| No | Yes | Unfold inline |
+| Yes | No | Unfold inline |
+| Yes | Yes | Unfold inline |
+
+Field-level `@unfold` enables unfolding for properties referencing non-unfoldable classes. When the target class is already marked `@unfoldable`, the field-level setting has no additional effect.
+
+#### Cycle detection
+
+Cycles are allowed in schemas using field-level `@unfold`. At runtime, TerminusDB uses ancestor path tracking to detect cycles during document retrieval. When a cycle is detected, the recurring document is represented by its ID instead of being unfolded again, preventing infinite recursion.
+
+For example, if Document A references Document B which references Document A again, the result will be:
+
+```json
+{
+    "@id": "A",
+    "ref": {
+        "@id": "B",
+        "ref": "A"
+    }
+}
+```
+
+#### Code: An example with field-level @unfold
+
+```json
+{
+    "@type"        : "@context",
+    "@base"        : "terminusdb://i/",
+    "@schema"      : "terminusdb://s#"
+}
+{
+    "@type"        : "Class",
+    "@id"          : "Customer",
+    "name"         : "xsd:string",
+    "email"        : "xsd:string"
+}
+{
+    "@type"        : "Class",
+    "@id"          : "Product",
+    "name"         : "xsd:string",
+    "price"        : "xsd:decimal"
+}
+{
+    "@type"        : "Class",
+    "@id"          : "Order",
+    "orderNumber"  : "xsd:string",
+    "customer"     : {
+        "@type"    : "Optional",
+        "@class"   : "Customer",
+        "@unfold"  : true
+    },
+    "items"        : {
+        "@type"    : "Set",
+        "@class"   : "Product"
+    }
+}
+```
+
+When retrieving an Order:
+
+```json
+{
+    "@type"       : "Order",
+    "@id"         : "Order/123",
+    "orderNumber" : "ORD-123",
+    "customer"    : {
+        "@type"   : "Customer",
+        "@id"     : "Customer/alice",
+        "name"    : "Alice",
+        "email"   : "alice@example.com"
+    },
+    "items"       : ["Product/widget", "Product/gadget"]
+}
+```
+
+The `customer` is fully unfolded while `items` remain as ID references.
+
+See also the [Document Unfolding Reference](/docs/document-unfolding-reference/) for more details on cycle detection and performance characteristics.
 
 ### @oneOf in a Class definition
 

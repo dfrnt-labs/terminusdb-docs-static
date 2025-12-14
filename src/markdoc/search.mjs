@@ -84,6 +84,9 @@ function extractJSONSections(jsonData, basePath) {
               // Gather content for this function
               const functionContent = []
               
+              // Add the method name alone for better searchability
+              functionContent.push(func.name)
+              
               // Add summary
               if (func.summary) {
                 functionContent.push(func.summary)
@@ -113,9 +116,10 @@ function extractJSONSections(jsonData, basePath) {
               }
               
               // Create section for this function
-              const functionTitle = `${functionName}`
+              // Use just the method name as title for better search matching
+              const functionTitle = `${func.name}`
               result.push({
-                url: `${basePath}`,
+                url: `${basePath}#${functionHash}`,
                 sections: [[functionTitle, functionHash, functionContent]]
               })
             })
@@ -181,7 +185,21 @@ export default function withSearch(nextConfig = {}) {
                 tokenize: 'full',
                 document: {
                   id: 'url',
-                  index: 'content',
+                  index: [
+                    {
+                      field: 'title',
+                      tokenize: 'forward',
+                      optimize: true,
+                      resolution: 9
+                    },
+                    {
+                      field: 'content',
+                      tokenize: 'strict',
+                      optimize: true,
+                      resolution: 5,
+                      depth: 3
+                    }
+                  ],
                   store: ['title', 'pageTitle'],
                 },
                 context: {

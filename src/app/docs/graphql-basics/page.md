@@ -23,6 +23,8 @@ media:
 ---
 
 > To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusDB. You will then have full access to the data needed for this tutorial.
+>
+> Note: You can get access to these via DFRNT, just send us a request after signing up to the free trial and we will connect your account to the demo data.
 
 ![Clone a demo project from the dashboard](https://assets.terminusdb.com/docs/how-to-clone-a-demo.png)
 
@@ -171,3 +173,17 @@ And now we get two more:
   }
 }
 ```
+
+## Related Pages
+
+Continue exploring TerminusDB with these related topics:
+
+- **[Get Started](/docs/get-started/)** - Complete quickstart tutorial for TerminusDB
+- **[Document Insertion](/docs/document-insertion/)** - Learn how to insert documents using the REST API
+- **[WOQL Basics](/docs/how-to-query-with-woql/)** - Query your data using TerminusDB's native query language
+- **[Schema Reference](/docs/reference-schema/)** - Understand how to define schemas for your data
+- **[Clone a Demo Project](/docs/clone-a-demo-terminuscms-project/)** - Get started with pre-built demo data
+- **[GraphQL Reference](/docs/graphql-reference/)** - Complete GraphQL API reference
+- **[Connect with JavaScript Client](/docs/connect-with-the-javascript-client/)** - Use the JavaScript client to query GraphQL
+- **[Connect with Python Client](/docs/connect-with-the-python-client/)** - Use the Python client to query GraphQL
+

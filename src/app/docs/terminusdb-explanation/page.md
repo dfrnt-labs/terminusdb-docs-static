@@ -29,7 +29,13 @@ media:
 
 ## What is TerminusDB?
 
-TerminusDB is a powerful, in-memory graph database enabling you to maximize your productivity and the value of your data. TerminusDB has numerous features and several interfaces enabling you to create data-intensive, immutable, and synchronized databases with built-in version control and other [Git-like](#gitlikemodel) operations.
+TerminusDB is a powerful, in-memory graph database enabling you to maximize your productivity and the value of your data. TerminusDB has numerous features and several interfaces enabling you to create data-intensive, immutable, and synchronized databases with built-in version control following a git-for-data model.
+
+It is straightforward to use as a flexible headless content management system for storing structured information. It is designed to give technical professionals and linked data professionals a solution for complex content, knowledge and semantic infrastructures.
+
+It brings together change request workflows, analytics, and complex integrations. TerminusDB aims to be a content platform that sits at the convergence of content and knowledge.
+
+TerminusDB is open source and free to use, maintained by the team at DFRNT in collaboration with the community. DFRNT assumed stewardship for the open source TerminusDB project in 2025.
 
 ### Diagram: Some key features of TerminusDB
 

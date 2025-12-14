@@ -20,6 +20,53 @@ export function Navigation({
     useState<IndicatorStyle>('plusMinus')
   let pathname = usePathname()
 
+  // State for which main sections are open
+  const [openMainSections, setOpenMainSections] = useState<Record<string, boolean>>({})
+
+  // Helper to check if any link in a section is active
+  const isSectionActive = (section: typeof navigation[0]): boolean => {
+    if (!pathname) return false
+    
+    const checkLinks = (links: SubNavigation[]): boolean => {
+      return links.some((link) => {
+        if (link.href) {
+          if (pathname === link.href || pathname === link.href + '/' || pathname.startsWith(link.href + '/')) {
+            return true
+          }
+        }
+        if (link.links) {
+          return checkLinks(link.links)
+        }
+        return false
+      })
+    }
+    
+    return checkLinks(section.links)
+  }
+
+  // Initialize open sections based on active page
+  useEffect(() => {
+    const initialOpenState: Record<string, boolean> = {}
+    navigation.forEach((section) => {
+      initialOpenState[section.title] = isSectionActive(section)
+    })
+    setOpenMainSections(initialOpenState)
+  }, [pathname])
+
+  // Toggle main section - close others when opening one
+  const toggleMainSection = (sectionTitle: string) => {
+    setOpenMainSections((prev) => {
+      const newState: Record<string, boolean> = {}
+      // Close all sections
+      Object.keys(prev).forEach((key) => {
+        newState[key] = false
+      })
+      // Toggle the clicked section
+      newState[sectionTitle] = !prev[sectionTitle]
+      return newState
+    })
+  }
+
   // Toggle between indicator styles
   const toggleIndicatorStyle = () => {
     setIndicatorStyle((current) => {
@@ -31,19 +78,37 @@ export function Navigation({
 
   return (
     <nav className={clsx('text-base lg:text-sm', className)}>
-      <ul role="list" className="space-y-9">
-        {navigation.map((section) => (
-          <li key={section.title}>
-            <h2 className="font-display font-medium text-slate-900 dark:text-white">
-              {section.title}
-            </h2>
-            <SubNavigationMap
-              links={section.links}
-              onLinkClick={onLinkClick}
-              indicatorStyle={indicatorStyle}
-            />
-          </li>
-        ))}
+      <ul role="list" className="space-y-4">
+        {navigation.map((section) => {
+          const isOpen = openMainSections[section.title] ?? false
+          const isActive = isSectionActive(section)
+          
+          return (
+            <li key={section.title}>
+              <h2 
+                className={clsx(
+                  "font-display font-medium cursor-pointer flex items-center justify-between py-2 px-2 rounded transition-colors",
+                  isActive 
+                    ? "text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-900/20" 
+                    : "text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                )}
+                onClick={() => toggleMainSection(section.title)}
+              >
+                <span>{section.title}</span>
+                <span className="text-sm text-slate-500 dark:text-slate-400">
+                  {isOpen ? '−' : '+'}
+                </span>
+              </h2>
+              {isOpen && (
+                <SubNavigationMap
+                  links={section.links}
+                  onLinkClick={onLinkClick}
+                  indicatorStyle={indicatorStyle}
+                />
+              )}
+            </li>
+          )
+        })}
       </ul>
     </nav>
   )

@@ -14,6 +14,12 @@ media: []
 
 This page explains various topics regarding the WOQL datalog query language with built in unification like in Prolog.
 
+WOQL is the query language used to query TerminusDB Databases. It is unique as a query language as it enables small declarative query programs to be created to handle complex tasks including post-processing of data to change its shape and structure.
+
+In its most basic form, a query is submitted to the TerminusDB server and it responds with a JSON array of answers that match the query. Very similar to how other query languages work.
+
+The cells of the resulting table are the variables in the query and the rows are the answers that match the query. What is relatively unique is that variables can contain both lists and dictionaries that can be declaratively specified in the query..
+
 ## WOQL fluent vs. functional style
 
 WOQL supports both **functional** and **fluent** styles for writing queries. Overall, the functional style is recommended to avoid snags. The fluent style may help for simplifying complex compound query expressions.

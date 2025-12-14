@@ -87,6 +87,7 @@ export default function PythonArticle() {
             title="Python Client"
             description="The official TerminusDB Python client library for data science and backend applications. Integrate graph database capabilities into your Python workflows."
             version={props.version}
+            howToUse="/docs/use-the-python-client/"
             installCommand="pip install terminusdb-client"
             language="python"
           />

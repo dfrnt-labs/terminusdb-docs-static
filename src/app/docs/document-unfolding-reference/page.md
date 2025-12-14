@@ -12,13 +12,18 @@ nextjs:
 media: []
 ---
 
-TerminusDB provides automatic document unfolding for linked documents marked with the `@unfoldable` schema annotation. This reference guide explains how unfolding works, how cycle detection prevents infinite recursion, and performance characteristics of the implementation.
+TerminusDB provides automatic document unfolding for linked documents through two mechanisms: class-level `@unfoldable` and field-level `@unfold` annotations. This reference guide explains how unfolding works, how cycle detection prevents infinite recursion, and performance characteristics of the implementation.
 
 --> Valid as of the 11.2 release.
 
 ## What is Document Unfolding?
 
-Document unfolding is the process of automatically expanding referenced documents when retrieving data through the Document API, GraphQL, or WOQL. When a class is marked with `@unfoldable: []`, any references to documents of that class are automatically expanded inline instead of returning just an ID reference.
+Document unfolding is the process of automatically expanding referenced documents when retrieving data through the Document API, GraphQL, or WOQL. 
+
+There are two ways to enable unfolding:
+
+1. **Class-level `@unfoldable`**: Mark a class with `@unfoldable: []` to automatically expand all references to documents of that class
+2. **Field-level `@unfold`**: Add `@unfold: true` to individual properties to selectively enable expansion for specific relationships
 
 ### Example Schema
 
@@ -62,6 +67,167 @@ Document unfolding is the process of automatically expanding referenced document
   ]
 }
 ```
+
+## Field-Level @unfold
+
+In addition to class-level `@unfoldable`, you can enable unfolding on individual properties using `@unfold: true`. This provides fine-grained control when you need different unfolding behavior for different relationships to the same class.
+
+### Field-Level @unfold Example
+
+```json
+{
+  "@type": "Class",
+  "@id": "Order",
+  "orderNumber": "xsd:string",
+  "customer": {
+    "@type": "Optional",
+    "@class": "Customer",
+    "@unfold": true
+  },
+  "product": {
+    "@type": "Optional",
+    "@class": "Product"
+  }
+}
+```
+
+**Result when retrieving an Order:**
+```json
+{
+  "@id": "Order/123",
+  "@type": "Order",
+  "orderNumber": "ORD-123",
+  "customer": {
+    "@id": "Customer/alice",
+    "@type": "Customer",
+    "name": "Alice",
+    "email": "alice@example.com"
+  },
+  "product": "Product/widget"
+}
+```
+
+The `customer` is unfolded inline while `product` remains as an ID reference.
+
+### When to Use Field-Level vs Class-Level
+
+| Scenario | Recommendation |
+|----------|----------------|
+| All references to a class should unfold | Use class-level `@unfoldable` |
+| Different properties need different behavior | Use field-level `@unfold` |
+| Target class is external/unmodifiable | Use field-level `@unfold` |
+| Mixed use cases for same class | Use field-level `@unfold` on specific properties |
+
+### Interaction Between @unfoldable and @unfold
+
+| Class `@unfoldable` | Property `@unfold` | Behavior |
+|---------------------|-------------------|----------|
+| No | No | Return ID reference |
+| No | Yes | Unfold inline |
+| Yes | No | Unfold inline |
+| Yes | Yes | Unfold inline |
+
+The property-level `@unfold: true` acts as an **override** to enable unfolding for properties pointing to non-unfoldable classes.
+
+### Supported Property Types
+
+The `@unfold` annotation works with all property type families:
+
+| Property Type | Example Syntax |
+|---------------|----------------|
+| Optional | `{ "@type": "Optional", "@class": "Customer", "@unfold": true }` |
+| Set | `{ "@type": "Set", "@class": "Customer", "@unfold": true }` |
+| Array | `{ "@type": "Array", "@class": "Customer", "@unfold": true }` |
+| List | `{ "@type": "List", "@class": "Customer", "@unfold": true }` |
+| Cardinality | `{ "@type": "Cardinality", "@class": "Customer", "min": 1, "max": 5, "@unfold": true }` |
+
+### Mixed Unfold Behavior Example
+
+```json
+[
+  {
+    "@type": "Class",
+    "@id": "UnfoldableClass",
+    "@unfoldable": [],
+    "data": "xsd:string"
+  },
+  {
+    "@type": "Class",
+    "@id": "RegularClass",
+    "value": "xsd:string"
+  },
+  {
+    "@type": "Class",
+    "@id": "TestClass",
+    "unfoldableRef": {
+      "@type": "Optional",
+      "@class": "UnfoldableClass"
+    },
+    "regularWithUnfold": {
+      "@type": "Optional",
+      "@class": "RegularClass",
+      "@unfold": true
+    },
+    "regularWithoutUnfold": {
+      "@type": "Optional",
+      "@class": "RegularClass"
+    }
+  }
+]
+```
+
+When retrieving a `TestClass` document with `unfold=true`:
+
+```json
+{
+  "@id": "TestClass/test1",
+  "@type": "TestClass",
+  "unfoldableRef": {
+    "@id": "UnfoldableClass/u1",
+    "@type": "UnfoldableClass",
+    "data": "unfoldable data"
+  },
+  "regularWithUnfold": {
+    "@id": "RegularClass/r1",
+    "@type": "RegularClass",
+    "value": "regular value 1"
+  },
+  "regularWithoutUnfold": "RegularClass/r2"
+}
+```
+
+- `unfoldableRef` is unfolded because `UnfoldableClass` has `@unfoldable: []`
+- `regularWithUnfold` is unfolded because the property has `@unfold: true`
+- `regularWithoutUnfold` returns just the ID because neither condition is met
+
+### Best Practices for Field-Level @unfold
+
+**1. Use for Context-Specific Expansion:**
+```json
+{
+  "@type": "Class",
+  "@id": "Invoice",
+  "billingAddress": {
+    "@type": "Optional",
+    "@class": "Address",
+    "@unfold": true
+  },
+  "shippingAddress": {
+    "@type": "Optional",
+    "@class": "Address"
+  }
+}
+```
+Billing address is always needed inline, but shipping address can be fetched separately.
+
+**2. Combine with @unfoldable for Default Behavior:**
+Use `@unfoldable` for classes that should always be expanded, and `@unfold` for context-specific overrides.
+
+**3. Consider Performance:**
+Each unfolded property adds to the response size. Only use `@unfold` for properties that are frequently accessed together with the parent document.
+
+**4. Avoid Deep Unfold Chains:**
+Be cautious with nested `@unfold` chains that create 4+ levels of automatic expansion.
 
 ## Cycle Detection
 
@@ -374,8 +540,9 @@ WOQL.read_document("Person/Alice", "v:Doc")
 ## Summary
 
 **Key Takeaways:**
-- `@unfoldable` automatically expands linked documents
-- Cycle detection prevents infinite recursion using path stack
+- `@unfoldable` (class-level) automatically expands all references to a class
+- `@unfold: true` (field-level) selectively enables expansion for specific properties
+- Cycle detection prevents infinite recursion using ancestor path tracking
 - Vec-based implementation is optimal for path-bounded traversal
 - `TERMINUSDB_DOC_WORK_LIMIT` protects against excessive operations
 - ID references returned when cycles detected (not an error)

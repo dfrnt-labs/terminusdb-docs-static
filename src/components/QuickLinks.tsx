@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 
 import { Icon } from '@/components/Icon'
@@ -21,13 +23,35 @@ export function QuickLink({
   href: string
   icon: React.ComponentProps<typeof Icon>['icon']
 }) {
+  const handleClick = () => {
+    // Track persona role selection with Plausible
+    if (typeof window !== 'undefined') {
+      const w = window as any
+      w.plausible = w.plausible || function() { (w.plausible.q = w.plausible.q || []).push(arguments) }
+      w.plausible('role_selection', { 
+        props: { 
+          role: title,
+          destination: href 
+        } 
+      })
+    }
+    
+    // Track persona role selection with Pagesense
+    if (typeof window !== 'undefined') {
+      const w = window as any
+      w.pagesense = w.pagesense || []
+      w.pagesense.push(['trackActivity', 'role_selection', { role: title, destination: href }])
+      w.pagesense.push(['trackEvent', 'role_selection'])
+    }
+  }
+
   return (
     <div className="group relative rounded-xl border border-slate-200 dark:border-slate-800">
       <div className="absolute -inset-px rounded-xl border-2 border-transparent opacity-0 [background:linear-gradient(var(--quick-links-hover-bg,var(--color-sky-50)),var(--quick-links-hover-bg,var(--color-sky-50)))_padding-box,linear-gradient(to_top,var(--color-indigo-400),var(--color-cyan-400),var(--color-sky-500))_border-box] group-hover:opacity-100 dark:[--quick-links-hover-bg:var(--color-slate-800)]" />
       <div className="relative overflow-hidden rounded-xl p-6">
         <Icon icon={icon} className="h-8 w-8" />
         <h2 className="mt-4 font-display text-base text-slate-900 dark:text-white">
-          <Link href={href}>
+          <Link href={href} onClick={handleClick}>
             <span className="absolute -inset-px rounded-xl" />
             {title}
           </Link>

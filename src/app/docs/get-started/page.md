@@ -1,36 +1,176 @@
 ---
-title: Getting Started
+title: TerminusDB Quickstart Tutorial
 nextjs:
   metadata:
-    title: Getting Started
-    description: Technical documentation for TerminusDB and the DFRNT TerminusDB cloud.
+    title: TerminusDB Quickstart Tutorial
+    description: Get started with TerminusDB in 15 minutes with this step-by-step tutorial
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/get-started/
-media:
-  - alt: Clone a demo data product from the TerminusDB dashboard
-    caption: Your team home page features a number of demo projects to clone and experiment with.
-    media_type: Image
-    title: Clone a demo data product from the TerminusDB dashboard
-    value: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
+      canonical: https://terminusdb.org/docs/quickstart-example/
 ---
 
-## Getting started with TerminusDB in less than a minute
+Complete this tutorial to get TerminusDB running and create your first database. Check off each step as you complete it!
 
-TerminusDB is a versatile content storage system for model-based hierarchically structured records. It is straightforward to use as a flexible headless content management system.
+{% task-heading id="quickstart-install-docker" number="1" %}
+Install Docker
+{% /task-heading %}
 
-It is designed to give technical professionals and linked data professionals a solution for complex content, knowledge and semantic infrastructures. Bringing together change request workflows, analytics, and complex integrations, TerminusDB aims to be a content platform that sits at the convergence of content and knowledge.
+TerminusDB runs in Docker for easy installation and portability. If you don't have Docker installed:
 
-TerminusDB is open source and free to use, maintained by the team at DFRNT in collaboration with the community.
+1. Download Docker Desktop from [docker.com](https://docs.docker.com/get-docker/)
+2. Install and start Docker Desktop
+3. Verify installation by running: `docker --version`
 
-Commercial hosting with a powerful modeller, visualisation, WOQL studio, and record editor user interface is available at [DFRNT.com](https://dfrnt.com/hypergraph-content-studio/) with a free trial. It works with both localhost open source TerminusDB and TerminusDB hosted in the cloud environments, including git-for-data synchronization of content repositories. 
+{% task-heading id="quickstart-start-terminusdb" number="2" %}
+Start TerminusDB Container
+{% /task-heading %}
 
-When you sign up, you get full commercial hosting. This comes with generous limits to allow you to build without constraints, and then upgrade when needed.
+Run this command to download and start TerminusDB:
 
-### Steps to get started
+```bash
+docker run --pull always -d -p 127.0.0.1:6363:6363 -v terminusdb_storage:/app/terminusdb/storage --name terminusdb terminusdb/terminusdb-server:v12
+```
 
-1.  Sign up at [https://dfrnt.com/sign-up](https://dfrnt.com/sign-up) for hosting an a complete user interface, or install with [Docker](/docs/install-terminusdb-as-a-docker-container/) locally.
-2.  Install the [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-the-python-client/) Client
-3.  [Get your API key to use a client with the DFRNT TerminusDB cloud](/docs/how-to-connect-terminuscms/)
-4.  [Familiarize yourself with the client API](/docs/connect-with-the-javascript-client/) to start building with TerminusDB.
+This command:
+- Downloads the latest TerminusDB image
+- Starts a container named `terminusdb`
+- Opens port 6363 for the API
+- Creates a persistent volume `terminusdb_storage` for your data
+
+{% task-heading id="quickstart-open-dashboard" number="3" %}
+Open the Dashboard
+{% /task-heading %}
+
+Navigate to the [DFRNT Modeller](https://studio.dfrnt.com/) in your browser:
+
+You should see the DFRNT welcome screen. Sign up or login and create your account.
+
+{% task-heading id="quickstart-connect-client" number="4" %}
+Connect with JavaScript Client
+{% /task-heading %}
+
+Install the TerminusDB JavaScript client:
+
+```bash
+npm install @terminusdb/terminusdb-client
+```
+
+Create a connection to your local TerminusDB instance. Create a main.js file and run it with `node main.js`.
+
+```javascript
+import TerminusClient from "@terminusdb/terminusdb-client";
+import {WOQL} from "@terminusdb/terminusdb-client";
+
+const client = new TerminusClient.WOQLClient("http://127.0.0.1:6363", {
+  user: "admin",
+  organization: "admin"
+});
+
+// Connect and verify
+client.connect({ key: "root", db: "my_first_db" }).then(() => {
+  console.log("Connected to TerminusDB!");
+});
+```
+
+{% task-heading id="quickstart-create-database" number="5" %}
+Create Your First Database
+{% /task-heading %}
+
+Create a new database using the client:
+
+```javascript
+await client.createDatabase("my_first_db", {
+  label: "My First Database",
+  comment: "A tutorial database"
+});
+
+console.log("Database created successfully!");
+```
+
+{% task-heading id="quickstart-add-schema" number="6" %}
+Add a Schema
+{% /task-heading %}
+
+Define a simple schema for storing person records:
+
+```javascript
+const schema = {
+  "@type": "Class",
+  "@id": "Person",
+  name: "xsd:string",
+  age: "xsd:integer",
+  email: "xsd:string"
+};
+
+await client.addDocument(schema, { graph_type: "schema" });
+```
+
+Remember to remove the database creation part from as the database is already created.
+
+{% task-heading id="quickstart-insert-data" number="7" %}
+Insert Your First Document
+{% /task-heading %}
+
+Add a person document to your database:
+
+```javascript
+const person = {
+  "@id": "Person/Alice",
+  "@type": "Person",
+  name: "Alice Johnson",
+  age: 30,
+  email: "alice@example.com"
+};
+
+await client.addDocument(person);
+console.log("Document inserted!");
+```
+
+{% task-heading id="quickstart-query-data" number="8" %}
+Query Your Data
+{% /task-heading %}
+
+Retrieve all person documents:
+
+```javascript
+const person = await client.getDocument({ type: "Person" });
+console.log("People in database:", person);
+```
+
+{% task-heading id="quickstart-query-data" number="8" %}
+Perform a WOQL Query
+{% /task-heading %}
+
+```javascript
+const docs = await client.query(WOQL.read_document("Person/Alice", "v:doc"));
+console.log("Alice:", docs.bindings);
+```
+
+## Next Steps
+
+Congratulations! You've completed the quickstart tutorial. Here's what to explore next:
+
+- [Learn about Documents & Schema](/docs/documents-explanation)
+- [Query with GraphQL](/docs/how-to-query-with-graphql)
+- [Connect with JavaScript Client](/docs/connect-with-the-javascript-client)
+- [Connect with Python Client](/docs/connect-with-the-python-client)
+
+## Managing Your Container
+
+**Stop TerminusDB:**
+```bash
+docker stop terminusdb
+```
+
+**Restart TerminusDB:**
+```bash
+docker restart terminusdb
+```
+
+**View logs:**
+```bash
+docker logs terminusdb
+```
+
+Your data persists in the `terminusdb_storage` volume, so it's safe to stop and restart the container.

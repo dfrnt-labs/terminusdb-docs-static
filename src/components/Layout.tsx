@@ -21,7 +21,7 @@ function GitHubIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function Header() {
+export function Header() {
   let [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
