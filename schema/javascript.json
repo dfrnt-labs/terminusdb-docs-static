@@ -2654,14 +2654,14 @@
                 {
                   "@type": "Parameter",
                   "name": "varName",
-                  "type": "string|Var",
-                  "summary": "literal, variable or id"
+                  "type": "string|number|boolean|array|Var",
+                  "summary": "literal, variable, array, or id"
                 },
                 {
                   "@type": "Parameter",
                   "name": "varValue",
-                  "type": "string|Var",
-                  "summary": "literal, variable or id"
+                  "type": "string|number|boolean|array|Var",
+                  "summary": "literal, variable, array, or id"
                 }
               ],
               "returns": {
@@ -3431,7 +3431,9 @@
               "@type": "Definition",
               "name": "idgen_random",
               "summary": "Generates a random ID with a specified prefix\nUses cryptographically secure random base64 encoding to generate unique identifiers",
-              "examples": [],
+              "examples": [
+                "idgen_random(\"Person/\", \"v:person_id\")"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -3450,7 +3452,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
-                "summary": "A WOQLQuery which contains the random ID generation pattern\nidgen_random(\"Person/\", \"v:person_id\")",
+                "summary": "A WOQLQuery which contains the random ID generation pattern",
                 "type": "WOQLQuery"
               }
             },
@@ -3604,6 +3606,159 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "A WOQLQuery which contains the List inclusion pattern matching expression",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "set_difference",
+              "summary": "Computes the set difference between two lists (elements in listA but not in listB)",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "listA",
+                  "type": "string|Var|array",
+                  "summary": "First list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "listB",
+                  "type": "string|Var|array",
+                  "summary": "Second list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "result",
+                  "type": "string|Var",
+                  "summary": "Variable to store the result"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery which contains the SetDifference expression",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "set_intersection",
+              "summary": "Computes the set intersection of two lists (elements in both listA and listB)",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "listA",
+                  "type": "string|Var|array",
+                  "summary": "First list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "listB",
+                  "type": "string|Var|array",
+                  "summary": "Second list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "result",
+                  "type": "string|Var",
+                  "summary": "Variable to store the result"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery which contains the SetIntersection expression",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "set_union",
+              "summary": "Computes the set union of two lists (all unique elements from both lists)",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "listA",
+                  "type": "string|Var|array",
+                  "summary": "First list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "listB",
+                  "type": "string|Var|array",
+                  "summary": "Second list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "result",
+                  "type": "string|Var",
+                  "summary": "Variable to store the result"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery which contains the SetUnion expression",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "set_member",
+              "summary": "Checks if an element is a member of a set (efficient O(log n) lookup)",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "element",
+                  "type": "string|Var|any",
+                  "summary": "Element to check"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "set",
+                  "type": "string|Var|array",
+                  "summary": "Set (list) to check membership in"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery which contains the SetMember expression",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "list_to_set",
+              "summary": "Converts a list to a set (removes duplicates and sorts)",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "list",
+                  "type": "string|Var|array",
+                  "summary": "Input list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "set",
+                  "type": "string|Var",
+                  "summary": "Variable to store the resulting set"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery which contains the ListToSet expression",
                 "type": "WOQLQuery"
               }
             },
@@ -3812,7 +3967,9 @@
               "@type": "Definition",
               "name": "slice",
               "summary": "Extracts a contiguous subsequence from a list, following JavaScript's slice() semantics",
-              "examples": [],
+              "examples": [
+                "let [result] = vars(\"result\")\nslice([\"a\", \"b\", \"c\", \"d\"], result, 1, 3)  // result = [\"b\", \"c\"]\nslice([\"a\", \"b\", \"c\", \"d\"], result, -2)    // result = [\"c\", \"d\"]"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -3843,7 +4000,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
-                "summary": "A WOQLQuery which contains the Slice pattern matching expression\nlet [result] = vars(\"result\")\nslice([\"a\", \"b\", \"c\", \"d\"], result, 1, 3)  // result = [\"b\", \"c\"]\nslice([\"a\", \"b\", \"c\", \"d\"], result, -2)    // result = [\"c\", \"d\"]",
+                "summary": "A WOQLQuery which contains the Slice pattern matching expression",
                 "type": "WOQLQuery"
               }
             },
@@ -3993,7 +4150,7 @@
             {
               "@type": "Definition",
               "name": "group_by",
-              "summary": "Groups the results of the contained subquery on the basis of identical values for Groupvars,\nextracts the patterns defined in PatternVars and stores the results in GroupedVar",
+              "summary": "Groups the results of the contained subquery on the basis of identical values for Groupvars,\nextracts the patterns defined in PatternVars and stores the results in GroupedVar.  \nSee also {@link /docs/group-query-results/ How to Group Results in WOQL}",
               "examples": [],
               "section": null,
               "parameters": [
@@ -5010,14 +5167,14 @@
                 {
                   "@type": "Parameter",
                   "name": "varName",
-                  "type": "string|Var",
-                  "summary": "literal, variable or id"
+                  "type": "string|number|boolean|array|Var",
+                  "summary": "literal, variable, array, or id"
                 },
                 {
                   "@type": "Parameter",
                   "name": "varValue",
-                  "type": "string|Var",
-                  "summary": "literal, variable or id"
+                  "type": "string|number|boolean|array|Var",
+                  "summary": "literal, variable, array, or id"
                 }
               ],
               "returns": {
@@ -6474,7 +6631,7 @@
             {
               "@type": "Definition",
               "name": "group_by",
-              "summary": "Groups the results of the contained subquery on the basis of identical values for Groupvars,\nextracts the patterns defined in PatternVars and stores the results in GroupedVar",
+              "summary": "Groups the results of the contained subquery on the basis of identical values for Groupvars,\nextracts the patterns defined in PatternVars and stores the results in GroupedVar.  \nSee also {@link /docs/group-query-results/ How to Group Results in WOQL}",
               "examples": [
                 "//subquery is an argument or a chained query\nlet [age, last_name, first_name, age_group, person] = vars(\"age\", \"last name\", \"first name\",\n\"age group\", \"person\")\ngroup_by(age, [last_name, first_name], age_group)\n  .triple(person, \"first_name\", first_name)\n  .triple(person, \"last_name\", last_name)\n  .triple(person, \"age\", age)"
               ],
@@ -7377,6 +7534,159 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "A WOQLQuery which contains the a dot Statement",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "set_difference",
+              "summary": "Computes the set difference between two lists (elements in listA but not in listB)",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "listA",
+                  "type": "string|Var|array",
+                  "summary": "First list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "listB",
+                  "type": "string|Var|array",
+                  "summary": "Second list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "result",
+                  "type": "string|Var",
+                  "summary": "Variable to store the result"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery which contains the SetDifference expression",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "set_intersection",
+              "summary": "Computes the set intersection between two lists (elements common to both)",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "listA",
+                  "type": "string|Var|array",
+                  "summary": "First list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "listB",
+                  "type": "string|Var|array",
+                  "summary": "Second list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "result",
+                  "type": "string|Var",
+                  "summary": "Variable to store the result"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery which contains the SetIntersection expression",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "set_union",
+              "summary": "Computes the set union of two lists (all unique elements from both lists)",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "listA",
+                  "type": "string|Var|array",
+                  "summary": "First list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "listB",
+                  "type": "string|Var|array",
+                  "summary": "Second list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "result",
+                  "type": "string|Var",
+                  "summary": "Variable to store the result"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery which contains the SetUnion expression",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "set_member",
+              "summary": "Checks if an element is a member of a set",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "element",
+                  "type": "string|number|Var",
+                  "summary": "Element to check for membership"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "set",
+                  "type": "string|Var|array",
+                  "summary": "Set (list) to check membership in"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery which contains the SetMember expression",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "list_to_set",
+              "summary": "Converts a list to a set by removing duplicates and sorting",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "list",
+                  "type": "string|Var|array",
+                  "summary": "List or variable containing a list"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "set",
+                  "type": "string|Var",
+                  "summary": "Variable to store the resulting set"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A WOQLQuery which contains the ListToSet expression",
                 "type": "WOQLQuery"
               }
             }

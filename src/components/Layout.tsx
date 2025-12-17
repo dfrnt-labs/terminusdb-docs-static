@@ -12,6 +12,7 @@ import { Navigation } from '@/components/Navigation'
 import { Search } from '@/components/Search'
 import { ThemeSelector } from '@/components/ThemeSelector'
 import { ScrollLink } from './ScrollLink'
+import { Footer } from '@/components/Footer'
 
 function GitHubIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -99,6 +100,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </div>
         {children}
       </div>
+      <Footer />
     </div>
   )
 }

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef, createContext, useContext } from 'react'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { Fence } from './Fence'
 import { handleAnchorClick } from '@/utils/scroll'
 
@@ -77,6 +78,67 @@ export function CodeBlock({
       <Fence language={language} title={title}>{code}</Fence>
     </div>
   )
+}
+
+// Parse JSDoc {@link} tags and double-space newlines into React elements
+// Handles: {@link /path/to/page Title Text} and double-space line breaks
+function parseSummaryText(text: string): React.ReactNode {
+  if (!text) return null
+  
+  // Split by {@link ...} pattern
+  const linkPattern = /\{@link\s+(\S+)\s+([^}]+)\}/g
+  const parts: React.ReactNode[] = []
+  let lastIndex = 0
+  let match: RegExpExecArray | null
+  let keyIndex = 0
+  
+  while ((match = linkPattern.exec(text)) !== null) {
+    // Add text before the link
+    if (match.index > lastIndex) {
+      const textBefore = text.slice(lastIndex, match.index)
+      parts.push(...parseLineBreaks(textBefore, keyIndex))
+      keyIndex += textBefore.split('  \n').length
+    }
+    
+    // Add the link as a Next.js Link component
+    const [, url, linkText] = match
+    parts.push(
+      <Link 
+        key={`link-${keyIndex++}`}
+        href={url}
+        className="text-sky-600 dark:text-sky-400 hover:underline"
+      >
+        {linkText.trim()}
+      </Link>
+    )
+    
+    lastIndex = match.index + match[0].length
+  }
+  
+  // Add remaining text after last link
+  if (lastIndex < text.length) {
+    parts.push(...parseLineBreaks(text.slice(lastIndex), keyIndex))
+  }
+  
+  return parts.length > 0 ? parts : text
+}
+
+// Parse double-space newlines (markdown line breaks) into <br> elements
+// Only "  \n" (two spaces + newline) creates a line break, not regular newlines
+function parseLineBreaks(text: string, startKey: number): React.ReactNode[] {
+  const lines = text.split(/  \n/)
+  const result: React.ReactNode[] = []
+  
+  lines.forEach((line, idx) => {
+    if (idx > 0) {
+      result.push(<br key={`br-${startKey}-${idx}`} />)
+    }
+    if (line) {
+      result.push(line)
+    }
+  })
+  
+  return result
 }
 
 // Type badge component with modern styling
@@ -259,7 +321,7 @@ export function MethodCard({
       </div>
       
       {/* Description */}
-      <p className="text-sm text-slate-600 dark:text-slate-400 m-0 mb-3">{summary}</p>
+      <p className="text-sm text-slate-600 dark:text-slate-400 m-0 mb-3">{parseSummaryText(summary)}</p>
       
       {/* Parameters */}
       <ParameterList parameters={parameters || []} />

@@ -571,6 +571,10 @@ export const navigation: Navigation[] = [
             title: 'Array Matching',
             href: '/docs/cookbook-woql-arrays',
           },
+          {
+            title: 'Tips and Tricks',
+            href: '/docs/woql-tips-and-tricks-1',
+          },
         ],
       },
       {
