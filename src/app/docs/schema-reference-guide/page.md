@@ -49,6 +49,8 @@ A key is one of two values, **keyword** or **property**, described in the table 
 
 {%/table%}
 
+Property names beginning with `@` (at-sign) are reserved for TerminusDB schema definition language keywords such as `@id`, `@type`, `@key`, `@base`, `@schema`, `@context`, `@inherits`, `@documentation`, `@subdocument`, `@abstract`, `@unfoldable`, `@metadata`, `@inherits`, `@oneOf`.
+
 ## Class definition
 
 The basic unit of specification is a **class**. A class definition is a schema object with the keyword `@type` with type value `Class`. The keyword `@id` specifies the name of the class. The example below define a class named `Person` with a property `name` of type `xsd:string`. Search XSD definitions for more information about types.
@@ -1394,11 +1396,17 @@ In the example range class below, `first_name` and `last_name` are strings, `yea
 The `"sys:JSON"` and the type `"sys:JSONDocument"` types are now supported. This feature was marked as supported starting with TerminusDB 12.
 {% /callout %}
 
-Two special JSON types exist in TerminusDB. One is for use as a subdocument, and is called `"sys:JSON"` and the type `"sys:JSONDocument"` which is used for completely unstructured documents. Both allow un-constrained and non type checked documents to be stored or retrieved as arbitrary JSON, yet indexed and searchable using WOQL.
+Two special JSON types exist in TerminusDB. One is for use as field type, essentially a subdocument that is not schema checked, the `"sys:JSON"` data type, and the type `"sys:JSONDocument"` which is used for completely unstructured JSON document storage. Both allow un-constrained and non type-checked documents to be stored or retrieved as arbitrary JSON, yet indexed and searchable using WOQL.
 
-Is for subdocuments of type `"sys:JSON"` are formed from a hash of the content, meaning that subdocuments are shared if their content is the same, deduplicated and reference counted.
+#### ID handling for sys:JSON and sys:JSONDocument
 
-However, those of type `"sys:JSONDocument"` are assigned a random id, such that they can be retrieved, modified etc. Alternatively they can be assigned an id by passing in an id of the form `{ "@id" : "JSONDocument/my_id_here", ...}` making sure to use the prefix `"JSONDocument"` so as not to ensure we do not have any id conflicts with other document types.
+IDs for subdocuments of type `"sys:JSON"` are formed from a hash of the content internally, meaning that subdocuments share reference-counted storage if their content is the same; via deduplication and reference counting, for efficient triple-based storage.
+
+However, documents of type `"sys:JSONDocument"` are assigned a random id, such that they can be retrieved, modified etc. Alternatively they can be assigned an id by passing in an id of the form `{ "@id" : "JSONDocument/my_id_here", ...}`, where the `JSONDocument/` prefix makes JSON documents easy to recognize in the document graph database.
+
+`@id`, `@type`, and some other JSON-LD control properties (such as `@context`, `@value`) in `sys:JSON` and `sys:JSONDocument` documents receive special treatment to not interfere with JSON-LD processing. They are escaped by prefixing with an additional `@` sign (e.g., `@id` → `@@id`, `@type` → `@@type`) within the triple store. This escaping is transparent in the document interfaces and happens automatically during storage and retrieval. It enables any JSON to be stored as a document, even if it contains JSON-LD control properties, and to be processed as triples.
+
+**WOQL Limitation:** When using WOQL `insert_document` with `sys:JSON` fields containing `@`-prefixed properties, you must manually pre-escape them by using `@@` instead of `@` (e.g., `{"@@id": "value", "@@type": "Type"}`). This is because WOQL parses JSON-LD before type information is available and operates on the pure triples. The REST Document API handles this automatically and is recommended for handling such documents.
 
 #### Code: An example of `"sys:JSON"`
 
@@ -1581,17 +1589,19 @@ An example of an object `Person` that can have 0 to any number of friends. This 
 }
 ```
 
-### Cardinality
+### Set with cardinality
 
-Use `Cardinality` to specify an unordered set of values of a class or datatype in which the property has a limited number of elements as specified by the cardinality constraint properties.
+Use `Set` to specify an unordered set of values of a class or datatype in which the property has a limited number of elements as specified by the cardinality constraint properties.
 
-The relevant properties are:
+`Set` is functionally equivalent to the previously named multiplicity of `Cardinality`. `Cardinality` is now deprecated, and should be replaced with `Set`, using the cardinality constraint properties in the same way as with `Cardinality`.
+
+The relevant properties on `Set` and `Cardinality` multiplicities are:
 
 #### `@cardinality`
 
 When specified, the number of elements for the given property must be _exactly_ the cardinality specified. This is equivalent to specifying both `@min_cardinality` and `@max_cardinality` as the same cardinality.
 
-#### Code: An example of type family Cardinality with `@cardinality`
+#### Code: An example of type family Set with `@cardinality`
 
 ```json
 {
@@ -1605,7 +1615,7 @@ When specified, the number of elements for the given property must be _exactly_ 
     "name"       : "xsd:string",
     "friends"    :
     {
-        "@type"  : "Cardinality",
+        "@type"  : "Set",
         "@class" : "Person"
         "@cardinality" : 3
     }

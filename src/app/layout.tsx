@@ -28,16 +28,17 @@ const lexend = localFont({
 export const metadata: Metadata = {
   title: {
     template: '%s',
-    default: 'TerminusDB, a git-for-data graph and document database',
+    default: 'TerminusDB, a git-for-data document graph database',
   },
-  description: 'TerminusDB provides Semantic Document Graph Infrastructure; a model-based, in-memory, and distributed graph database with git-for-data collaboration',
+  description:
+    'TerminusDB provides Semantic Document Graph Infrastructure; a model-based, in-memory, and distributed graph database with git-for-data collaboration',
   metadataBase: new URL('https://terminusdb.org'),
   alternates: {
     canonical: '/',
   },
 }
 
-export default function RootLayout({ 
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
@@ -54,10 +55,16 @@ export default function RootLayout({
           <Layout>{children}</Layout>
         </Providers>
         <Script
+          id="plausible"
           strategy="lazyOnload"
-          data-domain="terminusdb.org"
-          src="https://plausible.io/js/script.manual.outbound-links.js"
-        ></Script>
+          async
+          src="https://plausible.io/js/pa-ojoww3OWgX-RglSr-rKxC.js"
+        >
+          window.plausible=window.plausible||function()
+          {(plausible.q = plausible.q || []).push(arguments)}
+          ,plausible.init=plausible.init||function(i){(plausible.o = i || {})};
+          plausible.init()
+        </Script>
         <Script
           id="pagesense"
           strategy="afterInteractive"
@@ -67,4 +74,3 @@ export default function RootLayout({
     </html>
   )
 }
-
