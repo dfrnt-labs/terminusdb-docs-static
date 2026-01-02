@@ -9,6 +9,9 @@ import { PrevNextLinks } from '@/components/PrevNextLinks'
 import { Prose } from '@/components/Prose'
 import { TableOfContents } from '@/components/TableOfContents'
 import { RecentBlogPosts } from '@/components/RecentBlogPosts'
+import { GitHubEditButton } from '@/components/GitHubEditButton'
+import { GitHubIssueButton } from '@/components/GitHubIssueButton'
+import { PageFeedback } from '@/components/PageFeedback'
 import { collectSections } from '@/lib/sections'
 import { scrollToHashOnLoad, handleAnchorClick } from '@/utils/scroll'
 
@@ -51,6 +54,13 @@ export function DocsLayout({
           <DocsHeader title={title} />
           <Prose>{children}</Prose>
         </article>
+        <div className="mt-12 flex flex-col gap-8 border-t border-slate-200 pt-8 dark:border-slate-800">
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <GitHubEditButton />
+            <GitHubIssueButton />
+          </div>
+          <PageFeedback />
+        </div>
         <PrevNextLinks />
       </div>
       <div className="hidden xl:sticky xl:top-[4.75rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.75rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6">
