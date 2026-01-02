@@ -1,5 +1,6 @@
 ---
 title: Schema Migration
+date: 2023-04-24
 nextjs:
   metadata:
     title: Schema Migration
@@ -8,6 +9,8 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/blog/2023-04-24-schema-migration/
     openGraph:
+      type: article
+      publishedTime: "2023-04-24T00:00:00Z"
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---

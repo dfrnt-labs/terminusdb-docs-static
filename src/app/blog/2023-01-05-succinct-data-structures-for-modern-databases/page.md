@@ -10,9 +10,8 @@ nextjs:
       canonical: https://terminusdb.org/blog/2023-01-05-succinct-data-structures-for-modern-databases/
     openGraph:
       type: article
+      publishedTime: "2023-01-05T00:00:00Z"
       images: https://terminusdb.com/wp-content/uploads/2023/01/succinct-data-structures-delta-encoding-whitepaper-feature-img.png
-      article:
-        publishedTime: 2023-01-05T00:00:00Z
 media: []
 ---
 

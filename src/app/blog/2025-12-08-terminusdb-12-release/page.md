@@ -1,5 +1,6 @@
 ---
 title: "TerminusDB 12: Precision, JSON Freedom, and a New Chapter"
+date: 2025-12-08
 nextjs:
   metadata:
     title: "TerminusDB 12: Precision, JSON Freedom, and a New Chapter"
@@ -8,6 +9,8 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/blog/terminusdb-12-release/
     openGraph:
+      type: article
+      publishedTime: "2025-12-08T00:00:00Z"
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---

@@ -1,5 +1,6 @@
 ---
 title: "What's in a Name: URI Generation and Unique Names for Objects"
+date: 2022-02-28
 nextjs:
   metadata:
     title: "What's in a Name: URI Generation and Unique Names for Objects"
@@ -8,6 +9,8 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/blog/2022-02-28-whats-in-a-name/
     openGraph:
+      type: article
+      publishedTime: "2022-02-28T00:00:00Z"
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---

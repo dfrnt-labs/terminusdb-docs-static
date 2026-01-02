@@ -1,5 +1,6 @@
 ---
 title: "Mergeable Records: A Data Modeling Approach"
+date: 2022-03-04
 nextjs:
   metadata:
     title: "Mergeable Records: A Data Modeling Approach"
@@ -8,6 +9,8 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/blog/2022-03-04-mergeable-records/
     openGraph:
+      type: article
+      publishedTime: "2022-03-04T00:00:00Z"
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---

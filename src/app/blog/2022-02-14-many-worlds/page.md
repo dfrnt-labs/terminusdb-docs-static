@@ -1,5 +1,6 @@
 ---
 title: "Many Worlds: a philosophy of data collaboration"
+date: 2022-02-14
 nextjs:
   metadata:
     title: "Many Worlds: a philosophy of data collaboration"
@@ -8,6 +9,8 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/blog/2022-02-14-many-worlds/
     openGraph:
+      type: article
+      publishedTime: "2022-02-14T00:00:00Z"
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---

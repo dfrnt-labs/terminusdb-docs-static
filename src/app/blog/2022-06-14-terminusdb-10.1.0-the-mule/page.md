@@ -1,5 +1,6 @@
 ---
 title: "TerminusDB v10.1.0: The Mule"
+date: 2022-06-14
 nextjs:
   metadata:
     title: "TerminusDB v10.1.0: The Mule"
@@ -8,6 +9,8 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/blog/2022-06-14-terminusdb-10.1.0-the-mule/
     openGraph:
+      type: article
+      publishedTime: "2022-06-14T00:00:00Z"
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---

@@ -1,5 +1,6 @@
 ---
 title: The Issue of Blank Nodes in RDF
+date: 2022-06-24
 nextjs:
   metadata:
     title: The Issue of Blank Nodes in RDF
@@ -8,6 +9,8 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/blog/2022-06-24-blank-nodes-in-rdf/
     openGraph:
+      type: article
+      publishedTime: "2022-06-24T00:00:00Z"
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---

@@ -10,9 +10,8 @@ nextjs:
       canonical: https://terminusdb.org/blog/2022-11-14-terminusdb-internals-2/
     openGraph:
       type: article
+      publishedTime: "2022-11-14T00:00:00Z"
       images: https://terminusdb.com/wp-content/uploads/2022/10/terminusdb-internals-part-2-og.jpg
-      article:
-        publishedTime: 2022-11-14T00:00:00Z
 media: []
 ---
 
