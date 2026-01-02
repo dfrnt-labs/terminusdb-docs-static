@@ -89,13 +89,25 @@ export async function readBlogPostMeta(slug: string): Promise<BlogPostMeta | nul
     
     const nextjsMetadata = (data.nextjs as Record<string, unknown>)?.metadata as Record<string, unknown> || {}
     
+    // Handle date - YAML may parse it as Date object, convert to string
+    let dateStr: string
+    if (data.date) {
+      if (data.date instanceof Date) {
+        dateStr = data.date.toISOString().split('T')[0]
+      } else {
+        dateStr = String(data.date)
+      }
+    } else {
+      dateStr = extractDateFromSlug(slug)
+    }
+    
     return {
       title: (data.title as string) || (nextjsMetadata.title as string) || slug,
       description: nextjsMetadata.description as string | undefined,
       keywords: nextjsMetadata.keywords as string | undefined,
       slug,
       href: `/blog/${slug}`,
-      date: extractDateFromSlug(slug),
+      date: dateStr,
       author: extractAuthorFromContent(content),
       canonicalUrl: (nextjsMetadata.alternates as Record<string, unknown>)?.canonical as string | undefined,
       openGraphImage: (nextjsMetadata.openGraph as Record<string, unknown>)?.images as string | undefined,
@@ -130,13 +142,25 @@ export async function readBlogPost(slug: string): Promise<BlogPost | null> {
       }
     }
     
+    // Handle date - YAML may parse it as Date object, convert to string
+    let dateStr: string
+    if (data.date) {
+      if (data.date instanceof Date) {
+        dateStr = data.date.toISOString().split('T')[0]
+      } else {
+        dateStr = String(data.date)
+      }
+    } else {
+      dateStr = extractDateFromSlug(slug)
+    }
+    
     return {
       title: (data.title as string) || (nextjsMetadata.title as string) || slug,
       description: nextjsMetadata.description as string | undefined,
       keywords: nextjsMetadata.keywords as string | undefined,
       slug,
       href: `/blog/${slug}`,
-      date: extractDateFromSlug(slug),
+      date: dateStr,
       author: extractAuthorFromContent(content),
       canonicalUrl: (nextjsMetadata.alternates as Record<string, unknown>)?.canonical as string | undefined,
       openGraphImage: (nextjsMetadata.openGraph as Record<string, unknown>)?.images as string | undefined,
