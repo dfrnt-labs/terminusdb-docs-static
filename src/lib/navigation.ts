@@ -533,6 +533,32 @@ export const navigation: Navigation[] = [
             title: 'Path Queries',
             href: '/docs/path-queries-in-woql',
           },
+          // {
+          //   title: 'RDF List Operations',
+          //   href: '/docs/woql-rdflist-operations',
+          //   links: [
+          //     {
+          //       title: 'Queue Tutorial',
+          //       href: '/docs/woql-rdflist-queue-tutorial',
+          //     },
+          //     {
+          //       title: 'List Creation',
+          //       href: '/docs/woql-rdflist-creation',
+          //     },
+          //     {
+          //       title: 'List Access',
+          //       href: '/docs/woql-rdflist-access',
+          //     },
+          //     {
+          //       title: 'List Modification',
+          //       href: '/docs/woql-rdflist-modification',
+          //     },
+          //     {
+          //       title: 'List Transformation',
+          //       href: '/docs/woql-rdflist-transformation',
+          //     },
+          //   ],
+          // },
           {
             title: 'Math Operations',
             href: '/docs/maths-based-queries-in-woql',

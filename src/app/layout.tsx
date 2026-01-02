@@ -1,16 +1,15 @@
-import { ResolvingMetadata, type Metadata } from 'next'
+import { type Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import clsx from 'clsx'
 
 import { Providers } from '@/app/providers'
 import { Layout } from '@/components/Layout'
+import { PlausibleAnalytics } from '@/components/PlausibleAnalytics'
 
 // import '@/styles/globals.css'
 import '@/styles/tailwind.css'
 import Script from 'next/script'
-import { getServerSideProps } from 'next/dist/build/templates/pages'
-import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -54,17 +53,7 @@ export default function RootLayout({
         <Providers>
           <Layout>{children}</Layout>
         </Providers>
-        <Script
-          id="plausible"
-          strategy="lazyOnload"
-          async
-          src="https://plausible.io/js/pa-ojoww3OWgX-RglSr-rKxC.js"
-        >
-          window.plausible=window.plausible||function()
-          {(plausible.q = plausible.q || []).push(arguments)}
-          ,plausible.init=plausible.init||function(i){(plausible.o = i || {})};
-          plausible.init()
-        </Script>
+        <PlausibleAnalytics />
         <Script
           id="pagesense"
           strategy="afterInteractive"

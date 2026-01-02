@@ -97,7 +97,7 @@ TerminusDB implements an advanced Git-like model, using [delta encoding](/docs/g
 
 ### TerminusDB whitepaper
 
-Read our [white paper on succinct data structures and delta encoding in modern databases](https://terminusdb.com/blog/succinct-data-structures-for-modern-databases/).
+Read our [white paper on succinct data structures and delta encoding in modern databases](/blog/2023-01-05-succinct-data-structures-for-modern-databases/).
 
 ### Get started
 

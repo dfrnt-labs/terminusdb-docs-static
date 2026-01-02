@@ -37,6 +37,23 @@ const tags = {
       </figure>
     ),
   },
+  'dark-img': {
+    selfClosing: true,
+    attributes: {
+      src: { type: String, required: true },
+      alt: { type: String },
+      caption: { type: String },
+    },
+    render: ({ src, alt = '', caption }) => (
+      <figure className="my-6">
+        <div className="bg-slate-900 px-8 py-4 rounded-xl shadow-md">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="rounded-lg w-full h-auto" src={src} alt={alt} />
+        </div>
+        {caption && <figcaption className="text-center mt-3 text-sm italic text-gray-600 dark:text-gray-400">{caption}</figcaption>}
+      </figure>
+    ),
+  },
   'quick-links': {
     render: QuickLinks,
   },
