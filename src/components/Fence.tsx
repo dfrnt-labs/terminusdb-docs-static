@@ -1,12 +1,18 @@
 'use client'
 
 import { Fragment, useState, useEffect } from 'react'
-import { Highlight } from 'prism-react-renderer'
+import { Highlight, themes, Prism } from 'prism-react-renderer'
+// @ts-ignore - refractor doesn't have TypeScript definitions
+import bashLang from 'refractor/lang/bash'
+
+// Register bash language with Prism
+bashLang(Prism)
 
 // Language aliases and display labels
 const languageAliases: Record<string, string> = {
   woql: 'javascript',  // WOQL uses JavaScript syntax
-  schema: 'json',      // Schema uses JSON syntax
+  schema: 'typescript', // Schema uses JSON syntax, highlighted as TypeScript for better colors
+  json: 'typescript',   // JSON highlighted as TypeScript for better syntax highlighting
   js: 'javascript',
   ts: 'typescript',
   py: 'python',
@@ -150,7 +156,7 @@ export function Fence({
       <Highlight
         code={codeContent.trimEnd()}
         language={highlightLang}
-        theme={{ plain: {}, styles: [] }}
+        theme={themes.vsDark}
       >
         {({ className, style, tokens, getTokenProps }) => (
           <pre className={`${className} !m-0 !rounded-none !bg-slate-900 max-h-[calc(100vh-10rem)] overflow-y-auto`} style={style}>

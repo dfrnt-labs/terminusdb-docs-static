@@ -101,7 +101,7 @@ This returns the organization's unique identifier. The organization exists but h
 ### Verify Organization Creation
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}" \
+curl -s -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}" \
   -u "${ADMIN_USER}:${ADMIN_PASS}" \
   -H "Content-Type: application/json" | jq
 ```
@@ -165,7 +165,7 @@ curl -X POST "${TERMINUSDB_URL}/api/users" \
 Let's check Alice's current capabilities, try manually with the other roles (switch environment variable in the command):
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/users/${ORG_ADMIN_USER}?capability=true" \
+curl -s -X GET "${TERMINUSDB_URL}/api/users/${ORG_ADMIN_USER}?capability=true" \
   -u "${ADMIN_USER}:${ADMIN_PASS}" \
   -H "Content-Type: application/json" | jq
 ```
@@ -210,7 +210,7 @@ curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
 ### Verify Alice's New Capabilities
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/users/${ORG_ADMIN_USER}?capability=true" \
+curl -s -X GET "${TERMINUSDB_URL}/api/users/${ORG_ADMIN_USER}?capability=true" \
   -u "${ADMIN_USER}:${ADMIN_PASS}" \
   -H "Content-Type: application/json" | jq
 ```
@@ -289,7 +289,7 @@ curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
 Alice can now verify Bob's capabilities using the organization-scoped endpoint (organization admins can query users about the capabilities they hold in their organization):
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}/users/${REGULAR_USER}" \
+curl -s -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}/users/${REGULAR_USER}" \
   -u "${ORG_ADMIN_USER}:${ORG_ADMIN_PASS}" | jq '.capability[0].role[0].name'
 ```
 
@@ -331,14 +331,33 @@ curl -X POST "${TERMINUSDB_URL}/api/db/${ORG_NAME}/${DB_NAME}" \
 ### Verify Database Creation
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/db/${ORG_NAME}/${DB_NAME}" \
+curl -s -X GET "${TERMINUSDB_URL}/api/db/${ORG_NAME}/${DB_NAME}" \
   -u "${ORG_ADMIN_USER}:${ORG_ADMIN_PASS}" \
   -H "Content-Type: application/json" | jq
 ```
 
 ## Part 6: Alice Invites Charlie to the Data Product
 
-Now Alice will grant Charlie access to just the `products` database (not the entire organization):
+Now Alice will grant Charlie access to just the `products` database (not the entire organization) using the ID-based API.
+
+### Get the Database Resource ID
+
+First, Alice needs to get the database's resource ID:
+
+```bash
+DB_RESOURCE_ID=$(curl -s -X GET "${TERMINUSDB_URL}/api/db/${ORG_NAME}/${DB_NAME}?verbose=true" \
+  -u "${ORG_ADMIN_USER}:${ORG_ADMIN_PASS}" | jq -r '."@id"')
+echo "Database Resource ID: ${DB_RESOURCE_ID}"
+```
+
+**Example Output:**
+```
+Database Resource ID: UserDatabase/SsGIjJtbWy0tHzBf
+```
+
+### Grant Charlie Access Using Resource ID
+
+Now use the resource ID to grant Charlie admin access to the database:
 
 ```bash
 curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
@@ -346,12 +365,18 @@ curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
   -H "Content-Type: application/json" \
   -d "{
     \"operation\": \"grant\",
-    \"scope\": \"${ORG_NAME}/${DB_NAME}\",
-    \"user\": \"${DB_USER}\",
-    \"roles\": [\"Admin Role\"],
-    \"scope_type\": \"database\"
+    \"scope\": \"${DB_RESOURCE_ID}\",
+    \"user\": \"User/${DB_USER}\",
+    \"roles\": [\"Role/admin\"]
   }"
 ```
+
+**Key Points:**
+- Database resource IDs are hashes (e.g., `UserDatabase/SsGIjJtbWy0tHzBf`), not database names
+- Get the resource ID from the database metadata endpoint with `?verbose=true`
+- User format: `User/{username}` (not hashed)
+- Role format: `Role/admin` (built-in role names)
+- No `scope_type` parameter (only system admin can use that)
 
 **Expected Response:**
 ```json
@@ -366,7 +391,7 @@ curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
 Alice can audit which users have access to databases in her organization by listing all organization users. This shows all capabilities including database-level grants:
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}/users" \
+curl -s -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}/users" \
   -u "${ORG_ADMIN_USER}:${ORG_ADMIN_PASS}" | jq
 ```
 
@@ -440,9 +465,33 @@ The custom "Database Analyst" role includes:
 
 **Note:** The `/api/db/{org}/{db}` metadata endpoint checks for `instance_read_access` permission. However, at the database level (not organization level), capabilities grant **operational access** to documents and queries, but metadata endpoints typically require organization-level permissions for full access when users are not granted instance access to database contents.
 
-### Bob Grants Custom Role to Charlie
+### Bob Changes Charlie's Role
 
-Now Bob exercises his organization admin privileges to grant Charlie the custom Database Analyst role for database-level access:
+Now Bob exercises his organization admin privileges to change Charlie's access from Admin Role to the custom Database Analyst role, providing more restricted database-level access.
+
+First, Bob gets the database resource ID:
+
+```bash
+DB_RESOURCE_ID=$(curl -s -X GET "${TERMINUSDB_URL}/api/db/${ORG_NAME}/${DB_NAME}?verbose=true" \
+  -u "${REGULAR_USER}:${REGULAR_PASS}" | jq -r '."@id"')
+echo "Database Resource ID: ${DB_RESOURCE_ID}"
+```
+
+Revoke Charlie's Admin Role on the database:
+
+```bash
+curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
+  -u "${REGULAR_USER}:${REGULAR_PASS}" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"operation\": \"revoke\",
+    \"scope\": \"${DB_RESOURCE_ID}\",
+    \"user\": \"User/${DB_USER}\",
+    \"roles\": [\"Role/admin\"]
+  }"
+```
+
+Now grant the Database Analyst role to Charlie:
 
 ```bash
 curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
@@ -450,17 +499,20 @@ curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
   -H "Content-Type: application/json" \
   -d "{
     \"operation\": \"grant\",
-    \"scope\": \"UserDatabase/\${DB_NAME}\",
-    \"user\": \"User/\${DB_USER}\",
+    \"scope\": \"${DB_RESOURCE_ID}\",
+    \"user\": \"User/${DB_USER}\",
     \"roles\": [\"Role/Database%20Analyst\"]
   }"
 ```
 
 **Key Points:**
 - Bob authenticates with his organization admin credentials
-- Uses ID-based format: `UserDatabase/{name}`, `User/{name}`, `Role/{name}`
+- Gets database resource ID first (databases use hashed IDs)
+- Revokes Admin Role before granting Database Analyst (role transition)
+- Uses ID-based format: `${DB_RESOURCE_ID}`, `User/{username}`, `Role/{rolename}`
+- Role name is URL-encoded: `Database%20Analyst`
 - No `scope_type` parameter needed
-- Demonstrates Bob can delegate database-level access
+- Demonstrates Bob can manage database-level access
 
 **Expected Response:**
 ```json
@@ -475,7 +527,7 @@ curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
 Bob can verify Charlie's new capability using the organization users endpoint:
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}/users/${DB_USER}" \
+curl -s -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}/users/${DB_USER}" \
   -u "${REGULAR_USER}:${REGULAR_PASS}" | jq '.capability[] | {role: .role[].name, scope: .scope}'
 ```
 
@@ -492,7 +544,7 @@ curl -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}/users/${DB_USER}" \
 System administrators can list all roles (built-in and custom) in the system. Other users must know the specific role identifiers or names. The system administrators can list the roles using the /api/roles endpoint. Ask your system administrator to get the list of roles in your system:
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/roles" \
+curl -s -X GET "${TERMINUSDB_URL}/api/roles" \
   -u "${ADMIN_USER}:${ADMIN_PASS}" | jq '.[] | {name: .name, actions: .action}'
 ```
 
@@ -516,7 +568,7 @@ curl -X POST "${TERMINUSDB_URL}/api/db/${ORG_NAME}/unauthorized_db" \
   }'
 ```
 
-**Expected Response:** Error 404 (Not Found) or 403 (Forbidden)
+**Expected Response:** Error 403 (Forbidden)
 ```json
 {
   "@type": "api:DbCreateErrorResponse",
@@ -547,7 +599,7 @@ curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
   }"
 ```
 
-**Expected Response:** Error (Unauthorized)
+**Expected Response:** Error 403 (Forbidden)
 
 Charlie doesn't have `manage_capabilities` permission at the organization level.
 
@@ -557,7 +609,7 @@ Charlie should be able to access database operations (documents and queries) for
 
 **Test 3a: Access Document Schema**
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/document/${ORG_NAME}/${DB_NAME}?graph_type=schema" \
+curl -s -X GET "${TERMINUSDB_URL}/api/document/${ORG_NAME}/${DB_NAME}?graph_type=schema" \
   -u "${DB_USER}:${DB_USER_PASS}" \
   -H "Content-Type: application/json" | jq
 ```
@@ -573,7 +625,7 @@ curl -X GET "${TERMINUSDB_URL}/api/document/${ORG_NAME}/${DB_NAME}?graph_type=sc
 
 **Test 3b: Access via GraphQL**
 ```bash
-curl -X POST "${TERMINUSDB_URL}/api/graphql/${ORG_NAME}/${DB_NAME}" \
+curl -s -X POST "${TERMINUSDB_URL}/api/graphql/${ORG_NAME}/${DB_NAME}" \
   -u "${DB_USER}:${DB_USER_PASS}" \
   -H "Content-Type: application/json" \
   -d '{"query": "{ __schema { types { name } } }"}' | jq '.data.__schema.types[0].name'
@@ -589,7 +641,7 @@ curl -X POST "${TERMINUSDB_URL}/api/graphql/${ORG_NAME}/${DB_NAME}" \
 Let's verify Charlie can now see the organization's database he was invited, in the list of databases he has access to:
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/db" \
+curl -s -X GET "${TERMINUSDB_URL}/api/db" \
   -u "${DB_USER}:${DB_USER_PASS}" | jq
 ```
 
@@ -608,7 +660,7 @@ Charlie should see the database he has access to:
 Charlie can also access the metadata endpoint for his database. By default, it returns minimal information:
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/db/${ORG_NAME}/${DB_NAME}" \
+curl -s -X GET "${TERMINUSDB_URL}/api/db/${ORG_NAME}/${DB_NAME}" \
   -u "${DB_USER}:${DB_USER_PASS}" | jq
 ```
 
@@ -622,7 +674,7 @@ curl -X GET "${TERMINUSDB_URL}/api/db/${ORG_NAME}/${DB_NAME}" \
 To see full metadata (label, comment, creation date), add the `verbose=true` parameter:
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/db/${ORG_NAME}/${DB_NAME}?verbose=true" \
+curl -s -X GET "${TERMINUSDB_URL}/api/db/${ORG_NAME}/${DB_NAME}?verbose=true" \
   -u "${DB_USER}:${DB_USER_PASS}" | jq
 ```
 
@@ -676,7 +728,15 @@ curl -X POST "${TERMINUSDB_URL}/api/db/${ORG_NAME}/inventory" \
 
 ### Test 5: Bob CAN Invite Users
 
-Bob should be able to grant capabilities since he's an organization admin. He uses the ID-based API (no `scope_type` needed):
+Bob should be able to grant capabilities since he's an organization admin. First, get the inventory database resource ID:
+
+```bash
+INVENTORY_RESOURCE_ID=$(curl -s -X GET "${TERMINUSDB_URL}/api/db/${ORG_NAME}/inventory?verbose=true" \
+  -u "${REGULAR_USER}:${REGULAR_PASS}" | jq -r '."@id"')
+echo "Inventory Database Resource ID: ${INVENTORY_RESOURCE_ID}"
+```
+
+Now Bob grants Charlie the consumer role on the inventory database:
 
 ```bash
 curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
@@ -684,15 +744,16 @@ curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
   -H "Content-Type: application/json" \
   -d "{
     \"operation\": \"grant\",
-    \"scope\": \"UserDatabase/inventory\",
-    \"user\": \"User/\${DB_USER}\",
+    \"scope\": \"${INVENTORY_RESOURCE_ID}\",
+    \"user\": \"User/${DB_USER}\",
     \"roles\": [\"Role/consumer\"]
   }"
 ```
 
 **Key Points:**
 - Bob uses his organization admin credentials
-- ID-based format: `UserDatabase/{name}`, `User/{name}`, `Role/consumer`
+- Gets inventory database resource ID first (databases use hashed IDs)
+- ID-based format: `${INVENTORY_RESOURCE_ID}`, `User/{username}`, `Role/consumer`
 - No `scope_type` parameter (only system admin can use that)
 
 **Expected Response:**
@@ -712,7 +773,7 @@ Let's understand how organization-level and database-level permissions interact.
 Bob has organization-level Admin Role. Let's verify he still has write access to the products database:
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}/users/${REGULAR_USER}" \
+curl -s -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}/users/${REGULAR_USER}" \
   -u "${ORG_ADMIN_USER}:${ORG_ADMIN_PASS}" | jq '.capability[] | {role: .role[].name, scope: .scope}'
 ```
 
@@ -737,7 +798,7 @@ To properly demonstrate read-only Consumer Role access, let's verify Charlie's a
 Alice and Bob can see all users with capabilities in their organization:
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}/users/" \
+curl -s -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}/users/" \
   -u "${ORG_ADMIN_USER}:${ORG_ADMIN_PASS}" \
   -H "Content-Type: application/json" | jq
 ```
@@ -765,7 +826,17 @@ curl -X GET "${TERMINUSDB_URL}/api/organizations/${ORG_NAME}/users/" \
 
 ## Part 10: Revoking Access
 
-Alice can revoke Charlie's access to the products database using the ID-based API:
+Alice can revoke Charlie's access to the products database using the ID-based API.
+
+First, get the products database resource ID (if continuing from Part 6, this is already in `DB_RESOURCE_ID`):
+
+```bash
+DB_RESOURCE_ID=$(curl -s -X GET "${TERMINUSDB_URL}/api/db/${ORG_NAME}/${DB_NAME}?verbose=true" \
+  -u "${ORG_ADMIN_USER}:${ORG_ADMIN_PASS}" | jq -r '."@id"')
+echo "Database Resource ID: ${DB_RESOURCE_ID}"
+```
+
+Now revoke Charlie's Database Analyst role:
 
 ```bash
 curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
@@ -773,8 +844,8 @@ curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
   -H "Content-Type: application/json" \
   -d "{
     \"operation\": \"revoke\",
-    \"scope\": \"UserDatabase/\${DB_NAME}\",
-    \"user\": \"User/\${DB_USER}\",
+    \"scope\": \"${DB_RESOURCE_ID}\",
+    \"user\": \"User/${DB_USER}\",
     \"roles\": [\"Role/Database%20Analyst\"]
   }"
 ```
@@ -792,7 +863,7 @@ curl -X POST "${TERMINUSDB_URL}/api/capabilities" \
 Charlie should no longer be able to access documents in the products database:
 
 ```bash
-curl -X GET "${TERMINUSDB_URL}/api/document/${ORG_NAME}/${DB_NAME}" \
+curl -s -X GET "${TERMINUSDB_URL}/api/document/${ORG_NAME}/${DB_NAME}" \
   -u "${DB_USER}:${DB_USER_PASS}" | jq
 ```
 
@@ -852,6 +923,10 @@ curl -X DELETE "${TERMINUSDB_URL}/api/users/${REGULAR_USER}" \
   -u "${ADMIN_USER}:${ADMIN_PASS}"
 
 curl -X DELETE "${TERMINUSDB_URL}/api/users/${DB_USER}" \
+  -u "${ADMIN_USER}:${ADMIN_PASS}"
+
+# Delete custom role
+curl -X DELETE "${TERMINUSDB_URL}/api/roles/Database%20Analyst" \
   -u "${ADMIN_USER}:${ADMIN_PASS}"
 ```
 
