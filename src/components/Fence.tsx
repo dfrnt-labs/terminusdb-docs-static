@@ -49,6 +49,9 @@ export function Fence({
 }) {
   const [copied, setCopied] = useState(false)
   
+  // Ensure children is a string
+  const codeContent = typeof children === 'string' ? children : String(children || '')
+  
   // Reset copied state after 2 seconds
   useEffect(() => {
     if (copied) {
@@ -58,7 +61,7 @@ export function Fence({
   }, [copied])
   
   const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(children.trimEnd())
+    await navigator.clipboard.writeText(codeContent.trimEnd())
     setCopied(true)
     
     // Find nearest heading for context
@@ -145,12 +148,12 @@ export function Fence({
       
       {/* Code block */}
       <Highlight
-        code={children.trimEnd()}
+        code={codeContent.trimEnd()}
         language={highlightLang}
         theme={{ plain: {}, styles: [] }}
       >
         {({ className, style, tokens, getTokenProps }) => (
-          <pre className={`${className} !m-0 !rounded-none !bg-slate-900`} style={style}>
+          <pre className={`${className} !m-0 !rounded-none !bg-slate-900 max-h-[calc(100vh-10rem)] overflow-y-auto`} style={style}>
             <code>
               {tokens.map((line, lineIndex) => (
                 <Fragment key={lineIndex}>

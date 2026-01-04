@@ -640,7 +640,15 @@ export const navigation: Navigation[] = [
           },
         ],
       },
-      // TODO: Add "Access Control" section
+      {
+        title: 'User & Access Management',
+        links: [
+          {
+            title: 'Managing Users and Invitations',
+            href: '/docs/managing-users-and-invitations',
+          },
+        ],
+      },
       // TODO: Add "Performance Optimization" section
       // TODO: Add "Schema Migration" how-to
     ],
