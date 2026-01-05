@@ -19,6 +19,7 @@ This is the WOQL schema. It gives a complete specification of the syntax of the 
 
 > Syntax is listed in alphabetical order.
 
+{% anchor id="AddData" /%}
 #### AddData
 
 Add a (terminal) edge with a data value.
@@ -38,6 +39,7 @@ Add a (terminal) edge with a data value.
 
 * * *
 
+{% anchor id="AddLink" /%}
 #### AddLink
 
 Add an edge which links between nodes in the graph.
@@ -57,6 +59,7 @@ Add an edge which links between nodes in the graph.
 
 * * *
 
+{% anchor id="AddTriple" /%}
 #### AddTriple
 
 Specify an edge to add to the graph.
@@ -76,6 +79,7 @@ Specify an edge to add to the graph.
 
 * * *
 
+{% anchor id="AddedData" /%}
 #### AddedData
 
 Specify an edge pattern with data value which was added in \*this\* commit\*.
@@ -95,6 +99,7 @@ Specify an edge pattern with data value which was added in \*this\* commit\*.
 
 * * *
 
+{% anchor id="AddedLink" /%}
 #### AddedLink
 
 Specify an edge pattern which links between nodes at \*this\* commit.
@@ -114,6 +119,7 @@ Specify an edge pattern which links between nodes at \*this\* commit.
 
 * * *
 
+{% anchor id="AddedTriple" /%}
 #### AddedTriple
 
 Specify an edge pattern which was \*added\* at \*this commit\*.
@@ -133,6 +139,7 @@ Specify an edge pattern which was \*added\* at \*this commit\*.
 
 * * *
 
+{% anchor id="And" /%}
 #### And
 
 A conjunction of queries which must all have a solution.
@@ -149,6 +156,7 @@ A conjunction of queries which must all have a solution.
 
 * * *
 
+{% anchor id="ArithmeticExpression" /%}
 #### ArithmeticExpression
 
 An abstract class specifying the AST super-class of all arithemtic expressions. It is a subdocument
@@ -157,6 +165,7 @@ An abstract class specifying the AST super-class of all arithemtic expressions. 
 
 * * *
 
+{% anchor id="ArithmeticValue" /%}
 #### ArithmeticValue
 
 A variable or node. It is a subdocument
@@ -174,6 +183,7 @@ A variable or node. It is a subdocument
 
 * * *
 
+{% anchor id="Column" /%}
 #### Column
 
 Description pending.
@@ -182,6 +192,7 @@ Description pending.
 
 * * *
 
+{% anchor id="Concatenate" /%}
 #### Concatenate
 
 Concatenate a list of strings.
@@ -199,6 +210,7 @@ Concatenate a list of strings.
 
 * * *
 
+{% anchor id="Count" /%}
 #### Count
 
 Counts the number of solutions of a query.
@@ -235,6 +247,7 @@ Specify an edge pattern which is terminal, and provides a data value association
 
 * * *
 
+{% anchor id="DataValue" /%}
 #### DataValue
 
 A variable or node. It is a subdocument
@@ -251,6 +264,7 @@ A variable or node. It is a subdocument
 
 * * *
 
+{% anchor id="DeleteDocument" /%}
 #### DeleteDocument
 
 Delete a document from the graph.
@@ -267,6 +281,7 @@ Delete a document from the graph.
 
 * * *
 
+{% anchor id="DeleteLink" /%}
 #### DeleteLink
 
 Delete an edge linking nodes.
@@ -286,6 +301,7 @@ Delete an edge linking nodes.
 
 * * *
 
+{% anchor id="DeleteTriple" /%}
 #### DeleteTriple
 
 Specify an edge pattern to remove from the graph.
@@ -305,6 +321,7 @@ Specify an edge pattern to remove from the graph.
 
 * * *
 
+{% anchor id="DeletedLink" /%}
 #### DeletedLink
 
 An edge pattern specifying a link beween nodes deleted \*at this commit\*.
@@ -324,6 +341,7 @@ An edge pattern specifying a link beween nodes deleted \*at this commit\*.
 
 * * *
 
+{% anchor id="DeletedTriple" /%}
 #### DeletedTriple
 
 Specify an edge pattern which was \*deleted\* at \*this commit\*.
@@ -343,6 +361,7 @@ Specify an edge pattern which was \*deleted\* at \*this commit\*.
 
 * * *
 
+{% anchor id="Distinct" /%}
 #### Distinct
 
 Ensure variables listed result in distinct solutions.
@@ -377,6 +396,7 @@ Integer divide two numbers.
 
 * * *
 
+{% anchor id="Divide" /%}
 #### Divide
 
 Divide two numbers.
@@ -394,6 +414,7 @@ Divide two numbers.
 
 * * *
 
+{% anchor id="Dot" /%}
 #### Dot
 
 Extract the value of a key in a bound document.
@@ -410,6 +431,7 @@ Extract the value of a key in a bound document.
 
 * * *
 
+{% anchor id="Equals" /%}
 #### Equals
 
 True whenever 'left' is the same as 'right'. Performs unification.
@@ -427,6 +449,7 @@ True whenever 'left' is the same as 'right'. Performs unification.
 
 * * *
 
+{% anchor id="Eval" /%}
 #### Eval
 
 Evaluate an arithmetic expression to obtain a result.
@@ -444,6 +467,7 @@ Evaluate an arithmetic expression to obtain a result.
 
 * * *
 
+{% anchor id="Exp" /%}
 #### Exp
 
 Exponentiate a number.
@@ -461,6 +485,7 @@ Exponentiate a number.
 
 * * *
 
+{% anchor id="Floor" /%}
 #### Floor
 
 Find the integral part of a number.
@@ -477,6 +502,7 @@ Find the integral part of a number.
 
 * * *
 
+{% anchor id="FormatType" /%}
 #### FormatType
 
 Description pending.
@@ -485,6 +511,7 @@ Description pending.
 
 * * *
 
+{% anchor id="From" /%}
 #### From
 
 Change the default read graph (between instance/schema).
@@ -502,6 +529,7 @@ Change the default read graph (between instance/schema).
 
 * * *
 
+{% anchor id="Get" /%}
 #### Get
 
 Description pending.
@@ -512,6 +540,7 @@ Description pending.
 
 * * *
 
+{% anchor id="Greater" /%}
 #### Greater
 
 Predicate determining if one thing is greater than another according to natural ordering.
@@ -529,6 +558,7 @@ Predicate determining if one thing is greater than another according to natural 
 
 * * *
 
+{% anchor id="GroupBy" /%}
 #### GroupBy
 
 Group a query into a list with each element of the list specified by 'template' using a given variable set for the group.
@@ -548,6 +578,7 @@ Group a query into a list with each element of the list specified by 'template' 
 
 * * *
 
+{% anchor id="HashKey" /%}
 #### HashKey
 
 Generates a key identical to those generated automatically by 'HashKey' specifications.
@@ -566,6 +597,7 @@ Generates a key identical to those generated automatically by 'HashKey' specific
 
 * * *
 
+{% anchor id="If" /%}
 #### If
 
 A conditional which runs the then clause for every success from the test clause, otherwise runs the else clause.
@@ -584,6 +616,7 @@ A conditional which runs the then clause for every success from the test clause,
 
 * * *
 
+{% anchor id="Immediately" /%}
 #### Immediately
 
 Attempts to perform all side-effecting operations immediately. Can have strange non-backtracking effects but can also increase performance. Use at your own risk.
@@ -600,6 +633,7 @@ Attempts to perform all side-effecting operations immediately. Can have strange 
 
 * * *
 
+{% anchor id="Indicator" /%}
 #### Indicator
 
 Description pending.
@@ -608,6 +642,7 @@ Description pending.
 
 * * *
 
+{% anchor id="Into" /%}
 #### Into
 
 Change the default write graph (between instance/schema).
@@ -625,6 +660,7 @@ Change the default write graph (between instance/schema).
 
 * * *
 
+{% anchor id="InversePathPredicate" /%}
 #### InversePathPredicate
 
 A predicate to traverse \*backwards\*.
@@ -641,6 +677,7 @@ A predicate to traverse \*backwards\*.
 
 * * *
 
+{% anchor id="IsA" /%}
 #### IsA
 
 Test (or generate) the type of an element.
@@ -658,6 +695,7 @@ Test (or generate) the type of an element.
 
 * * *
 
+{% anchor id="Join" /%}
 #### Join
 
 Join a list of strings using 'separator'.
@@ -676,6 +714,7 @@ Join a list of strings using 'separator'.
 
 * * *
 
+{% anchor id="Length" /%}
 #### Length
 
 The length of a list.
@@ -693,6 +732,7 @@ The length of a list.
 
 * * *
 
+{% anchor id="Less" /%}
 #### Less
 
 Predicate determining if one thing is less than another according to natural ordering.
@@ -710,6 +750,7 @@ Predicate determining if one thing is less than another according to natural ord
 
 * * *
 
+{% anchor id="LexicalKey" /%}
 #### LexicalKey
 
 Generates a key identical to those generated automatically by 'LexicalKey' specifications.
@@ -728,6 +769,7 @@ Generates a key identical to those generated automatically by 'LexicalKey' speci
 
 * * *
 
+{% anchor id="Like" /%}
 #### Like
 
 Distance between strings, similar to a Levenstein distance.
@@ -746,6 +788,7 @@ Distance between strings, similar to a Levenstein distance.
 
 * * *
 
+{% anchor id="Limit" /%}
 #### Limit
 
 Limit a query to a particular maximum number of solutions specified by 'limit'. Can be used with start to perform paging.
@@ -763,6 +806,7 @@ Limit a query to a particular maximum number of solutions specified by 'limit'. 
 
 * * *
 
+{% anchor id="Link" /%}
 #### Link
 
 Specify an edge pattern which is not terminal, but a link between objects.
@@ -782,6 +826,7 @@ Specify an edge pattern which is not terminal, but a link between objects.
 
 * * *
 
+{% anchor id="Lower" /%}
 #### Lower
 
 Lowercase a string.
@@ -799,6 +844,7 @@ Lowercase a string.
 
 * * *
 
+{% anchor id="Member" /%}
 #### Member
 
 Generate or test every element of a list.
@@ -816,6 +862,7 @@ Generate or test every element of a list.
 
 * * *
 
+{% anchor id="Minus" /%}
 #### Minus
 
 Subtract two numbers.
@@ -833,6 +880,7 @@ Subtract two numbers.
 
 * * *
 
+{% anchor id="NamedParametricQuery" /%}
 #### NamedParametricQuery
 
 A named parametric query which names a specific query for later retrieval and re-use and allows the specification of bindings for a specific set of variables in the query.
@@ -849,6 +897,7 @@ A named parametric query which names a specific query for later retrieval and re
 
 * * *
 
+{% anchor id="NamedQuery" /%}
 #### NamedQuery
 
 A named query names a specific query for later retrieval and re-use.
@@ -864,6 +913,7 @@ A named query names a specific query for later retrieval and re-use.
 
 * * *
 
+{% anchor id="NodeValue" /%}
 #### NodeValue
 
 A variable or node. It is a subdocument
@@ -879,6 +929,7 @@ A variable or node. It is a subdocument
 
 * * *
 
+{% anchor id="Not" /%}
 #### Not
 
 The negation of a query. Provides no solution bindings, but will succeed if its sub-query fails.
@@ -895,6 +946,7 @@ The negation of a query. Provides no solution bindings, but will succeed if its 
 
 * * *
 
+{% anchor id="Once" /%}
 #### Once
 
 Obtains exactly one solution from a query. Simliar to a limit of 1.
@@ -911,6 +963,7 @@ Obtains exactly one solution from a query. Simliar to a limit of 1.
 
 * * *
 
+{% anchor id="Optional" /%}
 #### Optional
 
 A query which will succeed (without bindings) even in the case of failure.
@@ -927,6 +980,7 @@ A query which will succeed (without bindings) even in the case of failure.
 
 * * *
 
+{% anchor id="Or" /%}
 #### Or
 
 A disjunction of queries any of which can provide a solution.
@@ -943,6 +997,7 @@ A disjunction of queries any of which can provide a solution.
 
 * * *
 
+{% anchor id="Order" /%}
 #### Order
 
 Description pending.
@@ -951,6 +1006,7 @@ Description pending.
 
 * * *
 
+{% anchor id="OrderBy" /%}
 #### OrderBy
 
 Orders query results according to an ordering specification.
@@ -968,6 +1024,7 @@ Orders query results according to an ordering specification.
 
 * * *
 
+{% anchor id="OrderTemplate" /%}
 #### OrderTemplate
 
 The order template, consisting of the variable and ordering direction. It is a subdocument
@@ -983,6 +1040,7 @@ The order template, consisting of the variable and ordering direction. It is a s
 
 * * *
 
+{% anchor id="Pad" /%}
 #### Pad
 
 Pad a string.
@@ -1002,6 +1060,7 @@ Pad a string.
 
 * * *
 
+{% anchor id="Path" /%}
 #### Path
 
 Find a path through the graph according to 'pattern'. This 'pattern' is a regular graph expression which avoids cycles.
@@ -1021,6 +1080,7 @@ Find a path through the graph according to 'pattern'. This 'pattern' is a regula
 
 * * *
 
+{% anchor id="PathOr" /%}
 #### PathOr
 
 A set of patterns in which each of the patterns can result in objects starting from our current subject set.
@@ -1037,6 +1097,7 @@ A set of patterns in which each of the patterns can result in objects starting f
 
 * * *
 
+{% anchor id="PathPattern" /%}
 #### PathPattern
 
 Description pending.
@@ -1045,6 +1106,7 @@ Description pending.
 
 * * *
 
+{% anchor id="PathPlus" /%}
 #### PathPlus
 
 The path pattern specified by 'plus' must hold one or more times in succession.
@@ -1061,6 +1123,7 @@ The path pattern specified by 'plus' must hold one or more times in succession.
 
 * * *
 
+{% anchor id="PathPredicate" /%}
 #### PathPredicate
 
 A predicate to traverse.
@@ -1077,6 +1140,7 @@ A predicate to traverse.
 
 * * *
 
+{% anchor id="PathSequence" /%}
 #### PathSequence
 
 A sequence of patterns in which each of the patterns in the list must result in objects which are subjects of the next pattern in the list.
@@ -1093,6 +1157,7 @@ A sequence of patterns in which each of the patterns in the list must result in 
 
 * * *
 
+{% anchor id="PathStar" /%}
 #### PathStar
 
 The path pattern specified by 'star' may hold zero or more times in succession.
@@ -1109,6 +1174,7 @@ The path pattern specified by 'star' may hold zero or more times in succession.
 
 * * *
 
+{% anchor id="PathTimes" /%}
 #### PathTimes
 
 The path pattern specified by 'times' may hold 'from' to 'to' times in succession.
@@ -1125,6 +1191,7 @@ The path pattern specified by 'times' may hold 'from' to 'to' times in successio
 
 * * *
 
+{% anchor id="Plus" /%}
 #### Plus
 
 Add two numbers.
@@ -1142,6 +1209,7 @@ Add two numbers.
 
 * * *
 
+{% anchor id="Put" /%}
 #### Put
 
 Description pending.
@@ -1152,6 +1220,7 @@ Description pending.
 
 * * *
 
+{% anchor id="Query" /%}
 #### Query
 
 An abstract class which represents an arbitrary query AST. It is a subdocument
@@ -1160,6 +1229,7 @@ An abstract class which represents an arbitrary query AST. It is a subdocument
 
 * * *
 
+{% anchor id="QueryResource" /%}
 #### QueryResource
 
 Description pending.
@@ -1168,6 +1238,7 @@ Description pending.
 
 * * *
 
+{% anchor id="RandomKey" /%}
 #### RandomKey
 
 Generates a key identical to those generated automatically by 'RandomKey' specifications.
@@ -1185,6 +1256,7 @@ Generates a key identical to those generated automatically by 'RandomKey' specif
 
 * * *
 
+{% anchor id="ReadDocument" /%}
 #### ReadDocument
 
 Read a full document from an identifier.
@@ -1202,6 +1274,7 @@ Read a full document from an identifier.
 
 * * *
 
+{% anchor id="Regexp" /%}
 #### Regexp
 
 Test a string against a PCRE style regex pattern.
@@ -1220,6 +1293,7 @@ Test a string against a PCRE style regex pattern.
 
 * * *
 
+{% anchor id="Select" /%}
 #### Select
 
 Select specific variables from a query to return.
@@ -1237,6 +1311,7 @@ Select specific variables from a query to return.
 
 * * *
 
+{% anchor id="Size" /%}
 #### Size
 
 Size of a database in magic units (bytes?).
@@ -1254,6 +1329,7 @@ Size of a database in magic units (bytes?).
 
 * * *
 
+{% anchor id="Source" /%}
 #### Source
 
 Description pending.
@@ -1262,6 +1338,7 @@ Description pending.
 
 * * *
 
+{% anchor id="Split" /%}
 #### Split
 
 Split a string.
@@ -1280,6 +1357,7 @@ Split a string.
 
 * * *
 
+{% anchor id="Start" /%}
 #### Start
 
 Start a query at the nth solution specified by 'start'. Allows resumption and paging of queries.
@@ -1297,6 +1375,7 @@ Start a query at the nth solution specified by 'start'. Allows resumption and pa
 
 * * *
 
+{% anchor id="Substring" /%}
 #### Substring
 
 Finds the boundaries of a substring in a string.
@@ -1317,6 +1396,7 @@ Finds the boundaries of a substring in a string.
 
 * * *
 
+{% anchor id="Subsumption" /%}
 #### Subsumption
 
 Provides class subsumption (the inheritance model) according to the schema design. True whenver 'child' is a child of 'parent'. Can be used as a generator or a check.
@@ -1334,6 +1414,7 @@ Provides class subsumption (the inheritance model) according to the schema desig
 
 * * *
 
+{% anchor id="Sum" /%}
 #### Sum
 
 Sum a list of strings.
@@ -1351,6 +1432,7 @@ Sum a list of strings.
 
 * * *
 
+{% anchor id="Trim" /%}
 #### Trim
 
 Trims whitespace from 'untrimmed'.
@@ -1368,6 +1450,7 @@ Trims whitespace from 'untrimmed'.
 
 * * *
 
+{% anchor id="Triple" /%}
 #### Triple
 
 Specify an edge pattern in the graph.
@@ -1387,6 +1470,7 @@ Specify an edge pattern in the graph.
 
 * * *
 
+{% anchor id="TripleCount" /%}
 #### TripleCount
 
 The number of edges in a database.
@@ -1404,6 +1488,7 @@ The number of edges in a database.
 
 * * *
 
+{% anchor id="True" /%}
 #### True
 
 The query which is always true.
@@ -1414,6 +1499,7 @@ The query which is always true.
 
 * * *
 
+{% anchor id="Typecast" /%}
 #### Typecast
 
 Casts one type as another if possible.
@@ -1432,6 +1518,7 @@ Casts one type as another if possible.
 
 * * *
 
+{% anchor id="UpdateDocument" /%}
 #### UpdateDocument
 
 Update a document in the graph.
@@ -1449,6 +1536,7 @@ Update a document in the graph.
 
 * * *
 
+{% anchor id="Upper" /%}
 #### Upper
 
 Uppercase a string.
@@ -1466,6 +1554,7 @@ Uppercase a string.
 
 * * *
 
+{% anchor id="Using" /%}
 #### Using
 
 Select a specific collection for query.
@@ -1483,6 +1572,7 @@ Select a specific collection for query.
 
 * * *
 
+{% anchor id="Value" /%}
 #### Value
 
 A variable, node or data point. It is a subdocument

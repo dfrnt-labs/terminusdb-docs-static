@@ -174,6 +174,13 @@ const tags = {
       number: { type: String },
     },
   },
+  anchor: {
+    selfClosing: true,
+    attributes: {
+      id: { type: String, required: true },
+    },
+    render: ({ id }) => <a id={id} aria-hidden="true" />,
+  },
 }
 
 export default tags
