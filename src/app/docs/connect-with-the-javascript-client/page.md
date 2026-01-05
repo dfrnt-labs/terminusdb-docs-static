@@ -43,7 +43,8 @@ client.setApiKey(MY_ACCESS_TOKEN)
 Whether you are connecting to a local docker, a local server, or a server that you've set up somewhere, you can use the following to log in to TerminusDB.
 
 ```javascript
-const client = new TerminusClient.WOQLClient(SERVER_URL,{user:"admin",key:"myKey"})
+// Key is the user password - change if you've set a different password
+const client = new TerminusClient.WOQLClient(SERVER_URL,{user:"admin",key:"root"})
 
 async function getSchema() {
      client.db("DB_NAME")

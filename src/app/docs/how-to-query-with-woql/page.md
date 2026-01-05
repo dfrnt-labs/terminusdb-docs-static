@@ -87,7 +87,7 @@ const DB_DESCRIPTION = 'A hands-on tutorial database for learning WOQL';
 const client = new TerminusClient.WOQLClient(SERVER_URL, {
   user: ACCOUNT,
   organization: ACCOUNT,
-  key: 'root'
+  key: 'root' // Default password - change if you've set a different password
 });
 
 /**
