@@ -781,6 +781,10 @@ export const navigation: Navigation[] = [
           },
         ],
       },
+      {
+        title: 'Prefix Management',
+        href: '/docs/prefix-management',
+      },
 
       {
         title: 'Dashboard Reference',
