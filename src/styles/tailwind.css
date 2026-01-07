@@ -41,4 +41,21 @@
   --container-8xl: 88rem;
 }
 
+/* Print styles for mermaid diagrams */
+@media print {
+  /* Ensure SVG foreignObject content scales with the SVG */
+  figure svg foreignObject {
+    overflow: visible !important;
+  }
+  
+  figure svg foreignObject div {
+    font-size: 8px !important;
+    line-height: 1.2 !important;
+  }
+  
+  figure svg .nodeLabel,
+  figure svg .edgeLabel {
+    font-size: 8px !important;
+  }
+}
 

@@ -4,6 +4,7 @@ import { Fragment, useState, useEffect } from 'react'
 import { Highlight, themes, Prism } from 'prism-react-renderer'
 // @ts-ignore - refractor doesn't have TypeScript definitions
 import bashLang from 'refractor/lang/bash'
+import { Mermaid } from './Mermaid'
 
 // Register bash language with Prism
 bashLang(Prism)
@@ -58,13 +59,16 @@ export function Fence({
   // Ensure children is a string
   const codeContent = typeof children === 'string' ? children : String(children || '')
   
-  // Reset copied state after 2 seconds
+  // Check if this is a mermaid diagram
+  const isMermaid = language?.toLowerCase() === 'mermaid'
+  
+  // Reset copied state after 2 seconds (only relevant for non-mermaid)
   useEffect(() => {
-    if (copied) {
+    if (copied && !isMermaid) {
       const timer = setTimeout(() => setCopied(false), 2000)
       return () => clearTimeout(timer)
     }
-  }, [copied])
+  }, [copied, isMermaid])
   
   const copyToClipboard = async () => {
     await navigator.clipboard.writeText(codeContent.trimEnd())
@@ -121,6 +125,11 @@ export function Fence({
   const displayLabel = languageLabels[originalLang] || originalLang
   
   const label = title || (displayLabel !== 'text' ? `Example: ${displayLabel}` : 'Code')
+
+  // Render mermaid diagrams with the Mermaid component
+  if (isMermaid) {
+    return <Mermaid chart={codeContent} title={title} />
+  }
 
   return (
     <div className="group relative rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
