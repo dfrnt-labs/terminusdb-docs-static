@@ -266,6 +266,62 @@
             },
             {
               "@type": "Definition",
+              "name": "get_document_history",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "doc_id",
+                  "summary": "The document ID (IRI) to retrieve history for (e.g., \"Person/alice\")"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str, optional",
+                  "name": "team",
+                  "summary": "The team from which the database is. Defaults to the class property."
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str, optional",
+                  "name": "db",
+                  "summary": "The database. Defaults to the class property."
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "int, optional",
+                  "name": "start",
+                  "summary": "Starting index for pagination. Defaults to 0."
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "int, optional",
+                  "name": "count",
+                  "summary": "Maximum number of history entries to return. Defaults to 10."
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "bool, optional",
+                  "name": "created",
+                  "summary": "If True, return only the creation time. Defaults to False."
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "bool, optional",
+                  "name": "updated",
+                  "summary": "If True, return only the last update time. Defaults to False."
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "list",
+                "summary": "List of history entry dictionaries containing commit information\nfor the specified document:\n```\n[\n  {\n    \"author\": \"admin\",\n    \"identifier\": \"tbn15yq6rw1l4e9bgboyu3vwcoxgri5\",\n    \"message\": \"Updated document\",\n    \"timestamp\": datetime.datetime(2023, 4, 6, 19, 1, 14, 324928)\n  },\n  {\n    \"author\": \"admin\",\n    \"identifier\": \"3v3naa8jrt8612dg5zryu4vjqwa2w9s\",\n    \"message\": \"Created document\",\n    \"timestamp\": datetime.datetime(2023, 4, 6, 19, 0, 47, 406387)\n  }\n]\n```"
+              },
+              "examples": null,
+              "summary": "Get the commit history for a specific document"
+            },
+            {
+              "@type": "Definition",
               "name": "get_all_branches",
               "parameters": [],
               "returns": {
@@ -342,6 +398,134 @@
               },
               "examples": null,
               "summary": "Get the prefixes for a given database"
+            },
+            {
+              "@type": "Definition",
+              "name": "get_prefix",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "prefix_name",
+                  "summary": "The prefix name to retrieve."
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "str",
+                "summary": "The IRI (namespace URL) this prefix expands to."
+              },
+              "examples": [
+                ">>> client.get_prefix(\"schema\")\n'http://schema.org/'"
+              ],
+              "summary": "Get a single prefix IRI by name."
+            },
+            {
+              "@type": "Definition",
+              "name": "add_prefix",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "prefix_name",
+                  "summary": "The prefix name to create (must follow NCName rules)."
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "uri",
+                  "summary": "The IRI (namespace URL) this prefix expands to."
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "dict",
+                "summary": "API response with status and details."
+              },
+              "examples": [
+                ">>> client.add_prefix(\"ex\", \"http://example.org/\")\n{'@type': 'api:PrefixAddResponse', 'api:status': 'api:success', ...}"
+              ],
+              "summary": "Add a new prefix mapping."
+            },
+            {
+              "@type": "Definition",
+              "name": "update_prefix",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "prefix_name",
+                  "summary": "The prefix name to update."
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "uri",
+                  "summary": "The new IRI for this prefix."
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "dict",
+                "summary": "API response with status and details."
+              },
+              "examples": [
+                ">>> client.update_prefix(\"ex\", \"http://example.com/\")\n{'@type': 'api:PrefixUpdateResponse', 'api:status': 'api:success', ...}"
+              ],
+              "summary": "Update an existing prefix mapping."
+            },
+            {
+              "@type": "Definition",
+              "name": "upsert_prefix",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "prefix_name",
+                  "summary": "The prefix name."
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "uri",
+                  "summary": "The IRI for this prefix."
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "dict",
+                "summary": "API response with status and details."
+              },
+              "examples": [
+                ">>> client.upsert_prefix(\"ex\", \"http://example.org/\")\n{'@type': 'api:PrefixUpdateResponse', 'api:status': 'api:success', ...}"
+              ],
+              "summary": "Create or update a prefix mapping (upsert)."
+            },
+            {
+              "@type": "Definition",
+              "name": "delete_prefix",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "prefix_name",
+                  "summary": "The prefix name to delete."
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "dict",
+                "summary": "API response with status."
+              },
+              "examples": [
+                ">>> client.delete_prefix(\"ex\")\n{'@type': 'api:PrefixDeleteResponse', 'api:status': 'api:success', ...}"
+              ],
+              "summary": "Delete a prefix mapping."
             },
             {
               "@type": "Definition",
@@ -1845,6 +2029,18 @@
               },
               "examples": null,
               "summary": "Returns a list of database ids for all databases the user has access to"
+            },
+            {
+              "@type": "Definition",
+              "name": "_prefix_url",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Get URL for prefix operations"
             }
           ]
         }

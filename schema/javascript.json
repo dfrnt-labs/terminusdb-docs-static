@@ -1,7 +1,7 @@
 {
   "@type": "Application",
   "language": "Javascript",
-  "version": "12.0.0",
+  "version": "12.0.3",
   "license": "Apache-2.0",
   "name": "@terminusdb/terminusdb-client",
   "summary": "TerminusDB client library",
@@ -1574,14 +1574,15 @@
                 {
                   "@type": "Parameter",
                   "name": "json",
-                  "type": "object",
+                  "type": "WOQLJson",
                   "summary": "a query in json format"
                 }
               ],
               "returns": {
                 "@type": "Returns",
                 "name": "",
-                "type": "object"
+                "summary": "Returns WOQLQuery when setting (for chaining),\nor WOQLJson when getting",
+                "type": "WOQLQuery|WOQLJson"
               }
             },
             {
@@ -2223,6 +2224,29 @@
                 "@type": "Returns",
                 "name": "",
                 "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "localize",
+              "summary": "Build a localized scope for variables to prevent leaking local variables to outer scope.\nReturns a tuple [localized, v] where:\n- localized: function that wraps queries with select(\"\") and eq() bindings\n- v: object with unique variable names for use in the inner query\n\nParameters with non-null values are bound from outer scope via eq().\nParameters with null values are local-only variables.",
+              "examples": [
+                "const [localized, v] = WOQL.localize({ consSubject, valueVar, last_cell: null });\nreturn localized(\n  WOQL.and(\n    WOQL.triple(v.consSubject, 'rdf:type', 'rdf:List'),\n    WOQL.triple(v.last_cell, 'rdf:rest', 'rdf:nil')\n  )\n);"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "paramSpec",
+                  "type": "object",
+                  "summary": "Object mapping parameter names to values (or null for local vars)"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Tuple of [localized function, variables object]",
+                "type": "LocalizeResult"
               }
             },
             {
@@ -3431,9 +3455,7 @@
               "@type": "Definition",
               "name": "idgen_random",
               "summary": "Generates a random ID with a specified prefix\nUses cryptographically secure random base64 encoding to generate unique identifiers",
-              "examples": [
-                "idgen_random(\"Person/\", \"v:person_id\")"
-              ],
+              "examples": [],
               "section": null,
               "parameters": [
                 {
@@ -3452,7 +3474,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
-                "summary": "A WOQLQuery which contains the random ID generation pattern",
+                "summary": "A WOQLQuery which contains the random ID generation pattern\nidgen_random(\"Person/\", \"v:person_id\")",
                 "type": "WOQLQuery"
               }
             },
@@ -3967,9 +3989,7 @@
               "@type": "Definition",
               "name": "slice",
               "summary": "Extracts a contiguous subsequence from a list, following JavaScript's slice() semantics",
-              "examples": [
-                "let [result] = vars(\"result\")\nslice([\"a\", \"b\", \"c\", \"d\"], result, 1, 3)  // result = [\"b\", \"c\"]\nslice([\"a\", \"b\", \"c\", \"d\"], result, -2)    // result = [\"c\", \"d\"]"
-              ],
+              "examples": [],
               "section": null,
               "parameters": [
                 {
@@ -4000,7 +4020,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
-                "summary": "A WOQLQuery which contains the Slice pattern matching expression",
+                "summary": "A WOQLQuery which contains the Slice pattern matching expression\nlet [result] = vars(\"result\")\nslice([\"a\", \"b\", \"c\", \"d\"], result, 1, 3)  // result = [\"b\", \"c\"]\nslice([\"a\", \"b\", \"c\", \"d\"], result, -2)    // result = [\"c\", \"d\"]",
                 "type": "WOQLQuery"
               }
             },
@@ -4150,7 +4170,7 @@
             {
               "@type": "Definition",
               "name": "group_by",
-              "summary": "Groups the results of the contained subquery on the basis of identical values for Groupvars,\nextracts the patterns defined in PatternVars and stores the results in GroupedVar.  \nSee also {@link /docs/group-query-results/ How to Group Results in WOQL}",
+              "summary": "Groups the results of the contained subquery on the basis of identical values for Groupvars,\nextracts the patterns defined in PatternVars and stores the results in GroupedVar",
               "examples": [],
               "section": null,
               "parameters": [
@@ -4487,6 +4507,682 @@
                 "name": "",
                 "type": "void"
               }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_list",
+              "summary": "Collect all rdf:List elements into a single array.\nWorks in two modes:\n- Generator: If listVar is unbound, binds it to the array of all rdf:first values\n- Matching: If listVar is bound to an array, succeeds only if values match\nUses group_by to collect all values in order (path queries return in hop-count order).",
+              "examples": [
+                "// Collect all task titles from a document's task list\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_list(\"v:list_head\", \"v:all_tasks\")\n);\n// Result: { bindings: [{ \"v:all_tasks\": [\"Task A\", \"Task B\", \"Task C\"] }] }"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list cons cell (rdf:List head)"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "listVar",
+                  "type": "string",
+                  "summary": "Variable to bind/match the resulting list values array"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that binds list as array to listVar (single binding)",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "_rdflist_peek_raw",
+              "summary": "Internal: Get first element without localization.\nUsed by other rdflist functions to avoid nested localization.",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string|Var",
+                  "summary": "Variable or IRI of the list cons cell"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "valueVar",
+                  "type": "string|Var",
+                  "summary": "Variable to bind the first value"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that binds first value to valueVar",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_peek",
+              "summary": "Get the first element of an rdf:List (peek operation).\nWorks as generator (binds value) or matcher (checks if first element matches).",
+              "examples": [
+                "// Get the first task from a project's task list\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_peek(\"v:list_head\", \"v:first_task\")\n);\n// Result: { bindings: [{ \"v:first_task\": \"Task A\" }] }"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list cons cell"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "valueVar",
+                  "type": "string",
+                  "summary": "Variable to bind the first value"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that binds first value to valueVar",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_last",
+              "summary": "Get the last element of an rdf:List\nTraverses to the final cons cell (whose rdf:rest is rdf:nil) and gets its rdf:first",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list cons cell"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "valueVar",
+                  "type": "string",
+                  "summary": "Variable to bind the last value"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that binds last value to valueVar",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "_rdflist_nth0_raw",
+              "summary": "Internal: Get element at 0-indexed position without localization.",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string|Var",
+                  "summary": "Variable or IRI of the list cons cell"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "index",
+                  "type": "number",
+                  "summary": "0-based index (must be number >= 0)"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "valueVar",
+                  "type": "string|Var",
+                  "summary": "Variable to bind the value"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that binds value at index to valueVar",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_nth0",
+              "summary": "Get element at 0-indexed position in an rdf:List.\nWorks as generator (binds value) or matcher (checks if element at index matches).",
+              "examples": [
+                "// Get the second task (index 1) from a project's task list\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_nth0(\"v:list_head\", 1, \"v:second_task\")\n);\n// Result: { bindings: [{ \"v:second_task\": \"Task B\" }] }"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list cons cell"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "index",
+                  "type": "number|string",
+                  "summary": "0-based index (number or variable)"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "valueVar",
+                  "type": "string",
+                  "summary": "Variable to bind the value at that index"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that binds value at index to valueVar",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_nth1",
+              "summary": "Get element at 1-indexed position in an rdf:List.\nWorks as generator (binds value) or matcher (checks if element at index matches).",
+              "examples": [
+                "// Get the second task (index 2, 1-based) from a project's task list\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_nth1(\"v:list_head\", 2, \"v:second_task\")\n);\n// Result: { bindings: [{ \"v:second_task\": \"Task B\" }] }"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list cons cell"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "index",
+                  "type": "number|string",
+                  "summary": "1-based index (number or variable)"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "valueVar",
+                  "type": "string",
+                  "summary": "Variable to bind the value at that index"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that binds value at index to valueVar",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "_rdflist_member_raw",
+              "summary": "Internal: Check if a value is a member of an rdf:List without localization.\nUsed by other rdflist functions to avoid nested localization.",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "value",
+                  "type": "string|Var",
+                  "summary": "Variable or value to find in the list"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string|Var",
+                  "summary": "Variable or IRI of the list cons cell"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "cellVar",
+                  "type": "string|Var",
+                  "summary": "Cell variable (required, must be from VarsUnique)"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that succeeds if value is in the list",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_member",
+              "summary": "Traverse an rdf:List and yield each element as a separate binding (streaming).\nWorks in two modes:\n- Generator: If value is unbound, yields one binding per list element\n- Matcher: If value is bound, succeeds only if value is a member of the list\nIdeal for large lists and streaming use cases.",
+              "examples": [
+                "// Stream all tasks from a project's task list (one binding per element)\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_member(\"v:list_head\", \"v:task\")\n);\n// Result: { bindings: [{ \"v:task\": \"Task A\" }, { \"v:task\": \"Task B\" }, ...] }"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list cons cell (rdf:List head)"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "value",
+                  "type": "string",
+                  "summary": "Variable to bind each value, or value to check membership"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that yields/matches list elements",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "_rdflist_length_raw",
+              "summary": "Internal: Get the length of an rdf:List without localization.\nUsed by other rdflist functions to avoid nested localization.",
+              "examples": [],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string|Var",
+                  "summary": "Variable or IRI of the list cons cell"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "lengthVar",
+                  "type": "string|Var",
+                  "summary": "Variable to bind the length"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "pathVar",
+                  "type": "string|Var",
+                  "summary": "Path variable (required, must be from VarsUnique)"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that binds list length to lengthVar",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_length",
+              "summary": "Get the length of an rdf:List.\nUses path query to traverse all rest links and count them.\nWorks as generator (binds length) or matcher (checks if length matches).",
+              "examples": [
+                "// Get the number of tasks in a project's task list\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_length(\"v:list_head\", \"v:count\")\n);\n// Result: { bindings: [{ \"v:count\": 3 }] }"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list cons cell"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "lengthVar",
+                  "type": "string",
+                  "summary": "Variable to bind the length"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that binds list length to lengthVar",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_pop",
+              "summary": "Pop the first element from an rdf:List in-place.\nRemoves the first element and promotes the second element to head position.\nThe list head IRI remains unchanged - the second cons cell is removed.",
+              "examples": [
+                "// Pop the first task from a project's task list\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_pop(\"v:list_head\", \"v:first_task\")\n);\n// Result: list [A, B, C] becomes [B, C], binds \"A\" to v:first_task"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list cons cell"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "valueVar",
+                  "type": "string",
+                  "summary": "Variable to bind the popped value"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that pops first element and binds it to valueVar",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_push",
+              "summary": "Push a new element to the front of an rdf:List in-place.\nModifies the existing cons cell: moves old first value to a new cons cell,\nsets new value as rdf:first, and links to the new cons as rdf:rest.\nThe list head IRI remains unchanged.",
+              "examples": [
+                "// Push a new task to the front of a project's task list\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_push(\"v:list_head\", WOQL.string(\"New Task\"))\n);\n// Result: list [A, B, C] becomes [New Task, A, B, C], head IRI unchanged"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string|Var",
+                  "summary": "Variable or IRI of the list cons cell"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "value",
+                  "type": "string|Var",
+                  "summary": "Value to push to the front"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that pushes value to front of list in-place",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_append",
+              "summary": "Append an element to the end of an rdf:List.\nTraverses to the last cell and adds new cell there.",
+              "examples": [
+                "// Append a new task to the end of a project's task list\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_append(\"v:list_head\", WOQL.string(\"New Task\"))\n);\n// Result: appends \"New Task\" to end of list"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string|Var",
+                  "summary": "Variable or IRI of the list head"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "value",
+                  "type": "string|Var",
+                  "summary": "Value to append"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "newCellVar",
+                  "type": "string",
+                  "summary": "Optional variable to bind the new cell"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that appends value to end of list",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_clear",
+              "summary": "Delete all cons cells of an rdf:List and return rdf:nil as the new list value.\nSince a cons cell cannot become rdf:nil, this deletes all cells and binds\nrdf:nil to a variable so the caller can update the reference to the list.\nNOTE: This only removes the list structure. To delete subdocuments\nreferenced by the list, use rdflist_member with delete_document first.",
+              "examples": [
+                "// Clear a list of literals and update the reference to point to rdf:nil:\nconst clearListQuery = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:old_list\"),\n  WOQL.lib().rdflist_clear(\"v:old_list\", \"v:empty_list\"),\n  WOQL.delete_triple(\"doc:Project/1\", \"tasks\", \"v:old_list\"),\n  WOQL.add_triple(\"doc:Project/1\", \"tasks\", \"v:empty_list\")\n);\n\n// Full pattern: delete subdocuments, clear list, update reference:\nconst fullClearQuery = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:old_list\"),\n  WOQL.group_by([], \"v:subdoc\", \"v:members\",\n    WOQL.and(\n      WOQL.lib().rdflist_member(\"v:old_list\", \"v:subdoc\"),\n      WOQL.delete_document(\"v:subdoc\")\n    )\n  ),\n  WOQL.lib().rdflist_clear(\"v:old_list\", \"v:empty_list\"),\n  WOQL.delete_triple(\"doc:Project/1\", \"tasks\", \"v:old_list\"),\n  WOQL.add_triple(\"doc:Project/1\", \"tasks\", \"v:empty_list\")\n);"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list head"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "newListVar",
+                  "type": "string",
+                  "summary": "Variable to bind rdf:nil (the empty list)"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that deletes all cons cells and binds rdf:nil",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_insert",
+              "summary": "Insert a value at a specific position in an rdf:List.",
+              "examples": [
+                "// Insert a task at position 1 in a project's task list\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_insert(\"v:list_head\", 1, WOQL.string(\"Inserted Task\"))\n);\n// Result: [A, Inserted Task, B, C]"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list head"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "position",
+                  "type": "number",
+                  "summary": "Position to insert at (0-indexed)"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "value",
+                  "type": "string|Var",
+                  "summary": "Value to insert"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "newNodeVar",
+                  "type": "string|Var",
+                  "summary": "Optional variable to bind the new node"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that inserts value at position",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_drop",
+              "summary": "Drop/remove a single element from an rdf:List at a specific position.",
+              "examples": [
+                "// Remove the task at position 1 from a project's task list\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_drop(\"v:list_head\", 1)\n);\n// Result: [A, C] (B removed)"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list head"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "position",
+                  "type": "number",
+                  "summary": "Position of element to remove (0-indexed)"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that removes the element at position",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_swap",
+              "summary": "Swap elements at two positions in an rdf:List by exchanging their rdf:first values.\nThis is a simplified implementation that swaps values in-place without moving cons cells.",
+              "examples": [
+                "// Swap the first and third tasks in a project's task list\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_swap(\"v:list_head\", 0, 2)\n);\n// Result: [C, B, A] (A and C swapped)"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list head"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "posA",
+                  "type": "number",
+                  "summary": "First position (0-indexed)"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "posB",
+                  "type": "number",
+                  "summary": "Second position (0-indexed)"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that swaps elements at the two positions",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_empty",
+              "summary": "Create an empty rdf:List (just rdf:nil).",
+              "examples": [
+                "// Create an empty list reference\nconst query = WOQL.lib().rdflist_empty(\"v:empty_list\");\n// Result: { bindings: [{ \"v:empty_list\": \"rdf:nil\" }] }"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "listVar",
+                  "type": "string",
+                  "summary": "Variable to bind to rdf:nil"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that creates empty list",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_is_empty",
+              "summary": "Check if an rdf:List is empty (equals rdf:nil).",
+              "examples": [
+                "// Check if a project's task list is empty\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_is_empty(\"v:list_head\")\n);\n// Succeeds only if tasks list is rdf:nil"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI to check"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that succeeds if list is empty",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_slice",
+              "summary": "Extract a slice of an rdf:List (range of elements) as an array.\nWorks in two modes:\n- Generator: If resultVar is unbound, binds it to the array of sliced values\n- Matcher: If resultVar is bound to an array, succeeds only if values match\nPath queries return results in hop-count order, preserving list element order.",
+              "examples": [
+                "// Get the first two tasks from a project's task list\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_slice(\"v:list_head\", 0, 2, \"v:first_two\")\n);\n// Result: { bindings: [{ \"v:first_two\": [\"Task A\", \"Task B\"] }] }"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list head"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "start",
+                  "type": "number|string",
+                  "summary": "Start index (inclusive) or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "end",
+                  "type": "number|string",
+                  "summary": "End index (exclusive) or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "resultVar",
+                  "type": "string",
+                  "summary": "Variable to bind/match the array of sliced values"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that extracts/matches list slice values",
+                "type": "WOQLQuery"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "rdflist_reverse",
+              "summary": "Reverse an rdf:List in-place by swapping rdf:first values across nodes.\nOptimized: collects all values once via group_by, then uses slice+member\nto index into the collected list instead of double path traversal.",
+              "examples": [
+                "// Reverse a project's task list in place\nconst query = WOQL.and(\n  WOQL.triple(\"doc:Project/1\", \"tasks\", \"v:list_head\"),\n  WOQL.lib().rdflist_reverse(\"v:list_head\")\n);\n// Result: [A, B, C] becomes [C, B, A]"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "consSubject",
+                  "type": "string",
+                  "summary": "Variable or IRI of the list to reverse"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "Query that reverses the list in place",
+                "type": "WOQLQuery"
+              }
             }
           ]
         },
@@ -4701,6 +5397,29 @@
             },
             {
               "@type": "Definition",
+              "name": "localize",
+              "summary": "Create a localized scope for variables to prevent leaking into outer scope",
+              "examples": [
+                "const [localized, v] = WOQL.localize({\n  consSubject: 'v:list',\n  valueVar: 'v:value',\n  last_cell: null  // null creates a local-only variable\n});\nreturn localized(\n  WOQL.and(\n    WOQL.triple(v.consSubject, 'rdf:type', 'rdf:List'),\n    WOQL.triple(v.last_cell, 'rdf:rest', 'rdf:nil')\n  )\n);"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "paramSpec",
+                  "type": "Object",
+                  "summary": "Object mapping parameter names to values or null"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "- Returns [localized, v] with wrapper function and unique\n  variable names",
+                "type": "Array"
+              }
+            },
+            {
+              "@type": "Definition",
               "name": "and",
               "summary": "Logical conjunction of the contained queries - all queries must match or the entire clause fails",
               "examples": [
@@ -4761,7 +5480,7 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "WOQLQuery",
-                "type": "object"
+                "type": "WOQLQuery"
               }
             },
             {
@@ -4790,7 +5509,7 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "WOQLQuery",
-                "type": "object"
+                "type": "WOQLQuery"
               }
             },
             {
@@ -4838,7 +5557,7 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "WOQLQuery",
-                "type": "object"
+                "type": "WOQLQuery"
               }
             },
             {
@@ -5154,7 +5873,7 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "WOQLQuery",
-                "type": "boolean"
+                "type": "WOQLQuery"
               }
             },
             {
@@ -5232,7 +5951,7 @@
             {
               "@type": "Definition",
               "name": "get",
-              "summary": "Use the document inteface to import documents",
+              "summary": "Use the document interface to import documents",
               "examples": [
                 "let [a, b] = vars(\"a\", \"b\")\nget(as(\"a\", a).as(\"b\", b)).remote(\"http://my.url.com/x.csv\")\n//copies the values from column headed \"a\" into a variable a and from column\n//\"b\" into a variable b from remote CSV"
               ],
@@ -5261,7 +5980,7 @@
             {
               "@type": "Definition",
               "name": "put",
-              "summary": "Use the document inteface to import documents",
+              "summary": "Use the document interface to import documents",
               "examples": [],
               "section": null,
               "parameters": [
@@ -5296,7 +6015,7 @@
               "name": "as",
               "summary": "Imports the value identified by Source to a Target variable",
               "examples": [
-                "let [First_Var, Second_Var] = vars('First_Var', 'Second_Var')\nWOQL.as(\"first var\", First_Var, \"string\").as(\"second var\", Second_Var)\nWOQL.as([\"first var\", First_Var, \"string\"], [\"second var\", Second_Var])"
+                "let [First_Var, Second_Var] = vars('First_Var', 'Second_Var')\nWOQL.as(\"first var\", First_Var, \"xsd:string\").as(\"second var\", Second_Var)\nWOQL.as([\"first var\", First_Var, \"xsd:string\"], [\"second var\", Second_Var])"
               ],
               "section": null,
               "parameters": [
@@ -6633,7 +7352,7 @@
               "name": "group_by",
               "summary": "Groups the results of the contained subquery on the basis of identical values for Groupvars,\nextracts the patterns defined in PatternVars and stores the results in GroupedVar.  \nSee also {@link /docs/group-query-results/ How to Group Results in WOQL}",
               "examples": [
-                "//subquery is an argument or a chained query\nlet [age, last_name, first_name, age_group, person] = vars(\"age\", \"last name\", \"first name\",\n\"age group\", \"person\")\ngroup_by(age, [last_name, first_name], age_group)\n  .triple(person, \"first_name\", first_name)\n  .triple(person, \"last_name\", last_name)\n  .triple(person, \"age\", age)"
+                "//subquery is an argument or a chained query\nlet [age, last_name, first_name, age_group, person] = vars(\"age\", \"last name\", \"first name\",\n\"age group\", \"person\")\ngroup_by(age, [last_name, first_name], age_group)\n  .triple(person, \"first_name\", first_name)\n  .triple(person, \"last_name\", last_name)\n  .triple(person, \"age\", age)\nOR extract a simple list of last_name in age_group that can be\nused for example with member()\ngroup_by([], last_name, age_group)\n  .triple(person, \"first_name\", first_name)"
               ],
               "section": null,
               "parameters": [
@@ -7048,8 +7767,8 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
-                "summary": "WOQLQuery object",
-                "type": "WOQLQuery"
+                "summary": "WOQLLibrary object",
+                "type": "WOQLLibrary"
               }
             },
             {
@@ -7072,7 +7791,7 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "- A JSON-LD string literal",
-                "type": "object"
+                "type": "string|Var"
               }
             },
             {
@@ -7101,7 +7820,7 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "- A JSON-LD literal",
-                "type": "object"
+                "type": "Var"
               }
             },
             {
@@ -7124,7 +7843,7 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "- A JSON-LD literal date",
-                "type": "object"
+                "type": "Var"
               }
             },
             {
@@ -7147,7 +7866,7 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "- A JSON-LD literal datetime",
-                "type": "object"
+                "type": "Var"
               }
             },
             {
@@ -7170,7 +7889,7 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "- A JSON-LD literal boolean",
-                "type": "object"
+                "type": "Var"
               }
             },
             {
@@ -7191,7 +7910,7 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "- A JSON-LD IRI value",
-                "type": "object"
+                "type": "Var"
               }
             },
             {
@@ -7261,9 +7980,9 @@
             {
               "@type": "Definition",
               "name": "doc",
-              "summary": "Produces an encoded form of a document that can be used by a WOQL operation\nsuch as `WOQL.insert_document`.",
+              "summary": "Produces an encoded form of a document that can be used by a WOQL operation\nsuch as `WOQL.insert_document` or with `WOQL.dot` operators",
               "examples": [
-                "const doc = WOQL.doc({ \"@type\": \"Person\", name: \"Newperson\" })"
+                "WOQL.insert_document(WOQL.doc({ \"@type\": \"Person\", name: \"Newperson\" }), \"v:docId\")"
               ],
               "section": null,
               "parameters": [
@@ -7278,7 +7997,7 @@
                 "@type": "Returns",
                 "name": "",
                 "summary": "The encoded document",
-                "type": "object"
+                "type": "Var"
               }
             },
             {
@@ -7317,7 +8036,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
-                "type": "object.<Var>"
+                "type": "Record.<string, Var>"
               }
             },
             {
@@ -7338,7 +8057,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
-                "type": "object.<Var>"
+                "type": "Record.<string, Var>"
               }
             },
             {
@@ -7357,14 +8076,17 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
-                "type": "void"
+                "summary": "WOQLQuery",
+                "type": "WOQLQuery"
               }
             },
             {
               "@type": "Definition",
               "name": "update_triple",
-              "summary": "Update a pattern matching rule for the triple (Subject, Predicate, oldObjValue) with the\nnew one (Subject, Predicate, newObjValue)",
-              "examples": [],
+              "summary": "Update a pattern matching rule for the triple (Subject, Predicate, oldObjValue) with the\nnew one (Subject, Predicate, newObjValue). Replaces old triple with new triple",
+              "examples": [
+                "let [newValue, oldValue] = WOQL.vars(\"newValue\", \"oldValue\")\nWOQL.update_triple(\"Project/1\", \"name\", newValue, oldValue)"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -7403,7 +8125,9 @@
               "@type": "Definition",
               "name": "update_quad",
               "summary": "Update a pattern matching rule for the quad [S, P, O, G] (Subject, Predicate, Object, Graph)",
-              "examples": [],
+              "examples": [
+                "let [newObj, oldObj] = WOQL.vars(\"newObj\", \"oldObj\")\nWOQL.update_quad(\"Project/1\", \"name\", newObj, oldObj, \"schema/main\")"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -7508,7 +8232,9 @@
               "@type": "Definition",
               "name": "dot",
               "summary": "Extract the value of a key in a bound document.",
-              "examples": [],
+              "examples": [
+                "// Use either \"v:personName\" and \"v:doc\", OR `personName` and `doc` with variables:\n// `let [personName, doc] = WOQL.vars(\"personName\", \"doc\")`\nand(\n  WOQL.eq(\"v:doc\", WOQL.doc({ \"@type\": \"Person\", name: \"Alice\" })),\n  WOQL.dot(\"v:doc\", \"name\", \"v:personName\")\n)\n// extracts the \"name\" field value from the document into personName variable"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -7541,7 +8267,9 @@
               "@type": "Definition",
               "name": "set_difference",
               "summary": "Computes the set difference between two lists (elements in listA but not in listB)",
-              "examples": [],
+              "examples": [
+                "let [result] = vars(\"result\")\nset_difference([\"a\", \"b\", \"c\"], [\"b\", \"d\"], result)  // result = [\"a\", \"c\"]"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -7574,7 +8302,9 @@
               "@type": "Definition",
               "name": "set_intersection",
               "summary": "Computes the set intersection between two lists (elements common to both)",
-              "examples": [],
+              "examples": [
+                "let [result] = vars(\"result\")\nset_intersection([\"a\", \"b\", \"c\"], [\"b\", \"c\", \"d\"], result)  // result = [\"b\", \"c\"]"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -7607,7 +8337,9 @@
               "@type": "Definition",
               "name": "set_union",
               "summary": "Computes the set union of two lists (all unique elements from both lists)",
-              "examples": [],
+              "examples": [
+                "let [result] = vars(\"result\")\nset_union([\"a\", \"b\"], [\"b\", \"c\"], result)  // result = [\"a\", \"b\", \"c\"]"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -7640,7 +8372,9 @@
               "@type": "Definition",
               "name": "set_member",
               "summary": "Checks if an element is a member of a set",
-              "examples": [],
+              "examples": [
+                "let [result] = vars(\"result\")\nset_member(\"b\", [\"a\", \"b\", \"c\"], result)  // true if \"b\" is in the set"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -7667,7 +8401,10 @@
               "@type": "Definition",
               "name": "list_to_set",
               "summary": "Converts a list to a set by removing duplicates and sorting",
-              "examples": [],
+              "examples": [
+                "let [result] = vars(\"result\")\nlist_to_set([\"a\", \"b\", \"a\", \"c\", \"b\"], result)  // result = [\"a\", \"b\", \"c\"]",
+                "let [mySet, isMember] = vars(\"mySet\", \"isMember\")\nand(\n  list_to_set([\"a\", \"b\", \"a\", \"c\"], mySet),\n  set_member(\"b\", mySet),\n  opt().eq(is_member, \"b-is-member\")\n)  // mySet = [\"a\", \"b\", \"c\"], \"b\" is a member, and is_member is set to \"b-is-member\""
+              ],
               "section": null,
               "parameters": [
                 {
@@ -9686,6 +10423,169 @@
                   "name": "payload",
                   "type": "object",
                   "summary": "the request payload"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A promise that returns the call response object, or an Error if rejected.",
+                "type": "Promise"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "getPrefix",
+              "summary": "Get a single prefix mapping",
+              "examples": [
+                "client.getPrefix(\"schema\").then(uri => {\n  console.log(uri) // \"http://schema.org/\"\n})"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "prefixName",
+                  "type": "string",
+                  "summary": "The prefix name (e.g., 'ex', 'schema')"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "dbId",
+                  "type": "string",
+                  "summary": "The database id"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A promise that returns the prefix IRI, or an Error if rejected.",
+                "type": "Promise.<string>"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "addPrefix",
+              "summary": "Add a new prefix mapping",
+              "examples": [
+                "client.addPrefix(\"ex\", \"http://example.org/\").then(result => {\n  console.log(\"Prefix added successfully\")\n})"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "prefixName",
+                  "type": "string",
+                  "summary": "The prefix name to create"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "uri",
+                  "type": "string",
+                  "summary": "The IRI (namespace URL) this prefix expands to"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "dbId",
+                  "type": "string",
+                  "summary": "The database id"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A promise that returns the call response object, or an Error if rejected.",
+                "type": "Promise"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "updatePrefix",
+              "summary": "Update an existing prefix mapping",
+              "examples": [
+                "client.updatePrefix(\"ex\", \"http://example.com/\").then(result => {\n  console.log(\"Prefix updated successfully\")\n})"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "prefixName",
+                  "type": "string",
+                  "summary": "The prefix name to update"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "uri",
+                  "type": "string",
+                  "summary": "The new IRI for this prefix"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "dbId",
+                  "type": "string",
+                  "summary": "The database id"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A promise that returns the call response object, or an Error if rejected.",
+                "type": "Promise"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "upsertPrefix",
+              "summary": "Create or update a prefix mapping (upsert)",
+              "examples": [
+                "client.upsertPrefix(\"ex\", \"http://example.org/\").then(result => {\n  console.log(\"Prefix created or updated successfully\")\n})"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "prefixName",
+                  "type": "string",
+                  "summary": "The prefix name"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "uri",
+                  "type": "string",
+                  "summary": "The IRI for this prefix"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "dbId",
+                  "type": "string",
+                  "summary": "The database id"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "summary": "A promise that returns the call response object, or an Error if rejected.",
+                "type": "Promise"
+              }
+            },
+            {
+              "@type": "Definition",
+              "name": "deletePrefix",
+              "summary": "Delete a prefix mapping",
+              "examples": [
+                "client.deletePrefix(\"ex\").then(result => {\n  console.log(\"Prefix deleted successfully\")\n})"
+              ],
+              "section": null,
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "name": "prefixName",
+                  "type": "string",
+                  "summary": "The prefix name to delete"
+                },
+                {
+                  "@type": "Parameter",
+                  "name": "dbId",
+                  "type": "string",
+                  "summary": "The database id"
                 }
               ],
               "returns": {
