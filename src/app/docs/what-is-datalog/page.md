@@ -12,8 +12,6 @@ nextjs:
 media: []
 ---
 
-## What is Datalog?
-
 **Datalog** is a declarative query language derived from **Prolog** that excels at querying complex relationships in graph databases. Understanding what Datalog is starts with its foundation in **first-order logic** — specifically a subset called **Horn clauses** — which provides a flexible and powerful approach to handling multi-hop relationships that traditional query languages struggle with.
 
 The Datalog query language offers a logical framework with clarity and simplicity that makes it ideal for:
