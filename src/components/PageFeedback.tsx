@@ -39,7 +39,7 @@ export function PageFeedback() {
     <div className="mt-8 border-t border-slate-200 pt-8 dark:border-slate-800">
       <div className="flex flex-col items-center gap-4">
         <h3 className="text-sm font-medium text-slate-900 dark:text-slate-100">
-          Was this page helpful?
+          Was this helpful?
         </h3>
         <div className="flex gap-4">
           <button
