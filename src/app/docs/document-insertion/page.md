@@ -59,15 +59,21 @@ By default, this will return a stream of all documents to be found at this locat
 
 ---
 
-- prefixed
+- ids
+- 
+- A JSON array of document IDs to retrieve. Example: `["Person/Alice","Person/Bob"]`. Takes precedence over `type`.
+
+---
+
+- compress\_ids
 - true
-- If true (the default), return IRIs using a prefixed notation wherever possible. If false, full IRIs are used.
+- If true (the default), compress all IDs and type names using the prefixes defined in the database. Replaces the deprecated `prefixed` parameter.
 
 ---
 
 - minimized
-- false
-- If true, forego pretty printing, and return the documents with very little whitespace. Each json document will be on its own line.
+- true
+- If true (the default), forego pretty printing, and return the documents with very little whitespace. Each json document will be on its own line.
 
 ---
 
@@ -92,6 +98,12 @@ By default, this will return a stream of all documents to be found at this locat
 - as\_list
 - false
 - If true, don't return a stream of json objects, but a list. This makes parsing the json easier in some environments.
+
+---
+
+- format
+- json
+- Output serialization format. `json` is available in all editions. `jsonld`, `rdfxml`, and `turtle` are enterprise-only and return HTTP 400 on community editions. The format can also be requested via the `Accept` header; the query parameter takes precedence.
 
 {% /table %}
 
@@ -163,6 +175,24 @@ The documents to be submitted are given as post data. Multiple documents can be 
 - false
 - If true, the input documents are treated as raw JSON , inserted as type `sys:JSONDocument` and are not subject to schema restrictions.
 
+---
+
+- require\_migration
+- false
+- If true, require that a schema migration is specified when the schema changes.
+
+---
+
+- merge\_repeats
+- false
+- If true, merge repeated values rather than treating them as errors.
+
+---
+
+- allow\_destructive\_migration
+- false
+- If true, allow schema migrations that delete or change existing data.
+
 {% /table %}
 
 #### Result
@@ -218,6 +248,18 @@ The documents to be submitted are given as post data. Multiple documents can be 
 - raw\_json
 - false
 - If true, the replaced documents are treated as raw JSON , they must be replacing a document of type `sys:JSONDocument` and they are not subject to schema restrictions.
+
+---
+
+- require\_migration
+- false
+- If true, require that a schema migration is specified when the schema changes.
+
+---
+
+- allow\_destructive\_migration
+- false
+- If true, allow schema migrations that delete or change existing data.
 
 {% /table %}
 
@@ -443,15 +485,15 @@ author
 
 ## The apply endpoint
 
-The schema endpoint can be used to query information about classes in a resource. These queries happen through a GET on the following endpoint:
+The apply endpoint takes the difference between any two commits and applies it to a branch. This is useful for cherry-picking changes or squash-merging between branches.
 
 ```http
-POST /api/schema/<resource path>
+POST /api/apply/<resource path>
 ```
 
 Where resource path is the usual strings like `admin/foo` for database foo, or `admin/foo/local/branch/dev` for the `dev` branch of `admin/foo`.
 
-The purpose of this endpoint is to take the difference between any two commits and apply them to a branch.
+The request body is a JSON document containing the following fields:
 
 #### Parameters
 
@@ -482,14 +524,14 @@ The purpose of this endpoint is to take the difference between any two commits a
 ---
 
  - match\_final\_state
- - true
- - Ignores conflicts if the final state would remain the same
+ - false
+ - If true, ignores conflicts when the final state would be the same regardless.
 
 ---
 
-- type
-- squash
-- What type of application to perform - currently can only be squash
+- keep
+- 
+- A JSON object specifying which fields to keep from the target branch on conflict. Example: `{"@id": true}`
 
 {% /table %}
 
@@ -502,6 +544,8 @@ The result of this POST request is either an updated branch with a successful ap
 When a commit is made, the `TerminusDB-Data-Version` header is returned, which is the reference to the commit made in the [version history](/docs/immutability-explanation/). This header can be used to retrieve the exact copy of the document from the specific version in the immutable history.
 
 To get the specific version, use the branchspec `org/dataproduct/local/commit/:commitId` where `:commitId` is the value of the right hand side of the colon separated value in the `TerminusDB-Data-Version` header.
+
+Each commit references a specific layer version of one or more branches of a specific data product. Practically, the layer that is referenced by the commit could be part of multiple data products follwing a clone, push or pull process. 
 
 ## Further Reading
 

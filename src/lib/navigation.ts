@@ -510,6 +510,10 @@ export const navigation: Navigation[] = [
             href: '/docs/delete-documents-with-woql',
           },
           {
+            title: 'Subdocument Handling',
+            href: '/docs/woql-subdocument-handling',
+          },
+          {
             title: 'Filtering',
             href: '/docs/filter-with-woql',
           },
@@ -678,8 +682,8 @@ export const navigation: Navigation[] = [
         href: '/docs/schema-reference-guide',
         links: [
           {
-            title: 'Document Unfolding',
-            href: '/docs/document-unfolding-reference',
+            title: 'Data Types',
+            href: '/docs/data-types',
           },
           {
             title: 'WOQL Reference',
@@ -688,6 +692,10 @@ export const navigation: Navigation[] = [
           {
             title: 'Path Queries',
             href: '/docs/path-query-reference-guide',
+          },
+          {
+            title: 'Document Unfolding',
+            href: '/docs/document-unfolding-reference',
           },
           {
             title: 'Schema Migration',
@@ -1005,14 +1013,23 @@ export const navigation: Navigation[] = [
   },
 
   // ============================================================
-  // SECTION 7: TROUBLESHOOTING (TODO)
+  // SECTION 7: TROUBLESHOOTING
   // Goal: Help users solve common problems quickly
   // ============================================================
-  // TODO: Create Troubleshooting section with:
-  // - Common Errors (connection, auth, query errors)
-  // - Performance Issues (slow queries, optimization tips)
-  // - Migration Issues (schema changes, data migration)
-  // - FAQ
+  {
+    title: 'Troubleshooting',
+    links: [
+      {
+        title: 'Migration Issues',
+        links: [
+          {
+            title: 'Document ID Migration',
+            href: '/docs/troubleshooting-document-id-migration',
+          },
+        ],
+      },
+    ],
+  },
 
   // ============================================================
   // SECTION 8: BLOG

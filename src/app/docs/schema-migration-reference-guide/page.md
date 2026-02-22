@@ -366,7 +366,49 @@ Which will result in an error if casting is impossible, or:
 
 Where `Value` is the value within type `TypeSpecification` which will be used if casting is impossible.
 
-## ChangeKey (unimplemented)
+## ChangeKey
+
+Changes the key strategy for a document class. This operation re-keys all existing documents of the specified class according to the new key descriptor.
+
+**When the key strategy type changes** (e.g., Random to Lexical), all document IDs are regenerated and any references to the old IDs are updated automatically.
+
+**When the key strategy type stays the same** (e.g., Random to Random, or the default base key to Random), the top-level document ID is preserved and only subdocument IDs that do not conform to the expected prefix are regenerated. Conforming subdocument IDs are left intact.
+
+This operation also works when targeting a subdocument class directly. In that case, the migration processes each root parent document that contains an instance of the targeted subdocument class.
+
+### ChangeKey without fields (Random)
+
+```typescript
+{ "@type" : "ChangeKey",
+  "class" : <ClassName>,
+  "key" : "Random" }
+```
+
+### ChangeKey with fields (Lexical)
+
+```typescript
+{ "@type" : "ChangeKey",
+  "class" : <ClassName>,
+  "key" : "Lexical",
+  "fields" : [<FieldName>, ...] }
+```
+
+### ChangeKey with fields (Hash)
+
+```typescript
+{ "@type" : "ChangeKey",
+  "class" : <ClassName>,
+  "key" : "Hash",
+  "fields" : [<FieldName>, ...] }
+```
+
+### ChangeKey (ValueHash)
+
+```typescript
+{ "@type" : "ChangeKey",
+  "class" : <ClassName>,
+  "key" : "ValueHash" }
+```
 
 ## ChangeParents (unimplemented)
 
