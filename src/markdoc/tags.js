@@ -8,6 +8,8 @@ import { CallToAction } from '@/components/CallToAction'
 import { TopicCard, TopicGrid } from '@/components/TopicGrid'
 import { CTAButtons } from '@/components/CTAButtons'
 import { TaskHeading } from '@/components/TaskHeading'
+import { WoqlPlayground } from '@/components/WoqlPlayground'
+import { ApiStep } from '@/components/ApiStep'
 
 const tags = {
   callout: {
@@ -180,6 +182,25 @@ const tags = {
       id: { type: String, required: true },
     },
     render: ({ id }) => <a id={id} aria-hidden="true" />,
+  },
+  'woql-playground': {
+    render: WoqlPlayground,
+    attributes: {
+      code: { type: String, required: true },
+      title: { type: String },
+      description: { type: String },
+      anonymous: { type: Boolean, default: false },
+    },
+  },
+  'api-step': {
+    render: ApiStep,
+    attributes: {
+      title: { type: String, required: true },
+      description: { type: String },
+      method: { type: String, required: true },
+      path: { type: String, required: true },
+      body: { type: String },
+    },
   },
 }
 

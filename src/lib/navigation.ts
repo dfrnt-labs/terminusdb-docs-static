@@ -582,6 +582,10 @@ export const navigation: Navigation[] = [
         href: '/docs/terminusdb-query-cookbook',
         links: [
           {
+            title: 'Interactive Tutorial',
+            href: '/docs/woql-tutorial',
+          },
+          {
             title: 'Getting Started',
             href: '/docs/woql-getting-started',
           },
