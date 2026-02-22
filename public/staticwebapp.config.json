@@ -6,6 +6,16 @@
   },
   "routes": [
     {
+      "route": "/docs/terminuscms-data-types",
+      "redirect": "/docs/data-types/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/terminuscms-data-types/",
+      "redirect": "/docs/data-types/",
+      "statusCode": 301
+    },
+    {
       "route": "/docs/unification-of-variables-in-datalog",
       "redirect": "/docs/what-is-unification/",
       "statusCode": 301
