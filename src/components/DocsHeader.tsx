@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation'
 
 import { navigation } from '@/lib/navigation'
-import { GitHubEditButton } from '@/components/GitHubEditButton'
+import { OpenInAI } from '@/components/OpenInAI'
 
 export function DocsHeader({ title }: { title?: string }) {
   let pathname = usePathname()
@@ -31,7 +31,7 @@ export function DocsHeader({ title }: { title?: string }) {
           )}
         </div>
         <div className="flex-shrink-0 pt-1">
-          <GitHubEditButton />
+          <OpenInAI />
         </div>
       </div>
     </header>

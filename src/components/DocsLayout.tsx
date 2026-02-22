@@ -7,9 +7,9 @@ import { useEffect } from 'react'
 import { DocsHeader } from '@/components/DocsHeader'
 import { PrevNextLinks } from '@/components/PrevNextLinks'
 import { Prose } from '@/components/Prose'
-import { TableOfContents } from '@/components/TableOfContents'
 import { RecentBlogPosts } from '@/components/RecentBlogPosts'
 import { GitHubEditButton } from '@/components/GitHubEditButton'
+import { OpenInAI } from '@/components/OpenInAI'
 import { GitHubIssueButton } from '@/components/GitHubIssueButton'
 import { PageFeedback } from '@/components/PageFeedback'
 import { collectSections } from '@/lib/sections'
@@ -56,6 +56,7 @@ export function DocsLayout({
         </article>
         <div className="mt-12 flex flex-col gap-8 border-t border-slate-200 pt-8 dark:border-slate-800">
           <div className="flex flex-wrap items-center justify-center gap-4">
+            <OpenInAI />
             <GitHubEditButton />
             <GitHubIssueButton />
           </div>

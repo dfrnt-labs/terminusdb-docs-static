@@ -10,4 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npx bun install
-      - run: npx bun run build
+      - run: npx npm run build
