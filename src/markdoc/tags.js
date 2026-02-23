@@ -190,6 +190,8 @@ const tags = {
       title: { type: String },
       description: { type: String },
       anonymous: { type: Boolean, default: false },
+      database: { type: String },
+      showResultOnly: { type: Boolean, default: false },
     },
   },
   'api-step': {

@@ -1,6 +1,10 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect } from 'react'
+// @ts-ignore - terminusdb-client doesn't have TypeScript definitions
+import TerminusClient from '@terminusdb/terminusdb-client'
+
+const WOQL = TerminusClient.WOQL
 
 // ---------------------------------------------------------------------------
 // Minimal WOQL JSON-LD builder
@@ -282,9 +286,44 @@ function buildWoqlFunctions() {
 
   const Doc = (obj: any): any => convertToValue(obj)
 
+  // ISO 8601 time predicates using WOQL client
+  const gte = (a: any, b: any): JsonLd => ({ __woql: true, ...WOQL.gte(a, b).json() })
+  const lte = (a: any, b: any): JsonLd => ({ __woql: true, ...WOQL.lte(a, b).json() })
+  const gt = greater
+  const lt = less
+  const in_range = (value: any, start: any, end: any): JsonLd => ({ __woql: true, ...WOQL.in_range(value, start, end).json() })
+  const date_duration = (start: any, end: any, duration: any): JsonLd => ({ __woql: true, ...WOQL.date_duration(start, end, duration).json() })
+  const sequence = (value: any, start: any, end: any, step?: any, count?: any): JsonLd => ({ __woql: true, ...WOQL.sequence(value, start, end, step, count).json() })
+  const interval = (start: any, end: any, iv: any): JsonLd => ({ __woql: true, ...WOQL.interval(start, end, iv).json() })
+  const interval_start_duration = (start: any, duration: any, iv: any): JsonLd => ({ __woql: true, ...WOQL.interval_start_duration(start, duration, iv).json() })
+  const interval_duration_end = (duration: any, end: any, iv: any): JsonLd => ({ __woql: true, ...WOQL.interval_duration_end(duration, end, iv).json() })
+  const interval_relation = (rel: any, xs: any, xe: any, ys: any, ye: any): JsonLd => ({ __woql: true, ...WOQL.interval_relation(rel, xs, xe, ys, ye).json() })
+  const interval_relation_typed = (rel: any, x: any, y: any): JsonLd => ({ __woql: true, ...WOQL.interval_relation_typed(rel, x, y).json() })
+  const day_before = (date: any, previous: any): JsonLd => ({ __woql: true, ...WOQL.day_before(date, previous).json() })
+  const day_after = (date: any, next: any): JsonLd => ({ __woql: true, ...WOQL.day_after(date, next).json() })
+  const weekday = (date: any, wd: any): JsonLd => ({ __woql: true, ...WOQL.weekday(date, wd).json() })
+  const weekday_sunday_start = (date: any, wd: any): JsonLd => ({ __woql: true, ...WOQL.weekday_sunday_start(date, wd).json() })
+  const iso_week = (date: any, year: any, week: any): JsonLd => ({ __woql: true, ...WOQL.iso_week(date, year, week).json() })
+  const month_start_date = (ym: any, date: any): JsonLd => ({ __woql: true, ...WOQL.month_start_date(ym, date).json() })
+  const month_end_date = (ym: any, date: any): JsonLd => ({ __woql: true, ...WOQL.month_end_date(ym, date).json() })
+  const month_start_dates = (date: any, start: any, end: any): JsonLd => ({ __woql: true, ...WOQL.month_start_dates(date, start, end).json() })
+  const month_end_dates = (date: any, start: any, end: any): JsonLd => ({ __woql: true, ...WOQL.month_end_dates(date, start, end).json() })
+  const range_min = (list: any, result: any): JsonLd => ({ __woql: true, ...WOQL.range_min(list, result).json() })
+  const range_max = (list: any, result: any): JsonLd => ({ __woql: true, ...WOQL.range_max(list, result).json() })
+  const typecast = (value: any, type: any, result: any): JsonLd => ({ __woql: true, ...WOQL.typecast(value, type, result).json() })
+  const sum = (list: any, result: any): JsonLd => ({ __woql: true, ...WOQL.sum(list, result).json() })
+
   return {
     eq, and, or, not, opt, triple, quad, isa, select,
-    greater, less, limit, order_by, group_by, length,
+    greater, less, gte, lte, gt, lt,
+    in_range, date_duration, sequence,
+    interval, interval_start_duration, interval_duration_end,
+    interval_relation, interval_relation_typed,
+    day_before, day_after,
+    weekday, weekday_sunday_start, iso_week,
+    month_start_date, month_end_date, month_start_dates, month_end_dates,
+    range_min, range_max, typecast, sum,
+    limit, order_by, group_by, length,
     read_document, insert_document, update_document, delete_document,
     literal, Vars, Doc,
   }
@@ -318,7 +357,7 @@ interface ConnectionSettings {
 const DEFAULT_SETTINGS: ConnectionSettings = {
   serverUrl: 'http://127.0.0.1:6363',
   organization: 'admin',
-  database: 'woql_tutorial',
+  database: '_system',
   user: 'admin',
   password: 'root',
 }
@@ -398,6 +437,8 @@ interface WoqlPlaygroundProps {
   title?: string
   description?: string
   anonymous?: boolean
+  database?: string
+  showResultOnly?: boolean
 }
 
 export function WoqlPlayground({
@@ -405,6 +446,8 @@ export function WoqlPlayground({
   title,
   description,
   anonymous = false,
+  database,
+  showResultOnly = false,
 }: WoqlPlaygroundProps) {
   const [code, setCode] = useState(initialCode.trim())
   const [result, setResult] = useState<any>(null)
@@ -414,10 +457,16 @@ export function WoqlPlayground({
   const [settings, setSettings] = useState<ConnectionSettings>(DEFAULT_SETTINGS)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-  // Load settings from localStorage on mount
+  // Load settings from localStorage on mount, override database if provided
   useEffect(() => {
-    setSettings(loadSettings())
-  }, [])
+    const loaded = loadSettings()
+    if (database) {
+      loaded.database = database
+    } else if (!loaded.database) {
+      loaded.database = '_system'
+    }
+    setSettings(loaded)
+  }, [database])
 
   const updateSetting = useCallback((key: keyof ConnectionSettings, value: string) => {
     setSettings(prev => {
@@ -494,9 +543,14 @@ export function WoqlPlayground({
       // Build the API URL
       const { serverUrl, organization, database, user, password } = settings
       const baseUrl = serverUrl.replace(/\/+$/, '')
-      const url = anonymous
-        ? `${baseUrl}/api/woql`
-        : `${baseUrl}/api/woql/${organization}/${database}/local/branch/main`
+      let url: string
+      if (anonymous) {
+        url = `${baseUrl}/api/woql`
+      } else if (database === '_system') {
+        url = `${baseUrl}/api/woql/_system`
+      } else {
+        url = `${baseUrl}/api/woql/${organization}/${database}/local/branch/main`
+      }
 
       const body = JSON.stringify({
         query: jsonLd,
@@ -733,7 +787,34 @@ export function WoqlPlayground({
                   </span>
                 )}
               </div>
-              <ResultTable bindings={result.bindings || []} />
+              {showResultOnly ? (
+                <div className="text-center py-4">
+                  {(result.bindings?.length ?? 0) === 1 ? (
+                    <p className="text-lg font-semibold">
+                      Result: <span className="text-emerald-600 dark:text-emerald-400">
+                        true
+                      </span>
+                    </p>
+                  ) : (result.bindings?.length ?? 0) === 0 ? (
+                    <p className="text-lg font-semibold">
+                      Result: <span className="text-red-600 dark:text-red-400">
+                        false
+                      </span>
+                    </p>
+                  ) : (
+                    <div>
+                      <p className="text-lg font-semibold text-amber-600 dark:text-amber-400">
+                        Multiple results ({result.bindings?.length} rows)
+                      </p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                        Validation query returned unexpected multiple rows
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <ResultTable bindings={result.bindings || []} />
+              )}
             </div>
           ) : null}
         </div>
