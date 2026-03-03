@@ -1,6 +1,6 @@
 {
   "@type": "Application",
-  "version": "11.1.0",
+  "version": "12.0.5",
   "name": "terminusdb-client",
   "summary": "TerminusDB client library for accessing the Terminus DB API",
   "language": "Python",
@@ -2041,6 +2041,4131 @@
               },
               "examples": null,
               "summary": "Get URL for prefix operations"
+            }
+          ]
+        },
+        {
+          "@type": "Class",
+          "name": "WOQLQuery",
+          "summary": "",
+          "memberVariables": [],
+          "memberFunctions": [
+            {
+              "@type": "Definition",
+              "name": "__init__",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "query: dict",
+                  "summary": "json-ld query for initialisation"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "graph: str",
+                  "summary": "graph that this query is appled to, default to be schema/main"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "defines the internal functions of the woql query object - the language API is defined in WOQLQuery"
+            },
+            {
+              "@type": "Definition",
+              "name": "__add__",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery object",
+                  "name": "other",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a logical AND with the argument passed, for WOQLQueries."
+            },
+            {
+              "@type": "Definition",
+              "name": "__and__",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery object",
+                  "name": "other",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a logical AND with the argument passed, for WOQLQueries."
+            },
+            {
+              "@type": "Definition",
+              "name": "__or__",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery object",
+                  "name": "other",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a logical OR with the argument passed, for WOQLQueries."
+            },
+            {
+              "@type": "Definition",
+              "name": "__invert__",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery object",
+                  "name": "other",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a logical Not with the argument passed, for WOQLQueries."
+            },
+            {
+              "@type": "Definition",
+              "name": "_add_sub_query",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Internal library function which adds a subquery and sets the cursor"
+            },
+            {
+              "@type": "Definition",
+              "name": "_contains_update_check",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Does this query contain an update"
+            },
+            {
+              "@type": "Definition",
+              "name": "_updated",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Called to inidicate that this query will cause an update to the DB"
+            },
+            {
+              "@type": "Definition",
+              "name": "_jlt",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Wraps the passed value in a json-ld literal carriage"
+            },
+            {
+              "@type": "Definition",
+              "name": "_coerce_to_dict",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Transforms a object representation of a query into a dictionary object if needs be"
+            },
+            {
+              "@type": "Definition",
+              "name": "_data_list",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "takes input that can be either a string (variable name)\nor an array - each element of the array is a member of the list"
+            },
+            {
+              "@type": "Definition",
+              "name": "_value_list",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "takes input that can be either a string (variable name)\nor an array - each element of the array is a member of the list"
+            },
+            {
+              "@type": "Definition",
+              "name": "_asv",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Wraps the elements of an AS variable in the appropriate json-ld"
+            },
+            {
+              "@type": "Definition",
+              "name": "_wfrom",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "JSON LD Format Descriptor"
+            },
+            {
+              "@type": "Definition",
+              "name": "_arop",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Wraps arithmetic operators in the appropriate json-ld"
+            },
+            {
+              "@type": "Definition",
+              "name": "_vlist",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Wraps value lists in the appropriate json-ld"
+            },
+            {
+              "@type": "Definition",
+              "name": "_data_value_list",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "DEPRECATED: Dead code - never called anywhere in the codebase."
+            },
+            {
+              "@type": "Definition",
+              "name": "_clean_subject",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Transforms whatever is passed in as the subject into the appropriate json-ld for variable or id"
+            },
+            {
+              "@type": "Definition",
+              "name": "_clean_predicate",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Transforms whatever is passed in as the predicate (id or variable) into the appropriate json-ld form"
+            },
+            {
+              "@type": "Definition",
+              "name": "_clean_object",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Transforms whatever is passed in as the object of a triple into the appropriate json-ld form (variable, literal or id)"
+            },
+            {
+              "@type": "Definition",
+              "name": "_clean_data_value",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Transforms whatever is passed in as the object of a triple into the appropriate json-ld form (variable, literal or id)"
+            },
+            {
+              "@type": "Definition",
+              "name": "_clean_arithmetic_value",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Transforms whatever is passed in as the object of a triple into the appropriate json-ld form (variable, literal or id)"
+            },
+            {
+              "@type": "Definition",
+              "name": "_clean_node_value",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Transforms whatever is passed in as the object of a triple into the appropriate json-ld form (variable, literal or id)"
+            },
+            {
+              "@type": "Definition",
+              "name": "_clean_graph",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Transforms a graph filter by doing nothing"
+            },
+            {
+              "@type": "Definition",
+              "name": "_expand_variable",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "varname",
+                  "summary": "will be transformed if it starts with 'v:'"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "bool",
+                  "name": "always",
+                  "summary": "if True it will be transformed no matter it starts with 'v:' or not. Default to be False"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Transforms strings that start with v: into variable json-ld structures"
+            },
+            {
+              "@type": "Definition",
+              "name": "execute",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "client: Client object",
+                  "summary": "client that provide connection to the database for the query to execute."
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "commit_msg: str",
+                  "summary": "optional, commit message for this query. Recommended for query that carrries an update."
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "file_dict:",
+                  "summary": "File dictionary to be associated with post name => filename, for multipart POST"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Executes the query using the passed client to connect to a server"
+            },
+            {
+              "@type": "Definition",
+              "name": "to_json",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Dumps the JSON-LD format of the query in a json string"
+            },
+            {
+              "@type": "Definition",
+              "name": "from_json",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Set a query from a JSON-LD json string"
+            },
+            {
+              "@type": "Definition",
+              "name": "_json",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "converts back and forward from json\nif the argument is present, the current query is set to it,\nif the argument is not present, the current json version of this query is returned"
+            },
+            {
+              "@type": "Definition",
+              "name": "to_dict",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Give the dictionary that represents the query in JSON-LD format."
+            },
+            {
+              "@type": "Definition",
+              "name": "from_dict",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Set a query from a dictionary that represents the query in JSON-LD format."
+            },
+            {
+              "@type": "Definition",
+              "name": "_find_last_subject",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "dict",
+                  "name": "json",
+                  "summary": "dictionary that representing the query in josn-ld"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Finds the last woql element that has a subject in it and returns the json for that\nused for triplebuilder to chain further calls - when they may be inside ands or ors or subqueries"
+            },
+            {
+              "@type": "Definition",
+              "name": "_find_last_property",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "dict",
+                  "name": "json",
+                  "summary": "dictionary that representing the query in josn-ld"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Finds the last woql property that has a subject in it and returns the json for that\nused for triplebuilder to chain further calls - when they may be inside ands or ors or subqueries"
+            },
+            {
+              "@type": "Definition",
+              "name": "_compile_path_pattern",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Turns a textual path pattern into a JSON-LD description"
+            },
+            {
+              "@type": "Definition",
+              "name": "load_vocabulary",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Queries the schema graph and loads all the ids found there as vocabulary that can be used without prefixes\nignoring blank node ids"
+            },
+            {
+              "@type": "Definition",
+              "name": "using",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "collection",
+                  "summary": "the name of the data product"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "Returns",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "-------",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "WOQLQuery object",
+                  "summary": "query object that can be chained and/or execute"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Use a specific data product for the enclosed query"
+            },
+            {
+              "@type": "Definition",
+              "name": "comment",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "comment",
+                  "summary": "text comment"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "Returns",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "-------",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "WOQLQuery object",
+                  "summary": "query object that can be chained and/or execute"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Adds a text comment to a query - can also be used to wrap any part of a query to turn it off"
+            },
+            {
+              "@type": "Definition",
+              "name": "select",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "args",
+                  "summary": "only these variables are returned"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Filters the query so that only the variables included in [V1...Vn] are returned in the bindings"
+            },
+            {
+              "@type": "Definition",
+              "name": "distinct",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "args",
+                  "summary": "The variables to make distinct with the final argument being a query."
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Ensures that the solutions for the variables [V1...Vn] are distinct"
+            },
+            {
+              "@type": "Definition",
+              "name": "woql_and",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery objects",
+                  "name": "args",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "Returns",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "-------",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "WOQLQuery object",
+                  "summary": "query object that can be chained and/or execute"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Creates a logical AND of the arguments\nCommonly used to combine WOQLQueries."
+            },
+            {
+              "@type": "Definition",
+              "name": "woql_or",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery objects",
+                  "name": "args",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a logical OR of the arguments"
+            },
+            {
+              "@type": "Definition",
+              "name": "woql_from",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "graph",
+                  "summary": "url of the database"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery object, optional",
+                  "name": "query",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Specifies the database URL that will be the default database for the enclosed query"
+            },
+            {
+              "@type": "Definition",
+              "name": "into",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "graph_descriptor",
+                  "summary": "output graph"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery object, optional",
+                  "name": "query",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Sets the current output graph for writing output to."
+            },
+            {
+              "@type": "Definition",
+              "name": "triple",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject, has to be a node (URI)"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pred",
+                  "summary": "Predicate, can be variable (prefix with \"v:\") or node"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object, can be variable or node or value"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "bool",
+                  "name": "opt",
+                  "summary": "whether or not this triple is optional, default to be False"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a triple pattern matching rule for the triple [S, P, O] (Subject, Predicate, Object)"
+            },
+            {
+              "@type": "Definition",
+              "name": "triple_slice",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject, has to be a node (URI) or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pred",
+                  "summary": "Predicate, can be variable (prefix with \"v:\") or node"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object, can be variable or node or value"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "object",
+                  "name": "low",
+                  "summary": "The inclusive lower bound as a typed value"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "object",
+                  "name": "high",
+                  "summary": "The exclusive upper bound as a typed value"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a triple pattern matching rule for [S, P, O] with a half-open\nvalue range [low, high) on the object. Returns triples whose typed object\nvalue falls within the specified range."
+            },
+            {
+              "@type": "Definition",
+              "name": "quad_slice",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject, has to be a node (URI) or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pred",
+                  "summary": "Predicate, can be variable (prefix with \"v:\") or node"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object, can be variable or node or value"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "object",
+                  "name": "low",
+                  "summary": "The inclusive lower bound as a typed value"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "object",
+                  "name": "high",
+                  "summary": "The exclusive upper bound as a typed value"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "graph",
+                  "summary": "Graph resource identifier (e.g. 'instance' or 'schema')"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a triple pattern matching rule for [S, P, O, G] with a half-open\nvalue range [low, high) on the object and an explicit graph selector."
+            },
+            {
+              "@type": "Definition",
+              "name": "triple_slice_rev",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject, has to be a node (URI) or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pred",
+                  "summary": "Predicate, can be variable (prefix with \"v:\") or node"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object, can be variable or node or value"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "object",
+                  "name": "low",
+                  "summary": "The inclusive lower bound as a typed value"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "object",
+                  "name": "high",
+                  "summary": "The exclusive upper bound as a typed value"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a triple pattern matching rule for [S, P, O] with a half-open\nvalue range [low, high) on the object, returning results in reverse\n(descending) object order. Same semantics as triple_slice but iterates\nfrom highest to lowest value."
+            },
+            {
+              "@type": "Definition",
+              "name": "quad_slice_rev",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject, has to be a node (URI) or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pred",
+                  "summary": "Predicate, can be variable (prefix with \"v:\") or node"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object, can be variable or node or value"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "object",
+                  "name": "low",
+                  "summary": "The inclusive lower bound as a typed value"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "object",
+                  "name": "high",
+                  "summary": "The exclusive upper bound as a typed value"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "graph",
+                  "summary": "Graph resource identifier (e.g. 'instance' or 'schema')"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a triple pattern matching rule for [S, P, O, G] with a half-open\nvalue range [low, high) on the object in reverse order, with an explicit\ngraph selector."
+            },
+            {
+              "@type": "Definition",
+              "name": "triple_next",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject, has to be a node (URI) or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pred",
+                  "summary": "Predicate, can be variable (prefix with \"v:\") or node"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object value or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "object",
+                  "name": "next_val",
+                  "summary": "Next object value or variable"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Finds the next object value after a reference for a given subject-predicate pair.\nWhen object is bound and next is free, finds the smallest next > object.\nWhen next is bound and object is free, finds the largest object < next."
+            },
+            {
+              "@type": "Definition",
+              "name": "quad_next",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject, has to be a node (URI) or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pred",
+                  "summary": "Predicate, can be variable (prefix with \"v:\") or node"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object value or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "object",
+                  "name": "next_val",
+                  "summary": "Next object value or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "graph",
+                  "summary": "Graph resource identifier (e.g. 'instance' or 'schema')"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Finds the next object value with an explicit graph selector."
+            },
+            {
+              "@type": "Definition",
+              "name": "triple_previous",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject, has to be a node (URI) or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pred",
+                  "summary": "Predicate, can be variable (prefix with \"v:\") or node"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object value or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "object",
+                  "name": "prev_val",
+                  "summary": "Previous object value or variable"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Finds the previous object value before a reference for a given subject-predicate pair.\nWhen object is bound and previous is free, finds the largest previous < object.\nWhen previous is bound and object is free, finds the smallest object > previous."
+            },
+            {
+              "@type": "Definition",
+              "name": "quad_previous",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject, has to be a node (URI) or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pred",
+                  "summary": "Predicate, can be variable (prefix with \"v:\") or node"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object value or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "object",
+                  "name": "prev_val",
+                  "summary": "Previous object value or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "graph",
+                  "summary": "Graph resource identifier (e.g. 'instance' or 'schema')"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Finds the previous object value with an explicit graph selector."
+            },
+            {
+              "@type": "Definition",
+              "name": "added_triple",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pred",
+                  "summary": "Predicate"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "bool",
+                  "name": "opt",
+                  "summary": "weather or not this triple is optional, default to be False"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a triple pattern matching rule for the triple [S, P, O] (Subject, Predicate, Object) added to the current commit."
+            },
+            {
+              "@type": "Definition",
+              "name": "removed_triple",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pred",
+                  "summary": "Predicate"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "bool",
+                  "name": "opt",
+                  "summary": "weather or not this triple is optional, default to be False"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a triple pattern matching rule for the triple [S, P, O] (Subject, Predicate, Object) added to the current commit."
+            },
+            {
+              "@type": "Definition",
+              "name": "quad",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pre",
+                  "summary": "Predicate"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "gra",
+                  "summary": "Graph"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "bool",
+                  "name": "opt",
+                  "summary": "weather or not this quad is optional, default to be False"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a pattern matching rule for the quad [S, P, O, G] (Subject, Predicate, Object, Graph)"
+            },
+            {
+              "@type": "Definition",
+              "name": "added_quad",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pre",
+                  "summary": "Predicate"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "gra",
+                  "summary": "Graph"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "bool",
+                  "name": "opt",
+                  "summary": "weather or not this quad is optional, default to be False"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a pattern matching rule for the quad [S, P, O, G] (Subject, Predicate, Object, Graph) added to the current commit."
+            },
+            {
+              "@type": "Definition",
+              "name": "removed_quad",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "sub",
+                  "summary": "Subject"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pre",
+                  "summary": "Predicate"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "Object"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "gra",
+                  "summary": "Graph"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "bool",
+                  "name": "opt",
+                  "summary": "weather or not this quad is optional, default to be False"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Creates a pattern matching rule for the quad [S, P, O, G] (Subject, Predicate, Object, Graph) added to the current commit."
+            },
+            {
+              "@type": "Definition",
+              "name": "string",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "input_str",
+                  "summary": "the given input string"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "dict"
+              },
+              "examples": null,
+              "summary": "Transforms the given string into the proper json-ld form"
+            },
+            {
+              "@type": "Definition",
+              "name": "boolean",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "bool",
+                  "name": "input_bool",
+                  "summary": "the given input string"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "dict"
+              },
+              "examples": null,
+              "summary": "Transforms the given bool object into the proper json-ld form"
+            },
+            {
+              "@type": "Definition",
+              "name": "datetime",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "input_obj",
+                  "summary": "the given input dateTime object or a datetime string format YYYY-MM-DDThh-mm-ssZ"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "dict"
+              },
+              "examples": null,
+              "summary": "Transforms the given datetime object into the proper json-ld form"
+            },
+            {
+              "@type": "Definition",
+              "name": "date",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "input_obj",
+                  "summary": "the given input date object or a date string format YYYY-MM-DD"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "dict"
+              },
+              "examples": null,
+              "summary": "Transforms the given date object into the proper json-ld form"
+            },
+            {
+              "@type": "Definition",
+              "name": "sub",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "parent",
+                  "summary": "the parent class to be checked"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str, optional",
+                  "name": "child",
+                  "summary": "the child class to be checked"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "bool"
+              },
+              "examples": null,
+              "summary": "Returns true if child is a sub-class of parent, according to the current DB schema"
+            },
+            {
+              "@type": "Definition",
+              "name": "eq",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Matches if a is equal to b\nParameters\n----------\nleft : str\n    object in the graph\nright : str\n    object in the graph\nReturns\n-------\nWOQLQuery object\n    query object that can be chained and/or execute"
+            },
+            {
+              "@type": "Definition",
+              "name": "update_document",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "JSON",
+                  "name": "docjson",
+                  "summary": "object to be updated"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "json_or_iri",
+                  "summary": "the output ID, or a JSON to compare the ID against"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "Returns",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "-------",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "WOQLQuery object",
+                  "summary": "query object that can be chained and/or execute"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Update a document in the database"
+            },
+            {
+              "@type": "Definition",
+              "name": "insert_document",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "JSON",
+                  "name": "docjson",
+                  "summary": "object to be inserted"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "json_or_iri",
+                  "summary": "the output ID, or a JSON to compare the ID against"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "Returns",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "-------",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "WOQLQuery object",
+                  "summary": "query object that can be chained and/or execute"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Insert a document into the database"
+            },
+            {
+              "@type": "Definition",
+              "name": "delete_document",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "JSON",
+                  "name": "docjson",
+                  "summary": "object to be deleted"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "json_or_iri",
+                  "summary": "the output ID, or a JSON to compare the ID against"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "Returns",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "-------",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "WOQLQuery object",
+                  "summary": "query object that can be chained and/or execute"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Delete a document into the database"
+            },
+            {
+              "@type": "Definition",
+              "name": "read_document",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "iri",
+                  "summary": "object to be deleted"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "output_var",
+                  "summary": "the document as JSON"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "Returns",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "-------",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "WOQLQuery object",
+                  "summary": "query object that can be chained and/or execute"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "Example",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "-------",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": ">>> query = (WOQLQuery().triple('v:TermId', 'rdf:type', '@schema:Term') &",
+                  "summary": "WOQLQuery().triple('v:TermCountId','term','v:TermId') &\nWOQLQuery().triple('v:DocumentId', 'terms', 'v:TermCountId') &\nWOQLQuery().read_document('v:TermId','v:TermDoc'))"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Read a document from the database"
+            },
+            {
+              "@type": "Definition",
+              "name": "get",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Takes an as structure"
+            },
+            {
+              "@type": "Definition",
+              "name": "put",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Takes an array of variables, an optional array of column names"
+            },
+            {
+              "@type": "Definition",
+              "name": "file",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "dict or str",
+                  "name": "fpath",
+                  "summary": "file data source in a JSON format or file path"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "input options",
+                  "name": "opts",
+                  "summary": "optional"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Provides details of a file source in a JSON format that includes a URL property"
+            },
+            {
+              "@type": "Definition",
+              "name": "once",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery object, optional",
+                  "name": "query",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or executed"
+              },
+              "examples": null,
+              "summary": "Obtains only one result from subquery"
+            },
+            {
+              "@type": "Definition",
+              "name": "remote",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "uri",
+                  "summary": "remote data source"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "input options",
+                  "name": "opts",
+                  "summary": "optional"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Provides details of a remote data source in a JSON format that includes a URL property"
+            },
+            {
+              "@type": "Definition",
+              "name": "post",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "fpath",
+                  "summary": "file path/identifier or dict with file details"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "dict, optional",
+                  "name": "opts",
+                  "summary": "additional options for file processing"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Specifies a file to be posted as part of the request for processing."
+            },
+            {
+              "@type": "Definition",
+              "name": "delete_triple",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "subject",
+                  "summary": "Subject"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "predicate",
+                  "summary": "Predicate"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "object_or_literal",
+                  "summary": "Object or Literal"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Deletes any triples that match the rule [subject, predicate, object]"
+            },
+            {
+              "@type": "Definition",
+              "name": "add_triple",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "subject",
+                  "summary": "Subject"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "predicate",
+                  "summary": "Predicate"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "object_or_literal",
+                  "summary": "Object or Literal"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": [
+                "This example adds a triple for a comment predicate and a certain value to the document identified by doc:X:\n>>> update = WOQLQuery().add_triple(\"doc:X\", \"comment\", \"my comment\")\n>>> qry = WOQLQuery().when(True, update)\n>>> client.update(qry.json(), 'MyDatabaseId')"
+              ],
+              "summary": "Adds triples according to the the pattern [subject, predicate, object]"
+            },
+            {
+              "@type": "Definition",
+              "name": "delete_quad",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "subject",
+                  "summary": "Subject"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "predicate",
+                  "summary": "Predicate"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "object_or_literal",
+                  "summary": "Object or Literal"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "graph",
+                  "summary": "Graph"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Deletes any quads that match the rule [subject, predicate, object, graph]"
+            },
+            {
+              "@type": "Definition",
+              "name": "add_quad",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "subject",
+                  "summary": "Subject"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "predicate",
+                  "summary": "Predicate"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "object_or_literal",
+                  "summary": "Object or Literal"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "graph",
+                  "summary": "Graph"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Adds quads according to the pattern [subject, predicate, object, graph]"
+            },
+            {
+              "@type": "Definition",
+              "name": "trim",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "untrimmed",
+                  "summary": "original string"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "trimmed",
+                  "summary": "WOQL varible storing the result string"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "A trimmed version of untrimmed (with leading and trailing whitespace removed) is copied into trimmed"
+            },
+            {
+              "@type": "Definition",
+              "name": "eval",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery or dict",
+                  "name": "arith",
+                  "summary": "query or JSON-LD representing the query"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "res",
+                  "summary": "output variable"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Evaluates the Arithmetic Expression Arith and copies the output to variable V"
+            },
+            {
+              "@type": "Definition",
+              "name": "plus",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "int or float",
+                  "name": "args",
+                  "summary": "numbers to add together"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Adds numbers N1...Nn together"
+            },
+            {
+              "@type": "Definition",
+              "name": "minus",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "int or float",
+                  "name": "args",
+                  "summary": "numbers to add together"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Adds numbers N1...Nn together"
+            },
+            {
+              "@type": "Definition",
+              "name": "times",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "int or float",
+                  "name": "args",
+                  "summary": "numbers to be multiplied"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Multiplies numbers N1...Nn together"
+            },
+            {
+              "@type": "Definition",
+              "name": "divide",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "int or float",
+                  "name": "args",
+                  "summary": "numbers to be divided"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Divides numbers N1...Nn by each other left, to right precedence"
+            },
+            {
+              "@type": "Definition",
+              "name": "div",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "int or float",
+                  "name": "args",
+                  "summary": "numbers for division"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Division - integer division - args are divided left to right"
+            },
+            {
+              "@type": "Definition",
+              "name": "exp",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "int or float",
+                  "name": "first",
+                  "summary": "base number"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "int or float",
+                  "name": "second",
+                  "summary": "power of"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Raises A to the power of B"
+            },
+            {
+              "@type": "Definition",
+              "name": "floor",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "int or float",
+                  "name": "user_input",
+                  "summary": "number whose floor needs to be calculated"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "The floor function of a real number x denotes the greatest integer less than or equal to x."
+            },
+            {
+              "@type": "Definition",
+              "name": "isa",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "element",
+                  "summary": "element to be checked"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "of_type",
+                  "summary": "type to be checked"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "bool"
+              },
+              "examples": null,
+              "summary": "Matches if element is a member of a certain type, according to the current state of the DB"
+            },
+            {
+              "@type": "Definition",
+              "name": "like",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "left",
+                  "summary": "first string to compare"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "right",
+                  "summary": "second string to compare"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "dist",
+                  "summary": "Hamming distance between left and right"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "Returns",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "-------",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "WOQLQuery object",
+                  "summary": "query object that can be chained and/or execute"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Matches left string to right string with a distance"
+            },
+            {
+              "@type": "Definition",
+              "name": "less",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or number",
+                  "name": "left",
+                  "summary": "first variable to compare"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or number",
+                  "name": "right",
+                  "summary": "second variable to compare"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Compares the value of v1 against v2 and returns true if v1 is less than v2"
+            },
+            {
+              "@type": "Definition",
+              "name": "greater",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or number",
+                  "name": "left",
+                  "summary": "first variable to compare"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or number",
+                  "name": "right",
+                  "summary": "second variable to compare"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Compares the value of v1 against v2 and returns true if v1 is greater than v2"
+            },
+            {
+              "@type": "Definition",
+              "name": "gte",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Compares two values using greater-than-or-equal ordering.\nParameters\n----------\nleft : str or number\n    the greater or equal value\nright : str or number\n    the lesser or equal value\nReturns\n-------\nWOQLQuery object\n    query object that can be chained and/or execute"
+            },
+            {
+              "@type": "Definition",
+              "name": "lte",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Compares two values using less-than-or-equal ordering.\nParameters\n----------\nleft : str or number\n    the lesser or equal value\nright : str or number\n    the greater or equal value\nReturns\n-------\nWOQLQuery object\n    query object that can be chained and/or execute"
+            },
+            {
+              "@type": "Definition",
+              "name": "in_range",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or number",
+                  "name": "value",
+                  "summary": "the value to test"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or number",
+                  "name": "start",
+                  "summary": "the inclusive lower bound"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or number",
+                  "name": "end",
+                  "summary": "the exclusive upper bound"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Tests whether a value falls within a half-open range [start, end).\nSucceeds if start <= value < end."
+            },
+            {
+              "@type": "Definition",
+              "name": "sequence",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or number",
+                  "name": "value",
+                  "summary": "the generated sequence value (or variable)"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or number",
+                  "name": "start",
+                  "summary": "the inclusive start of the sequence"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or number",
+                  "name": "end",
+                  "summary": "the exclusive end of the sequence"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or number, optional",
+                  "name": "step",
+                  "summary": "increment per step"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or number, optional",
+                  "name": "count",
+                  "summary": "total count (validates if bound, unifies if unbound)"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Generates a sequence of values in the half-open range [start, end).\nWhen value is unbound, produces each value via backtracking."
+            },
+            {
+              "@type": "Definition",
+              "name": "month_start_date",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "year_month",
+                  "summary": "a gYearMonth value (e.g. 2024-01) or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "date",
+                  "summary": "the resulting xsd:date or variable"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Computes the first day of the month for a given xsd:gYearMonth."
+            },
+            {
+              "@type": "Definition",
+              "name": "month_end_date",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "year_month",
+                  "summary": "a gYearMonth value (e.g. 2024-02) or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "date",
+                  "summary": "the resulting xsd:date or variable"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Computes the last day of the month for a given xsd:gYearMonth.\nHandles leap years correctly."
+            },
+            {
+              "@type": "Definition",
+              "name": "month_start_dates",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "date",
+                  "summary": "variable for the generated first-of-month date"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "start",
+                  "summary": "the inclusive start date"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "end",
+                  "summary": "the exclusive end date"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Generator: produces every first-of-month date in [start, end)."
+            },
+            {
+              "@type": "Definition",
+              "name": "month_end_dates",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "date",
+                  "summary": "variable for the generated last-of-month date"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "start",
+                  "summary": "the inclusive start date"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "end",
+                  "summary": "the exclusive end date"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Generator: produces every last-of-month date in [start, end)."
+            },
+            {
+              "@type": "Definition",
+              "name": "interval_relation",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "relation",
+                  "summary": "relation name (e.g. \"before\") or variable for classification"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "x_start",
+                  "summary": "inclusive start of interval X"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "x_end",
+                  "summary": "exclusive end of interval X"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "y_start",
+                  "summary": "inclusive start of interval Y"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "y_end",
+                  "summary": "exclusive end of interval Y"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Allen's Interval Algebra: classifies or validates the relationship\nbetween two half-open intervals [x_start, x_end) and [y_start, y_end)."
+            },
+            {
+              "@type": "Definition",
+              "name": "interval_relation_typed",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "relation",
+                  "summary": "relation name (e.g. \"before\") or variable for classification"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "x",
+                  "summary": "first xdd:dateTimeInterval value"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "y",
+                  "summary": "second xdd:dateTimeInterval value"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Allen's Interval Algebra on xdd:dateTimeInterval values."
+            },
+            {
+              "@type": "Definition",
+              "name": "range_min",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "list or str or dict",
+                  "name": "input_list",
+                  "summary": "the list of values to search"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "result",
+                  "summary": "variable or value for the minimum"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Find the minimum value in a list using the standard ordering."
+            },
+            {
+              "@type": "Definition",
+              "name": "range_max",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "list or str or dict",
+                  "name": "input_list",
+                  "summary": "the list of values to search"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "result",
+                  "summary": "variable or value for the maximum"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Find the maximum value in a list using the standard ordering."
+            },
+            {
+              "@type": "Definition",
+              "name": "interval",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "start",
+                  "summary": "inclusive start date"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "end",
+                  "summary": "exclusive end date"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "interval_val",
+                  "summary": "the xdd:dateTimeInterval value"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Constructs or deconstructs a half-open xdd:dateTimeInterval [start, end)."
+            },
+            {
+              "@type": "Definition",
+              "name": "interval_start_duration",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "start",
+                  "summary": "inclusive start date or dateTime"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "duration",
+                  "summary": "the xsd:duration between start and end"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "interval_val",
+                  "summary": "the xdd:dateTimeInterval value"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Relates an xdd:dateTimeInterval to its start endpoint and precise xsd:duration."
+            },
+            {
+              "@type": "Definition",
+              "name": "interval_duration_end",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "duration",
+                  "summary": "the xsd:duration between start and end"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "end",
+                  "summary": "exclusive end date or dateTime"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "interval_val",
+                  "summary": "the xdd:dateTimeInterval value"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Relates an xdd:dateTimeInterval to its end endpoint and precise xsd:duration."
+            },
+            {
+              "@type": "Definition",
+              "name": "day_after",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "date",
+                  "summary": "the input date"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "next_date",
+                  "summary": "the next calendar day"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Computes the calendar day after the given date. Bidirectional."
+            },
+            {
+              "@type": "Definition",
+              "name": "day_before",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "date",
+                  "summary": "the input date"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "previous",
+                  "summary": "the previous calendar day"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Computes the calendar day before the given date. Bidirectional."
+            },
+            {
+              "@type": "Definition",
+              "name": "weekday",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "date",
+                  "summary": "the input date or dateTime"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or int",
+                  "name": "weekday",
+                  "summary": "the ISO weekday number (1=Monday, 7=Sunday)"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Computes the ISO 8601 weekday number (Monday=1, Sunday=7) for a date.\nAccepts xsd:date or xsd:dateTime. Date must be ground."
+            },
+            {
+              "@type": "Definition",
+              "name": "weekday_sunday_start",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "date",
+                  "summary": "the input date or dateTime"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or int",
+                  "name": "weekday",
+                  "summary": "the US weekday number (1=Sunday, 7=Saturday)"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Computes the US-convention weekday number (Sunday=1, Saturday=7) for a date.\nAccepts xsd:date or xsd:dateTime. Date must be ground."
+            },
+            {
+              "@type": "Definition",
+              "name": "iso_week",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "date",
+                  "summary": "the input date or dateTime"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or int",
+                  "name": "year",
+                  "summary": "the ISO week-numbering year"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or int",
+                  "name": "week",
+                  "summary": "the ISO week number (1-53)"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Computes the ISO 8601 week-numbering year and week number for a date.\nAccepts xsd:date or xsd:dateTime. Date must be ground.\nThe ISO year may differ from the calendar year at year boundaries."
+            },
+            {
+              "@type": "Definition",
+              "name": "date_duration",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "start",
+                  "summary": "the start date or dateTime"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "end",
+                  "summary": "the end date or dateTime"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "duration",
+                  "summary": "the xsd:duration between start and end"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Tri-directional duration arithmetic for dates and dateTimes.\nGiven any two of start, end, and duration, computes the third.\nUses EOM preservation: last day of month maps to last day of target month.\nAccepts xsd:date or xsd:dateTime for start/end, xsd:duration for duration."
+            },
+            {
+              "@type": "Definition",
+              "name": "opt",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery object",
+                  "name": "query",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "The Query in the Optional argument is specified as optional"
+            },
+            {
+              "@type": "Definition",
+              "name": "unique",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "prefix",
+                  "summary": "prefix for the id"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "key_list",
+                  "summary": "variable to generate id for"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "uri",
+                  "summary": "the variable to hold the id"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Generates an ID for a node as a function of the passed VariableList with a specific prefix (URL base)(A.K.A Hashing) If the values of the passed variables are the same, the output will be the same"
+            },
+            {
+              "@type": "Definition",
+              "name": "idgen",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "prefix",
+                  "summary": "prefix for the id"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or list",
+                  "name": "input_var_list",
+                  "summary": "variable to generate id for"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "output_var",
+                  "summary": "the variable to hold the id"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Generates an ID for a node as a function of the passed VariableList with a specific prefix (URL base). If the values of the passed variables are the same, the output will be the same"
+            },
+            {
+              "@type": "Definition",
+              "name": "idgen_random",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "prefix",
+                  "summary": "A prefix for the IDs to be generated (e.g. \"Person/\")"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "uri",
+                  "summary": "Variable name or output target for the generated ID"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or executed"
+              },
+              "examples": null,
+              "summary": "Generates a unique ID with cryptographically secure random suffix."
+            },
+            {
+              "@type": "Definition",
+              "name": "random_idgen",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "prefix",
+                  "summary": "A prefix for the IDs to be generated (e.g. \"Person/\")"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "uri",
+                  "summary": "Variable name or output target for the generated ID"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or executed"
+              },
+              "examples": null,
+              "summary": "Generates a unique ID with cryptographically secure random suffix (alias for idgen_random)."
+            },
+            {
+              "@type": "Definition",
+              "name": "upper",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "left",
+                  "summary": "input string"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "right",
+                  "summary": "stores output"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Changes a string to upper-case - input is in left, output in right"
+            },
+            {
+              "@type": "Definition",
+              "name": "lower",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "left",
+                  "summary": "input string"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "right",
+                  "summary": "stores output"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Changes a string to lower-case - input is in u, output in l"
+            },
+            {
+              "@type": "Definition",
+              "name": "pad",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "user_input",
+                  "summary": "input string"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pad",
+                  "summary": "padding character(s)"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": " int",
+                  "name": "length",
+                  "summary": "length to pad"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "output",
+                  "summary": "stores output"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Pads out the string input to be exactly len long by appending the pad character pad to form output"
+            },
+            {
+              "@type": "Definition",
+              "name": "split",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "user_input",
+                  "summary": "input string or WOQL variable \"v:\""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "glue",
+                  "summary": "character string to separate string into list"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "output",
+                  "summary": "WOQL variable that stores output list"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Splits a variable apart (input) into a list of variables (output) by separating the strings together with separator"
+            },
+            {
+              "@type": "Definition",
+              "name": "dot",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "dictionary",
+                  "summary": "a WOQL dictionary or variable representing a dictionary"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "field",
+                  "summary": "a string representing the field or key to access the dictionary"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "value",
+                  "summary": "a WOQL value representing the result"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Iterates through a list and returns a value for each member"
+            },
+            {
+              "@type": "Definition",
+              "name": "member",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "member",
+                  "summary": "a WOQL variable representing an element of the list"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "mem_list",
+                  "summary": "a WOQL list variable"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Iterates through a list and returns a value for each member"
+            },
+            {
+              "@type": "Definition",
+              "name": "set_difference",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or list",
+                  "name": "list_a",
+                  "summary": "First list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or list",
+                  "name": "list_b",
+                  "summary": "Second list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "result",
+                  "summary": "Variable to store the result"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Computes the set difference between two lists (elements in list_a but not in list_b)"
+            },
+            {
+              "@type": "Definition",
+              "name": "set_intersection",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or list",
+                  "name": "list_a",
+                  "summary": "First list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or list",
+                  "name": "list_b",
+                  "summary": "Second list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "result",
+                  "summary": "Variable to store the result"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Computes the set intersection of two lists (elements in both list_a and list_b)"
+            },
+            {
+              "@type": "Definition",
+              "name": "set_union",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or list",
+                  "name": "list_a",
+                  "summary": "First list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or list",
+                  "name": "list_b",
+                  "summary": "Second list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "result",
+                  "summary": "Variable to store the result"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Computes the set union of two lists (all unique elements from both lists)"
+            },
+            {
+              "@type": "Definition",
+              "name": "set_member",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "any",
+                  "name": "element",
+                  "summary": "Element to check"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or list",
+                  "name": "set_list",
+                  "summary": "Set (list) to check membership in"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Checks if an element is a member of a set (efficient O(log n) lookup)"
+            },
+            {
+              "@type": "Definition",
+              "name": "list_to_set",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or list",
+                  "name": "input_list",
+                  "summary": "Input list or variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "result_set",
+                  "summary": "Variable to store the resulting set"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Converts a list to a set (removes duplicates and sorts)"
+            },
+            {
+              "@type": "Definition",
+              "name": "concat",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "list",
+                  "name": "concat_list",
+                  "summary": "list of variables to concatenate"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "result",
+                  "summary": "saves the results"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Concatenates the list of variables into a string and saves the result in v"
+            },
+            {
+              "@type": "Definition",
+              "name": "join",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "list",
+                  "name": "user_input",
+                  "summary": "a list of variables"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": " str",
+                  "name": "glue",
+                  "summary": "jioining character(s)"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "output",
+                  "summary": "variable that sotres output"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Joins a list variable together (input) into a string variable (output) by glueing the strings together with glue"
+            },
+            {
+              "@type": "Definition",
+              "name": "sum",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "list",
+                  "name": "user_input",
+                  "summary": "a variable containing a list of numbers"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "output",
+                  "summary": "a variable that stores the output"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Joins a list variable containing numbers together (input) into a single number\ncontaining the sum."
+            },
+            {
+              "@type": "Definition",
+              "name": "slice",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "list or str",
+                  "name": "input_list",
+                  "summary": "A list of values or a variable representing a list"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "result",
+                  "summary": "A variable that stores the sliced result"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "int or str",
+                  "name": "start",
+                  "summary": "The start index (0-based, supports negative indices)"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "int or str, optional",
+                  "name": "end",
+                  "summary": "The end index (exclusive). If omitted, takes the rest of the list"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": [
+                ">>> WOQLQuery().slice([\"a\", \"b\", \"c\", \"d\"], \"v:Result\", 1, 3)  # [\"b\", \"c\"]\n>>> WOQLQuery().slice([\"a\", \"b\", \"c\", \"d\"], \"v:Result\", -2)    # [\"c\", \"d\"]"
+              ],
+              "summary": "Extracts a contiguous subsequence from a list, following slice() semantics."
+            },
+            {
+              "@type": "Definition",
+              "name": "start",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "int",
+                  "name": "start",
+                  "summary": "index of the frist result got returned"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery object, optional",
+                  "name": "query",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Specifies that the start of the query returned"
+            },
+            {
+              "@type": "Definition",
+              "name": "limit",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "int",
+                  "name": "limit",
+                  "summary": "number of maximum results returned"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery object, optional",
+                  "name": "query",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Specifies that only the first Number of rows will be returned"
+            },
+            {
+              "@type": "Definition",
+              "name": "regexp",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pattern",
+                  "summary": "regex pattern"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "reg_str",
+                  "summary": "string to be matched"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or list or dict",
+                  "name": "reg_list",
+                  "summary": "store list of matches"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Regular Expression Call\npattern is a regex pattern (.*) using normal regular expression syntax, the only unusual thing is that special characters have to be escaped twice, s is the string to be matched and m is a list of matches:\ne.g. WOQLQuery().regexp(\"(.).*\", \"hello\", [\"v:All\", \"v:Sub\"])"
+            },
+            {
+              "@type": "Definition",
+              "name": "length",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "list",
+                  "name": "var_list",
+                  "summary": "list of elements"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "num",
+                  "name": "var_len",
+                  "summary": "number of eleemnts"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Length\nCalculates the length of a list"
+            },
+            {
+              "@type": "Definition",
+              "name": "woql_not",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery object, optional",
+                  "name": "query",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or executed"
+              },
+              "examples": null,
+              "summary": "Creates a logical NOT of the arguments"
+            },
+            {
+              "@type": "Definition",
+              "name": "immediately",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery object, optional",
+                  "name": "query",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or executed"
+              },
+              "examples": null,
+              "summary": "Immediately runs side-effects without backtracking"
+            },
+            {
+              "@type": "Definition",
+              "name": "count",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "A variable or non-negative integer with the count",
+                  "name": "result",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "The query from which to count the number of results",
+                  "name": "query",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or executed"
+              },
+              "examples": null,
+              "summary": "Counds the number of solutions in the given query"
+            },
+            {
+              "@type": "Definition",
+              "name": "cast",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "val",
+                  "summary": "original variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "user_type",
+                  "summary": "type to be changed"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "result: str",
+                  "summary": "save the return variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "literal_type: str, optional",
+                  "summary": "literal type of`val`, can be used to treat `val` as a literal rather than an object or variable in the WOQL query.\nIf literal type is \"owl:Thing\" or \"node\", `val` will be treated as object in the graph"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Changes the type of va to type and saves the return in vb"
+            },
+            {
+              "@type": "Definition",
+              "name": "type_of",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "value",
+                  "summary": "Value which needs to be set"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "type",
+                  "name": "vtype",
+                  "summary": "Type which needs to be set"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Sets the given value and type for cursor."
+            },
+            {
+              "@type": "Definition",
+              "name": "order_by",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "list or dict of WOQLQuery().asc or WOQLQuery().desc objects",
+                  "name": "gvarlist",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery object, optional",
+                  "name": "query",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Orders the results by the list of variables including in gvarlist, asc_or_desc is a WOQL.asc or WOQ.desc list of variables"
+            },
+            {
+              "@type": "Definition",
+              "name": "group_by",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "list or str or Var object",
+                  "name": "group_vars",
+                  "summary": "list of variables to group"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "dict or list or str",
+                  "name": "template",
+                  "summary": "template of data to group with free variable(s)"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str, optional",
+                  "name": "output",
+                  "summary": "output variable"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "dict, optional",
+                  "name": "groupquery",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Groups the results of groupquery together by the list of variables group_vars, using the variable template as a grouping and saves the result into variable output."
+            },
+            {
+              "@type": "Definition",
+              "name": "collect",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or list",
+                  "name": "template",
+                  "summary": "A variable or list of variables specifying what to collect from each solution"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "into",
+                  "summary": "Variable that will be bound to the collected list"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "WOQLQuery, optional",
+                  "name": "query",
+                  "summary": "The query whose solutions will be collected"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Collects all solutions of a sub-query into a list."
+            },
+            {
+              "@type": "Definition",
+              "name": "true",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Sets true for cursor type."
+            },
+            {
+              "@type": "Definition",
+              "name": "path",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "subject",
+                  "summary": "a woql subject, the node that the path started"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "pattern",
+                  "summary": "a pattern which specified the edges the path is consisted of.\nIt uses pattern construction syntax such as:\n* '(scm:edge1, scm:edge2)+' for repeated pattern,\n* 'scm:edge1|scm:edge2' for 'or' pattern,\n* '<scm:edge' for reverse pattern, and\n* '(scm:edge1)[n,m] for pattern between n and m times'"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "obj",
+                  "summary": "a woql object, the node that the path ended"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "path: str",
+                  "summary": "output variable"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Create a path object constructed by the rules specified with pattern."
+            },
+            {
+              "@type": "Definition",
+              "name": "size",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "graph: Graph which needs to be set as resource",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "size: Size which needs to be set",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Sets the given graph and size for cursor."
+            },
+            {
+              "@type": "Definition",
+              "name": "triple_count",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "graph: Graph which needs to be set as resource",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "triple_count: Triple count which needs to be set",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Sets the given triple count and size for cursor."
+            },
+            {
+              "@type": "Definition",
+              "name": "star",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "GraphIRI",
+                  "summary": "graphIRI"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str, optional",
+                  "name": "Subj",
+                  "summary": "target subject"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str, optional",
+                  "name": "Pred",
+                  "summary": "target predicate"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str, optional",
+                  "name": "Obj",
+                  "summary": "target object"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Selects everything as triples in the graph identified by GraphIRI into variables Subj, Pred, Obj - by default they are \"v:Subject\", \"v:Predicate\", \"v:Object\""
+            },
+            {
+              "@type": "Definition",
+              "name": "all",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str, optional",
+                  "name": "subj",
+                  "summary": "target subject"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str, optional",
+                  "name": "pred",
+                  "summary": "target predicate"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str, optional",
+                  "name": "obj",
+                  "summary": "target object"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "graph",
+                  "summary": "graphIRI"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Calls the star method and returns the result of the same."
+            },
+            {
+              "@type": "Definition",
+              "name": "graph",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Used to specify that the rest of the query should use the graph g in calls to add_quad, quad, etc\nParameters\n----------\ng : str\n    target graph\nReturns\n-------\nWOQLQuery object\n    query object that can be chained and/or execute"
+            },
+            {
+              "@type": "Definition",
+              "name": "_get_object",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "s: str",
+                  "summary": "Subject of the object"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "",
+                  "name": "p: str",
+                  "summary": "Predicate of the object"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Function to get the object for the given subject and predicate."
+            },
+            {
+              "@type": "Definition",
+              "name": "_same_entry",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "a",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str or dict",
+                  "name": "b",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "bool"
+              },
+              "examples": null,
+              "summary": "A function to check the given two objects, which can be of different types (str, dict), are equal or not.\nWhen both the passed objects are dicts, deep comparison is done to check for the equality."
+            },
+            {
+              "@type": "Definition",
+              "name": "_string_matches_object",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "s",
+                  "summary": ""
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "dict",
+                  "name": "obj",
+                  "summary": ""
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "bool"
+              },
+              "examples": null,
+              "summary": "A function to check if the given string is present in the passed dict or not."
+            },
+            {
+              "@type": "Definition",
+              "name": "_add_partial",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "s",
+                  "summary": "target subject"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "p",
+                  "summary": "target predicate"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "o",
+                  "summary": "target object"
+                },
+                {
+                  "@type": "Parameter",
+                  "type": "str",
+                  "name": "g",
+                  "summary": "graphIRI"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLQuery object",
+                "summary": "query object that can be chained and/or execute"
+              },
+              "examples": null,
+              "summary": "Adds the query based on action given in builder context."
+            },
+            {
+              "@type": "Definition",
+              "name": "vars",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Generate variables to be used in WOQLQueries\nParameters\n----------\nargs\n    string arguments\nReturns\n-------\ntuple/string\n    args prefixed with \"v:\""
+            },
+            {
+              "@type": "Definition",
+              "name": "variables",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "void"
+              },
+              "examples": null,
+              "summary": "Generate variables to be used in WOQLQueries\nParameters\n----------\nargs\n    string arguments\nReturns\n-------\ntuple/string\n    args prefixed with \"v:\""
+            },
+            {
+              "@type": "Definition",
+              "name": "localize",
+              "parameters": [
+                {
+                  "@type": "Parameter",
+                  "type": "dict",
+                  "name": "param_spec",
+                  "summary": "Object mapping parameter names to values (or None for local vars)"
+                }
+              ],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "tuple",
+                "summary": "(localized_fn, v) where localized_fn wraps queries and v contains unique vars"
+              },
+              "examples": null,
+              "summary": "Build a localized scope for variables to prevent leaking local variables to outer scope."
+            },
+            {
+              "@type": "Definition",
+              "name": "lib",
+              "parameters": [],
+              "returns": {
+                "@type": "Returns",
+                "name": "",
+                "type": "WOQLLibrary",
+                "summary": "Library object with rdflist_* methods"
+              },
+              "examples": null,
+              "summary": "Returns the WOQL library instance for RDFList operations and other library functions."
             }
           ]
         }
