@@ -99,7 +99,7 @@ Create a client endpoint with `WOQLClient`.
 #### Create an endpoint with the JavaScript Client
 
 ```javascript
-const TerminusClient = require("@terminusdb/terminusdb-client");
+const TerminusClient = require("terminusdb");
 
 var client = new TerminusClient.WOQLClient("http://127.0.0.1:6363")
 ```

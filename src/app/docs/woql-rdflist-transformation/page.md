@@ -239,7 +239,7 @@ await client.query(WOQL.lib().rdflist_reverse(listHead));
 ## Complete Example: Priority Reordering
 
 ```javascript
-import { WOQLClient, WOQL } from "@terminusdb/terminusdb-client";
+import { WOQLClient, WOQL } from "terminusdb";
 
 async function priorityReorder(client) {
   // Create a task list: [Task1, Task2, Task3, Task4]

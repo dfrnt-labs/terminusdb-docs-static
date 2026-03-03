@@ -20,7 +20,7 @@ Import the TerminusDB client and set up the configuration:
 
 ```javascript
 /* Import terminusdb-client */
-const TerminusClient = require("@terminusdb/terminusdb-client")
+const TerminusClient = require("terminusdb")
 
 /* Import the list of allowed actions */
 const { ACTIONS } = TerminusClient.UTILS

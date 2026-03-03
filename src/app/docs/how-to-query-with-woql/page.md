@@ -57,7 +57,7 @@ First, create a new directory and install the TerminusDB JavaScript client:
 mkdir woql-tutorial
 cd woql-tutorial
 npm init -y
-npm install @terminusdb/terminusdb-client
+npm install terminusdb
 ```
 
 Create a file named `woql-tutorial.js` and copy all the examples below into it. The `main()` function accepts arguments so you can easily run specific steps or all steps.
@@ -73,7 +73,7 @@ On macOS, you can use the `pbpaste` command to paste the code into your file, li
 Or just use a standard text editor.
 
 ```javascript
-const TerminusClient = require('@terminusdb/terminusdb-client');
+const TerminusClient = require('terminusdb');
 const { WOQL } = TerminusClient;
 
 // Configuration
@@ -713,7 +713,7 @@ Boilerplate Code
 **Start your `woql-tutorial.js` file with this:**
 
 ```javascript
-const TerminusClient = require('@terminusdb/terminusdb-client');
+const TerminusClient = require('terminusdb');
 const { WOQL } = TerminusClient;
 
 // Configuration - adjust these if your setup differs
@@ -1782,7 +1782,7 @@ curl -X DELETE "http://127.0.0.1:6363/api/document/admin/woql_tutorial?id=Person
 To completely remove the tutorial database:
 
 ```javascript
-const TerminusClient = require('@terminusdb/terminusdb-client');
+const TerminusClient = require('terminusdb');
 
 const client = new TerminusClient.WOQLClient('http://127.0.0.1:6363', {
   user: 'admin',

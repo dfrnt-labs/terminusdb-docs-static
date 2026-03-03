@@ -141,7 +141,7 @@ const createSingleElement = WOQL.and(
 ## Complete Example: Initialize and Validate
 
 ```javascript
-import { WOQLClient, WOQL } from "@terminusdb/terminusdb-client";
+import { WOQLClient, WOQL } from "terminusdb";
 
 const client = new WOQLClient("http://localhost:6363", {
   user: "admin",

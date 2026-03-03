@@ -147,7 +147,7 @@ A common use of `terminusdb-documents-ui` is as follows:
 A basic example below to get started with a TerminusDB JavaScript client.
 
 ```python
-const TerminusDBClient = require("@terminusdb/terminusdb-client");
+const TerminusDBClient = require("terminusdb");
 import '@terminusdb/terminusdb-documents-ui/dist/css/terminusdb__darkly.css'
 import {FrameViewer} from '@terminusdb/terminusdb-documents-ui'
 

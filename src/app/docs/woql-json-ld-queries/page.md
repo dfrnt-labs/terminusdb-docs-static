@@ -63,7 +63,7 @@ The JavaScript client's `query()` method accepts both `WOQLQuery` objects and ra
 Pass the JSON-LD object directly to `client.query()`:
 
 ```javascript
-const { WOQLClient } = require('@terminusdb/terminusdb-client');
+const { WOQLClient } = require('terminusdb');
 
 const client = new WOQLClient('http://127.0.0.1:6363', {
   user: 'admin',
@@ -99,7 +99,7 @@ console.log(result.bindings);
 Convert between WOQL builder syntax and JSON-LD using the `json()` method:
 
 ```javascript
-const { WOQL } = require('@terminusdb/terminusdb-client');
+const { WOQL } = require('terminusdb');
 
 // Convert WOQL to JSON-LD
 const woqlQuery = WOQL.triple('v:Person', 'rdf:type', '@schema:Person');

@@ -246,7 +246,7 @@ and(
 ## Using with the JavaScript Client
 
 ```javascript
-const TerminusClient = require('@terminusdb/terminusdb-client')
+const TerminusClient = require('terminusdb')
 const { WOQL, Vars, Doc } = TerminusClient
 
 const client = new TerminusClient.WOQLClient('http://localhost:6363', {

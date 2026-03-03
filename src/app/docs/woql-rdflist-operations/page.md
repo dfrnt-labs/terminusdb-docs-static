@@ -55,7 +55,7 @@ Cell3 → rdf:type = rdf:List
 Here's a complete example demonstrating common list operations:
 
 ```javascript
-import { WOQLClient, WOQL } from "@terminusdb/terminusdb-client";
+import { WOQLClient, WOQL } from "terminusdb";
 
 const client = new WOQLClient("http://localhost:6363", {
   user: "admin",

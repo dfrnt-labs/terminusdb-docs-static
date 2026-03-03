@@ -53,14 +53,14 @@ Connect with JavaScript Client
 Install the TerminusDB JavaScript client:
 
 ```bash
-npm install @terminusdb/terminusdb-client
+npm install terminusdb
 ```
 
 Create a connection to your local TerminusDB instance. Create a main.js file and run it with `node main.js`.
 
 ```javascript
-import TerminusClient from "@terminusdb/terminusdb-client";
-import {WOQL} from "@terminusdb/terminusdb-client";
+import TerminusClient from "terminusdb";
+import {WOQL} from "terminusdb";
 
 const client = new TerminusClient.WOQLClient("http://127.0.0.1:6363", {
   user: "admin",

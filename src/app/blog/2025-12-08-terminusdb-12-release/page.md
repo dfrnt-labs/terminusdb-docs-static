@@ -399,9 +399,9 @@ docker run -d -p 6363:6363 \
 The JavaScript and Python clients are updated to support version 12 features:
 
 ```bash
-npm install @terminusdb/terminusdb-client
+npm install terminusdb
 # or
-pip install terminusdb-client
+pip install terminusdb
 ```
 
 PyPi does not yet have the latest python version. To leverage the latest python features, install the version 12 client directly from TerminusDB:

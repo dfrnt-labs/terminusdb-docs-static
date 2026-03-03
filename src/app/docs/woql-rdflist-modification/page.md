@@ -369,7 +369,7 @@ await client.query(deleteAndClear);
 ## Complete Example: Task Queue
 
 ```javascript
-import { WOQLClient, WOQL } from "@terminusdb/terminusdb-client";
+import { WOQLClient, WOQL } from "terminusdb";
 
 async function taskQueueDemo(client) {
   // Create initial queue with one task

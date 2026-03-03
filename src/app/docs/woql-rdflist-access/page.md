@@ -274,7 +274,7 @@ Use slice with appropriate indices:
 List head in the example below is the object of a triple from a list. A list defined on a document/record in TerminusDB will have a triple such as `triple("v:docId", "list", "v:listHeadId")`. The listHeadId would be what is called a Cons, an rdf:List "construct" that is the start of a list.
 
 ```javascript
-import { WOQLClient, WOQL } from "@terminusdb/terminusdb-client";
+import { WOQLClient, WOQL } from "terminusdb";
 
 async function analyzeList(client, listHead) {
   // Get list length

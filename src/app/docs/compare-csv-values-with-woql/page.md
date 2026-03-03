@@ -280,7 +280,7 @@ With the source list `[E001, E002, E004, E006]` and CSV containing `[E001, E002,
 ## Using Set Operations with the JavaScript Client
 
 ```javascript
-const TerminusClient = require('@terminusdb/terminusdb-client')
+const TerminusClient = require('terminusdb')
 
 const client = new TerminusClient.WOQLClient('http://localhost:6363', {
   user: 'admin',

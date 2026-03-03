@@ -16,7 +16,7 @@ With the built in plain JSON support (sys:JSONDocument and sys:JSON data structu
 
 - Node.js 16+
 - TerminusDB running on `localhost:6363`
-- `@terminusdb/terminusdb-client` installed
+- `terminusdb` installed
 
 ## Document-Based Task Queue
 
@@ -35,7 +35,7 @@ docker run --pull always -d -p 127.0.0.1:6363:6363 -v terminusdb_storage:/app/te
 ### 2. Install javascript TerminusDB client
 
 ```bash
-npm install @terminusdb/terminusdb-client
+npm install terminusdb
 ```
 
 ### 3. Create the script, including Setup and Schema
@@ -43,7 +43,7 @@ npm install @terminusdb/terminusdb-client
 Combine all the sections together, or run it step by step.
 
 ```javascript
-import { WOQLClient, WOQL } from "@terminusdb/terminusdb-client";
+import { WOQLClient, WOQL } from "terminusdb";
 
 const client = new WOQLClient("http://localhost:6363", {
   user: "admin",
@@ -336,7 +336,7 @@ Manual cons cell manipulation is error-prone. Use the library functions for reli
 Save this as `task-queue-demo.js`:
 
 ```javascript
-const TerminusClient = require("@terminusdb/terminusdb-client");
+const TerminusClient = require("terminusdb");
 const WOQL = TerminusClient.WOQL;
 
 async function main() {

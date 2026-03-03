@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react'
 // @ts-ignore - terminusdb-client doesn't have TypeScript definitions
-import TerminusClient from '@terminusdb/terminusdb-client'
+import TerminusClient from 'terminusdb'
 
 const WOQL = TerminusClient.WOQL
 

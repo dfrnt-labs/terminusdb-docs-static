@@ -20,7 +20,7 @@ Depending on whether you are connecting to an instance you have set up yourself,
 In both cases, you should load the TerminusDB client in your script with the following:
 
 ```javascript
-const TerminusClient = require("@terminusdb/terminusdb-client");
+const TerminusClient = require("terminusdb");
 ```
 
 ## DFRNT TerminusDB cloud

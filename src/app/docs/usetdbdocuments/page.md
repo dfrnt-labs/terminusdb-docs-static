@@ -11,7 +11,7 @@ nextjs:
 media: []
 ---
 
-`useTDBDocuments` is the main hook to connect @terminusdb/terminusdb-documents-ui with the TerminusDB server. To use it, pass it with an instance of [@terminusdb/terminusdb-client](https://github.com/terminusdb/terminusdb-client-js)
+`useTDBDocuments` is the main hook to connect @terminusdb/terminusdb-documents-ui with the TerminusDB server. To use it, pass it with an instance of [terminusdb](https://github.com/terminusdb/terminusdb-client-js)
 
 ## useTDBDocuments parameters
 

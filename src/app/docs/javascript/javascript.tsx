@@ -106,7 +106,7 @@ export default function JavaScriptArticle() {
             description="The official TerminusDB JavaScript client library for browser and Node.js applications. Build powerful data-driven applications with type-safe database operations."
             version={props.version}
             howToUse={"/docs/use-the-javascript-client"}
-            installCommand="npm install @terminusdb/terminusdb-client"
+            installCommand="npm install terminusdb"
           />
 
           <ClassQuickNav classes={classNavData} />

@@ -26,7 +26,7 @@ The TerminusDB JavaScript client library can be used either as a Node.js package
 To install the `terminusdb-client` package as a dependency in an existing package, run:
 
 ```bash
-npm install --save @terminusdb/terminusdb-client
+npm install --save terminusdb
 ```
 
 This command updates your `package.json`.
@@ -36,7 +36,7 @@ This command updates your `package.json`.
 To use the `terminusdb-client` script on a webpage sourced from a CDN, add this to your HTML:
 
 ```html
-<script src="https://unpkg.com/@terminusdb/terminusdb-client/dist/terminusdb-client.min.js"></script>
+<script src="https://unpkg.com/terminusdb/dist/terminusdb-client.min.js"></script>
 ```
 
-Alternatively, you can download the latest [`terminusdb-client.min.js`](https://unpkg.com/@terminusdb/terminusdb-client/dist/terminusdb-client.min.js), add it to your sources, and use that in the `<script>` instead.
+Alternatively, you can download the latest [`terminusdb-client.min.js`](https://unpkg.com/terminusdb/dist/terminusdb-client.min.js), add it to your sources, and use that in the `<script>` instead.
