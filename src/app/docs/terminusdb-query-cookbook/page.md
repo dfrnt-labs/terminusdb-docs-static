@@ -15,6 +15,10 @@ media: []
 
 TerminusDB Query Cookbook is a collection of guides showing how to query using GraphQL, WOQL and in other ways. TerminusDB is a graph database and document store that is great for data integration, knowledge management, knowledge engineering, content management, and data analytics.
 
+* [Learn WOQL: An Interactive Tutorial](/docs/woql-tutorial)
+
+This interactive tutorial teaches WOQL from scratch through hands-on examples you can edit and run directly in your browser. Each step builds on the last, covering variables, logic, data reading/writing, filtering, and shaping results.
+
 * [Getting Started with WOQL](/docs/woql-getting-started)
 
 In this guide, we introduce the basic concepts of WOQL and show how to use it to query a TerminusDB database.

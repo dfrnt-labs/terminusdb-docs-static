@@ -7,242 +7,66 @@ import TerminusClient from '@terminusdb/terminusdb-client'
 const WOQL = TerminusClient.WOQL
 
 // ---------------------------------------------------------------------------
-// Minimal WOQL JSON-LD builder
-// Covers the predicates used in the interactive tutorial.
+// WOQL functions for the playground editor, delegating to the JS client.
 // ---------------------------------------------------------------------------
 
 type JsonLd = Record<string, any>
 
-function isVariable(v: any): boolean {
-  return typeof v === 'string' && v.startsWith('v:')
-}
+// All WOQL predicates available in the playground, generated from this list.
+const WOQL_PREDICATES = [
+  'eq', 'and', 'or', 'not', 'opt',
+  'triple', 'quad', 'isa', 'select',
+  'greater', 'less', 'gte', 'lte',
+  'limit', 'order_by', 'group_by', 'length',
+  'in_range', 'date_duration', 'sequence',
+  'interval', 'interval_start_duration', 'interval_duration_end',
+  'interval_relation', 'interval_relation_typed',
+  'day_before', 'day_after',
+  'weekday', 'weekday_sunday_start', 'iso_week',
+  'month_start_date', 'month_end_date', 'month_start_dates', 'month_end_dates',
+  'range_min', 'range_max', 'typecast', 'sum',
+  'read_document', 'insert_document', 'update_document', 'delete_document',
+] as const
 
-function varName(v: string): string {
-  return v.slice(2)
-}
-
-/** Wrap a value for the "subject" / "predicate" position (NodeValue). */
-function nodeValue(v: any): JsonLd {
-  if (v && typeof v === 'object' && v.__woql) return v
-  if (isVariable(v)) return { '@type': 'NodeValue', variable: varName(v) }
-  return { '@type': 'NodeValue', node: String(v) }
-}
-
-/** Wrap a value for the "object" position (Value). */
-function objectValue(v: any): JsonLd {
-  if (v && typeof v === 'object' && v.__woql) return v
-  if (v && typeof v === 'object' && '@value' in v) return { '@type': 'Value', data: v }
-  if (isVariable(v)) return { '@type': 'Value', variable: varName(v) }
-  if (typeof v === 'number') {
-    if (Number.isInteger(v)) {
-      return { '@type': 'Value', data: { '@type': 'xsd:integer', '@value': v } }
-    }
-    return { '@type': 'Value', data: { '@type': 'xsd:decimal', '@value': v } }
+// Wrap a raw JSON-LD object as a WOQLQuery so the client recognises it as a sub-query.
+function asQuery(obj: any) {
+  if (obj && typeof obj === 'object' && !obj.json) {
+    return new TerminusClient.WOQLQuery(obj)
   }
-  if (typeof v === 'boolean') {
-    return { '@type': 'Value', data: { '@type': 'xsd:boolean', '@value': v } }
-  }
-  return { '@type': 'Value', node: String(v) }
+  return obj
 }
 
-/** Wrap a value for data positions (DataValue). */
-function dataValue(v: any): JsonLd {
-  if (v && typeof v === 'object' && v.__woql) return v
-  if (v && typeof v === 'object' && '@value' in v) return { '@type': 'DataValue', data: v }
-  if (isVariable(v)) return { '@type': 'DataValue', variable: varName(v) }
-  if (typeof v === 'number') {
-    if (Number.isInteger(v)) {
-      return { '@type': 'DataValue', data: { '@type': 'xsd:integer', '@value': v } }
-    }
-    return { '@type': 'DataValue', data: { '@type': 'xsd:decimal', '@value': v } }
-  }
-  if (typeof v === 'boolean') {
-    return { '@type': 'DataValue', data: { '@type': 'xsd:boolean', '@value': v } }
-  }
-  return { '@type': 'DataValue', data: { '@type': 'xsd:string', '@value': String(v) } }
-}
-
-// The WOQL functions available inside the playground editor
 function buildWoqlFunctions() {
-  const eq = (a: any, b: any): JsonLd => ({
-    __woql: true,
-    '@type': 'Equals',
-    left: dataValue(a),
-    right: dataValue(b),
-  })
-
-
-  
-  const and = (...args: any[]): JsonLd => ({
-    __woql: true,
-    '@type': 'And',
-    and: args.map(a => (a && a.__woql ? a : a)),
-  })
-
-  const or = (...args: any[]): JsonLd => ({
-    __woql: true,
-    '@type': 'Or',
-    or: args.map(a => (a && a.__woql ? a : a)),
-  })
-
-  const not = (q: any): JsonLd => ({
-    __woql: true,
-    '@type': 'Not',
-    query: q,
-  })
-
-  const opt = (q: any): JsonLd => ({
-    __woql: true,
-    '@type': 'Optional',
-    query: q,
-  })
-
-  const triple = (s: any, p: any, o: any): JsonLd => ({
-    __woql: true,
-    '@type': 'Triple',
-    subject: nodeValue(s),
-    predicate: nodeValue(p),
-    object: objectValue(o),
-  })
-
-  const quad = (s: any, p: any, o: any, g: string): JsonLd => ({
-    __woql: true,
-    '@type': 'Triple',
-    subject: nodeValue(s),
-    predicate: nodeValue(p),
-    object: objectValue(o),
-    graph: g,
-  })
-
-  const isa = (element: any, type: any): JsonLd => ({
-    __woql: true,
-    '@type': 'IsA',
-    element: nodeValue(element),
-    type: nodeValue(type),
-  })
-
-  const select = (...args: any[]): JsonLd => {
-    const query = args[args.length - 1]
-    const vars = args.slice(0, -1).map((v: any) =>
-      isVariable(v) ? varName(v) : String(v)
-    )
-    return {
-      __woql: true,
-      '@type': 'Select',
-      variables: vars,
-      query: query,
-    }
+  // Generate all WOQL predicates by delegating to the JS client
+  const fns: Record<string, Function> = {}
+  for (const name of WOQL_PREDICATES) {
+    fns[name] = (...args: any[]) => WOQL[name](...args).json()
   }
 
-  const greater = (a: any, b: any): JsonLd => ({
-    __woql: true,
-    '@type': 'Greater',
-    left: dataValue(a),
-    right: dataValue(b),
-  })
-
-  const less = (a: any, b: any): JsonLd => ({
-    __woql: true,
-    '@type': 'Less',
-    left: dataValue(a),
-    right: dataValue(b),
-  })
-
-  const limit = (n: number, q: any): JsonLd => ({
-    __woql: true,
-    '@type': 'Limit',
-    limit: n,
-    query: q,
-  })
-
-  const order_by = (vars: any, order: any, q?: any): JsonLd => {
-    // order_by("v:var", "asc", query) or order_by(["v:var"], query)
-    if (q === undefined) {
-      // Two-arg form: order_by(template, query)
-      return {
-        __woql: true,
-        '@type': 'OrderBy',
-        template: Array.isArray(vars) ? vars : [vars],
-        ordering: [{
-          '@type': 'OrderTemplate',
-          variable: isVariable(vars) ? varName(vars) : String(vars),
-          order: 'asc',
-        }],
-        query: order,
-      }
-    }
-    return {
-      __woql: true,
-      '@type': 'OrderBy',
-      ordering: [{
-        '@type': 'OrderTemplate',
-        variable: isVariable(vars) ? varName(vars) : String(vars),
-        order: String(order),
-      }],
-      query: q,
+  // Predicates whose last argument is a sub-query need wrapping
+  // so the client's .json detection recognises it.
+  for (const name of ['select', 'not', 'opt', 'limit', 'order_by'] as const) {
+    fns[name] = (...args: any[]) => {
+      args[args.length - 1] = asQuery(args[args.length - 1])
+      return WOQL[name](...args).json()
     }
   }
+  // group_by: 4th arg is the sub-query
+  fns.group_by = (groupBy: any, template: any, output: any, query: any) =>
+    WOQL.group_by(groupBy, template, output, asQuery(query)).json()
 
-  const group_by = (groupBy: any[], template: any[], grouped: any, query: any): JsonLd => ({
-    __woql: true,
-    '@type': 'GroupBy',
-    group_by: groupBy.map((v: any) => isVariable(v) ? varName(v) : String(v)),
-    template: template.map((v: any) => isVariable(v) ? varName(v) : String(v)),
-    grouped: objectValue(grouped),
-    query: query,
-  })
+  // Aliases
+  fns.gt = fns.greater
+  fns.lt = fns.less
 
-  const length = (list: any, len: any): JsonLd => ({
-    __woql: true,
-    '@type': 'Length',
-    list: objectValue(list),
-    length: dataValue(len),
-  })
-
-  const read_document = (id: any, doc: any): JsonLd => ({
-    __woql: true,
-    '@type': 'ReadDocument',
-    identifier: nodeValue(id),
-    document: isVariable(doc) ? { '@type': 'Value', variable: varName(doc) } : doc,
-  })
-
-  const insert_document = (doc: any, id?: any): JsonLd => {
-    const r: JsonLd = {
-      __woql: true,
-      '@type': 'InsertDocument',
-      document: isVariable(doc) ? { '@type': 'Value', variable: varName(doc) } : doc,
-    }
-    if (id !== undefined) {
-      r.identifier = nodeValue(id)
-    }
-    return r
-  }
-
-  const update_document = (doc: any, id?: any): JsonLd => {
-    const r: JsonLd = {
-      __woql: true,
-      '@type': 'UpdateDocument',
-      document: isVariable(doc) ? { '@type': 'Value', variable: varName(doc) } : doc,
-    }
-    if (id !== undefined) {
-      r.identifier = nodeValue(id)
-    }
-    return r
-  }
-
-  const delete_document = (id: any): JsonLd => ({
-    __woql: true,
-    '@type': 'DeleteDocument',
-    identifier: nodeValue(id),
-  })
-
-  const literal = (value: any, type: string): JsonLd => ({
+  // literal: creates a typed value (not a WOQL predicate)
+  fns.literal = (value: any, type: string): JsonLd => ({
     '@type': type,
     '@value': value,
   })
 
-  // Vars helper: returns an object whose keys are variable names, values are "v:name" strings
-  const Vars = (...names: string[]): Record<string, string> => {
+  // Vars: returns an object mapping names to "v:name" variable references
+  fns.Vars = (...names: string[]): Record<string, string> => {
     const result: Record<string, string> = {}
     for (const name of names) {
       result[name] = `v:${name}`
@@ -250,8 +74,7 @@ function buildWoqlFunctions() {
     return result
   }
 
-  // Doc helper: converts a plain JS object/array/primitive into the WOQL Value
-  // structure (DictionaryTemplate + FieldValuePair), matching the JS client's Doc().
+  // Doc: converts a plain JS object/array/primitive into WOQL Value structure
   const convertToValue = (obj: any): any => {
     if (obj === null || obj === undefined) return null
     if (typeof obj === 'string') {
@@ -283,64 +106,11 @@ function buildWoqlFunctions() {
       dictionary: { '@type': 'DictionaryTemplate', data: pairs },
     }
   }
+  fns.Doc = (obj: any): any => convertToValue(obj)
 
-  const Doc = (obj: any): any => convertToValue(obj)
-
-  // ISO 8601 time predicates using WOQL client
-  const gte = (a: any, b: any): JsonLd => ({ __woql: true, ...WOQL.gte(a, b).json() })
-  const lte = (a: any, b: any): JsonLd => ({ __woql: true, ...WOQL.lte(a, b).json() })
-  const gt = greater
-  const lt = less
-  const in_range = (value: any, start: any, end: any): JsonLd => ({ __woql: true, ...WOQL.in_range(value, start, end).json() })
-  const date_duration = (start: any, end: any, duration: any): JsonLd => ({ __woql: true, ...WOQL.date_duration(start, end, duration).json() })
-  const sequence = (value: any, start: any, end: any, step?: any, count?: any): JsonLd => ({ __woql: true, ...WOQL.sequence(value, start, end, step, count).json() })
-  const interval = (start: any, end: any, iv: any): JsonLd => ({ __woql: true, ...WOQL.interval(start, end, iv).json() })
-  const interval_start_duration = (start: any, duration: any, iv: any): JsonLd => ({ __woql: true, ...WOQL.interval_start_duration(start, duration, iv).json() })
-  const interval_duration_end = (duration: any, end: any, iv: any): JsonLd => ({ __woql: true, ...WOQL.interval_duration_end(duration, end, iv).json() })
-  const interval_relation = (rel: any, xs: any, xe: any, ys: any, ye: any): JsonLd => ({ __woql: true, ...WOQL.interval_relation(rel, xs, xe, ys, ye).json() })
-  const interval_relation_typed = (rel: any, x: any, y: any): JsonLd => ({ __woql: true, ...WOQL.interval_relation_typed(rel, x, y).json() })
-  const day_before = (date: any, previous: any): JsonLd => ({ __woql: true, ...WOQL.day_before(date, previous).json() })
-  const day_after = (date: any, next: any): JsonLd => ({ __woql: true, ...WOQL.day_after(date, next).json() })
-  const weekday = (date: any, wd: any): JsonLd => ({ __woql: true, ...WOQL.weekday(date, wd).json() })
-  const weekday_sunday_start = (date: any, wd: any): JsonLd => ({ __woql: true, ...WOQL.weekday_sunday_start(date, wd).json() })
-  const iso_week = (date: any, year: any, week: any): JsonLd => ({ __woql: true, ...WOQL.iso_week(date, year, week).json() })
-  const month_start_date = (ym: any, date: any): JsonLd => ({ __woql: true, ...WOQL.month_start_date(ym, date).json() })
-  const month_end_date = (ym: any, date: any): JsonLd => ({ __woql: true, ...WOQL.month_end_date(ym, date).json() })
-  const month_start_dates = (date: any, start: any, end: any): JsonLd => ({ __woql: true, ...WOQL.month_start_dates(date, start, end).json() })
-  const month_end_dates = (date: any, start: any, end: any): JsonLd => ({ __woql: true, ...WOQL.month_end_dates(date, start, end).json() })
-  const range_min = (list: any, result: any): JsonLd => ({ __woql: true, ...WOQL.range_min(list, result).json() })
-  const range_max = (list: any, result: any): JsonLd => ({ __woql: true, ...WOQL.range_max(list, result).json() })
-  const typecast = (value: any, type: any, result: any): JsonLd => ({ __woql: true, ...WOQL.typecast(value, type, result).json() })
-  const sum = (list: any, result: any): JsonLd => ({ __woql: true, ...WOQL.sum(list, result).json() })
-
-  return {
-    eq, and, or, not, opt, triple, quad, isa, select,
-    greater, less, gte, lte, gt, lt,
-    in_range, date_duration, sequence,
-    interval, interval_start_duration, interval_duration_end,
-    interval_relation, interval_relation_typed,
-    day_before, day_after,
-    weekday, weekday_sunday_start, iso_week,
-    month_start_date, month_end_date, month_start_dates, month_end_dates,
-    range_min, range_max, typecast, sum,
-    limit, order_by, group_by, length,
-    read_document, insert_document, update_document, delete_document,
-    literal, Vars, Doc,
-  }
+  return fns
 }
 
-// Strip __woql markers before sending
-function cleanJsonLd(obj: any): any {
-  if (obj === null || obj === undefined) return obj
-  if (typeof obj !== 'object') return obj
-  if (Array.isArray(obj)) return obj.map(cleanJsonLd)
-  const result: Record<string, any> = {}
-  for (const [key, value] of Object.entries(obj)) {
-    if (key === '__woql') continue
-    result[key] = cleanJsonLd(value)
-  }
-  return result
-}
 
 // ---------------------------------------------------------------------------
 // Settings panel
@@ -538,7 +308,7 @@ export function WoqlPlayground({
         return
       }
 
-      const jsonLd = cleanJsonLd(queryObj)
+      const jsonLd = queryObj
 
       // Build the API URL
       const { serverUrl, organization, database, user, password } = settings

@@ -188,6 +188,10 @@ export const navigation: Navigation[] = [
             title: 'What is Unification?',
             href: '/docs/what-is-unification',
           },
+          {
+            title: 'Backtracking & Streaming',
+            href: '/docs/woql-query-streaming',
+          },
         ],
       },
       {
@@ -590,6 +594,10 @@ export const navigation: Navigation[] = [
             href: '/docs/woql-getting-started',
           },
           {
+            title: 'Working with Data',
+            href: '/docs/woql-data-handling',
+          },
+          {
             title: 'Datatypes',
             href: '/docs/cookbook-woql-type-of-datatype',
           },
@@ -608,6 +616,44 @@ export const navigation: Navigation[] = [
           {
             title: 'Tips and Tricks',
             href: '/docs/woql-tips-and-tricks-1',
+          },
+          {
+            title: 'Time & Date Processing',
+            href: '/docs/time-processing',
+          },
+        ],
+      },
+      {
+        title: 'Time & Date Processing',
+        href: '/docs/time-processing',
+        links: [
+          {
+            title: '1. Dates & Range Queries',
+            href: '/docs/time-tutorial-dates',
+          },
+          {
+            title: '2. Durations & Sequences',
+            href: '/docs/time-tutorial-durations',
+          },
+          {
+            title: '3. Intervals & Allen\'s Algebra',
+            href: '/docs/time-tutorial-intervals',
+          },
+          {
+            title: '4. Creative Patterns',
+            href: '/docs/time-tutorial-patterns',
+          },
+          {
+            title: 'Time Predicate Reference',
+            href: '/docs/woql-time-handling',
+          },
+          {
+            title: 'Allen\'s Interval Algebra',
+            href: '/docs/woql-interval-algebra',
+          },
+          {
+            title: 'EOM Preservation Rules',
+            href: '/docs/woql-eom-rules',
           },
         ],
       },

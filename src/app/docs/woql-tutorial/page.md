@@ -26,13 +26,15 @@ This tutorial teaches WOQL from scratch through interactive examples you can edi
 
 ## Before You Start
 
-Start a TerminusDB instance. The quickest way is Docker:
+**Start TerminusDB** using Docker:
 
 ```bash
 docker run --rm -p 6363:6363 terminusdb/terminusdb-server
 ```
 
-Once the server is running, click **Run** on each setup step below — in order — to create the tutorial database, schema, and sample data. All steps use the default credentials `admin:root`. Click **Settings** on any step to change the server URL or credentials.
+**That's it!** The first examples (Steps 1-6) work against the `_system` database and don't need any setup. They're pure logic exercises.
+
+**When you reach Step 7** (reading triples from actual data), you'll need to create the tutorial database. Run the three setup steps below **in order** before continuing to Step 7.
 
 ### Setup Step 1: Create the Database
 
@@ -142,7 +144,7 @@ From here on, the examples use whichever style fits best: `"v:name"` for one-off
 
 Every document in TerminusDB is stored as a set of *triples*: subject–predicate–object. The `triple` predicate matches these.
 
-{% woql-playground code="triple(\"v:person\", \"name\", \"v:name\")" title="Step 7: triple — Read Properties" description="Find every person's name. v:person gets the document ID, v:name gets the value." /%}
+{% woql-playground database="woql_tutorial" code="triple(\"v:person\", \"name\", \"v:name\")" title="Step 7: triple — Read Properties" description="Find every person's name. v:person gets the document ID, v:name gets the value." /%}
 
 **What happened:** WOQL scanned all triples where the predicate is `name` and returned each match as a row. The `v:person` variable holds the document identifier (like `Person/Alice`), and `v:name` holds the string value.
 
@@ -154,7 +156,7 @@ Triples are the atoms of TerminusDB. Documents are assembled from triples, and `
 
 When two `triple` calls share a variable, WOQL naturally joins them — like a SQL join, but implicit. This is where dot syntax shines: the shared variable is obvious at a glance.
 
-{% woql-playground code="let v = Vars(\"person\", \"name\", \"age\")\nand(\n  triple(v.person, \"name\", v.name),\n  triple(v.person, \"age\", v.age)\n)" title="Step 8: Join — Shared Variable" description="v.person appears in both triples, so they match on the same document." /%}
+{% woql-playground database="woql_tutorial" code="let v = Vars(\"person\", \"name\", \"age\")\nand(\n  triple(v.person, \"name\", v.name),\n  triple(v.person, \"age\", v.age)\n)" title="Step 8: Join — Shared Variable" description="v.person appears in both triples, so they match on the same document." /%}
 
 **What happened:** Because `v.person` appears in both `triple` calls, WOQL ensures they refer to the same document. For each person, you get their name *and* their age in the same row. This is a natural join — no explicit JOIN keyword needed. This is also called "unification".
 
@@ -164,7 +166,7 @@ When two `triple` calls share a variable, WOQL naturally joins them — like a S
 
 `isa` checks if a document is of a specific type. Useful when your database has multiple classes.
 
-{% woql-playground code="let v = Vars(\"doc\", \"name\")\nand(\n  triple(v.doc, \"name\", v.name),\n  isa(v.doc, \"Person\")\n)" title="Step 9: isa — Type Check" description="Only match documents that are of type Person." /%}
+{% woql-playground database="woql_tutorial" code="let v = Vars(\"doc\", \"name\")\nand(\n  triple(v.doc, \"name\", v.name),\n  isa(v.doc, \"Person\")\n)" title="Step 9: isa — Type Check" description="Only match documents that are of type Person." /%}
 
 ---
 
@@ -172,7 +174,7 @@ When two `triple` calls share a variable, WOQL naturally joins them — like a S
 
 Instead of extracting individual triples, `read_document` gives you the full JSON document.
 
-{% woql-playground code="let v = Vars(\"id\", \"doc\")\nand(\n  isa(v.id, \"Person\"),\n  read_document(v.id, v.doc)\n)" title="Step 10: read_document — Full Documents" description="v.doc contains the complete JSON document, not just a single property." /%}
+{% woql-playground database="woql_tutorial" code="let v = Vars(\"id\", \"doc\")\nand(\n  isa(v.id, \"Person\"),\n  read_document(v.id, v.doc)\n)" title="Step 10: read_document — Full Documents" description="v.doc contains the complete JSON document, not just a single property." /%}
 
 **What happened:** `read_document` assembled all the triples for each document into a complete JSON object — including nested subdocuments if any existed. Use `triple` when you need specific properties for filtering or joining; use `read_document` when you want the whole thing.
 
@@ -184,7 +186,7 @@ Instead of extracting individual triples, `read_document` gives you the full JSO
 
 `greater` and `less` compare values. Combined with `triple`, they filter results.
 
-{% woql-playground code="and(\n  triple(\"v:person\", \"name\", \"v:name\"),\n  triple(\"v:person\", \"age\", \"v:age\"),\n  greater(\"v:age\", 30)\n)" title="Step 11: Filtering — People Over 30" description="Find people whose age is greater than 30." /%}
+{% woql-playground database="woql_tutorial" code="and(\n  triple(\"v:person\", \"name\", \"v:name\"),\n  triple(\"v:person\", \"age\", \"v:age\"),\n  greater(\"v:age\", 30)\n)" title="Step 11: Filtering — People Over 30" description="Find people whose age is greater than 30." /%}
 
 **What happened:** WOQL first matched all person names and ages, then kept only the rows where age > 30. The `greater` predicate acts as a filter — it doesn't generate new bindings, it eliminates rows that don't satisfy the condition.
 
@@ -194,7 +196,7 @@ Instead of extracting individual triples, `read_document` gives you the full JSO
 
 You can match a specific property value by putting a literal in the object position of a `triple`.
 
-{% woql-playground code="and(\n  triple(\"v:person\", \"city\", literal(\"New York\", \"xsd:string\")),\n  triple(\"v:person\", \"name\", \"v:name\")\n)" title="Step 12: Exact Match" description="Find people in New York. The literal() wraps the string with its XSD type." /%}
+{% woql-playground database="woql_tutorial" code="and(\n  triple(\"v:person\", \"city\", literal(\"New York\", \"xsd:string\")),\n  triple(\"v:person\", \"name\", \"v:name\")\n)" title="Step 12: Exact Match" description="Find people in New York. The literal() wraps the string with its XSD type." /%}
 
 **Why `literal()`?** Properties in TerminusDB are stored as typed RDF values. The `city` field is `xsd:string`, so matching against it requires a typed literal, not a bare string. `literal(value, type)` creates the right wrapper.
 
@@ -204,7 +206,7 @@ You can match a specific property value by putting a literal in the object posit
 
 Some fields are optional — not every Person has an email. `opt` succeeds even when the inner pattern fails.
 
-{% woql-playground code="and(\n  triple(\"v:person\", \"name\", \"v:name\"),\n  opt(triple(\"v:person\", \"email\", \"v:email\"))\n)" title="Step 13: opt — Optional Properties" description="Get names and emails. People without email still appear (with email unbound)." /%}
+{% woql-playground database="woql_tutorial" code="and(\n  triple(\"v:person\", \"name\", \"v:name\"),\n  opt(triple(\"v:person\", \"email\", \"v:email\"))\n)" title="Step 13: opt — Optional Properties" description="Get names and emails. People without email still appear (with email unbound)." /%}
 
 **What happened:** Everyone appears in the results. For people with email, `v:email` is bound. For people without, it's left unbound (empty). Without `opt`, people lacking email would be excluded entirely — the `triple` would fail to match and eliminate that row.
 
@@ -214,7 +216,7 @@ Some fields are optional — not every Person has an email. `opt` succeeds even 
 
 `not` succeeds when the inner pattern *fails*. Use it to find documents that are missing something.
 
-{% woql-playground code="and(\n  isa(\"v:person\", \"Person\"),\n  triple(\"v:person\", \"name\", \"v:name\"),\n  not(triple(\"v:person\", \"email\", \"v:email\"))\n)" title="Step 14: not — Missing Properties" description="Find people who do NOT have an email address." /%}
+{% woql-playground database="woql_tutorial" code="and(\n  isa(\"v:person\", \"Person\"),\n  triple(\"v:person\", \"name\", \"v:name\"),\n  not(triple(\"v:person\", \"email\", \"v:email\"))\n)" title="Step 14: not — Missing Properties" description="Find people who do NOT have an email address." /%}
 
 **What happened:** `not` inverts the match. The inner `triple` looks for email — where it succeeds, `not` fails (excluding that person). Where the inner pattern fails (no email exists), `not` succeeds. Carol and Eve have no email, so they appear.
 
@@ -224,7 +226,7 @@ Some fields are optional — not every Person has an email. `opt` succeeds even 
 
 Use `or` to match documents in multiple cities.
 
-{% woql-playground code="and(\n  triple(\"v:person\", \"name\", \"v:name\"),\n  or(\n    triple(\"v:person\", \"city\", literal(\"New York\", \"xsd:string\")),\n    triple(\"v:person\", \"city\", literal(\"San Francisco\", \"xsd:string\"))\n  ),\n  triple(\"v:person\", \"city\", \"v:city\")\n)" title="Step 15: or — Multiple Cities" description="People in New York OR San Francisco. The city appears in the results." /%}
+{% woql-playground database="woql_tutorial" code="and(\n  triple(\"v:person\", \"name\", \"v:name\"),\n  or(\n    triple(\"v:person\", \"city\", literal(\"New York\", \"xsd:string\")),\n    triple(\"v:person\", \"city\", literal(\"San Francisco\", \"xsd:string\"))\n  ),\n  triple(\"v:person\", \"city\", \"v:city\")\n)" title="Step 15: or — Multiple Cities" description="People in New York OR San Francisco. The city appears in the results." /%}
 
 ---
 
@@ -232,7 +234,7 @@ Use `or` to match documents in multiple cities.
 
 `order_by` sorts results; `limit` caps how many come back.
 
-{% woql-playground code="limit(3,\n  order_by(\"v:age\", \"asc\",\n    and(\n      triple(\"v:person\", \"name\", \"v:name\"),\n      triple(\"v:person\", \"age\", \"v:age\")\n    )\n  )\n)" title="Step 16: limit + order_by — Youngest 3" description="The three youngest people, sorted by age ascending." /%}
+{% woql-playground database="woql_tutorial" code="limit(3,\n  order_by(\"v:age\", \"asc\",\n    and(\n      triple(\"v:person\", \"name\", \"v:name\"),\n      triple(\"v:person\", \"age\", \"v:age\")\n    )\n  )\n)" title="Step 16: limit + order_by — Youngest 3" description="The three youngest people, sorted by age ascending." /%}
 
 ---
 
@@ -240,7 +242,7 @@ Use `or` to match documents in multiple cities.
 
 `group_by` collects results into groups. Combined with `length`, it counts.
 
-{% woql-playground code="and(\n  group_by(\n    [\"city\"],\n    [\"person\"],\n    \"v:city_group\",\n    and(\n      isa(\"v:person\", \"Person\"),\n      triple(\"v:person\", \"city\", \"v:city\")\n    )\n  ),\n  length(\"v:city_group\", \"v:count\")\n)" title="Step 17: group_by + length — Count Per City" description="How many people live in each city?" /%}
+{% woql-playground database="woql_tutorial" code="and(\n  group_by(\n    [\"city\"],\n    [\"person\"],\n    \"v:city_group\",\n    and(\n      isa(\"v:person\", \"Person\"),\n      triple(\"v:person\", \"city\", \"v:city\")\n    )\n  ),\n  length(\"v:city_group\", \"v:count\")\n)" title="Step 17: group_by + length — Count Per City" description="How many people live in each city?" /%}
 
 **What happened:** `group_by` groups the inner query results by city, collecting the person IDs into a list per city. Then `length` counts each group. This is pure WOQL aggregation — no client-side post-processing needed. Why is person empty? It's because it's within the group_by, so it's not part of the outer query. A select could have been used to select only the `city_group` and `city` from the `group_by`.
 
@@ -254,7 +256,7 @@ WOQL queries can read and write in the same transaction. All writes are atomic �
 
 `insert_document` adds a new document. The document must conform to the schema.
 
-{% woql-playground code="insert_document(\n  Doc({\n    \"@type\": \"Person\",\n    \"name\": \"Frank\",\n    \"age\": 27,\n    \"city\": \"Boston\"\n  }),\n  \"v:id\"\n)" title="Step 18: insert_document" description="Insert a new Person. Doc() converts the object to WOQL's internal format. v:id will contain the generated document ID." /%}
+{% woql-playground database="woql_tutorial" code="insert_document(\n  Doc({\n    \"@type\": \"Person\",\n    \"name\": \"Frank\",\n    \"age\": 27,\n    \"city\": \"Boston\"\n  }),\n  \"v:id\"\n)" title="Step 18: insert_document" description="Insert a new Person. Doc() converts the object to WOQL's internal format. v:id will contain the generated document ID." /%}
 
 After running, try going back to Step 7 and running it again — you should see Frank in the results.
 
@@ -264,7 +266,7 @@ After running, try going back to Step 7 and running it again — you should see 
 
 `update_document` replaces a document. You need to provide the full document with its `@id`.
 
-{% woql-playground code="update_document(\n  Doc({\n    \"@type\": \"Person\",\n    \"@id\": \"Person/Alice\",\n    \"name\": \"Alice\",\n    \"age\": 29,\n    \"city\": \"Boston\",\n    \"email\": \"alice@example.com\"\n  }),\n  \"v:id\"\n)" title="Step 19: update_document" description="Move Alice to Boston and update her age. Run Step 10 again to verify." /%}
+{% woql-playground database="woql_tutorial" code="update_document(\n  Doc({\n    \"@type\": \"Person\",\n    \"@id\": \"Person/Alice\",\n    \"name\": \"Alice\",\n    \"age\": 29,\n    \"city\": \"Boston\",\n    \"email\": \"alice@example.com\"\n  }),\n  \"v:id\"\n)" title="Step 19: update_document" description="Move Alice to Boston and update her age. Run Step 10 again to verify." /%}
 
 ---
 
@@ -272,7 +274,7 @@ After running, try going back to Step 7 and running it again — you should see 
 
 `delete_document` removes a document by its ID.
 
-{% woql-playground code="delete_document(\"Person/Frank\")" title="Step 20: delete_document" description="Remove Frank. Run Step 7 again to confirm he's gone." /%}
+{% woql-playground database="woql_tutorial" code="delete_document(\"Person/Frank\")" title="Step 20: delete_document" description="Remove Frank. Run Step 7 again to confirm he's gone." /%}
 
 ---
 
@@ -280,7 +282,7 @@ After running, try going back to Step 7 and running it again — you should see 
 
 The real power: combine reading and writing in a single query. Delete all people without an email address in one atomic operation.
 
-{% woql-playground code="and(\n  isa(\"v:id\", \"Person\"),\n  not(triple(\"v:id\", \"email\", \"v:email\")),\n  triple(\"v:id\", \"name\", \"v:name\"),\n  delete_document(\"v:id\")\n)" title="Step 21: Declarative Batch Delete" description="Find people without email AND delete them — all in one query. v:name shows who was deleted." /%}
+{% woql-playground database="woql_tutorial" code="and(\n  isa(\"v:id\", \"Person\"),\n  not(triple(\"v:id\", \"email\", \"v:email\")),\n  triple(\"v:id\", \"name\", \"v:name\"),\n  delete_document(\"v:id\")\n)" title="Step 21: Declarative Batch Delete" description="Find people without email AND delete them — all in one query. v:name shows who was deleted." /%}
 
 **What happened:** This is the kind of query that makes WOQL powerful. Instead of fetching IDs in one call and deleting in a loop, you describe the *pattern* of what to delete and WOQL handles the rest. The read part (`isa`, `not`, `triple`) identifies the targets; the write part (`delete_document`) acts on them. All atomically.
 
@@ -293,6 +295,7 @@ You've learned the fundamentals. Here's where to deepen each area:
 | Topic | Page |
 |-------|------|
 | Fluent vs. functional style | [WOQL Explanation](/docs/woql-explanation/) |
+| Data types, dicts, CSV & JSON | [Working with Data](/docs/woql-data-handling/) |
 | Variables and unification | [What is Unification?](/docs/what-is-unification/) |
 | Subdocument handling | [WOQL Subdocument Handling](/docs/woql-subdocument-handling/) |
 | Path queries (graph traversal) | [Path Queries](/docs/path-queries-in-woql/) |
@@ -300,6 +303,7 @@ You've learned the fundamentals. Here's where to deepen each area:
 | Schema queries | [Schema Queries](/docs/schema-queries-with-woql/) |
 | Range queries | [triple_slice Guide](/docs/woql-triple-slice/) |
 | Time and date handling | [Time Handling](/docs/woql-time-handling/) |
+| Backtracking, scope, and performance | [WOQL Control Flow](/docs/woql-control-flow/) |
 | Complete reference | [WOQL Class Reference](/docs/woql-class-reference-guide/) |
 
 ### Cleanup

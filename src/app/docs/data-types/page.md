@@ -46,7 +46,7 @@ For schema definition syntax, see the [Schema Reference Guide](/docs/schema-refe
 * RDF-specific literal types
 ---
 * **XDD Extensions**
-* `xdd:coordinate`, `xdd:coordinatePolygon`, `xdd:json`, `xdd:url`, `xdd:email`, `xdd:html`, range types
+* `xdd:coordinate`, `xdd:coordinatePolygon`, `xdd:json`, `xdd:url`, `xdd:email`, `xdd:html`, range types, `xdd:dateTimeInterval`
 * TerminusDB extension types for specialized data
 ---
 * **System**
@@ -98,7 +98,8 @@ xsd:anySimpleType
 ├── xsd:time
 ├── xsd:duration
 │   ├── xsd:yearMonthDuration
-│   └── xsd:dayTimeDuration
+│   ├── xsd:dayTimeDuration
+│   └── xdd:dateTimeInterval
 ├── xsd:gYear
 │   └── xdd:gYearRange
 ├── xsd:gMonth
@@ -741,6 +742,57 @@ Range types store a pair of values representing a range.
 * `[min, max]`
 * `[0.0, 1.0]`
 {% /table %}
+
+### xdd:dateTimeInterval
+
+ISO 8601 time interval with half-open semantics `[start, end]`. Inherits from `xsd:duration` and supports all four ISO 8601 interval forms. Designed for temporal algebra (Allen's Interval Algebra) and clean interval partitioning.
+
+{% table %}
+* Property
+* Value
+---
+* **IRI**
+* `http://terminusdb.com/schema/xdd#dateTimeInterval`
+---
+* **Parent**
+* `xsd:duration`
+---
+* **Semantics**
+* Half-open interval `[start, end]` — start is included, end is excluded
+---
+* **Forms**
+* Start/end: `2025-01-01/2025-04-01`, Start/duration: `2025-01-01/P3M`, Duration/end: `P3M/2025-04-01`, Duration only: `P3M`
+---
+* **Example**
+* `"2025-01-01/2025-04-01"`
+{% /table %}
+
+**Typecasting:**
+
+{% table %}
+* Direction
+* Behavior
+---
+* `xsd:string → xdd:dateTimeInterval`
+* Parses ISO 8601 interval notation (all four forms)
+---
+* `xdd:dateTimeInterval → xsd:string`
+* Formats to ISO 8601 interval notation
+---
+* `xdd:dateRange → xdd:dateTimeInterval`
+* Converts inclusive end to exclusive by adding one day: `[Jan 1, Mar 31]` → `Jan 1/Apr 1`
+---
+* `xdd:dateTimeInterval → xdd:dateRange`
+* Converts exclusive end to inclusive by subtracting one day: `Jan 1/Apr 1` → `[Jan 1, Mar 31]`
+---
+* `xsd:duration → xdd:dateTimeInterval`
+* Wraps duration as a form-4 (duration-only) interval
+---
+* `xdd:dateTimeInterval → xsd:duration`
+* Extracts the duration component from the interval
+{% /table %}
+
+For detailed usage, see the [Allen's Interval Algebra guide](/docs/woql-interval-algebra/).
 
 ---
 

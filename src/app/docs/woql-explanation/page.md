@@ -241,6 +241,7 @@ WOQL goes a step beyond supporting prefixes by automatically applying prefixes w
 Read more:
 * the [Unification of Variables](/docs/unification-of-variables-in-datalog/)
 * how to [Query with WOQL](/docs/how-to-query-with-woql/).
+* [WOQL Control Flow](/docs/woql-control-flow/) — backtracking, variable scope, and performance
 * [WOQL Getting Started](/docs/woql-getting-started/) guide for more examples and putting it all together!
 * [JavaScript](/docs/javascript/) and [Python](/docs/python/) WOQL Reference guides
 
