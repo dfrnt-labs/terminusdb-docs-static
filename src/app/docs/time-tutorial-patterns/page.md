@@ -55,7 +55,7 @@ Financial systems need to know which dates are business days. WOQL has no built-
 
 ### Step 2: Count business days in a month
 
-{% woql-playground code="let v = Vars(\"date\", \"dow\", \"dates\", \"count\")\nand(\n  group_by([], [\"date\"], v.dates,\n    and(\n      sequence(v.date,\n        literal(\"2025-01-01\", \"xsd:date\"),\n        literal(\"2025-02-01\", \"xsd:date\")),\n      weekday(v.date, v.dow),\n      lte(v.dow, 5)\n    )\n  ),\n  length(v.dates, v.count)\n)" title="Step 2: Count business days" description="How many business days in January 2025?" /%}
+{% woql-playground code="let v = Vars(\"date\", \"dow\", \"days\", \"count\", \"show_date\")\nand(\n  group_by([], [\"show_date\"], v.days,\n    and(\n      sequence(v.date,\n        literal(\"2025-01-01\", \"xsd:date\"),\n        literal(\"2025-02-01\", \"xsd:date\")),\n      weekday(v.date, v.dow),\n      lte(v.dow, 5),\n      typecast(v.date, \"xsd:string\", v.show_date),\n    )\n  ),\n  length(v.days, v.count)\n)" title="Step 2: Count business days" description="How many business days in January 2025? Converts dates to strings before collecting, then counts." /%}
 
 ### Step 3: Find month-end dates that fall on weekdays
 

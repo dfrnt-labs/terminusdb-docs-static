@@ -158,6 +158,58 @@ export const navigation: Navigation[] = [
   },
 
   // ============================================================
+  // SECTION: ENTERPRISE
+  // Goal: Document enterprise-only features and configuration
+  // ============================================================
+  {
+    title: 'Enterprise',
+    links: [
+      {
+        title: 'Overview',
+        href: '/docs/enterprise',
+      },
+      {
+        title: 'Document Formats',
+        href: '/docs/enterprise-document-formats',
+        links: [
+          {
+            title: 'JSON-LD Context',
+            href: '/docs/enterprise-jsonld-context',
+          },
+          {
+            title: 'RDF/XML Support',
+            href: '/docs/enterprise-rdfxml',
+          },
+          {
+            title: 'Turtle Support',
+            href: '/docs/enterprise-turtle',
+          },
+          {
+            title: 'curl Tutorial',
+            href: '/docs/document-format-api-curl-tutorial',
+          },
+        ],
+      },
+      {
+        title: 'Context Cache',
+        href: '/docs/enterprise-context-cache',
+      },
+      {
+        title: 'Backup & Restore',
+        href: '/docs/enterprise-backup-restore',
+      },
+      {
+        title: 'Observability',
+        href: '/docs/enterprise-observability',
+      },
+      {
+        title: 'Configuration',
+        href: '/docs/enterprise-configuration',
+      },
+    ],
+  },
+
+  // ============================================================
   // SECTION 2: UNDERSTAND (Core Concepts)
   // Goal: Build mental models for how TerminusDB works
   // ============================================================

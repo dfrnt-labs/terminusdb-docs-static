@@ -39,6 +39,30 @@ TerminusDB includes a Git-for-data feature that also allows you to query across 
 
 This guide shows how to use WOQL to query a TerminusDB data product that has many graphs, or between completely separate data products.
 
+## Time Processing
+
+TerminusDB has built-in support for ISO 8601 dates, times, durations, and intervals. These tutorials progress from basic date comparisons through to solving real business problems with temporal logic.
+
+* [ISO 8601 Time Processing in TerminusDB](/docs/time-processing)
+
+Overview of TerminusDB's temporal capabilities and why correct time handling matters for financial reporting, scheduling, and data integration.
+
+* [Tutorial 1: Dates, Comparisons & Range Queries](/docs/time-tutorial-dates)
+
+Date representation, comparison predicates, half-open range filtering, and the as-of vs period query pattern.
+
+* [Tutorial 2: Durations, Month Arithmetic & Sequences](/docs/time-tutorial-durations)
+
+Duration arithmetic, end-of-month preservation, sequence generation, weekday extraction, and month boundary predicates.
+
+* [Tutorial 3: Intervals & Allen's Temporal Algebra](/docs/time-tutorial-intervals)
+
+Interval construction, deconstruction, and Allen's 13 temporal relations for verifying how periods relate to each other.
+
+* [Tutorial 4: Creative Temporal Patterns](/docs/time-tutorial-patterns)
+
+Solving real business problems by composing temporal predicates — business day calendars, fiscal period construction, gap and overlap detection.
+
 ## Pattern Generation
 
 In this guide, we show how to use WOQL to query a TerminusDB database with pattern generation.
