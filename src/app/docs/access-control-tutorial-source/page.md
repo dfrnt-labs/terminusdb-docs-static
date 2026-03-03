@@ -19,7 +19,7 @@ This page provides a detailed walkthrough of the access control tutorial code. T
 Import the TerminusDB client and set up the configuration:
 
 ```javascript
-/* Import terminusdb-client */
+/* Import terminusdb */
 const TerminusClient = require("terminusdb")
 
 /* Import the list of allowed actions */

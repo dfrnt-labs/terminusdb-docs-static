@@ -23,5 +23,5 @@ $ source ~/.virtualenvs/terminusdb/bin/activate
 Then we can install using pip:
 
 ```bash
-$ python3 -m pip install terminusdb-client
+$ python3 -m pip install terminusdb
 ```
