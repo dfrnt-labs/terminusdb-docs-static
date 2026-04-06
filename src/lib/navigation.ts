@@ -744,6 +744,10 @@ export const navigation: Navigation[] = [
             title: 'Insertion API',
             href: '/docs/document-insertion',
           },
+          {
+            title: 'Language Strings',
+            href: '/docs/language-strings-with-curl',
+          },
         ],
       },
       {
