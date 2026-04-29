@@ -185,7 +185,13 @@ The documents to be submitted are given as post data. Multiple documents can be 
 
 - merge\_repeats
 - false
-- If true, merge repeated values rather than treating them as errors.
+- If true, duplicate document IDs in the same request are silently merged instead of causing an error.
+
+---
+
+- overwrite
+- false
+- If true, existing documents with the same ID will be overwritten instead of causing an error. This enables upsert behavior.
 
 ---
 
@@ -254,6 +260,12 @@ The documents to be submitted are given as post data. Multiple documents can be 
 - require\_migration
 - false
 - If true, require that a schema migration is specified when the schema changes.
+
+---
+
+- merge\_repeats
+- false
+- If true, duplicate document IDs in the same request are silently merged instead of causing an error.
 
 ---
 
