@@ -38,7 +38,7 @@ If the command hangs or returns a connection error: Docker may not be running, p
 
 ## Step 2 — Clone a ready-made dataset
 
-Skip the manual database creation and start with real data immediately:
+Skip the manual database creation and start with real data immediately by cloning a data product to your local terminusdb running in docker:
 
 {% quickstart-clone /%}
 

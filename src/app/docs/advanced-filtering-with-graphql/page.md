@@ -16,7 +16,7 @@ nextjs:
 > curl -u admin:root -X POST http://localhost:6363/api/clone/admin/star-wars \
 >   -H "Content-Type: application/json" \
 >   -H "Authorization-Remote: Basic cHVibGljOnB1YmxpYw==" \
->   -d '{"remote_url": "https://data.terminusdb.org/admin/star-wars", "label": "Star Wars", "comment": "Star Wars dataset"}'
+>   -d '{"remote_url": "https://data.terminusdb.org/public/star-wars", "label": "Star Wars", "comment": "Star Wars dataset"}'
 > ```
 
 TerminusDB exposes a _filter_ object, which can be used to select specific documents. See here for basic [Filtering](/docs/filter-with-graphql/)

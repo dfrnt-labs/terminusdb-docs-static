@@ -36,7 +36,7 @@ Pull the entire Star Wars dataset from the public templates server to your local
 curl -u admin:root -X POST http://localhost:6363/api/clone/admin/star-wars \
   -H "Content-Type: application/json" \
   -d '{
-    "remote_url": "https://data.terminusdb.org/admin/star-wars",
+    "remote_url": "https://data.terminusdb.org/public/star-wars",
     "label": "Star Wars",
     "comment": "Cloned from public templates server"
   }'

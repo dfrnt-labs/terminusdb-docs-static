@@ -23,7 +23,7 @@ interface QuickstartCloneProps {
 const REMOTE_AUTH_HEADER = "Basic cHVibGljOnB1YmxpYw=="
 
 export function QuickstartClone({
-  remoteUrl = "https://data.terminusdb.org/admin/star-wars",
+  remoteUrl = "https://data.terminusdb.org/public/star-wars",
   localPath = "star-wars",
   label = "Clone Quickstart Database",
 }: QuickstartCloneProps) {

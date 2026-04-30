@@ -2150,7 +2150,7 @@
               "name": "using",
               "summary": "Query running against any specific commit Id",
               "examples": [
-                "let [a, b, c] = vars(\"a\", \"b\", \"c\")\nWOQL.using(\"userName/dbName/local/commit|branch/commitID\").triple(a, b, c)"
+                "let [a, b, c] = vars(\"a\", \"b\", \"c\")\nWOQL.using(\"userName/dbName/local/commit|branch/commitID|branchname\").triple(a, b, c)"
               ],
               "section": null,
               "parameters": [
@@ -2370,7 +2370,9 @@
               "@type": "Definition",
               "name": "triple",
               "summary": "Creates a triple pattern matching rule for the triple [S, P, O] (Subject, Predicate, Object)",
-              "examples": [],
+              "examples": [
+                "triple(\"v:subject\", \"v:predicate\", \"v:object\");\n// Matches when the variables are set, and queries variables that are not set"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2402,7 +2404,9 @@
               "@type": "Definition",
               "name": "triple_slice",
               "summary": "Creates a triple pattern matching rule for the triple [S, P, O] with a half-open\nvalue range [Low, High) on the object. Returns triples whose typed object value\nfalls within the specified range.",
-              "examples": [],
+              "examples": [
+                "triple_slice(\"v:subject\", \"v:predicate\", \"v:object\", literal(10, \"integer\"), literal(100, \"integer\"));\n// Queries the range of values with very high performance thanks to succinct data structures"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2446,7 +2450,9 @@
               "@type": "Definition",
               "name": "quad_slice",
               "summary": "Creates a triple pattern matching rule for the quad [S, P, O, G] with a half-open\nvalue range [Low, High) on the object and an explicit graph selector.",
-              "examples": [],
+              "examples": [
+                "quad_slice(\n  \"v:subject\",\n  \"v:predicate\",\n  \"v:object\",\n  literal(10, \"integer\"),\n  literal(100, \"integer\"),\n  \"v:graph\"\n);\n// Queries the range of values with very high performance thanks to succinct data structures"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2496,7 +2502,9 @@
               "@type": "Definition",
               "name": "triple_slice_rev",
               "summary": "Creates a triple pattern matching rule for the triple [S, P, O] with a half-open\nvalue range [Low, High) on the object, returning results in reverse (descending)\nobject order. Same semantics as triple_slice but iterates from highest to lowest.",
-              "examples": [],
+              "examples": [
+                "triple_slice_rev(\n  \"v:subject\",\n  \"v:predicate\",\n  \"v:object\",\n  literal(10, \"integer\"),\n  literal(100, \"integer\")\n);\n// Queries the range of values with very high performance thanks to succinct data structures, \nand retrieves in reverse order"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2540,7 +2548,9 @@
               "@type": "Definition",
               "name": "quad_slice_rev",
               "summary": "Creates a triple pattern matching rule for the quad [S, P, O, G] with a half-open\nvalue range [Low, High) on the object in reverse order, with an explicit graph selector.",
-              "examples": [],
+              "examples": [
+                "quad_slice_rev(\n  \"v:subject\",\n  \"v:predicate\",\n  \"v:object\",\n  literal(10, \"integer\"),\n  literal(100, \"integer\"),\n  \"v:graph\"\n);\n// Queries the range of values with very high performance thanks to succinct data structures"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2590,7 +2600,9 @@
               "@type": "Definition",
               "name": "triple_next",
               "summary": "Finds the next object value after a reference for a given subject-predicate pair.\nWhen object is bound and next is free, finds the smallest next > object.\nWhen next is bound and object is free, finds the largest object < next.",
-              "examples": [],
+              "examples": [
+                "triple_next(\"v:subject\", \"v:predicate\", \"v:object\", \"v:next\");\n// This is very helpful for navigating the stored triples fast"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2628,7 +2640,9 @@
               "@type": "Definition",
               "name": "quad_next",
               "summary": "Finds the next object value with an explicit graph selector.",
-              "examples": [],
+              "examples": [
+                "quad_next(\"v:subject\", \"v:predicate\", \"v:object\", \"v:next\", \"v:graph\");\n// This is very helpful for navigating the stored triples fast in a graph"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2672,7 +2686,9 @@
               "@type": "Definition",
               "name": "triple_previous",
               "summary": "Finds the previous object value before a reference for a given subject-predicate pair.\nWhen object is bound and previous is free, finds the largest previous < object.\nWhen previous is bound and object is free, finds the smallest object > previous.",
-              "examples": [],
+              "examples": [
+                "triple_previous(\"v:subject\", \"v:predicate\", \"v:object\", \"v:previous\");\n// This is very helpful for navigating the stored triples backwards"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2710,7 +2726,9 @@
               "@type": "Definition",
               "name": "quad_previous",
               "summary": "Finds the previous object value with an explicit graph selector.",
-              "examples": [],
+              "examples": [
+                "quad_previous(\"v:subject\", \"v:predicate\", \"v:object\", \"v:previous\", \"v:graph\");\n// This is very helpful for navigating the stored triples backwards in a graph"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2754,7 +2772,9 @@
               "@type": "Definition",
               "name": "added_triple",
               "summary": "Creates a triple pattern matching rule for the triple [S, P, O] (Subject, Predicate,\nObject) added in the current layer",
-              "examples": [],
+              "examples": [
+                "added_triple(\"v:subject\", \"v:predicate\", \"v:object\");\n// This helps to find which triples were added to the currently stored layer"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2785,8 +2805,10 @@
             {
               "@type": "Definition",
               "name": "removed_triple",
-              "summary": "Creates a triple pattern matching rule for the triple [S, P, O] (Subject, Predicate,\nObject) added in the current commit",
-              "examples": [],
+              "summary": "Creates a triple pattern matching rule for the triple [S, P, O] (Subject, Predicate,\nObject) removed in the current commit",
+              "examples": [
+                "removed_triple(\"v:subject\", \"v:predicate\", \"v:object\");\n// This helps to find which triples were removed from the currently stored layer"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2884,7 +2906,9 @@
               "@type": "Definition",
               "name": "quad",
               "summary": "Creates a pattern matching rule for the quad [S, P, O, G] (Subject, Predicate, Object, Graph)",
-              "examples": [],
+              "examples": [
+                "quad(\"v:subject\", \"v:predicate\", \"v:object\", \"v:graph\");\n// This helps to find triples in a specific graph (such as the \"schema\" graph)"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2922,7 +2946,9 @@
               "@type": "Definition",
               "name": "added_quad",
               "summary": "Creates a pattern matching rule for the quad [S, P, O, G] (Subject, Predicate,\nObject, Graph) removed from the current commit",
-              "examples": [],
+              "examples": [
+                "added_quad(\"v:subject\", \"v:predicate\", \"v:object\", \"v:graph\");\n// This helps to find which quads were added to the currently stored layer"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2960,7 +2986,9 @@
               "@type": "Definition",
               "name": "removed_quad",
               "summary": "Creates a pattern matching rule for the quad [S, P, O, G] (Subject, Predicate,\nObject, Graph) removed from the current commit",
-              "examples": [],
+              "examples": [
+                "removed_quad(\"v:subject\", \"v:predicate\", \"v:object\", \"v:graph\");\n// This helps to find which quads were removed from the currently stored layer"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -2998,7 +3026,9 @@
               "@type": "Definition",
               "name": "sub",
               "summary": "Returns true if ClassA subsumes ClassB, according to the current DB schema",
-              "examples": [],
+              "examples": [
+                "sub(\"v:classA\", \"v:classB\");\n// This helps to find if classA subsumes classB (classA is more specific than class B)"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -3025,7 +3055,9 @@
               "@type": "Definition",
               "name": "eq",
               "summary": "Matches if a is equal to b",
-              "examples": [],
+              "examples": [
+                "eq(\"v:varName\", \"v:varValue\");\n// This helps to match if varName is equal to varValue"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -3116,7 +3148,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
-                "summary": "A WOQLQuery which contains the get expression",
+                "summary": "A WOQLQuery which contains the get expression\nget(as(\"Name\", \"v:name\").as(\"Label\", \"v:label\")).post(\"file.csv\",{\"type\":\"csv\"}, \"post\")\n// map the column Name to variable name, Label>label, from the attached csv file \"file.csv\"",
                 "type": "WOQLQuery"
               }
             },
@@ -3156,7 +3188,9 @@
             {
               "@type": "Definition",
               "name": "as",
-              "examples": [],
+              "examples": [
+                "get(as(\"Name\", \"v:name\").as(\"Label\", \"v:label\")).post(\"file.csv\",{\"type\":\"csv\"}, \"post\")\n// map the column Name to variable name, Label>label, from the attached csv file \"file.csv\""
+              ],
               "section": null,
               "parameters": [
                 {
@@ -3203,7 +3237,7 @@
             {
               "@type": "Definition",
               "name": "post",
-              "summary": "Identifies a resource as a local path on the client, to be sent to the server through a\nHTTP POST request, with the format defined through the options",
+              "summary": "Identifies a resource attached to the POST request or\na local path on the client, to be sent to the server through a\nHTTP POST request, with the format defined through the options",
               "examples": [],
               "section": null,
               "parameters": [
@@ -3229,7 +3263,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
-                "summary": "A WOQLQuery which contains the Post resource identifier",
+                "summary": "A WOQLQuery which contains the Post resource identifier\nget(as(\"Name\", \"v:name\").as(\"Label\", \"v:label\")).post(\"file.csv\",{\"type\":\"csv\"}, \"post\")\n// map the column Name to variable name, Label>label, from the attached csv file \"file.csv\"",
                 "type": "WOQLQuery"
               }
             },
@@ -3272,7 +3306,9 @@
               "@type": "Definition",
               "name": "add_triple",
               "summary": "Adds triples according to the the pattern [subject,predicate,object]",
-              "examples": [],
+              "examples": [
+                "add_triple(\"john\", \"age\", 42)"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -3345,7 +3381,9 @@
               "@type": "Definition",
               "name": "add_quad",
               "summary": "Adds quads according to the pattern [S,P,O,G]",
-              "examples": [],
+              "examples": [
+                "add_quad(\"john\", \"age\", 42, \"schema\")"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -3702,7 +3740,7 @@
               "name": "less",
               "summary": "Compares the value of v1 against v2 and returns true if v1 is less than v2",
               "examples": [
-                "let [result] = vars(\"result\")\nless(1, 1.1).eq(result, literal(true, \"boolean\"))\n//result contains true"
+                "let [result, number] = vars(\"result\", \"number\")\nand(\n  eq(number, 1.1),\n  less(number, 1.2).eq(result, literal(true, \"boolean\"))\n)\n//result contains true"
               ],
               "section": null,
               "parameters": [
@@ -3731,7 +3769,7 @@
               "name": "greater",
               "summary": "Compares the value of v1 against v2 and returns true if v1 is greater than v2",
               "examples": [
-                "let [result] = vars(\"result\")\ngreater(1.2, 1.1).eq(result, literal(true, \"boolean\"))\n//result contains true"
+                "let [result, number] = vars(\"result\", \"number\")\nand(\n  eq(number, 1.2)\n  greater(number, 1.1).eq(result, literal(true, \"boolean\")),\n)\n//result contains true"
               ],
               "section": null,
               "parameters": [
@@ -3759,7 +3797,9 @@
               "@type": "Definition",
               "name": "gte",
               "summary": "Compares two values using greater-than-or-equal ordering.",
-              "examples": [],
+              "examples": [
+                "let [result, number] = vars(\"result\", \"number\")\nand(\n  eq(number, 1.2),\n  gte(number, 1.1).eq(result, literal(true, \"boolean\"))\n)"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -3785,7 +3825,9 @@
               "@type": "Definition",
               "name": "lte",
               "summary": "Compares two values using less-than-or-equal ordering.",
-              "examples": [],
+              "examples": [
+                "let [result, number] = vars(\"result\", \"number\")\nand(\n  eq(number, 1.1),\n  lte(number, 1.2).eq(result, literal(true, \"boolean\"))\n)"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -3811,7 +3853,9 @@
               "@type": "Definition",
               "name": "in_range",
               "summary": "Tests whether a value falls within a half-open range [start, end).\nSucceeds if start <= value < end.",
-              "examples": [],
+              "examples": [
+                "let [result, number] = vars(\"result\", \"number\")\nand(\n  eq(number, 1.1),\n  in_range(number, 1.0, 2.0).eq(result, literal(true, \"boolean\"))\n)"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -3842,8 +3886,10 @@
             {
               "@type": "Definition",
               "name": "sequence",
-              "summary": "Generates a sequence of values in the half-open range [start, end).\nWhen value is unbound, produces each value via backtracking.",
-              "examples": [],
+              "summary": "Generates a sequence of values in the half-open range [start, end).\nWhen value is unbound, produces each value via backtracking.\nCan also be used for matching",
+              "examples": [
+                "let [result] = vars(\"result\")\nand(\n  sequence(number, 1.0, 2.0, 0.1).eq(result, literal(true, \"boolean\"))\n)\n// solutions where number as 1.0, 1.1, ... , 1.9 get generated"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -3887,7 +3933,9 @@
               "@type": "Definition",
               "name": "month_start_date",
               "summary": "Computes the first day of the month for a given xsd:gYearMonth.",
-              "examples": [],
+              "examples": [
+                "month_start_date(\"2025-01\", \"v:date\");\n// \"v:...\" indicates date is a variable\n// date returns 2025-01-01"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -3913,7 +3961,9 @@
               "@type": "Definition",
               "name": "month_end_date",
               "summary": "Computes the last day of the month for a given xsd:gYearMonth. Handles leap years.",
-              "examples": [],
+              "examples": [
+                "// \"v:...\" indicates date is a variable\nmonth_end_date(literal(\"2000-02\",\"xsd:gYearMonth\"),\"v:date\")\n// date returns 2000-02-29"
+              ],
               "section": null,
               "parameters": [
                 {
@@ -3964,6 +4014,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "month_start_dates(\"v:date\", literal(\"2000-01-01\", \"xsd:date\"), literal(\"2001-01-01\", \"xsd:date\"))",
                 "type": "WOQLQuery"
               }
             },
@@ -3996,6 +4047,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "month_end_dates(\"v:date\", literal(\"2000-01-01\", \"xsd:date\"), literal(\"2001-01-01\", \"xsd:date\"))\n// 2000-01-31, 2000-02-29, ... ,  2000-12-31",
                 "type": "WOQLQuery"
               }
             },
@@ -4040,6 +4092,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "interval_relation(\"v:rel\", \"2000-01-01\", \"2001-01-01\", \"2000-06-01\", \"2000-12-31\")\n// \"contains\"",
                 "type": "WOQLQuery"
               }
             },
@@ -4072,6 +4125,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "interval_relation_typed(\n  \"v:rel\",\n  literal(\"2000-01-01T00:00:00/2001-01-01T00:00:00\",\"xdd:dateTimeInterval\"),\n  literal(\"2000-06-01T00:00:00/2000-12-31T23:59:59\", \"xdd:dateTimeInterval\")\n)\n// \"contains\"",
                 "type": "WOQLQuery"
               }
             },
@@ -4098,6 +4152,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "range_min([1, 2, 3], \"v:min\")\n// \"1\"",
                 "type": "WOQLQuery"
               }
             },
@@ -4124,6 +4179,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "range_max([1, 2, 3], \"v:max\")\n// \"3\"",
                 "type": "WOQLQuery"
               }
             },
@@ -4156,6 +4212,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "interval(literal(\"2000-01-01\", \"xsd:date\"), literal(\"2001-01-01\", \"xsd:date\"), \"v:interval\")\n// \"2000-01-01/2001-01-01\"",
                 "type": "WOQLQuery"
               }
             },
@@ -4188,6 +4245,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "interval_start_duration(\n  literal(\"2000-01-01\", \"xsd:date\"),\n  literal(\"P1Y\", \"xsd:duration\"),\n  \"v:interval\"\n)\n// \"2000-01-01/2001-01-01\"",
                 "type": "WOQLQuery"
               }
             },
@@ -4220,6 +4278,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "interval_duration_end(\n  literal(\"P1Y\", \"xsd:duration\"),\n  literal(\"2001-01-01\", \"xsd:date\"),\n  \"v:interval\"\n)\n// \"P1Y/2001-01-01\"",
                 "type": "WOQLQuery"
               }
             },
@@ -4246,6 +4305,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "day_after(literal(\"2000-02-28\", \"xsd:date\"), \"v:next\")\n// \"2000-02-29\"",
                 "type": "WOQLQuery"
               }
             },
@@ -4272,6 +4332,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "day_before(literal(\"2000-03-01\", \"xsd:date\"), \"v:previous\")\n// \"2000-02-29\"",
                 "type": "WOQLQuery"
               }
             },
@@ -4298,6 +4359,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "weekday(literal(\"2000-02-29\", \"xsd:date\"), \"v:weekday\")\n// 2",
                 "type": "WOQLQuery"
               }
             },
@@ -4324,6 +4386,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "weekday_sunday_start(literal(\"2000-02-29\", \"xsd:date\"), \"v:weekday\")\n// 3",
                 "type": "WOQLQuery"
               }
             },
@@ -4356,6 +4419,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "iso_week(literal(\"2000-02-29\", \"xsd:date\"), \"v:year\", \"v:week\")\n// 2000, 9",
                 "type": "WOQLQuery"
               }
             },
@@ -4388,6 +4452,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
+                "summary": "date_duration(literal(\"2000-01-31\", \"xsd:date\"), literal(\"2000-02-29\", \"xsd:date\"), \"v:duration\")\n// \"P29D\"",
                 "type": "WOQLQuery"
               }
             },
@@ -5134,7 +5199,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
-                "summary": "A WOQLQuery object containing the once sub Query",
+                "summary": "A WOQLQuery object containing the once sub Query\nsequence(\"v:number\", 1, 10, 1)\n// returns 9 generated solutions, 1..9\nonce(sequence(\"v:number\", 1, 10, 1))\n// returns only first generated solution, 1",
                 "type": "WOQLQuery"
               }
             },
@@ -5315,7 +5380,7 @@
               "returns": {
                 "@type": "Returns",
                 "name": "",
-                "summary": "A WOQLQuery which contains the collect expression",
+                "summary": "A WOQLQuery which contains the collect expression\ncollect([\"number\"], \"v:numbers\",\n  sequence(\"v:number\", 1, 10, 1),\n  // sequence generates 9 indepedent solutions, 1..9 ()\n)\n// numbers variable now has the list of numbers",
                 "type": "WOQLQuery"
               }
             },
@@ -5381,7 +5446,7 @@
               "name": "dot",
               "summary": "Extract the value of a key in a bound document.",
               "examples": [
-                "dot(\"v:doc\", \"name\", \"v:name\")"
+                "and(\n  eq(\"v:doc\", new doc({\"@type\": \"Person\", \"name\": \"John Doe\"})),\n  dot(\"v:doc\", \"name\", \"v:name\")\n)"
               ],
               "section": null,
               "parameters": [
@@ -5473,7 +5538,9 @@
               "@type": "Definition",
               "name": "type_of",
               "summary": "Returns true if 'elementId' is of type 'elementType', according to the current DB schema",
-              "examples": [],
+              "examples": [
+                "type_of(literal(\"string\", \"xsd:string\"), \"v:elementType\")\n// elementType is \"xsd:string\""
+              ],
               "section": null,
               "parameters": [
                 {

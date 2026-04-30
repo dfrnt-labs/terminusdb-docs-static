@@ -17,7 +17,7 @@ media: []
 > curl -u admin:root -X POST http://localhost:6363/api/clone/admin/star-wars \
 >   -H "Content-Type: application/json" \
 >   -H "Authorization-Remote: Basic cHVibGljOnB1YmxpYw==" \
->   -d '{"remote_url": "https://data.terminusdb.org/admin/star-wars", "label": "Star Wars", "comment": "Star Wars dataset"}'
+>   -d '{"remote_url": "https://data.terminusdb.org/public/star-wars", "label": "Star Wars", "comment": "Star Wars dataset"}'
 > ```
 
 ## Finding elements from the schema.
