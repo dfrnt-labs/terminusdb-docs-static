@@ -45,7 +45,7 @@ curl -u admin:root -X POST http://localhost:6363/api/clone/admin/ecommerce \
   -H "Content-Type: application/json" \
   -H "Authorization-Remote: Basic cHVibGljOnB1YmxpYw==" \
   -d '{
-    "remote_url": "https://data.terminusdb.org/public/ecommerce",
+    "remote_url": "https://data.terminusdb.org/admin/ecommerce",
     "label": "Ecommerce",
     "comment": "Ecommerce tutorial dataset"
   }'
