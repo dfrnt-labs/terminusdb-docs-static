@@ -41,7 +41,7 @@ export function ResultPanel({ state, result, error, serverUrl, fixture, onClear 
 
   return (
     <div
-      className={`hidden md:block border border-t-0 border-slate-200 dark:border-slate-700 border-l-[3px] ${borderClass} bg-slate-50 dark:bg-slate-800 rounded-b-lg overflow-hidden`}
+      className={`block border border-t-0 border-slate-200 dark:border-slate-700 border-l-[3px] ${borderClass} bg-slate-50 dark:bg-slate-800 rounded-b-lg overflow-hidden`}
       role={roleAttr}
       aria-label={state === "SUCCESS" ? "Execution result" : undefined}
       aria-live={ariaLive}
@@ -218,15 +218,37 @@ function SuccessBody({
 }
 
 function ErrorBody({ error, fixture }: { error: ExecutionError; fixture?: string }) {
+  const [expanded, setExpanded] = useState(false)
   const showFixtureHint = fixture && error.message.toLowerCase().includes("does not exist")
 
   return (
-    <div>
+    <div className="space-y-2">
       <pre className="text-xs text-red-700 dark:text-red-400 whitespace-pre-wrap font-mono">
         {error.message}
       </pre>
+      {error.detail && (
+        <div>
+          <button
+            onClick={() => setExpanded((v) => !v)}
+            className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors flex items-center gap-1"
+          >
+            <svg
+              className={`w-3 h-3 transition-transform ${expanded ? "rotate-90" : ""}`}
+              viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+            >
+              <path fillRule="evenodd" d="M7.293 4.293a1 1 0 011.414 0L14 9.586a1 1 0 010 1.414l-5.293 5.293a1 1 0 01-1.414-1.414L11.586 10 7.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+            {expanded ? "Hide" : "Show"} technical details
+          </button>
+          {expanded && (
+            <pre className="mt-2 text-xs text-slate-600 dark:text-slate-400 whitespace-pre-wrap font-mono bg-slate-100 dark:bg-slate-900 rounded p-2 max-h-64 overflow-y-auto">
+              {error.detail}
+            </pre>
+          )}
+        </div>
+      )}
       {showFixtureHint && (
-        <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 italic">
+        <p className="text-xs text-slate-500 dark:text-slate-400 italic">
           Hint: This example requires the &ldquo;{fixture}&rdquo; database. Run the setup example earlier on this page first.
         </p>
       )}

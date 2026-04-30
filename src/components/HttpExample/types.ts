@@ -1,4 +1,4 @@
-export type TabId = "curl" | "http"
+export type TabId = "curl" | "http" | "woql"
 
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
 
@@ -11,6 +11,7 @@ export interface ExecutionResult {
 
 export interface ExecutionError {
   message: string
+  detail?: string
   isNetworkError: boolean
   isCorsError: boolean
   isTimeout: boolean

@@ -9,6 +9,7 @@ export interface ExecutionResult {
 
 export interface ExecutionError {
   message: string
+  detail?: string
   isNetworkError: boolean
   isCorsError: boolean
   isTimeout: boolean

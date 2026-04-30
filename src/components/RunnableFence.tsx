@@ -281,17 +281,17 @@ function RunnableFenceInner({
 
         if (!response.ok) {
           let msg = `HTTP ${response.status}: ${response.statusText}`
+          let detail: string | undefined
           try {
             const errJson = JSON.parse(text)
             if (errJson["api:message"]) msg = errJson["api:message"]
             else if (errJson.message) msg = errJson.message
-            else msg += "\n" + text.slice(0, 500)
+            detail = JSON.stringify(errJson, null, 2)
           } catch {
-            msg += "\n" + text.slice(0, 500)
+            detail = text.slice(0, 2000) || undefined
           }
-          setError({ message: msg, isNetworkError: false, isCorsError: false, isTimeout: false })
+          setError({ message: msg, detail, isNetworkError: false, isCorsError: false, isTimeout: false })
           setState("ERROR")
-          setConnectionStatus("failed")
           trackEvent("code_run_error", {
             language: language || "unknown",
             heading: title || "unknown",

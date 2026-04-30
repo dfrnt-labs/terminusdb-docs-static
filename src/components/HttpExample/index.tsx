@@ -4,7 +4,9 @@ import React, { useState, useCallback, useRef, useEffect, useId } from "react"
 import { TabBar } from "./TabBar"
 import { CurlView } from "./CurlView"
 import { HttpView } from "./HttpView"
+import { WoqlView } from "./WoqlView"
 import { HttpExpected } from "./HttpExpected"
+import { HttpWoql } from "./HttpWoql"
 import { generateCurl } from "./curlGenerator"
 import { RunButton } from "../RunnableFence/RunButton"
 import { ResultPanel } from "../RunnableFence/ResultPanel"
@@ -37,6 +39,7 @@ const TIMEOUT_MS = 15000
  * - `/MyDatabase` → `/${db}` (database name, word-boundary aware)
  */
 function resolvePath(rawPath: string, user: string, db: string): string {
+  if (!rawPath) return rawPath
   return rawPath
     .replace(/\/admin\//, `/${user}/`)
     .replace(/\/MyDatabase\b/, `/${db}`)
@@ -48,8 +51,8 @@ function resolvePath(rawPath: string, user: string, db: string): string {
  * No curl parsing — all views and execution are generated from method/path/headers/body.
  */
 export function HttpExample({
-  method,
-  path,
+  method = "GET",
+  path = "",
   headers: headersAttr,
   fixture,
   id: exampleId,
@@ -59,6 +62,7 @@ export function HttpExample({
 }: HttpExampleComponentProps) {
   const instanceId = useId()
   const [state, setState] = useState<RunnableState>("IDLE")
+  // Default to "woql" tab when WOQL content is present, otherwise "curl"
   const [activeTab, setActiveTab] = useState<TabId>("curl")
   const [result, setResult] = useState<ExecutionResult | null>(null)
   const [error, setError] = useState<ExecutionError | null>(null)
@@ -77,20 +81,33 @@ export function HttpExample({
     }
   })()
 
-  // Extract body and expected output from children.
+  // Extract body, expected output, and WOQL code from children.
   // Markdoc renders tag content as React children (typically wrapped in <p> elements).
-  // If an {% http-expected %} child tag is present, we separate its content from the body.
-  const { body, expectedFromChild } = (() => {
-    if (!children) return { body: undefined, expectedFromChild: undefined }
-    const { bodyChildren, expectedChildren } = separateExpectedFromBody(children)
+  // If {% http-expected %} or {% http-woql %} child tags are present, we separate their
+  // content from the body.
+  const { body, expectedFromChild, woqlContent } = (() => {
+    if (!children) return { body: undefined, expectedFromChild: undefined, woqlContent: undefined }
+    const { bodyChildren, expectedChildren, woqlChildren } = separateSpecialChildren(children)
     const bodyText = extractTextFromChildren(bodyChildren)
     const bodyTrimmed = bodyText.trim()
     const expectedText = expectedChildren ? extractTextFromChildren(expectedChildren).trim() : undefined
+    const woqlText = woqlChildren ? extractTextFromChildren(woqlChildren).trim() : undefined
     return {
       body: bodyTrimmed.length > 0 ? bodyTrimmed : undefined,
       expectedFromChild: expectedText && expectedText.length > 0 ? expectedText : undefined,
+      woqlContent: woqlText && woqlText.length > 0 ? woqlText : undefined,
     }
   })()
+
+  // Default to WOQL tab when WOQL content is present
+  const hasWoql = Boolean(woqlContent)
+  useEffect(() => {
+    if (hasWoql) {
+      setActiveTab("woql")
+    }
+    // Only run on mount — hasWoql is stable for the lifetime of the component
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Expected output: prefer http-expected child tag, fall back to expect attribute
   const expectedOutput = expectedFromChild || expectAttr
@@ -195,17 +212,17 @@ export function HttpExample({
 
       if (!response.ok) {
         let msg = `HTTP ${response.status}: ${response.statusText}`
+        let detail: string | undefined
         try {
           const errJson = JSON.parse(text)
           if (errJson["api:message"]) msg = errJson["api:message"]
           else if (errJson.message) msg = errJson.message
-          else msg += "\n" + text.slice(0, 500)
+          detail = JSON.stringify(errJson, null, 2)
         } catch {
-          msg += "\n" + text.slice(0, 500)
+          detail = text.slice(0, 2000) || undefined
         }
-        setError({ message: msg, isNetworkError: false, isCorsError: false, isTimeout: false })
+        setError({ message: msg, detail, isNetworkError: false, isCorsError: false, isTimeout: false })
         setState("ERROR")
-        setConnectionStatus("failed")
         trackEvent("code_run_error", {
           language: "http-example",
           example_id: exampleId || "unknown",
@@ -223,9 +240,27 @@ export function HttpExample({
       }
 
       const execResult: ExecutionResult = { raw: resultData }
-      if (Array.isArray(resultData) && resultData.length > 0 && typeof resultData[0] === "object" && resultData[0] !== null) {
-        execResult.bindings = resultData as Record<string, unknown>[]
+
+      // Extract WOQL bindings from api:WoqlResponse wrapper and unwrap typed values
+      if (resultData && typeof resultData === "object" && !Array.isArray(resultData)) {
+        const obj = resultData as Record<string, unknown>
+        if (Array.isArray(obj["bindings"])) {
+          execResult.bindings = (obj["bindings"] as Record<string, unknown>[]).map(unwrapBindingRow)
+        }
+      } else if (Array.isArray(resultData) && resultData.length > 0 && typeof resultData[0] === "object" && resultData[0] !== null) {
+        execResult.bindings = (resultData as Record<string, unknown>[]).map(unwrapBindingRow)
       }
+
+      // Schema document list — show @id (class name) when result is a schema listing
+      if (Array.isArray(resultData)) {
+        const schemaItems = (resultData as Record<string, unknown>[]).filter(
+          (d) => d["@id"] && d["@type"] === "Class"
+        )
+        if (schemaItems.length > 0 && schemaItems.length === (resultData as unknown[]).length) {
+          execResult.bindings = schemaItems.map((d) => ({ Class: d["@id"] as string }))
+        }
+      }
+
       setResult(execResult)
       setState("SUCCESS")
       setConnectionStatus("connected")
@@ -288,7 +323,9 @@ export function HttpExample({
 
   // Copy handler — copies different content depending on active tab
   const copyToClipboard = useCallback(async () => {
-    if (activeTab === "curl") {
+    if (activeTab === "woql" && woqlContent) {
+      await navigator.clipboard.writeText(woqlContent)
+    } else if (activeTab === "curl") {
       const curl = generateCurl({
         method,
         path: resolvedPath,
@@ -316,7 +353,7 @@ export function HttpExample({
       await navigator.clipboard.writeText(lines.join("\n"))
     }
     setCopied(true)
-  }, [activeTab, method, resolvedPath, extraHeaders, body, settings, authHeader])
+  }, [activeTab, method, resolvedPath, extraHeaders, body, settings, authHeader, woqlContent])
 
   // Keyboard handler
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -348,7 +385,7 @@ export function HttpExample({
         <div className="group relative rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
           {/* Header with tabs, run button, and copy button */}
           <div className="flex items-center justify-between px-3 py-1.5 bg-slate-100 dark:bg-slate-800">
-            <TabBar activeTab={activeTab} onTabChange={setActiveTab} instanceId={instanceId} />
+            <TabBar activeTab={activeTab} onTabChange={setActiveTab} instanceId={instanceId} hasWoql={hasWoql} />
             <div className="flex items-center gap-1">
               {/* Status dot */}
               {state === "SUCCESS" && (
@@ -371,7 +408,10 @@ export function HttpExample({
             id={`panel-${activeTab}-${instanceId}`}
             aria-labelledby={`tab-${activeTab}-${instanceId}`}
           >
-            {activeTab === "curl" ? (
+            {activeTab === "woql" && woqlContent && (
+              <WoqlView code={woqlContent} />
+            )}
+            {activeTab === "curl" && (
               <CurlView
                 method={method}
                 path={resolvedPath}
@@ -381,7 +421,8 @@ export function HttpExample({
                 user={settings.user}
                 password={settings.password}
               />
-            ) : (
+            )}
+            {activeTab === "http" && (
               <div className="bg-slate-900">
                 <HttpView
                   method={method}
@@ -487,48 +528,46 @@ function ExpectedOutput({ content }: { content: string }) {
 }
 
 // ---------------------------------------------------------------------------
-// separateExpectedFromBody — splits children into body vs http-expected content
+// separateSpecialChildren — splits children into body, http-expected, and http-woql content
 // ---------------------------------------------------------------------------
 
 /**
- * Walks the React children tree to find HttpExpected elements.
- * Returns body children (everything except HttpExpected) and expected children separately.
+ * Walks the React children tree to find HttpExpected and HttpWoql elements.
+ * Returns body children (everything else), expected children, and woql children separately.
  *
- * Markdoc renders {% http-expected %}...{% /http-expected %} as an HttpExpected
- * React element inside the parent's children. We detect it by:
- * 1. Direct component reference comparison
- * 2. Checking the element type's displayName/name === "HttpExpected"
- * 3. Checking for data-http-expected prop
- *
- * Note: Markdoc may produce children as a flat array or nested inside wrapper elements.
- * We search both at the top level and one level deep (inside React.Fragment or wrapper divs).
+ * Markdoc renders {% http-expected %} and {% http-woql %} as React elements inside
+ * the parent's children tree. We detect them by prop sentinel, component reference,
+ * or displayName — in that priority order.
  */
-function separateExpectedFromBody(children: React.ReactNode): {
+function separateSpecialChildren(children: React.ReactNode): {
   bodyChildren: React.ReactNode
   expectedChildren: React.ReactNode | undefined
+  woqlChildren: React.ReactNode | undefined
 } {
-  if (!children) return { bodyChildren: children, expectedChildren: undefined }
+  if (!children) return { bodyChildren: children, expectedChildren: undefined, woqlChildren: undefined }
 
-  // Flatten children into an array for uniform processing
   const childArray = Array.isArray(children) ? children : [children]
 
   const bodyParts: React.ReactNode[] = []
   let expectedContent: React.ReactNode | undefined = undefined
+  let woqlContent: React.ReactNode | undefined = undefined
 
   for (const child of childArray) {
     if (isHttpExpectedElement(child)) {
-      // Direct match at top level
       const props = (child as React.ReactElement).props as Record<string, unknown>
       expectedContent = props.children as React.ReactNode
+    } else if (isHttpWoqlElement(child)) {
+      const props = (child as React.ReactElement).props as Record<string, unknown>
+      woqlContent = props.children as React.ReactNode
     } else if (React.isValidElement(child)) {
-      // Check if this element wraps an HttpExpected element (e.g., React.Fragment or div)
+      // Check if this wrapper element contains HttpExpected or HttpWoql
       const props = child.props as Record<string, unknown>
       const innerChildren = props.children as React.ReactNode
       if (innerChildren) {
-        const innerResult = findExpectedInChildren(innerChildren)
-        if (innerResult.found) {
-          expectedContent = innerResult.expectedContent
-          // Keep this wrapper but without the expected element
+        const innerResult = findSpecialInChildren(innerChildren)
+        if (innerResult.foundExpected) expectedContent = innerResult.expectedContent
+        if (innerResult.foundWoql) woqlContent = innerResult.woqlContent
+        if (innerResult.foundExpected || innerResult.foundWoql) {
           if (innerResult.remainingChildren !== undefined) {
             bodyParts.push(innerResult.remainingChildren)
           }
@@ -546,32 +585,38 @@ function separateExpectedFromBody(children: React.ReactNode): {
   return {
     bodyChildren: bodyParts.length === 0 ? undefined : bodyParts.length === 1 ? bodyParts[0] : bodyParts,
     expectedChildren: expectedContent,
+    woqlChildren: woqlContent,
   }
 }
 
 /**
- * Search one level deep inside children for an HttpExpected element.
- * Returns the expected content and the remaining children (body) without the expected element.
+ * Search one level deep inside children for HttpExpected and/or HttpWoql elements.
  */
-function findExpectedInChildren(children: React.ReactNode): {
-  found: boolean
+function findSpecialInChildren(children: React.ReactNode): {
+  foundExpected: boolean
+  foundWoql: boolean
   expectedContent?: React.ReactNode
+  woqlContent?: React.ReactNode
   remainingChildren?: React.ReactNode
 } {
-  if (!children) return { found: false }
+  if (!children) return { foundExpected: false, foundWoql: false }
 
-  // Check if the single child IS the expected element
   if (!Array.isArray(children)) {
     if (isHttpExpectedElement(children)) {
       const props = (children as React.ReactElement).props as Record<string, unknown>
-      return { found: true, expectedContent: props.children as React.ReactNode, remainingChildren: undefined }
+      return { foundExpected: true, foundWoql: false, expectedContent: props.children as React.ReactNode, remainingChildren: undefined }
     }
-    return { found: false }
+    if (isHttpWoqlElement(children)) {
+      const props = (children as React.ReactElement).props as Record<string, unknown>
+      return { foundExpected: false, foundWoql: true, woqlContent: props.children as React.ReactNode, remainingChildren: undefined }
+    }
+    return { foundExpected: false, foundWoql: false }
   }
 
-  // Array of children — look for HttpExpected among them
   let foundExpected = false
+  let foundWoql = false
   let expectedContent: React.ReactNode | undefined = undefined
+  let woqlContent: React.ReactNode | undefined = undefined
   const remaining: React.ReactNode[] = []
 
   for (const child of children) {
@@ -579,20 +624,26 @@ function findExpectedInChildren(children: React.ReactNode): {
       foundExpected = true
       const props = (child as React.ReactElement).props as Record<string, unknown>
       expectedContent = props.children as React.ReactNode
+    } else if (!foundWoql && isHttpWoqlElement(child)) {
+      foundWoql = true
+      const props = (child as React.ReactElement).props as Record<string, unknown>
+      woqlContent = props.children as React.ReactNode
     } else {
       remaining.push(child)
     }
   }
 
-  if (foundExpected) {
+  if (foundExpected || foundWoql) {
     return {
-      found: true,
+      foundExpected,
+      foundWoql,
       expectedContent,
+      woqlContent,
       remainingChildren: remaining.length === 0 ? undefined : remaining.length === 1 ? remaining[0] : remaining,
     }
   }
 
-  return { found: false }
+  return { foundExpected: false, foundWoql: false }
 }
 
 /**
@@ -619,6 +670,17 @@ function isHttpExpectedElement(node: React.ReactNode): boolean {
   // Strategy 4: Check by data-http-expected prop (fallback)
   if (props["data-http-expected"] === "true") return true
 
+  return false
+}
+
+function isHttpWoqlElement(node: React.ReactNode): boolean {
+  if (!React.isValidElement(node)) return false
+  const props = node.props as Record<string, unknown>
+  if (props.__isHttpWoql === true) return true
+  if (node.type === HttpWoql) return true
+  const type = node.type as { displayName?: string; name?: string }
+  if (type && (type.displayName === "HttpWoql" || type.name === "HttpWoql")) return true
+  if (props["data-http-woql"] === "true") return true
   return false
 }
 
@@ -651,5 +713,26 @@ function extractTextFromChildren(children: React.ReactNode): string {
   }
 
   return String(children)
+}
+
+// ---------------------------------------------------------------------------
+// unwrapBindingRow — unwrap TerminusDB typed values { "@type": "xsd:*", "@value": v }
+// ---------------------------------------------------------------------------
+
+function unwrapValue(v: unknown): unknown {
+  if (v && typeof v === "object" && !Array.isArray(v)) {
+    const obj = v as Record<string, unknown>
+    if ("@value" in obj) return obj["@value"]
+    if ("@id" in obj) return obj["@id"]
+  }
+  return v
+}
+
+function unwrapBindingRow(row: Record<string, unknown>): Record<string, unknown> {
+  const result: Record<string, unknown> = {}
+  for (const [key, val] of Object.entries(row)) {
+    result[key] = unwrapValue(val)
+  }
+  return result
 }
 

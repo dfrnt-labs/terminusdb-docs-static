@@ -40,22 +40,12 @@ You will clone a complete ecommerce database (customers, orders, order lines, pr
 
 Pull the entire ecommerce dataset from the public templates server to your local instance:
 
-```bash
-curl -u admin:root -X POST http://localhost:6363/api/clone/admin/ecommerce \
-  -H "Content-Type: application/json" \
-  -H "Authorization-Remote: Basic cHVibGljOnB1YmxpYw==" \
-  -d '{
-    "remote_url": "https://data.terminusdb.org/admin/ecommerce",
-    "label": "Ecommerce",
-    "comment": "Ecommerce tutorial dataset"
-  }'
-```
-
-Expected output:
-
-```json
+{% http-example method="POST" path="/api/clone/admin/ecommerce" fixture="ecommerce" headers='{"Authorization-Remote":"Basic cHVibGljOnB1YmxpYw=="}' %}
+{"remote_url": "https://data.terminusdb.org/public/ecommerce", "label": "Ecommerce", "comment": "Ecommerce tutorial dataset"}
+{% http-expected %}
 {"@type":"api:CloneResponse","api:status":"api:success"}
-```
+{% /http-expected %}
+{% /http-example %}
 
 You just pulled ~155 documents — customers, orders, products, and their relationships — from a public TerminusDB server to your local instance. The data is now yours to query, branch, and modify.
 
@@ -63,23 +53,15 @@ You just pulled ~155 documents — customers, orders, products, and their relati
 
 List the document types defined in the schema:
 
-```bash
-curl -s -u admin:root \
-  "http://localhost:6363/api/document/admin/ecommerce?graph_type=schema&as_list=true" \
-  | jq '.[].["@id"]'
-```
+{% http-example method="GET" path="/api/document/admin/ecommerce/local/branch/main?graph_type=schema&as_list=true" /%}
 
 You will see types: `Category`, `Customer`, `Order`, `OrderLine`, and `Product`.
 
-Count how many orders exist:
+List all orders (30 documents):
 
-```bash
-curl -s -u admin:root \
-  "http://localhost:6363/api/document/admin/ecommerce?type=Order&as_list=true&count=0" \
-  | jq 'length'
-```
+{% http-example method="GET" path="/api/document/admin/ecommerce/local/branch/main?type=Order&as_list=true" /%}
 
-Expected: 30 orders, 15 customers, 20 products, 84 order lines. All interconnected, all versioned.
+Expected: 30 orders, 15 customers, 20 products, 84 order lines. All interconnected, all versioned. Order totals are stored as `xsd:decimal` — arbitrary-precision exact arithmetic, not floating-point. Financial figures stay exact across every query, branch, and diff.
 
 ## Step 3 — Query: find processing orders with customer details
 
@@ -87,35 +69,35 @@ Show all orders still in "processing" status, with the customer's name and count
 
 In a relational database, this requires a JOIN: `SELECT o.order_id, o.total, c.name, c.country FROM orders o JOIN customers c ON o.customer_id = c.id WHERE o.status = 'processing'`. You declare the relationship in the query because the database does not know it intrinsically. In TerminusDB, an Order document has a `customer` field that *is* the link to a Customer document — you simply follow it:
 
-```bash
-curl -s -u admin:root -X POST \
-  "http://localhost:6363/api/woql/admin/ecommerce/local/branch/main" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": {
-      "@type": "And",
-      "and": [
-        {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Order"}, "predicate": {"@type": "NodeValue", "node": "status"}, "object": {"@type": "DataValue", "data": "processing"}},
-        {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Order"}, "predicate": {"@type": "NodeValue", "node": "order_id"}, "object": {"@type": "DataValue", "variable": "OrderId"}},
-        {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Order"}, "predicate": {"@type": "NodeValue", "node": "order_date"}, "object": {"@type": "DataValue", "variable": "OrderDate"}},
-        {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Order"}, "predicate": {"@type": "NodeValue", "node": "total"}, "object": {"@type": "DataValue", "variable": "Total"}},
-        {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Order"}, "predicate": {"@type": "NodeValue", "node": "customer"}, "object": {"@type": "NodeValue", "variable": "Customer"}},
-        {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Customer"}, "predicate": {"@type": "NodeValue", "node": "name"}, "object": {"@type": "DataValue", "variable": "CustomerName"}},
-        {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Customer"}, "predicate": {"@type": "NodeValue", "node": "country"}, "object": {"@type": "DataValue", "variable": "Country"}}
-      ]
-    }
-  }'
-```
+{% http-example method="POST" path="/api/woql/admin/ecommerce/local/branch/main" %}
+{% http-woql %}
+import TerminusClient from "@terminusdb/terminusdb-client";
 
-Expected output (3 results):
+const client = new TerminusClient.WOQLClient("http://localhost:6363", {
+  user: "admin",
+  organization: "admin",
+  key: "root",
+});
+client.db("ecommerce");
 
-```json
-[
-  {"OrderId": "ORD-0002", "OrderDate": "2024-03-19T...", "Total": 5235.93, "CustomerName": "...", "Country": "..."},
-  {"OrderId": "ORD-0003", "OrderDate": "2025-01-07T...", "Total": 1094.95, "CustomerName": "Ivan Petrov", "Country": "..."},
-  {"OrderId": "ORD-0020", "OrderDate": "2024-11-08T...", "Total": 649.91, "CustomerName": "Julia Santos", "Country": "..."}
-]
-```
+const WOQL = TerminusClient.WOQL;
+const query = WOQL.and(
+  WOQL.triple("v:Order", "status", WOQL.string("processing")),
+  WOQL.triple("v:Order", "order_id", "v:OrderId"),
+  WOQL.triple("v:Order", "total", "v:Total"),
+  WOQL.triple("v:Order", "customer", "v:Customer"),
+  WOQL.triple("v:Customer", "name", "v:CustomerName"),
+  WOQL.triple("v:Customer", "country", "v:Country")
+);
+
+const result = await client.query(query);
+console.log(result.bindings);
+{% /http-woql %}
+{"query": {"@type": "And", "and": [{"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Order"}, "predicate": {"@type": "NodeValue", "node": "status"}, "object": {"@type": "DataValue", "data": "processing"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Order"}, "predicate": {"@type": "NodeValue", "node": "order_id"}, "object": {"@type": "DataValue", "variable": "OrderId"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Order"}, "predicate": {"@type": "NodeValue", "node": "total"}, "object": {"@type": "DataValue", "variable": "Total"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Order"}, "predicate": {"@type": "NodeValue", "node": "customer"}, "object": {"@type": "NodeValue", "variable": "Customer"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Customer"}, "predicate": {"@type": "NodeValue", "node": "name"}, "object": {"@type": "DataValue", "variable": "CustomerName"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Customer"}, "predicate": {"@type": "NodeValue", "node": "country"}, "object": {"@type": "DataValue", "variable": "Country"}}]}}
+{% http-expected %}
+[{"OrderId": "ORD-0002", "Total": 5235.93, "CustomerName": "Hana Tanaka", "Country": "Japan"}, {"OrderId": "ORD-0019", "Total": 1094.95, "CustomerName": "Leila Okafor", "Country": "Nigeria"}, {"OrderId": "ORD-0030", "Total": 649.91, "CustomerName": "Erik Lindström", "Country": "Sweden"}]
+{% /http-expected %}
+{% /http-example %}
 
 You just traversed Order → Customer in a single query — no JOIN syntax, no ON clause, no foreign key declaration. TerminusDB follows document links natively. The `customer` field in Order *is* the link; the query simply walks it.
 
@@ -125,28 +107,21 @@ A processing order has been shipped. Update its status on a branch and see what 
 
 Create a branch called `fulfillment`:
 
-```bash
-curl -s -u admin:root -X POST \
-  "http://localhost:6363/api/branch/admin/ecommerce/local/branch/fulfillment" \
-  -H "Content-Type: application/json" \
-  -d '{"origin": "admin/ecommerce/local/branch/main"}'
-```
+{% http-example method="POST" path="/api/branch/admin/ecommerce/local/branch/fulfillment" %}
+{"origin": "admin/ecommerce/local/branch/main"}
+{% http-expected %}
+{"@type":"api:BranchResponse","api:status":"api:success"}
+{% /http-expected %}
+{% /http-example %}
 
 Update order ORD-0003 to "shipped" on the branch:
 
-```bash
-curl -s -u admin:root -X PUT \
-  "http://localhost:6363/api/document/admin/ecommerce/local/branch/fulfillment?author=warehouse@example.com&message=Ship+order+ORD-0003&raw_json=true" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "@id": "terminusdb:///data/Order/ORD-0003",
-    "order_id": "ORD-0003",
-    "customer": "Customer/ivan.petrov%40example.com",
-    "order_date": "2025-01-07T04:46:08.367Z",
-    "status": "shipped",
-    "total": 1094.95
-  }'
-```
+{% http-example method="PUT" path="/api/document/admin/ecommerce/local/branch/fulfillment?author=warehouse@example.com&message=Ship+order+ORD-0003" %}
+{"@id": "Order/ORD-0003", "@type": "Order", "order_id": "ORD-0003", "customer": "Customer/ivan.petrov%40example.com", "order_date": "2025-01-07T04:46:08.367Z", "status": "shipped", "total": 1094.95}
+{% http-expected %}
+["terminusdb:///data/Order/ORD-0003"]
+{% /http-expected %}
+{% /http-example %}
 
 You just updated one field — `status` from "processing" to "shipped" — on an isolated branch. Main still has the original state. Let's see exactly what changed.
 
@@ -154,29 +129,12 @@ You just updated one field — `status` from "processing" to "shipped" — on an
 
 In any other database, answering "what exactly changed in this order?" means querying an audit table, parsing CDC events, or comparing snapshots you exported. In TerminusDB, you ask the database directly — compare your `fulfillment` branch against `main`:
 
-```bash
-curl -s -u admin:root -X POST http://localhost:6363/api/diff \
-  -H "Content-Type: application/json" \
-  -d '{
-    "before_data_version": "admin/ecommerce/local/branch/main",
-    "after_data_version": "admin/ecommerce/local/branch/fulfillment"
-  }'
-```
-
-**Expected output — the reveal:**
-
-```json
-[
-  {
-    "@id": "terminusdb:///data/Order/ORD-0003",
-    "status": {
-      "@op": "SwapValue",
-      "@before": "processing",
-      "@after": "shipped"
-    }
-  }
-]
-```
+{% http-example method="POST" path="/api/diff/admin/ecommerce" %}
+{"before_data_version": "main", "after_data_version": "fulfillment"}
+{% http-expected %}
+[{"@id": "terminusdb:///data/Order/ORD-0003", "status": {"@op": "SwapValue", "@before": "processing", "@after": "shipped"}}]
+{% /http-expected %}
+{% /http-example %}
 
 One field changed. TerminusDB knows it was `status`, knows the old value ("processing") and the new value ("shipped"), and confirms nothing else was touched — not the customer reference, not the total, not the order date. This is **structural, not textual** — the database understands the document schema and reports typed operations (`SwapValue`), not line diffs.
 
@@ -186,12 +144,12 @@ This is your audit trail — automatic, precise, and queryable. No trigger table
 
 When you are satisfied with the change, merge the fulfillment branch back:
 
-```bash
-curl -s -u admin:root -X POST \
-  "http://localhost:6363/api/apply/admin/ecommerce/local/branch/main" \
-  -H "Content-Type: application/json" \
-  -d '{"before_commit": "main", "after_commit": "fulfillment", "commit_info": {"author": "warehouse@example.com", "message": "Merge fulfillment into main"}}'
-```
+{% http-example method="POST" path="/api/apply/admin/ecommerce/local/branch/main" %}
+{"before_commit": "main", "after_commit": "fulfillment", "commit_info": {"author": "warehouse@example.com", "message": "Merge fulfillment into main"}}
+{% http-expected %}
+{"@type":"api:ApplyResponse","api:status":"api:success"}
+{% /http-expected %}
+{% /http-example %}
 
 The order status change is now on main. The branch remains as a record of who changed what and when.
 

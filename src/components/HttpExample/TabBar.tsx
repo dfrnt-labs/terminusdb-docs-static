@@ -1,44 +1,53 @@
 "use client"
 
-import { useCallback, useRef } from "react"
+import { useCallback, useMemo, useRef } from "react"
 import type { TabId } from "./types"
 
 interface TabBarProps {
   activeTab: TabId
   onTabChange: (tab: TabId) => void
   instanceId: string
+  hasWoql?: boolean
 }
 
-const TABS: { id: TabId; label: string }[] = [
+const BASE_TABS: { id: TabId; label: string }[] = [
   { id: "curl", label: "curl" },
   { id: "http", label: "HTTP" },
 ]
 
+const WOQL_TAB: { id: TabId; label: string } = { id: "woql", label: "WOQL/JS" }
+
 /**
- * Two-tab header (curl | HTTP) with ARIA tablist semantics and keyboard navigation.
+ * Tab header (WOQL/JS | curl | HTTP) with ARIA tablist semantics and keyboard navigation.
+ * When hasWoql is true, prepends the WOQL/JS tab as the leftmost tab.
  */
-export function TabBar({ activeTab, onTabChange, instanceId }: TabBarProps) {
+export function TabBar({ activeTab, onTabChange, instanceId, hasWoql = false }: TabBarProps) {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
+
+  const tabs = useMemo(
+    () => (hasWoql ? [WOQL_TAB, ...BASE_TABS] : BASE_TABS),
+    [hasWoql]
+  )
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      const currentIndex = TABS.findIndex((t) => t.id === activeTab)
+      const currentIndex = tabs.findIndex((t) => t.id === activeTab)
       let nextIndex = currentIndex
 
       if (e.key === "ArrowRight") {
         e.preventDefault()
-        nextIndex = Math.min(currentIndex + 1, TABS.length - 1)
+        nextIndex = Math.min(currentIndex + 1, tabs.length - 1)
       } else if (e.key === "ArrowLeft") {
         e.preventDefault()
         nextIndex = Math.max(currentIndex - 1, 0)
       }
 
       if (nextIndex !== currentIndex) {
-        onTabChange(TABS[nextIndex].id)
+        onTabChange(tabs[nextIndex].id)
         tabRefs.current[nextIndex]?.focus()
       }
     },
-    [activeTab, onTabChange]
+    [activeTab, onTabChange, tabs]
   )
 
   return (
@@ -48,7 +57,7 @@ export function TabBar({ activeTab, onTabChange, instanceId }: TabBarProps) {
       className="flex items-center gap-4"
       onKeyDown={handleKeyDown}
     >
-      {TABS.map((tab, index) => {
+      {tabs.map((tab, index) => {
         const isActive = tab.id === activeTab
         return (
           <button

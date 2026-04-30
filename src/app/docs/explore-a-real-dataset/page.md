@@ -28,21 +28,12 @@ You will clone a complete Star Wars database (characters, films, planets, starsh
 
 Pull the entire Star Wars dataset from the public templates server to your local instance in one command:
 
-```bash
-curl -u admin:root -X POST http://localhost:6363/api/clone/admin/star-wars \
-  -H "Content-Type: application/json" \
-  -d '{
-    "remote_url": "https://data.terminusdb.org/public/star-wars",
-    "label": "Star Wars",
-    "comment": "Cloned from public templates server"
-  }'
-```
-
-Expected output:
-
-```json
+{% http-example method="POST" path="/api/clone/admin/star-wars" headers='{"Authorization-Remote":"Basic cHVibGljOnB1YmxpYw=="}' fixture="star-wars" %}
+{"remote_url": "https://data.terminusdb.org/public/star-wars", "label": "Star Wars", "comment": "Cloned from public templates server"}
+{% http-expected %}
 {"@type":"api:CloneResponse","api:status":"api:success"}
-```
+{% /http-expected %}
+{% /http-example %}
 
 You just pulled a complete Star Wars database — characters, films, planets, starships — from a public TerminusDB server to your local instance. No account needed, no sign-up, no credentials. The data is now yours to query, branch, and modify.
 
@@ -50,20 +41,13 @@ You just pulled a complete Star Wars database — characters, films, planets, st
 
 List the document types defined in the schema:
 
-```bash
-curl -s -u admin:root \
-  "http://localhost:6363/api/document/admin/star-wars/local/branch/main?graph_type=schema&as_list=true" \
-  | python3 -m json.tool
-```
+{% http-example method="GET" path="/api/document/admin/star-wars/local/branch/main?graph_type=schema&as_list=true" /%}
 
 You will see types including `Character`, `Film`, `Planet`, `Starship`, `Vehicle`, and `Species`.
 
 Count how many characters exist in the database:
 
-```bash
-curl -s -u admin:root \
-  "http://localhost:6363/api/document/admin/star-wars/local/branch/main?type=Character&count=true"
-```
+{% http-example method="GET" path="/api/document/admin/star-wars/local/branch/main?type=Character&as_list=true" /%}
 
 You now have over 200 documents locally — characters, films, planets, ships, and species. All of Star Wars, versioned and queryable. Let's ask it some questions.
 
@@ -73,36 +57,9 @@ Which characters appear in "A New Hope" (Episode IV)?
 
 In a relational database, you would write a JOIN across a junction table: `SELECT c.name FROM characters c JOIN film_characters fc ON ... JOIN films f ON ... WHERE f.title = 'A New Hope'`. In TerminusDB, documents link directly to other documents — a Film has a `characters` property that points to Character documents. You traverse the link, not a junction table:
 
-```bash
-curl -s -u admin:root -X POST \
-  "http://localhost:6363/api/woql/admin/star-wars/local/branch/main" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": {
-      "@type": "And",
-      "and": [
-        {
-          "@type": "Triple",
-          "subject": {"@type": "NodeValue", "variable": "Film"},
-          "predicate": {"@type": "NodeValue", "node": "title"},
-          "object": {"@type": "DataValue", "data": "A New Hope"}
-        },
-        {
-          "@type": "Triple",
-          "subject": {"@type": "NodeValue", "variable": "Film"},
-          "predicate": {"@type": "NodeValue", "node": "characters"},
-          "object": {"@type": "NodeValue", "variable": "Character"}
-        },
-        {
-          "@type": "Triple",
-          "subject": {"@type": "NodeValue", "variable": "Character"},
-          "predicate": {"@type": "NodeValue", "node": "name"},
-          "object": {"@type": "DataValue", "variable": "CharacterName"}
-        }
-      ]
-    }
-  }'
-```
+{% http-example method="POST" path="/api/woql/admin/star-wars/local/branch/main" %}
+{"query": {"@type": "And", "and": [{"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Film"}, "predicate": {"@type": "NodeValue", "node": "title"}, "object": {"@type": "DataValue", "data": "A New Hope"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Film"}, "predicate": {"@type": "NodeValue", "node": "characters"}, "object": {"@type": "NodeValue", "variable": "Character"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Character"}, "predicate": {"@type": "NodeValue", "node": "name"}, "object": {"@type": "DataValue", "variable": "CharacterName"}}]}}
+{% /http-example %}
 
 Expected output includes character names: Luke Skywalker, Darth Vader, Leia Organa, Han Solo, Obi-Wan Kenobi, Chewbacca, R2-D2, C-3PO, and more.
 
@@ -137,28 +94,21 @@ What if Darth Vader had never turned to the dark side? Let's update his record o
 
 Create a branch called `what-if`:
 
-```bash
-curl -s -u admin:root -X POST \
-  "http://localhost:6363/api/branch/admin/star-wars/local/branch/what-if" \
-  -H "Content-Type: application/json" \
-  -d '{"origin": "admin/star-wars/local/branch/main"}'
-```
+{% http-example method="POST" path="/api/branch/admin/star-wars/local/branch/what-if" %}
+{"origin": "admin/star-wars/local/branch/main"}
+{% http-expected %}
+{"@type":"api:BranchResponse","api:status":"api:success"}
+{% /http-expected %}
+{% /http-example %}
 
 Now modify Darth Vader's record on the branch — rewriting him as Anakin Skywalker, Jedi. Change his name, allegiance, faction, and famous quote:
 
-```bash
-curl -s -u admin:root -X PUT \
-  "http://localhost:6363/api/document/admin/star-wars/local/branch/what-if?author=admin&message=What+if+Vader+stayed+good" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "@id": "terminusdb:///data/Person/Darth%20Vader",
-    "@type": "Person",
-    "name": "Anakin Skywalker",
-    "side": "Light Side",
-    "faction": "Jedi Order",
-    "quote": "You were right about me."
-  }'
-```
+{% http-example method="PUT" path="/api/document/admin/star-wars/local/branch/what-if?author=admin&message=What+if+Vader+stayed+good" %}
+{"@id": "terminusdb:///data/Person/Darth%20Vader", "@type": "Person", "name": "Anakin Skywalker", "side": "Light Side", "faction": "Jedi Order", "quote": "You were right about me."}
+{% http-expected %}
+["terminusdb:///data/Person/Darth%20Vader"]
+{% /http-expected %}
+{% /http-example %}
 
 You just rewrote history — on a branch. Main still has the original Darth Vader (Dark Side, Galactic Empire). Your `what-if` branch has Anakin Skywalker, redeemed Jedi. Notice the `@id` stays the same (`Person/Darth%20Vader`) — TerminusDB tracks object identity through changes, not content. Let's see exactly what changed.
 
@@ -166,28 +116,12 @@ You just rewrote history — on a branch. Main still has the original Darth Vade
 
 This is the moment. In any other database, answering "what changed between these two versions?" means writing audit triggers, maintaining changelog tables, or exporting both states and diffing them externally. In TerminusDB, you ask the database directly:
 
-```bash
-curl -s -u admin:root -X POST "http://localhost:6363/api/diff/admin/star-wars" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "before_data_version": "main",
-    "after_data_version": "what-if"
-  }'
-```
-
-**Expected output — the reveal:**
-
-```json
-[
-  {
-    "@id": "Person/Darth%20Vader",
-    "name": {"@op": "SwapValue", "@before": "Darth Vader", "@after": "Anakin Skywalker"},
-    "side": {"@op": "SwapValue", "@before": "Dark Side", "@after": "Light Side"},
-    "faction": {"@op": "SwapValue", "@before": "Galactic Empire", "@after": "Jedi Order"},
-    "quote": {"@op": "SwapValue", "@before": "I find your lack of faith disturbing.", "@after": "You were right about me."}
-  }
-]
-```
+{% http-example method="POST" path="/api/diff/admin/star-wars" %}
+{"before_data_version": "main", "after_data_version": "what-if"}
+{% http-expected %}
+[{"@id": "Person/Darth%20Vader", "name": {"@op": "SwapValue", "@before": "Darth Vader", "@after": "Anakin Skywalker"}, "side": {"@op": "SwapValue", "@before": "Dark Side", "@after": "Light Side"}, "faction": {"@op": "SwapValue", "@before": "Galactic Empire", "@after": "Jedi Order"}, "quote": {"@op": "SwapValue", "@before": "I find your lack of faith disturbing.", "@after": "You were right about me."}}]
+{% /http-expected %}
+{% /http-example %}
 
 This diff is **structural, not textual**. TerminusDB is not comparing strings line by line — it knows the document schema, understands which field changed, what the old value was, and what the new value is. Each change is a typed operation (`SwapValue`) that can be applied, reversed, or composed with other patches programmatically.
 

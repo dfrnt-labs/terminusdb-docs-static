@@ -13,6 +13,7 @@ import { ApiStep } from '@/components/ApiStep'
 import { QuickstartClone } from '@/components/QuickstartClone'
 import { HttpExample } from '@/components/HttpExample'
 import { HttpExpected } from '@/components/HttpExample/HttpExpected'
+import { HttpWoql } from '@/components/HttpExample/HttpWoql'
 
 const tags = {
   callout: {
@@ -234,6 +235,12 @@ const tags = {
     render: HttpExpected,
     attributes: {
       __isHttpExpected: { type: Boolean, default: true },
+    },
+  },
+  'http-woql': {
+    render: HttpWoql,
+    attributes: {
+      __isHttpWoql: { type: Boolean, default: true },
     },
   },
   'http-example-cleanup': {
