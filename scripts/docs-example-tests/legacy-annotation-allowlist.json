@@ -1,0 +1,7 @@
+[
+  "src/app/docs/connect-with-python-client/page.md",
+  "src/app/docs/connect-with-the-javascript-client/page.md",
+  "src/app/docs/get-started/page.md",
+  "src/app/docs/json-diff-and-patch/page.md",
+  "src/app/docs/rust-client-quickstart/page.md"
+]

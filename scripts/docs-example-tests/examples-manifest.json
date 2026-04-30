@@ -1,0 +1,65 @@
+[
+  {
+    "id": "connect-python-team-key",
+    "language": "python",
+    "source_file": "src/app/docs/connect-with-python-client/page.md",
+    "line": 49,
+    "code": "team=\"MyTeam\",\nclient = Client(\"http://localhost:6363/\")\nclient.connect(team=team, key=\"MyPassword\")  # key= replaced password= in TerminusDB Python client v1.1+"
+  },
+  {
+    "id": "connect-python-local-default",
+    "language": "python",
+    "source_file": "src/app/docs/connect-with-python-client/page.md",
+    "line": 57,
+    "code": "team=\"admin\",\nclient = Client(\"http://localhost:6363/\")\nclient.connect(team=team)"
+  },
+  {
+    "id": "diff-swap-with-keep",
+    "language": "bash",
+    "source_file": "src/app/docs/json-diff-and-patch/page.md",
+    "line": 400,
+    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : { \"asdf\" : \"foo\", \"fdsa\" : \"bar\"}, \"after\" : { \"asdf\" : \"bar\", \"fdsa\" : \"bar\"}, \"keep\" : { \"fdsa\" : true}}'"
+  },
+  {
+    "id": "diff-array-object-swap",
+    "language": "bash",
+    "source_file": "src/app/docs/json-diff-and-patch/page.md",
+    "line": 413,
+    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : [{ \"asdf\" : \"foo\"}], \"after\" : [{ \"asdf\" : \"bar\"}]}'"
+  },
+  {
+    "id": "diff-list-append",
+    "language": "bash",
+    "source_file": "src/app/docs/json-diff-and-patch/page.md",
+    "line": 423,
+    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : [0,1,2], \"after\" : [0,1,2,3]}'"
+  },
+  {
+    "id": "diff-list-append-copy-value",
+    "language": "bash",
+    "source_file": "src/app/docs/json-diff-and-patch/page.md",
+    "line": 442,
+    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : [0,1,2], \"after\" : [0,1,2,3], \"copy_value\" : true}'"
+  },
+  {
+    "id": "diff-nested-object-swap",
+    "language": "bash",
+    "source_file": "src/app/docs/json-diff-and-patch/page.md",
+    "line": 462,
+    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : { \"asdf\" : { \"fdsa\" : \"quux\"}}, \"after\" : { \"asdf\" : { \"fdsa\" : \"quuz\" }}}'"
+  },
+  {
+    "id": "patch-nested-object",
+    "language": "bash",
+    "source_file": "src/app/docs/json-diff-and-patch/page.md",
+    "line": 491,
+    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/patch' -d \\\n   '{ \"before\" : { \"alpha\" : 1, \"asdf\" : { \"fdsa\" : \"quux\"}}, \"patch\" : {\n      \"asdf\": {\"fdsa\": {\"@after\":\"quuz\", \"@before\":\"quux\", \"@op\":\"SwapValue\"}}\n}}'"
+  },
+  {
+    "id": "patch-list-append",
+    "language": "bash",
+    "source_file": "src/app/docs/json-diff-and-patch/page.md",
+    "line": 503,
+    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/patch' -d '\n{ \"before\" : [0,1,2], \"patch\" : {\n  \"@op\":\"CopyList\",\n  \"@rest\": {\n    \"@after\": [3 ],\n    \"@before\": [],\n    \"@op\":\"SwapList\",\n    \"@rest\": {\"@op\":\"KeepList\"}\n  },\n  \"@to\":3\n}}'"
+  }
+]
