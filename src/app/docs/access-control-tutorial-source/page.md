@@ -30,7 +30,7 @@ const { ACTIONS } = TerminusClient.UTILS
 const NO_KEY = "NO_KEY"
 
 /* TerminusDB server host url */
-const serverHost = "http://127.0.0.1:6363"
+const serverHost = "http://localhost:6363"
 ```
 
 Initialize the TerminusDB Client with the admin's credentials. Only the global admin can create Teams/Organizations and Users:

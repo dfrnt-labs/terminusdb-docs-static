@@ -1157,3 +1157,10 @@ accessControl.deleteAccessRequest("djjdshhsuuwewueueuiHYHYYW.......").then(resul
  console.log(result)
 })
 ```
+
+## Further reading
+
+- [Access Control Reference](/docs/access-control/) — HTTP API reference for users, roles, and capabilities
+- [RBAC Tutorial](/docs/access-control-tutorial/) — step-by-step walkthrough of setting up roles, users, and permissions
+- [Tutorial Source Code](/docs/access-control-tutorial-source/) — full JavaScript example with custom roles and multiple users
+- [Troubleshooting Authentication Errors](/docs/troubleshooting-auth/) — fix 401/403 issues

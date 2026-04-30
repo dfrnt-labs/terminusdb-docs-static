@@ -101,7 +101,7 @@ Create a client endpoint with `WOQLClient`.
 ```javascript
 const TerminusClient = require("terminusdb");
 
-var client = new TerminusClient.WOQLClient("http://127.0.0.1:6363")
+var client = new TerminusClient.WOQLClient("http://localhost:6363")
 ```
 
 #### Create an endpoint with the Python Client
@@ -334,19 +334,21 @@ We have the following patch resulting from the diff:
 
 ## Diff and Patch Endpoints
 
-The Patch and Diff endpoints expose endpoints to obtain diffs or patches of data. Use our public endpoint for each operation:
+The Patch and Diff endpoints are available on any TerminusDB instance. Use your local server endpoint for each operation:
 
 **JSON Diff**
 
 ```text 
-https://cloud.terminusdb.com/jsondiff
+http://localhost:6363/api/diff
 ```
 
 **JSON Patch**
 
 ```text
-https://cloud.terminusdb.com/jsonpatch
+http://localhost:6363/api/patch
 ```
+
+> **Note:** The former cloud endpoints (`cloud.terminusdb.com/jsondiff` and `cloud.terminusdb.com/jsonpatch`) are no longer available. Use your own TerminusDB instance or [create a DFRNT account](https://dfrnt.com/create-account) for hosted access.
 
 ### Diff
 
@@ -395,26 +397,36 @@ An example of a payload comparing only dataversions:
 
 #### Diff examples using curl
 
-```bash
-$ curl -X POST -H "Content-Type: application/json" 'https://cloud.terminusdb.com/jsondiff' -d \
+```bash test-example id="diff-swap-with-keep"
+curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/diff' -d \
   '{ "before" : { "asdf" : "foo", "fdsa" : "bar"}, "after" : { "asdf" : "bar", "fdsa" : "bar"}, "keep" : { "fdsa" : true}}'
-# Output: {
+```
+
+Expected output:
+```json
+{
   "asdf": {"@after":"bar", "@before":"foo", "@op":"SwapValue"},
   "fdsa":"bar"
 }
 ```
 
-```bash
-$ curl -X POST -H "Content-Type: application/json" 'https://cloud.terminusdb.com/jsondiff' -d \
+```bash test-example id="diff-array-object-swap"
+curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/diff' -d \
   '{ "before" : [{ "asdf" : "foo"}], "after" : [{ "asdf" : "bar"}]}'
-# Output: [ {"asdf": {"@after":"bar", "@before":"foo", "@op":"SwapValue"}} ]
 ```
 
-```bash
-$ curl -X POST -H "Content-Type: application/json" 'https://cloud.terminusdb.com/jsondiff' -d \
-  '{ "before" : [0,1,2], "after" : [0,1,2,3]}'
+Expected output:
+```json
+[{"asdf": {"@after":"bar", "@before":"foo", "@op":"SwapValue"}}]
+```
 
-# Output:
+```bash test-example id="diff-list-append"
+curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/diff' -d \
+  '{ "before" : [0,1,2], "after" : [0,1,2,3]}'
+```
+
+Expected output:
+```json
 {
   "@op":"CopyList",
   "@rest": {
@@ -427,11 +439,13 @@ $ curl -X POST -H "Content-Type: application/json" 'https://cloud.terminusdb.com
 }
 ```
 
-```bash
-$ curl -X POST -H "Content-Type: application/json" 'https://cloud.terminusdb.com/jsondiff' -d \
+```bash test-example id="diff-list-append-copy-value"
+curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/diff' -d \
   '{ "before" : [0,1,2], "after" : [0,1,2,3], "copy_value" : true}'
+```
 
-# Output:
+Expected output:
+```json
 {
   "@op":"CopyList",
   "@rest": {
@@ -445,11 +459,13 @@ $ curl -X POST -H "Content-Type: application/json" 'https://cloud.terminusdb.com
 }
 ```
 
-```bash
-$ curl -X POST -H "Content-Type: application/json" 'https://cloud.terminusdb.com/jsondiff' -d \
+```bash test-example id="diff-nested-object-swap"
+curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/diff' -d \
   '{ "before" : { "asdf" : { "fdsa" : "quux"}}, "after" : { "asdf" : { "fdsa" : "quuz" }}}'
+```
 
-# Output:
+Expected output:
+```json
 {
   "asdf": {"fdsa": {"@after":"quuz", "@before":"quux", "@op":"SwapValue"}}
 }
@@ -472,16 +488,20 @@ Resulting in the following document:
 
 #### Patch examples using curl
 
-```bash
-$ curl -X POST -H "Content-Type: application/json" 'https://cloud.terminusdb.com/jsonpatch' -d \
+```bash test-example id="patch-nested-object"
+curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/patch' -d \
    '{ "before" : { "alpha" : 1, "asdf" : { "fdsa" : "quux"}}, "patch" : {
       "asdf": {"fdsa": {"@after":"quuz", "@before":"quux", "@op":"SwapValue"}}
 }}'
-# Output: {"alpha":1, "asdf": {"fdsa":"quuz"}}
 ```
 
-```bash
-$ curl -X POST -H "Content-Type: application/json" 'https://cloud.terminusdb.com/jsonpatch' -d '
+Expected output:
+```json
+{"alpha":1, "asdf": {"fdsa":"quuz"}}
+```
+
+```bash test-example id="patch-list-append"
+curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/patch' -d '
 { "before" : [0,1,2], "patch" : {
   "@op":"CopyList",
   "@rest": {
@@ -492,7 +512,11 @@ $ curl -X POST -H "Content-Type: application/json" 'https://cloud.terminusdb.com
   },
   "@to":3
 }}'
-#Output: [0, 1, 2, 3 ]
+```
+
+Expected output:
+```json
+[0, 1, 2, 3]
 ```
 
 ## Further Reading

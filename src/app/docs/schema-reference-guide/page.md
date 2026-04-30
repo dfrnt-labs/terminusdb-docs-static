@@ -1184,6 +1184,86 @@ The `customer` is fully unfolded while `items` remain as ID references.
 
 See also the [Document Unfolding Reference](/docs/document-unfolding-reference/) for more details on cycle detection and performance characteristics.
 
+### @shared
+
+The `@shared` key is present with the value `[]` or it is not present.
+
+A class designated as shared is a regular document (with its own IRI) that participates in automatic lifecycle management. Unlike a subdocument, a shared document can be referenced by multiple parents and supports any key type. Unlike a regular document, a shared document is automatically cascade-deleted when no other document references it. Unlike the subdocument, a shared document class must explicitly get an `@unfoldable` annotation, or `@unfold` on the field that references it, to automatically unfold as a subdocument does.
+
+The `@shared` annotation is **mutually exclusive** with `@subdocument` — a class cannot be both. However, `@shared` may be combined with `@unfoldable` (lifecycle and retrieval are orthogonal concerns). Also, `@shared` is inherited and is not possible to override by `@unfoldable` (or) 
+
+#### Liveness rule
+
+When any reference to a `@shared` document is removed (through parent deletion, field update, or WOQL triple removal), the engine checks at commit time whether any triples remain that point to the target. The check counts **all** triples pointing to the target, regardless of which field or class they originate from. If zero references remain, the document is cascade-deleted.
+
+Cascade is recursive: if the deleted document itself references other `@shared` documents, those targets are checked in turn. Circular islands (two or more `@shared` documents that reference only each other) are detected and deleted together.
+
+#### Standalone creation
+
+`@shared` documents can be created independently with no parent referencing them. The liveness check fires only when a reference is **removed**, not when a document has never been referenced.
+
+#### Code: An example shared document declaration
+
+```json
+{
+    "@type"        : "@context",
+    "@base"        : "terminusdb://i/",
+    "@schema"      : "terminusdb://s#"
+}
+{
+    "@type"        : "Class",
+    "@id"          : "Footnote",
+    "@shared"      : [],
+    "@key"         :
+    {
+        "@type"    : "Lexical",
+        "@fields"  : ["label"]
+    },
+    "label"        : "xsd:string",
+    "content"      : "xsd:string"
+}
+{
+    "@type"        : "Class",
+    "@id"          : "Article",
+    "@key"         :
+    {
+        "@type"    : "Lexical",
+        "@fields"  : ["title"]
+    },
+    "title"        : "xsd:string",
+    "notes"        :
+    {
+        "@type"    : "Set",
+        "@class"   : "Footnote"
+    }
+}
+```
+
+#### Code: Example shared document instances
+
+```json
+{
+    "@type"        : "Footnote",
+    "@id"          : "Footnote/fn1",
+    "label"        : "fn1",
+    "content"      : "See appendix A for derivation."
+}
+{
+    "@type"        : "Article",
+    "@id"          : "Article/intro",
+    "title"        : "intro",
+    "notes"        : ["Footnote/fn1"]
+}
+{
+    "@type"        : "Article",
+    "@id"          : "Article/appendix",
+    "title"        : "appendix",
+    "notes"        : ["Footnote/fn1"]
+}
+```
+
+In this example, `Footnote/fn1` is shared between two articles. Deleting `Article/intro` leaves `Footnote/fn1` alive (still referenced by `Article/appendix`). Deleting `Article/appendix` afterwards removes the last reference, and `Footnote/fn1` is cascade-deleted automatically.
+
 ### @oneOf in a Class definition
 
 The `TaggedUnion` is a special case and syntactic sugar for the more general case of collections of disjoint properties. These more complex cases can be represented by inheriting from a number of `TaggedUnion`s, but they may also be given explicitly using the `@oneOf` field, together with a Class.

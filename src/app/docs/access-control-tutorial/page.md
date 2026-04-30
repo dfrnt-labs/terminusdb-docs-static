@@ -1,87 +1,197 @@
 ---
-title: TerminusDB Role-Based Access Control Tutorial
+title: Access Control Tutorial
 nextjs:
   metadata:
-    title: TerminusDB Role-Based Access Control Tutorial
-    description: Learn about role-based access control in TerminusDB using the JavaScript client to manage users, teams, and permissions.
-    keywords: access control, RBAC, authentication, authorization, security
+    title: TerminusDB Access Control Tutorial — Create Users and Grant Permissions
+    description: Step-by-step tutorial to create a read-only user and grant database access in TerminusDB using curl. Takes less than 10 minutes.
+    keywords: terminusdb access control, terminusdb rbac, terminusdb user permissions, access control, RBAC, tutorial, users, roles, permissions
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/access-control-tutorial/
-media: []
 ---
 
-![Access Control Overview](/images/access-control/accesscontrol-01.png)
+In this tutorial you will create a second user with read-only access to a database. By the end you will have:
 
-In this tutorial, you will learn about the role-based access control in TerminusDB. We will use the [AccessControl](/docs/javascript/#accesscontrol) driver in the TerminusDB JavaScript Client Library to access the TerminusDB system database and manage access control for three different users.
+1. A database with data in it
+2. A new user (`alice`) who can read — but not write — that database
+3. Verified that permission enforcement works
 
-## Access Control Explained
+**Time:** ~10 minutes  
+**Prerequisites:** TerminusDB running on `localhost:6363` ([Install guide →](/docs/install-terminusdb-as-a-docker-container))
 
-The purpose of access control is to establish who the user is and what they can access. It is also essential to actively prevent users from accessing anything they should not and ensure the required security for a particular resource is enforced. At a high level, database access control is a selective restriction of access to data. It consists of two main components: authentication and authorization.
+{% callout type="warning" title="TerminusDB must be running" %}
+If you have trouble connecting, see [Troubleshooting Connection Failures](/docs/troubleshooting-connection) and [Authentication Errors](/docs/troubleshooting-auth).
+{% /callout %}
 
-### Authentication
+## Step 1 — Create a database with data
 
-Authentication is a technique used to verify that someone is who they claim to be. Most of the time this verification process includes a username and a password but other methods such as token, PIN number, fingerprint scan, or smart card can be used as well. In order to conduct the process of authentication, it is essential that the user has an account in the system so that the authentication mechanism can interrogate that account.
-
-### Authorization
-
-The authorization process establishes if the user (who is already authenticated) is allowed to access a resource. In other words, authorization determines what a user is and is not permitted to do. The level of authorization that is given to a user is determined by the user role.
-
-![Authentication and Authorization](/images/access-control/accesscontrol-02.png)
-
-## Role-Based Access Control in TerminusDB
-
-TerminusDB provides mechanisms to allow users to limit access to their resources. A *role/capability* system ensures that all users can perform only the operations permitted to them.
-
-![Role-Based Access Control](/images/access-control/accesscontrol-03.png)
-
-In order to add users, organizations, and manage access and roles, you need to be the database administrator. The main concepts of TerminusDB's access control mechanisms are:
-
-### User
-
-The database user has the capability to access a resource with a specific role.
-
-### Role
-
-Roles group actions that the user can perform. For example, an admin role would include the action `create_database`. The default Roles for TerminusDB are: **admin** (all actions are allowed) and **consumer**. You can create roles in the system database for different access needs.
-
-### Capability
-
-A capability is a relationship between a resource (scope) and a role (what the user can do). A user with a capability/role is allowed to perform a set of actions for an organization and database.
-
-### Resource
-
-Organization/Team or database.
-
-### Organization/Team
-
-A database or several databases sit under an organization/team. You can have many organizations each with their own group of databases. Users are assigned roles to an organization and that role filters down to the databases within the organization.
-
-### Database
-
-Databases belong to an organization and users inherit the organization User Role for the databases within an organization. You can override this role, adding a capability/role at database level to increase the user's level of access for a particular database.
-
-## Install the Tutorial
-
-Please [clone and install TerminusDB](https://github.com/terminusdb/terminusdb-bootstrap) and have it running.
-
-Clone the access control tutorial:
+First, create a database and insert a document so we have something to protect:
 
 ```bash
-git clone https://github.com/terminusdb/terminusdb-access-control.git
-cd terminusdb-access-control
-npm install
+# Create the database
+curl -s -u admin:root -X POST "http://localhost:6363/api/db/admin/MyDatabase" \
+  -H "Content-Type: application/json" \
+  -d '{"label": "MyDatabase", "comment": "Access control tutorial"}'
+
+# Insert a document
+curl -s -u admin:root -X POST \
+  "http://localhost:6363/api/document/admin/MyDatabase?author=admin&message=Add+document&raw_json=true" \
+  -H "Content-Type: application/json" \
+  -d '{"@id": "terminusdb:///data/jane", "name": "Jane Smith", "email": "jane@example.com"}'
 ```
 
-Now run the example:
+Verify the document is accessible:
 
 ```bash
-npm run start
+curl -s -u admin:root \
+  "http://localhost:6363/api/document/admin/MyDatabase?raw_json=true&id=terminusdb:///data/jane"
 ```
 
-See the [Access Control Tutorial Source Code](/docs/access-control-tutorial-source/) for a detailed walkthrough of the code.
+You should see Jane's document returned as JSON.
 
-## Manage Access Control with the TerminusDB Dashboard
+## Step 2 — Create a new user
 
-You can also manage access control with the TerminusDB local dashboard. Visit our [Document UI guide](/docs/document-ui-terminusdb/) for more information on managing your data.
+Create a user called `alice` with a password:
+
+```bash
+curl -s -u admin:root -X POST http://localhost:6363/api/users \
+  -H "Content-Type: application/json" \
+  -d '{"name": "alice", "password": "alice-secret"}'
+```
+
+Expected response:
+```json
+{"@type": "api:UsersResponse", "api:status": "api:success"}
+```
+
+Verify the user exists:
+
+```bash
+curl -s -u admin:root http://localhost:6363/api/users/alice
+```
+
+## Step 3 — Grant read-only access
+
+Grant the built-in "Consumer Role" (read-only) to `alice` on `MyDatabase`:
+
+```bash
+curl -s -u admin:root -X POST http://localhost:6363/api/capabilities \
+  -H "Content-Type: application/json" \
+  -d '{
+    "operation": "grant",
+    "scope_type": "database",
+    "scope": "admin/MyDatabase",
+    "user": "alice",
+    "roles": ["Consumer Role"]
+  }'
+```
+
+The Consumer Role includes three actions: `class_frame`, `instance_read_access`, and `schema_read_access`. This means `alice` can read documents and schema but cannot insert, update, or delete anything.
+
+## Step 4 — Verify read access works
+
+Authenticate as `alice` and read the document:
+
+```bash
+curl -s -u alice:alice-secret \
+  "http://localhost:6363/api/document/admin/MyDatabase?raw_json=true&id=terminusdb:///data/jane"
+```
+
+You should see Jane's document — `alice` has read access.
+
+## Step 5 — Verify write access is denied
+
+Now try to insert a document as `alice`:
+
+```bash
+curl -s -u alice:alice-secret -X POST \
+  "http://localhost:6363/api/document/admin/MyDatabase?author=alice&message=Attempt+write&raw_json=true" \
+  -H "Content-Type: application/json" \
+  -d '{"@id": "terminusdb:///data/bob", "name": "Bob Jones", "email": "bob@example.com"}'
+```
+
+You should receive a **403 Forbidden** error:
+```json
+{
+  "@type": "api:ErrorResponse",
+  "api:message": "Insufficient capabilities for this operation",
+  "api:status": "api:forbidden"
+}
+```
+
+This confirms that `alice` cannot write — the access control is working correctly.
+
+## Step 6 — Upgrade to write access (optional)
+
+If you want to give `alice` write access, create a custom writer role and grant it:
+
+```bash
+# Create a writer role
+curl -s -u admin:root -X POST http://localhost:6363/api/roles \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "writer",
+    "action": [
+      "commit_write_access",
+      "instance_read_access",
+      "instance_write_access",
+      "schema_read_access",
+      "class_frame"
+    ]
+  }'
+
+# Grant the writer role to alice on MyDatabase
+curl -s -u admin:root -X POST http://localhost:6363/api/capabilities \
+  -H "Content-Type: application/json" \
+  -d '{
+    "operation": "grant",
+    "scope_type": "database",
+    "scope": "admin/MyDatabase",
+    "user": "alice",
+    "roles": ["writer"]
+  }'
+```
+
+Now `alice` can insert documents:
+
+```bash
+curl -s -u alice:alice-secret -X POST \
+  "http://localhost:6363/api/document/admin/MyDatabase?author=alice&message=Add+Bob&raw_json=true" \
+  -H "Content-Type: application/json" \
+  -d '{"@id": "terminusdb:///data/bob", "name": "Bob Jones", "email": "bob@example.com"}'
+```
+
+## Step 7 — Clean up (optional)
+
+Revoke access and delete the user:
+
+```bash
+# Revoke the consumer role
+curl -s -u admin:root -X POST http://localhost:6363/api/capabilities \
+  -H "Content-Type: application/json" \
+  -d '{
+    "operation": "revoke",
+    "scope_type": "database",
+    "scope": "admin/MyDatabase",
+    "user": "alice",
+    "roles": ["Consumer Role"]
+  }'
+
+# Delete the user
+curl -s -u admin:root -X DELETE http://localhost:6363/api/users/alice
+```
+
+## What you learned
+
+- **Users** are identities that authenticate with username/password
+- **Roles** are named sets of actions (the built-in Consumer Role is read-only)
+- **Capabilities** link users to roles on specific resources (databases or organisations)
+- The `/api/capabilities` endpoint grants and revokes access
+- Permissions are enforced — unauthorized operations return 403
+
+## Next steps
+
+- [Access Control Reference](/docs/access-control/) — Full API reference for all endpoints and actions
+- [JavaScript Client Access Control](/docs/access-control-with-javascript/) — Manage access control programmatically
+- [Tutorial Source Code](/docs/access-control-tutorial-source/) — Full JavaScript example with custom roles and multiple users

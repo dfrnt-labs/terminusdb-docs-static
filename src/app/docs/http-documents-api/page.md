@@ -27,19 +27,19 @@ Here is a tutorial to connect to TerminusDB in docker or on localhost.
 ### Updating a document on localhost
 
 * Instance name: admin
-* Data Product name: PeopleReferenceData
+* Database name: MyDatabase
 * Graph: schema
 * Branch name: main
 * Schema document: Role
 * User: admin
-* Password: password
+* Password: root
 * Provider: localhost:6363
 
 ```bash
-BASE64="$(echo -n 'admin:password' | base64)"
+BASE64="$(echo -n 'admin:root' | base64)"
 DOC='{"@type":"Class","@id":"Role", "name":"xsd:string"}'
 curl -X POST -H 'Content-Type: application/json' -d "$DOC" -H "Authorization: Basic $BASE64" \
-"http://localhost:6363/api/document/admin/PeopleReferenceData/local/branch/main?author=john@example.com&message=InsertedDocument&graph_type=schema"
+"http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin@example.com&message=InsertedDocument&graph_type=schema"
 ```
 
 If you already have the schema element and want to update it, use the `PUT` keyword.
@@ -47,29 +47,76 @@ If you already have the schema element and want to update it, use the `PUT` keyw
 ### Creating a document on localhost
 
 * Instance name: admin
-* Data Product name: PeopleReferenceData
+* Database name: MyDatabase
 * Branch name: main
 * Document type: Role
 * Document id: Role/ContentProducer
 * User: admin
-* Password: password
+* Password: root
 * Provider: localhost:6363
 
 ```bash
-BASE64="$(echo -n 'admin:password' | base64)"
+BASE64="$(echo -n 'admin:root' | base64)"
 DOC='{"@type":"Role","@id":"Role/ContentProducer","name":"ContentProducer"}'
 curl -X POST -H 'Content-Type: application/json' -d "$DOC" -H "Authorization: Basic $BASE64" \
-"http://localhost:6363/api/document/admin/PeopleReferenceData/local/branch/main?author=john@example.com&message=InsertedDocument"
+"http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin@example.com&message=InsertedDocument"
 ```
 
 ### Deleting a document on localhost
 
 ```bash
-BASE64="$(echo -n 'admin:password' | base64)"
+BASE64="$(echo -n 'admin:root' | base64)"
 DOCS='["Role/ContentProducer"]'
 curl -X DELETE -H 'Content-Type: application/json' -d "$DOCS" -H "Authorization: Basic $BASE64" \
-"http://localhost:6363/api/document/admin/PeopleReferenceData/local/branch/main?author=john@example.com&message=DeletedDocument"
+"http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin@example.com&message=DeletedDocument"
 ```
+
+## The `raw_json` query parameter
+
+By default, the Document API expects and returns documents with `@type` and `@id` metadata fields that conform to the database schema. The `raw_json=true` query parameter bypasses schema validation and allows you to insert, retrieve, and update arbitrary JSON documents without defining a schema first.
+
+This is particularly useful for:
+
+- **Rapid prototyping** — insert data immediately without designing a schema upfront
+- **Schemaless documents** — store arbitrary JSON structures alongside typed documents
+- **Simpler integrations** — accept JSON from external systems without mapping to a schema
+
+### Inserting a document without a schema
+
+Add `raw_json=true` to the query string when posting documents. The document must include an `@id` field to give it a stable identifier:
+
+```bash
+curl -s -u admin:root -X POST \
+  "http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin&message=Add+document&raw_json=true" \
+  -H "Content-Type: application/json" \
+  -d '{"@id":"terminusdb:///data/jane","name":"Jane Smith","email":"jane@example.com","age":30}'
+```
+
+### Retrieving a raw JSON document
+
+When fetching documents that were inserted with `raw_json=true`, include the same parameter to get the raw form back:
+
+```bash
+curl -s -u admin:root \
+  "http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?id=terminusdb:///data/jane&raw_json=true"
+```
+
+Without `raw_json=true`, the server may attempt to interpret the document against the schema and return an error if no matching type exists.
+
+### Updating a raw JSON document
+
+Use `PUT` with `raw_json=true` to replace an existing document:
+
+```bash
+curl -s -u admin:root -X PUT \
+  "http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin&message=Update+document&raw_json=true" \
+  -H "Content-Type: application/json" \
+  -d '{"@id":"terminusdb:///data/jane","name":"Jane Smith","email":"jane@newdomain.com","age":31}'
+```
+
+{% callout type="note" title="Schema vs schemaless" %}
+The `raw_json` flag is ideal for getting started quickly or for data that does not fit a fixed schema. For production use with validation, define a schema and omit `raw_json` — the database will then enforce type constraints on all document operations.
+{% /callout %}
 
 ## Cloud TerminusDB
 
@@ -91,7 +138,7 @@ Then, instead of the `admin` organization, you will have a team that you connect
 Example of how to fetch information about the ContentProducer Role in TerminusDB. The location of the document:
 
 * Instance name: 000000000000-0000-0000-0000-00000001 (it should be put twice)
-* Data Product name: PeopleReferenceData
+* Database name: MyDatabase
 * Branch name: main
 * Document type: Role
 * Document id: Role/ContentProducer
@@ -101,7 +148,7 @@ Example of how to fetch information about the ContentProducer Role in TerminusDB
 ```bash
 API_TOKEN="000000000000-0000-0000-0000-00000001-000000000000-0000-0000-0000-00000001"
 curl -X GET -H "Authorization: Token $API_TOKEN" \
-https://dfrnt.com/api/hosted/000000000000-0000-0000-0000-00000001/api/document/000000000000-0000-0000-0000-00000001/PeopleReferenceData/local/branch/main?id=Role/ContentProducer
+https://dfrnt.com/api/hosted/000000000000-0000-0000-0000-00000001/api/document/000000000000-0000-0000-0000-00000001/MyDatabase/local/branch/main?id=Role/ContentProducer
 ```
 
 For more information about connecting to cloud instances, read [how to connect to the DFRNT API](https://support.dfrnt.com/portal/en/kb/articles/api). 

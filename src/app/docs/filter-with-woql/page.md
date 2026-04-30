@@ -11,7 +11,14 @@ nextjs:
 media: []
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have access to the data needed for this tutorial.
+> **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
+>
+> ```bash
+> curl -u admin:root -X POST http://localhost:6363/api/clone/admin/star-wars \
+>   -H "Content-Type: application/json" \
+>   -H "Authorization-Remote: Basic cHVibGljOnB1YmxpYw==" \
+>   -d '{"remote_url": "https://data.terminusdb.org/admin/star-wars", "label": "Star Wars", "comment": "Star Wars dataset"}'
+> ```
 
 Since WOQL is a datalog, filters are just part of the query. You can express negative information, or constraints on the variables in order to get a restriction down to the things you want.
 
@@ -100,17 +107,21 @@ select(v.person_name, v.vehicle_name)
   .and(triple(v.vehicle, "pilot", v.person),
        triple(v.vehicle, "label", v.vehicle_name),
        triple(v.person, "label", v.person_name),
-       regex("W.*", v.vehicle_name, [v.pattern]))
+       regex(".*wing", v.vehicle_name, [v.pattern]))
 ```
 
-In this case, we get the following back in JSON format:
+In this case, we get all vehicles whose names end in "wing" — the PCRE pattern `.*wing` matches any string ending with "wing":
 
 ```json
-[ {"person_name": {"@type":"xsd:string", "@value":"Darth Vader"},
-   "vehicle_name": {"@type":"xsd:string", "@value":"TIE Advanced x1"}},
+[ {"person_name": {"@type":"xsd:string", "@value":"Luke Skywalker"},
+   "vehicle_name": {"@type":"xsd:string", "@value":"X-wing"}},
+  {"person_name": {"@type":"xsd:string", "@value":"Wedge Antilles"},
+   "vehicle_name": {"@type":"xsd:string", "@value":"X-wing"}},
+  {"person_name": {"@type":"xsd:string", "@value":"Jek Tono Porkins"},
+   "vehicle_name": {"@type":"xsd:string", "@value":"X-wing"}},
+  {"person_name": {"@type":"xsd:string", "@value":"Biggs Darklighter"},
+   "vehicle_name": {"@type":"xsd:string", "@value":"X-wing"}},
   {"person_name": {"@type":"xsd:string", "@value":"Arvel Crynyd"},
-   "vehicle_name": {"@type":"xsd:string", "@value":"A-wing"}},
-  {"person_name": {"@type":"xsd:string", "@value":"Chewbacca"},
-   "vehicle_name": {"@type":"xsd:string", "@value":"AT-ST"}}
+   "vehicle_name": {"@type":"xsd:string", "@value":"A-wing"}}
 ]
 ```
