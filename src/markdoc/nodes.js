@@ -3,7 +3,7 @@ import { slugifyWithCounter } from '@sindresorhus/slugify'
 import yaml from 'js-yaml'
 
 import { DocsLayout } from '@/components/DocsLayout'
-import { Fence } from '@/components/Fence'
+import { RunnableFence } from '@/components/RunnableFence'
 import { TableWrapper } from '@/components/TableWrapper'
 
 let documentSlugifyMap = new Map()
@@ -56,9 +56,19 @@ const nodes = {
     },
   },
   fence: {
-    render: Fence,
+    render: RunnableFence,
     attributes: {
       language: {
+        type: String,
+      },
+      testExample: {
+        type: Boolean,
+        default: false,
+      },
+      id: {
+        type: String,
+      },
+      fixture: {
         type: String,
       },
     },

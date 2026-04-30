@@ -5,8 +5,8 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { createLoader } from 'simple-functional-loader'
 import * as url from 'url'
-import javascript from "../../schema/javascript.json" assert { type: "json" };
-import python from '../../schema/python.json' assert { type: "json" }
+import javascript from "../../schema/javascript.json" with { type: "json" };
+import python from '../../schema/python.json' with { type: "json" }
 
 const __filename = url.fileURLToPath(import.meta.url)
 const slugify = slugifyWithCounter()

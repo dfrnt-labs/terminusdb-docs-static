@@ -7,7 +7,7 @@ const styles = {
     container:
       'bg-sky-50 dark:bg-slate-800/60 dark:ring-1 dark:ring-slate-300/10',
     title: 'text-sky-900 dark:text-sky-200',
-    body: 'text-sky-800 [--tw-prose-background:var(--color-sky-50)] prose-a:text-sky-900 prose-code:text-sky-900 dark:text-slate-300 dark:prose-code:text-slate-300',
+    body: 'text-sky-800 [--tw-prose-background:var(--color-sky-50)] prose-a:text-sky-900 prose-code:text-sky-900 prose-strong:text-sky-900 dark:text-slate-300 dark:prose-code:text-slate-300 dark:prose-strong:text-slate-200',
   },
   warning: {
     container:

@@ -10,6 +10,9 @@ import { CTAButtons } from '@/components/CTAButtons'
 import { TaskHeading } from '@/components/TaskHeading'
 import { WoqlPlayground } from '@/components/WoqlPlayground'
 import { ApiStep } from '@/components/ApiStep'
+import { QuickstartClone } from '@/components/QuickstartClone'
+import { HttpExample } from '@/components/HttpExample'
+import { HttpExpected } from '@/components/HttpExample/HttpExpected'
 
 const tags = {
   callout: {
@@ -203,6 +206,42 @@ const tags = {
       path: { type: String, required: true },
       body: { type: String },
     },
+  },
+  'quickstart-clone': {
+    selfClosing: true,
+    render: QuickstartClone,
+    attributes: {
+      remoteUrl: { type: String },
+      localPath: { type: String },
+      label: { type: String },
+    },
+  },
+  'http-example': {
+    render: HttpExample,
+    attributes: {
+      method: { type: String },
+      path: { type: String },
+      headers: { type: String },
+      fixture: { type: String },
+      id: { type: String },
+      runnable: { type: Boolean, default: true },
+      expect: { type: String },
+      'expect-subset': { type: Boolean, default: false },
+      'expect-contains': { type: String },
+    },
+  },
+  'http-expected': {
+    render: HttpExpected,
+    attributes: {
+      __isHttpExpected: { type: Boolean, default: true },
+    },
+  },
+  'http-example-cleanup': {
+    render: null,
+    attributes: {
+      fixture: { type: String, required: true },
+    },
+    selfClosing: true,
   },
 }
 
