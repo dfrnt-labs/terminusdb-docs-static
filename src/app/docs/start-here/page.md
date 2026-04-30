@@ -1,121 +1,50 @@
 ---
-title: Start Here with TerminusDB
+title: TerminusDB Documentation
 nextjs:
   metadata:
-    title: Git-for-Data Document Graph Infrastructure - TerminusDB Documentation
-    description: Choose your path to get started with TerminusDB. Whether you're a developer, data engineer, or evaluator, find the resources you need.
+    title: TerminusDB Documentation — Getting Started, Guides, and API Reference
+    keywords: terminusdb, terminusdb documentation, git for data, document graph database, version control database, branch merge data, terminusdb quickstart
+    description: TerminusDB is an open-source document graph database with built-in version control. Branch, diff, and merge your data like code. Start in 10 minutes with Docker.
+    openGraph:
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/start-here/
+media: []
 ---
 
-{% hero-section 
-   title="Git-for-Data Document Graph Infrastructure" 
-   subtitle="The graph database that combines documents, version control, and collaboration. Choose your path to get started." /%}
+TerminusDB is an open-source document graph database with built-in version control.
+Branch, diff, and merge your data like code.
+Start with the [quickstart](/docs/get-started/) (10 minutes, requires only Docker)
+or browse the guides below.
 
-## Choose Your Path
+## Start building
 
-Select the role that best describes you to see relevant documentation and resources.
+**[Your First 10 Minutes (clone)](/docs/get-started/)** — Clone a ready-made dataset and start exploring immediately. No SDK required.
 
-{% quick-links %}
+**[Your First 15 Minutes (from scratch)](/docs/first-15-minutes/)** — Build the full workflow manually: create, branch, diff branches, and merge with curl.
 
-{% quick-link 
-   title="Application Developer" 
-   description="Build applications with TerminusDB's GraphQL API and client libraries. Get started with JavaScript or Python clients."
-   icon="installation"
-   href="/docs/get-started" /%}
+**[TypeScript Quickstart](/docs/connect-with-the-javascript-client/)** — The same workflow in TypeScript.
 
-{% quick-link 
-   title="Knowledge Engineer" 
-   description="Design schemas, import data, and manage collaborative workflows with Git-for-Data version control."
-   icon="plugins"
-   href="/docs/documents-explanation/" /%}
+**[Python Quickstart](/docs/connect-with-python-client/)** — The same workflow in Python.
 
-{% quick-link 
-   title="Solution Evaluator" 
-   description="Understand TerminusDB's unique features, architecture, and how it compares to other databases."
-   icon="lightbulb"
-   href="/docs/terminusdb-explanation" /%}
+**[Rust Quickstart](/docs/rust-client-quickstart/)** — The same workflow in Rust.
 
-{% quick-link 
-   title="Business Analyst" 
-   description="Learn about the RDF Graph Documents API and Git-for-Data features for content management and analytics."
-   icon="presets"
-   href="/docs/documents-explanation" /%}
+## Query your data
 
-{% /quick-links %}
+TerminusDB offers three query interfaces. The **[HTTP Document API](/docs/document-format-api-curl-tutorial)** handles CRUD with no query language — fetch, create, update, and delete documents by ID. **[GraphQL](/docs/graphql-basics)** provides typed, declarative reads with nested object traversal, ideal for frontend integrations. **[WOQL](/docs/woql-explanation)** is a Datalog-based query language for complex graph traversal, pattern matching, and aggregations.
 
-## Why TerminusDB?
+Not sure which to use? See [Choosing a Query Interface](/docs/querying-terminusdb).
 
-Unique features that set TerminusDB apart from other databases.
+## Understand the concepts
 
-{% feature-grid %}
+- [How TerminusDB Works](/docs/terminusdb-explanation/) — Architecture and mental model
+- [Documents & Schema](/docs/documents-explanation/) — The data model
+- [Version Control for Data](/docs/git-for-data-reference/) — Branching, diffing, merging
 
-{% feature-highlight 
-   title="Git-for-Data" 
-   description="Branch, merge, and time-travel through your data with full version control built into the database."
-   href="/docs/git-for-data-reference"
-   badge="Unique"
-   shimmer=true /%}
+## Find something specific
 
-{% feature-highlight 
-   title="GraphQL Native" 
-   description="Auto-generated GraphQL APIs from your schema. No resolvers, no boilerplate code required."
-   href="/docs/how-to-query-with-graphql" /%}
-
-{% feature-highlight 
-   title="Document + Graph" 
-   description="Store hierarchical JSON documents and navigate them as an RDF graph linked data. Best of all worlds."
-   href="/docs/documents-explanation" /%}
-
-{% feature-highlight 
-   title="WOQL (Datalog)" 
-   description="Powerful logic-based queries with unification and pattern matching for complex graph traversals."
-   href="/docs/what-is-datalog" /%}
-
-{% feature-highlight 
-   title="Schema Validation" 
-   description="Strong typing with flexible schema evolution. Validate data integrity without sacrificing agility."
-   href="/docs/schema-reference-guide" /%}
-
-{% feature-highlight 
-   title="Open Source" 
-   description="Apache 2.0 licensed. Deploy anywhere: Docker, Kubernetes, or use DFRNT Cloud hosting."
-   href="https://github.com/terminusdb/terminusdb" /%}
-
-{% /feature-grid %}
-
-## Ready to Get Started?
-
-Sign up for DFRNT Cloud and get a fully managed TerminusDB instance with a powerful UI, or run it locally with Docker.
-
-{% cta-buttons 
-   primaryText="Start in Cloud"
-   primaryHref="https://dfrnt.com/sign-up"
-   secondaryText="Start with Docker"
-   secondaryHref="/docs/get-started/" /%}
-
-## Browse by Topic
-
-{% topic-grid %}
-
-{% topic-card 
-   title="Getting Started"
-   description="Quickstart guides and tutorials"
-   href="/docs/get-started" /%}
-
-{% topic-card 
-   title="Query Languages"
-   description="GraphQL and WOQL guides"
-   href="/docs/how-to-query-with-graphql" /%}
-
-{% topic-card 
-   title="Client SDKs"
-   description="JavaScript, Python, and REST"
-   href="/docs/use-the-clients" /%}
-
-{% topic-card 
-   title="Reference"
-   description="Schema, API, and CLI docs"
-   href="/docs/schema-reference-guide" /%}
-
-{% /topic-grid %}
+- [Choosing a Query Interface](/docs/querying-terminusdb/) — WOQL, GraphQL, or HTTP API — which to use when
+- [HTTP API Reference](/docs/openapi) — All endpoints
+- [Schema Reference](/docs/schema-reference-guide/) — Types and constraints
+- [JSON Diff & Patch](/docs/json-diff-and-patch/) — Structural diff specification
+- [Troubleshooting](/docs/troubleshooting-connection/) — Fix common errors

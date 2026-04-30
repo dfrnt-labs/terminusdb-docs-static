@@ -1,176 +1,199 @@
 ---
-title: TerminusDB Quickstart Tutorial
+title: Your First 10 Minutes with TerminusDB
 nextjs:
   metadata:
-    title: TerminusDB Quickstart Tutorial
-    description: Get started with TerminusDB in 15 minutes with this step-by-step tutorial
+    title: Your First 10 Minutes with TerminusDB
+    description: Get started with TerminusDB in 10 minutes. Clone a ready-made dataset, then branch, diff, and merge — the full git-for-data workflow with zero setup.
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/quickstart-example/
+      canonical: https://terminusdb.org/docs/get-started/
 ---
 
-Complete this tutorial to get TerminusDB running and create your first database. Check off each step as you complete it!
+TerminusDB is a database built for collaboration. In this quickstart you will clone a pre-populated dataset and immediately use the git-for-data workflow: branch, edit, diff, and merge. No schema to write, no data to invent.
 
-{% task-heading id="quickstart-install-docker" number="1" %}
-Install Docker
-{% /task-heading %}
+{% callout title="Prerequisites" %}
+You need **Docker** installed and running. Nothing else — no npm, no pip, no SDK.
+{% /callout %}
 
-TerminusDB runs in Docker for easy installation and portability. If you don't have Docker installed:
+## Step 1 — Start TerminusDB
 
-1. Download Docker Desktop from [docker.com](https://docs.docker.com/get-docker/)
-2. Install and start Docker Desktop
-3. Verify installation by running: `docker --version`
-
-{% task-heading id="quickstart-start-terminusdb" number="2" %}
-Start TerminusDB Container
-{% /task-heading %}
-
-Run this command to download and start TerminusDB:
+Pull and run TerminusDB in one command:
 
 ```bash
-docker run --pull always -d -p 127.0.0.1:6363:6363 -v terminusdb_storage:/app/terminusdb/storage --name terminusdb terminusdb/terminusdb-server:v12
+docker run --pull always -d -p 127.0.0.1:6363:6363 \
+  -v terminusdb_storage:/app/terminusdb/storage \
+  --name terminusdb terminusdb/terminusdb-server:v12
 ```
 
-This command:
-- Downloads the latest TerminusDB image
-- Starts a container named `terminusdb`
-- Opens port 6363 for the API
-- Creates a persistent volume `terminusdb_storage` for your data
+Wait a few seconds for the server to start, then confirm it is running:
 
-{% task-heading id="quickstart-open-dashboard" number="3" %}
-Open the Dashboard
-{% /task-heading %}
+{% http-example method="GET" path="/api/info" /%}
 
-Navigate to the [DFRNT Modeller](https://studio.dfrnt.com/) in your browser:
+You should see a JSON response with `"authority": "admin"` confirming the server is ready.
 
-You should see the DFRNT welcome screen. Sign up or login and create your account.
+{% callout type="warning" title="Not working?" %}
+If the command hangs or returns a connection error: Docker may not be running, port 6363 may already be in use, or a previous container named `terminusdb` may already exist. See [Troubleshooting Connection Failures](/docs/troubleshooting-connection) and [Authentication Errors](/docs/troubleshooting-auth) for solutions.
+{% /callout %}
 
-{% task-heading id="quickstart-connect-client" number="4" %}
-Connect with JavaScript Client
-{% /task-heading %}
+## Step 2 — Clone a ready-made dataset
 
-Install the TerminusDB JavaScript client:
+Skip the manual database creation and start with real data immediately:
+
+{% quickstart-clone /%}
+
+You now have a fully populated Star Wars database ready to explore — documents, relationships, and commit history. Use it to try the full git-for-data workflow: what would have changed if Anakin Skywalker had turned to the Dark Side?
+
+## Step 3 — Create a branch
+
+Create a `what-if` branch to experiment without affecting the original data:
+
+{% http-example method="POST" path="/api/branch/admin/star-wars/local/branch/what-if" %}
+{"origin": "admin/star-wars/local/branch/main"}
+{% http-expected %}
+{"@type":"api:BranchResponse","api:status":"api:success"}
+{% /http-expected %}
+{% /http-example %}
+
+You now have two branches: `main` (the cloned data, unchanged) and `what-if` (a copy, ready for edits).
+
+## Step 4 — Edit on the branch
+
+Pose a "what if" — change Anakin Skywalker's allegiance on the `what-if` branch:
+
+{% http-example method="PUT" path="/api/document/admin/star-wars/local/branch/what-if?author=admin&message=What+if+Anakin+turned" %}
+{"@type": "Person", "@id": "Person/Anakin%20Skywalker", "name": "Anakin Skywalker", "height": 188, "mass": 84, "hair_color": "blond", "eye_color": "yellow", "birth_year": "41.9BBY", "gender": "male", "side": "Dark Side", "faction": "Sith", "quote": "This is where the fun begins.", "homeworld": "terminusdb:///data/Planet/Tatooine", "films": ["terminusdb:///data/Film/The%20Phantom%20Menace", "terminusdb:///data/Film/Attack%20of%20the%20Clones", "terminusdb:///data/Film/Revenge%20of%20the%20Sith"], "species": ["terminusdb:///data/Species/Human"]}
+{% http-expected %}
+["terminusdb:///data/Person/Anakin%20Skywalker"]
+{% /http-expected %}
+{% /http-example %}
+
+The edit lives only on `what-if`. On `main`, Anakin is still Light Side.
+
+## Step 5 — Diff the branches
+
+This is the moment. See exactly what changed between `main` and `what-if`:
+
+{% http-example method="POST" path="/api/diff/admin/star-wars" %}
+{"before_data_version": "main", "after_data_version": "what-if"}
+{% http-expected %}
+[{"@id": "Person/Anakin%20Skywalker", "eye_color": {"@op": "SwapValue", "@before": "blue", "@after": "yellow"}, "faction": {"@op": "SwapValue", "@before": "Jedi Order", "@after": "Sith"}, "side": {"@op": "SwapValue", "@before": "Light Side", "@after": "Dark Side"}}]
+{% /http-expected %}
+{% /http-example %}
+
+{% callout title="What just happened?" %}
+TerminusDB computed a **structural diff** between two branches. This is not a line-by-line text diff — it is a semantic patch that knows exactly which fields changed, what the old values were, and what the new values are. Each change is a `SwapValue` operation that can be applied, reversed, or composed with other patches.
+
+Three fields changed: `side`, `faction`, and `eye_color`. TerminusDB detected all three independently — no manual tracking, no event sourcing, no change-data-capture pipeline. The database does it natively.
+{% /callout %}
+
+## Step 6 — Merge the branch
+
+Apply the changes from `what-if` back to `main`:
+
+{% http-example method="POST" path="/api/apply/admin/star-wars/local/branch/main" %}
+{"before_commit": "main", "after_commit": "what-if", "commit_info": {"author": "admin", "message": "Merge what-if: Anakin turns to the Dark Side"}}
+{% http-expected %}
+{"@type":"api:ApplyResponse","api:status":"api:success"}
+{% /http-expected %}
+{% /http-example %}
+
+Done. The `main` branch now reflects the "what if" scenario — Anakin is on the Dark Side.
+
+---
+
+## What you just did
+
+In 6 steps you used the full git-for-data workflow:
+
+| Step | Git equivalent | TerminusDB API |
+|------|---------------|----------------|
+| Clone dataset | `git clone` | `POST /api/clone` |
+| Create branch | `git branch` | `POST /api/branch` |
+| Edit on branch | commit on branch | `PUT /api/document` |
+| Diff branches | `git diff main..what-if` | `POST /api/diff/{org}/{db}` with `before_data_version` / `after_data_version` |
+| Merge | `git merge --squash` | `POST /api/apply` with `before_commit` / `after_commit` |
+
+## Step 7 — Clean up
+
+Delete the cloned database when you are done experimenting:
+
+{% http-example method="DELETE" path="/api/db/admin/star-wars" runnable=false /%}
+
+To stop TerminusDB entirely:
 
 ```bash
-npm install terminusdb
+docker stop terminusdb && docker rm terminusdb
 ```
 
-Create a connection to your local TerminusDB instance. Create a main.js file and run it with `node main.js`.
+Your data persists in the `terminusdb_storage` Docker volume. To remove it entirely: `docker volume rm terminusdb_storage`.
 
-```javascript
-import TerminusClient from "terminusdb";
-import {WOQL} from "terminusdb";
+## Next steps
 
-const client = new TerminusClient.WOQLClient("http://127.0.0.1:6363", {
-  user: "admin",
-  organization: "admin"
-});
+- **[Build from scratch (15 min)](/docs/first-15-minutes/)** — Create a database, insert data, branch, diff, and merge manually — the full walkthrough
+- [Explore a Real Dataset](/docs/explore-a-real-dataset/) — Clone a Star Wars database and query relationships, branch, and diff on rich data
+- [TypeScript Client Quickstart](/docs/connect-with-the-javascript-client/) — Same workflow using the TypeScript SDK
+- [Python Client Quickstart](/docs/connect-with-python-client/) — Same workflow using the Python SDK
+- [Your First Schema](/docs/schema-reference-guide/) — Add type safety when you are ready
+- [JSON Diff and Patch](/docs/json-diff-and-patch/) — Deep dive into structural diff operations
+- [What is TerminusDB?](/docs/terminusdb-explanation/) — Understand the architecture behind what you just did
 
-// Connect and verify
-client.connect({ key: "root", db: "my_first_db" }).then(() => {
-  console.log("Connected to TerminusDB!");
-});
+## Troubleshooting
+
+### Error: Connection refused
+
+**You see:**
+```text
+curl: (7) Failed to connect to localhost port 6363 after 0 ms: Connection refused
 ```
 
-{% task-heading id="quickstart-create-database" number="5" %}
-Create Your First Database
-{% /task-heading %}
+**Cause:** TerminusDB is not running, or another process is using port 6363.
 
-Create a new database using the client:
-
-```javascript
-await client.createDatabase("my_first_db", {
-  label: "My First Database",
-  comment: "A tutorial database"
-});
-
-console.log("Database created successfully!");
-```
-
-{% task-heading id="quickstart-add-schema" number="6" %}
-Add a Schema
-{% /task-heading %}
-
-Define a simple schema for storing person records:
-
-```javascript
-const schema = {
-  "@type": "Class",
-  "@id": "Person",
-  name: "xsd:string",
-  age: "xsd:integer",
-  email: "xsd:string"
-};
-
-await client.addDocument(schema, { graph_type: "schema" });
-```
-
-Remember to remove the database creation part from as the database is already created.
-
-{% task-heading id="quickstart-insert-data" number="7" %}
-Insert Your First Document
-{% /task-heading %}
-
-Add a person document to your database:
-
-```javascript
-const person = {
-  "@id": "Person/Alice",
-  "@type": "Person",
-  name: "Alice Johnson",
-  age: 30,
-  email: "alice@example.com"
-};
-
-await client.addDocument(person);
-console.log("Document inserted!");
-```
-
-{% task-heading id="quickstart-query-data" number="8" %}
-Query Your Data
-{% /task-heading %}
-
-Retrieve all person documents:
-
-```javascript
-const person = await client.getDocument({ type: "Person" });
-console.log("People in database:", person);
-```
-
-{% task-heading id="quickstart-query-data" number="8" %}
-Perform a WOQL Query
-{% /task-heading %}
-
-```javascript
-const docs = await client.query(WOQL.read_document("Person/Alice", "v:doc"));
-console.log("Alice:", docs.bindings);
-```
-
-## Next Steps
-
-Congratulations! You've completed the quickstart tutorial. Here's what to explore next:
-
-- [Learn about Documents & Schema](/docs/documents-explanation)
-- [Query with GraphQL](/docs/how-to-query-with-graphql)
-- [Connect with JavaScript Client](/docs/connect-with-the-javascript-client)
-- [Connect with Python Client](/docs/connect-with-the-python-client)
-
-## Managing Your Container
-
-**Stop TerminusDB:**
+**Fix:**
 ```bash
-docker stop terminusdb
+# Check if the container is running
+docker ps | grep terminusdb
+
+# If not running, start it
+docker start terminusdb
+
+# If it doesn't exist, create it
+docker run -d --name terminusdb -p 127.0.0.1:6363:6363 \
+  -v terminusdb_storage:/app/terminusdb/storage \
+  terminusdb/terminusdb-server
 ```
 
-**Restart TerminusDB:**
+[Troubleshooting Connection Failures →](/docs/troubleshooting-connection)
+
+### Error: 401 Unauthorized
+
+**You see:**
+```json
+{"@type":"api:ErrorResponse","api:error":{"@type":"api:IncorrectAuthenticationError"},"api:status":"api:failure"}
+```
+
+**Cause:** Wrong username or password. The default local credentials are `admin` / `root`.
+
+**Fix:**
 ```bash
-docker restart terminusdb
+# Verify credentials work
+curl -u admin:root http://localhost:6363/api/info
 ```
 
-**View logs:**
-```bash
-docker logs terminusdb
-```
+If you set a custom password via `TERMINUSDB_ADMIN_PASS` when creating the container, use that value instead of `root`.
 
-Your data persists in the `terminusdb_storage` volume, so it's safe to stop and restart the container.
+[Troubleshooting Authentication Errors →](/docs/troubleshooting-auth)
+
+## Frequently Asked Questions
+
+### Q: Do I need to define a schema before inserting data?
+
+**A:** No. Using `?raw_json=true` on the document endpoint lets you insert any valid JSON without a schema. TerminusDB stores it as-is. When you are ready for type safety, add a schema later — TerminusDB will validate all future inserts against it. See [Schema Reference](/docs/schema-reference-guide/) for details.
+
+### Q: Can I use TerminusDB without Docker?
+
+**A:** Yes. You can [build from source](/docs/install-terminusdb-from-source-code/) on Linux or macOS, or run on [Kubernetes](/docs/install-on-kubernetes/). Docker is the recommended path because it requires no dependencies and works on all platforms, but it is not the only option.
+
+### Q: How do I reset and start fresh?
+
+**A:** Stop and remove the container (`docker stop terminusdb && docker rm terminusdb`), then remove the storage volume (`docker volume rm terminusdb_storage`). Restart with the original `docker run` command. This gives you a clean instance with no databases.

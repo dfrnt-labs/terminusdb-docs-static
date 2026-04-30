@@ -18,7 +18,7 @@ Every page exists to move the reader toward a result. The path from "I opened th
 - "Meaningful result" means observable output the reader can see in their terminal, browser, or editor that proves something worked — not "you now understand X." Specifically: a command that produces visible output (HTTP response, console log, diff output, query result). A page that only explains concepts with no executable step producing output has no "meaningful result."
 - Concepts are introduced by necessity (the reader needs this to proceed), never by completeness (the reader should know this eventually).
 
-**Source:** Getting-started benchmark — Redis (0 concepts), DuckDB (0 concepts), and Dolt (4 concepts) all outperform TerminusDB's current 6-concept prerequisite load. Target: 3 concepts maximum before first payoff.
+**Rationale:** Competitive benchmark — Redis (0 concepts), DuckDB (0 concepts), and Dolt (4 concepts) all reach first payoff with fewer prerequisite concepts. Target: 3 concepts maximum before first payoff.
 
 ### 1.2 Progressive Disclosure
 
@@ -41,7 +41,7 @@ Show, then explain. Never explain without showing.
 - Code examples come first; prose explanation follows. The reader scans for the code block, reads it, then reads the explanation if confused.
 - Examples must be self-contained: a reader should be able to copy-paste and run the example with no modification beyond the documented prerequisites (Docker running, `npm install` done).
 
-**Source:** Bloom's taxonomy — understanding builds from concrete experience (Remember/Apply) before abstraction (Analyse/Evaluate). Carroll's minimalism — let users act before requiring them to understand.
+**Rationale:** Bloom's taxonomy — understanding builds from concrete experience (Remember/Apply) before abstraction (Analyse/Evaluate). Carroll's minimalism — let users act before requiring them to understand.
 
 ### 1.4 Unique Value First
 
@@ -53,7 +53,7 @@ Demonstrate what only TerminusDB can do. Do not spend the reader's attention on 
 - No tutorial's first payoff may be a simple document retrieval (MongoDB does this in 2 steps).
 - Branch, diff, merge, time-travel, and typed schema validation are differentiators. CRUD is not. Lead with differentiators.
 
-**Source:** Getting-started benchmark — Dolt's first payoff is `dolt diff`; Redis's is `GET`. Both demonstrate their unique value immediately. TerminusDB's current first payoff (document retrieval) demonstrates nothing unique.
+**Rationale:** Competitive benchmark — Dolt's first payoff is `dolt diff`; Redis's is `GET`. Both demonstrate their unique value immediately. A first payoff of document retrieval demonstrates nothing unique — every database can do that.
 
 ---
 
@@ -181,11 +181,11 @@ The diff output is the hero moment. Every design decision in the getting-started
 
 ### 3.2 Step and Concept Budget
 
-| Metric | Maximum | Current (broken) | Target |
-|--------|---------|-------------------|--------|
-| Steps to first payoff | 6 | 8 | 6 |
-| Concepts before first payoff | 3 | 6 | 3 |
-| Time to first payoff | 10 minutes | ~20 minutes | 8-10 minutes |
+| Metric | Maximum |
+|--------|---------|
+| Steps to first payoff | 6 |
+| Concepts before first payoff | 3 |
+| Time to first payoff | 10 minutes |
 
 The three permitted concepts before first payoff are: **Document**, **Branch**, **Diff**. Everything else (Schema, WOQL, Time-travel, Clone) comes later.
 
@@ -530,7 +530,7 @@ Review the output: if both `"before"` and `"before_data_version"` appear across 
 
 ## 7. What NOT to Do — Anti-Patterns
 
-These anti-patterns are drawn from the current-state audit and must not appear in new or updated content.
+These anti-patterns must not appear in new or updated content.
 
 ### 7.1 Remote Clone Dependencies
 
@@ -773,9 +773,9 @@ These require human expertise and cannot be meaningfully automated. They should 
 | Exception rule for canonical names (§5.1) | Whether a non-canonical name is justified requires reading the prose explanation |
 | Tutorial narrative coherence (§4.7) | Whether a step uses state from prior steps requires reading the full tutorial in sequence and understanding data flow |
 
-### 9.4 Proposed New Scripts
+### 9.4 CI Script Specifications
 
-The following scripts do not exist yet. Each is specified precisely enough for any engineer to implement. All should live in `scripts/docs-example-tests/` and be runnable as `node scripts/docs-example-tests/<name>.mjs`.
+Each script below is specified precisely enough for any engineer to implement. All must live in `scripts/docs-example-tests/` and be runnable as `node scripts/docs-example-tests/<name>.mjs`.
 
 ---
 
@@ -995,9 +995,9 @@ The following scripts do not exist yet. Each is specified precisely enough for a
 
 ---
 
-### 9.5 CI Integration Recommendation
+### 9.5 CI Integration Requirements
 
-The following scripts should run on every PR that modifies files under `src/`:
+The following scripts must run on every PR that modifies files under `src/`:
 
 | Priority | Script | Blocks merge? | Notes |
 |----------|--------|---------------|-------|
