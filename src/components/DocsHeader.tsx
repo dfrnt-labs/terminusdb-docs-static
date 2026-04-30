@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 
 import { navigation } from '@/lib/navigation'
 import { OpenInAI } from '@/components/OpenInAI'
+import { ConnectionIndicator } from '@/components/ConnectionSettings/ConnectionIndicator'
 
 export function DocsHeader({ title }: { title?: string }) {
   let pathname = usePathname()
@@ -30,7 +31,8 @@ export function DocsHeader({ title }: { title?: string }) {
             </h1>
           )}
         </div>
-        <div className="flex-shrink-0 pt-1">
+        <div className="flex items-center gap-3 flex-shrink-0 pt-1">
+          <ConnectionIndicator />
           <OpenInAI />
         </div>
       </div>

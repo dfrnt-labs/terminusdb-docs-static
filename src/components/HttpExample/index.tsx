@@ -28,6 +28,21 @@ interface HttpExampleComponentProps {
 const TIMEOUT_MS = 15000
 
 /**
+ * Substitute canonical placeholder values in a URL path with the user's actual
+ * connection settings. This makes the displayed curl/HTTP and the executed request
+ * reflect whatever the user has configured in ConnectionSettings.
+ *
+ * Substitutions:
+ * - `/admin/` path segment → `/${user}/` (org/user segment)
+ * - `/MyDatabase` → `/${db}` (database name, word-boundary aware)
+ */
+function resolvePath(rawPath: string, user: string, db: string): string {
+  return rawPath
+    .replace(/\/admin\//, `/${user}/`)
+    .replace(/\/MyDatabase\b/, `/${db}`)
+}
+
+/**
  * Structured HTTP example component. Renders a tabbed code block (curl | HTTP)
  * with optional Run button that executes the request directly from structured data.
  * No curl parsing — all views and execution are generated from method/path/headers/body.
@@ -82,6 +97,9 @@ export function HttpExample({
 
   const authHeader = "Basic " + btoa(`${settings.user}:${settings.password}`)
 
+  // Resolve path: substitute canonical placeholders (admin, MyDatabase) with user's settings
+  const resolvedPath = resolvePath(path, settings.user, settings.db)
+
   // Reset copied state after 2 seconds
   useEffect(() => {
     if (copied) {
@@ -134,8 +152,8 @@ export function HttpExample({
       // needs a clean slate." We delete the database at the path specified in this
       // step's URL (e.g., /api/db/admin/MyDatabase → delete MyDatabase).
       if (fixture) {
-        // Extract DB path from the step's own path: /api/db/{org}/{db}
-        const dbPathMatch = path.match(/^\/api\/db\/([^/]+\/[^/?]+)/)
+        // Extract DB path from the resolved path: /api/db/{org}/{db}
+        const dbPathMatch = resolvedPath.match(/^\/api\/db\/([^/]+\/[^/?]+)/)
         if (dbPathMatch) {
           const dbPath = `${baseUrl}/api/db/${dbPathMatch[1]}`
           await fetch(dbPath, {
@@ -155,7 +173,7 @@ export function HttpExample({
       }
 
       // Build fetch URL and headers
-      const fetchUrl = `${baseUrl}${path}`
+      const fetchUrl = `${baseUrl}${resolvedPath}`
       const fetchHeaders: Record<string, string> = {
         Authorization: execAuthHeader,
         ...extraHeaders,
@@ -251,7 +269,7 @@ export function HttpExample({
         error_type: isTimeout ? "timeout" : (isCorsError || isNetworkError) ? "network" : "runtime",
       })
     }
-  }, [settings, method, path, body, extraHeaders, fixture, exampleId, setConnectionStatus, trackEvent])
+  }, [settings, method, resolvedPath, body, extraHeaders, fixture, exampleId, setConnectionStatus, trackEvent])
 
   // Run with timeout
   const runWithTimeout = useCallback(async () => {
@@ -273,7 +291,7 @@ export function HttpExample({
     if (activeTab === "curl") {
       const curl = generateCurl({
         method,
-        path,
+        path: resolvedPath,
         headers: extraHeaders,
         body,
         serverUrl: settings.serverUrl,
@@ -283,7 +301,7 @@ export function HttpExample({
       await navigator.clipboard.writeText(curl)
     } else {
       // HTTP format: METHOD /path\nHeaders\n\nBody (with real auth)
-      const lines: string[] = [`${method.toUpperCase()} ${path}`]
+      const lines: string[] = [`${method.toUpperCase()} ${resolvedPath}`]
       if (body) {
         lines.push("Content-Type: application/json")
       }
@@ -298,7 +316,7 @@ export function HttpExample({
       await navigator.clipboard.writeText(lines.join("\n"))
     }
     setCopied(true)
-  }, [activeTab, method, path, extraHeaders, body, settings, authHeader])
+  }, [activeTab, method, resolvedPath, extraHeaders, body, settings, authHeader])
 
   // Keyboard handler
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -356,7 +374,7 @@ export function HttpExample({
             {activeTab === "curl" ? (
               <CurlView
                 method={method}
-                path={path}
+                path={resolvedPath}
                 headers={extraHeaders}
                 body={body}
                 serverUrl={settings.serverUrl}
@@ -367,7 +385,7 @@ export function HttpExample({
               <div className="bg-slate-900">
                 <HttpView
                   method={method}
-                  path={path}
+                  path={resolvedPath}
                   headers={extraHeaders}
                   body={body}
                   authHeader={authHeader}
