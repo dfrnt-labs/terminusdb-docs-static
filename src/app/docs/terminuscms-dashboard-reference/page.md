@@ -32,7 +32,7 @@ The TerminusDB cloud dashboard is a place to -
 *   Collaborate on other user's TerminusDB projects
 *   Manage, review, and accept or reject change requests.
 
-For details about how to achieve any of the list above, please take a look at the [product tour](/docs/product-tour/).
+For details about how to achieve any of the list above, please take a look at the [getting started guide](/docs/get-started/).
 
 TerminusDB is structured in such a way -
 

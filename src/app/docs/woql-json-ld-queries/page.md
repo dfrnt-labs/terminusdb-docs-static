@@ -65,7 +65,7 @@ Pass the JSON-LD object directly to `client.query()`:
 ```javascript
 const { WOQLClient } = require('terminusdb');
 
-const client = new WOQLClient('http://127.0.0.1:6363', {
+const client = new WOQLClient('http://localhost:6363', {
   user: 'admin',
   organization: 'admin',
   key: 'root'

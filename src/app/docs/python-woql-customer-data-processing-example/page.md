@@ -69,7 +69,7 @@ for attr_name in attributes:
 
 #POST the changes to the terminusDB API
 
-url = "http://127.0.0.1:6363/api/migration/admin/terminus"
+url = "http://localhost:6363/api/migration/admin/terminus"
 headers = {
 'Content-Type': 'application/json'
 }
@@ -95,7 +95,7 @@ from terminusdb_client import WOQLClient
 
 (purchase, user_id, attributes_id, attributes, at) = wq().vars('purchase', 'user_id', 'attributes_id', 'attributes', 'at')
 
-client = WOQLClient("http://127.0.0.1:6363/")
+client = WOQLClient("http://localhost:6363/")
 client.connect(db="...")
 
 customer_id = "greatUserId" # String for a given userId

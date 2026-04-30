@@ -135,7 +135,7 @@ Yes. TerminusDB is licensed under the Apache License 2.0. The source code is ava
 
 ### How does TerminusDB handle large datasets?
 
-TerminusDB uses succinct data structures (compressed, memory-mapped layers) for efficient storage and query. Periodic [delta rollup](/docs/delta-rollup/) compresses accumulated layers. For very large datasets, the database can operate with data on disk rather than fully in memory.
+TerminusDB uses succinct data structures — compressed, content-addressed layers that operate fully in-memory with ACID persistence to disk. All data is persisted on disk, but queries execute in-memory against the succinct representation, making reads extremely fast. The succinct encoding is exceptionally space-efficient: benchmarks on billion-triple datasets show an average memory footprint of approximately 13 bytes per triple. Periodic [delta rollup](/docs/delta-rollup/) compresses accumulated layers to keep the in-memory footprint bounded.
 
 ## Further reading
 

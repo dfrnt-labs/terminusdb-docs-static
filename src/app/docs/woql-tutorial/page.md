@@ -48,7 +48,7 @@ docker run --rm -p 6363:6363 terminusdb/terminusdb-server
 
 {% api-step title="Insert People" description="Adds five people: Alice, Bob, Carol, David, and Eve." method="POST" path="/api/document/admin/woql_tutorial?author=admin&message=Add+people" body="[{\"@type\":\"Person\",\"name\":\"Alice\",\"age\":28,\"city\":\"New York\",\"email\":\"alice@example.com\"},{\"@type\":\"Person\",\"name\":\"Bob\",\"age\":35,\"city\":\"San Francisco\",\"email\":\"bob@example.com\"},{\"@type\":\"Person\",\"name\":\"Carol\",\"age\":28,\"city\":\"New York\"},{\"@type\":\"Person\",\"name\":\"David\",\"age\":42,\"city\":\"Austin\",\"email\":\"david@example.com\"},{\"@type\":\"Person\",\"name\":\"Eve\",\"age\":31,\"city\":\"San Francisco\"}]" /%}
 
-Each playground below sends WOQL queries to `http://127.0.0.1:6363` with credentials `admin:root` and database `woql_tutorial`. Click **Settings** on any playground to change these.
+Each playground below sends WOQL queries to `http://localhost:6363` with credentials `admin:root` and database `woql_tutorial`. Click **Settings** on any playground to change these.
 
 ---
 

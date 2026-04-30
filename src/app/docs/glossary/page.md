@@ -182,3 +182,21 @@ In contrast to an [immutable](#immutable) object, a mutable object is changeable
 The **Internationalized Resource Identifier** (IRI) is an internet protocol standard that builds on the Uniform Resource Identifier (URI) protocol by greatly expanding the set of permitted characters. IRIs extend URIs by using the Universal Character Set, where URIs were limited to ASCII, with far fewer characters. IRIs may be represented by a sequence of octets but by definition are defined as a sequence of characters, because IRIs may be spoken or written by hand.
 
 [Read more](https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier)
+
+## Schema annotations
+
+### @shared
+
+A **class-level** schema annotation (`"@shared": []`) that marks a document class as reference-counted. Instances of a `@shared` class are regular documents with their own IRI, but are automatically cascade-deleted when no other document references them. Mutually exclusive with `@subdocument`. See [Document Types Compared](/docs/document-types-comparison/) and the [Schema Reference Guide](/docs/schema-reference-guide/).
+
+### @subdocument
+
+A **class-level** schema annotation (`"@subdocument": []`) that marks a class as wholly owned by its containing document. Subdocuments cannot exist independently, are created/deleted with their parent, and can only be referenced by a single parent. Keys must be `Random` or `ValueHash`. See the [Schema Reference Guide](/docs/schema-reference-guide/).
+
+### @unfoldable
+
+A **class-level** schema annotation (`"@unfoldable": []`) that causes all references to the annotated class to be expanded inline during document retrieval. Orthogonal to lifecycle annotations (`@shared`, `@subdocument`). See the [Document Unfolding Reference](/docs/document-unfolding-reference/).
+
+### @unfold
+
+A **field-level** schema annotation (`"@unfold": true`) that causes a specific property to expand its target inline during retrieval, regardless of whether the target class is `@unfoldable`. See the [Document Unfolding Reference](/docs/document-unfolding-reference/).

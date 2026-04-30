@@ -25,7 +25,7 @@ SERVERNAME/api/graphql/ORG/DATAPRODUCT
 For instance, with a data product named `admin/people`, and a locally installed TerminusDB, you can query it at:
 
 ```url
-http://127.0.0.1:6363/api/graphql/admin/people
+http://localhost:6363/api/graphql/admin/people
 ```
 
 For DFRNT TerminusDB cloud you can use the following URL:
@@ -47,12 +47,12 @@ Using Basic Auth, the default method in locally installed TerminusDBs, you can s
 For example, if you would like to connect to `admin/people` with the apollo client to download the associated GraphQL schema, simply use:
 
 ```bash
-npx apollo client:download-schema --endpoint=http://127.0.0.1:6363/api/graphql/admin/people schema.graphql --header='Authorization: Basic YWRtaW46cm9vdA=='
+npx apollo client:download-schema --endpoint=http://localhost:6363/api/graphql/admin/people schema.graphql --header='Authorization: Basic YWRtaW46cm9vdA=='
 ```
 
-### DFRNT TerminusDB Cloud
+### DFRNT Cloud
 
-For the DFRNT TerminusDB cloud hosting, you can use an API key with the following header.
+For the DFRNT Cloud hosting, you can use an API key with the following header.
 
 For instance, with the apollo client, you can download your schema as follows:
 
@@ -71,7 +71,7 @@ TerminusDB ships with a GraphiQL graphical GraphQL query interface and schema br
 You can reach this browser at:
 
 ```url
-http://127.0.0.1:6363/api/graphiql/admin/people
+http://localhost:6363/api/graphiql/admin/people
 ```
 
 You will also need to set your Authorization header in the Header dialog box at the bottom center.

@@ -36,7 +36,7 @@ Every tutorial uses the **WOQL Playground** — an interactive editor embedded i
 2. **That's it!** The playgrounds are pre-configured to use the `_system` database, which is always available. No database creation needed for time predicates.
 
 3. **Optional**: Click **Settings** on any playground to verify the connection:
-   - Server URL: `http://127.0.0.1:6363`
+   - Server URL: `http://localhost:6363`
    - Organization: `admin`
    - Database: `_system`
    - User: `admin`

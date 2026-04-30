@@ -13,7 +13,7 @@ media: []
 
 > **Docker memory allocation on Windows**\\ On Windows, the default memory allocated for the Docker is **2GB**. TerminusDB is an in-memory database so it is advised to increase the allocation in Docker desktop settings. **Install TerminusDB on Windows with Docker Guide**
 > 
-> For a comprehensive guide to installing on Windows, our friends at DFRNT put this blog together - [Run TerminusDB on Windows with Docker](https://dfrnt.com/blog/2023-02-25-run-terminusdb-on-windows-with-docker/)
+> For a comprehensive guide to installing on Windows, see [Install TerminusDB with Docker on Windows](/docs/install-terminusdb-docker-windows/).
 > 
 > **Linux package manager**\\ On Linux, use your distro's package manager for containerized deployments or [find more information here](https://www.docker.com/products/container-runtime).
 

@@ -240,6 +240,8 @@ RDF lists are implemented as linked cons cells. Each cell has:
 
 This example shows how to work directly with the cons cell structure.
 
+> **Note:** The `add_triple` calls below are a low-level RDF operation for constructing cons cells (`rdf:List`, `rdf:first`, `rdf:rest`). This is not the standard document API — use `insert_document` for document-oriented data.
+
 ### Create a List Manually
 
 ```javascript

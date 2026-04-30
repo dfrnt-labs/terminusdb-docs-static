@@ -22,15 +22,16 @@ media:
     value: https://assets.terminusdb.com/docs/how-to-query-graphql.png
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusDB. You will then have full access to the data needed for this tutorial.
+> **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >
-> Note: You can get access to these via DFRNT, just send us a request after signing up to the free trial and we will connect your account to the demo data.
+> ```bash
+> curl -u admin:root -X POST http://localhost:6363/api/clone/admin/star-wars \
+>   -H "Content-Type: application/json" \
+>   -H "Authorization-Remote: Basic cHVibGljOnB1YmxpYw==" \
+>   -d '{"remote_url": "https://data.terminusdb.org/admin/star-wars", "label": "Star Wars", "comment": "Star Wars dataset"}'
+> ```
 
-![Clone a demo project from the dashboard](https://assets.terminusdb.com/docs/how-to-clone-a-demo.png)
-
-Once you have cloned the database, go to the GraphQL icon (triangle in hexagon) on the left hand side and select the filing cabinet icon.
-
-![GraphQL query playground](https://assets.terminusdb.com/docs/how-to-query-graphql.png)
+You can run GraphQL queries against your local instance at `http://localhost:6363/api/graphql/admin/star-wars`.
 
 Now you have two panels, one on the left for query, and one on the right for results.
 
@@ -181,9 +182,9 @@ Continue exploring TerminusDB with these related topics:
 - **[Get Started](/docs/get-started/)** - Complete quickstart tutorial for TerminusDB
 - **[Document Insertion](/docs/document-insertion/)** - Learn how to insert documents using the REST API
 - **[WOQL Basics](/docs/how-to-query-with-woql/)** - Query your data using TerminusDB's native query language
-- **[Schema Reference](/docs/reference-schema/)** - Understand how to define schemas for your data
-- **[Clone a Demo Project](/docs/clone-a-demo-terminuscms-project/)** - Get started with pre-built demo data
-- **[GraphQL Reference](/docs/graphql-reference/)** - Complete GraphQL API reference
+- **[Schema Reference](/docs/schema-reference-guide/)** - Understand how to define schemas for your data
+- **[Explore a Real Dataset](/docs/explore-a-real-dataset/)** - Get started with the Star Wars demo dataset
+- **[GraphQL Reference](/docs/connecting-to-graphql-reference/)** - Complete GraphQL API reference
 - **[Connect with JavaScript Client](/docs/connect-with-the-javascript-client/)** - Use the JavaScript client to query GraphQL
-- **[Connect with Python Client](/docs/connect-with-the-python-client/)** - Use the Python client to query GraphQL
+- **[Connect with Python Client](/docs/connect-with-python-client/)** - Use the Python client to query GraphQL
 

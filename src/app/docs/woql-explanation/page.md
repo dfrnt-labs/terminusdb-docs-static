@@ -2,9 +2,9 @@
 title: "The WOQL Query Language, Explained"
 nextjs:
   metadata:
-    title: The WOQL Query Language, Explained
-    description: A brief explanation of the TerminusDB Web Object Query Langauge (WOQL), a datalog with composable logic and unification of variables
-    keywords: datalog, meaning, unification, composable logic, variables
+    title: What is WOQL? — TerminusDB Query Language Explained
+    description: WOQL (Web Object Query Language) is TerminusDB's declarative Datalog-based query language. Traverse document relationships without JOINs, branch-aware, with built-in unification.
+    keywords: what is woql, woql terminusdb, woql query language, datalog, graph query, unification, declarative query
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -12,13 +12,23 @@ nextjs:
 media: []
 ---
 
-This page explains various topics regarding the WOQL datalog query language with built in unification like in Prolog.
+**WOQL** (Web Object Query Language) is TerminusDB's declarative query language, built on Datalog foundations. Its key insight: because TerminusDB stores data as a graph of linked documents, WOQL traverses relationships directly — no JOINs, no foreign key declarations, no explicit relationship mapping. You describe the pattern you want to match, and WOQL finds all solutions by walking the graph structure natively.
 
-WOQL is the query language used to query TerminusDB Databases. It is unique as a query language as it enables small declarative query programs to be created to handle complex tasks including post-processing of data to change its shape and structure.
+WOQL queries are composable programs that can match patterns, filter, aggregate, reshape, and transform data in a single declarative expression. Variables in WOQL use **unification** (from Prolog): when the same variable appears in multiple positions, it must hold the same value everywhere — creating implicit joins without any JOIN syntax.
 
-In its most basic form, a query is submitted to the TerminusDB server and it responds with a JSON array of answers that match the query. Very similar to how other query languages work.
+In its most basic form, a query is submitted to the TerminusDB server and it responds with a JSON array of bindings that match the query. The columns are the variables in the query, and the rows are the solutions. What is relatively unique is that variables can contain lists and dictionaries that can be declaratively specified in the query.
 
-The cells of the resulting table are the variables in the query and the rows are the answers that match the query. What is relatively unique is that variables can contain both lists and dictionaries that can be declaratively specified in the query..
+## WOQL vs SQL
+
+| Aspect | SQL | WOQL |
+|--------|-----|------|
+| Relationships | Explicit JOINs with ON clauses | Implicit via shared variables |
+| Graph traversal | Recursive CTEs (verbose) | Native `path()` expressions |
+| Schema awareness | Separate from query | Queries can traverse schema and data |
+| Branch context | Not applicable | Queries run against any branch or commit |
+| Result shape | Flat rows and columns | Rows with nested lists and dictionaries |
+
+For a deeper comparison and when to choose each, see [What is Datalog?](/docs/what-is-datalog/).
 
 ## WOQL fluent vs. functional style
 
@@ -236,19 +246,18 @@ WOQL goes a step beyond supporting prefixes by automatically applying prefixes w
 *   `range`
 *   Otherwise, if no prefix is applied a string is assumed.
 
-## Further Reading
+## Further reading
 
-Read more:
-* the [Unification of Variables](/docs/unification-of-variables-in-datalog/)
-* how to [Query with WOQL](/docs/how-to-query-with-woql/).
-* [WOQL Control Flow](/docs/woql-control-flow/) — backtracking, variable scope, and performance
-* [WOQL Getting Started](/docs/woql-getting-started/) guide for more examples and putting it all together!
-* [JavaScript](/docs/javascript/) and [Python](/docs/python/) WOQL Reference guides
+**Start here:**
+- [WOQL Basics](/docs/woql-basics/) — practical introduction to writing your first WOQL queries
+- [What is Datalog?](/docs/what-is-datalog/) — the theoretical foundation behind WOQL's power
 
-### How-to guides
+**Go deeper:**
+- [Unification of Variables](/docs/what-is-datalog/#unification-the-key-mechanism) — how shared variables create joins
+- [WOQL Getting Started](/docs/woql-getting-started/) — hands-on guide with worked examples
+- [Query with WOQL](/docs/how-to-query-with-woql/) — comprehensive query guide
 
-See the [How-to Guides](/docs/use-the-clients/) for further examples of using WOQL in the clients.
-
-### Documents
-
-[Documents](/docs/documents-explanation/) in a knowledge graph and how to use them.
+**Reference:**
+- [JavaScript WOQL Reference](/docs/javascript/) — full JS client API
+- [Python WOQL Reference](/docs/python/) — full Python client API
+- [Documents](/docs/documents-explanation/) — how documents work in the graph

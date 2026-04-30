@@ -43,8 +43,8 @@ Instead of the built-in dashboard, we recommend:
    - Use the [TerminusDB CLI](/docs/terminusdb-cli-commands/) for database management
    - Perfect for automation and scripting
 
-4. **DFRNT TerminusDB Cloud**
-   - For a fully-featured cloud dashboard experience, consider [DFRNT TerminusDB Cloud](https://studio.dfrnt.com)
+4. **DFRNT Cloud**
+   - For a fully-featured cloud dashboard experience, consider [DFRNT Cloud](https://studio.dfrnt.com)
    - Includes team management, full localhost modelling experience with self-sovereign data, visual schema modeling, and data curation
 
 ---
@@ -220,7 +220,7 @@ For users migrating away from the dashboard, here's a typical workflow transitio
    # Python approach
    from terminusdb_client import Client
    client = Client("http://localhost:6363")
-   client.connect(user="admin", password="root")
+   client.connect(user="admin", key="root")  # key= replaced password= in TerminusDB Python client v1.1+
    client.create_database("mydb")
    ```
 

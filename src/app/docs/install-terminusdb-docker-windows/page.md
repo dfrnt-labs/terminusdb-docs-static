@@ -11,7 +11,7 @@ nextjs:
 media: []
 ---
 
-This guide provides step-by-step instructions for running TerminusDB on Windows using Docker, including how to set up persistent storage, create backups, and connect to DFRNT Cloud.
+This guide provides step-by-step instructions for running TerminusDB on Windows using Docker, including how to set up persistent storage and create backups.
 
 ## Prerequisites
 
@@ -254,7 +254,7 @@ If you encounter path-related errors, ensure you're using the correct command fo
 Now that you have TerminusDB running on Windows:
 
 - [Connect with the JavaScript Client](/docs/connect-with-the-javascript-client)
-- [Connect with the Python Client](/docs/connect-with-the-python-client)
+- [Connect with the Python Client](/docs/connect-with-python-client)
 - [Learn about Documents & Schema](/docs/documents-explanation)
 - [Explore GraphQL Queries](/docs/how-to-query-with-graphql)
 

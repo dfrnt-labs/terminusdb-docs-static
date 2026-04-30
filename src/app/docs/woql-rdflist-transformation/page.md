@@ -154,6 +154,8 @@ await client.query(WOQL.lib().rdflist_reverse(listHead));
 
 ### Complete Reverse Example
 
+> **Note:** The `add_triple` calls below are a low-level RDF operation for constructing cons cells (`rdf:List`, `rdf:first`, `rdf:rest`). This is not the standard document API — use `insert_document` for document-oriented data.
+
 ```javascript
 // Create list: [A, B, C, D]
 const createQuery = WOQL.and(

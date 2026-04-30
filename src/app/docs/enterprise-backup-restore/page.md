@@ -20,8 +20,8 @@ Create a bundle of an entire database:
 ```bash
 curl -s -X POST \
   -H "$AUTH" \
-  "$SERVER/api/bundle/admin/mydb" \
-  --output mydb-backup.bundle
+  "$SERVER/api/bundle/admin/MyDatabase" \
+  --output MyDatabase-backup.bundle
 ```
 
 The response is a binary payload containing the full database state. Save it to a file for later restoration or transfer to another server.
@@ -47,14 +47,14 @@ curl -s -X POST \
   -H "Content-Type: application/json" \
   -H "$AUTH" \
   -d '{"label": "My Database (restored)", "comment": "Restored from backup"}' \
-  "$SERVER/api/db/admin/mydb-restored"
+  "$SERVER/api/db/admin/MyDatabase-restored"
 
 # Restore the bundle into the new data product
 curl -s -X POST \
   -H "Content-Type: application/octets" \
   -H "$AUTH" \
-  --data-binary @mydb-backup.bundle \
-  "$SERVER/api/unbundle/admin/mydb-restored"
+  --data-binary @MyDatabase-backup.bundle \
+  "$SERVER/api/unbundle/admin/MyDatabase-restored"
 ```
 
 The target database must already exist before unbundling. The unbundle operation replaces the database contents with the bundle's state, including all history. Restoring to a separate data product lets you verify the backup before replacing the original.
@@ -80,17 +80,17 @@ Move a database between servers:
 ```bash
 # On the source server
 curl -s -X POST -H "$AUTH" \
-  "$SOURCE_SERVER/api/bundle/admin/mydb" \
-  --output mydb.bundle
+  "$SOURCE_SERVER/api/bundle/admin/MyDatabase" \
+  --output MyDatabase.bundle
 
 # On the target server
 curl -s -X POST -H "Content-Type: application/json" -H "$AUTH" \
   -d '{"label": "My Database"}' \
-  "$TARGET_SERVER/api/db/admin/mydb"
+  "$TARGET_SERVER/api/db/admin/MyDatabase"
 
 curl -s -X POST -H "Content-Type: application/octets" -H "$AUTH" \
-  --data-binary @mydb.bundle \
-  "$TARGET_SERVER/api/unbundle/admin/mydb"
+  --data-binary @MyDatabase.bundle \
+  "$TARGET_SERVER/api/unbundle/admin/MyDatabase"
 ```
 
 ### Disaster recovery

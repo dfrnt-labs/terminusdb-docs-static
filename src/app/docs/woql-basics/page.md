@@ -1,10 +1,10 @@
 ---
-title: TerminusDB Web Object Query Language (WOQL) Basics
+title: WOQL Basics — Pattern Matching and Graph Traversal
 nextjs:
   metadata:
-    title: TerminusDB Web Object Query Language (WOQL) Basics
-    keywords: javascript datalog
-    description: Learn the TerminusDB WOQL query basics for TerminusDB
+    title: WOQL Basics — Pattern Matching and Graph Traversal
+    keywords: woql, terminusdb query language, datalog, graph traversal, pattern matching, triple query, document graph query, woql tutorial
+    description: WOQL is TerminusDB's Datalog-based query language for pattern matching, graph traversal, and data transformation. Learn the basics with worked examples.
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-basics.png
     alternates:
@@ -17,15 +17,19 @@ media:
     value: https://assets.terminusdb.com/docs/how-to-query-woql.png
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on TerminusDB. You will then have full access to the data needed for this tutorial.
+WOQL (Web Object Query Language) is TerminusDB's Datalog-based query language. It finds patterns across documents and their relationships by declaring what you want — not how to get it. Unlike SQL, WOQL traverses document links natively without JOINs. Unlike GraphQL (which TerminusDB also supports), WOQL handles complex pattern matching, recursive traversal, aggregation, and data transformation in a single composable query.
+
+Not sure which query interface to use? See [Choosing a Query Interface](/docs/querying-terminusdb) for a comparison of WOQL, GraphQL, and the HTTP Document API.
+
+{% callout title="Prerequisites" %}
+This page uses the Star Wars dataset for examples. [Clone it from the public templates server](/docs/explore-a-real-dataset/#step-1) or follow the [main quickstart](/docs/get-started/) first.
+{% /callout %}
 
 ![WOQL query playground in the TerminusDB dashboard](https://assets.terminusdb.com/docs/how-to-query-woql.png)
 
-First, go to the WOQL Query Panel in the UI. Now you can type a query using the syntax of the JS client in the panel.
+## Your first WOQL query
 
-Queries are composed of variables, names, words and values.
-
-Lets start with a simple query which just looks at one field.
+WOQL queries are composed of variables, triple patterns, and combinators. Let's start with a simple query that looks at one field.
 
 We need to describe which variables we want to use, and we do that with `Vars`.
 
@@ -113,3 +117,13 @@ limit(5)
 ```
 
 Now we get back the table with the `person` column removed.
+
+## Next steps
+
+- [Full WOQL Tutorial](/docs/how-to-query-with-woql/) — 12-step hands-on guide covering all WOQL operations
+- [WOQL Explained](/docs/woql-explanation/) — understand Datalog, unification, and composable logic
+- [Path Queries in WOQL](/docs/path-queries-in-woql/) — recursive graph traversal with regex-like path expressions
+- [Filter with WOQL](/docs/filter-with-woql/) — conditional filtering and pattern matching
+- [WOQL Class Reference](/docs/woql-class-reference-guide/) — complete API reference for all WOQL words
+- [GraphQL Basics](/docs/graphql-basics/) — the alternative query interface for simpler read patterns
+- [TerminusDB Query Cookbook](/docs/terminusdb-query-cookbook/) — real-world query recipes

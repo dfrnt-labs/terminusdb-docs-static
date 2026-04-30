@@ -11,7 +11,14 @@ nextjs:
 media: []
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have access to the data needed for this tutorial.
+> **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
+>
+> ```bash
+> curl -u admin:root -X POST http://localhost:6363/api/clone/admin/star-wars \
+>   -H "Content-Type: application/json" \
+>   -H "Authorization-Remote: Basic cHVibGljOnB1YmxpYw==" \
+>   -d '{"remote_url": "https://data.terminusdb.org/admin/star-wars", "label": "Star Wars", "comment": "Star Wars dataset"}'
+> ```
 
 You can read a document after finding the document id as follows:
 
@@ -22,21 +29,4 @@ and(isa(v.id, "People"),
     read_document(v.id, v.doc))
 ```
 
-This find a `People` document, makes sure it has the label `\"Boosk\"` and then reads the document into the variable `doc`.
-    TerminusDB projects.
-  og_image: https://assets.terminusdb.com/docs/woql-read-documents.png
-media: []
----
-
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have access to the data needed for this tutorial.
-
-You can read a document after finding the document id as follows:
-
-```javascript
-let v = Vars("doc", "id");
-and(isa(v.id, "People"),
-    triple(v.id, "label", string("Bossk")),
-    read_document(v.id, v.doc))
-```
-
-This find a `People` document, makes sure it has the label `"Boosk"` and then reads the document into the variable `doc`.
+This finds a `People` document, makes sure it has the label `"Bossk"` and then reads the document into the variable `doc`.

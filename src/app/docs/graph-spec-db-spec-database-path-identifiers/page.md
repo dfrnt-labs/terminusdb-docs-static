@@ -41,16 +41,16 @@ Here are the most frequently used DB_SPEC formats, and special ones:
 ```text
 <organization>/<database>
 ```
-**Example:** `admin/my_database`
+**Example:** `admin/MyDatabase`
 
-This is shorthand for `admin/my_database/local/branch/main` - it automatically points to the main branch of the local repository.
+This is shorthand for `admin/MyDatabase/local/branch/main` - it automatically points to the main branch of the local repository.
 
 #### Specific Branch
 ```text
 <organization>/<database>/local/branch/<branch_name>
 ```
 **Examples:**
-- `admin/employees/local/branch/main`
+- `admin/MyDatabase/local/branch/main`
 - `my_team/products/local/branch/development`
 - `admin/customers/local/branch/feature-updates`
 
@@ -58,7 +58,7 @@ This is shorthand for `admin/my_database/local/branch/main` - it automatically p
 ```text
 <organization>/<database>/local/commit/<commit_id>
 ```
-**Example:** `admin/employees/local/commit/9w8hk3y6rb8tjdy961ed3i536ntkqd8`
+**Example:** `admin/MyDatabase/local/commit/9w8hk3y6rb8tjdy961ed3i536ntkqd8`
 
 Use this for time-travel queries or to reference a specific point in history.
 
@@ -66,7 +66,7 @@ Use this for time-travel queries or to reference a specific point in history.
 ```text
 <organization>/<database>/_meta
 ```
-**Example:** `admin/employees/_meta`
+**Example:** `admin/MyDatabase/_meta`
 
 Access the repository graph containing information about the local repository and all known remotes.
 
@@ -74,7 +74,7 @@ Access the repository graph containing information about the local repository an
 ```text
 <organization>/<database>/<repository>/_commits
 ```
-**Example:** `admin/employees/local/_commits`
+**Example:** `admin/MyDatabase/local/_commits`
 
 Access the commit graph containing branch histories, commit objects, authorship, and timestamps.
 
@@ -82,7 +82,7 @@ Access the commit graph containing branch histories, commit objects, authorship,
 ```text
 <organization>/<database>/<remote_name>/branch/<branch_name>
 ```
-**Example:** `admin/employees/origin/branch/main`
+**Example:** `admin/MyDatabase/origin/branch/main`
 
 Reference a branch on a configured remote repository.
 
@@ -110,13 +110,13 @@ Where `<graph_type>` is one of:
 
 #### Access Schema Graph
 ```text
-admin/employees/local/branch/main/schema
+admin/MyDatabase/local/branch/main/schema
 ```
 Read or modify the schema (data model) for the employees database.
 
 #### Access Instance Graph
 ```text
-admin/employees/local/branch/main/instance
+admin/MyDatabase/local/branch/main/instance
 ```
 Query or update the actual data documents in the employees database.
 
@@ -132,12 +132,12 @@ View the schema as it existed at a specific commit.
 
 #### Query a Database
 ```bash
-terminusdb query admin/my_database "select([X], t(X, rdf:type, Y))"
+terminusdb query admin/MyDatabase "select([X], t(X, rdf:type, Y))"
 ```
 
 #### Optimize a Specific Branch
 ```bash
-terminusdb optimize admin/employees/local/branch/main
+terminusdb optimize admin/MyDatabase/local/branch/main
 ```
 
 #### Dump Triples from Schema
@@ -156,18 +156,18 @@ In REST API endpoints, the DB_SPEC appears directly in the URL path structure:
 
 #### Insert Document
 ```bash
-POST http://localhost:6363/api/document/admin/PeopleReferenceData/local/branch/main
+POST http://localhost:6363/api/document/admin/MyDatabase/local/branch/main
 ```
 
 The path structure breaks down as:
 - `admin` - organization
-- `PeopleReferenceData` - database
+- `MyDatabase` - database
 - `local` - repository
 - `branch/main` - branch reference
 
 #### Query Schema Graph
 ```bash
-GET http://localhost:6363/api/document/admin/employees/local/branch/main?graph_type=schema
+GET http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?graph_type=schema
 ```
 
 ### Client Library Usage
@@ -176,19 +176,19 @@ GET http://localhost:6363/api/document/admin/employees/local/branch/main?graph_t
 ```javascript
 const client = new TerminusClient.Client('http://localhost:6363', {
   organization: 'admin',
-  db: 'employees',
+  db: 'MyDatabase',
   branch: 'main'  // Optional, defaults to 'main'
 });
 
-// The client constructs DB_SPEC internally as: admin/employees/local/branch/main
+// The client constructs DB_SPEC internally as: admin/MyDatabase/local/branch/main
 ```
 
 #### Python Client
 ```python
 client = Client("http://localhost:6363")
-client.connect(team="admin", db="employees", branch="main")
+client.connect(team="admin", db="MyDatabase", branch="main")
 
-# The client uses: admin/employees/local/branch/main
+# The client uses: admin/MyDatabase/local/branch/main
 ```
 
 ## Special Cases and Edge Scenarios
@@ -204,9 +204,9 @@ When components are omitted, TerminusDB applies these defaults:
 ### Examples with Defaults
 
 ```text
-admin/mydb
+admin/MyDatabase
 ↓ Expands to ↓
-admin/mydb/local/branch/main
+admin/MyDatabase/local/branch/main
 ```
 
 ### Working with Remotes
@@ -214,13 +214,13 @@ admin/mydb/local/branch/main
 After adding a remote:
 
 ```bash
-terminusdb remote add admin/mydb origin https://cloud.terminusdb.com/myorg/mydb
+terminusdb remote add admin/MyDatabase origin https://cloud.terminusdb.com/MyTeam/MyDatabase
 ```
 
 You can reference the remote:
 
 ```bash
-terminusdb pull admin/mydb/origin/branch/main
+terminusdb pull admin/MyDatabase/origin/branch/main
 ```
 
 ## Common Patterns and Use Cases
@@ -230,7 +230,7 @@ terminusdb pull admin/mydb/origin/branch/main
 Access historical data by referencing a specific commit:
 
 ```bash
-terminusdb query admin/sales/local/commit/abc123 "select([X], t(X, rdf:type, Y))"
+terminusdb query admin/MyDatabase/local/commit/abc123 "select([X], t(X, rdf:type, Y))"
 ```
 
 ### Multi-Branch Development
@@ -272,10 +272,10 @@ terminusdb query _system "..."
 | Format | Example | Use Case |
 |--------|---------|----------|
 | `_system` | `_system` | Access system metadata |
-| `<org>/<db>` | `admin/employees` | Quick access to main branch |
+| `<org>/<db>` | `admin/MyDatabase` | Quick access to main branch |
 | `<org>/<db>/local/branch/<branch>` | `admin/emp/local/branch/dev` | Specific branch |
 | `<org>/<db>/local/commit/<hash>` | `admin/emp/local/commit/abc123` | Specific commit (time travel) |
-| `<org>/<db>/_meta` | `admin/employees/_meta` | Repository metadata |
+| `<org>/<db>/_meta` | `admin/MyDatabase/_meta` | Repository metadata |
 | `<org>/<db>/local/_commits` | `admin/emp/local/_commits` | Commit history graph |
 | `<DB_SPEC>/schema` | `admin/emp/local/branch/main/schema` | Schema graph |
 | `<DB_SPEC>/instance` | `admin/emp/local/branch/main/instance` | Instance data graph |

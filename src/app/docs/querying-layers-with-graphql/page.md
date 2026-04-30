@@ -34,7 +34,7 @@ Layers can be queried through three different system graph endpoints:
 To access repository and layer information for a specific data product:
 
 ```url
-http://127.0.0.1:6363/api/graphql/ORG/DATA_PRODUCT/_meta
+http://localhost:6363/api/graphql/ORG/DATA_PRODUCT/_meta
 ```
 
 ### Commit Graph
@@ -42,7 +42,7 @@ http://127.0.0.1:6363/api/graphql/ORG/DATA_PRODUCT/_meta
 To access commit history, branches, and their associated layers:
 
 ```url
-http://127.0.0.1:6363/api/graphql/ORG/DATA_PRODUCT/local/_commits
+http://localhost:6363/api/graphql/ORG/DATA_PRODUCT/local/_commits
 ```
 
 ### System Graph
@@ -50,7 +50,7 @@ http://127.0.0.1:6363/api/graphql/ORG/DATA_PRODUCT/local/_commits
 For instance, to get _only_ system graph access, you can use the following endpoint:
 
 ```url
-http://127.0.0.1:6363/api/graphql/_system
+http://localhost:6363/api/graphql/_system
 ```
 
 ## Querying Layers through Repositories
@@ -62,13 +62,13 @@ The most common way to access layer information is through repository objects. R
 Here's how to query repository head layers using `curl` with basic authentication:
 
 ```bash
-curl -X POST "http://127.0.0.1:6363/api/graphql/admin/my-database/_meta" \
+curl -X POST "http://localhost:6363/api/graphql/admin/MyDatabase/_meta" \
   -u admin:root \
   -H "Content-Type: application/json" \
   -d '{"query":"query { Local { name head { layer_identifier } } }"}'
 ```
 
-Replace `my-database` with your actual database name.
+Replace `MyDatabase` with your actual database name.
 
 The equivalent GraphQL query is:
 

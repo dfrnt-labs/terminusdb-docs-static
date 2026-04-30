@@ -577,5 +577,5 @@ and(
 | Array and set queries | [Arrays & Sets](/docs/query-arrays-and-sets-in-woql/) |
 | Set operations reference | [Set Operations](/docs/woql-set-operations/) |
 | Subdocument handling | [Subdocuments](/docs/woql-subdocument-handling/) |
-| Variables and unification | [Unification](/docs/unification-of-variables-in-datalog/) |
+| Variables and unification | [Unification](/docs/what-is-datalog/#unification-the-key-mechanism) |
 | Complete reference | [WOQL Class Reference](/docs/woql-class-reference-guide/) |

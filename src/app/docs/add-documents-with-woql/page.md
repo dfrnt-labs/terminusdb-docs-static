@@ -10,7 +10,14 @@ nextjs:
       canonical: https://terminusdb.org/docs/add-documents-with-woql/
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on DFRNT TerminusDB cloud. You will then have full access to the data needed for this tutorial.
+> **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
+>
+> ```bash
+> curl -u admin:root -X POST http://localhost:6363/api/clone/admin/star-wars \
+>   -H "Content-Type: application/json" \
+>   -H "Authorization-Remote: Basic cHVibGljOnB1YmxpYw==" \
+>   -d '{"remote_url": "https://data.terminusdb.org/admin/star-wars", "label": "Star Wars", "comment": "Star Wars dataset"}'
+> ```
 
 ## Add a document in WOQL
 
@@ -32,13 +39,18 @@ and(isa(v.person, "People"),
 
 ## Create and link a subdocument in WOQL
 
-Subdocuments have two components linking them to their parent, one triple, and one subdocument, which are required by the schema checker to accept the document. The triple links the parent with the subdocument, and the subdocument is linked to the parent using the special property `@linked-by`.
+Subdocuments are linked to their parent document using the `@linked-by` annotation in `insert_document`. This tells TerminusDB which parent document owns the subdocument and which property links them.
 
 Simple example for adding a subdocument:
 
 ```javascript
-and(
-  insert_document(new doc({"@type": "PersonRole", "@linked-by": {"@id": "Person/John", "@property": "role"}}), "v:SubdocumentId"),
-  add_triple("Person/John", "role", "v:SubdocumentId"),
+insert_document(
+  new doc({
+    "@type": "PersonRole",
+    "@linked-by": { "@id": "Person/John", "@property": "role" }
+  }),
+  "v:SubdocumentId"
 )
 ```
+
+The `@linked-by` annotation specifies that this subdocument is owned by `Person/John` via its `role` property. TerminusDB automatically creates the linking triple when the document is inserted.

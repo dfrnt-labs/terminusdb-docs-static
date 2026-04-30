@@ -65,7 +65,7 @@ curl -u admin:root -X POST "http://127.0.0.1:6363/api/db/admin/starter" \
 
 You will receive a database creation status message with database metadata and a resource identifier.
 
-Learn more: [Database API Reference Guide](/docs/database-api/)
+Learn more: [Document API Reference Guide](/docs/http-documents-api/)
 
 {% task-heading id="get-started-insert-first-json-document" number="4" %}
 Insert a named (unstructured) JSON document 
@@ -198,7 +198,7 @@ The next step now is to install a Javascript or Python client that will help you
 Continue here (Javascript is the primary client):
 
 * [Javascript Client](/docs/connect-with-the-javascript-client/).
-* [Python Client](/docs/connect-with-the-python-client/)
+* [Python Client](/docs/connect-with-python-client/)
 
 
 ## Other alternatives

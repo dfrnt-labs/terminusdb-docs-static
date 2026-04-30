@@ -1,9 +1,10 @@
 ---
-title: Documents Explanation
+title: TerminusDB Document Model — Documents, Subdocuments, and Graph Relationships
 nextjs:
   metadata:
-    title: TerminusDB Documents Explanation
-    description: The types of documents available in TerminusDB and TerminusDB with examples of their definitions and interactions.
+    title: TerminusDB Document Model — Documents, Subdocuments, and Graph Relationships
+    keywords: terminusdb document model, json document database, document graph database, subdocuments, document references, schema-enforced json, knowledge graph documents
+    description: TerminusDB stores JSON documents in a schema-enforced graph. Documents have typed relationships, subdocuments for nested data, and shared documents for reuse — combining document-store convenience with graph traversal power.
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -16,13 +17,15 @@ media:
     value: https://assets.terminusdb.com/docs/terminusdb-contact-graph-diagram.png
 ---
 
-## The TerminusDB hierarchical document store
+TerminusDB combines the developer experience of a JSON document store with the traversal power of a knowledge graph. You write and read JSON documents; under the hood, TerminusDB decomposes them into a typed, schema-enforced graph of triples. This means you get document-store convenience (insert a JSON object, get a JSON object back) *and* graph-database power (traverse relationships across documents without JOINs, query patterns across the entire dataset).
 
-TerminusDB is a document store as well as a knowledge graph database. TerminusDB [schemata](/docs/schema-reference-guide/) describe how to interpret segments of graphs as self-contained documents.
+A pure document store (MongoDB, CouchDB) gives you flexible JSON but no enforced relationships between documents. A pure graph database (Neo4j, RDF stores) gives you traversal but forces you to think in triples or nodes-and-edges. TerminusDB gives you both: documents *are* the interface, the graph *is* the engine.
 
-From a knowledge graph perspective, what is unique about TerminusDB is that the triples of a document are transactionally enforced to a shape defined by the schema, and the triples of the document are part of a shape and have a lifecycle that follows the defined schema.
+## The document model
 
-Documents are similar and adhere to a special-purpose subset of the JSON-LD. 
+TerminusDB [schemata](/docs/schema-reference-guide/) define document types as classes. Each class specifies the shape of a JSON document — its fields, their types, and their relationships to other documents. The database enforces this schema on every transaction: you cannot insert a document that violates its class definition.
+
+Documents are stored as JSON-LD internally and are accessible as plain JSON through the [document API](/docs/document-insertion/).
 
 ### TerminusDB storage structure
 
@@ -41,6 +44,16 @@ Documents can contain **subdocuments**. A subdocument:
 *   Can have any number of outgoing links to other documents or subdocuments.
 
 See the [Subdocuments](#subdocuments) section for more information.
+
+#### Shared documents overview
+
+Documents can also be **shared documents** (annotated with `@shared`). A shared document:
+
+*   Is a regular document with its own IRI (not a subdocument).
+*   Can be referenced by any number of other documents.
+*   Is automatically cascade-deleted when no other document references it.
+
+Shared documents combine the multi-parent referencing of regular documents with the lifecycle management of subdocuments. See [Document Types Compared](/docs/document-types-comparison/) for a full comparison of all document types.
 
 ### Simple documents
 
@@ -317,3 +330,13 @@ With a bit of practice, designing your knowledge graphs in TerminusDB will becom
   "name"       : "Ireland",
   "coordinates": [ ... ] }
 ```
+
+## Next steps
+
+- [Get Started](/docs/get-started/) — create your first database and insert documents in under 10 minutes
+- [Schema Reference](/docs/schema-reference-guide/) — complete reference for types, keys, and constraints
+- [Document Types Comparison](/docs/document-types-comparison/) — when to use documents, subdocuments, or shared documents
+- [Insert Documents via API](/docs/document-insertion/) — the HTTP document API for CRUD operations
+- [WOQL Basics](/docs/woql-basics/) — query across documents using pattern matching and graph traversal
+- [What is TerminusDB?](/docs/terminusdb-explanation/) — architecture and how the document-graph model works under the hood
+- [Version Control for Data](/docs/git-for-data-reference/) — how branching, diffing, and merging work with documents

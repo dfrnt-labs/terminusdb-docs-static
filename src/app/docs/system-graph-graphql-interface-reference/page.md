@@ -19,7 +19,7 @@ TerminusDB also exposes its internal working graphs, the system graph, the meta 
 For instance, to get _only_ system graph access, you can use the following endpoint:
 
 ```url
-http://127.0.0.1:6363/api/graphql/_system
+http://localhost:6363/api/graphql/_system
 ```
 
 ## Meta Graph
@@ -27,7 +27,7 @@ http://127.0.0.1:6363/api/graphql/_system
 To get the System Graph and Meta graph which belongs to a specific data product you can use the following endpoint:
 
 ```url
-http://127.0.0.1:6363/api/graphql/ORG/DATA_PRODUCT/_meta
+http://localhost:6363/api/graphql/ORG/DATA_PRODUCT/_meta
 ```
 
 ## Commit Graph
@@ -35,7 +35,7 @@ http://127.0.0.1:6363/api/graphql/ORG/DATA_PRODUCT/_meta
 To get access to branches, commits, commit logs, as well as the meta and system graph, you can use the following endpoint:
 
 ```url
-http://127.0.0.1:6363/api/graphql/ORG/DATA_PRODUCT/local/_commits
+http://localhost:6363/api/graphql/ORG/DATA_PRODUCT/local/_commits
 ```
 
 ## See also

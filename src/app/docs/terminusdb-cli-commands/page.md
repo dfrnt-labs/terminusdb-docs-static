@@ -967,6 +967,91 @@ For example:
 
 `terminusdb triples dump admin/people/local/branch/main/schema`
 
+## EXAMPLES
+
+Common usage examples for the most frequently used commands.
+
+### Create a database
+
+```bash
+terminusdb db create admin/MyDatabase --label="MyDatabase" --comment="My first database"
+```
+
+### Create a database without schema validation
+
+```bash
+terminusdb db create admin/MyDatabase --label="MyDatabase" --schema=false
+```
+
+### Insert a document from a JSON string
+
+```bash
+terminusdb doc insert admin/MyDatabase --data='{"@type":"Person","name":"Jane Smith","email":"jane@example.com"}' \
+  --author=admin --message="Add Jane"
+```
+
+### Insert a raw JSON document (no schema required)
+
+```bash
+terminusdb doc insert admin/MyDatabase --raw-json=true \
+  --data='{"@id":"terminusdb:///data/jane","name":"Jane Smith","age":30}' \
+  --author=admin --message="Add raw document"
+```
+
+### Insert documents from a file
+
+```bash
+cat people.json | terminusdb doc insert admin/MyDatabase --author=admin --message="Bulk import"
+```
+
+### Get all documents
+
+```bash
+terminusdb doc get admin/MyDatabase --as-list=true
+```
+
+### Get a specific document by ID
+
+```bash
+terminusdb doc get admin/MyDatabase --id="Person/jane"
+```
+
+### Get documents of a specific type
+
+```bash
+terminusdb doc get admin/MyDatabase --type="Person" --as-list=true
+```
+
+### Create a branch
+
+```bash
+terminusdb branch create admin/MyDatabase/local/branch/feature
+```
+
+### View commit log
+
+```bash
+terminusdb log admin/MyDatabase
+```
+
+### View log with a count limit
+
+```bash
+terminusdb log admin/MyDatabase --count=5
+```
+
+### Query with WOQL (find all documents of a type)
+
+```bash
+terminusdb query admin/MyDatabase 'select([X,Doc], (t(X, rdf:type, "@schema:Person"), get_document(X, Doc)))'
+```
+
+### Delete a database
+
+```bash
+terminusdb db delete admin/MyDatabase
+```
+
 ## ENVIRONMENT
 
 *   `TERMINUSDB_SERVER_NAME`: Set the servername to use for`terminusdb serve`. Default is `127.0.0.1`.

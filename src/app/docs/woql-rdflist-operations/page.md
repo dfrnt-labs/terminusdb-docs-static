@@ -64,6 +64,8 @@ const client = new WOQLClient("http://localhost:6363", {
 });
 
 // Create a list manually, independent of documents
+// Note: add_triple is a low-level RDF operation for constructing cons cells.
+// Use insert_document for document-oriented data.
 const createList = WOQL.and(
   WOQL.idgen_random("terminusdb://data/Cons/", "v:cell1"),
   WOQL.idgen_random("terminusdb://data/Cons/", "v:cell2"),

@@ -45,6 +45,8 @@ Creating a subdocument requires two operations:
 1. Insert the subdocument with `@linked-by` annotation
 2. Add the triple linking the parent to the subdocument
 
+> **Note:** `add_triple` is a low-level triple manipulation operation; schema validation still applies. Both `add_triple` and `insert_document` are valid approaches for working with data, and each has its use. Not all documents can be created by manipulating triples alone — subdocuments require `insert_document` with the `@linked-by` annotation so the schema checker can accept them. Here, `add_triple` establishes the linking triple from parent to subdocument and must be paired with `insert_document` for subdocument creation.
+
 ```javascript
 let v = Vars("subdocId");
 and(
@@ -64,7 +66,7 @@ and(
 )
 ```
 
-The `insert_document` creates the subdocument with its properties, and `add_triple` establishes the link from the parent document to the subdocument.
+The `insert_document` creates the subdocument with its properties, and `add_triple` establishes the linking triple from the parent document to the subdocument.
 
 ## Read a Subdocument
 

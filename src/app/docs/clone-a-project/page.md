@@ -17,13 +17,13 @@ Assuming you have [connected with the JavaScript Client](/docs/connect-with-the-
 
 Cloning a database pulls down a full copy of all data at that point in time, including all document and schema versions.
 
-If the database that you are cloning is not public, you need to provide an APIKey to the client setting the remoteAuth For more info visit the ['How to get your API key'](/docs/how-to-connect-terminuscms/) page.
+If the database that you are cloning is not public, you need to provide an APIKey to the client setting the remoteAuth. For more info, [create a DFRNT account](https://dfrnt.com/create-account) to get your API key.
 
-```python
+```javascript
 const cloneLocally = async () => {
    client.remoteAuth( {"type":"apikey" , "key":myApiKey})
-   const cloneDetails = {remote_url: "http://cloud.terminusdb.com/MyTeam/MyTeam/mydb", 
-                        label "Cloned DB",
+   const cloneDetails = {remote_url: "https://cloud.dfrnt.com/MyTeam/MyTeam/mydb", 
+                        label: "Cloned DB",
                         comment: "Cloned from mydb"}
    await  client.clonedb(cloneDetails, "new_mydb")
 

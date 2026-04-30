@@ -52,7 +52,7 @@ For a comprehensive overview of TerminusDB's role-based access control model, se
 ## Prerequisites
 
 Before starting, ensure you have:
-- A running TerminusDB instance (default: `http://127.0.0.1:6363`) - see [Install TerminusDB as a Docker Container](/docs/install-terminusdb-as-a-docker-container/) for setup instructions
+- A running TerminusDB instance (default: `http://localhost:6363`) - see [Install TerminusDB as a Docker Container](/docs/install-terminusdb-as-a-docker-container/) for setup instructions
 - Admin credentials (default: username `admin`, password `root`)
 - `curl` and `jq` installed for making API requests
 
@@ -62,7 +62,7 @@ Let's set up environment variables for easier command execution:
 
 ```bash
 # TerminusDB server configuration
-export TERMINUSDB_URL="http://127.0.0.1:6363"
+export TERMINUSDB_URL="http://localhost:6363"
 export ADMIN_USER="admin"
 export ADMIN_PASS="root"
 
@@ -932,6 +932,6 @@ curl -X DELETE "${TERMINUSDB_URL}/api/roles/Database%20Analyst" \
 
 ## Next Steps
 
-- Explore [Database Management](/docs/database-management) for working with data products
+- Explore [TerminusDB Explanation](/docs/terminusdb-explanation/) for understanding database concepts
 - Learn about [WOQL Queries](/docs/how-to-query-with-woql) for querying your databases
-- Review [Authorization Actions](/docs/authorization-actions) for complete list of permissions
+- Review [Access Control](/docs/access-control/) for complete list of permissions

@@ -39,7 +39,7 @@ By the end of this tutorial, you'll understand:
 
 ## Prerequisites
 
-- TerminusDB server running locally (default: `http://127.0.0.1:6363`) - See [Docker installation guide](/docs/install-terminusdb-as-a-docker-container/)
+- TerminusDB server running locally (default: `http://localhost:6363`) - See [Docker installation guide](/docs/install-terminusdb-as-a-docker-container/)
 - [Node.js](https://nodejs.org/en/download/) installed on your system
 - Basic JavaScript knowledge
 
@@ -77,7 +77,7 @@ const TerminusClient = require('terminusdb');
 const { WOQL } = TerminusClient;
 
 // Configuration
-const SERVER_URL = 'http://127.0.0.1:6363';
+const SERVER_URL = 'http://localhost:6363';
 const ACCOUNT = 'admin';
 const DB_NAME = 'woql_tutorial';
 const DB_LABEL = 'WOQL Tutorial Database';
@@ -717,7 +717,7 @@ const TerminusClient = require('terminusdb');
 const { WOQL } = TerminusClient;
 
 // Configuration - adjust these if your setup differs
-const SERVER_URL = 'http://127.0.0.1:6363';
+const SERVER_URL = 'http://localhost:6363';
 const ACCOUNT = 'admin';
 const DB_NAME = 'woql_tutorial';
 const DB_LABEL = 'WOQL Tutorial Database';
@@ -1700,7 +1700,7 @@ If you can't connect to TerminusDB:
 
 ```javascript
 // Check your server URL
-const SERVER_URL = 'http://127.0.0.1:6363';
+const SERVER_URL = 'http://localhost:6363';
 
 // Verify authentication
 client.setApiKey('root');  // Default password
@@ -1758,7 +1758,7 @@ To remove the specific documents created in this tutorial:
 
 ```bash
 # Delete all Person documents created in the tutorial
-curl -X DELETE "http://127.0.0.1:6363/api/document/admin/woql_tutorial?author=admin&message=Cleanup%20tutorial%20documents" \
+curl -X DELETE "http://localhost:6363/api/document/admin/woql_tutorial?author=admin&message=Cleanup%20tutorial%20documents" \
   -u "admin:root" \
   -H "Content-Type: application/json" \
   -d '["Person/1", "Person/2", "Person/3", "Person/4", "Person/5"]'
@@ -1768,10 +1768,10 @@ Or delete documents individually:
 
 ```bash
 # Delete one document at a time
-curl -X DELETE "http://127.0.0.1:6363/api/document/admin/woql_tutorial?id=Person/1&author=admin&message=Delete%20Person1" \
+curl -X DELETE "http://localhost:6363/api/document/admin/woql_tutorial?id=Person/1&author=admin&message=Delete%20Person1" \
   -u "admin:root"
   
-curl -X DELETE "http://127.0.0.1:6363/api/document/admin/woql_tutorial?id=Person/2&author=admin&message=Delete%20Person2" \
+curl -X DELETE "http://localhost:6363/api/document/admin/woql_tutorial?id=Person/2&author=admin&message=Delete%20Person2" \
   -u "admin:root"
   
 # ... and so on for Person/3, Person/4, Person/5
@@ -1784,7 +1784,7 @@ To completely remove the tutorial database:
 ```javascript
 const TerminusClient = require('terminusdb');
 
-const client = new TerminusClient.WOQLClient('http://127.0.0.1:6363', {
+const client = new TerminusClient.WOQLClient('http://localhost:6363', {
   user: 'admin',
   organization: 'admin',
   key: 'root'
@@ -1798,7 +1798,7 @@ console.log('✓ Tutorial database deleted');
 Or run from command line:
 
 ```bash
-curl -X DELETE "http://127.0.0.1:6363/api/db/admin/woql_tutorial" \
+curl -X DELETE "http://localhost:6363/api/db/admin/woql_tutorial" \
   -u "admin:root"
 ```
 

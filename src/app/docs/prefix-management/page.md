@@ -56,12 +56,12 @@ When starting a new database, add common prefixes for vocabularies you'll use:
 
 ```bash
 # Add schema.org for general types
-curl -X POST http://localhost:6363/api/prefix/admin/mydb/schema \
+curl -X POST http://localhost:6363/api/prefix/admin/MyDatabase/schema \
   -u admin:root -H "Content-Type: application/json" \
   -d '{"uri": "http://schema.org/"}'
 
 # Add Dublin Core for metadata
-curl -X POST http://localhost:6363/api/prefix/admin/mydb/dc \
+curl -X POST http://localhost:6363/api/prefix/admin/MyDatabase/dc \
   -u admin:root -H "Content-Type: application/json" \
   -d '{"uri": "http://purl.org/dc/elements/1.1/"}'
 ```
@@ -72,7 +72,7 @@ Use custom prefixes to organize your domain-specific data:
 
 ```bash
 # Company schema
-curl -X POST http://localhost:6363/api/prefix/admin/mydb/company \
+curl -X POST http://localhost:6363/api/prefix/admin/MyDatabase/company \
   -u admin:root -H "Content-Type: application/json" \
   -d '{"uri": "http://mycompany.com/schema/"}'
 
@@ -85,7 +85,7 @@ Update a prefix when your API schema changes:
 
 ```bash
 # Update to v2 of your API schema
-curl -X PUT http://localhost:6363/api/prefix/admin/mydb/api \
+curl -X PUT http://localhost:6363/api/prefix/admin/MyDatabase/api \
   -u admin:root -H "Content-Type: application/json" \
   -d '{"uri": "http://api.mycompany.com/v2/schema/"}'
 ```
@@ -116,7 +116,7 @@ curl -X PUT http://localhost:6363/api/prefix/admin/mydb/api \
 
 ```bash
 curl -X GET \
-  http://localhost:6363/api/prefix/admin/mydb/myprefix \
+  http://localhost:6363/api/prefix/admin/MyDatabase/myprefix \
   -u admin:root
 ```
 
@@ -153,7 +153,7 @@ curl -X GET \
 
 ```bash
 curl -X POST \
-  http://localhost:6363/api/prefix/admin/mydb/myprefix \
+  http://localhost:6363/api/prefix/admin/MyDatabase/myprefix \
   -u admin:root \
   -H "Content-Type: application/json" \
   -d '{"uri": "http://example.org/myprefix/"}'
@@ -200,7 +200,7 @@ curl -X POST \
 
 ```bash
 curl -X PUT \
-  http://localhost:6363/api/prefix/admin/mydb/myprefix \
+  http://localhost:6363/api/prefix/admin/MyDatabase/myprefix \
   -u admin:root \
   -H "Content-Type: application/json" \
   -d '{"uri": "http://example.org/updated/"}'
@@ -226,7 +226,7 @@ curl -X PUT \
 
 ```bash
 curl -X PUT \
-  "http://localhost:6363/api/prefix/admin/mydb/myprefix?create=true" \
+  "http://localhost:6363/api/prefix/admin/MyDatabase/myprefix?create=true" \
   -u admin:root \
   -H "Content-Type: application/json" \
   -d '{"uri": "http://example.org/myprefix/"}'
@@ -247,7 +247,7 @@ curl -X PUT \
 
 ```bash
 curl -X DELETE \
-  http://localhost:6363/api/prefix/admin/mydb/myprefix \
+  http://localhost:6363/api/prefix/admin/MyDatabase/myprefix \
   -u admin:root
 ```
 
@@ -363,12 +363,12 @@ Prefix IRIs support full Unicode, including emoji and international characters:
 
 ```bash
 # Emoji in IRI (yes, this works!)
-curl -X POST http://localhost:6363/api/prefix/admin/mydb/rocket \
+curl -X POST http://localhost:6363/api/prefix/admin/MyDatabase/rocket \
   -u admin:root -H "Content-Type: application/json" \
   -d '{"uri": "http://example.org/🚀/"}'
 
 # International characters
-curl -X POST http://localhost:6363/api/prefix/admin/mydb/cn \
+curl -X POST http://localhost:6363/api/prefix/admin/MyDatabase/cn \
   -u admin:root -H "Content-Type: application/json" \
   -d '{"uri": "http://example.org/中文/"}'
 ```
@@ -391,7 +391,7 @@ All operations are **ACID-compliant**:
 Get the complete context document with all prefixes:
 
 ```bash
-curl -X GET http://localhost:6363/api/prefixes/admin/mydb -u admin:root
+curl -X GET http://localhost:6363/api/prefixes/admin/MyDatabase -u admin:root
 ```
 
 Returns `@base`, `@schema`, and all custom prefixes in a single JSON-LD context document.

@@ -28,7 +28,7 @@ This guide explains when and how to use `vars()`, `vars_unique()`, `Vars()`, and
 
 ### Why Do We Need Variables?
 
-In WOQL queries, variables act as placeholders that bind to values during query execution. Variables are used with [unification](/docs/unification/), where variables get resolved and bind to values and constrain the query during the unfolding of the query resolution.
+In WOQL queries, variables act as placeholders that bind to values during query execution. Variables are used with [unification](/docs/what-is-datalog/#unification-the-key-mechanism), where variables get resolved and bind to values and constrain the query during the unfolding of the query resolution.
 
 ```javascript
 const [person, name] = WOQL.vars("Person", "Name");
@@ -715,10 +715,10 @@ WOQL.vars_unique_reset_start(0);
 
 - [JavaScript Client Reference](/docs/javascript/) - Complete JS client API
 - [WOQL Basics](/docs/woql-basics/) - Introduction to WOQL queries
-- [Unification of Variables in Datalog](/docs/unification-of-variables-in-datalog/) - Understanding how variables are resolved
+- [Unification of Variables in Datalog](/docs/what-is-datalog/#unification-the-key-mechanism) - Understanding how variables are resolved
 - [Query Documents with JS](/docs/query-documents/) - Document querying examples
 - [Run WOQL Query](/docs/run-woql-query/) - Execute queries with the client
-- [Database Path Identifiers](/docs/database-path-identifiers/) - Understanding DB_SPEC and GRAPH_SPEC
+- [Database Path Identifiers](/docs/graph-spec-db-spec-database-path-identifiers/) - Understanding DB_SPEC and GRAPH_SPEC
 
 ## Summary
 

@@ -64,6 +64,8 @@ console.log(peekResult.bindings[0]["first"]["@value"]); // "Z"
 
 ### Building Lists with Multiple Pushes
 
+> **Note:** The `add_triple` calls in this guide are low-level RDF operations for constructing and modifying cons cells (`rdf:List`, `rdf:first`, `rdf:rest`). This is not the standard document API — use `insert_document` for document-oriented data.
+
 ```javascript
 // Create a list by pushing elements (results in reverse order)
 const createQuery = WOQL.and(

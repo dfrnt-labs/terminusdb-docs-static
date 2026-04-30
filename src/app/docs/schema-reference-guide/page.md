@@ -1184,7 +1184,7 @@ The `customer` is fully unfolded while `items` remain as ID references.
 
 See also the [Document Unfolding Reference](/docs/document-unfolding-reference/) for more details on cycle detection and performance characteristics.
 
-### @shared
+### @shared (as of version 12.0.6)
 
 The `@shared` key is present with the value `[]` or it is not present.
 

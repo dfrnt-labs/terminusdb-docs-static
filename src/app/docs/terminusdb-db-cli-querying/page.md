@@ -85,7 +85,7 @@ For example:
 
 The syntax of the WOQL query interface is distinct from other flavours, and is based more closely on the Prolog syntax. The WOQL logic is the same, but the syntax is different, especially for and, triple and other predicates expected in WOQL.
 
-This documentation is incomplete and a stub. PRs are welcome to strengthen it and make it more complete. It only covers the syntax differences. Refer to the [WOQL Javascript syntax](/docs/javascript-woql/) as the main language interface.
+This documentation is incomplete and a stub. PRs are welcome to strengthen it and make it more complete. It only covers the syntax differences. Refer to the [WOQL Basics guide](/docs/woql-basics/) as the main language interface.
 
 We will use the system database as the example database for this guide as it's available on the local system.
 

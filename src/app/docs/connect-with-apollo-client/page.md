@@ -48,7 +48,7 @@ const user = "admin"
 const password = "mypass"
 const userPassEnc = btoa(`${user}:${password}`)
 
-const terminusdbURL = `http://127.0.0.1:6363/api/graphql/${orgName}/${dbName}/local/branch/${myBranch}/`
+const terminusdbURL = `http://localhost:6363/api/graphql/${orgName}/${dbName}/local/branch/${myBranch}/`
 
 const httpLink = new HttpLink({ uri: terminusdbURL });
 const authMiddleware = new ApolloLink((operation, forward) => {

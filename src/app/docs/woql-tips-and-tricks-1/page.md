@@ -246,6 +246,6 @@ These patterns make WOQL queries more resilient and easier to develop iterativel
 
 ## Related Documentation
 
-- **[WOQL Reference](/docs/woql-reference/)** — Complete WOQL operator reference
+- **[WOQL Basics](/docs/woql-basics/)** — Complete WOQL introduction and reference
 - **[Path Queries](/docs/path-queries-in-woql/)** — Graph traversal patterns
-- **[Learning TerminusDB](/docs/learning-terminusdb/)** — Fundamentals of WOQL and triple patterns
+- **[Get Started](/docs/get-started/)** — Fundamentals of TerminusDB and the branch/diff/merge workflow

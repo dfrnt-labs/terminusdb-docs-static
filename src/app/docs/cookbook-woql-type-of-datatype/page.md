@@ -26,7 +26,7 @@ You are expected to have instance data to query and a basic undertanding of quer
 
 ## Variables
 
-Variable unification is core to the WOQL engine. Read up on [unification](/docs/unification-of-variables-in-datalog/) if you are unsure, and play with the examples on this page to learn.
+Variable unification is core to the WOQL engine. Read up on [unification](/docs/what-is-datalog/#unification-the-key-mechanism) if you are unsure, and play with the examples on this page to learn.
 
 ## Understanding value types
 

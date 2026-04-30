@@ -11,7 +11,14 @@ nextjs:
 media: []
 ---
 
-> To use this HowTo, first [clone the Star Wars demo](/docs/clone-a-demo-terminuscms-project/) into your team on the DFRNT TerminusDB cloud. You will then have access to the data needed for this tutorial.
+> **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
+>
+> ```bash
+> curl -u admin:root -X POST http://localhost:6363/api/clone/admin/star-wars \
+>   -H "Content-Type: application/json" \
+>   -H "Authorization-Remote: Basic cHVibGljOnB1YmxpYw==" \
+>   -d '{"remote_url": "https://data.terminusdb.org/admin/star-wars", "label": "Star Wars", "comment": "Star Wars dataset"}'
+> ```
 
 ## Delete a document in WOQL
 

@@ -35,7 +35,7 @@ Consider the difference:
 
 TerminusDB implements Datalog through **WOQL** (Web Object Query Language), which extends standard Datalog with practical features:
 
-- **[Unification](/docs/unification-of-variables-in-datalog/)** — native support for matching and binding variables
+- **[Unification](#unification)** — native support for matching and binding variables
 - **[rdf:List](/docs/woql-rdflist-operations/)** — first-class support for ordered collections
 - **Dictionary materialization** — transform query results into structured objects
 - **[Fast set processing](/docs/woql-set-operations/)** — high performance difference, intersection and member matching of sets
@@ -133,7 +133,7 @@ or(
 
 ### Unification: The Key Mechanism
 
-When the same variable appears in multiple places, Datalog requires **identical values** at each occurrence for the query to be an accepted solution. This is called [unification](/docs/unification-of-variables-in-datalog/) — the process of finding values that satisfy all constraints simultaneously.
+When the same variable appears in multiple places, Datalog requires **identical values** at each occurrence for the query to be an accepted solution. This is called [unification](#unification) — the process of finding values that satisfy all constraints simultaneously.
 
 ```javascript
 triple("v:Person", "lives_in", "v:City"),
@@ -345,7 +345,7 @@ This finds all companies reachable through the social network of Sales employees
 Now that you understand what Datalog is and its advantages over SQL, explore these resources to deepen your knowledge of the Datalog query language:
 
 ### Core Datalog Concepts
-- [Unification of Variables in Datalog](/docs/unification-of-variables-in-datalog/) — Deep dive into how logical variables work in Datalog
+- [Unification of Variables in Datalog](#unification) — Deep dive into how logical variables work in Datalog
 - [WOQL Explanation](/docs/woql-explanation/) — Understanding TerminusDB's Datalog-based query language
 - [Path Queries](/docs/path-queries-in-woql/) — Recursive graph traversal with Datalog
 
@@ -362,13 +362,13 @@ Now that you understand what Datalog is and its advantages over SQL, explore the
 - [Documents in Knowledge Graphs](/docs/documents-explanation/) — Querying document structures
 - [How-to Guides](/docs/use-the-clients/) — Real-world Datalog query examples
 
-## Get Started
+## Get started
 
-Ready to experience the power of declarative querying? 
+Ready to experience the power of declarative querying?
 
-1. **[Install TerminusDB](/docs/get-started-with-terminusdb/)** — Set up your environment
-2. **[WOQL Getting Started Tutorial](/docs/woql-getting-started/)** — Write your first Datalog queries
-3. **[Try the Examples](/docs/use-the-clients/)** — Learn from working code
+1. **[Install TerminusDB](/docs/get-started/)** — Set up your environment in 5 minutes
+2. **[WOQL Basics](/docs/woql-basics/)** — Write your first Datalog queries
+3. **[WOQL Getting Started Tutorial](/docs/woql-getting-started/)** — Hands-on examples with a real database
 
 Datalog offers a different way of thinking about data queries — one that matches how we naturally describe relationships. Once you understand what Datalog is and internalize the pattern of shared variables and logical constraints, you'll find complex queries become surprisingly simple to express.
 
