@@ -15,10 +15,6 @@ lastUpdated: "2026-04-30"
 
 Clone a pre-populated Star Wars database to your local TerminusDB instance and explore it with queries, branches, and diffs — in 15 minutes.
 
-{% callout type="warning" title="Coming soon" %}
-This tutorial requires the TerminusDB public templates server at `data.terminusdb.org`. The server is being deployed — clone commands will work once it is live. You can still read through the steps to understand the workflow.
-{% /callout %}
-
 {% callout title="Prerequisites" %}
 - **TerminusDB running on localhost:6363.** Verify: `curl -s -u admin:root http://localhost:6363/api/info` should return JSON containing `"authority": "admin"`. If you get "connection refused", [start TerminusDB first](/docs/get-started/#step-1).
 - **Completed the [First 10 Minutes quickstart](/docs/get-started/)** — you should be comfortable with branches and diffs. This tutorial builds on those concepts with a richer dataset.
