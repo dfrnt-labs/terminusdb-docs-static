@@ -49,25 +49,39 @@ export const navigation: Navigation[] = [
 
       {
         title: 'Quickstart',
-        href: '/docs/at-a-glance',
         links: [
           {
-            title: 'Install & Connect',
+            title: 'First 10 Minutes (clone)',
             href: '/docs/get-started',
           },
           {
-            title: 'Curl Quickstart',
-            href: '/docs/quickstart-example',
+            title: 'First 15 Minutes (from scratch)',
+            href: '/docs/first-15-minutes',
           },
           {
-            title: 'Next steps',
-            href: '/docs/get-started-with-terminusdb',
+            title: 'Explore a Real Dataset',
+            href: '/docs/explore-a-real-dataset',
+          },
+          {
+            title: 'Explore an Ecommerce Dataset',
+            href: '/docs/explore-ecommerce-dataset',
+          },
+          {
+            title: 'TypeScript Quickstart',
+            href: '/docs/connect-with-the-javascript-client',
+          },
+          {
+            title: 'Python Quickstart',
+            href: '/docs/connect-with-python-client',
+          },
+          {
+            title: 'Rust Quickstart',
+            href: '/docs/rust-client-quickstart',
           },
         ],
       },
       {
         title: 'Installation',
-        href: '/docs/terminusdb-install-options',
         links: [
           {
             title: 'Docker (Recommended)',
@@ -84,6 +98,10 @@ export const navigation: Navigation[] = [
           {
             title: 'Build from Source',
             href: '/docs/install-terminusdb-from-source-code',
+          },
+          {
+            title: 'Self-Hosted (Production)',
+            href: '/docs/self-hosted-installation',
           },
           // TODO: Add "DFRNT Cloud (No Install)" page
         ],
@@ -121,115 +139,71 @@ export const navigation: Navigation[] = [
         // ],
       },
       // {
-      //   title: 'Learning Resources',
-      //   href: '/docs/learning-terminusdb',
-      // },
-      // {
-      //   title: 'Product Tour',
-      //   href: '/docs/product-tour',
-      //   links: [
-      //     {
-      //       title: 'Projects Overview',
-      //       href: '/docs/projects-terminuscms-tour',
-      //     },
-      //     {
-      //       title: 'Teams & Users',
-      //       href: '/docs/manage-teams-users-terminuscms-tour',
-      //     },
-      //     {
-      //       title: 'Content Curation',
-      //       href: '/docs/content-curation-terminuscms-tour',
-      //     },
-      //     {
-      //       title: 'Change Requests',
-      //       href: '/docs/change-request-workflows-terminuscms-tour',
-      //     },
-      //     {
-      //       title: 'GraphQL & WOQL',
-      //       href: '/docs/graphql-and-woql-query-terminuscms-tour',
-      //     },
-      //   ],
-      // },
-      // {
-      //   title: 'Clone a Demo Project',
-      //   href: '/docs/clone-a-demo-terminuscms-project',
-      // },
     ],
   },
 
   // ============================================================
-  // SECTION: ENTERPRISE
-  // Goal: Document enterprise-only features and configuration
+  // SECTION: HOW TERMINUSDB WORKS
+  // Goal: Build mental models — all conceptual/explanation content in one place
   // ============================================================
   {
-    title: 'Enterprise',
+    title: 'How TerminusDB Works',
     links: [
       {
-        title: 'Overview',
-        href: '/docs/enterprise',
-      },
-      {
-        title: 'Document Formats',
-        href: '/docs/enterprise-document-formats',
+        title: 'Documents & Schema',
         links: [
           {
-            title: 'JSON-LD Context',
-            href: '/docs/enterprise-jsonld-context',
+            title: 'The Document Model',
+            href: '/docs/documents-explanation',
           },
           {
-            title: 'RDF/XML Support',
-            href: '/docs/enterprise-rdfxml',
+            title: 'Document Types Compared',
+            href: '/docs/document-types-comparison',
           },
           {
-            title: 'Turtle Support',
-            href: '/docs/enterprise-turtle',
-          },
-          {
-            title: 'curl Tutorial',
-            href: '/docs/document-format-api-curl-tutorial',
+            title: 'Schema Weakening',
+            href: '/docs/what-is-schema-weakening',
           },
         ],
       },
       {
-        title: 'Context Cache',
-        href: '/docs/enterprise-context-cache',
-      },
-      {
-        title: 'Backup & Restore',
-        href: '/docs/enterprise-backup-restore',
-      },
-      {
-        title: 'Observability',
-        href: '/docs/enterprise-observability',
-      },
-      {
-        title: 'Configuration',
-        href: '/docs/enterprise-configuration',
-      },
-    ],
-  },
-
-  // ============================================================
-  // SECTION 2: UNDERSTAND (Core Concepts)
-  // Goal: Build mental models for how TerminusDB works
-  // ============================================================
-  {
-    title: 'Understand',
-    links: [
-      {
-        title: 'Documents & Schema',
-        href: '/docs/documents-explanation',
-      },
-
-      {
-        title: 'What is DFRNT Hub?',
-        href: '/docs/what-is-dfrnt',
-      },
-      {
-        title: 'Datalog & WOQL',
+        title: 'Version Control (Branch, Diff, Merge)',
         links: [
           {
-            title: 'Query Language',
+            title: 'Clone, Push, Pull',
+            href: '/docs/use-the-collaboration-features',
+          },
+          {
+            title: 'Branching',
+            href: '/docs/branch-a-project',
+          },
+          {
+            title: 'Time Travel',
+            href: '/docs/time-travel-to-previous-commits',
+          },
+          {
+            title: 'Diff & Patch',
+            href: '/docs/diff-and-patch-operations',
+          },
+          {
+            title: 'Recover Data',
+            href: '/docs/recovery-tutorial',
+          },
+          {
+            title: 'Audit Changes',
+            href: '/docs/audit-tutorial',
+          },
+        ],
+      },
+      {
+        title: 'Query Languages',
+        links: [
+          {
+            title: 'Choosing a Query Interface',
+            href: '/docs/querying-terminusdb',
+          },
+          {
+            title: 'WOQL Overview',
             href: '/docs/woql-explanation',
           },
           {
@@ -243,6 +217,27 @@ export const navigation: Navigation[] = [
           {
             title: 'Backtracking & Streaming',
             href: '/docs/woql-query-streaming',
+          },
+        ],
+      },
+      {
+        title: 'Architecture',
+        links: [
+          {
+            title: 'ACID Transactions',
+            href: '/docs/acid-transactions-explanation',
+          },
+          {
+            title: 'Immutability',
+            href: '/docs/immutability-explanation',
+          },
+          {
+            title: 'Immutability & Concurrency',
+            href: '/docs/immutability-and-concurrency',
+          },
+          {
+            title: 'Graphs',
+            href: '/docs/graphs-explanation',
           },
         ],
       },
@@ -264,74 +259,21 @@ export const navigation: Navigation[] = [
         ],
       },
       {
-        title: 'Version Control for Data',
-        links: [
-          // TODO: Add overview page "What is Git-for-Data?"
-          {
-            title: 'Clone, Push, Pull',
-            href: '/docs/use-the-collaboration-features',
-          },
-          {
-            title: 'Branching',
-            href: '/docs/branch-a-project',
-          },
-          {
-            title: 'Time Travel',
-            href: '/docs/time-travel-to-previous-commits',
-          },
-          {
-            title: 'Diff & Patch',
-            href: '/docs/diff-and-patch-operations',
-          },
-          // {
-          //   title: 'Change Request Workflows',
-          //   href: '/docs/change-request-workflows',
-          // },
-        ],
+        title: 'What is DFRNT Hub?',
+        href: '/docs/what-is-dfrnt',
       },
-      // {
-      //   title: 'Dashboard Collaboration',
-      //   href: '/docs/collaboration-with-terminuscms-dashboard',
-      //   links: [
-      //     {
-      //       title: 'Clone',
-      //       href: '/docs/clone',
-      //     },
-      //     {
-      //       title: 'Branch',
-      //       href: '/docs/branch',
-      //     },
-      //     {
-      //       title: 'Reset',
-      //       href: '/docs/reset',
-      //     },
-      //     {
-      //       title: 'Squash',
-      //       href: '/docs/squash',
-      //     },
-      //     {
-      //       title: 'Time Travel',
-      //       href: '/docs/time-travel',
-      //     },
-      //   ],
-      // },
     ],
   },
 
   // ============================================================
-  // SECTION 3: CONNECT & BUILD
+  // SECTION: BUILD WITH TERMINUSDB
   // Goal: Get developers productive with their preferred language
   // ============================================================
   {
-    title: 'Connect & Build',
+    title: 'Build with TerminusDB',
     links: [
       {
-        title: 'Client Overview',
-        href: '/docs/use-the-clients',
-      },
-      {
-        title: 'JavaScript Client',
-        href: '/docs/use-the-javascript-client',
+        title: 'TypeScript SDK',
         links: [
           {
             title: 'Install',
@@ -342,19 +284,12 @@ export const navigation: Navigation[] = [
             href: '/docs/connect-with-the-javascript-client',
           },
           {
-            title: 'Connect to Database',
-            href: '/docs/connect-to-a-database',
-          },
-          {
             title: 'Create Database',
             href: '/docs/create-a-database',
           },
           {
-            title: 'Add Schema',
-            href: '/docs/add-a-schema',
-          },
-          {
-            title: 'CRUD Documents',
+            title: 'Documents (CRUD)',
+            href: '/docs/add-a-document',
             links: [
               {
                 title: 'Add Documents',
@@ -379,12 +314,15 @@ export const navigation: Navigation[] = [
             ],
           },
           {
+            title: 'Schema',
+            href: '/docs/add-a-schema',
+          },
+          {
             title: 'Run WOQL Queries',
             href: '/docs/run-woql-query',
           },
           {
             title: 'Collaboration',
-            href: '/docs/collaboration-with-javascript-client',
             links: [
               {
                 title: 'Clone',
@@ -403,8 +341,7 @@ export const navigation: Navigation[] = [
         ],
       },
       {
-        title: 'Python Client',
-        href: '/docs/use-the-python-client',
+        title: 'Python SDK',
         links: [
           {
             title: 'Install',
@@ -415,19 +352,12 @@ export const navigation: Navigation[] = [
             href: '/docs/connect-with-python-client',
           },
           {
-            title: 'Connect to Database',
-            href: '/docs/connect-to-a-database-with-python-client',
-          },
-          {
             title: 'Create Database',
             href: '/docs/create-database-with-python-client',
           },
           {
-            title: 'Add Schema',
-            href: '/docs/add-a-schema-with-the-python-client',
-          },
-          {
-            title: 'CRUD Documents',
+            title: 'Documents (CRUD)',
+            href: '/docs/add-documents-with-python-client',
             links: [
               {
                 title: 'Add Documents',
@@ -448,16 +378,23 @@ export const navigation: Navigation[] = [
             ],
           },
           {
+            title: 'Schema',
+            href: '/docs/add-a-schema-with-the-python-client',
+          },
+          {
             title: 'Import Data',
             href: '/docs/import-data-with-python-client',
           },
           {
-            title: 'Python WOQL Queries',
+            title: 'Run WOQL Queries',
             href: '/docs/woql-query-with-python-client',
           },
           {
+            title: 'Certificate Issues',
+            href: '/docs/python-certificate-issues',
+          },
+          {
             title: 'Collaboration',
-            href: '/docs/collaboration-with-python-client',
             links: [
               {
                 title: 'Clone',
@@ -483,16 +420,185 @@ export const navigation: Navigation[] = [
           },
         ],
       },
+      {
+        title: 'Rust SDK',
+        href: '/docs/rust-client-quickstart',
+      },
+      {
+        title: 'HTTP API (curl)',
+        href: '/docs/http-documents-api',
+      },
     ],
   },
 
   // ============================================================
-  // SECTION 4: HOW-TO GUIDES
+  // SECTION: GUIDES
   // Goal: Solve specific problems with step-by-step instructions
   // ============================================================
   {
-    title: 'How-To Guides',
+    title: 'Guides',
     links: [
+      {
+        title: 'WOQL Query Language',
+        href: '/docs/how-to-query-with-woql',
+        links: [
+          {
+            title: 'Getting Started with WOQL',
+            links: [
+              {
+                title: 'Interactive Tutorial',
+                href: '/docs/woql-tutorial',
+              },
+              {
+                title: 'WOQL Basics',
+                href: '/docs/woql-basics',
+              },
+              {
+                title: 'Getting Started',
+                href: '/docs/woql-getting-started',
+              },
+              {
+                title: 'Variables',
+                href: '/docs/woql-variable-generation',
+              },
+            ],
+          },
+          {
+            title: 'Document Operations',
+            links: [
+              {
+                title: 'Add Documents',
+                href: '/docs/add-documents-with-woql',
+              },
+              {
+                title: 'Read Documents',
+                href: '/docs/read-documents-with-woql',
+              },
+              {
+                title: 'Edit Documents',
+                href: '/docs/edit-documents-with-woql',
+              },
+              {
+                title: 'Delete Documents',
+                href: '/docs/delete-documents-with-woql',
+              },
+              {
+                title: 'Subdocument Handling',
+                href: '/docs/woql-subdocument-handling',
+              },
+            ],
+          },
+          {
+            title: 'Filtering & Sorting',
+            links: [
+              {
+                title: 'Filtering',
+                href: '/docs/filter-with-woql',
+              },
+              {
+                title: 'Sorting (Order By)',
+                href: '/docs/order-by-with-woql',
+              },
+              {
+                title: 'Grouping Results',
+                href: '/docs/group-query-results',
+              },
+            ],
+          },
+          {
+            title: 'Advanced Queries',
+            links: [
+              {
+                title: 'Path Queries',
+                href: '/docs/path-queries-in-woql',
+              },
+              {
+                title: 'Math Operations',
+                href: '/docs/maths-based-queries-in-woql',
+              },
+              {
+                title: 'Schema Queries',
+                href: '/docs/schema-queries-with-woql',
+              },
+              {
+                title: 'JSON-LD Queries',
+                href: '/docs/woql-json-ld-queries',
+              },
+              {
+                title: 'Arrays & Sets',
+                href: '/docs/query-arrays-and-sets-in-woql',
+              },
+              {
+                title: 'Set Operations',
+                href: '/docs/woql-set-operations',
+              },
+              {
+                title: 'Query Multiple Graphs',
+                href: '/docs/datalog-queries-between-data-products/',
+              },
+            ],
+          },
+          {
+            title: 'Time & Date Processing',
+            href: '/docs/time-processing',
+            links: [
+              {
+                title: '1. Dates & Range Queries',
+                href: '/docs/time-tutorial-dates',
+              },
+              {
+                title: '2. Durations & Sequences',
+                href: '/docs/time-tutorial-durations',
+              },
+              {
+                title: '3. Intervals & Allen\'s Algebra',
+                href: '/docs/time-tutorial-intervals',
+              },
+              {
+                title: '4. Creative Patterns',
+                href: '/docs/time-tutorial-patterns',
+              },
+              {
+                title: 'Time Predicate Reference',
+                href: '/docs/woql-time-handling',
+              },
+              {
+                title: 'Allen\'s Interval Algebra',
+                href: '/docs/woql-interval-algebra',
+              },
+              {
+                title: 'EOM Preservation Rules',
+                href: '/docs/woql-eom-rules',
+              },
+            ],
+          },
+          {
+            title: 'Patterns & Recipes',
+            links: [
+              {
+                title: 'Working with Data',
+                href: '/docs/woql-data-handling',
+              },
+              {
+                title: 'Datatypes',
+                href: '/docs/cookbook-woql-type-of-datatype',
+              },
+              {
+                title: 'Pattern Generation',
+                href: '/docs/pattern-generation-cookbook/',
+              },
+              {
+                title: 'Array Matching',
+                href: '/docs/cookbook-woql-arrays',
+              },
+              {
+                title: 'Tips and Tricks',
+                href: '/docs/woql-tips-and-tricks-1',
+              },
+            ],
+          },
+        ],
+      },
       {
         title: 'GraphQL Queries',
         href: '/docs/how-to-query-with-graphql',
@@ -538,180 +644,7 @@ export const navigation: Navigation[] = [
         ],
       },
       {
-        title: 'WOQL Queries',
-        href: '/docs/how-to-query-with-woql',
-        links: [
-          {
-            title: 'Basics',
-            href: '/docs/woql-basics',
-          },
-          {
-            title: 'Variables',
-            href: '/docs/woql-variable-generation',
-          },
-          {
-            title: 'Add Documents',
-            href: '/docs/add-documents-with-woql',
-          },
-          {
-            title: 'Read Documents',
-            href: '/docs/read-documents-with-woql',
-          },
-          {
-            title: 'Edit Documents',
-            href: '/docs/edit-documents-with-woql',
-          },
-          {
-            title: 'Delete Documents',
-            href: '/docs/delete-documents-with-woql',
-          },
-          {
-            title: 'Subdocument Handling',
-            href: '/docs/woql-subdocument-handling',
-          },
-          {
-            title: 'Filtering',
-            href: '/docs/filter-with-woql',
-          },
-          {
-            title: 'Sorting (Order By)',
-            href: '/docs/order-by-with-woql',
-          },
-          {
-            title: 'Arrays & Sets',
-            href: '/docs/query-arrays-and-sets-in-woql',
-          },
-          {
-            title: 'Set Operations',
-            href: '/docs/woql-set-operations',
-          },
-          {
-            title: 'Grouping Results',
-            href: '/docs/group-query-results',
-          },
-          {
-            title: 'Path Queries',
-            href: '/docs/path-queries-in-woql',
-          },
-          // {
-          //   title: 'RDF List Operations',
-          //   href: '/docs/woql-rdflist-operations',
-          //   links: [
-          //     {
-          //       title: 'Queue Tutorial',
-          //       href: '/docs/woql-rdflist-queue-tutorial',
-          //     },
-          //     {
-          //       title: 'List Creation',
-          //       href: '/docs/woql-rdflist-creation',
-          //     },
-          //     {
-          //       title: 'List Access',
-          //       href: '/docs/woql-rdflist-access',
-          //     },
-          //     {
-          //       title: 'List Modification',
-          //       href: '/docs/woql-rdflist-modification',
-          //     },
-          //     {
-          //       title: 'List Transformation',
-          //       href: '/docs/woql-rdflist-transformation',
-          //     },
-          //   ],
-          // },
-          {
-            title: 'Math Operations',
-            href: '/docs/maths-based-queries-in-woql',
-          },
-          {
-            title: 'Schema Queries',
-            href: '/docs/schema-queries-with-woql',
-          },
-          {
-            title: 'JSON-LD Queries',
-            href: '/docs/woql-json-ld-queries',
-          },
-        ],
-      },
-      {
-        title: 'WOQL Guide',
-        href: '/docs/terminusdb-query-cookbook',
-        links: [
-          {
-            title: 'Interactive Tutorial',
-            href: '/docs/woql-tutorial',
-          },
-          {
-            title: 'Getting Started',
-            href: '/docs/woql-getting-started',
-          },
-          {
-            title: 'Working with Data',
-            href: '/docs/woql-data-handling',
-          },
-          {
-            title: 'Datatypes',
-            href: '/docs/cookbook-woql-type-of-datatype',
-          },
-          {
-            title: 'Query Multiple Graphs',
-            href: '/docs/datalog-queries-between-data-products/',
-          },
-          {
-            title: 'Pattern Generation',
-            href: '/docs/pattern-generation-cookbook/',
-          },
-          {
-            title: 'Array Matching',
-            href: '/docs/cookbook-woql-arrays',
-          },
-          {
-            title: 'Tips and Tricks',
-            href: '/docs/woql-tips-and-tricks-1',
-          },
-          {
-            title: 'Time & Date Processing',
-            href: '/docs/time-processing',
-          },
-        ],
-      },
-      {
-        title: 'Time & Date Processing',
-        href: '/docs/time-processing',
-        links: [
-          {
-            title: '1. Dates & Range Queries',
-            href: '/docs/time-tutorial-dates',
-          },
-          {
-            title: '2. Durations & Sequences',
-            href: '/docs/time-tutorial-durations',
-          },
-          {
-            title: '3. Intervals & Allen\'s Algebra',
-            href: '/docs/time-tutorial-intervals',
-          },
-          {
-            title: '4. Creative Patterns',
-            href: '/docs/time-tutorial-patterns',
-          },
-          {
-            title: 'Time Predicate Reference',
-            href: '/docs/woql-time-handling',
-          },
-          {
-            title: 'Allen\'s Interval Algebra',
-            href: '/docs/woql-interval-algebra',
-          },
-          {
-            title: 'EOM Preservation Rules',
-            href: '/docs/woql-eom-rules',
-          },
-        ],
-      },
-      {
         title: 'Data Import & Export',
-        href: '/docs/curate-and-import-data',
         links: [
           {
             title: 'Dashboard Import',
@@ -725,9 +658,16 @@ export const navigation: Navigation[] = [
             title: 'Sync CSV files',
             href: '/docs/compare-csv-values-with-woql',
           },
-          // TODO: Add JSON import guide
+          {
+            title: 'Import JSON-LD',
+            href: '/docs/import-jsonld-woql',
+          },
           // TODO: Add Export to JSON/RDF guide
         ],
+      },
+      {
+        title: 'Browser CORS',
+        href: '/docs/browser-cors-howto',
       },
       {
         title: 'Document Interface',
@@ -745,6 +685,10 @@ export const navigation: Navigation[] = [
             href: '/docs/document-insertion',
           },
           {
+            title: 'Set Commit Messages',
+            href: '/docs/commit-message-howto',
+          },
+          {
             title: 'Language Strings',
             href: '/docs/language-strings-with-curl',
           },
@@ -757,9 +701,21 @@ export const navigation: Navigation[] = [
             title: 'Managing Users and Invitations',
             href: '/docs/managing-users-and-invitations',
           },
+          {
+            title: 'CLI Access Control',
+            href: '/docs/access-control-cli',
+          },
         ],
       },
-      // TODO: Add "Performance Optimization" section
+      {
+        title: 'Database Maintenance',
+        links: [
+          {
+            title: 'Perform a Delta Rollup',
+            href: '/docs/delta-rollup',
+          },
+        ],
+      },
       // TODO: Add "Schema Migration" how-to
     ],
   },
@@ -804,8 +760,16 @@ export const navigation: Navigation[] = [
             href: '/docs/document-unfolding-reference',
           },
           {
+            title: 'Shared Documents',
+            href: '/docs/document-types-comparison',
+          },
+          {
             title: 'Schema Migration',
             href: '/docs/schema-migration-reference-guide',
+          },
+          {
+            title: 'Numeric Precision',
+            href: '/docs/numeric-precision-reference',
           },
           {
             title: 'GRAPH_SPEC, DB_SPEC',
@@ -856,18 +820,19 @@ export const navigation: Navigation[] = [
 
       {
         title: 'Access Control',
+        href: '/docs/access-control',
         links: [
+          {
+            title: 'Tutorial',
+            href: '/docs/access-control-tutorial',
+          },
           {
             title: 'JavaScript Client',
             href: '/docs/access-control-with-javascript',
           },
           {
-            title: 'API Reference',
+            title: 'JS API Reference',
             href: '/docs/js-access-control',
-          },
-          {
-            title: 'RBAC Tutorial',
-            href: '/docs/access-control-tutorial',
           },
           {
             title: 'Source Code Tutorial',
@@ -1078,53 +1043,86 @@ export const navigation: Navigation[] = [
     ],
   },
 
+
   // ============================================================
-  // SECTION 6: DEEP DIVES (Explanations)
-  // Goal: Background knowledge and architectural understanding
+  // SECTION: ENTERPRISE
+  // Goal: Document enterprise-only features and configuration
   // ============================================================
   {
-    title: 'Deep Dives',
+    title: 'Enterprise',
     links: [
       {
-        title: 'Architecture',
+        title: 'Overview',
+        href: '/docs/enterprise',
+      },
+      {
+        title: 'Document Formats',
+        href: '/docs/enterprise-document-formats',
         links: [
           {
-            title: 'ACID Transactions',
-            href: '/docs/acid-transactions-explanation',
+            title: 'JSON-LD Context',
+            href: '/docs/enterprise-jsonld-context',
           },
           {
-            title: 'Immutability',
-            href: '/docs/immutability-explanation',
+            title: 'RDF/XML Support',
+            href: '/docs/enterprise-rdfxml',
           },
           {
-            title: 'Graphs',
-            href: '/docs/graphs-explanation',
+            title: 'Turtle Support',
+            href: '/docs/enterprise-turtle',
+          },
+          {
+            title: 'curl Tutorial',
+            href: '/docs/document-format-api-curl-tutorial',
           },
         ],
       },
       {
-        title: 'Schema',
-        links: [
-          {
-            title: 'Schema Weakening',
-            href: '/docs/what-is-schema-weakening',
-          },
-        ],
+        title: 'Context Cache',
+        href: '/docs/enterprise-context-cache',
       },
       {
-        title: 'Numeric Precision',
-        href: '/docs/numeric-precision-reference',
+        title: 'Backup & Restore',
+        href: '/docs/enterprise-backup-restore',
+      },
+      {
+        title: 'Observability',
+        href: '/docs/enterprise-observability',
+      },
+      {
+        title: 'Configuration',
+        href: '/docs/enterprise-configuration',
       },
     ],
   },
 
   // ============================================================
-  // SECTION 7: TROUBLESHOOTING
+  // SECTION: TROUBLESHOOTING
   // Goal: Help users solve common problems quickly
   // ============================================================
   {
     title: 'Troubleshooting',
     links: [
+      {
+        title: 'Connection Failures',
+        href: '/docs/troubleshooting-connection',
+      },
+      {
+        title: 'Authentication Errors',
+        href: '/docs/troubleshooting-auth',
+      },
+      {
+        title: 'Schema Validation Errors',
+        href: '/docs/troubleshooting-schema',
+      },
+      {
+        title: 'Query Errors',
+        href: '/docs/troubleshooting-queries',
+      },
+      {
+        title: 'Data Model Mismatches',
+        href: '/docs/troubleshooting-data-model',
+      },
       {
         title: 'Migration Issues',
         links: [
