@@ -4,22 +4,12 @@ nextjs:
   metadata:
     title: Learn the GraphQL Basics for TerminusDB
     keywords: IRI, RDF, GraphQL, CMS
-    description: Learn to query TerminusDB and TerminusDB using GraphQL and a Star Wars data project that you can clone from the dashboard.
+    description: Learn to query TerminusDB using GraphQL with a Star Wars dataset cloned from the public templates server.
     openGraph:
       images: https://assets.terminusdb.com/docs/graphqll-basics.png
     alternates:
       canonical: https://terminusdb.org/docs/graphql-basics/
-media:
-  - alt: Clone a demo project from the dashboard
-    caption: ""
-    media_type: Image
-    title: Clone a demo project from the dashboard
-    value: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
-  - alt: GraphQL query playground
-    caption: ""
-    media_type: Image
-    title: GraphQL query playground
-    value: https://assets.terminusdb.com/docs/how-to-query-graphql.png
+media: []
 ---
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:

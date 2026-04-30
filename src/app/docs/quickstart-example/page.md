@@ -8,12 +8,7 @@ nextjs:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/get-started/
-media:
-  - alt: Clone a demo data product from the TerminusDB dashboard
-    caption: Your team home page features a number of demo projects to clone and experiment with.
-    media_type: Image
-    title: Clone a demo data product from the TerminusDB dashboard
-    value: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
+media: []
 ---
 
 ## Getting started with TerminusDB in less than 15 minutes

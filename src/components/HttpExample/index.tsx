@@ -692,6 +692,10 @@ function isHttpWoqlElement(node: React.ReactNode): boolean {
  * Recursively extracts the text content from a React children tree.
  * Markdoc renders tag content as React elements (e.g., <p> wrapping text).
  * This function walks the tree and concatenates all string leaf nodes.
+ *
+ * Also handles raw Markdoc AST nodes (objects with $$mdtype) that occur when
+ * Markdoc fails to fully transform inline content (e.g., JSON with curly braces
+ * that Markdoc misinterprets as variable/annotation syntax).
  */
 function extractTextFromChildren(children: React.ReactNode): string {
   if (children === null || children === undefined) return ""
@@ -708,6 +712,29 @@ function extractTextFromChildren(children: React.ReactNode): string {
     const props = children.props as Record<string, unknown>
     if (props.children !== undefined) {
       return extractTextFromChildren(props.children as React.ReactNode)
+    }
+    return ""
+  }
+
+  // Handle raw Markdoc AST nodes that weren't fully transformed.
+  // These appear as plain objects with $$mdtype, lines, children, etc.
+  // This happens when Markdoc encounters { } in tag content and fails to
+  // parse them as annotations — the resulting error/inline nodes are passed through.
+  if (typeof children === "object" && children !== null) {
+    const obj = children as unknown as Record<string, unknown>
+    // Extract text from Markdoc inline/text nodes
+    if (typeof obj.lines === "object" && Array.isArray(obj.lines)) {
+      return (obj.lines as string[]).join("\n")
+    }
+    if (typeof obj.content === "string") {
+      return obj.content
+    }
+    if (Array.isArray(obj.children)) {
+      return (obj.children as React.ReactNode[]).map(extractTextFromChildren).join("")
+    }
+    // Last resort — try to get any string representation
+    if (obj.attributes && typeof (obj.attributes as Record<string, unknown>).content === "string") {
+      return (obj.attributes as Record<string, unknown>).content as string
     }
     return ""
   }

@@ -1,31 +1,64 @@
 ---
-title: How to clone a TerminusDB demo project
+title: Clone a Demo Database
 nextjs:
   metadata:
-    title: How to clone a TerminusDB demo project
-    description: A guide to show how to clone TerminusDB demo projects using git-for-data to explore and play with as part of the getting started instructions
-    keywords: knowledge graph, git-for-data, clone, demo project, getting started
+    title: Clone a Demo Database
+    description: Clone a demo database from the public templates server to your local TerminusDB instance — no account required.
+    keywords: terminusdb, clone, demo database, getting started, star wars, ecommerce
     openGraph:
-      images: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/clone-a-demo-terminuscms-project/
-media:
-  - alt: clone a demo project to get started with TerminusDB
-    caption: ""
-    media_type: Image
-    title: clone a demo project to get started with TerminusDB
-    value: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
+media: []
 ---
 
-You can clone a demo database by logging in to the DFRNT TerminusDB cloud and selecting a Team. Once selected you will see a "Create New Data Product" or a number of possible data sets to clone. To clone the data set, just click on the card, and it will clone it into your currently selected team.
+Clone a pre-populated demo database from the public templates server to your local TerminusDB instance. No account required — just a running TerminusDB on `localhost:6363`.
 
-This clone is now yours to use. It shares data with the original, so cloning is fast even if the data set is very large. When you make edits, they will be private to you, but it will be indistinguishable to you from editing the main database.
+## Available templates
 
-To get started with a demo dataset you can choose any of:
+The public templates server at `data.terminusdb.org` hosts curated datasets you can clone in one command:
 
-*   Star Wars
-*   Lego
-*   Nuclear
-*   CAMS (Critical Asset Management System)
+| Template | Documents | Use case |
+|----------|-----------|----------|
+| **Star Wars** | ~85 (People, Films, Planets, Species, Starships, Vehicles) | Learning WOQL queries and GraphQL, following tutorials |
+| **Ecommerce** | ~155 (Customers, Orders, OrderLines, Products, Categories) | Business scenario tutorials (branch, diff, merge) |
 
-![clone a demo project to get started with DFRNT TerminuDB cloud](https://assets.terminusdb.com/docs/how-to-clone-a-demo.png)
+## Clone Star Wars
+
+```bash
+curl -u admin:root -X POST http://localhost:6363/api/clone/admin/star-wars \
+  -H "Content-Type: application/json" \
+  -H "Authorization-Remote: Basic cHVibGljOnB1YmxpYw==" \
+  -d '{"remote_url": "https://data.terminusdb.org/admin/star-wars", "label": "Star Wars", "comment": "Star Wars demo dataset"}'
+```
+
+Then explore it: [Explore a Real Dataset](/docs/explore-a-real-dataset/)
+
+## Clone Ecommerce
+
+```bash
+curl -u admin:root -X POST http://localhost:6363/api/clone/admin/ecommerce \
+  -H "Content-Type: application/json" \
+  -H "Authorization-Remote: Basic cHVibGljOnB1YmxpYw==" \
+  -d '{"remote_url": "https://data.terminusdb.org/public/ecommerce", "label": "Ecommerce", "comment": "Ecommerce tutorial dataset"}'
+```
+
+Then explore it: [Explore an Ecommerce Dataset](/docs/explore-ecommerce-dataset/)
+
+## How it works
+
+The clone operation uses TerminusDB's git-for-data architecture:
+
+1. Your local instance contacts `data.terminusdb.org` (authenticated with `public:public` read-only credentials)
+2. The entire database — schema, documents, and commit history — is pulled to your local instance
+3. The clone is now yours: query it, branch it, modify it. Changes stay local.
+
+Cloning is efficient even for large datasets because TerminusDB uses content-addressed storage — only unique data layers are transferred.
+
+## Next steps
+
+- [Get Started](/docs/get-started/) — the complete quickstart tutorial
+- [Explore a Real Dataset](/docs/explore-a-real-dataset/) — Star Wars dataset walkthrough
+- [Explore an Ecommerce Dataset](/docs/explore-ecommerce-dataset/) — business scenario walkthrough
+- [WOQL Basics](/docs/woql-basics/) — learn the query language
+- [GraphQL Basics](/docs/graphql-basics/) — query with GraphQL

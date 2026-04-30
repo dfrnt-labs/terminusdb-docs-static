@@ -8,17 +8,7 @@ nextjs:
       images: https://assets.terminusdb.com/docs/graphql-limit.png
     alternates:
       canonical: https://terminusdb.org/docs/limit-results-in-graphql/
-media:
-  - alt: Clone the Star Wars demo from the TerminusDB dashboard
-    caption: ""
-    media_type: Image
-    title: Clone the Star Wars demo from the TerminusDB dashboard
-    value: https://assets.terminusdb.com/docs/how-to-clone-a-demo.png
-  - alt: GraphQL query playground in TerminusDB
-    caption: ""
-    media_type: Image
-    title: GraphQL query playground in TerminusDB
-    value: https://assets.terminusdb.com/docs/how-to-query-graphql.png
+media: []
 ---
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:

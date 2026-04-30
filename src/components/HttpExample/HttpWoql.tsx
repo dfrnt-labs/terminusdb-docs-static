@@ -19,14 +19,14 @@ interface HttpWoqlProps {
 }
 
 export function HttpWoql({ children }: HttpWoqlProps) {
-  // This component is primarily a marker for the parent to detect.
-  // The parent extracts the children text and displays it in WoqlView.
-  // If somehow rendered without parent detection, render nothing visually.
-  return (
-    <span data-http-woql="true" style={{ display: "none" }} aria-hidden="true">
-      {children}
-    </span>
-  )
+  // This component is a marker for the parent HttpExample to detect.
+  // The parent extracts text from `props.children` via extractTextFromChildren()
+  // and displays it in WoqlView. We intentionally do NOT render children here
+  // because Markdoc may pass raw AST nodes (objects with $mdtype) when it
+  // encounters curly braces {} in tag content — rendering those as React children
+  // throws "Objects are not valid as a React child".
+  void children
+  return null
 }
 
 // Sentinel used by parent to identify HttpWoql elements in the React tree

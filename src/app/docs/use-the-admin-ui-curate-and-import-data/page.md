@@ -63,7 +63,7 @@ media:
 
 The TerminusDB cloud dashboard features a data and content editing section called the Document Explorer. It is here where users can add, edit and delete content and data directly into the backend.
 
-In this example, we've cloned the [Star Wars demo project](/docs/clone-a-demo-terminuscms-project/).
+In this example, we've cloned the [Star Wars demo database](/docs/explore-a-real-dataset/).
 
 First, select the Star Wars project (or an existing project of your own) and navigate to the document explorer section by selecting the third icon on the left, the document with a tick.
 

@@ -42,11 +42,11 @@ This generates the GraphQL query to include in the template. Check that all of t
 
 ## Write Handlebars Semantic Templates
 
-> If you clone the Star Wars data product from TerminusDB, this comes with a working Handlebars template for you to copy.
+> If you clone the Star Wars database from `data.terminusdb.org` (see [Explore a Real Dataset](/docs/explore-a-real-dataset/)), it comes with a working Handlebars template for you to copy.
 
 This is currently a manual process. The templates are written in an easy-to-understand way.
 
-Using the Star Wars data product example - that you can clone from the dashboard, this example shows the structure of a semantic template for the People class in Star Wars -
+Using the Star Wars dataset as an example, this shows the structure of a semantic template for the People class in Star Wars:
 
 ```json
 {
