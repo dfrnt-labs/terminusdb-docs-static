@@ -17,6 +17,18 @@ nextjs:
 media: []
 ---
 
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with a schema and data
+- Familiarity with WOQL basics and JSON-LD format
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to write WOQL queries using the JSON-LD wire format.
+{% /callout %}
+
 This guide shows how to execute WOQL queries using raw JSON-LD format with the JavaScript client, enabling you to use new server features even before they have corresponding helper methods in the client library.
 
 ## Why Use JSON-LD Queries?

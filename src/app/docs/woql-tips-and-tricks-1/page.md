@@ -8,12 +8,25 @@ nextjs:
   metadata:
     title: WOQL Tips and Tricks - Practical Query Authoring Techniques
     description: Practical tips and tricks for writing robust WOQL queries, including handling optional bindings, debugging techniques, and query composition patterns.
+    keywords: terminusdb, datalog, query, query language, terminusdb query, woql, woql tips and tricks
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/woql-tips-and-tricks-1/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- Familiarity with basic WOQL queries
+- A working database to experiment with
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have learned advanced WOQL tips and tricks to write more efficient queries.
+{% /callout %}
 
 ## Introduction
 

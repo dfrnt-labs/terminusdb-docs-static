@@ -17,6 +17,18 @@ nextjs:
 media: []
 ---
 
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- The TerminusDB Python client installed ([installation guide](/docs/install-the-python-client/))
+- A database with a schema and data
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have executed WOQL queries using the Python client.
+{% /callout %}
+
 Assuming you have [installed the client](/docs/install-the-python-client/), [connected to a database](/docs/connect-to-a-database-with-python-client/), and [connected with a client](/docs/connect-with-python-client/), you can then query with WOQL.
 
 ## WOQLQuery

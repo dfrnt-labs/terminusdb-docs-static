@@ -10,11 +10,24 @@ nextjs:
   metadata:
     title: Subdocument Handling with WOQL
     description: A comprehensive guide to creating, reading, updating, and deleting subdocuments using WOQL queries in TerminusDB.
+    keywords: terminusdb, data model, datalog, document, document database, document type, documents, json-ld
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-subdocuments.png
     alternates:
       canonical: https://terminusdb.org/docs/woql-subdocument-handling/
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with subdocument types in its schema
+- Familiarity with WOQL basics ([getting started](/docs/woql-getting-started/))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to query and manipulate subdocuments using WOQL.
+{% /callout %}
 
 Subdocuments in TerminusDB are documents that exist only as part of a parent document. Unlike regular documents, subdocuments cannot exist independently and must always be linked to a parent document through a property. This guide consolidates all subdocument operations using WOQL.
 

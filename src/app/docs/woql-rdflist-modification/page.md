@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: RDF List Modification Operations
     description: Learn how to add, remove, and modify elements in RDF lists using push, pop, append, insert, drop, and clear operations in WOQL.
+    keywords: terminusdb, datalog, query language, rdf, rdf list modification operations, terminusdb query, woql
     alternates:
       canonical: https://terminusdb.org/docs/woql-rdflist-modification/
 media: []

@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: RDF List Queue Tutorial
     description: Build a task queue using RDF list operations in TerminusDB with step-by-step examples.
+    keywords: terminusdb, datalog, query language, rdf, rdf list queue tutorial, terminusdb query, woql
     alternates:
       canonical: https://terminusdb.org/docs/woql-rdflist-queue-tutorial/
 ---

@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: RDF List Creation Operations
     description: Learn how to create empty RDF lists and check if lists are empty using WOQL library functions in TerminusDB.
+    keywords: terminusdb, datalog, query language, rdf, rdf list creation operations, terminusdb query, woql
     alternates:
       canonical: https://terminusdb.org/docs/woql-rdflist-creation/
 media: []

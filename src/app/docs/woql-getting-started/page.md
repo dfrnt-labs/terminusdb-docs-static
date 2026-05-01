@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: WOQL Getting Started
     description: Examples to Get Started with the TerminusDB Web Object Query Langauge (WOQL)
+    keywords: terminusdb, datalog, fetch, get, query, query language, read, retrieve
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

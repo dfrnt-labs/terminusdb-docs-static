@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: WOQL Set Operations Reference
     description: Reference guide for WOQL set operations including set_difference, set_intersection, set_union, set_member, and list_to_set
+    keywords: terminusdb, datalog, diff, query language, terminusdb query, woql, woql set operations reference
     alternates:
       canonical: https://terminusdb.org/docs/woql-set-operations/
 media: []

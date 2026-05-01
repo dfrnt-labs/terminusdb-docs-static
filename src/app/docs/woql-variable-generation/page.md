@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: WOQL Variable Generation - vars, vars_unique, Vars, and VarsUnique
     description: Complete guide to the four variable generation methods in the TerminusDB JavaScript client - vars, vars_unique, Vars, and VarsUnique - with practical examples and use cases
+    keywords: terminusdb, datalog, javascript, query language, terminusdb query, woql, woql variable generation guide (javascript)
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

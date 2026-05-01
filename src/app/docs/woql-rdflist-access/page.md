@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: RDF List Access Operations
     description: Learn how to read elements from RDF lists using peek, member, length, list, and slice operations in WOQL.
+    keywords: terminusdb, datalog, query language, rdf, rdf list access operations, terminusdb query, woql
     alternates:
       canonical: https://terminusdb.org/docs/woql-rdflist-access/
 media: []

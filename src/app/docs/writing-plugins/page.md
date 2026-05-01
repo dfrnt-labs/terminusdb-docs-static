@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Writing Plugins for TerminusDB
     description: Learn how to write custom plugins for TerminusDB to extend database functionality with hooks and custom behavior.
+    keywords: terminusdb, writing plugins for terminusdb
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -14,6 +15,17 @@ tags:
   - advanced
   - self-hosted
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally
+- Familiarity with Prolog or the TerminusDB extension API
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to write and register plugins for TerminusDB.
+{% /callout %}
 
 ## Writing Plugins for TerminusDB
 

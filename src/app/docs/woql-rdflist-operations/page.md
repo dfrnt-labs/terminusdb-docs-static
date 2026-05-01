@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: WOQL RDF List Operations
     description: Comprehensive guide to working with rdf:List structures in TerminusDB using WOQL library functions for list manipulation.
+    keywords: terminusdb, datalog, query language, rdf, terminusdb query, woql, woql rdf list operations
     alternates:
       canonical: https://terminusdb.org/docs/woql-rdflist-operations/
 media: []
