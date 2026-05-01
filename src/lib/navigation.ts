@@ -186,6 +186,18 @@ export const navigation: Navigation[] = [
             href: '/docs/branch-howto',
           },
           {
+            title: 'Merge How-To',
+            href: '/docs/merge-howto',
+          },
+          {
+            title: 'Time-Travel How-To',
+            href: '/docs/time-travel-howto',
+          },
+          {
+            title: 'Undo & Reset How-To',
+            href: '/docs/undo-reset-howto',
+          },
+          {
             title: 'Time Travel',
             href: '/docs/time-travel-to-previous-commits',
           },
