@@ -5,6 +5,8 @@
   "scripts": {
     "sitemap": "next-sitemap",
     "dev": "next dev",
+    "dev:safe": "curl -s -o /dev/null -w '%{http_code}' http://localhost:3000 | grep -q '200\\|308' && echo 'Dev server already running on port 3000' || next dev",
+    "prebuild": "node scripts/generate-git-dates.mjs",
     "build": "next build",
     "cmsdev": "next dev",
     "cmsbuild": "next build",
@@ -22,7 +24,11 @@
     "test:links": "node scripts/docs-example-tests/link-checker.mjs",
     "test:headings": "node scripts/docs-example-tests/heading-lint.mjs",
     "test:http-examples": "npx mocha scripts/docs-example-tests/run-http-examples.test.mjs --timeout 30000",
-    "test:all": "npm run test:headings && npm run test:nav && npm run test:inline-annotations && npm run test:links && npm run test:branding && npm run test:stubs && npm run test:http-examples"
+    "test:tags": "node scripts/docs-example-tests/tag-validation.mjs",
+    "test:orphan-examples": "node scripts/docs-example-tests/orphan-examples-lint.mjs",
+    "test:domain": "node scripts/docs-example-tests/domain-lint.mjs",
+    "lint:no-com": "node scripts/no-terminusdb-com-lint.mjs",
+    "test:all": "npm run test:headings && npm run test:nav && npm run test:inline-annotations && npm run test:links && npm run test:branding && npm run test:stubs && npm run test:tags && npm run test:orphan-examples && npm run test:domain && npm run lint:no-com && npm run test:http-examples"
   },
   "browser": {
     "tls": false,
@@ -49,6 +55,9 @@
     "cheerio": "^1.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "d3-force": "^3.0.0",
+    "d3-selection": "^3.0.0",
+    "d3-zoom": "^3.0.0",
     "dompurify": "^3.0.2",
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.0.4",
@@ -81,6 +90,9 @@
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
+    "@types/d3-force": "^3.0.10",
+    "@types/d3-selection": "^3.0.11",
+    "@types/d3-zoom": "^3.0.8",
     "@types/fs-extra": "^11.0.4",
     "@types/mermaid": "^9.2.0",
     "@types/prismjs": "^1.26.0",

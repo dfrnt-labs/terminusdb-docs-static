@@ -26,7 +26,7 @@ The AccessControl is a driver to work with TerminusDB and TerminusDB access cont
 
 ```javascript
 //connect with the API token
-//(to request a token create an account in  https://terminusdb.com/)
+//(to request a token create an account in  https://terminusdb.org/)
 const accessContol = new AccessControl("https://servername.com",
 {organization:"my_team_name",
 token:"dGVybWludXNkYjovLy9kYXRhL2tleXNfYXB........"})
@@ -99,7 +99,7 @@ Sets the Jwt token for the object
 
 ##### accessControl.setApiToken(atokenpi)
 
-Sets the API token for the object, to request a token create an account in https://terminusdb.com/
+Sets the API token for the object, to request a token create an account in https://terminusdb.org/
 
 {% table %}
 
@@ -119,7 +119,7 @@ Sets the API token for the object, to request a token create an account in https
 
 ##### accessControl.setApiKey(atokenpi)
 
-Sets the API token for the object, to request a token create an account in https://terminusdb.com/
+Sets the API token for the object, to request a token create an account in https://terminusdb.org/
 
 {% table %}
 

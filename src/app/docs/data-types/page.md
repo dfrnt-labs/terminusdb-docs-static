@@ -677,7 +677,7 @@ Validated URL (subtype of `xsd:string`). Can also be cast from `xsd:anyURI`.
 * `xsd:string`
 ---
 * **Example**
-* `"https://terminusdb.com"`
+* `"https://terminusdb.org"`
 {% /table %}
 
 ### xdd:email

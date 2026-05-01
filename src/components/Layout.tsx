@@ -11,6 +11,7 @@ import { MobileNavigation } from '@/components/MobileNavigation'
 import { Navigation } from '@/components/Navigation'
 import { Search } from '@/components/Search'
 import { ThemeSelector } from '@/components/ThemeSelector'
+import { TopicsButton } from '@/components/TopicsButton'
 import { ScrollLink } from './ScrollLink'
 import { Footer } from '@/components/Footer'
 
@@ -57,6 +58,7 @@ export function Header() {
         <Search />
       </div>
       <div className="relative flex basis-0 justify-end gap-6 sm:gap-8 md:grow">
+        <TopicsButton />
         <ThemeSelector className="relative z-10" />
         
         <ScrollLink

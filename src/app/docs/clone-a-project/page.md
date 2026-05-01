@@ -15,7 +15,7 @@ tags:
   - how-to
 ---
 
-## Clone a database from terminusdb.com to your local machine
+## Clone a database from terminusdb.org to your local machine
 
 Assuming you have [connected with the JavaScript Client](/docs/connect-with-the-javascript-client/) you can clone your database.
 

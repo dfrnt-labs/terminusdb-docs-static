@@ -182,7 +182,7 @@ export function getActiveSlugClassName(
 
 export function getLogo() {
   return (
-    <a href="https://terminusdb.com/" className="flex items-center pl-2.5">
+    <a href="https://terminusdb.org/" className="flex items-center pl-2.5">
       <img
         src="https://assets.terminusdb.com/docs/TerminusDB-Logo.svg"
         className="mb-0 mt-0"

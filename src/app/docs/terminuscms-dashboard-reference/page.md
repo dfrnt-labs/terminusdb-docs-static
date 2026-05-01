@@ -98,7 +98,7 @@ The TerminusDB dashboards come with WOQL and GraphQL query playgrounds.
 
 ### WOQL Query Playground
 
-WOQL is a Datalog query language. More information about WOQL can be found in the [WOQL how-to guide](/docs/woql-basics/). The query language is based on two rules, tripples and unification. This blog post explains [WOQL's methodology](https://terminusdb.com/blog/the-power-of-web-object-query-language/).
+WOQL is a Datalog query language. More information about WOQL can be found in the [WOQL how-to guide](/docs/woql-basics/). The query language is based on two rules, tripples and unification. This blog post explains [WOQL's methodology](https://terminusdb.org/blog/the-power-of-web-object-query-language/).
 
 The playground features query panels to write your schema. You can have several panels open to tweak your query. To aid you in building your query, listed on the left are the documents within the schema, you can select one which expands to show the properties of each document. Clicking on one will add create a new query panel with a WOQL query for that document property.
 

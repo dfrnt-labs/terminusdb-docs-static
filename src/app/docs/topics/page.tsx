@@ -107,6 +107,17 @@ export default function TopicsPage() {
         </p>
       </header>
 
+      <div className="mb-8 flex items-center gap-4">
+        <span className="text-sm text-slate-500 dark:text-slate-400">View:</span>
+        <span className="text-sm font-medium text-slate-900 dark:text-white">List</span>
+        <Link
+          href="/docs/topics/graph"
+          className="text-sm text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
+        >
+          Graph
+        </Link>
+      </div>
+
       <nav aria-label="Documentation topics">
         {FACET_ORDER.map((facet) => (
           <FacetSection key={facet} facet={facet} counts={counts} />

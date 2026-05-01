@@ -138,6 +138,14 @@ export const navigation: Navigation[] = [
         //   },
         // ],
       },
+      {
+        title: 'Browse by Topic',
+        href: '/docs/topics',
+      },
+      {
+        title: 'Topic Graph',
+        href: '/docs/topics/graph',
+      },
       // {
     ],
   },

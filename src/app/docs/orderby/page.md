@@ -99,7 +99,7 @@ let data = {
         "@type": "SubBody",
         "text": "sample text",
     "section": "a section",
-    "url": "https://terminusdb.com/"
+    "url": "https://terminusdb.org/"
     },
 }
 

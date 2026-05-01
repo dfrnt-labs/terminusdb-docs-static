@@ -86,7 +86,7 @@ password = os.getenv("TERMINUS_KEY") #default is root
 response = requests.request("POST", url, headers=headers, data=payload, auth=HTTPBasicAuth(username, password))
 ```
 
-This script modifies the schema by adding an Attributes class and a Purchase class. These two classes are linked, as the Attributes class is said to be a subdocument of Purchase. A [subdocument](https://terminusdb.com/docs/documents-explanation/#subdocuments) can only be pointed to by its containing document, it's a kind of fieldset. Its information is internal to the identity of the document and not intended to be shared. This designation enables deeply nested JSON documents that are self-contained and retrievable using the TerminusDB document interface.
+This script modifies the schema by adding an Attributes class and a Purchase class. These two classes are linked, as the Attributes class is said to be a subdocument of Purchase. A [subdocument](/docs/documents-explanation/#subdocuments) can only be pointed to by its containing document, it's a kind of fieldset. Its information is internal to the identity of the document and not intended to be shared. This designation enables deeply nested JSON documents that are self-contained and retrievable using the TerminusDB document interface.
 
 ## Querying in WOQL with the Python Client
 
