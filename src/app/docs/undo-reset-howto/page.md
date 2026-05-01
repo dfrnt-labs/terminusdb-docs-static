@@ -17,6 +17,10 @@ media: []
 lastUpdated: "2026-05-01"
 ---
 
+{% callout title="What you'll achieve" %}
+By the end of this guide, you will know how to reset branches, revert specific changes, squash commits, and recover from accidental resets.
+{% /callout %}
+
 **Undoing changes** in TerminusDB is safe because the database is immutable — every commit is preserved in the history. You can reset a branch to a previous state, revert specific changes, or squash messy commit history into a clean single commit.
 
 {% callout type="info" title="Nothing is truly lost" %}

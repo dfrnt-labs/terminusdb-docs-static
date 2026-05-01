@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: JSON Diff and Patch with TerminusDB
     description: JSON Diff and Patch reference guide to compare JSON documents.
+    keywords: terminusdb, compare, delta, diff, document, javascript, json diff and patch with terminusdb, patch
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -14,6 +15,15 @@ tags:
   - diff-patch
   - how-to
 ---
+
+{% callout title="Prerequisites" %}
+- TerminusDB running on `localhost:6363`
+- An HTTP client (curl, Postman, or similar)
+{% /callout %}
+
+{% callout title="What you'll achieve" %}
+By the end of this guide, you will know how to compute JSON diffs and apply patches via the HTTP API.
+{% /callout %}
 
 JSON objects are a common way of representing data for software development. The serialization of JSON is simple and facilitates communication via networks and storage in databases. Almost all modern programming languages support JSON objects natively.
 

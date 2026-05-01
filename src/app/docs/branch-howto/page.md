@@ -17,6 +17,10 @@ media: []
 lastUpdated: "2026-05-01"
 ---
 
+{% callout title="What you'll achieve" %}
+By the end of this guide, you will know how to create, switch, diff, merge, and delete branches in TerminusDB using the HTTP API, TypeScript, and Python.
+{% /callout %}
+
 This guide shows you how to work with branches in TerminusDB — create isolated workspaces, make changes, review diffs, and merge back to main. Every operation includes HTTP API, TypeScript, and Python examples.
 
 {% callout type="info" title="Git branch for data" %}

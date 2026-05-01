@@ -17,6 +17,10 @@ media: []
 lastUpdated: "2026-05-01"
 ---
 
+{% callout title="What you'll achieve" %}
+By the end of this guide, you will know how to query your database at any historical commit, compare points in time, and restore previous states.
+{% /callout %}
+
 **Time-travel** in TerminusDB lets you query the database as it was at any point in history — without modifying anything. Because every write creates an immutable commit, you can "go back in time" to see the exact state of your data at any previous commit. No backups, no log replay, no special configuration.
 
 {% callout type="info" title="How it works" %}

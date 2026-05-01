@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: "Patch Endpoint — Apply Structural Patches to Documents"
     description: "Apply JSON diff patches to documents in a TerminusDB branch. Patch a single document with a before/after comparison, or patch multiple documents in a resource by ID."
+    keywords: terminusdb, branch, diff, document, javascript, patch, terminusdb javascript client, typescript
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

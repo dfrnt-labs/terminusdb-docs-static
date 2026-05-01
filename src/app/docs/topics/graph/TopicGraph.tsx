@@ -187,25 +187,10 @@ function getLinkVisibility(
     const sourceIsSelected = isNodeSelected(sourceId, filters, bookmarks, selection)
     const targetIsSelected = isNodeSelected(targetId, filters, bookmarks, selection)
 
-    // Virtual tag filters (Bookmarks/Selection): only highlight edges that directly
-    // involve the virtual tag node. Don't cascade highlighting to page→real-tag edges,
-    // which would incorrectly light up ALL edges touching a bookmarked/selected page.
-    const hasVirtualFilter = filters.activeTags.has(BOOKMARKS_TAG) || filters.activeTags.has(SELECTION_TAG)
-    const hasRealFilter = [...filters.activeTags].some(
-      (t) => t !== BOOKMARKS_TAG && t !== SELECTION_TAG,
-    ) || filters.activeFacets.size > 0
-
-    if (hasVirtualFilter && !hasRealFilter) {
-      // Virtual-only mode: highlight only edges where one end is the virtual tag node
-      const sourceIsVirtualTag = sourceId === `tag:${BOOKMARKS_TAG}` || sourceId === `tag:${SELECTION_TAG}`
-      const targetIsVirtualTag = targetId === `tag:${BOOKMARKS_TAG}` || targetId === `tag:${SELECTION_TAG}`
-      if ((sourceIsVirtualTag || targetIsVirtualTag) && (sourceIsSelected || targetIsSelected)) {
-        return "selected"
-      }
-      return "full" // other edges at default filter-dimmed opacity (0.05)
-    }
-
-    // Real filter mode (regular tags/facets active): standard highlighting
+    // Standard highlighting: any edge touching a "selected" node gets highlighted.
+    // For virtual tag filters (Bookmarks/Selection), page nodes that are in the
+    // bookmarks/selection list are treated as selected — so ALL their edges highlight
+    // (virtual→page AND page→real-tags). This shows "what topics this page belongs to".
     if (sourceIsSelected || targetIsSelected) return "selected"
     // Both ends visible but not connected to active filter
     return "full" // caller maps this to 0.05 when filter is active
@@ -214,17 +199,29 @@ function getLinkVisibility(
   return "full" // caller maps this to default (0.25/0.10 by edge type)
 }
 
-function isNodeSelected(nodeId: string, filters: FilterState, _bookmarks?: string[], _selection?: string[]): boolean {
-  // Only filter-originating nodes (active facets/tags) are "selected" for edge highlighting
-  // and selection-ring display. Page nodes are never "selected" here — their edge highlighting
-  // for virtual tag filters (Bookmarks/Selection) is handled directly in getLinkVisibility().
+function isNodeSelected(nodeId: string, filters: FilterState, bookmarks?: string[], selection?: string[]): boolean {
+  // Facets: selected when their facet filter is active
   if (nodeId.startsWith("facet:")) {
     const facet = nodeId.replace("facet:", "") as Facet
     return filters.activeFacets.has(facet)
   }
+  // Tags: selected when their tag filter is active (includes virtual tags)
   if (nodeId.startsWith("tag:")) {
     const tagId = nodeId.replace("tag:", "")
     return filters.activeTags.has(tagId)
+  }
+  // Pages: selected when they appear in the bookmarks/selection list AND
+  // the corresponding virtual tag filter is active. This causes ALL edges
+  // touching the page to highlight (virtual→page AND page→real-tags).
+  if (nodeId.startsWith("page:")) {
+    const pageHref = nodeId.replace("page:", "")
+    const normalizedHref = normalizePath(pageHref)
+    if (filters.activeTags.has(BOOKMARKS_TAG) && bookmarks) {
+      if (bookmarks.some((b) => normalizePath(b) === normalizedHref)) return true
+    }
+    if (filters.activeTags.has(SELECTION_TAG) && selection) {
+      if (selection.some((s) => normalizePath(s) === normalizedHref)) return true
+    }
   }
   return false
 }
@@ -1257,12 +1254,13 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       selectionNode.radius = next.length > 0 ? 14 : 10
       selectionNode.pageCount = next.length
 
-      // Update the D3 force link data and restart gently
+      // Update the D3 force link data WITHOUT restarting the simulation.
+      // Restarting (even at low alpha) causes all unpinned nodes to reposition,
+      // creating a jarring graph "redraw" on every click.
       const forceLinksInstance = simulation.force("link") as ReturnType<typeof forceLink<SimNode, SimLink>> | null
       if (forceLinksInstance) {
         forceLinksInstance.links(links)
       }
-      simulation.alpha(0.1).restart()
 
       // Rebind link selection to updated data
       const updatedLinkSel = linkGroup
@@ -1278,6 +1276,11 @@ export default function TopicGraph({ data }: TopicGraphProps) {
           const facet = targetNode2?.facet ?? "feature"
           return FACET_COLOURS[facet][isDark ? "dark" : "light"]
         })
+        // Position links immediately at current node coordinates (no simulation tick needed)
+        .attr("x1", (l) => (l.source as SimNode).x ?? 0)
+        .attr("y1", (l) => (l.source as SimNode).y ?? 0)
+        .attr("x2", (l) => (l.target as SimNode).x ?? 0)
+        .attr("y2", (l) => (l.target as SimNode).y ?? 0)
       linkSelRef.current = updatedLinkSel as Selection<SVGLineElement, SimLink, SVGGElement, unknown>
 
       // Update node circle radius
@@ -1499,13 +1502,18 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       .alphaMin(0.001)
 
     // Tick handler — positions nodes, links, AND labels
+    // Uses linkSelRef.current so it always sees the latest link selection
+    // (togglePageSelection rebinds links without rebuilding the graph)
     const tickFn = () => {
       nodeSel.attr("transform", (d) => `translate(${d.x ?? 0},${d.y ?? 0})`)
-      linkSel
-        .attr("x1", (d) => (d.source as SimNode).x ?? 0)
-        .attr("y1", (d) => (d.source as SimNode).y ?? 0)
-        .attr("x2", (d) => (d.target as SimNode).x ?? 0)
-        .attr("y2", (d) => (d.target as SimNode).y ?? 0)
+      const currentLinkSel = linkSelRef.current
+      if (currentLinkSel) {
+        currentLinkSel
+          .attr("x1", (d) => (d.source as SimNode).x ?? 0)
+          .attr("y1", (d) => (d.source as SimNode).y ?? 0)
+          .attr("x2", (d) => (d.target as SimNode).x ?? 0)
+          .attr("y2", (d) => (d.target as SimNode).y ?? 0)
+      }
       // Labels track their parent node position
       labelSel.attr("transform", (d) => {
         const yOffset = d.type === "facet" ? d.radius + 14 : d.radius + 11
