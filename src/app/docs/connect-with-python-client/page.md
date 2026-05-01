@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: Python Client — Quickstart
     description: Connect to TerminusDB from Python. Branch, edit, diff, and merge documents using the terminusdb-client Python library.
+    keywords: terminusdb, branch, client, connect, connection, diff, document, document database
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -141,7 +142,8 @@ print(json.dumps(diff, indent=2))
 ]
 ```
 
-{% callout title="What just happened?" %}
+{% callout type="note" %}
+**What just happened?**
 TerminusDB computed a **structural diff** — not a line-by-line text diff, but a semantic operation (`SwapValue`) that knows exactly which field changed, what the old value was, and what the new value is. This patch can be applied, reversed, or composed with other patches.
 {% /callout %}
 

@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: TerminusDB Data Types
     description: Comprehensive reference for all data types supported in TerminusDB, including XSD, RDF, XDD extensions, and System types.
+    keywords: terminusdb, data model, datalog, document type, rdf, schema, terminusdb data types, terminusdb query
     alternates:
       canonical: https://terminusdb.org/docs/data-types/
 ---

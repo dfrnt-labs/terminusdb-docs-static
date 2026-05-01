@@ -9,10 +9,24 @@ nextjs:
   metadata:
     title: How to compare values with a CSV file using WOQL
     description: Learn how to efficiently compare a list of values against a CSV file to find additions, deletions, and unchanged items using WOQL
+    keywords: terminusdb, compare values with a csv file using woql, datalog, query language, terminusdb query, woql
     alternates:
       canonical: https://terminusdb.org/docs/compare-csv-values-with-woql/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with a schema
+- A CSV file to compare against
+- Familiarity with WOQL basics ([getting started](/docs/woql-getting-started/))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to compare CSV data with database values using WOQL.
+{% /callout %}
 
 This guide shows you how to compare a list of values against a CSV file using WOQL. This is useful for synchronization tasks where you need to determine what has been added, deleted, or remains unchanged between two data sources.
 

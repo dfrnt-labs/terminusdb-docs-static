@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: TypeScript Client — Quickstart
     description: Connect to TerminusDB from TypeScript. Branch, edit, diff, and merge documents using the terminusdb npm client.
+    keywords: terminusdb, branch, client, connect, connection, diff, document, javascript
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -13,6 +14,11 @@ tags:
   - how-to
   - beginner
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have established a connection to TerminusDB using the JavaScript client.
+{% /callout %}
 
 {% callout type="note" %}
 This guide uses **TypeScript**. Also available in [Python](/docs/connect-with-python-client/) · [Rust](/docs/rust-client-quickstart/)
@@ -143,7 +149,8 @@ console.log(JSON.stringify(diff, null, 2))
 ]
 ```
 
-{% callout title="What just happened?" %}
+{% callout type="note" %}
+**What just happened?**
 TerminusDB computed a **structural diff** — not a line-by-line text diff, but semantic operations (`SwapValue`) that know exactly which fields changed, what the old values were, and what the new values are. This patch can be applied, reversed, or composed with other patches.
 {% /callout %}
 

@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Connect with Apollo Client to use GraphQL with TerminusDB
     description: A reference guide to get you up and running with TerminusDB & TerminusDB  using GraphQL and Apollo Client
+    keywords: terminusdb, client, connect, connection, graphql, javascript, terminusdb graphql, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -15,7 +16,20 @@ tags:
   - how-to
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- Node.js and npm installed
+- An existing database with a schema
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have connected Apollo Client to TerminusDB's GraphQL endpoint.
+{% /callout %}
+
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

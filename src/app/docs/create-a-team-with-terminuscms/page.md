@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: Create teams using TerminusDB
     description: A how-to guide for creating teams using the TerminusDB dashboard.
+    keywords: terminusdb, create, create teams using terminusdb, new
     openGraph:
       images: https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.pn
     alternates:
@@ -26,7 +27,18 @@ media:
     value: https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.png
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**Prerequisites**
+- A DFRNT Hub account ([sign up](https://dfrnt.com))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have created a team in DFRNT Hub.
+{% /callout %}
+
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

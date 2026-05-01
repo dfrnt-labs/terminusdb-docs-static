@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: Collaboration Features with the TerminusDB Dashboard
     description: "How to guides for leveraging collaboration features using TerminusDB dashboard. "
+    keywords: terminusdb, dashboard, dfrnt hub, terminuscms
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -16,7 +17,8 @@ nextjs:
 media: []
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

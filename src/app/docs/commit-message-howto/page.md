@@ -14,6 +14,17 @@ nextjs:
       canonical: https://terminusdb.org/docs/commit-message-howto/
 ---
 
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with write access
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to write effective commit messages for TerminusDB operations.
+{% /callout %}
+
 Set an `author` and `message` on any document write so that the commit log records who made the change and why.
 
 ## The parameters

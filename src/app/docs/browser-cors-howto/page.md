@@ -13,6 +13,17 @@ nextjs:
       canonical: https://terminusdb.org/docs/browser-cors-howto/
 ---
 
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally on `localhost:6363`
+- A web application making cross-origin requests to TerminusDB
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have configured CORS to allow browser-based access to your TerminusDB instance.
+{% /callout %}
+
 Make HTTP requests to the TerminusDB API from browser JavaScript without CORS errors.
 
 **TerminusDB allows all CORS origins by default.** The server reflects the request's `Origin` header back as `Access-Control-Allow-Origin`, so any browser origin can make requests without additional configuration. There is no environment variable to set and no allow-list to configure.

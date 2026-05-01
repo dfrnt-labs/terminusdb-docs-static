@@ -9,12 +9,25 @@ nextjs:
   metadata:
     title: Cloning a Database with the Python Client
     description: A guide to show how to clone a database using the Python Client.
+    keywords: terminusdb, clone, cloning a database with the python client, copy, python, replicate, terminusdb python client
     openGraph:
       images: https://assets.terminusdb.com/docs/python-client-collaboration-clone.png
     alternates:
       canonical: https://terminusdb.org/docs/clone-a-database-with-python/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- The TerminusDB Python client installed ([installation guide](/docs/install-the-python-client/))
+- Access to the remote database you want to clone
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have cloned a remote database to your local TerminusDB instance using the Python client.
+{% /callout %}
 
 > Before starting, you should create an account on the DFRNT TerminusDB cloud and get an API Token. You can read about this [here](/docs/how-to-connect-terminuscms/).
 

@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Branch a Project using the TerminusDB JS Client
     description: A guide to show how to create a new branch in TerminusDB using the JavaScript Client.
+    keywords: terminusdb, branch, branch a project using the terminusdb js client, commit, git for data, javascript, terminusdb javascript client, typescript
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/JS-client-collaboration-branch.png?raw=true
     alternates:
@@ -14,6 +15,17 @@ tags:
   - version-control
   - how-to
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- A DFRNT Hub account or TerminusDB running locally
+- An existing data product/database
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have created and managed branches on your data product.
+{% /callout %}
 
 **Branching** in TerminusDB works like Git — create a lightweight branch, make changes in isolation, then merge back. Branches share history until they diverge, making them cheap to create and fast to merge.
 

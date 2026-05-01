@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: Collaboration Features with the Python Client
     description: How to guides to help you get to grips with TerminusDB collaboration features using the Python Client.
+    keywords: terminusdb, collaboration features with the python client, python, terminusdb python client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

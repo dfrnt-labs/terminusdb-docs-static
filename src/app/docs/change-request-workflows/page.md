@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: Change Request Workflows - TerminusDB Tour
     description: This page details how change request workflows function in TerminusDB to enable safe collaboration
+    keywords: terminusdb, change request workflows - terminusdb tour
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

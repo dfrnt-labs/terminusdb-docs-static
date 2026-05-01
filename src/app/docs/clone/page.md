@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: Clone a Project using the TerminusDB Dashboard
     description: A guide to show how to clone a project using the TerminusDB dashboard.
+    keywords: terminusdb, branch, clone, clone a project using the terminusdb dashboard, commit, copy, dashboard, dfrnt hub
     openGraph:
       images: https://assets.terminusdb.com/docs/project-admin.png
     alternates:
@@ -20,6 +21,17 @@ media:
     title: Clone a project from the project home page
     value: https://assets.terminusdb.com/docs/project-admin.png
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- Access to the remote database you want to clone
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have cloned a remote database to your local instance.
+{% /callout %}
 
 From the project home page, on the right you will see the `Clone Project` section.
 

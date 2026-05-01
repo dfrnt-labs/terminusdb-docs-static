@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: TerminusDB Dashboard Status
     description: Information about the TerminusDB Dashboard component, its discontinuation, and how to continue using it if needed.
+    keywords: terminusdb, dashboard, dfrnt hub, terminuscms, terminusdb dashboard status
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

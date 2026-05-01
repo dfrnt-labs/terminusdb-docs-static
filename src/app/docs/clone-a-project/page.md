@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Cloning a Database
     description: A guide to show how to clone a database with the JS WOQLClient.
+    keywords: terminusdb, clone, cloning a database, copy, javascript, replicate, terminusdb javascript client, typescript
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-collaboration-clone.png?raw=true
     alternates:
@@ -14,6 +15,17 @@ tags:
   - collaboration
   - how-to
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- A DFRNT Hub account or TerminusDB running locally
+- Access to the project you want to clone
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have cloned a project to your workspace.
+{% /callout %}
 
 ## Clone a database from terminusdb.org to your local machine
 

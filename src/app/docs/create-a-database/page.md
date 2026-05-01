@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Create a Database using the JavaScript Client
     description: A guide to show how to create a database using the TerminusDB JavaScript Client.
+    keywords: terminusdb, create, create a database using the javascript client, document database, documents, javascript, json-ld, new
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-create-a-db.png?raw=true
     alternates:
@@ -15,6 +16,17 @@ tags:
   - how-to
   - beginner
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- The TerminusDB JavaScript client installed ([installation guide](/docs/install-terminusdb-js-client/))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have created a new database using the JavaScript client.
+{% /callout %}
 
 To create a database with an already [connected client](/docs/connect-with-the-javascript-client/), you can write:
 

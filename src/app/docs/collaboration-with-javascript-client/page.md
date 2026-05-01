@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: Collaboration Features with the JavaScript Client
     description: How to guides to help you use TerminusDB collaboration features using the JavaScript Client
+    keywords: terminusdb, collaboration features with the javascript client, javascript, terminusdb javascript client, typescript
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

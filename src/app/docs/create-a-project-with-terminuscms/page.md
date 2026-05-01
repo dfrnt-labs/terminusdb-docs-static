@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: How to create a project with TerminusDB
     description: A how-to guide showing you how to create a new project using the TerminusDB dashboard
+    keywords: terminusdb, create, create a project with terminusdb, new
     openGraph:
       images: https://assets.terminusdb.com/docs/new-data-product.png
     alternates:
@@ -20,7 +21,18 @@ media:
     value: https://assets.terminusdb.com/docs/new-data-product.png
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**Prerequisites**
+- A DFRNT Hub account ([sign up](https://dfrnt.com))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have created a new data product in DFRNT Hub.
+{% /callout %}
+
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: TerminusDB Document UI SDK - Using Choice Subdocuments
     description: A guide showing how to use multiple choice subdocuments with the TerminusDB documen t UI SDK
+    keywords: terminusdb, data model, document, document type, javascript, schema, terminusdb document ui sdk - choice subdocuments, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -16,7 +17,8 @@ tags:
   - dashboard
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

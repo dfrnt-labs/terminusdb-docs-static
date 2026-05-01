@@ -9,12 +9,25 @@ nextjs:
   metadata:
     title: Branch a Project Using the Python Client
     description: A guide to show how to branch a TerminusDB project using the Python Client.
+    keywords: terminusdb, branch, branch a project the python client, commit, git for data, python, terminusdb python client, version control
     openGraph:
       images: https://assets.terminusdb.com/docs/python-client-collaboration-branch.png
     alternates:
       canonical: https://terminusdb.org/docs/branch-a-project-with-the-python-client/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- The TerminusDB Python client installed ([installation guide](/docs/install-the-python-client/))
+- A connected client with an existing database
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have created and managed branches using the Python client.
+{% /callout %}
 
 Assuming you have [connected with the Python Client](/docs/connect-with-python-client/) and [created a database](/docs/create-database-with-python-client/) you can then create a branch of your project.
 
