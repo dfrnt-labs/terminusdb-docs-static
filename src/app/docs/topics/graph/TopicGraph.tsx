@@ -437,14 +437,14 @@ export default function TopicGraph({ data }: TopicGraphProps) {
   const linkSelRef = useRef<Selection<SVGLineElement, SimLink, any, any> | null>(null)
   const nodesRef = useRef<SimNode[]>([])
   const linksRef = useRef<SimLink[]>([])
+  // Filter state lives in refs — D3 updates are imperative, not React-driven
+  const filtersRef = useRef<FilterState>({ activeFacets: new Set(), activeTags: new Set(), showPages: true })
+  const tagToFacetMapRef = useRef<Map<string, Facet>>(new Map())
+  // filterVersion triggers pill bar re-render only — does NOT affect the SVG/simulation
+  const [filterVersion, setFilterVersion] = useState(0)
   const [tooltip, setTooltip] = useState<TooltipState | null>(null)
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
   const [isDark, setIsDark] = useState(false)
-  const [filters, setFilters] = useState<FilterState>({
-    activeFacets: new Set(),
-    activeTags: new Set(),
-    showPages: true,
-  })
   const router = useRouter()
 
   // Build lookup maps from data
@@ -478,42 +478,57 @@ export default function TopicGraph({ data }: TopicGraphProps) {
     return map
   }, [data])
 
-  // Filter handlers
-  const handleToggleFacet = useCallback((facet: Facet) => {
-    setFilters((prev) => {
-      const next = new Set(prev.activeFacets)
-      if (next.has(facet)) {
-        next.delete(facet)
-      } else {
-        next.add(facet)
-      }
-      return { ...prev, activeFacets: next }
-    })
+  // Imperative D3 visibility update — call after any filter mutation
+  const applyCurrentVisibility = useCallback(() => {
+    const nodeSel = nodeSelRef.current
+    const linkSel = linkSelRef.current
+    const nodes = nodesRef.current
+    if (!nodeSel || !linkSel || nodes.length === 0) return
+    applyVisibility(
+      nodeSel as Selection<SVGGElement, SimNode, SVGGElement, unknown>,
+      linkSel as Selection<SVGLineElement, SimLink, SVGGElement, unknown>,
+      nodes,
+      filtersRef.current,
+      tagToFacetMapRef.current,
+    )
   }, [])
+
+  // Filter handlers — mutate refs, apply D3 imperatively, bump version for pill bar
+  const handleToggleFacet = useCallback((facet: Facet) => {
+    const next = new Set(filtersRef.current.activeFacets)
+    if (next.has(facet)) {
+      next.delete(facet)
+    } else {
+      next.add(facet)
+    }
+    filtersRef.current = { ...filtersRef.current, activeFacets: next }
+    applyCurrentVisibility()
+    setFilterVersion((v) => v + 1)
+  }, [applyCurrentVisibility])
 
   const handleToggleTag = useCallback((tagId: string) => {
-    setFilters((prev) => {
-      const next = new Set(prev.activeTags)
-      if (next.has(tagId)) {
-        next.delete(tagId)
-      } else {
-        next.add(tagId)
-      }
-      return { ...prev, activeTags: next }
-    })
-  }, [])
+    const next = new Set(filtersRef.current.activeTags)
+    if (next.has(tagId)) {
+      next.delete(tagId)
+    } else {
+      next.add(tagId)
+    }
+    filtersRef.current = { ...filtersRef.current, activeTags: next }
+    applyCurrentVisibility()
+    setFilterVersion((v) => v + 1)
+  }, [applyCurrentVisibility])
 
   const handleTogglePages = useCallback(() => {
-    setFilters((prev) => ({ ...prev, showPages: !prev.showPages }))
-  }, [])
+    filtersRef.current = { ...filtersRef.current, showPages: !filtersRef.current.showPages }
+    applyCurrentVisibility()
+    setFilterVersion((v) => v + 1)
+  }, [applyCurrentVisibility])
 
   const handleClearFilters = useCallback(() => {
-    setFilters({
-      activeFacets: new Set(),
-      activeTags: new Set(),
-      showPages: true,
-    })
-  }, [])
+    filtersRef.current = { activeFacets: new Set(), activeTags: new Set(), showPages: true }
+    applyCurrentVisibility()
+    setFilterVersion((v) => v + 1)
+  }, [applyCurrentVisibility])
 
   // Detect dark mode
   useEffect(() => {
@@ -590,21 +605,8 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       .call(zoomBehaviour.transform, zoomIdentity)
   }, [])
 
-  // Apply filter visibility without re-running simulation
-  useEffect(() => {
-    const nodeSel = nodeSelRef.current
-    const linkSel = linkSelRef.current
-    const nodes = nodesRef.current
-    if (!nodeSel || !linkSel || nodes.length === 0) return
-
-    applyVisibility(
-      nodeSel as Selection<SVGGElement, SimNode, SVGGElement, unknown>,
-      linkSel as Selection<SVGLineElement, SimLink, SVGGElement, unknown>,
-      nodes,
-      filters,
-      tagToFacetMap,
-    )
-  }, [filters, tagToFacetMap])
+  // Keep tagToFacetMapRef in sync when data changes
+  tagToFacetMapRef.current = tagToFacetMap
 
   // Main D3 simulation + rendering
   useEffect(() => {
@@ -793,7 +795,7 @@ export default function TopicGraph({ data }: TopicGraphProps) {
         .attr("y", bbox.y - 1)
         .attr("width", bbox.width + 4)
         .attr("height", bbox.height + 2)
-        .attr("fill", "rgba(0,0,0,0.5)")
+        .attr("fill", "rgba(0,0,0,0.6)")
         .attr("rx", 2)
         .attr("ry", 2)
     })
@@ -858,18 +860,27 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       })
       .on("mouseleave", function () {
         setTooltip(null)
-        // Re-apply current filter/default state — NOT hardcoded values
+        // Re-apply current filter/default state from REFS (not stale closure)
         applyVisibility(
           nodeSel as Selection<SVGGElement, SimNode, SVGGElement, unknown>,
           linkSel as Selection<SVGLineElement, SimLink, SVGGElement, unknown>,
           nodes,
-          filters,
-          tagToFacetMap,
+          filtersRef.current,
+          tagToFacetMapRef.current,
         )
       })
 
+    // Drag state — declared before click handler so click can read didDrag
+    let dragTarget: SimNode | null = null
+    let didDrag = false
+
     // Click — facets/tags activate filter, pages navigate
+    // Suppress click if a drag just occurred (selection must survive drag)
     nodeSel.on("click", function (event, d) {
+      if (didDrag) {
+        didDrag = false
+        return
+      }
       event.preventDefault()
       if (d.type === "page" && d.href) {
         router.push(d.href)
@@ -881,7 +892,7 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       }
     })
 
-    // Double-click to unpin
+    // Double-click to unpin (simulation referenced via closure — declared below)
     nodeSel.on("dblclick", function (event, d) {
       event.stopPropagation()
       d.fx = null
@@ -889,19 +900,18 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       simulation.alpha(0.3).restart()
     })
 
-    // Drag behaviour
-    let dragTarget: SimNode | null = null
-
     nodeSel.on("mousedown.drag", function (event, d) {
       if (event.button !== 0) return
       event.stopPropagation()
       dragTarget = d
+      didDrag = false
       d.fx = d.x
       d.fy = d.y
       simulation.alphaTarget(0.3).restart()
 
       const onMove = (e: MouseEvent) => {
         if (!dragTarget) return
+        didDrag = true
         const svgEl = svgSel.node()
         if (!svgEl) return
         const transform = zoomTransform(svgEl)
@@ -976,12 +986,13 @@ export default function TopicGraph({ data }: TopicGraphProps) {
     return () => {
       simulation.stop()
     }
-  }, [data, dimensions, isDark, prefersReducedMotion, router, handleToggleFacet, handleToggleTag, filters, tagToFacetMap])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, dimensions, isDark, prefersReducedMotion, router, handleToggleFacet, handleToggleTag])
 
   return (
     <div className="flex h-full w-full flex-col bg-white dark:bg-slate-900">
       <PillBar
-        filters={filters}
+        filters={filtersRef.current}
         onToggleFacet={handleToggleFacet}
         onToggleTag={handleToggleTag}
         onTogglePages={handleTogglePages}
