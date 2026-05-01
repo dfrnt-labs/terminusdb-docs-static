@@ -1,4 +1,8 @@
 ---
+tags:
+  - reference
+  - version-control
+  - intermediate
 title: Git-for-Data Reference
 nextjs:
   metadata:

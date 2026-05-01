@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - how-to
+  - beginner
 title: Filter with GraphQL
 nextjs:
   metadata:

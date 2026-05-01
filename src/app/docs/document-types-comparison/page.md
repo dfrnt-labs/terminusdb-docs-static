@@ -12,6 +12,11 @@ media: []
 versionNote:
   version: "12.0.6"
   text: "The @shared document type described on this page is available from TerminusDB 12.0.6."
+tags:
+  - typescript
+  - documents
+  - schema
+  - reference
 ---
 
 ## Document types at a glance

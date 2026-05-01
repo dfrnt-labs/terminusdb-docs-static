@@ -1,4 +1,9 @@
 ---
+tags:
+  - reference
+  - installation
+  - curl
+  - enterprise
 title: Enterprise Configuration Reference
 nextjs:
   metadata:

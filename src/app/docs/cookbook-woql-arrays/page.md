@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - cookbook
+  - schema
+  - intermediate
 title: "Cookbook: Leveraging Arrays with WOQL"
 nextjs:
   metadata:

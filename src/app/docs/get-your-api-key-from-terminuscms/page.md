@@ -1,4 +1,8 @@
 ---
+tags:
+  - how-to
+  - dfrnt-cloud
+  - beginner
 title: How to get your API key using the DFRNT TerminusDB cloud
 nextjs:
   metadata:

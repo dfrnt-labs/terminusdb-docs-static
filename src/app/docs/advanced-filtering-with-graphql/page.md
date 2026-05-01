@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - how-to
+  - intermediate
 title: Advanced Filtering
 nextjs:
   metadata:

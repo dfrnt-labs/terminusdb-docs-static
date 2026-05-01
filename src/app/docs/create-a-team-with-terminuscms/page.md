@@ -1,4 +1,9 @@
 ---
+tags:
+  - how-to
+  - dfrnt-cloud
+  - collaboration
+  - beginner
 title: Create teams using TerminusDB
 nextjs:
   metadata:

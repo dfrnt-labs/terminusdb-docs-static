@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - how-to
+  - advanced
 title: Queries between Data Products
 nextjs:
   metadata:
@@ -18,7 +22,7 @@ Knowledge graphs enable domain experts to encode their data in a way that resemb
 
 ## What is the difference between a hypergraph and a knowledge graph?
 
-Prolog is a great language to implement a datalog engine in, as it allows formal logic to be expressed. Building Prolog programs however can drive enormeous complexity, especially in the industrialization phase of a solution, and to enable users to make safe use of the Prolog engine. By leveraging TerminusDB, an industrialized solution with datalog unification, most of the power is available, in a safe subset of Prolog, a datalog with unification.
+Prolog is a great language to implement a datalog engine in, as it allows formal logic to be expressed. Building Prolog programs however can drive enormous complexity, especially in the industrialization phase of a solution, and to enable users to make safe use of the Prolog engine. By leveraging TerminusDB, an industrialized solution with datalog unification, most of the power is available, in a safe subset of Prolog, a datalog with unification.
 
 ## On the information in a semantic knowledge graph
 
@@ -40,9 +44,9 @@ TerminusDB adds an abstraction on top of the object level, the data product leve
 
 {% figure src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*3KR1AQAhAkdBpDdNMqAuiA.png" alt="Here we see the two data products in the instance that is used for the example below" caption="Here we see the two data products in the instance that is used for the example below" %}{% /figure %}
 
-Businesses and enterprises usually prefer closed world assumptions because it makes it easier to build performant and accurate systems, the inaccuracy is to be handled by people, not the system. Combining data products and object information means we have a foundation to build advanced reasoning about business problems. Since TerminusDB allows a data product to be syncronized with clone, push and pull, in a similar fashion as software developers collaborate on code, it becomes possible for data teams to easily collaborate on accurate data.
+Businesses and enterprises usually prefer closed world assumptions because it makes it easier to build performant and accurate systems, the inaccuracy is to be handled by people, not the system. Combining data products and object information means we have a foundation to build advanced reasoning about business problems. Since TerminusDB allows a data product to be synchronised with clone, push and pull, in a similar fashion as software developers collaborate on code, it becomes possible for data teams to easily collaborate on accurate data.
 
-The collaborative aspects of TerminusDB are important in relation to it's datalog engine that can be accessed with the WOQL language. Data products can exist in two places, to be synchonized between organisations or between teams in an enterprise. By allowing this open-ended collaboration, teams can increase the velocity of feedback by accepting change requests on data (by sending a "data patch") back, or creating a branch. More on that in a future story.
+The collaborative aspects of TerminusDB are important in relation to it's datalog engine that can be accessed with the WOQL language. Data products can exist in two places, to be synchronised between organisations or between teams in an enterprise. By allowing this open-ended collaboration, teams can increase the velocity of feedback by accepting change requests on data (by sending a "data patch") back, or creating a branch. More on that in a future story.
 
 ## Using datalog with multiple data products
 

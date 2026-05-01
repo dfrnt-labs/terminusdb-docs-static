@@ -1,4 +1,7 @@
 ---
+tags:
+  - explanation
+  - beginner
 title: Getting Started
 nextjs:
   metadata:

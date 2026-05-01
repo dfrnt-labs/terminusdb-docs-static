@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - documents
+  - how-to
+  - beginner
 title: How To Add Documents with the Python Client
 nextjs:
   metadata:
@@ -17,7 +22,7 @@ After you have imported the `terminusdb_client`, and [created a client](/docs/co
 To insert a document, you should use `insert_document`:
 
 ```python
-document = { '@type' : 'Person', 'name' : "Jim" }
+document = { '@type' : 'Person', 'name' : "Jim", 'nationality' : 'Country/Ireland' }
 results = client.insert_document(document)
 ```
 
@@ -26,8 +31,8 @@ results = client.insert_document(document)
 To insert multiple documents you can also invoke `insert_document`:
 
 ```python
-documents = [{ '@type' : 'Person', 'name' : "Jim" },
-            { '@type' : 'Person', 'name' : "Jill" }]
+documents = [{ '@type' : 'Person', 'name' : "Jim", 'nationality' : 'Country/Ireland' },
+            { '@type' : 'Person', 'name' : "Jill", 'nationality' : 'Country/Ireland' }]
 results = client.insert_document(documents)
 ```
 

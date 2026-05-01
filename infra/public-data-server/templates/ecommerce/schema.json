@@ -1,0 +1,79 @@
+[
+  {
+    "@type": "Class",
+    "@id": "Category",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "name"
+      ]
+    },
+    "name": "xsd:string",
+    "parent_category": {
+      "@type": "Optional",
+      "@class": "Category"
+    }
+  },
+  {
+    "@type": "Class",
+    "@id": "Product",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "name"
+      ]
+    },
+    "name": "xsd:string",
+    "description": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "price": "xsd:decimal",
+    "category": "Category",
+    "in_stock": "xsd:boolean"
+  },
+  {
+    "@type": "Class",
+    "@id": "Customer",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "email"
+      ]
+    },
+    "name": "xsd:string",
+    "email": "xsd:string",
+    "registered_date": "xsd:date",
+    "country": "xsd:string"
+  },
+  {
+    "@type": "Class",
+    "@id": "Order",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "order_id"
+      ]
+    },
+    "order_id": "xsd:string",
+    "customer": "Customer",
+    "order_date": "xsd:dateTime",
+    "status": "xsd:string",
+    "total": "xsd:decimal"
+  },
+  {
+    "@type": "Class",
+    "@id": "OrderLine",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "order_line_id"
+      ]
+    },
+    "order_line_id": "xsd:string",
+    "order": "Order",
+    "product": "Product",
+    "quantity": "xsd:integer",
+    "unit_price": "xsd:decimal"
+  }
+]

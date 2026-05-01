@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - reference
+  - typescript
 title: DocumentsGraphqlTable Component
 nextjs:
   metadata:
@@ -84,7 +88,7 @@ npm install @terminusdb/terminusdb-documents-ui-templates
 
 ## Example
 
-```python
+```javascript
 import React,{useEffect} from "react"
 import {DocumentsGraphqlTable,useTDBDocuments} from "@terminusdb/terminusdb-documents-ui-template"
 import {gql} from "@apollo/client"
@@ -105,8 +109,8 @@ export const DocumentSearchComponent = ({setSelected, doctype,apolloClient,tdbCl
 
     const querystr  = documentTablesConfig && documentTablesConfig.objQuery ? documentTablesConfig.objQuery[doctype].query : null
     const gqlQuery = querystr ? gql`${querystr}` : null
-    const tableConfig =  documentTablesConfig && documentTablesConfig.tablesColumnsConfig ? documentTablesConfig.tablesColumnsConfig[type] : []
-    const advancedSearchConfig = documentTablesConfig && documentTablesConfig.advancedSearchObj ? documentTablesConfig.advancedSearchObj[type] : null
+    const tableConfig =  documentTablesConfig && documentTablesConfig.tablesColumnsConfig ? documentTablesConfig.tablesColumnsConfig[doctype] : []
+    const advancedSearchConfig = documentTablesConfig && documentTablesConfig.advancedSearchObj ? documentTablesConfig.advancedSearchObj[doctype] : null
     if(!gqlQuery || !tableConfig) return <div/>
 
     return  <DocumentsGraphqlTable tableConfig={tableConfig} 

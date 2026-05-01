@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - how-to
+  - documents
+  - intermediate
 title: How to add and delete documents and subdocuments using WOQL
 nextjs:
   metadata:

@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - reference
+  - intermediate
 title: GraphQL Query Reference Guide
 nextjs:
   metadata:
@@ -86,8 +90,10 @@ The id of an object can be directly supplied, in order to ensure that we only ob
 A person might be retrieved by supplying the id as a variable in the following way:
 
 ```graphql
-query Person(id:$id){
-  name
+query getPerson($id: ID) {
+  Person(id: $id) {
+    name
+  }
 }
 ```
 
@@ -96,18 +102,10 @@ query Person(id:$id){
 GraphQL will retrieve all objects in the database for a given class type, unless `offset` and `limit` are supplied. `offset` will start a query from a given result offset, allowing the query user to _page_ results.
 
 ```graphql
-query Person(limit: 3 offset: 3){
-  name
-    Person(
-    id: ID
-    """skip N elements"""
-    offset: Int
-    """limit results to N elements"""
-    limit: Int
-    filter: Person_Filter
-    """order by the given fields"""
-    orderBy: Person_Ordering
-  ): [Person!]!
+query {
+  Person(limit: 3, offset: 3){
+    name
+  }
 }
 ```
 

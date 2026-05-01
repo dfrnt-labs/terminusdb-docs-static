@@ -1,4 +1,10 @@
 ---
+tags:
+  - how-to
+  - access-control
+  - curl
+  - cli
+  - intermediate
 title: Manage Access Control with the CLI
 nextjs:
   metadata:

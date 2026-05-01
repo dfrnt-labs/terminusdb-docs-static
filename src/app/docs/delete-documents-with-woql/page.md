@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - how-to
+  - documents
+  - intermediate
 title: How to delete documents using WOQL
 nextjs:
   metadata:

@@ -8,6 +8,10 @@ nextjs:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/connect-with-the-javascript-client/
+tags:
+  - typescript
+  - how-to
+  - beginner
 ---
 
 {% callout type="note" %}
@@ -99,10 +103,7 @@ Everything you do now happens on `feature` — main is untouched.
 
 ```typescript test-example id="ts-quickstart-edit"
 // Get the document we inserted earlier
-const person = await client.getDocument(
-  { id: "terminusdb:///data/jane" },
-  { raw_json: true },
-)
+const person = await client.getDocument({ id: "terminusdb:///data/jane", as_list: true })
 
 console.log("Current document:", person)
 
@@ -171,10 +172,7 @@ Confirm the changes are now on `main`:
 
 ```typescript test-example id="ts-quickstart-verify"
 // Read the document from main
-const updated = await client.getDocument(
-  { id: "terminusdb:///data/jane" },
-  { raw_json: true },
-)
+const updated = await client.getDocument({ id: "terminusdb:///data/jane", as_list: true })
 
 console.log("Person on main after merge:", updated)
 ```
@@ -226,10 +224,7 @@ async function main() {
   console.log("Now on branch:", client.checkout())
 
   // 4. Edit on branch
-  const person = await client.getDocument(
-    { id: "terminusdb:///data/jane" },
-    { raw_json: true },
-  )
+  const person = await client.getDocument({ id: "terminusdb:///data/jane", as_list: true })
 
   await client.updateDocument(
     { "@id": "terminusdb:///data/jane", name: "Jane Smith", email: "jane.smith@company.com", age: 30 },
@@ -253,10 +248,7 @@ async function main() {
   console.log("\nMerged feature into main")
 
   // 7. Verify
-  const updated = await client.getDocument(
-    { id: "terminusdb:///data/jane" },
-    { raw_json: true },
-  )
+  const updated = await client.getDocument({ id: "terminusdb:///data/jane", as_list: true })
   console.log("\nPerson on main after merge:", updated)
 }
 

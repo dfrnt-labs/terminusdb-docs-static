@@ -10,6 +10,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/document-unfolding-reference/
 media: []
+tags:
+  - typescript
+  - documents
+  - reference
 ---
 
 TerminusDB provides automatic document unfolding for linked documents through two mechanisms: class-level `@unfoldable` and field-level `@unfold` annotations. This reference guide explains how unfolding works, how cycle detection prevents infinite recursion, and performance characteristics of the implementation.

@@ -8,13 +8,18 @@ nextjs:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/array/
+tags:
+  - typescript
+  - schema
+  - reference
+  - dashboard
 ---
 
 This example shows how `<FrameViewer/>` appears for a document `ArrayExamplePerson` with array fields in Create/ Edit or View mode. If a field is described as array it means the field can have more than one value to it in an ordered fashion. The field can also be considered as an optional field meaning it can be empty or filled.
 
 ## Demo
 
-Take a look at the **[](https://documents-ui-playground.terminusdb.com/Array)**[Demo](https://documents-ui-playground.terminusdb.com/Array) to view `<FrameViewer/>` with Array properties in Create, edit or view mode.
+Take a look at the **[](https://github.com/terminusdb/dashboard-examples-sandbox)**[Demo](https://github.com/terminusdb/dashboard-examples-sandbox) to view `<FrameViewer/>` with Array properties in Create, edit or view mode.
 
 ## Frame
 
@@ -117,7 +122,7 @@ The below frame consists of an ArrayExamplePerson document
 
 ### Create
 
-```python
+```javascript
 import { FrameViewer } from '@terminusdb/terminusdb-documents-ui'
 
   return <FrameViewer

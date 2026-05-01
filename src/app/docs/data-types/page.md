@@ -1,4 +1,8 @@
 ---
+tags:
+  - reference
+  - schema
+  - woql
 title: TerminusDB Data Types
 nextjs:
   metadata:

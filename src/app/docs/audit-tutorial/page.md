@@ -1,4 +1,8 @@
 ---
+tags:
+  - version-control
+  - tutorial
+  - curl
 title: Audit Data Changes
 nextjs:
   metadata:
@@ -24,22 +28,21 @@ export DB="admin/MyDatabase"
 
 ## Step 1 — Create a database
 
-```bash
-curl -s -u $AUTH -X POST "$SERVER/api/db/$DB" \
-  -H "Content-Type: application/json" \
-  -d '{"label": "MyDatabase", "comment": "Audit tutorial"}'
+{% http-example method="POST" path="/api/db/admin/MyDatabase" fixture="docs-test" %}
+```json
+{"label": "MyDatabase", "comment": "Audit tutorial"}
 ```
+{% /http-example %}
 
 ## Step 2 — Insert data with meaningful commit metadata
 
 The `author` and `message` query parameters on the Document API are recorded in the commit log. They are the foundation of your audit trail.
 
-```bash
-curl -s -u $AUTH -X POST \
-  "$SERVER/api/document/$DB?author=jane.ops@example.com&message=Onboard+new+customer+ACME+Corp&raw_json=true" \
-  -H "Content-Type: application/json" \
-  -d '{"@id": "terminusdb:///data/customer-acme", "name": "ACME Corp", "tier": "standard", "credit_limit": 50000}'
+{% http-example method="POST" path="/api/document/admin/MyDatabase?author=jane.ops@example.com&message=Onboard+new+customer+ACME+Corp&raw_json=true" %}
+```json
+{"@id": "terminusdb:///data/customer-acme", "name": "ACME Corp", "tier": "standard", "credit_limit": 50000}
 ```
+{% /http-example %}
 
 Use the operator's real identity as `author` and a human-readable description as `message`. These become your audit record — "who did what and why" for every change.
 
@@ -51,59 +54,68 @@ The HTTP Basic Auth credentials (`admin:root`) authorise the request. The `autho
 
 Another team member updates the customer's credit limit:
 
-```bash
-curl -s -u $AUTH -X PUT \
-  "$SERVER/api/document/$DB?author=bob.finance@example.com&message=Increase+ACME+credit+limit+after+Q1+review&raw_json=true" \
-  -H "Content-Type: application/json" \
-  -d '{"@id": "terminusdb:///data/customer-acme", "name": "ACME Corp", "tier": "standard", "credit_limit": 100000}'
+{% http-example method="PUT" path="/api/document/admin/MyDatabase?author=bob.finance@example.com&message=Increase+ACME+credit+limit+after+Q1+review&raw_json=true" %}
+```json
+{"@id": "terminusdb:///data/customer-acme", "name": "ACME Corp", "tier": "standard", "credit_limit": 100000}
 ```
+{% /http-example %}
 
 ## Step 4 — Make a third change (tier upgrade)
 
-```bash
-curl -s -u $AUTH -X PUT \
-  "$SERVER/api/document/$DB?author=jane.ops@example.com&message=Upgrade+ACME+to+premium+tier&raw_json=true" \
-  -H "Content-Type: application/json" \
-  -d '{"@id": "terminusdb:///data/customer-acme", "name": "ACME Corp", "tier": "premium", "credit_limit": 100000}'
+{% http-example method="PUT" path="/api/document/admin/MyDatabase?author=jane.ops@example.com&message=Upgrade+ACME+to+premium+tier&raw_json=true" %}
+```json
+{"@id": "terminusdb:///data/customer-acme", "name": "ACME Corp", "tier": "premium", "credit_limit": 100000}
 ```
+{% /http-example %}
 
 ## Step 5 — Query the commit log
 
 Use the `/api/log/{path}` endpoint to see the full branch history:
 
-```bash
-curl -s -u $AUTH "$SERVER/api/log/$DB?count=10" | jq
-```
+{% http-example method="GET" path="/api/log/admin/MyDatabase?count=10" /%}
 
 **Expected output:**
 
 ```json
 [
   {
+    "@id": "ValidCommit/<sha-3>",
     "@type": "ValidCommit",
     "author": "jane.ops@example.com",
     "identifier": "<sha-3>",
+    "instance": "layer_data:Layer_<hash>",
     "message": "Upgrade ACME to premium tier",
+    "parent": "ValidCommit/<sha-2>",
+    "schema": "layer_data:Layer_<hash>",
     "timestamp": 1714400200.0
   },
   {
+    "@id": "ValidCommit/<sha-2>",
     "@type": "ValidCommit",
     "author": "bob.finance@example.com",
     "identifier": "<sha-2>",
+    "instance": "layer_data:Layer_<hash>",
     "message": "Increase ACME credit limit after Q1 review",
+    "parent": "ValidCommit/<sha-1>",
+    "schema": "layer_data:Layer_<hash>",
     "timestamp": 1714400100.0
   },
   {
-    "@type": "ValidCommit",
+    "@id": "ValidCommit/<sha-1>",
+    "@type": "InitialCommit",
     "author": "jane.ops@example.com",
     "identifier": "<sha-1>",
+    "instance": "layer_data:Layer_<hash>",
     "message": "Onboard new customer ACME Corp",
+    "schema": "layer_data:Layer_<hash>",
     "timestamp": 1714400000.0
   }
 ]
 ```
 
 The log tells you who (`author`), when (`timestamp`), and why (`message`) for every change. This is your complete audit trail.
+
+Additional fields provide internal references: `@id` is the commit's full IRI, `instance` and `schema` point to storage layers, and `parent` links to the previous commit (absent on the initial commit which has `@type: "InitialCommit"`).
 
 {% callout type="note" title="Enterprise edition" %}
 The audit trail query performance shown here scales well for moderate data volumes. The TerminusDB Enterprise Edition includes vastly improved audit trail performance for high-volume production workloads — query millions of commits with sub-second response times.
@@ -117,9 +129,7 @@ Timestamps are Unix epoch seconds. Convert to human-readable with: `date -d @171
 
 The `/api/log` endpoint shows all commits on a branch. For a specific document, use `/api/history/{path}` to see only commits where that document was modified:
 
-```bash
-curl -s -u $AUTH "$SERVER/api/history/$DB?id=customer-acme" | jq
-```
+{% http-example method="GET" path="/api/history/admin/MyDatabase?id=customer-acme" /%}
 
 **Expected output:**
 
@@ -129,24 +139,27 @@ curl -s -u $AUTH "$SERVER/api/history/$DB?id=customer-acme" | jq
     "author": "jane.ops@example.com",
     "identifier": "<sha-3>",
     "message": "Upgrade ACME to premium tier",
-    "timestamp": 1714400200.0
+    "timestamp": 1714400200.0,
+    "user": "terminusdb://system/data/User/admin"
   },
   {
     "author": "bob.finance@example.com",
     "identifier": "<sha-2>",
     "message": "Increase ACME credit limit after Q1 review",
-    "timestamp": 1714400100.0
+    "timestamp": 1714400100.0,
+    "user": "terminusdb://system/data/User/admin"
   },
   {
     "author": "jane.ops@example.com",
     "identifier": "<sha-1>",
     "message": "Onboard new customer ACME Corp",
-    "timestamp": 1714400000.0
+    "timestamp": 1714400000.0,
+    "user": "terminusdb://system/data/User/admin"
   }
 ]
 ```
 
-This shows only commits where `customer-acme` was modified — filtering out unrelated changes to other documents.
+This shows only commits where `customer-acme` was modified — filtering out unrelated changes to other documents. The `user` field shows the authenticated system user who performed the HTTP request (distinct from `author`, which records logical responsibility).
 
 ## Step 7 — Diff two commits to see exactly what changed
 
@@ -204,9 +217,7 @@ curl -s -u $AUTH -X POST "$SERVER/api/diff/admin/MyDatabase" \
 
 ## Cleanup
 
-```bash
-curl -s -u $AUTH -X DELETE "$SERVER/api/db/$DB"
-```
+{% http-example method="DELETE" path="/api/db/admin/MyDatabase" /%}
 
 ## What you learned
 

@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - tutorial
+  - beginner
 title: Learn the GraphQL Basics for TerminusDB
 nextjs:
   metadata:

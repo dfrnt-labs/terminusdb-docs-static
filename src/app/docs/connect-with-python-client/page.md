@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - documents
+  - tutorial
+  - beginner
 title: Python Client — Quickstart
 nextjs:
   metadata:

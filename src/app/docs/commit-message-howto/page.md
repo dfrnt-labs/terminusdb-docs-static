@@ -1,4 +1,9 @@
 ---
+tags:
+  - version-control
+  - how-to
+  - curl
+  - typescript
 title: Set Commit Messages on Document Operations
 nextjs:
   metadata:
@@ -31,18 +36,17 @@ The HTTP Basic Auth user (`admin`) authorises the API request. The `author` quer
 
 ## curl example (insert)
 
-```bash
-curl -s -u admin:root -X POST \
-  "http://localhost:6363/api/document/admin/MyDatabase?author=jane@example.com&message=Add+new+product+SKU-2001&raw_json=true" \
-  -H "Content-Type: application/json" \
-  -d '{"@id": "terminusdb:///data/product-2001", "name": "Widget Pro", "price": 29.99}'
+{% http-example method="POST" path="/api/document/admin/MyDatabase?author=jane@example.com&message=Add+new+product+SKU-2001&raw_json=true" fixture="docs-test" %}
+```json
+{"@id": "terminusdb:///data/product-2001", "name": "Widget Pro", "price": 29.99}
 ```
+{% /http-example %}
 
 The `author` and `message` values are URL-encoded query parameters. Use `+` for spaces or `%20`.
 
 ## TypeScript example (JS client)
 
-```typescript
+```typescript test-example
 import TerminusClient from "@terminusdb/terminusdb-client";
 
 const client = new TerminusClient.WOQLClient("http://localhost:6363", {
@@ -65,19 +69,22 @@ The fourth parameter to `addDocument` is the commit message. The author is taken
 
 After writing, confirm the message was recorded:
 
-```bash
-curl -s -u admin:root "http://localhost:6363/api/log/admin/MyDatabase?count=1" | jq
-```
+{% http-example method="GET" path="/api/log/admin/MyDatabase?count=1" /%}
 
 **Expected:**
 
 ```json
 [
   {
+    "@id": "ValidCommit/<commit-sha>",
+    "@type": "ValidCommit",
     "author": "jane@example.com",
+    "identifier": "<commit-sha>",
+    "instance": "layer_data:Layer_<hash>",
     "message": "Add new product SKU-2001",
-    "timestamp": 1714400000.0,
-    "identifier": "<commit-sha>"
+    "parent": "ValidCommit/<previous-sha>",
+    "schema": "layer_data:Layer_<hash>",
+    "timestamp": 1714400000.0
   }
 ]
 ```

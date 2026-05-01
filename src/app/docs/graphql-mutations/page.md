@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - reference
+  - documents
 title: GraphQL Mutations Reference
 nextjs:
   metadata:

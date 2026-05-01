@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - tutorial
+  - beginner
 title: Explore a Real Dataset — Star Wars Tutorial
 nextjs:
   metadata:
@@ -22,7 +26,7 @@ Clone a pre-populated Star Wars database to your local TerminusDB instance and e
 
 ## What you will build
 
-You will clone a complete Star Wars database (characters, films, planets, starships, species) from a public server, run queries that traverse document relationships, create a speculative branch ("what if Darth Vader stayed good?"), and see a field-level structural diff of your changes.
+You will clone a complete Star Wars database (characters, films, planets, starships, species) from a public server, run queries that traverse document relationships, create a speculative branch ("what if Anakin turned to the Dark Side?"), and see a field-level structural diff of your changes.
 
 ## Step 1 — Clone the Star Wars database
 
@@ -43,27 +47,27 @@ List the document types defined in the schema:
 
 {% http-example method="GET" path="/api/document/admin/star-wars/local/branch/main?graph_type=schema&as_list=true" /%}
 
-You will see types including `Character`, `Film`, `Planet`, `Starship`, `Vehicle`, and `Species`.
+You will see types including `People`, `Film`, `Planet`, `Starship`, `Vehicle`, and `Species`.
 
-Count how many characters exist in the database:
+List the characters (called `People` in the SWAPI schema):
 
-{% http-example method="GET" path="/api/document/admin/star-wars/local/branch/main?type=Character&as_list=true" /%}
+{% http-example method="GET" path="/api/document/admin/star-wars/local/branch/main?type=People&count=5" /%}
 
-You now have over 200 documents locally — characters, films, planets, ships, and species. All of Star Wars, versioned and queryable. Let's ask it some questions.
+You now have over 80 characters plus films, planets, ships, and species. All of Star Wars, versioned and queryable. Let's ask it some questions.
 
 ## Step 3 — Query the data
 
 Which characters appear in "A New Hope" (Episode IV)?
 
-In a relational database, you would write a JOIN across a junction table: `SELECT c.name FROM characters c JOIN film_characters fc ON ... JOIN films f ON ... WHERE f.title = 'A New Hope'`. In TerminusDB, documents link directly to other documents — a Film has a `characters` property that points to Character documents. You traverse the link, not a junction table:
+In a relational database, you would write a JOIN across a junction table: `SELECT c.name FROM characters c JOIN film_characters fc ON ... JOIN films f ON ... WHERE f.title = 'A New Hope'`. In TerminusDB, documents link directly to other documents — a Film has a `character` property that points to People documents. You traverse the link, not a junction table:
 
 {% http-example method="POST" path="/api/woql/admin/star-wars/local/branch/main" %}
-{"query": {"@type": "And", "and": [{"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Film"}, "predicate": {"@type": "NodeValue", "node": "title"}, "object": {"@type": "DataValue", "data": "A New Hope"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Film"}, "predicate": {"@type": "NodeValue", "node": "characters"}, "object": {"@type": "NodeValue", "variable": "Character"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Character"}, "predicate": {"@type": "NodeValue", "node": "name"}, "object": {"@type": "DataValue", "variable": "CharacterName"}}]}}
+{"query": {"@type": "And", "and": [{"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Film"}, "predicate": {"@type": "NodeValue", "node": "label"}, "object": {"@type": "DataValue", "data": "A New Hope"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Film"}, "predicate": {"@type": "NodeValue", "node": "character"}, "object": {"@type": "NodeValue", "variable": "Character"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Character"}, "predicate": {"@type": "NodeValue", "node": "label"}, "object": {"@type": "DataValue", "variable": "CharacterName"}}]}}
 {% /http-example %}
 
-Expected output includes character names: Luke Skywalker, Darth Vader, Leia Organa, Han Solo, Obi-Wan Kenobi, Chewbacca, R2-D2, C-3PO, and more.
+Expected output includes character names: Luke Skywalker, Leia Organa, Han Solo, Obi-Wan Kenobi, Chewbacca, R2-D2, C-3PO, and more (18 characters total).
 
-Notice what happened: the query says "find a Film with this title, follow its `characters` link to Character documents, then get their `name`." Three hops through the graph — Film → characters → Character → name. No junction tables, no foreign key declarations, no JOINs. The relationships are part of the data structure itself, and traversing them is how you query.
+Notice what happened: the query says "find a Film with this label, follow its `character` link to People documents, then get their `label`." Three hops through the graph — Film → character → People → label. No junction tables, no foreign key declarations, no JOINs. The relationships are part of the data structure itself, and traversing them is how you query.
 
 **TypeScript equivalent:**
 
@@ -79,9 +83,9 @@ client.db("star-wars");
 
 const WOQL = TerminusClient.WOQL;
 const query = WOQL.and(
-  WOQL.triple("v:Film", "title", WOQL.string("A New Hope")),
-  WOQL.triple("v:Film", "characters", "v:Character"),
-  WOQL.triple("v:Character", "name", "v:CharacterName")
+  WOQL.triple("v:Film", "label", WOQL.string("A New Hope")),
+  WOQL.triple("v:Film", "character", "v:Character"),
+  WOQL.triple("v:Character", "label", "v:CharacterName")
 );
 
 const result = await client.query(query);
@@ -101,16 +105,34 @@ Create a branch called `what-if`:
 {% /http-expected %}
 {% /http-example %}
 
-Now modify Darth Vader's record on the branch — rewriting him as Anakin Skywalker, Jedi. Change his name, allegiance, faction, and famous quote:
+Now modify Anakin Skywalker's record on the branch — rewriting him as if he fell to the Dark Side. First, fetch his full document:
 
-{% http-example method="PUT" path="/api/document/admin/star-wars/local/branch/what-if?author=admin&message=What+if+Vader+stayed+good" %}
-{"@id": "terminusdb:///data/Person/Darth%20Vader", "@type": "Person", "name": "Anakin Skywalker", "side": "Light Side", "faction": "Jedi Order", "quote": "You were right about me."}
-{% http-expected %}
-["terminusdb:///data/Person/Darth%20Vader"]
-{% /http-expected %}
-{% /http-example %}
+```bash
+curl -s -u admin:root \
+  "http://localhost:6363/api/document/admin/star-wars/local/branch/what-if?id=terminusdb:///star-wars/People/11" > anakin.json
+```
 
-You just rewrote history — on a branch. Main still has the original Darth Vader (Dark Side, Galactic Empire). Your `what-if` branch has Anakin Skywalker, redeemed Jedi. Notice the `@id` stays the same (`Person/Darth%20Vader`) — TerminusDB tracks object identity through changes, not content. Let's see exactly what changed.
+Edit `anakin.json` — change four fields to tell the Dark Side story:
+- `"label"`: `"Anakin Skywalker"` → `"Darth Vader"`
+- `"eye_color"`: `"blue"` → `"yellow"`
+- `"mass"`: `"84"` → `"120"`
+- `"skin_colors"`: `"fair"` → `"pale"`
+
+Then PUT the modified document back:
+
+```bash
+curl -s -u admin:root -X PUT \
+  "http://localhost:6363/api/document/admin/star-wars/local/branch/what-if?author=admin&message=What+if+Anakin+turned+to+the+Dark+Side" \
+  -H "Content-Type: application/json" \
+  -d @anakin.json
+```
+
+**Expected response:**
+```json
+["terminusdb:///star-wars/People/11"]
+```
+
+You just rewrote history — on a branch. Main still has Anakin Skywalker (blue eyes, fair skin, mass 84). Your `what-if` branch has Darth Vader (yellow eyes, pale skin, mass 120). Notice the `@id` stays the same (`People/11`) — TerminusDB tracks object identity through changes, not content. Let's see exactly what changed.
 
 ## Step 5 — See what changed (the diff)
 
@@ -119,13 +141,13 @@ This is the moment. In any other database, answering "what changed between these
 {% http-example method="POST" path="/api/diff/admin/star-wars" %}
 {"before_data_version": "main", "after_data_version": "what-if"}
 {% http-expected %}
-[{"@id": "Person/Darth%20Vader", "name": {"@op": "SwapValue", "@before": "Darth Vader", "@after": "Anakin Skywalker"}, "side": {"@op": "SwapValue", "@before": "Dark Side", "@after": "Light Side"}, "faction": {"@op": "SwapValue", "@before": "Galactic Empire", "@after": "Jedi Order"}, "quote": {"@op": "SwapValue", "@before": "I find your lack of faith disturbing.", "@after": "You were right about me."}}]
+[{"@id": "People/11", "eye_color": {"@op": "SwapValue", "@before": "blue", "@after": "yellow"}, "label": {"@op": "SwapValue", "@before": "Anakin Skywalker", "@after": "Darth Vader"}, "mass": {"@op": "SwapValue", "@before": "84", "@after": "120"}, "skin_colors": {"@op": "SwapValue", "@before": "fair", "@after": "pale"}}]
 {% /http-expected %}
 {% /http-example %}
 
 This diff is **structural, not textual**. TerminusDB is not comparing strings line by line — it knows the document schema, understands which field changed, what the old value was, and what the new value is. Each change is a typed operation (`SwapValue`) that can be applied, reversed, or composed with other patches programmatically.
 
-Compare this to the alternative: export both database states as JSON, run a generic diff tool, then parse the text output to figure out what actually changed. Or maintain an audit table with triggers that fire on every update. Or write custom comparison logic in your application.
+You sent a full document replacement, but TerminusDB detected only the four fields that actually changed: `eye_color`, `label`, `mass`, and `skin_colors`. Compare this to the alternative: export both database states as JSON, run a generic diff tool, then parse the text output to figure out what actually changed. Or maintain an audit table with triggers that fire on every update. Or write custom comparison logic in your application.
 
 TerminusDB replaces all of that with one API call. The database *is* the version history — diffs are a native operation, not an afterthought bolted on top.
 
@@ -137,7 +159,7 @@ In 15 minutes, you:
 
 1. **Cloned** a complete Star Wars database from a public server — one command, no account
 2. **Queried** relationships across documents (films to characters) using WOQL
-3. **Branched** the database and made a speculative change ("what if Vader stayed good?")
+3. **Branched** the database and made a speculative change ("what if Anakin turned to the Dark Side?")
 4. **Diffed** the branch against main and saw field-level changes
 
 These four operations — clone, query, branch, diff — are the core of TerminusDB. Every operation you just ran works at any scale: 200 documents or 2 million.

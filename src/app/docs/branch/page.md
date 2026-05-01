@@ -1,4 +1,9 @@
 ---
+tags:
+  - how-to
+  - version-control
+  - dashboard
+  - beginner
 title: Branch a Project with the TerminusDB Dashboard
 nextjs:
   metadata:

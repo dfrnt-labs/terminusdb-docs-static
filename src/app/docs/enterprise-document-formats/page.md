@@ -1,4 +1,10 @@
 ---
+tags:
+  - reference
+  - documents
+  - curl
+  - rdf
+  - enterprise
 title: Document Formats & Content Negotiation
 nextjs:
   metadata:

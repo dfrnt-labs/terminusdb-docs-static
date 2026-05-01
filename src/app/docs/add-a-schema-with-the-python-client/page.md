@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - schema
+  - how-to
+  - beginner
 title: Add a schema to TerminusDB with the Python Client
 nextjs:
   metadata:

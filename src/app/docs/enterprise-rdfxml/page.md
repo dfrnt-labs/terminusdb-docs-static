@@ -1,4 +1,10 @@
 ---
+tags:
+  - reference
+  - documents
+  - curl
+  - rdf
+  - enterprise
 title: RDF/XML Support
 nextjs:
   metadata:

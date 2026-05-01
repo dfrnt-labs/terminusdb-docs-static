@@ -1,4 +1,8 @@
 ---
+tags:
+  - how-to
+  - dfrnt-cloud
+  - beginner
 title: How to connect to TerminusDB
 nextjs:
   metadata:

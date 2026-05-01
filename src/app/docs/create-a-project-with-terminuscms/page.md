@@ -1,4 +1,8 @@
 ---
+tags:
+  - how-to
+  - dfrnt-cloud
+  - beginner
 title: How to create a project with TerminusDB
 nextjs:
   metadata:

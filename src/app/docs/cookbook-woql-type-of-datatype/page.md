@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - cookbook
+  - intermediate
 title: "WOQL Cookbook: Finding and matching datatypes"
 nextjs:
   metadata:
@@ -14,7 +18,7 @@ media: []
 
 This page is intended to show how to accomplish goals with WOQL. Before really "getting" WOQL, it feels counter-intuitive as solutions are generated using patterns.
 
-Logicians and people hanving used prolog, datalog and similar declarative languages will find it easier to understand the core concepts of unification and generator patterns and we hope the examples on this page will help show common solutions.
+Logicians and people having used prolog, datalog and similar declarative languages will find it easier to understand the core concepts of unification and generator patterns and we hope the examples on this page will help show common solutions.
 
 ## How the examples on this page work
 
@@ -22,7 +26,7 @@ Most of the work in TerminusDB happens with data that is stored in the instance 
 
 The examples on the first section of the page are kept as simple as possible, to enable running them without schema or instance data. The second section will require a schema and instance data with some instructions on how to set it up.
 
-You are expected to have instance data to query and a basic undertanding of querying triples of the graph and processing documents with knowledge of datatypes, sets, lists, arrays etc.
+You are expected to have instance data to query and a basic understanding of querying triples of the graph and processing documents with knowledge of datatypes, sets, lists, arrays etc.
 
 ## Variables
 

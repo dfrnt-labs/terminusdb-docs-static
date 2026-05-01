@@ -15,6 +15,10 @@ media:
     media_type: Image
     title: Image 1
     value: https://assets.terminusdb.com/docs/terminusdb-contact-graph-diagram.png
+tags:
+  - typescript
+  - documents
+  - explanation
 ---
 
 TerminusDB combines the developer experience of a JSON document store with the traversal power of a knowledge graph. You write and read JSON documents; under the hood, TerminusDB decomposes them into a typed, schema-enforced graph of triples. This means you get document-store convenience (insert a JSON object, get a JSON object back) *and* graph-database power (traverse relationships across documents without JOINs, query patterns across the entire dataset).
@@ -306,7 +310,7 @@ With a bit of practice, designing your knowledge graphs in TerminusDB will becom
   "@id"    : "Person/Joe",
   "name"   : "Joe Bloggs",
   "address": { "@type"  : "Address",
-               "@id"    : "Adress/aa1264e404a5b34381abc37cad83fabd",
+               "@id"    : "Address/aa1264e404a5b34381abc37cad83fabd",
                "street" : "Elm St.",
                "country": "Country/USA" },
   "friend" : [ "Person/Jill" ] }
@@ -315,7 +319,7 @@ With a bit of practice, designing your knowledge graphs in TerminusDB will becom
   "@id"    : "Person/Jill",
   "name"   : "Jill Smith",
   "address": { "@type"  : "Address",
-               "@id"    : "Adress/5fba7438dc2b23258d304bb8cd1222bd",
+               "@id"    : "Address/5fba7438dc2b23258d304bb8cd1222bd",
                "street" : "Main St.",
                "country": "Country/Ireland" },
   "friend" : [ "Person/Joe" ] }

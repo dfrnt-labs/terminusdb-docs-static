@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - reference
+  - beginner
 title: Connecting to GraphQL Reference Guide
 nextjs:
   metadata:

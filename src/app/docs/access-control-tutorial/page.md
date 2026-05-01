@@ -1,4 +1,9 @@
 ---
+tags:
+  - tutorial
+  - access-control
+  - curl
+  - beginner
 title: Access Control Tutorial
 nextjs:
   metadata:
@@ -62,7 +67,7 @@ curl -s -u admin:root -X POST http://localhost:6363/api/users \
 
 Expected response:
 ```json
-{"@type": "api:UsersResponse", "api:status": "api:success"}
+"terminusdb://system/data/User/alice"
 ```
 
 Verify the user exists:

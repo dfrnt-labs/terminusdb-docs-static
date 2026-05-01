@@ -9,7 +9,17 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/documentclassessummary/
 media: []
+tags:
+  - typescript
+  - documents
+  - reference
+  - dashboard
 ---
+
+{% callout type="warning" title="Unmaintained package" %}
+These packages (`@terminusdb/terminusdb-documents-ui` etc.) were last published December 2023 and are no longer actively maintained. The documentation is preserved for reference. Community contributions and pull requests are welcome.
+{% /callout %}
+
 
 The `DocumentClassesSummary` component allows you to visualize document classes using interactive cards.
 
@@ -49,7 +59,7 @@ npm install @terminusdb/terminusdb-documents-ui-templates
 
 ## Example
 
-```python
+```javascript
 import React, {useEffect} from "react"
 import {DocumentClassesSummary,useTDBDocuments} from "@terminusdb/terminusdb-documents-ui-template"
 
@@ -75,7 +85,7 @@ export const Documents = ({tdbClient}) => {
     const errorMessage = typeof error === "object" ? JSON.stringify(error,null,4) : error
 
     return <div className="w-100">
-            {error && {error && <div>Server Error: {errorMessage} </div>}
+            {error && <div>Server Error: {errorMessage} </div>}
             <DocumentClassesSummary 
                     totalDocumentCount={totalDocumentCount}
                     perDocumentCount={perDocumentCount} 

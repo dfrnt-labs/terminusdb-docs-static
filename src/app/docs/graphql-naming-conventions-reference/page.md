@@ -1,4 +1,7 @@
 ---
+tags:
+  - graphql
+  - reference
 title: GraphQL Naming Conventions Reference Guide
 nextjs:
   metadata:
@@ -44,7 +47,7 @@ will be translated to:
 
 ```graphql
 type Query {
-  Galatic_Civilisation(
+  Galactic_Civilisation(
     id: ID
     """skip N elements"""
     offset: Int
@@ -53,8 +56,10 @@ type Query {
     filter: Galactic_Civilisation_Filter
     """order by the given fields"""
     orderBy: Galactic_Civilisation_Ordering
-    ): [GalaticCivilsiation!]!
-    name : String!
+    ): [Galactic_Civilisation!]!
+}
+type Galactic_Civilisation {
+    name: String!
     kardashev_scale: BigInt!
 }
 ```

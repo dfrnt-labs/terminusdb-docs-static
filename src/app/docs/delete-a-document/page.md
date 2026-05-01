@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/delete-a-document/
 media: []
+tags:
+  - typescript
+  - documents
+  - how-to
 ---
 
 In order to delete a document you need to know the document id.

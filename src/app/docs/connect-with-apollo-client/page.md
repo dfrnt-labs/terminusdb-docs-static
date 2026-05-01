@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/connect-with-apollo-client/
 media: []
+tags:
+  - typescript
+  - graphql
+  - how-to
 ---
 
 1.  Install dependencies
@@ -21,8 +25,8 @@ npm install @apollo/client graphql
 
 Import the required dependencies needed -
 
-```python
-import { ApolloClient, InMemoryCache, ApolloProvider, gql,HttpLink,ApolloLink } from '@apollo/client';
+```javascript
+import { ApolloClient, InMemoryCache, ApolloProvider, gql, HttpLink, ApolloLink, concat } from '@apollo/client';
 ```
 
 Or

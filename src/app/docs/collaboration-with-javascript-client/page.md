@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - collaboration
+  - typescript
 title: Collaboration Features with the JavaScript Client
 nextjs:
   metadata:

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TerminusDB Public Data Server — data.terminusdb.org</title>
+  <meta name="description" content="Public TerminusDB server hosting sample datasets for documentation tutorials. Clone star-wars and ecommerce datasets anonymously.">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔺</text></svg>">
+  <style>
+    :root {
+      --bg-primary: #1a1a2e;
+      --bg-secondary: #16213e;
+      --bg-card: #0f3460;
+      --text-primary: #e8e8e8;
+      --text-secondary: #a8b2d1;
+      --text-muted: #6b7fa3;
+      --accent-teal: #4dc9c2;
+      --accent-purple: #8b5cf6;
+      --border: #2a3a5e;
+      --code-bg: #0d1b2a;
+      --radius: 8px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      flex: 1;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .header-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: rgba(77, 201, 194, 0.1);
+      border: 1px solid rgba(77, 201, 194, 0.3);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent-teal);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* Datasets */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .dataset-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .dataset-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .dataset-icon {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .dataset-icon-sw { background: rgba(139, 92, 246, 0.15); }
+    .dataset-icon-ec { background: rgba(77, 201, 194, 0.15); }
+
+    .dataset-name {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .dataset-path {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    .dataset-desc {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.8rem;
+      color: var(--accent-teal);
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.5;
+      position: relative;
+    }
+
+    .code-block .comment {
+      color: var(--text-muted);
+    }
+
+    .code-block .cmd {
+      color: var(--text-primary);
+    }
+
+    /* Usage section */
+    .usage {
+      margin-top: 2.5rem;
+    }
+
+    .usage h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .usage p {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .usage-note {
+      background: rgba(139, 92, 246, 0.08);
+      border-left: 3px solid var(--accent-purple);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 0.75rem 1rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 1.5rem;
+    }
+
+    .usage-note strong {
+      color: var(--text-primary);
+    }
+
+    /* Links */
+    .links {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .link-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .link-pill:hover {
+      border-color: var(--accent-teal);
+      color: var(--text-primary);
+    }
+
+    .link-pill svg {
+      width: 1rem;
+      height: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    .footer a {
+      color: var(--accent-teal);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Status indicator */
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #34d399;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .container { padding: 2rem 1rem; }
+      h1 { font-size: 1.5rem; }
+      .dataset-card { padding: 1rem; }
+      .links { flex-direction: column; }
+      .link-pill { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-badge">Public Data Server</div>
+      <h1>data.terminusdb.org</h1>
+      <p class="subtitle">A public TerminusDB instance hosting sample datasets for the documentation tutorials. Clone them anonymously — no account needed.</p>
+      <div class="status">
+        <span class="status-dot"></span>
+        <span>Server running</span>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-label">Available Datasets</div>
+
+      <div class="dataset-card">
+        <div class="dataset-header">
+          <div class="dataset-icon dataset-icon-sw">⚔️</div>
+          <div>
+            <div class="dataset-name">Star Wars</div>
+            <div class="dataset-path">public/star-wars</div>
+          </div>
+        </div>
+        <p class="dataset-desc">Characters, planets, starships, and species from the Star Wars universe. Used in the getting-started tutorial and GraphQL examples.</p>
+        <div class="code-block"><span class="comment"># Clone the Star Wars dataset</span>
+<span class="cmd">terminusdb clone https://data.terminusdb.org/public/star-wars --token=anonymous</span></div>
+      </div>
+
+      <div class="dataset-card">
+        <div class="dataset-header">
+          <div class="dataset-icon dataset-icon-ec">🛒</div>
+          <div>
+            <div class="dataset-name">E-Commerce</div>
+            <div class="dataset-path">public/ecommerce</div>
+          </div>
+        </div>
+        <p class="dataset-desc">Products, customers, orders, and inventory for a sample online store. Used in the e-commerce tutorial series.</p>
+        <div class="code-block"><span class="comment"># Clone the E-Commerce dataset</span>
+<span class="cmd">terminusdb clone https://data.terminusdb.org/public/ecommerce --token=anonymous</span></div>
+      </div>
+
+      <div class="dataset-card">
+        <div class="dataset-header">
+          <div class="dataset-icon">☢️</div>
+          <div>
+            <div class="dataset-name">Nuclear Power Plants</div>
+            <div class="dataset-path">public/nuclear</div>
+          </div>
+        </div>
+        <p class="dataset-desc">World nuclear power plant data — reactors, locations, and capacity. A real-world dataset for exploring graph relationships.</p>
+        <div class="code-block"><span class="comment"># Clone the Nuclear dataset</span>
+<span class="cmd">terminusdb clone https://data.terminusdb.org/public/nuclear --token=anonymous</span></div>
+      </div>
+
+      <div class="dataset-card">
+        <div class="dataset-header">
+          <div class="dataset-icon">🧱</div>
+          <div>
+            <div class="dataset-name">Lego Sets</div>
+            <div class="dataset-path">public/lego</div>
+          </div>
+        </div>
+        <p class="dataset-desc">Lego sets, themes, parts, and colours. A large dataset (~60 MB) demonstrating TerminusDB performance at scale.</p>
+        <div class="code-block"><span class="comment"># Clone the Lego dataset</span>
+<span class="cmd">terminusdb clone https://data.terminusdb.org/public/lego --token=anonymous</span></div>
+      </div>
+    </section>
+
+    <section class="usage">
+      <div class="usage-note">
+        <strong>Cold start:</strong> This server scales to zero when idle. The first request after inactivity may take 3–5 seconds while the machine starts. Subsequent requests are instant.
+      </div>
+    </section>
+
+    <nav class="links">
+      <a href="https://terminusdb.com/docs/" class="link-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Documentation
+      </a>
+      <a href="https://terminusdb.com/docs/get-started/" class="link-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Getting Started
+      </a>
+      <a href="https://github.com/terminusdb/terminusdb" class="link-pill">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://discord.gg/Gvdqw97" class="link-pill">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        Community
+      </a>
+    </nav>
+  </div>
+
+  <footer class="footer">
+    <p>Operated by <a href="https://dfrnt.com">DFRNT</a> · Powered by <a href="https://github.com/terminusdb/terminusdb">TerminusDB</a></p>
+  </footer>
+</body>
+</html>

@@ -1,4 +1,8 @@
 ---
+tags:
+  - how-to
+  - typescript
+  - self-hosted
 title: Call TerminusDB from the Browser
 nextjs:
   metadata:
@@ -31,7 +35,7 @@ If you see a JSON response with `"authority": "admin"`, CORS is working. No serv
 
 A minimal example using the Fetch API (works in any framework):
 
-```javascript
+```javascript test-example
 const SERVER = "http://localhost:6363";
 const AUTH = "Basic " + btoa("admin:root");
 
@@ -117,7 +121,7 @@ Check that: (1) TerminusDB is actually running on the URL you are requesting —
 
 TerminusDB's CORS response headers:
 
-```
+```text
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Credentials: true
 Access-Control-Max-Age: 1728000

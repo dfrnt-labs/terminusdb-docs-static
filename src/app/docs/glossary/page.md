@@ -1,4 +1,7 @@
 ---
+tags:
+  - reference
+  - beginner
 title: Glossary of Terms for TerminusDB
 nextjs:
   metadata:

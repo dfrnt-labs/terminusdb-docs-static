@@ -1,4 +1,9 @@
 ---
+tags:
+  - reference
+  - documents
+  - curl
+  - intermediate
 title: Database Path Identifiers Reference
 nextjs:
   metadata:
@@ -214,7 +219,7 @@ admin/MyDatabase/local/branch/main
 After adding a remote:
 
 ```bash
-terminusdb remote add admin/MyDatabase origin https://cloud.terminusdb.com/MyTeam/MyDatabase
+terminusdb remote add admin/MyDatabase origin https://example.terminusdb.com/MyTeam/MyDatabase
 ```
 
 You can reference the remote:

@@ -9,6 +9,11 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/choice-document/
 media: []
+tags:
+  - typescript
+  - schema
+  - reference
+  - dashboard
 ---
 
 This example shows how `<FrameViewer/>` appears for a document `Guy` with choice document fields in Create/ Edit or View mode.
@@ -17,7 +22,7 @@ In this example `Guy` has a mandatory property called `favorite_group` with the 
 
 ## Demo
 
-Take a look at the **[](https://documents-ui-playground.terminusdb.com/Choice%20Documents)**[Demo Playground](https://documents-ui-playground.terminusdb.com/Choice%20Documents) to view `<FrameViewer/>` with Choice properties in Create, edit or view mode.
+Take a look at the **[](https://github.com/terminusdb/dashboard-examples-sandbox)**[Demo Playground](https://github.com/terminusdb/dashboard-examples-sandbox) to view `<FrameViewer/>` with Choice properties in Create, edit or view mode.
 
 The below Frames show the definition of Art, Dance or Music which are other document classes.
 
@@ -40,7 +45,7 @@ The below Frame consists of the `Guy` document
       "@type": "Class", 
       "attends_group_in_order": {
         "@class": "Group",
-        "@type": "Set"
+        "@type": "List"
       },
       "favorite_group": "Group",
       "member_of": {
@@ -174,7 +179,7 @@ The below Frame consists of the `Guy` document
 
 ### Create
 
-```python
+```javascript
 import { FrameViewer } from '@terminusdb/terminusdb-documents-ui'
 
   return <FrameViewer

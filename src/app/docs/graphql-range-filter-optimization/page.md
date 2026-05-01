@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - reference
+  - advanced
 title: GraphQL Range Filter Optimization Plan
 nextjs:
   metadata:

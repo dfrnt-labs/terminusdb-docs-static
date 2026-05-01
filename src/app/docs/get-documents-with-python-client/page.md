@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - documents
+  - how-to
+  - beginner
 title: Get Documents with the Python Client
 nextjs:
   metadata:
@@ -21,42 +26,42 @@ To get a single document to make changes or simply to view it, use the following
 document = client.get_document("Player/Doug")
 ```
 
-```python
- {
-    '@id'   : 'Player/Doug',
-    '@type' : 'Player',
-    name    : 'Doug',
-    position: 'Full Back'
-  }
+```json
+{
+    "@id"   : "Player/Doug",
+    "@type" : "Player",
+    "name"    : "Doug",
+    "position": "Full Back"
+}
 ```
 
 ## Get a list of all documents
 
-To get a list of all documents in the database, you can use the `get_all_documents` function.
+To get a list of all documents in the database, you can use `get_all_documents`. This returns a generator, so wrap it with `list()` if you need to iterate more than once:
 
 ```python
-documents = client.get_all_documents()
+documents = list(client.get_all_documents())
 ```
 
-```python
+```json
 [
   {
-    '@id'   : 'Player/Doug',
-    '@type' : 'Player',
-    name    : 'Doug',
-    position: 'Full Back'
+    "@id"   : "Player/Doug",
+    "@type" : "Player",
+    "name"    : "Doug",
+    "position": "Full Back"
   },
   {
-    '@id'   : 'Player/George',
-    '@type' : 'Player',
-    name    : 'George',
-    position: 'Center Back'
+    "@id"   : "Player/George",
+    "@type" : "Player",
+    "name"    : "George",
+    "position": "Center Back"
   },
   {
-    '@id'   : 'Player/Karen',
-    '@type' : 'Player',
-    name    : 'Karen',
-    position: 'Center Forward'
+    "@id"   : "Player/Karen",
+    "@type" : "Player",
+    "name"    : "Karen",
+    "position": "Center Forward"
   }
 ]
 ```

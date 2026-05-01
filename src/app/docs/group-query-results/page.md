@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - how-to
+  - intermediate
 title: How to Group Results in WOQL
 nextjs:
   metadata:

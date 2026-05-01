@@ -1,4 +1,10 @@
 ---
+tags:
+  - tutorial
+  - version-control
+  - curl
+  - beginner
+  - self-hosted
 title: Your First 10 Minutes with TerminusDB
 nextjs:
   metadata:
@@ -30,7 +36,7 @@ Wait a few seconds for the server to start, then confirm it is running:
 
 {% http-example method="GET" path="/api/info" /%}
 
-You should see a JSON response with `"authority": "admin"` confirming the server is ready.
+You should see a JSON response with `"authority": "terminusdb://system/data/User/admin"` confirming the server is ready.
 
 {% callout type="warning" title="Not working?" %}
 If the command hangs or returns a connection error: Docker may not be running, port 6363 may already be in use, or a previous container named `terminusdb` may already exist. See [Troubleshooting Connection Failures](/docs/troubleshooting-connection) and [Authentication Errors](/docs/troubleshooting-auth) for solutions.
@@ -42,7 +48,7 @@ Skip the manual database creation and start with real data immediately by clonin
 
 {% quickstart-clone /%}
 
-You now have a fully populated Star Wars database ready to explore — documents, relationships, and commit history. Use it to try the full git-for-data workflow: what would have changed if Anakin Skywalker had turned to the Dark Side?
+You now have a fully populated Star Wars database ready to explore — characters, films, planets, starships, and species. Use it to try the full git-for-data workflow: what would have changed if Anakin Skywalker had turned to the Dark Side?
 
 ## Step 3 — Create a branch
 
@@ -59,16 +65,32 @@ You now have two branches: `main` (the cloned data, unchanged) and `what-if` (a 
 
 ## Step 4 — Edit on the branch
 
-Pose a "what if" — change Anakin Skywalker's allegiance on the `what-if` branch:
+Pose a "what if" — what if Anakin Skywalker fell to the Dark Side? First, fetch his current document so you have all fields:
 
-{% http-example method="PUT" path="/api/document/admin/star-wars/local/branch/what-if?author=admin&message=What+if+Anakin+turned" %}
-{"@type": "Person", "@id": "Person/Anakin%20Skywalker", "name": "Anakin Skywalker", "height": 188, "mass": 84, "hair_color": "blond", "eye_color": "yellow", "birth_year": "41.9BBY", "gender": "male", "side": "Dark Side", "faction": "Sith", "quote": "This is where the fun begins.", "homeworld": "terminusdb:///data/Planet/Tatooine", "films": ["terminusdb:///data/Film/The%20Phantom%20Menace", "terminusdb:///data/Film/Attack%20of%20the%20Clones", "terminusdb:///data/Film/Revenge%20of%20the%20Sith"], "species": ["terminusdb:///data/Species/Human"]}
-{% http-expected %}
-["terminusdb:///data/Person/Anakin%20Skywalker"]
-{% /http-expected %}
-{% /http-example %}
+```bash
+curl -s -u admin:root \
+  "http://localhost:6363/api/document/admin/star-wars/local/branch/what-if?id=terminusdb:///star-wars/People/11" > anakin.json
+```
 
-The edit lives only on `what-if`. On `main`, Anakin is still Light Side.
+Now edit `anakin.json` to change the four fields that tell the story: `eye_color` → `"yellow"`, `label` → `"Darth Vader"`, `mass` → `"120"`, `skin_colors` → `"pale"`. Then PUT it back:
+
+```bash
+curl -s -u admin:root -X PUT \
+  "http://localhost:6363/api/document/admin/star-wars/local/branch/what-if?author=admin&message=What+if+Anakin+turned+to+the+Dark+Side" \
+  -H "Content-Type: application/json" \
+  -d @anakin.json
+```
+
+**Expected response:**
+```json
+["terminusdb:///star-wars/People/11"]
+```
+
+{% callout type="note" title="Why send the full document?" %}
+TerminusDB's PUT replaces the entire document. If you omit optional fields, they become null — and will appear in the diff. By sending the full document with only target fields changed, the diff shows exactly what you intended. TerminusDB detects which fields actually changed, regardless of what you sent.
+{% /callout %}
+
+The edit lives only on `what-if`. On `main`, Anakin is still himself — blue eyes, fair skin, mass 84. The branch is your sandbox.
 
 ## Step 5 — Diff the branches
 
@@ -77,14 +99,14 @@ This is the moment. See exactly what changed between `main` and `what-if`:
 {% http-example method="POST" path="/api/diff/admin/star-wars" %}
 {"before_data_version": "main", "after_data_version": "what-if"}
 {% http-expected %}
-[{"@id": "Person/Anakin%20Skywalker", "eye_color": {"@op": "SwapValue", "@before": "blue", "@after": "yellow"}, "faction": {"@op": "SwapValue", "@before": "Jedi Order", "@after": "Sith"}, "side": {"@op": "SwapValue", "@before": "Light Side", "@after": "Dark Side"}}]
+[{"@id": "People/11", "eye_color": {"@op": "SwapValue", "@before": "blue", "@after": "yellow"}, "label": {"@op": "SwapValue", "@before": "Anakin Skywalker", "@after": "Darth Vader"}, "mass": {"@op": "SwapValue", "@before": "84", "@after": "120"}, "skin_colors": {"@op": "SwapValue", "@before": "fair", "@after": "pale"}}]
 {% /http-expected %}
 {% /http-example %}
 
 {% callout title="What just happened?" %}
 TerminusDB computed a **structural diff** between two branches. This is not a line-by-line text diff — it is a semantic patch that knows exactly which fields changed, what the old values were, and what the new values are. Each change is a `SwapValue` operation that can be applied, reversed, or composed with other patches.
 
-Three fields changed: `side`, `faction`, and `eye_color`. TerminusDB detected all three independently — no manual tracking, no event sourcing, no change-data-capture pipeline. The database does it natively.
+Four fields changed: `eye_color`, `label`, `mass`, and `skin_colors`. You sent the full document, but TerminusDB detected only the differences — no manual tracking, no event sourcing, no change-data-capture pipeline. The database does it natively.
 {% /callout %}
 
 ## Step 6 — Merge the branch
@@ -98,7 +120,7 @@ Apply the changes from `what-if` back to `main`:
 {% /http-expected %}
 {% /http-example %}
 
-Done. The `main` branch now reflects the "what if" scenario — Anakin is on the Dark Side.
+Done. The `main` branch now reflects the "what if" scenario — Anakin Skywalker has become Darth Vader.
 
 ---
 

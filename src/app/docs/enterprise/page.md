@@ -1,4 +1,7 @@
 ---
+tags:
+  - explanation
+  - enterprise
 title: DFRNT TwinfoxDB Enterprise Edition
 nextjs:
   metadata:

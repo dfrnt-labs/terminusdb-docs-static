@@ -1,4 +1,9 @@
 ---
+tags:
+  - reference
+  - documents
+  - typescript
+  - dashboard
 title: Document UI Template
 nextjs:
   metadata:
@@ -10,6 +15,11 @@ nextjs:
       canonical: https://terminusdb.org/docs/document-ui-template/
 media: []
 ---
+
+{% callout type="warning" title="Unmaintained package" %}
+These packages (`@terminusdb/terminusdb-documents-ui` etc.) were last published December 2023 and are no longer actively maintained. The documentation is preserved for reference. Community contributions and pull requests are welcome.
+{% /callout %}
+
 
 A Software Development Kit (SDK) to build a UI from @terminusdb/terminusdb-documents-ui and the @terminusdb/terminusdb-react-table.
 

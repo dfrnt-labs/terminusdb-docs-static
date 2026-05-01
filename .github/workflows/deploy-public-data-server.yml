@@ -1,0 +1,39 @@
+# Deploy the public data server (data.terminusdb.org) to Fly.io
+#
+# This workflow deploys the TerminusDB instance that hosts public demo datasets
+# (star-wars, ecommerce) used in documentation examples.
+#
+# Prerequisites:
+#   1. Generate a Fly.io deploy token:
+#      fly tokens create deploy -a dfrnt-data-terminusdb
+#
+#   2. Add the token as a GitHub repository secret:
+#      Repository Settings → Secrets and variables → Actions → New repository secret
+#      Name: FLY_API_TOKEN
+#      Value: <paste the token from step 1>
+
+name: Deploy Public Data Server
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "infra/public-data-server/**"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to Fly.io
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/public-data-server
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - run: flyctl deploy --app dfrnt-data-terminusdb
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

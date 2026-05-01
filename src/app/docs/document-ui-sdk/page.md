@@ -9,7 +9,17 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/document-ui-sdk/
 media: []
+tags:
+  - typescript
+  - documents
+  - how-to
+  - dashboard
 ---
+
+{% callout type="warning" title="Unmaintained package" %}
+These packages (`@terminusdb/terminusdb-documents-ui` etc.) were last published December 2023 and are no longer actively maintained. The documentation is preserved for reference. Community contributions and pull requests are welcome.
+{% /callout %}
+
 
 Use the TerminusDB documents User Interface (UI) utility `terminusdb-documents-ui` to automatically generate user interfaces for the document definitions in your TerminusDB schema. The utility takes frames as input and outputs forms in HTML format. A frame is the JSON structure of a JSON document, including the document's inherited properties and IRIs.
 
@@ -23,7 +33,7 @@ npm install @terminusdb/terminusdb-documents-ui --save
 
 Import the `FrameViewer` component into your code:
 
-```python
+```javascript
 import {FrameViewer} from '@terminusdb/terminusdb-documents-ui'
 ```
 
@@ -31,13 +41,13 @@ Import the `FrameViewer` css into your code:
 
 For dark mode include the below css
 
-```python
+```javascript
 import '@terminusdb/terminusdb-documents-ui/dist/css/terminusdb__darkly.css'
 ```
 
 light mode
 
-```python
+```javascript
 import '@terminusdb/terminusdb-documents-ui/dist/css/terminusdb__light.css'
 ```
 
@@ -146,7 +156,7 @@ A common use of `terminusdb-documents-ui` is as follows:
 
 A basic example below to get started with a TerminusDB JavaScript client.
 
-```python
+```javascript
 const TerminusDBClient = require("terminusdb");
 import '@terminusdb/terminusdb-documents-ui/dist/css/terminusdb__darkly.css'
 import {FrameViewer} from '@terminusdb/terminusdb-documents-ui'
@@ -316,6 +326,6 @@ return <FrameViewer
 
 ## Document UI SDK Examples
 
-[Document UI SDK Playground](https://documents-ui-playground.terminusdb.com/) - An interactive example of document properties in add, edit, and view modes with example schema and code.
+[Document UI SDK Playground](https://github.com/terminusdb/dashboard-examples-sandbox) - An interactive example of document properties in add, edit, and view modes with example schema and code.
 
 [Lego Data Product UI CodeSandbox Example](https://codesandbox.io/s/github/terminusdb/dashboard-examples-sandbox/tree/main/terminusdb-documents-ui-examples/lego-dataproduct-npm)

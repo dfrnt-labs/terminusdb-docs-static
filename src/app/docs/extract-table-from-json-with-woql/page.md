@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - how-to
+  - data-import
+  - advanced
 title: How to extract tabular data from JSON with WOQL
 nextjs:
   metadata:

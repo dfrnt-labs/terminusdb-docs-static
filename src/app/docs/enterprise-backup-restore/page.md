@@ -1,4 +1,9 @@
 ---
+tags:
+  - how-to
+  - documents
+  - curl
+  - enterprise
 title: Backup & Restore
 nextjs:
   metadata:

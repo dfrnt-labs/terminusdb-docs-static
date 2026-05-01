@@ -1,4 +1,7 @@
 ---
+tags:
+  - explanation
+  - beginner
 title: "TerminusDB: At a glance"
 nextjs:
   metadata:
@@ -14,7 +17,7 @@ TerminusDB is a [versatile graph database](/docs/terminusdb-explanation/) for [m
 
 It offers both [model-based JSON](/docs/schema-reference-guide/), [logical reasoning](/docs/woql-explanation/) and [RDF graphs](/docs/graphs-explanation/) in one package with [git-for-data](/docs/git-for-data-reference/) and [immutable history](/docs/graphs-explanation/) built in. 
 
-Technical and linked data professionals need a solution for [complex content](/docs/python-woql-customer-data-processing-example/), [taxonomy/knowledge handling](/docs/cookbook-taxonomy-inheritance/) and [collaborative semantic infrastructure](/docs/branch-a-project/). Existing solutions don't have the comprehensive set of features required to handle complex content, taxonomyies and ontologies, nor do they provide collaborative semantic infrastructure with easy commit, roll-back and non-destructive branches for both schema and content.
+Technical and linked data professionals need a solution for [complex content](/docs/python-woql-customer-data-processing-example/), [taxonomy/knowledge handling](/docs/cookbook-taxonomy-inheritance/) and [collaborative semantic infrastructure](/docs/branch-a-project/). Existing solutions don't have the comprehensive set of features required to handle complex content, taxonomies and ontologies, nor do they provide collaborative semantic infrastructure with easy commit, roll-back and non-destructive branches for both schema and content.
 
 If you are contemplating building a rules engine or configurator in prolog, try TerminusDB!
 

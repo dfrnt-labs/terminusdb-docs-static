@@ -1,0 +1,1751 @@
+[
+  {
+    "@id": "terminusdb:///data/Planet/Tatooine",
+    "@type": "Planet",
+    "name": "Tatooine",
+    "rotation_period": 23,
+    "orbital_period": 304,
+    "diameter": 10465,
+    "climate": "arid",
+    "gravity": "1 standard",
+    "terrain": "desert",
+    "population": 200000
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Alderaan",
+    "@type": "Planet",
+    "name": "Alderaan",
+    "rotation_period": 24,
+    "orbital_period": 364,
+    "diameter": 12500,
+    "climate": "temperate",
+    "gravity": "1 standard",
+    "terrain": "grasslands, mountains",
+    "population": 2000000000
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Yavin%20IV",
+    "@type": "Planet",
+    "name": "Yavin IV",
+    "rotation_period": 24,
+    "orbital_period": 4818,
+    "diameter": 10200,
+    "climate": "temperate, tropical",
+    "gravity": "1 standard",
+    "terrain": "jungle, rainforests",
+    "population": 1000
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Hoth",
+    "@type": "Planet",
+    "name": "Hoth",
+    "rotation_period": 23,
+    "orbital_period": 549,
+    "diameter": 7200,
+    "climate": "frozen",
+    "gravity": "1.1 standard",
+    "terrain": "tundra, ice caves, mountain ranges"
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Dagobah",
+    "@type": "Planet",
+    "name": "Dagobah",
+    "rotation_period": 23,
+    "orbital_period": 341,
+    "diameter": 8900,
+    "climate": "murky",
+    "terrain": "swamp, jungles"
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Bespin",
+    "@type": "Planet",
+    "name": "Bespin",
+    "rotation_period": 12,
+    "orbital_period": 5110,
+    "diameter": 118000,
+    "climate": "temperate",
+    "gravity": "1.5 (surface), 1 standard (Cloud City)",
+    "terrain": "gas giant",
+    "population": 6000000
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Endor",
+    "@type": "Planet",
+    "name": "Endor",
+    "rotation_period": 18,
+    "orbital_period": 402,
+    "diameter": 4900,
+    "climate": "temperate",
+    "gravity": "0.85 standard",
+    "terrain": "forests, mountains, lakes",
+    "population": 30000000
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Naboo",
+    "@type": "Planet",
+    "name": "Naboo",
+    "rotation_period": 26,
+    "orbital_period": 312,
+    "diameter": 12120,
+    "climate": "temperate",
+    "gravity": "1 standard",
+    "terrain": "grassy hills, swamps, forests, mountains",
+    "population": 4500000000
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Coruscant",
+    "@type": "Planet",
+    "name": "Coruscant",
+    "rotation_period": 24,
+    "orbital_period": 368,
+    "diameter": 12240,
+    "climate": "temperate",
+    "gravity": "1 standard",
+    "terrain": "cityscape, mountains",
+    "population": 1000000000000
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Kamino",
+    "@type": "Planet",
+    "name": "Kamino",
+    "rotation_period": 27,
+    "orbital_period": 463,
+    "diameter": 19720,
+    "climate": "temperate",
+    "gravity": "1 standard",
+    "terrain": "ocean",
+    "population": 1000000000
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Geonosis",
+    "@type": "Planet",
+    "name": "Geonosis",
+    "rotation_period": 30,
+    "orbital_period": 256,
+    "diameter": 11370,
+    "climate": "temperate, arid",
+    "gravity": "0.9 standard",
+    "terrain": "rock, desert, mountain, barren",
+    "population": 100000000000
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Utapau",
+    "@type": "Planet",
+    "name": "Utapau",
+    "rotation_period": 27,
+    "orbital_period": 351,
+    "diameter": 12900,
+    "climate": "temperate, arid, windy",
+    "gravity": "1 standard",
+    "terrain": "scrublands, savanna, canyons, sinkholes",
+    "population": 95000000
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Mustafar",
+    "@type": "Planet",
+    "name": "Mustafar",
+    "rotation_period": 36,
+    "orbital_period": 412,
+    "diameter": 4200,
+    "climate": "hot",
+    "gravity": "1 standard",
+    "terrain": "volcanoes, lava rivers, mountains, caves",
+    "population": 20000
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Kashyyyk",
+    "@type": "Planet",
+    "name": "Kashyyyk",
+    "rotation_period": 26,
+    "orbital_period": 381,
+    "diameter": 12765,
+    "climate": "tropical",
+    "gravity": "1 standard",
+    "terrain": "jungle, forests, lakes, rivers",
+    "population": 45000000
+  },
+  {
+    "@id": "terminusdb:///data/Planet/Polis%20Massa",
+    "@type": "Planet",
+    "name": "Polis Massa",
+    "rotation_period": 24,
+    "orbital_period": 590,
+    "diameter": 0,
+    "climate": "artificial temperate ",
+    "gravity": "0.56 standard",
+    "terrain": "airless asteroid",
+    "population": 1000000
+  },
+  {
+    "@id": "terminusdb:///data/Species/Human",
+    "@type": "Species",
+    "name": "Human",
+    "classification": "mammal",
+    "designation": "sentient",
+    "average_height": 180,
+    "skin_colors": "caucasian, black, asian, hispanic",
+    "hair_colors": "blonde, brown, black, red",
+    "eye_colors": "brown, blue, green, hazel, grey, amber",
+    "average_lifespan": "120",
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Coruscant",
+      "@type": "@id"
+    },
+    "language": "Galactic Basic"
+  },
+  {
+    "@id": "terminusdb:///data/Species/Droid",
+    "@type": "Species",
+    "name": "Droid",
+    "classification": "artificial",
+    "designation": "sentient",
+    "skin_colors": "n/a",
+    "hair_colors": "n/a",
+    "eye_colors": "n/a",
+    "language": "n/a"
+  },
+  {
+    "@id": "terminusdb:///data/Species/Wookiee",
+    "@type": "Species",
+    "name": "Wookiee",
+    "classification": "mammal",
+    "designation": "sentient",
+    "average_height": 210,
+    "skin_colors": "gray",
+    "hair_colors": "black, brown",
+    "eye_colors": "blue, green, yellow, brown, golden, red",
+    "average_lifespan": "400",
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Kashyyyk",
+      "@type": "@id"
+    },
+    "language": "Shyriiwook"
+  },
+  {
+    "@id": "terminusdb:///data/Species/Rodian",
+    "@type": "Species",
+    "name": "Rodian",
+    "classification": "sentient",
+    "designation": "reptilian",
+    "average_height": 170,
+    "skin_colors": "green, blue",
+    "hair_colors": "n/a",
+    "eye_colors": "black",
+    "language": "Galatic Basic"
+  },
+  {
+    "@id": "terminusdb:///data/Species/Hutt",
+    "@type": "Species",
+    "name": "Hutt",
+    "classification": "gastropod",
+    "designation": "sentient",
+    "average_height": 300,
+    "skin_colors": "green, brown, tan",
+    "hair_colors": "n/a",
+    "eye_colors": "yellow, red",
+    "average_lifespan": "1000",
+    "language": "Huttese"
+  },
+  {
+    "@id": "terminusdb:///data/Species/Yoda's%20species",
+    "@type": "Species",
+    "name": "Yoda's species",
+    "classification": "mammal",
+    "designation": "sentient",
+    "average_height": 66,
+    "skin_colors": "green, yellow",
+    "hair_colors": "brown, white",
+    "eye_colors": "brown, green, yellow",
+    "average_lifespan": "900",
+    "language": "Galactic basic"
+  },
+  {
+    "@id": "terminusdb:///data/Species/Trandoshan",
+    "@type": "Species",
+    "name": "Trandoshan",
+    "classification": "reptile",
+    "designation": "sentient",
+    "average_height": 200,
+    "skin_colors": "brown, green",
+    "hair_colors": "none",
+    "eye_colors": "yellow, orange",
+    "language": "Dosh"
+  },
+  {
+    "@id": "terminusdb:///data/Species/Mon%20Calamari",
+    "@type": "Species",
+    "name": "Mon Calamari",
+    "classification": "amphibian",
+    "designation": "sentient",
+    "average_height": 160,
+    "skin_colors": "red, blue, brown, magenta",
+    "hair_colors": "none",
+    "eye_colors": "yellow",
+    "language": "Mon Calamarian"
+  },
+  {
+    "@id": "terminusdb:///data/Species/Ewok",
+    "@type": "Species",
+    "name": "Ewok",
+    "classification": "mammal",
+    "designation": "sentient",
+    "average_height": 100,
+    "skin_colors": "brown",
+    "hair_colors": "white, brown, black",
+    "eye_colors": "orange, brown",
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Endor",
+      "@type": "@id"
+    },
+    "language": "Ewokese"
+  },
+  {
+    "@id": "terminusdb:///data/Species/Sullustan",
+    "@type": "Species",
+    "name": "Sullustan",
+    "classification": "mammal",
+    "designation": "sentient",
+    "average_height": 180,
+    "skin_colors": "pale",
+    "hair_colors": "none",
+    "eye_colors": "black",
+    "language": "Sullutese"
+  },
+  {
+    "@id": "terminusdb:///data/Film/A%20New%20Hope",
+    "@type": "Film",
+    "title": "A New Hope",
+    "episode_id": 4,
+    "opening_crawl": "It is a period of civil war.\r\nRebel spaceships, striking\r\nfrom a hidden base, have won\r\ntheir first victory against\r\nthe evil Galactic Empire.\r\n\r\nDuring the battle, Rebel\r\nspies managed to steal secret\r\nplans to the Empire's\r\nultimate weapon, the DEATH\r\nSTAR, an armored space\r\nstation with enough power\r\nto destroy an entire planet.\r\n\r\nPursued by the Empire's\r\nsinister agents, Princess\r\nLeia races home aboard her\r\nstarship, custodian of the\r\nstolen plans that can save her\r\npeople and restore\r\nfreedom to the galaxy....",
+    "director": "George Lucas",
+    "producer": "Gary Kurtz, Rick McCallum",
+    "release_date": "1977-05-25",
+    "characters": [
+      {
+        "@id": "terminusdb:///data/Person/Luke%20Skywalker",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/C-3PO",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/R2-D2",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Darth%20Vader",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Leia%20Organa",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Owen%20Lars",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Beru%20Whitesun%20lars",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/R5-D4",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Biggs%20Darklighter",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Obi-Wan%20Kenobi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Wilhuff%20Tarkin",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Chewbacca",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Han%20Solo",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Greedo",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Jabba%20Desilijic%20Tiure",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Wedge%20Antilles",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Jek%20Tono%20Porkins",
+        "@type": "@id"
+      }
+    ],
+    "planets": [
+      {
+        "@id": "terminusdb:///data/Planet/Tatooine",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Alderaan",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Yavin%20IV",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Droid",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Wookiee",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Rodian",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Hutt",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+    "@type": "Film",
+    "title": "The Empire Strikes Back",
+    "episode_id": 5,
+    "opening_crawl": "It is a dark time for the\r\nRebellion. Although the Death\r\nStar has been destroyed,\r\nImperial troops have driven the\r\nRebel forces from their hidden\r\nbase and pursued them across\r\nthe galaxy.\r\n\r\nEvading the dreaded Imperial\r\nStarfleet, a group of freedom\r\nfighters led by Luke Skywalker\r\nhas established a new secret\r\nbase on the remote ice world\r\nof Hoth.\r\n\r\nThe evil lord Darth Vader,\r\nobsessed with finding young\r\nSkywalker, has dispatched\r\nthousands of remote probes into\r\nthe far reaches of space....",
+    "director": "Irvin Kershner",
+    "producer": "Gary Kurtz, Rick McCallum",
+    "release_date": "1980-05-17",
+    "characters": [
+      {
+        "@id": "terminusdb:///data/Person/Luke%20Skywalker",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/C-3PO",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/R2-D2",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Darth%20Vader",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Leia%20Organa",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Obi-Wan%20Kenobi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Chewbacca",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Han%20Solo",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Wedge%20Antilles",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Yoda",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Palpatine",
+        "@type": "@id"
+      }
+    ],
+    "planets": [
+      {
+        "@id": "terminusdb:///data/Planet/Hoth",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Dagobah",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Bespin",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Droid",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Wookiee",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Yoda's%20species",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Trandoshan",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+    "@type": "Film",
+    "title": "Return of the Jedi",
+    "episode_id": 6,
+    "opening_crawl": "Luke Skywalker has returned to\r\nhis home planet of Tatooine in\r\nan attempt to rescue his\r\nfriend Han Solo from the\r\nclutches of the vile gangster\r\nJabba the Hutt.\r\n\r\nLittle does Luke know that the\r\nGALACTIC EMPIRE has secretly\r\nbegun construction on a new\r\narmored space station even\r\nmore powerful than the first\r\ndreaded Death Star.\r\n\r\nWhen completed, this ultimate\r\nweapon will spell certain doom\r\nfor the small band of rebels\r\nstruggling to restore freedom\r\nto the galaxy...",
+    "director": "Richard Marquand",
+    "producer": "Howard G. Kazanjian, George Lucas, Rick McCallum",
+    "release_date": "1983-05-25",
+    "characters": [
+      {
+        "@id": "terminusdb:///data/Person/Luke%20Skywalker",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/C-3PO",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/R2-D2",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Darth%20Vader",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Leia%20Organa",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Obi-Wan%20Kenobi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Chewbacca",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Han%20Solo",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Jabba%20Desilijic%20Tiure",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Wedge%20Antilles",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Yoda",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Palpatine",
+        "@type": "@id"
+      }
+    ],
+    "planets": [
+      {
+        "@id": "terminusdb:///data/Planet/Tatooine",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Dagobah",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Endor",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Naboo",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Coruscant",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Droid",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Wookiee",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Hutt",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Yoda's%20species",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Mon%20Calamari",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Ewok",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Sullustan",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Film/The%20Phantom%20Menace",
+    "@type": "Film",
+    "title": "The Phantom Menace",
+    "episode_id": 1,
+    "opening_crawl": "Turmoil has engulfed the\r\nGalactic Republic. The taxation\r\nof trade routes to outlying star\r\nsystems is in dispute.\r\n\r\nHoping to resolve the matter\r\nwith a blockade of deadly\r\nbattleships, the greedy Trade\r\nFederation has stopped all\r\nshipping to the small planet\r\nof Naboo.\r\n\r\nWhile the Congress of the\r\nRepublic endlessly debates\r\nthis alarming chain of events,\r\nthe Supreme Chancellor has\r\nsecretly dispatched two Jedi\r\nKnights, the guardians of\r\npeace and justice in the\r\ngalaxy, to settle the conflict....",
+    "director": "George Lucas",
+    "producer": "Rick McCallum",
+    "release_date": "1999-05-19",
+    "characters": [
+      {
+        "@id": "terminusdb:///data/Person/C-3PO",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/R2-D2",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Obi-Wan%20Kenobi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Anakin%20Skywalker",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Jabba%20Desilijic%20Tiure",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Yoda",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Palpatine",
+        "@type": "@id"
+      }
+    ],
+    "planets": [
+      {
+        "@id": "terminusdb:///data/Planet/Tatooine",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Naboo",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Coruscant",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Droid",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Yoda's%20species",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Film/Attack%20of%20the%20Clones",
+    "@type": "Film",
+    "title": "Attack of the Clones",
+    "episode_id": 2,
+    "opening_crawl": "There is unrest in the Galactic\r\nSenate. Several thousand solar\r\nsystems have declared their\r\nintentions to leave the Republic.\r\n\r\nThis separatist movement,\r\nunder the leadership of the\r\nmysterious Count Dooku, has\r\nmade it difficult for the limited\r\nnumber of Jedi Knights to maintain \r\npeace and order in the galaxy.\r\n\r\nSenator Amidala, the former\r\nQueen of Naboo, is returning\r\nto the Galactic Senate to vote\r\non the critical issue of creating\r\nan ARMY OF THE REPUBLIC\r\nto assist the overwhelmed\r\nJedi....",
+    "director": "George Lucas",
+    "producer": "Rick McCallum",
+    "release_date": "2002-05-16",
+    "characters": [
+      {
+        "@id": "terminusdb:///data/Person/C-3PO",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/R2-D2",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Owen%20Lars",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Beru%20Whitesun%20lars",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Obi-Wan%20Kenobi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Anakin%20Skywalker",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Yoda",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Palpatine",
+        "@type": "@id"
+      }
+    ],
+    "planets": [
+      {
+        "@id": "terminusdb:///data/Planet/Tatooine",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Naboo",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Coruscant",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Kamino",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Geonosis",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Droid",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Yoda's%20species",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+    "@type": "Film",
+    "title": "Revenge of the Sith",
+    "episode_id": 3,
+    "opening_crawl": "War! The Republic is crumbling\r\nunder attacks by the ruthless\r\nSith Lord, Count Dooku.\r\nThere are heroes on both sides.\r\nEvil is everywhere.\r\n\r\nIn a stunning move, the\r\nfiendish droid leader, General\r\nGrievous, has swept into the\r\nRepublic capital and kidnapped\r\nChancellor Palpatine, leader of\r\nthe Galactic Senate.\r\n\r\nAs the Separatist Droid Army\r\nattempts to flee the besieged\r\ncapital with their valuable\r\nhostage, two Jedi Knights lead a\r\ndesperate mission to rescue the\r\ncaptive Chancellor....",
+    "director": "George Lucas",
+    "producer": "Rick McCallum",
+    "release_date": "2005-05-19",
+    "characters": [
+      {
+        "@id": "terminusdb:///data/Person/Luke%20Skywalker",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/C-3PO",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/R2-D2",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Darth%20Vader",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Leia%20Organa",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Owen%20Lars",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Beru%20Whitesun%20lars",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Obi-Wan%20Kenobi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Anakin%20Skywalker",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Wilhuff%20Tarkin",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Chewbacca",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Yoda",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Palpatine",
+        "@type": "@id"
+      }
+    ],
+    "planets": [
+      {
+        "@id": "terminusdb:///data/Planet/Tatooine",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Alderaan",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Dagobah",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Naboo",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Coruscant",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Utapau",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Mustafar",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Kashyyyk",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Planet/Polis%20Massa",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Droid",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Wookiee",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Yoda's%20species",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Film/The%20Force%20Awakens",
+    "@type": "Film",
+    "title": "The Force Awakens",
+    "episode_id": 7,
+    "opening_crawl": "Luke Skywalker has vanished.\r\nIn his absence, the sinister\r\nFIRST ORDER has risen from\r\nthe ashes of the Empire\r\nand will not rest until\r\nSkywalker, the last Jedi,\r\nhas been destroyed.\r\n \r\nWith the support of the\r\nREPUBLIC, General Leia Organa\r\nleads a brave RESISTANCE.\r\nShe is desperate to find her\r\nbrother Luke and gain his\r\nhelp in restoring peace and\r\njustice to the galaxy.\r\n \r\nLeia has sent her most daring\r\npilot on a secret mission\r\nto Jakku, where an old ally\r\nhas discovered a clue to\r\nLuke's whereabouts....",
+    "director": "J. J. Abrams",
+    "producer": "Kathleen Kennedy, J. J. Abrams, Bryan Burk",
+    "release_date": "2015-12-11",
+    "characters": [
+      {
+        "@id": "terminusdb:///data/Person/Luke%20Skywalker",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/R2-D2",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Leia%20Organa",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Chewbacca",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Han%20Solo",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Droid",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Species/Wookiee",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Luke%20Skywalker",
+    "@type": "Person",
+    "name": "Luke Skywalker",
+    "height": 172,
+    "mass": 77,
+    "hair_color": "blond",
+    "eye_color": "blue",
+    "birth_year": "19BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Rebel Alliance",
+    "quote": "I am a Jedi, like my father before me.",
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Tatooine",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Force%20Awakens",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/C-3PO",
+    "@type": "Person",
+    "name": "C-3PO",
+    "height": 167,
+    "mass": 75,
+    "eye_color": "yellow",
+    "birth_year": "112BBY",
+    "side": "Light Side",
+    "faction": "Rebel Alliance",
+    "quote": "We're doomed!",
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Tatooine",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Phantom%20Menace",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Attack%20of%20the%20Clones",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Droid",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/R2-D2",
+    "@type": "Person",
+    "name": "R2-D2",
+    "height": 96,
+    "mass": 32,
+    "eye_color": "red",
+    "birth_year": "33BBY",
+    "side": "Light Side",
+    "faction": "Rebel Alliance",
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Naboo",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Phantom%20Menace",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Attack%20of%20the%20Clones",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Force%20Awakens",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Droid",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Darth%20Vader",
+    "@type": "Person",
+    "name": "Darth Vader",
+    "height": 202,
+    "mass": 136,
+    "hair_color": "none",
+    "eye_color": "yellow",
+    "birth_year": "41.9BBY",
+    "gender": "male",
+    "side": "Dark Side",
+    "faction": "Galactic Empire",
+    "quote": "I find your lack of faith disturbing.",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+      "@type": "@id"
+    },
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Tatooine",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Leia%20Organa",
+    "@type": "Person",
+    "name": "Leia Organa",
+    "height": 150,
+    "mass": 49,
+    "hair_color": "brown",
+    "eye_color": "brown",
+    "birth_year": "19BBY",
+    "gender": "female",
+    "side": "Light Side",
+    "faction": "Rebel Alliance",
+    "quote": "Help me, Obi-Wan Kenobi. You're my only hope.",
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Alderaan",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Force%20Awakens",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Owen%20Lars",
+    "@type": "Person",
+    "name": "Owen Lars",
+    "height": 178,
+    "mass": 120,
+    "hair_color": "brown, grey",
+    "eye_color": "blue",
+    "birth_year": "52BBY",
+    "gender": "male",
+    "side": "Neutral",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/A%20New%20Hope",
+      "@type": "@id"
+    },
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Tatooine",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Attack%20of%20the%20Clones",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Beru%20Whitesun%20lars",
+    "@type": "Person",
+    "name": "Beru Whitesun lars",
+    "height": 165,
+    "mass": 75,
+    "hair_color": "brown",
+    "eye_color": "blue",
+    "birth_year": "47BBY",
+    "gender": "female",
+    "side": "Neutral",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/A%20New%20Hope",
+      "@type": "@id"
+    },
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Tatooine",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Attack%20of%20the%20Clones",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/R5-D4",
+    "@type": "Person",
+    "name": "R5-D4",
+    "height": 97,
+    "mass": 32,
+    "eye_color": "red",
+    "side": "Neutral",
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Tatooine",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Droid",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Biggs%20Darklighter",
+    "@type": "Person",
+    "name": "Biggs Darklighter",
+    "height": 183,
+    "mass": 84,
+    "hair_color": "black",
+    "eye_color": "brown",
+    "birth_year": "24BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Rebel Alliance",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/A%20New%20Hope",
+      "@type": "@id"
+    },
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Tatooine",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Obi-Wan%20Kenobi",
+    "@type": "Person",
+    "name": "Obi-Wan Kenobi",
+    "height": 182,
+    "mass": 77,
+    "hair_color": "auburn, white",
+    "eye_color": "blue-gray",
+    "birth_year": "57BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Jedi Order",
+    "quote": "Use the Force, Luke.",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/A%20New%20Hope",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Phantom%20Menace",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Attack%20of%20the%20Clones",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Anakin%20Skywalker",
+    "@type": "Person",
+    "name": "Anakin Skywalker",
+    "height": 188,
+    "mass": 84,
+    "hair_color": "blond",
+    "eye_color": "blue",
+    "birth_year": "41.9BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Jedi Order",
+    "quote": "This is where the fun begins.",
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Tatooine",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/The%20Phantom%20Menace",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Attack%20of%20the%20Clones",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Wilhuff%20Tarkin",
+    "@type": "Person",
+    "name": "Wilhuff Tarkin",
+    "height": 180,
+    "hair_color": "auburn, grey",
+    "eye_color": "blue",
+    "birth_year": "64BBY",
+    "gender": "male",
+    "side": "Dark Side",
+    "faction": "Galactic Empire",
+    "quote": "You may fire when ready.",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/A%20New%20Hope",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Chewbacca",
+    "@type": "Person",
+    "name": "Chewbacca",
+    "height": 228,
+    "mass": 112,
+    "hair_color": "brown",
+    "eye_color": "blue",
+    "birth_year": "200BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Rebel Alliance",
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Kashyyyk",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Force%20Awakens",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Wookiee",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Han%20Solo",
+    "@type": "Person",
+    "name": "Han Solo",
+    "height": 180,
+    "mass": 80,
+    "hair_color": "brown",
+    "eye_color": "brown",
+    "birth_year": "29BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Rebel Alliance",
+    "quote": "Never tell me the odds!",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/The%20Force%20Awakens",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Force%20Awakens",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Greedo",
+    "@type": "Person",
+    "name": "Greedo",
+    "height": 173,
+    "mass": 74,
+    "eye_color": "black",
+    "birth_year": "44BBY",
+    "gender": "male",
+    "side": "Neutral",
+    "quote": "Going somewhere, Solo?",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/A%20New%20Hope",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Rodian",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Jabba%20Desilijic%20Tiure",
+    "@type": "Person",
+    "name": "Jabba Desilijic Tiure",
+    "height": 175,
+    "mass": 1358,
+    "eye_color": "orange",
+    "birth_year": "600BBY",
+    "gender": "hermaphrodite",
+    "side": "Dark Side",
+    "faction": "Hutt Cartel",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Phantom%20Menace",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Hutt",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Wedge%20Antilles",
+    "@type": "Person",
+    "name": "Wedge Antilles",
+    "height": 170,
+    "mass": 77,
+    "hair_color": "brown",
+    "eye_color": "hazel",
+    "birth_year": "21BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Rebel Alliance",
+    "quote": "Look at the size of that thing!",
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Jek%20Tono%20Porkins",
+    "@type": "Person",
+    "name": "Jek Tono Porkins",
+    "height": 180,
+    "mass": 110,
+    "hair_color": "brown",
+    "eye_color": "blue",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Rebel Alliance",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/A%20New%20Hope",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Yoda",
+    "@type": "Person",
+    "name": "Yoda",
+    "height": 66,
+    "mass": 17,
+    "hair_color": "white",
+    "eye_color": "brown",
+    "birth_year": "896BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Jedi Order",
+    "quote": "Do or do not. There is no try.",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Phantom%20Menace",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Attack%20of%20the%20Clones",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Yoda's%20species",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Palpatine",
+    "@type": "Person",
+    "name": "Palpatine",
+    "height": 170,
+    "mass": 75,
+    "hair_color": "grey",
+    "eye_color": "yellow",
+    "birth_year": "82BBY",
+    "gender": "male",
+    "side": "Dark Side",
+    "faction": "Galactic Empire",
+    "quote": "Everything is proceeding as I have foreseen.",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+      "@type": "@id"
+    },
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Naboo",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Phantom%20Menace",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Attack%20of%20the%20Clones",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ]
+  }
+]

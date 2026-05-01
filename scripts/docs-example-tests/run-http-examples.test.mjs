@@ -544,7 +544,7 @@ function detectCreatedDatabases(steps) {
  * Returns array of {localPath, remoteUrl, remoteAuth} objects.
  *
  * Defaults match the QuickstartClone React component:
- *   remoteUrl = "https://data.terminusdb.org/admin/star-wars"
+ *   remoteUrl = "https://data.terminusdb.org/public/star-wars"
  *   localPath = "star-wars"
  *   remoteAuth = "Basic cHVibGljOnB1YmxpYw==" (public:public)
  */
@@ -557,7 +557,7 @@ function detectQuickstartClones(content) {
     const attrs = parseAttributes(match[1] || "")
     clones.push({
       localPath: attrs.localPath || "star-wars",
-      remoteUrl: attrs.remoteUrl || "https://data.terminusdb.org/admin/star-wars",
+      remoteUrl: attrs.remoteUrl || "https://data.terminusdb.org/public/star-wars",
       remoteAuth: "Basic cHVibGljOnB1YmxpYw==", // public:public
     })
   }

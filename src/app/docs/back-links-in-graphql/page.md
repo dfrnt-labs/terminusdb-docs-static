@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - how-to
+  - intermediate
 title: Use GraphQL Back Links for easy queries
 nextjs:
   metadata:

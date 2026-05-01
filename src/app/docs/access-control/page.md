@@ -1,4 +1,9 @@
 ---
+tags:
+  - reference
+  - access-control
+  - curl
+  - intermediate
 title: Access Control Reference
 nextjs:
   metadata:
@@ -119,7 +124,7 @@ curl -s -u admin:root -X POST http://localhost:6363/api/users \
 
 **Response:**
 ```json
-{"@type": "api:UsersResponse", "api:status": "api:success"}
+"terminusdb://system/data/User/alice"
 ```
 
 #### Change a user's password
@@ -181,7 +186,7 @@ curl -s -u admin:root -X POST http://localhost:6363/api/roles \
 
 **Response:**
 ```json
-"Role/writer"
+"terminusdb://system/data/Role/writer"
 ```
 
 #### Update a role

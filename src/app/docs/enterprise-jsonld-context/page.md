@@ -9,6 +9,11 @@ nextjs:
       canonical: https://terminusdb.org/docs/enterprise-jsonld-context/
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+tags:
+  - typescript
+  - rdf
+  - reference
+  - enterprise
 ---
 
 Enterprise processes JSON-LD `@context` using the W3C JSON-LD 1.1 specification, powered by the Rust `json-ld` crate. This gives you standards-compliant expansion and compaction without writing any conversion code.

@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - collaboration
+  - python
 title: Collaboration Features with the Python Client
 nextjs:
   metadata:

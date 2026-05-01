@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - documents
+  - how-to
+  - beginner
 title: Edit a Document with the Python Client
 nextjs:
   metadata:

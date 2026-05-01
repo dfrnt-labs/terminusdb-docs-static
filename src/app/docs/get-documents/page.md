@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/get-documents/
 media: []
+tags:
+  - typescript
+  - documents
+  - how-to
 ---
 
 ## Get a single document

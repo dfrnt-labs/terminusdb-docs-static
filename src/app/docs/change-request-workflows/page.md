@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - collaboration
+  - dfrnt-cloud
 title: Change Request Workflows - TerminusDB Tour
 nextjs:
   metadata:
@@ -46,7 +50,11 @@ media:
     value: https://assets.terminusdb.com/docs/cr-review-page.png
 ---
 
-The DFRNT TerminusDB cloud is not yet hosting the change request workflow API to ensure that changes to data and content are made safely with reviews in place to check changes. It can be run locally with TerminusDB
+{% callout type="warning" title="Unmaintained feature" %}
+This feature is not actively maintained. The documentation is preserved for historical reference. Community contributions and pull requests are welcome, but no active development is planned.
+{% /callout %}
+
+The change request workflow enables safe collaboration by ensuring that changes to data and content are reviewed before being applied. It can be run locally with TerminusDB.
 
 ## Creating a Change Request
 

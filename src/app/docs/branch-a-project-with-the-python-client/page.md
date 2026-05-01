@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - version-control
+  - how-to
+  - beginner
 title: Branch a Project Using the Python Client
 nextjs:
   metadata:
@@ -21,7 +26,7 @@ Use this code to create a new branch starting from the main branch head.
 
 ```python
 client.create_branch("mybranch")
-client.branch("mybranch")
+client.branch = "mybranch"
 ```
 
 If you add documents to the `mybranch`, they won't end up in the `main` branch unless you merge them.
@@ -34,7 +39,7 @@ You can create a new branch starting from the `mybranch` head. Since we are chec
 
 ```python
 client.create_branch("branch_from_mybranch")
-client.branch("branch_from_mybranch")
+client.branch = "branch_from_mybranch"
 ```
 
 ## Get a branch list
@@ -50,53 +55,23 @@ Response example
 
 ```json
 [
-      {
-         "Branch":"terminusdb://ref/data/Branch/main",
-         "Head":"terminusdb://ref/data/InitialCommit/ohj33rrh5kmnmr9cq6vzfajfxog0629",
-         "Name":{
-            "@type":"xsd:string",
-            "@value":"main"
-         },
-         "Timestamp":{
-            "@type":"xsd:decimal",
-            "@value":1678385706.694406
-         },
-         "commit_identifier":{
-            "@type":"xsd:string",
-            "@value":"ohj33rrh5kmnmr9cq6vzfajfxog0629"
-         }
-      },
-      {
-         "Branch":"terminusdb://ref/data/Branch/mybranch",
-         "Head":"terminusdb://ref/data/ValidCommit/prh0yvftqmsrgctn8gqvdxv7gc4i8p8",
-         "Name":{
-            "@type":"xsd:string",
-            "@value":"mybranch"
-         },
-         "Timestamp":{
-            "@type":"xsd:decimal",
-            "@value":1678385762.7790234
-         },
-         "commit_identifier":{
-            "@type":"xsd:string",
-            "@value":"prh0yvftqmsrgctn8gqvdxv7gc4i8p8"
-         }
-      },
-      {
-         "Branch":"terminusdb://ref/data/Branch/branch_from_mybranch",
-         "Head":"terminusdb://ref/data/ValidCommit/prh0yvftqmsrgctn8gqvdxv7gc4i8p8",
-         "Name":{
-            "@type":"xsd:string",
-            "@value":"branch_from_mybranch"
-         },
-         "Timestamp":{
-            "@type":"xsd:decimal",
-            "@value":1678385762.7790234
-         },
-         "commit_identifier":{
-            "@type":"xsd:string",
-            "@value":"prh0yvftqmsrgctn8gqvdxv7gc4i8p8"
-         }
-      }
-   ]
+  {
+    "@id": "Branch/main",
+    "@type": "Branch",
+    "name": "main",
+    "head": "ValidCommit/ohj33rrh5kmnmr9cq6vzfajfxog0629"
+  },
+  {
+    "@id": "Branch/mybranch",
+    "@type": "Branch",
+    "name": "mybranch",
+    "head": "ValidCommit/prh0yvftqmsrgctn8gqvdxv7gc4i8p8"
+  },
+  {
+    "@id": "Branch/branch_from_mybranch",
+    "@type": "Branch",
+    "name": "branch_from_mybranch",
+    "head": "ValidCommit/prh0yvftqmsrgctn8gqvdxv7gc4i8p8"
+  }
+]
 ```

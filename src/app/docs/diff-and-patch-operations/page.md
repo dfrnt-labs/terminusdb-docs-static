@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/diff-and-patch-operations/
 media: []
+tags:
+  - typescript
+  - diff-patch
+  - how-to
 ---
 
 ## Diff an object
@@ -19,10 +23,10 @@ Return the diff from two objects
 const diffObjects = async () => {
    const before = { "@id" : "Person/Jane", "@type" : "Person", "name" : "Jane"}
    const after = { "@id" : "Person/Jane", "@type" : "Person", "name" : "Janine"}
-   const options = {keep:{ "@id" : true, "name" : true }}
+   const options = {keep:{ "@id" : true }}
 
-   //in the options you can list the properties that you would like to see in the diff result.
-   const diffResult = await client.getJSONDiff = function (before, after, options) {
+   //in the options you can list the properties that you would like to always include in the diff result.
+   const diffResult = await client.getJSONDiff(before, after, options)
 
    console.log("the diff result ", JSON.stringify(diffResult,null,4))
 }
@@ -49,7 +53,7 @@ const diffDocsVersion = async () => {
    const afterVersion =  "73rqpooz65kbsheuno5dsayh71x7wf4"
    const options = {keep:{ "@id" : true, "name" : true }}
 
-   const diffResult = await client.getVersionDiff = function (beforeVersion, afterVersion, null, options) {
+   const diffResult = await client.getVersionDiff(beforeVersion, afterVersion, null, options)
 
    console.log("the diff result ", JSON.stringify(diffResult,null,4))
 }
@@ -90,7 +94,7 @@ const diffDocToObject = async () => {
    const options = {keep:{ "@id" : true, "name" : true }}
 
    //in the options you can list the properties that you would like to see in the diff result.
-   const diffResult = await client.getVersionObjectDiff = function ("main", jsonObject, "Person/Jane", options) {
+   const diffResult = await client.getVersionObjectDiff("main", jsonObject, "Person/Jane", options)
 
    console.log("the diff result ", JSON.stringify(diffResult,null,4))
 }

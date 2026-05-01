@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - how-to
+  - intermediate
 title: How to filter with WOQL
 nextjs:
   metadata:

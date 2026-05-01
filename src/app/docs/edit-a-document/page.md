@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/edit-a-document/
 media: []
+tags:
+  - typescript
+  - documents
+  - how-to
 ---
 
 To update documents in your database, you first need to [get the document](/docs/get-documents/) you want to change. You then need to make your changes and update it. This example shows how -

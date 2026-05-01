@@ -10,6 +10,11 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/access-control-tutorial-source/
 media: []
+tags:
+  - typescript
+  - access-control
+  - tutorial
+  - self-hosted
 ---
 
 This page provides a detailed walkthrough of the access control tutorial code. The code uses the `AccessControl` class in the TerminusDB JavaScript Client library to manage user access control for Organizations and databases.
@@ -20,7 +25,7 @@ Import the TerminusDB client and set up the configuration:
 
 ```javascript
 /* Import terminusdb */
-const TerminusClient = require("terminusdb")
+const TerminusClient = require("@terminusdb/terminusdb-client")
 
 /* Import the list of allowed actions */
 const { ACTIONS } = TerminusClient.UTILS

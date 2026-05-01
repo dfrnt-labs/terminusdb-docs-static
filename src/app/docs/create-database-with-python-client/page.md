@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - documents
+  - how-to
+  - beginner
 title: Create a database with the Python Client
 nextjs:
   metadata:
@@ -14,12 +19,12 @@ media: []
 To create a database with an already [connected client](/docs/connect-with-python-client/), you can write:
 
 ```python
-dbid="MyDatabase"
-label="My Database",
-description="This is a database which is mine"
+dbid = "MyDatabase"
+label = "My Database"
+description = "This is a database which is mine"
 prefixes = {'@base' : 'iri:///mydatabase/',
             '@schema' : 'iri:///mydatabase#'}
-team="MyTeam"
+team = "MyTeam"
 client.create_database(
     dbid,
     team,

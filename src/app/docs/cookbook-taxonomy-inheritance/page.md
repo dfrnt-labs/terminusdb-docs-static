@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - cookbook
+  - path-queries
+  - advanced
 title: "Cookbook: Taxonomy Inheritance and Property Inheritance"
 nextjs:
   metadata:

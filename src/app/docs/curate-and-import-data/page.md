@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - documents
+  - dashboard
 title: How to Curate & Import Data
 nextjs:
   metadata:

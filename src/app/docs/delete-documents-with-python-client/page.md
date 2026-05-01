@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - documents
+  - how-to
+  - beginner
 title: How to delete a document using the Python client
 nextjs:
   metadata:

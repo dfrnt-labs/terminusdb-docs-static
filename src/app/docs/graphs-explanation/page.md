@@ -1,4 +1,9 @@
 ---
+tags:
+  - explanation
+  - documents
+  - rdf
+  - intermediate
 title: Graphs Explanation
 nextjs:
   metadata:

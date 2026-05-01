@@ -1,4 +1,9 @@
 ---
+tags:
+  - reference
+  - installation
+  - curl
+  - enterprise
 title: Prometheus Observability
 nextjs:
   metadata:

@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/clone-a-project/
 media: []
+tags:
+  - typescript
+  - collaboration
+  - how-to
 ---
 
 ## Clone a database from terminusdb.com to your local machine

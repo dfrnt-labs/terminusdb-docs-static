@@ -9,7 +9,17 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/document-ui-sdk-data-types/
 media: []
+tags:
+  - typescript
+  - documents
+  - reference
+  - dashboard
 ---
+
+{% callout type="warning" title="Unmaintained package" %}
+These packages (`@terminusdb/terminusdb-documents-ui` etc.) were last published December 2023 and are no longer actively maintained. The documentation is preserved for reference. Community contributions and pull requests are welcome.
+{% /callout %}
+
 
 The TerminusDB documents user interface generates forms representing the properties or fields of document/s in your schema. For data entry, each field is one of several data types and is mandatory by default. Schema definitions enable the linking of documents and the specification of sets.
 
@@ -17,7 +27,7 @@ The TerminusDB documents user interface generates forms representing the propert
 
 ## Demo
 
-Take a look at the [**Document UI SDK Playground**](https://documents-ui-playground.terminusdb.com) to view the `<FrameViewer/>` demo in Create, edit or view mode.
+Take a look at the [**Document UI SDK Playground**](https://github.com/terminusdb/dashboard-examples-sandbox) to view the `<FrameViewer/>` demo in Create, edit or view mode.
 
 ## Data types
 
@@ -379,6 +389,6 @@ For more information on data types, take a look at the individual types in more 
 
 ## Document UI SDK Examples
 
-[Document UI SDK Playground](https://documents-ui-playground.terminusdb.com/) - An interactive example of document properties in add, edit, and view modes with example schema and code.
+[Document UI SDK Playground](https://github.com/terminusdb/dashboard-examples-sandbox) - An interactive example of document properties in add, edit, and view modes with example schema and code.
 
 [Lego Data Product UI CodeSandbox Example](https://codesandbox.io/s/github/terminusdb/dashboard-examples-sandbox/tree/main/terminusdb-documents-ui-examples/lego-dataproduct-npm)

@@ -1,4 +1,9 @@
 ---
+tags:
+  - reference
+  - schema
+  - curl
+  - enterprise
 title: Context Cache
 nextjs:
   metadata:

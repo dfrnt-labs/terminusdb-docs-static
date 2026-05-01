@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - how-to
+  - data-import
+  - advanced
 title: How to compare values with a CSV file using WOQL
 nextjs:
   metadata:

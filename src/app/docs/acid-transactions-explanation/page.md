@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - documents
+  - beginner
 title: ACID Transactions Explanation
 nextjs:
   metadata:

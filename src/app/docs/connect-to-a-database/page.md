@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/connect-to-a-database/
 media: []
+tags:
+  - typescript
+  - how-to
+  - beginner
 ---
 
 Assuming you have [connected with the JavaScript Client](/docs/connect-with-the-javascript-client/), connecting to a database is the same for TerminusDB and DFRNT TerminusDB cloud -

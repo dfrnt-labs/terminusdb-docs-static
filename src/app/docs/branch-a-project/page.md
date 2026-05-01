@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/branch-a-project/
 media: []
+tags:
+  - typescript
+  - version-control
+  - how-to
 ---
 
 Assuming you have [connected with the JavaScript Client](/docs/connect-with-the-javascript-client/) and [created a database](/docs/create-a-database/) you can then create a branch of your project.
@@ -45,7 +49,7 @@ Get all of the database's branches in a list using a \[WOQL\]() library method
 
 ```javascript
 const getBranchList = async () => {
-  const branchList = await TerminusClient.WOQL.lib().branches()
+  const branchList = await client.query(TerminusClient.WOQL.lib().branches())
   console.log("ExampleDatabase branch list", JSON.stringify(branchList.bindings,null,4))
 
 }   

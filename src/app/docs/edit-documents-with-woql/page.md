@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - how-to
+  - documents
+  - intermediate
 title: Edit Documents using WOQL
 nextjs:
   metadata:

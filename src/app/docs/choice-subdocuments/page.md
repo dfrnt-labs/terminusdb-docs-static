@@ -9,17 +9,22 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/choice-subdocuments/
 media: []
+tags:
+  - typescript
+  - schema
+  - reference
+  - dashboard
 ---
 
 This example shows how `<FrameViewer/>` appears for a document called `Student` with choice subdocument fields in Create/ Edit or View mode.
 
-`Student` has a mandatory `favorite_subject` property with the choices of Zoology, Botony or Maths, an optional `"second_favorite_subject"` property with the same document choices, a set `studied` property with the above choices, and a list `study_time_table` property with the same choices in an ordered fashion.
+`Student` has a mandatory `favorite_subject` property with the choices of Zoology, Botany or Maths, an optional `"second_favorite_subject"` property with the same document choices, a set `studied` property with the above choices, and a list `study_time_table` property with the same choices in an ordered fashion.
 
 ## Demo
 
-Take a look at the **[](https://documents-ui-playground.terminusdb.com/Choice%20SubDocuments)**[Demo](https://documents-ui-playground.terminusdb.com/Choice%20SubDocuments) to view `<FrameViewer/>` with Choice subdocuments in Create, edit or view mode.
+Take a look at the **[](https://github.com/terminusdb/dashboard-examples-sandbox)**[Demo](https://github.com/terminusdb/dashboard-examples-sandbox) to view `<FrameViewer/>` with Choice subdocuments in Create, edit or view mode.
 
-The below Frames show the definition of Zoology, Botony or Maths which are subdocuments.
+The below Frames show the definition of Zoology, Botany or Maths which are subdocuments.
 
 ## Frame
 
@@ -44,7 +49,7 @@ The frame below consists of a `Student` document -
           "@subdocument": []
         },
         {
-          "@class": "Botony",
+          "@class": "Botany",
           "@subdocument": []
         },
         {
@@ -59,7 +64,7 @@ The frame below consists of a `Student` document -
             "@subdocument": []
           },
           {
-            "@class": "Botony",
+            "@class": "Botany",
             "@subdocument": []
           },
           {
@@ -76,7 +81,7 @@ The frame below consists of a `Student` document -
             "@subdocument": []
           },
           {
-            "@class": "Botony",
+            "@class": "Botany",
             "@subdocument": []
           },
           {
@@ -93,7 +98,7 @@ The frame below consists of a `Student` document -
             "@subdocument": []
           },
           {
-            "@class": "Botony",
+            "@class": "Botany",
             "@subdocument": []
           },
           {
@@ -154,8 +159,8 @@ The frame below consists of a `Student` document -
         "@class": "xsd:dateTime",
         "@type": "Optional"
       }
-    }
-    "Botony": {
+    },
+    "Botany": {
       "@documentation": [
         {
           "@language": "en",
@@ -282,7 +287,7 @@ The frame below consists of a `Student` document -
 
 ## Create
 
-```python
+```javascript
 import { FrameViewer } from '@terminusdb/terminusdb-documents-ui'
 
   return <FrameViewer
@@ -301,8 +306,8 @@ let data = {
     "@id": "Student/6bf39891b3aaab89771cecdd88a7771dad8c613cfc0530d07bb79bdde6d55d51",
     "@type": "Student",
     "favorite_subject": {
-        "@id": "Student/6bf39891b3aaab89771cecdd88a7771dad8c613cfc0530d07bb79bdde6d55d51/favorite_subject/Botony/aef9f22fe04ece720d19f6630edcad27f85e546810a907e4724ee0b57aba4b52",
-        "@type": "Botony",
+        "@id": "Student/6bf39891b3aaab89771cecdd88a7771dad8c613cfc0530d07bb79bdde6d55d51/favorite_subject/Botany/aef9f22fe04ece720d19f6630edcad27f85e546810a907e4724ee0b57aba4b52",
+        "@type": "Botany",
         "Grade": "A",
         "Number_of_classes_attended": 4,
         "course_start_date": "2022-08-17T09:21:09Z", 
@@ -318,8 +323,8 @@ let data = {
     },
     "studied": [
        {
-            "@id": "Student/6bf39891b3aaab89771cecdd88a7771dad8c613cfc0530d07bb79bdde6d55d51/studied/Botony/cc7e311138c8244f9ba043ad5f96e846c6a0961d9190210ee3f297f96976fd00",
-            "@type": "Botony",
+            "@id": "Student/6bf39891b3aaab89771cecdd88a7771dad8c613cfc0530d07bb79bdde6d55d51/studied/Botany/cc7e311138c8244f9ba043ad5f96e846c6a0961d9190210ee3f297f96976fd00",
+            "@type": "Botany",
             "Grade": "A",
             "Number_of_classes_attended": 67,
             "course_start_date": "2022-08-17T09:21:53Z",
@@ -344,8 +349,8 @@ let data = {
             "course_start_date": "2022-08-17T09:22:06Z"
        },
        {
-            "@id": "Student/6bf39891b3aaab89771cecdd88a7771dad8c613cfc0530d07bb79bdde6d55d51/study_time_table/1/Botony/be10b1f3c70c1fe28eb52ad3113352356ae53d3375436ae6719abe019dc28f76",
-            "@type": "Botony",
+            "@id": "Student/6bf39891b3aaab89771cecdd88a7771dad8c613cfc0530d07bb79bdde6d55d51/study_time_table/1/Botany/be10b1f3c70c1fe28eb52ad3113352356ae53d3375436ae6719abe019dc28f76",
+            "@type": "Botany",
             "Grade": "B",
             "Number_of_classes_attended": 54,
             "course_start_date": "2022-08-17T09:22:32Z",

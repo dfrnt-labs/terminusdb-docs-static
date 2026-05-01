@@ -1,4 +1,10 @@
 ---
+tags:
+  - tutorial
+  - documents
+  - curl
+  - rdf
+  - enterprise
 title: Multi-Format Document API with curl
 nextjs:
   metadata:

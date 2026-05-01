@@ -1,4 +1,9 @@
 ---
+tags:
+  - explanation
+  - collaboration
+  - dashboard
+  - dfrnt-cloud
 title: Collaboration Features with the TerminusDB Dashboard
 nextjs:
   metadata:

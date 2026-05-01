@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - collaboration
+  - how-to
+  - intermediate
 title: Cloning a Database with the Python Client
 nextjs:
   metadata:
@@ -31,7 +36,7 @@ Check the TerminusDB dashboard for a database that you want to clone. In this ho
 
 ```python
 clone_url = 'https://dfrnt.com/api/hosted/terminusdb_demo/lego'
-client.clonedb(clone_url, 'my_lego', remote_auth={'type': 'token': 'key': 'YOUR_API_TOKEN_HERE'})
+client.clonedb(clone_url, 'my_lego', remote_auth={'type': 'token', 'key': 'YOUR_API_TOKEN_HERE'})
 ```
 
 You now have the my\_lego database cloned in your DFRNT team.

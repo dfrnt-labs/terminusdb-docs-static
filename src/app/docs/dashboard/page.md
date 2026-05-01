@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - dashboard
+  - dfrnt-cloud
 title: TerminusDB Dashboard Status
 nextjs:
   metadata:
@@ -85,13 +89,17 @@ If you're running TerminusDB in Docker, mount the dashboard directory:
 
 #### Using Docker Run
 
+{% callout type="note" title="Outdated version tag" %}
+This example references `v11_2_rc2`, a pre-release tag. TerminusDB 12 is the current release. Use `terminusdb/terminusdb-server:v12` or `terminusdb/terminusdb-server:latest` for the current stable version.
+{% /callout %}
+
 ```bash
 docker run -it \
   --name terminusdb \
   -p 6363:6363 \
   -v ~/dashboard:/app/terminusdb/dashboard \
   -e TERMINUSDB_DASHBOARD_ENABLED=true \
-  terminusdb/terminusdb-server:v11_2_rc2
+  terminusdb/terminusdb-server:v12
 ```
 
 #### Using Docker Compose
@@ -99,11 +107,10 @@ docker run -it \
 Create or update your `docker-compose.yml`:
 
 ```yaml
-# Use v11_2_rc2 until v11.2 is finally released
 version: '3'
 services:
   terminusdb:
-    image: terminusdb/terminusdb-server:v11_2_rc2
+    image: terminusdb/terminusdb-server:v12
     container_name: terminusdb
     ports:
       - "6363:6363"

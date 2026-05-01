@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/document-insertion/
 media: []
+tags:
+  - typescript
+  - documents
+  - reference
 ---
 
 The document interface consists of two endpoints, one for instance documents, and one for schema documents. Documents look like typed JSON documents, and implement a subset of JSON-LD functionalities suitable for closed world knowledge graph processing.

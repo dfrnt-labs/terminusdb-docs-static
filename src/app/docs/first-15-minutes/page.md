@@ -8,6 +8,10 @@ nextjs:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/first-15-minutes/
+tags:
+  - typescript
+  - tutorial
+  - beginner
 ---
 
 Build the entire git-for-data workflow from scratch. You will create a database, insert a document, branch, edit on the branch, diff the two branches, and merge — all with curl. No schema, no SDK.

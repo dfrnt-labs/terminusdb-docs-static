@@ -9,6 +9,11 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/create-a-database/
 media: []
+tags:
+  - typescript
+  - documents
+  - how-to
+  - beginner
 ---
 
 To create a database with an already [connected client](/docs/connect-with-the-javascript-client/), you can write:

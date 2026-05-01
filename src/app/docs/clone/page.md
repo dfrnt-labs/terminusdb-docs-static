@@ -1,4 +1,9 @@
 ---
+tags:
+  - how-to
+  - version-control
+  - dashboard
+  - beginner
 title: Clone a Project using the TerminusDB Dashboard
 nextjs:
   metadata:

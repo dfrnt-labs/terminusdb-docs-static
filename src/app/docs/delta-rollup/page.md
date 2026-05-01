@@ -1,4 +1,9 @@
 ---
+tags:
+  - how-to
+  - version-control
+  - curl
+  - advanced
 title: Perform a Delta Rollup
 nextjs:
   metadata:

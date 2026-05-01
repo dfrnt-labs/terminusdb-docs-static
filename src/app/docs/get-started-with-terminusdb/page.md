@@ -1,4 +1,7 @@
 ---
+tags:
+  - explanation
+  - beginner
 title: Next steps with TerminusDB
 nextjs:
   metadata:

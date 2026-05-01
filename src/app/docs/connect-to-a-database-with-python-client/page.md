@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - documents
+  - how-to
+  - beginner
 title: Connect to a Database using the Python Client
 nextjs:
   metadata:
@@ -11,27 +16,30 @@ nextjs:
 media: []
 ---
 
-## TerminusDB
+## DFRNT Cloud
 
 If you have created a Team in DFRNT TerminusDB cloud, and put an [API key](/docs/how-to-connect-terminuscms/) in your environment you can connect to an existing database in the following way:
 
 ```python
-team = "MyTeam",
-client.connect(db="nuclear", team=team, use_token=True)
+from terminusdb_client import Client
+
+client = Client('https://dfrnt.com/api/hosted/MyTeam')
+client.connect(db="nuclear", team="MyTeam", use_token=True)
 ```
 
-## TerminusDB
+## TerminusDB (local)
 
 You can connect to a database with basic authorization just by using the `connect` member function.
 
 ```python
-team = "MyTeam",
+from terminusdb_client import Client
+
+client = Client('http://localhost:6363')
 client.connect(db="nuclear")
 ```
 
 If you want to connect as a specific user and with a specific password, you can pass them here:
 
 ```python
-team = "MyTeam",
-client.connect(db="nuclear", team=team, key="your_password")
+client.connect(db="nuclear", team="MyTeam", key="your_password")
 ```

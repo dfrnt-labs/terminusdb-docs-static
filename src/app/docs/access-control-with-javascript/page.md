@@ -9,6 +9,10 @@ nextjs:
       canonical: https://terminusdb.org/docs/access-control-with-javascript/
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+tags:
+  - typescript
+  - access-control
+  - reference
 ---
 
 **License**: Apache Version 2
@@ -24,7 +28,7 @@ For credentials, you can use a JWT token, an API token or basic authentication w
 ```javascript
 //connect with the API token
 //(to request a token create an account in  https://terminusdb.org/)
-const accessContol = new AccessControl("https://servername.com",
+const accessControl = new AccessControl("https://servername.com",
 {organization:"my_team_name",
 token:"dGVybWludXNkYjovLy9kYXRhL2tleXNfYXB........"})
 accessControl.getOrgUsers().then(result=>{
@@ -33,22 +37,22 @@ accessControl.getOrgUsers().then(result=>{
 
 //connect with the jwt token this type of connection is only for the dashboard
 //or for application integrate with our login workflow
-const accessContol = new AccessControl("https://servername.com",
+const accessControlJwt = new AccessControl("https://servername.com",
 {organization:"my_team_name",
 jwt:"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpXUjBIOXYyeTFORUd........"})
-accessControl.getOrgUsers().then(result=>{
+accessControlJwt.getOrgUsers().then(result=>{
      console.log(result)
 })
 
 //if the jwt is expired you can change it with
-accessControl.setJwtToken("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpXUjBIOXYy
+accessControlJwt.setJwtToken("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpXUjBIOXYy
 eTFORUd.......")
 
 //connect with the base authentication this type of connection is only for the local installation
-const accessContol = new AccessControl("http://localhost:6363",
-{organization:"my_team_name", user:"admin"
+const accessControlLocal = new AccessControl("http://localhost:6363",
+{organization:"my_team_name", user:"admin",
 key:"mykey"})
-accessControl.getOrgUsers().then(result=>{
+accessControlLocal.getOrgUsers().then(result=>{
     console.log(result)
 })
 ```

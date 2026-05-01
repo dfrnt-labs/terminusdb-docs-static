@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - documents
+  - beginner
 title: Document Graph API Howto
 nextjs:
   metadata:
