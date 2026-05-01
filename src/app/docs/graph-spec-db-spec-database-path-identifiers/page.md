@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: Database Path Identifiers - GRAPH_SPEC and DB_SPEC Reference
     description: Reference guide for GRAPH_SPEC, DB_SPEC, and path identifiers used in TerminusDB CLI, REST API, and client libraries to address databases, branches, commits, and graphs
+    keywords: terminusdb, api, branch, commit, database path identifiers reference, document database, documents, graph traversal
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

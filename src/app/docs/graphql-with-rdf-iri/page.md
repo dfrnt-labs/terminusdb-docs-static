@@ -16,6 +16,18 @@ nextjs:
 media: []
 ---
 
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with RDF-style data (custom IRIs)
+- Familiarity with GraphQL basics ([getting started](/docs/graphql-basics/))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to query documents with custom RDF IRIs using GraphQL.
+{% /callout %}
+
 GraphQL is a data-oriented language with queries composed of queries, arguments and fields.
 
 TerminusDB on the other hand is an RDF Knowledge Graph database with classes and properties, and with IRIs (URIs) as identifiers to connect JSON documents, JSON subdocuments and managing database IDs.

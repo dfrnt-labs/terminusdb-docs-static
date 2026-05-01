@@ -9,12 +9,18 @@ nextjs:
   metadata:
     title: Install TerminusDB with Docker on Windows
     description: Complete guide to installing and running TerminusDB with Docker on Windows, including backup and restore instructions
+    keywords: terminusdb, backup, docker, getting started, install, install terminusdb with docker on windows, setup
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/install-terminusdb-docker-windows/
 media: []
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have TerminusDB running in Docker on Windows.
+{% /callout %}
 
 This guide provides step-by-step instructions for running TerminusDB on Windows using Docker, including how to set up persistent storage and create backups.
 

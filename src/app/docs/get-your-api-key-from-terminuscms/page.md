@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: How to get your API key using the DFRNT TerminusDB cloud
     description: A how-to guide showing how to get your API key to set up and configure your environment to use with a client.
+    keywords: terminusdb, api, fetch, get, get your api key using the dfrnt terminusdb cloud, read, retrieve
     openGraph:
       images: https://assets.terminusdb.com/docs/get-your-api-key.png
     alternates:
@@ -15,7 +16,18 @@ nextjs:
 media: []
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**Prerequisites**
+- A DFRNT Hub account ([sign up](https://dfrnt.com))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have generated an API key for programmatic access to DFRNT Hub.
+{% /callout %}
+
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

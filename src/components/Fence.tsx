@@ -357,7 +357,7 @@ export function Fence({
               theme={themes.vsDark}
             >
               {({ className, style, tokens, getTokenProps }) => (
-                <pre className={`${className} !m-0 !rounded-none !bg-slate-900 max-h-[calc(100vh-10rem)] overflow-x-auto overflow-y-auto`} style={style}>
+                <pre className={`${className} !m-0 !rounded-none !bg-slate-900 !text-sm !py-3 !px-4 max-h-[calc(100vh-10rem)] overflow-x-auto overflow-y-auto`} style={style}>
                   <code>
                     {tokens.map((line, lineIndex) => (
                       <Fragment key={lineIndex}>

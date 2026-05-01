@@ -8,12 +8,24 @@ nextjs:
   metadata:
     title: Index Your Data
     description: How to index your content and data with VectorLink
+    keywords: terminusdb, index, index your data, vector
     openGraph:
       images: https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
     alternates:
       canonical: https://terminusdb.org/docs/index-your-data/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with a schema and data
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have configured indexes on your TerminusDB data for faster queries.
+{% /callout %}
 
 Once you have configured OpenAI, you can index your data. Indexing happens on a commit level so to start indexing you need a new commit.
 

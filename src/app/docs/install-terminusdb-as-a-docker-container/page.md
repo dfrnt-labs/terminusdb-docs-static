@@ -10,12 +10,24 @@ nextjs:
   metadata:
     title: Install TerminusDB as a Docker Container
     description: Everything you need to install and run TerminusDB server as a docker container on your computer or on a remote server
+    keywords: terminusdb, docker, getting started, install, install terminusdb as a docker container, setup
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/install-terminusdb-as-a-docker-container/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- Docker installed on your system ([get Docker](https://docs.docker.com/get-docker/))
+- A terminal or command prompt
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have TerminusDB running in a Docker container on your machine.
+{% /callout %}
 
 > **Docker memory allocation on Windows**\\ On Windows, the default memory allocated for the Docker is **2GB**. TerminusDB is an in-memory database so it is advised to increase the allocation in Docker desktop settings. **Install TerminusDB on Windows with Docker Guide**
 > 

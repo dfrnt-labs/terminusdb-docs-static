@@ -10,12 +10,18 @@ nextjs:
   metadata:
     title: Install on Kubernetes
     description: Install TerminusDB on a Kubernetes cluster
+    keywords: terminusdb, getting started, install, install on kubernetes, kubernetes, setup
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/install-on-kubernetes/
 media: []
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have TerminusDB deployed and running on your Kubernetes cluster.
+{% /callout %}
 
 TerminusDB can also be deployed on Kubernetes. There are several strategies to do this. One is a high-availability solution using shared storage like NFS and one is a more simple strategy that is more performant on reads/writes by using one deployment at the cost of scalability. In this document, we will guide you on how to deploy using the latter strategy with a very minimal example.
 

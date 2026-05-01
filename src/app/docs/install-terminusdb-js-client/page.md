@@ -8,12 +8,24 @@ nextjs:
   metadata:
     title: Install the TerminusDB JavaScript Client
     description: Installation instruction for the TerminusDB JavaScript Client
+    keywords: terminusdb, getting started, install, install the terminusdb javascript client, javascript, setup, terminusdb javascript client, typescript
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/install-terminusdb-js-client/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- Node.js (version 14+) and npm installed
+- A terminal or command prompt
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have the TerminusDB JavaScript client installed and ready to use in your project.
+{% /callout %}
 
 ## Requirements
 

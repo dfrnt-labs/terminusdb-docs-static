@@ -10,12 +10,26 @@ nextjs:
   metadata:
     title: Install TerminusDB from Source Code
     description: Everything you need to install TerminusDB from source code.
+    keywords: terminusdb, getting started, install, install terminusdb from source code, setup
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/install-terminusdb-from-source-code/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- SWI-Prolog installed (version 8.4+)
+- Rust toolchain installed
+- Git installed
+- A Unix-like environment (Linux or macOS)
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have TerminusDB compiled from source and running on your machine.
+{% /callout %}
 
 ## Install steps
 

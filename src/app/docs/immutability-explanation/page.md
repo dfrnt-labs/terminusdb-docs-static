@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: Immutability Explanation
     description: An explanation of how TerminusDB implements immutability, and handles deleted and new data.
+    keywords: terminusdb, document database, documents, immutability explanation, json-ld
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: How to connect to TerminusDB
     description: How to connect with TerminusDB using an API key
+    keywords: terminusdb, api, client, connect, connect to terminusdb, connection
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -20,7 +21,19 @@ media:
     value: https://cdn.terminusdb.com/img/terminus-cms/client_api_connection.jpeg
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**Prerequisites**
+- A DFRNT Hub account
+- An API key ([get one](/docs/get-your-api-key-from-terminuscms/))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have connected to DFRNT Hub programmatically.
+{% /callout %}
+
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

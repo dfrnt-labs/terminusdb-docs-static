@@ -15,6 +15,19 @@ nextjs:
       canonical: https://terminusdb.org/docs/import-jsonld-woql/
 ---
 
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with a schema
+- JSON-LD data to import
+- Familiarity with WOQL basics ([getting started](/docs/woql-getting-started/))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to import JSON-LD data into TerminusDB using WOQL.
+{% /callout %}
+
 TerminusDB stores all data natively as RDF triples and presents it as JSON-LD — inserting a JSON-LD document is the standard write operation, not a special import step. This guide covers how to bring in existing JSON-LD data from external sources: files, APIs, or other TerminusDB instances.
 
 {% callout type="note" title="Enterprise edition" %}

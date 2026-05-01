@@ -10,6 +10,7 @@ nextjs:
   metadata:
     title: Your First 10 Minutes with TerminusDB
     description: Get started with TerminusDB in 10 minutes. Clone a ready-made dataset, then branch, diff, and merge — the full git-for-data workflow with zero setup.
+    keywords: terminusdb, branch, clone, commit, diff, fetch, get, git for data
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -18,7 +19,8 @@ nextjs:
 
 TerminusDB is a database built for collaboration. In this quickstart you will clone a pre-populated dataset and immediately use the git-for-data workflow: branch, edit, diff, and merge. No schema to write, no data to invent.
 
-{% callout title="Prerequisites" %}
+{% callout type="note" %}
+**Prerequisites**
 You need **Docker** installed and running. Nothing else — no npm, no pip, no SDK.
 {% /callout %}
 
@@ -103,7 +105,8 @@ This is the moment. See exactly what changed between `main` and `what-if`:
 {% /http-expected %}
 {% /http-example %}
 
-{% callout title="What just happened?" %}
+{% callout type="note" %}
+**What just happened?**
 TerminusDB computed a **structural diff** between two branches. This is not a line-by-line text diff — it is a semantic patch that knows exactly which fields changed, what the old values were, and what the new values are. Each change is a `SwapValue` operation that can be applied, reversed, or composed with other patches.
 
 Four fields changed: `eye_color`, `label`, `mass`, and `skin_colors`. You sent the full document, but TerminusDB detected only the differences — no manual tracking, no event sourcing, no change-data-capture pipeline. The database does it natively.

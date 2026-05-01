@@ -9,12 +9,26 @@ nextjs:
   metadata:
     title: Import Data with the Python Client
     description: A guide to show how to import CSV data into TerminusDB using the Python Client
+    keywords: terminusdb, csv, data loading, import, import data with the python client, python, terminusdb python client
     openGraph:
       images: https://assets.terminusdb.com/docs/python-client-use-import-data.png
     alternates:
       canonical: https://terminusdb.org/docs/import-data-with-python-client/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- The TerminusDB Python client installed ([installation guide](/docs/install-the-python-client/))
+- A database with a schema defined
+- Data to import (CSV, JSON, or DataFrame)
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have imported data from an external source into your TerminusDB database using the Python client.
+{% /callout %}
 
 This how-to assumes that you are already connected to a database and have a schema that matches the CSV you want to import.
 

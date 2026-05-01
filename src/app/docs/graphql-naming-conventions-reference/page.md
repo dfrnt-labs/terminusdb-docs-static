@@ -7,6 +7,7 @@ nextjs:
   metadata:
     title: GraphQL Naming Conventions Reference Guide
     description: A reference guide detail the GraphQL naming conventions in TerminusDB and TerminusDB.
+    keywords: terminusdb, api, graphql, graphql naming conventions reference guide, query, terminusdb graphql
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

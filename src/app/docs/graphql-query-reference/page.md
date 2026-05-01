@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: GraphQL Query Reference Guide
     description: A GraphQL query reference guide explaining the workings of GraphQL queries with TerminusDB
+    keywords: terminusdb, api, find, graphql, graphql query reference guide, query, search, terminusdb graphql
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

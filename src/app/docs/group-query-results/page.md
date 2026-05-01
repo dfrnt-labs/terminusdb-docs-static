@@ -8,12 +8,18 @@ nextjs:
   metadata:
     title: How to Group Results in WOQL
     description: A guide to show how to group results of data in your TerminusDB projects using WOQL.
+    keywords: terminusdb, aggregate, datalog, find, group by, group results in woql, grouping, query
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-group-query-results.png
     alternates:
       canonical: https://terminusdb.org/docs/group-query-results/
 media: []
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to group and aggregate query results using WOQL.
+{% /callout %}
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >
