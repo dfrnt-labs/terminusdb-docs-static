@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/new-data-product.png
     alternates:
-      canonical: https://terminusdb.org/docs/create-a-project-with-terminuscms/
+      canonical: https://terminusdb.org/docs/create-a-project/
 media:
   - alt: how to create a project in the TerminusDB dashboard
     caption: ""

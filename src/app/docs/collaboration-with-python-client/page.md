@@ -1,6 +1,6 @@
 ---
 tags:
-  - explanation
+  - reference
   - collaboration
   - python
 title: Collaboration Features with the Python Client
@@ -16,8 +16,10 @@ nextjs:
 media: []
 ---
 
-* [Branch with Python](/docs/branch-a-project-with-the-python-client/)
-* [Clone with Python](/docs/clone-a-database-with-python/)
-* [Reset with Python](/docs/reset-to-a-commit-with-python/)
-* [Squash with Python](/docs/squash-a-project-with-python/)
-* [Time Travel with Python](/docs/time-travel-with-python/)
+The Python client gives you full access to TerminusDB's version-control operations — branch, clone, reset, squash, and time travel. Use these guides to manage collaborative data workflows from Python scripts, notebooks, or data pipelines.
+
+* [Branch](/docs/branch-howto/)
+* [Clone](/docs/clone-a-project/)
+* [Reset](/docs/reset-a-project/)
+* [Squash](/docs/squash-projects/)
+* [Time Travel](/docs/time-travel-howto/)

@@ -7,7 +7,7 @@ title: Use GraphQL Back Links for easy queries
 nextjs:
   metadata:
     title: Use GraphQL Back Links for easy queries
-    description: Back Links in GraphQL
+    description: How to traverse relationships in reverse using GraphQL back links (inverseOf) in TerminusDB to query parent documents from children.
     keywords: backlink, inverseOf, inverse links, GraphQL, TerminusDB
     openGraph:
       images: https://assets.terminusdb.com/docs/graphql-backlink.png

@@ -1,54 +1,107 @@
 ---
-title: Create a Database using the JavaScript Client
+title: Create a Database
 nextjs:
   metadata:
-    title: Create a Database using the JavaScript Client
-    description: A guide to show how to create a database using the TerminusDB JavaScript Client.
-    keywords: terminusdb, create, create a database using the javascript client, document database, documents, javascript, json-ld, new
+    title: Create a Database — TerminusDB
+    description: Create a new TerminusDB database using the HTTP API, TypeScript client, or Python client.
+    keywords: terminusdb, create database, javascript client, python client, http api, document database, new database
     openGraph:
-      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-create-a-db.png?raw=true
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/create-a-database/
 media: []
 tags:
   - typescript
+  - python
   - documents
   - how-to
   - beginner
 ---
 
-{% callout type="note" %}
-**Prerequisites**
-- TerminusDB running locally or a DFRNT Hub account
-- The TerminusDB JavaScript client installed ([installation guide](/docs/install-terminusdb-js-client/))
+{% callout type="note" title="Prerequisites" %}
+- TerminusDB running on `localhost:6363` — see [installation guide](/docs/install-terminusdb-as-a-docker-container/)
+- A client SDK installed: [TypeScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-terminusdb-js-client/)
+- A connected client instance: [TypeScript](/docs/connect-with-the-javascript-client/) or [Python](/docs/connect-with-python-client/)
 {% /callout %}
 
-{% callout type="note" %}
-**What you'll achieve**
-By the end of this guide, you will have created a new database using the JavaScript client.
+{% callout type="note" title="What you'll achieve" %}
+By the end of this guide, you will have created a new database in TerminusDB using the HTTP API, TypeScript, or Python.
 {% /callout %}
 
-To create a database with an already [connected client](/docs/connect-with-the-javascript-client/), you can write:
+## Create a database
 
-```javascript
-const createNewDB = async () => {
-  try {
-​
-      await client.createDatabase('ExampleDatabase', {
-          label: "ExampleDatabase",
-          comment: "Created new ExampleDatabase",
-          schema: true
-      });
-​
-      console.log("Database created Successfully!")
-​
-  } catch (err) {
-      console.error(err)
-  }
-};
-​
+A database is the top-level container for your data. It holds a schema, instance data, and a full commit history. Create one with a single call.
+
+### HTTP API
+
+```bash
+curl -u admin:root -X POST http://localhost:6363/api/db/admin/mydb \
+  -H "Content-Type: application/json" \
+  -d '{"label": "My Database", "comment": "A new database for my project", "schema": true}'
 ```
 
-After the database is created the client will be connected to it.
+**Expected response:**
 
-> Try out the [Getting Started with the TerminusDB JavaScript Client](https://github.com/terminusdb/terminusdb-tutorials/blob/main/getting_started/javascript-client/lesson_1.md) five-part tutorial to get to grips with it.
+```json
+{"@type":"api:DbCreateResponse","api:status":"api:success"}
+```
+
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
+```typescript
+import TerminusClient from "@terminusdb/terminusdb-client";
+
+const client = new TerminusClient.WOQLClient("http://localhost:6363", {
+  user: "admin",
+  key: "root",
+  organization: "admin",
+});
+
+await client.createDatabase("mydb", {
+  label: "My Database",
+  comment: "A new database for my project",
+  schema: true,
+});
+
+// The client is now connected to "mydb"
+```
+{% /code-tab %}
+{% code-tab label="Python" %}
+```python
+from terminusdb_client import Client
+
+client = Client("http://localhost:6363")
+client.connect(user="admin", key="root")
+
+client.create_database(
+    "mydb",
+    "admin",
+    label="My Database",
+    description="A new database for my project",
+    prefixes={
+        "@base": "terminusdb:///data/",
+        "@schema": "terminusdb:///schema#",
+    },
+)
+```
+{% /code-tab %}
+{% /code-tabs %}
+
+---
+
+## Parameters
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `label` | Human-readable name for the database | Required |
+| `comment` / `description` | Description of the database | Optional |
+| `schema` | Whether to create with a schema graph | `true` |
+| `prefixes` | Custom `@base` and `@schema` IRI prefixes | TerminusDB defaults |
+
+---
+
+## Next steps
+
+- [Add a Schema](/docs/add-a-schema/) — define document types in your new database
+- [Add Documents](/docs/add-a-document/) — insert data once you have a schema
+- [Connect Guide](/docs/connect-with-the-javascript-client/) — connection options and authentication

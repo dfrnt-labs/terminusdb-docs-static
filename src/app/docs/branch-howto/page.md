@@ -436,5 +436,5 @@ curl -u admin:root -X DELETE http://localhost:6363/api/branch/admin/mydb/local/b
 
 - [Version Control Operations Reference](/docs/version-control-operations/) — full HTTP API reference for all version control operations
 - [Diff & Patch](/docs/diff-and-patch-operations/) — deeper dive into structural diffing
-- [Time Travel](/docs/time-travel-to-previous-commits/) — query the database at any historical commit
+- [Time Travel](/docs/time-travel-howto/) — query the database at any historical commit
 - [WOQL Common Patterns](/docs/woql-common-patterns/) — practical query recipes

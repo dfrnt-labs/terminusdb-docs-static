@@ -3,7 +3,7 @@ title: TerminusDB Document UI SDK - Using Choice Subdocuments
 nextjs:
   metadata:
     title: TerminusDB Document UI SDK - Using Choice Subdocuments
-    description: A guide showing how to use multiple choice subdocuments with the TerminusDB documen t UI SDK
+    description: A guide showing how to use multiple choice subdocuments with the TerminusDB Document UI SDK.
     keywords: terminusdb, data model, document, document type, javascript, schema, terminusdb document ui sdk - choice subdocuments, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

@@ -13,7 +13,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.pn
     alternates:
-      canonical: https://terminusdb.org/docs/create-a-team-with-terminuscms/
+      canonical: https://terminusdb.org/docs/create-a-team/
 media:
   - alt: select profile from the top menu
     caption: ""
@@ -58,4 +58,4 @@ Follow these instruction to create a new team in the TerminusDB dashboard -
 
 4.  Name your team and press the 'Create a New Team' button.
 
-You are now ready to [add projects](/docs/create-a-project-with-terminuscms/) to your team and [invite collaborators](/docs/invite-users-using-terminuscms/).
+You are now ready to [add projects](/docs/create-a-project/) to your team and [invite collaborators](/docs/invite-users/).

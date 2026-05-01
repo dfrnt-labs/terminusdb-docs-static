@@ -1,6 +1,6 @@
 ---
 tags:
-  - explanation
+  - reference
   - documents
   - dashboard
 title: How to Curate & Import Data
@@ -21,6 +21,7 @@ media: []
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 
+TerminusDB supports multiple ways to get data into your database — use the DFRNT Hub dashboard for visual curation and CSV import, or the Python client for programmatic bulk loading from scripts and pipelines.
 
 * [Curate with Dashboard](/docs/use-the-admin-ui-curate-and-import-data/)
 * [Import with Python](/docs/import-data-with-python-client/)

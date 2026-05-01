@@ -14,19 +14,19 @@ nextjs:
       canonical: https://terminusdb.org/docs/at-a-glance
 ---
 
-TerminusDB is a [versatile graph database](/docs/terminusdb-explanation/) for [model-based hierarchically structured records](/docs/documents-explanation/), designed as a [flexible headless content management system](/docs/document-graph-api/).
+This page gives you a high-level overview of TerminusDB's capabilities — what it does, how it differs from other databases, and where to go next depending on your use case.
 
-It offers both [model-based JSON](/docs/schema-reference-guide/), [logical reasoning](/docs/woql-explanation/) and [RDF graphs](/docs/graphs-explanation/) in one package with [git-for-data](/docs/git-for-data-reference/) and [immutable history](/docs/graphs-explanation/) built in. 
+**TerminusDB** is an open-source document graph database with built-in version control. It combines a [schema-enforced JSON document store](/docs/documents-explanation/) with a [knowledge graph](/docs/graphs-explanation/) engine, [git-like collaboration](/docs/git-for-data-reference/) (branch, diff, merge, clone), and [ACID transactions](/docs/acid-transactions-explanation/) backed by an [immutable storage layer](/docs/immutability-explanation/).
 
-Technical and linked data professionals need a solution for [complex content](/docs/python-woql-customer-data-processing-example/), [taxonomy/knowledge handling](/docs/cookbook-taxonomy-inheritance/) and [collaborative semantic infrastructure](/docs/branch-a-project/). Existing solutions don't have the comprehensive set of features required to handle complex content, taxonomies and ontologies, nor do they provide collaborative semantic infrastructure with easy commit, roll-back and non-destructive branches for both schema and content.
+Three things make it distinctive:
 
-If you are contemplating building a rules engine or configurator in prolog, try TerminusDB!
+1. **Documents + Graph in one** — Write and read JSON documents; under the hood, data is stored as a typed graph of triples. No need to choose between document-store convenience and graph traversal power. See [The Document Model](/docs/documents-explanation/).
 
-Where [logic reasoning on information models](/docs/woql-basics/) for the facts prolog becomes too complex to handle, TerminusDB offers the perfect balance as a [rules-engine for complex document-oriented graphs](/docs/path-queries-in-woql/) with a modelling environment.
+2. **Git-for-data** — Branch, merge, diff, reset, and time-travel through your data history. Push and pull between instances. See [Version Control](/docs/use-the-collaboration-features/).
 
-It is a [graph database with ACID transactions](/docs/acid-transactions-explanation/), with [full immutable history](/docs/immutability-explanation/), a [very advanced type model](/docs/schema-reference-guide/) with inheritance, [schema migration](/docs/schema-migration-reference-guide/), and [XML Datatypes for its data structures](/docs/terminuscms-data-types/), [git-for-data (including push, pull clone and branching)](/docs/git-for-data-reference/), and plays well with others using both [REST (OpenAPI Reference)](/docs/openapi/), the [WOQL datalog query language](/docs/woql-explanation/) for both read and write and a [Rust-based high performance GraphQL Engine](/docs/graphql-query-reference/).
+3. **Datalog query engine (WOQL)** — A declarative query language based on Prolog foundations. Pattern-match across documents and relationships without JOINs, with built-in support for aggregation, path queries, and schema-aware traversal. See [WOQL Explained](/docs/woql-explanation/).
 
-TerminusDB is an open source platform maintained by [DFRNT®](https://dfrnt.com?utm_source=terminusdb&utm_medium=referral&utm_campaign=terminusdb_docs_at_a_glance) in collaboration with the community, sitting at the convergence of content, logic and graphs.
+TerminusDB is maintained by [DFRNT®](https://dfrnt.com?utm_source=terminusdb&utm_medium=referral&utm_campaign=terminusdb_docs_at_a_glance) in collaboration with the open-source community.
 
 ## Overview of the system
 
@@ -49,7 +49,7 @@ TerminusDB is an open source platform maintained by [DFRNT®](https://dfrnt.com?
 
 ### RDF semantics with a Closed World Assumption (rules engine)
 
-* [collaborative semantic infrastructure](/docs/branch-a-project/)
+* [collaborative semantic infrastructure](/docs/branch-howto/)
 * [logic reasoning on information models](/docs/woql-basics/)
 * [rules-engine for complex digital twin graphs](/docs/path-queries-in-woql/)
 
@@ -60,12 +60,12 @@ TerminusDB is an open source platform maintained by [DFRNT®](https://dfrnt.com?
 * [WOQL Abstract Syntax Tree (AST)](/docs/woql-class-reference-guide/)
 * [how to query with WOQL](/docs/how-to-query-with-woql/)
 * [Javascript WOQL Client](/docs/run-woql-query/)
-* [Python WOQL Client](/docs/woql-query-with-python-client/)
+* [Python WOQL Client](/docs/run-woql-query/)
 
 ### Data model and schema management
 
 * [schema migration](/docs/schema-migration-reference-guide/)
-* [XML Datatypes for its data structures](/docs/terminuscms-data-types/)
+* [XML Datatypes for its data structures](/docs/dfrnt-data-types/)
 * [schema reference](/docs/schema-reference-guide/)
 
 ### Git-for-data

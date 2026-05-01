@@ -1,6 +1,6 @@
 ---
 tags:
-  - explanation
+  - reference
   - collaboration
   - typescript
 title: Collaboration Features with the JavaScript Client
@@ -16,9 +16,11 @@ nextjs:
 media: []
 ---
 
+The JavaScript/TypeScript client provides full access to TerminusDB's version-control operations — clone, branch, reset, squash, time travel, and diff/patch. Use these guides to manage collaborative workflows programmatically from Node.js or browser environments.
+
 * [Clone with JS](/docs/clone-a-project/)
-* [Branch with JS](/docs/branch-a-project/)
+* [Branch with JS](/docs/branch-howto/)
 * [Reset with JS](/docs/reset-a-project/)
 * [Squash with JS](/docs/squash-projects/)
-* [Time Travel with JS](/docs/time-travel-to-previous-commits/)
+* [Time Travel with JS](/docs/time-travel-howto/)
 * [Diff & Patch with JS](/docs/diff-and-patch-operations/)

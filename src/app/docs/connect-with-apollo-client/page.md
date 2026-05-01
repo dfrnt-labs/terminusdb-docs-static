@@ -114,7 +114,7 @@ apolloClient
 
 ## Connect with DFRNT TerminusDB cloud
 
-> You will need to [get your API key](/docs/how-to-connect-terminuscms/) to connect with DFRNT TerminusDB cloud
+> You will need to [get your API key](/docs/how-to-connect-dfrnt-hub/) to connect with DFRNT TerminusDB cloud
 
 ```javascript
 const orgName = "myOrganizationName"

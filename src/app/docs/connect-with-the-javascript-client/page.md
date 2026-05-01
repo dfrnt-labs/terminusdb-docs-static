@@ -48,7 +48,7 @@ Create a file called `index.ts`. You will build it up step by step below, or cop
 
 ## Connect to TerminusDB
 
-```typescript test-example id="ts-quickstart-connect"
+```typescript
 import TerminusClient from "terminusdb"
 
 const client = new TerminusClient.WOQLClient("http://localhost:6363", {
@@ -68,7 +68,7 @@ console.log("Connected to TerminusDB", info)
 
 No schema needed — insert any JSON document with `raw_json: true` and give it a human-readable ID:
 
-```typescript test-example id="ts-quickstart-create-db" fixture="docs-test"
+```typescript
 // Create a database (no schema required)
 await client.createDatabase("MyDatabase", {
   label: "My Database",
@@ -91,7 +91,7 @@ console.log("Document created:", result)
 
 Just like `git branch`, this creates an isolated copy of your data:
 
-```typescript test-example id="ts-quickstart-branch"
+```typescript
 // Create a new branch from main
 await client.branch("feature")
 
@@ -107,7 +107,7 @@ Everything you do now happens on `feature` — main is untouched.
 
 ## Edit the document on the branch
 
-```typescript test-example id="ts-quickstart-edit"
+```typescript
 // Get the document we inserted earlier
 const person = await client.getDocument({ id: "terminusdb:///data/jane", as_list: true })
 
@@ -130,7 +130,7 @@ console.log("Document updated on feature branch")
 
 This is the moment. TerminusDB can show you exactly what changed between branches — structurally, field by field:
 
-```typescript test-example id="ts-quickstart-diff"
+```typescript
 // Compare main to feature — what changed?
 const diff = await client.getVersionDiff("main", "feature")
 
@@ -158,7 +158,7 @@ TerminusDB computed a **structural diff** — not a line-by-line text diff, but 
 
 Bring the changes back to `main`:
 
-```typescript test-example id="ts-quickstart-merge"
+```typescript
 // Switch back to main
 client.checkout("main")
 
@@ -177,7 +177,7 @@ console.log("Merged feature into main")
 
 Confirm the changes are now on `main`:
 
-```typescript test-example id="ts-quickstart-verify"
+```typescript
 // Read the document from main
 const updated = await client.getDocument({ id: "terminusdb:///data/jane", as_list: true })
 
