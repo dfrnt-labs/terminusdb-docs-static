@@ -92,7 +92,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {isHomePage && <Hero />}
 
       <div className="relative mx-auto flex w-full max-w-8xl flex-auto justify-center sm:px-2 lg:px-8 xl:px-12">
-        <div className="hidden lg:relative lg:block lg:flex-none">
+        <div className="hidden lg:relative lg:block lg:flex-none lg:min-h-[calc(100vh-4.75rem)]">
           <div className="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden" />
           <div className="absolute top-16 right-0 bottom-0 hidden h-12 w-px bg-linear-to-t from-slate-800 dark:block" />
           <div className="absolute top-28 right-0 bottom-0 hidden w-px bg-slate-800 dark:block" />
