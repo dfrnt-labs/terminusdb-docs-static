@@ -1,4 +1,5 @@
 import { Callout } from '@/components/Callout'
+import { CodeTabs, CodeTab } from '@/components/CodeTabs'
 import { QuickLink, QuickLinks } from '@/components/QuickLinks'
 import { HeroSection } from '@/components/HeroSection'
 import { PersonaCard } from '@/components/PersonaCard'
@@ -249,6 +250,16 @@ const tags = {
       fixture: { type: String, required: true },
     },
     selfClosing: true,
+  },
+  'code-tabs': {
+    render: CodeTabs,
+    attributes: {},
+  },
+  'code-tab': {
+    render: CodeTab,
+    attributes: {
+      label: { type: String, required: true },
+    },
   },
 }
 

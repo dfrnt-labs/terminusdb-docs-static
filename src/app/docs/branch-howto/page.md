@@ -17,25 +17,33 @@ media: []
 lastUpdated: "2026-05-01"
 ---
 
-{% callout title="What you'll achieve" %}
+{% callout type="note" title="What you'll achieve" %}
 By the end of this guide, you will know how to create, switch, diff, merge, and delete branches in TerminusDB using the HTTP API, TypeScript, and Python.
 {% /callout %}
 
 This guide shows you how to work with branches in TerminusDB — create isolated workspaces, make changes, review diffs, and merge back to main. Every operation includes HTTP API, TypeScript, and Python examples.
 
-{% callout type="info" title="Git branch for data" %}
+{% callout type="note" title="Git branch for data" %}
 Branching in TerminusDB works exactly like `git branch` — create a lightweight branch, make changes in isolation, then merge back when ready. Branches share history until they diverge, making them cheap to create.
 {% /callout %}
 
-{% callout title="Prerequisites" %}
-- TerminusDB running on `localhost:6363` (or use `data.terminusdb.org` for read-only examples)
-- A database to work with. Examples use `admin/mydb`. Create one:
+{% callout type="note" title="Prerequisites" %}
+- TerminusDB running on `localhost:6363` — see [installation guide](/docs/install-terminusdb-as-a-docker-container/)
+- A database with a schema. Examples use `admin/mydb` with a `Product` class. Set up:
+{% /callout %}
+
 ```bash
+# Create the database
 curl -u admin:root -X POST http://localhost:6363/api/db/admin/mydb \
   -H "Content-Type: application/json" \
   -d '{"label": "My Database"}'
+
+# Add a Product schema class
+curl -u admin:root -X POST \
+  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&author=setup&message=Add+schema" \
+  -H "Content-Type: application/json" \
+  -d '{"@type": "Class", "@id": "Product", "name": "xsd:string", "price": "xsd:decimal", "category": "xsd:string"}'
 ```
-{% /callout %}
 
 ---
 
@@ -57,8 +65,8 @@ curl -u admin:root -X POST http://localhost:6363/api/branch/admin/mydb/local/bra
 {"@type":"api:BranchResponse","api:status":"api:success"}
 ```
 
-### TypeScript
-
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
 ```typescript
 import TerminusClient from "@terminusdb/terminusdb-client";
 
@@ -72,9 +80,8 @@ const client = new TerminusClient.WOQLClient("http://localhost:6363", {
 await client.branch("feature");
 // Branch "feature" created from current head of main
 ```
-
-### Python
-
+{% /code-tab %}
+{% code-tab label="Python" %}
 ```python
 from terminusdb_client import Client
 
@@ -84,50 +91,46 @@ client.connect(user="admin", key="root", db="mydb")
 client.branch("feature")
 # Branch "feature" created from current head of main
 ```
+{% /code-tab %}
+{% /code-tabs %}
 
 ---
 
 ## 2. List all branches
 
-See all branches in your database with their current head commit.
+See all branches in your database.
 
 ### HTTP API
 
 ```bash
-curl -u admin:root http://localhost:6363/api/document/admin/mydb/_meta?type=Branch&as_list=true
+curl -u admin:root "http://localhost:6363/api/db/admin/mydb?branches=true"
 ```
 
 **Expected response:**
 
 ```json
-[
-  {"@id": "Branch/main", "@type": "Branch", "name": "main", "head": "system:data/admin/mydb/local/branch/main/commit/abc123"},
-  {"@id": "Branch/feature", "@type": "Branch", "name": "feature", "head": "system:data/admin/mydb/local/branch/feature/commit/abc123"}
-]
+{"path": "admin/mydb", "branches": ["feature", "main"]}
 ```
 
-### TypeScript
-
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
 ```typescript
-// List branches via document API
-const branches = await client.getDocument({
-  graph_type: "instance",
-  type: "Branch",
-  as_list: true,
-  data_version: "_meta"
-});
-console.log(branches);
-// [{name: "main", head: "..."}, {name: "feature", head: "..."}]
+// List branches by fetching db info
+const info = await client.getDatabase("mydb");
+console.log(info.branches);
+// ["feature", "main"]
 ```
-
-### Python
-
+{% /code-tab %}
+{% code-tab label="Python" %}
 ```python
 # The Python client provides a branches property
 branches = client.get_all_branches()
 for branch in branches:
-    print(f"{branch['name']} -> {branch.get('head', 'empty')}")
+    print(branch)
+# {"name": "main", ...}, {"name": "feature", ...}
 ```
+{% /code-tab %}
+{% /code-tabs %}
 
 ---
 
@@ -148,8 +151,8 @@ curl -u admin:root "http://localhost:6363/api/document/admin/mydb/local/branch/m
 curl -u admin:root "http://localhost:6363/api/document/admin/mydb/local/branch/feature?type=Product&as_list=true"
 ```
 
-### TypeScript
-
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
 ```typescript
 // Switch branch context for all subsequent operations
 client.checkout("feature");
@@ -157,9 +160,8 @@ client.checkout("feature");
 // All operations now target the feature branch
 const docs = await client.getDocument({ type: "Product", as_list: true });
 ```
-
-### Python
-
+{% /code-tab %}
+{% code-tab label="Python" %}
 ```python
 # Switch branch context
 client.checkout("feature")
@@ -167,6 +169,8 @@ client.checkout("feature")
 # All operations now target the feature branch
 docs = client.get_all_documents()
 ```
+{% /code-tab %}
+{% /code-tabs %}
 
 ---
 
@@ -181,7 +185,7 @@ Insert or update documents on your branch. Changes are isolated — main is unaf
 curl -u admin:root -X POST \
   "http://localhost:6363/api/document/admin/mydb/local/branch/feature?author=alice&message=Add+Widget+product" \
   -H "Content-Type: application/json" \
-  -d '{"@type": "Product", "name": "Widget", "price": 9.99, "category": "tools"}'
+  -d '{"@id": "Product/Widget", "@type": "Product", "name": "Widget", "price": 9.99, "category": "tools"}'
 ```
 
 **Expected response:**
@@ -204,8 +208,8 @@ curl -u admin:root -X PUT \
 ["terminusdb:///data/Product/Widget"]
 ```
 
-### TypeScript
-
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
 ```typescript
 client.checkout("feature");
 
@@ -221,9 +225,8 @@ await client.updateDocument(
   { author: "alice", message: "Update Widget price" }
 );
 ```
-
-### Python
-
+{% /code-tab %}
+{% code-tab label="Python" %}
 ```python
 client.checkout("feature")
 
@@ -239,6 +242,8 @@ client.update_document(
     commit_msg="Update Widget price"
 )
 ```
+{% /code-tab %}
+{% /code-tabs %}
 
 ---
 
@@ -259,19 +264,25 @@ curl -u admin:root -X POST http://localhost:6363/api/diff/admin/mydb \
 ```json
 [
   {
-    "@id": "terminusdb:///data/Product/Widget",
-    "price": {"@op": "SwapValue", "@before": 9.99, "@after": 14.99}
+    "@insert": {
+      "@id": "Product/Widget",
+      "@type": "Product",
+      "name": "Widget",
+      "price": 14.99,
+      "category": "tools"
+    },
+    "@op": "Insert"
   }
 ]
 ```
 
 The diff shows typed operations:
-- **SwapValue** — a field value changed
-- **Insert** — a new document or field was added
-- **Delete** — a document or field was removed
+- **Insert** — a new document was added on the branch
+- **Delete** — a document was removed on the branch
+- **SwapValue** — a field value changed (when the document already existed on both branches)
 
-### TypeScript
-
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
 ```typescript
 const diff = await client.getVersionDiff(
   "admin/mydb/local/branch/main",
@@ -280,15 +291,16 @@ const diff = await client.getVersionDiff(
 console.log(JSON.stringify(diff, null, 2));
 // Shows field-level changes between branches
 ```
-
-### Python
-
+{% /code-tab %}
+{% code-tab label="Python" %}
 ```python
 diff = client.diff_version("main", "feature")
 for change in diff:
     print(change)
 # {"@id": "Product/Widget", "price": {"@op": "SwapValue", "@before": 9.99, "@after": 14.99}}
 ```
+{% /code-tab %}
+{% /code-tabs %}
 
 ---
 
@@ -302,8 +314,8 @@ Apply all changes from your branch onto main. If both branches modified the same
 curl -u admin:root -X POST http://localhost:6363/api/apply/admin/mydb/local/branch/main \
   -H "Content-Type: application/json" \
   -d '{
-    "before_commit": "admin/mydb/local/branch/main",
-    "after_commit": "admin/mydb/local/branch/feature",
+    "before_commit": "branch:main",
+    "after_commit": "branch:feature",
     "commit_info": {
       "author": "alice@example.com",
       "message": "Merge feature branch: add Widget product"
@@ -331,19 +343,18 @@ curl -u admin:root -X POST http://localhost:6363/api/apply/admin/mydb/local/bran
 
 Conflicts must be resolved manually — TerminusDB never silently picks a winner.
 
-### TypeScript
-
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
 ```typescript
 await client.apply(
-  "admin/mydb/local/branch/main",   // target
-  "admin/mydb/local/branch/main",   // before (common ancestor)
-  "admin/mydb/local/branch/feature", // after (source of changes)
+  "admin/mydb/local/branch/main",    // target
+  "branch:main",                     // before (common ancestor)
+  "branch:feature",                  // after (source of changes)
   { author: "alice@example.com", message: "Merge feature branch" }
 );
 ```
-
-### Python
-
+{% /code-tab %}
+{% code-tab label="Python" %}
 ```python
 client.checkout("main")
 client.apply(
@@ -353,6 +364,8 @@ client.apply(
     author="alice@example.com"
 )
 ```
+{% /code-tab %}
+{% /code-tabs %}
 
 ---
 
@@ -372,17 +385,18 @@ curl -u admin:root -X DELETE http://localhost:6363/api/branch/admin/mydb/local/b
 {"@type":"api:BranchResponse","api:status":"api:success"}
 ```
 
-### TypeScript
-
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
 ```typescript
 await client.deleteBranch("feature");
 ```
-
-### Python
-
+{% /code-tab %}
+{% code-tab label="Python" %}
 ```python
 client.delete_branch("feature")
 ```
+{% /code-tab %}
+{% /code-tabs %}
 
 ---
 
@@ -400,7 +414,7 @@ curl -u admin:root -X POST http://localhost:6363/api/branch/admin/mydb/local/bra
 curl -u admin:root -X POST \
   "http://localhost:6363/api/document/admin/mydb/local/branch/price-update?author=alice&message=Add+new+product" \
   -H "Content-Type: application/json" \
-  -d '{"@type": "Product", "name": "Gadget", "price": 24.99}'
+  -d '{"@id": "Product/Gadget", "@type": "Product", "name": "Gadget", "price": 24.99, "category": "electronics"}'
 
 # 3. Review what changed (diff against main)
 curl -u admin:root -X POST http://localhost:6363/api/diff/admin/mydb \
@@ -410,7 +424,7 @@ curl -u admin:root -X POST http://localhost:6363/api/diff/admin/mydb \
 # 4. Merge into main
 curl -u admin:root -X POST http://localhost:6363/api/apply/admin/mydb/local/branch/main \
   -H "Content-Type: application/json" \
-  -d '{"before_commit": "admin/mydb/local/branch/main", "after_commit": "admin/mydb/local/branch/price-update", "commit_info": {"author": "alice", "message": "Merge price-update into main"}}'
+  -d '{"before_commit": "branch:main", "after_commit": "branch:price-update", "commit_info": {"author": "alice", "message": "Merge price-update into main"}}'
 
 # 5. Clean up the branch
 curl -u admin:root -X DELETE http://localhost:6363/api/branch/admin/mydb/local/branch/price-update

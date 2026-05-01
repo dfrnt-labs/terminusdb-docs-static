@@ -294,7 +294,7 @@ export function Fence({
 
   return (
     <div className="relative" aria-busy={isRunning}>
-      <div className={`group relative rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden transition-opacity duration-200 ${isRunning ? "opacity-70" : "opacity-100"}`}>
+      <div className={`group relative rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto transition-opacity duration-200 ${isRunning ? "opacity-70" : "opacity-100"}`}>
         {/* Header with label/tabs, run button, and copy button */}
         <div className="flex items-center justify-between px-3 py-1.5 bg-slate-100 dark:bg-slate-800">
           {hasTabs ? (
@@ -357,7 +357,7 @@ export function Fence({
               theme={themes.vsDark}
             >
               {({ className, style, tokens, getTokenProps }) => (
-                <pre className={`${className} !m-0 !rounded-none !bg-slate-900 max-h-[calc(100vh-10rem)] overflow-y-auto`} style={style}>
+                <pre className={`${className} !m-0 !rounded-none !bg-slate-900 max-h-[calc(100vh-10rem)] overflow-x-auto overflow-y-auto`} style={style}>
                   <code>
                     {tokens.map((line, lineIndex) => (
                       <Fragment key={lineIndex}>

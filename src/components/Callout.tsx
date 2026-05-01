@@ -36,15 +36,15 @@ export function Callout({
   let IconComponent = icons[type]
 
   return (
-    <div className={clsx('my-8 flex items-start rounded-3xl p-6', styles[type].container)}>
+    <div className={clsx('my-8 flex items-start rounded-3xl p-6 overflow-hidden', styles[type].container)}>
       <IconComponent className="mt-6 h-8 w-8 flex-none" />
-      <div className="ml-4 flex-auto">
+      <div className="ml-4 min-w-0 flex-auto">
         <p
           className={clsx('not-prose font-display text-xl', styles[type].title)}
         >
           {title}
         </p>
-        <div className={clsx('prose mt-2.5', styles[type].body)}>
+        <div className={clsx('prose mt-2.5 max-w-none', styles[type].body)}>
           {children}
         </div>
       </div>
