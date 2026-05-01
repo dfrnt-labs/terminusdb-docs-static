@@ -1,0 +1,235 @@
+[
+  {
+    "@type": "Class",
+    "@id": "Person",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "name"
+      ]
+    },
+    "name": "xsd:string",
+    "height": {
+      "@type": "Optional",
+      "@class": "xsd:decimal"
+    },
+    "mass": {
+      "@type": "Optional",
+      "@class": "xsd:decimal"
+    },
+    "hair_color": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "eye_color": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "birth_year": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "gender": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "homeworld": {
+      "@type": "Optional",
+      "@class": "Planet"
+    },
+    "species": {
+      "@type": "Set",
+      "@class": "Species"
+    },
+    "films": {
+      "@type": "Set",
+      "@class": "Film"
+    },
+    "side": "xsd:string",
+    "faction": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "quote": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "died_in_film": {
+      "@type": "Optional",
+      "@class": "Film"
+    },
+    "starships": {
+      "@type": "Set",
+      "@class": "Starship"
+    }
+  },
+  {
+    "@type": "Class",
+    "@id": "Planet",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "name"
+      ]
+    },
+    "name": "xsd:string",
+    "rotation_period": {
+      "@type": "Optional",
+      "@class": "xsd:decimal"
+    },
+    "orbital_period": {
+      "@type": "Optional",
+      "@class": "xsd:decimal"
+    },
+    "diameter": {
+      "@type": "Optional",
+      "@class": "xsd:decimal"
+    },
+    "climate": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "gravity": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "terrain": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "population": {
+      "@type": "Optional",
+      "@class": "xsd:decimal"
+    }
+  },
+  {
+    "@type": "Class",
+    "@id": "Film",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "title"
+      ]
+    },
+    "title": "xsd:string",
+    "episode_id": "xsd:integer",
+    "opening_crawl": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "director": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "producer": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "release_date": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "characters": {
+      "@type": "Set",
+      "@class": "Person"
+    },
+    "planets": {
+      "@type": "Set",
+      "@class": "Planet"
+    },
+    "species": {
+      "@type": "Set",
+      "@class": "Species"
+    }
+  },
+  {
+    "@type": "Class",
+    "@id": "Species",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "name"
+      ]
+    },
+    "name": "xsd:string",
+    "classification": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "designation": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "average_height": {
+      "@type": "Optional",
+      "@class": "xsd:decimal"
+    },
+    "skin_colors": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "hair_colors": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "eye_colors": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "average_lifespan": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "homeworld": {
+      "@type": "Optional",
+      "@class": "Planet"
+    },
+    "language": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    }
+  },
+  {
+    "@type": "Class",
+    "@id": "Starship",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": [
+        "name"
+      ]
+    },
+    "name": "xsd:string",
+    "model": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "manufacturer": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "starship_class": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "length": {
+      "@type": "Optional",
+      "@class": "xsd:decimal"
+    },
+    "crew": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "passengers": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "hyperdrive_rating": {
+      "@type": "Optional",
+      "@class": "xsd:string"
+    },
+    "pilots": {
+      "@type": "Set",
+      "@class": "Person"
+    }
+  }
+]

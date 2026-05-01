@@ -31,6 +31,26 @@ if [ -f "$TEMPLATE_DIR/star-wars/data.json" ] && [ -s "$TEMPLATE_DIR/star-wars/d
       < "$TEMPLATE_DIR/star-wars/data.json"
 fi
 
+# --- Star Wars 'enriched' branch ---
+# Creates a feature branch with additional schema (Starship class) and data.
+# Used in the "pull from a feature branch" tutorial exercise to demonstrate
+# distributed collaboration — users clone star-wars, then pull from 'enriched'
+# to get starship data linked to existing characters.
+echo "Creating 'enriched' branch on public/star-wars..."
+$TDB branch create public/star-wars/local/branch/enriched
+
+if [ -f "$TEMPLATE_DIR/star-wars/enriched/schema.json" ] && [ -s "$TEMPLATE_DIR/star-wars/enriched/schema.json" ]; then
+    echo "Replacing schema on enriched branch (adds Starship class + Person.starships field)..."
+    $TDB doc replace public/star-wars/local/branch/enriched --graph_type=schema --full_replace \
+      < "$TEMPLATE_DIR/star-wars/enriched/schema.json"
+fi
+
+if [ -f "$TEMPLATE_DIR/star-wars/enriched/data.json" ] && [ -s "$TEMPLATE_DIR/star-wars/enriched/data.json" ]; then
+    echo "Loading enriched data (starships + updated Person documents with starship links)..."
+    $TDB doc replace public/star-wars/local/branch/enriched \
+      < "$TEMPLATE_DIR/star-wars/enriched/data.json"
+fi
+
 # --- E-Commerce database ---
 echo "Creating public/ecommerce database..."
 $TDB db create public/ecommerce \
@@ -137,7 +157,7 @@ $TDB capability grant anonymous public cloner --scope-type organization
 
 echo "---"
 echo "Template databases bootstrapped successfully."
-echo "  - public/star-wars (public, anonymous clone enabled)"
+echo "  - public/star-wars (main + enriched branch, anonymous clone enabled)"
 echo "  - public/ecommerce (public, anonymous clone enabled)"
 echo "  - public/nuclear (public, anonymous clone enabled)"
 echo "  - public/lego (public, anonymous clone enabled)"
@@ -149,3 +169,6 @@ echo "  terminusdb clone https://data.terminusdb.org/public/ecommerce --token=an
 echo "  terminusdb clone https://data.terminusdb.org/public/nuclear --token=anonymous"
 echo "  terminusdb clone https://data.terminusdb.org/public/lego --token=anonymous"
 echo "  terminusdb clone https://data.terminusdb.org/public/sandbox --token=anonymous"
+echo ""
+echo "Pull enriched branch (after cloning star-wars):"
+echo "  terminusdb pull admin/star-wars -r origin --remote-branch enriched"

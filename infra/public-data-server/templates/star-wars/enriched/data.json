@@ -1,0 +1,467 @@
+[
+  {
+    "@id": "terminusdb:///data/Starship/Millennium%20Falcon",
+    "@type": "Starship",
+    "name": "Millennium Falcon",
+    "model": "YT-1300 light freighter",
+    "manufacturer": "Corellian Engineering Corporation",
+    "starship_class": "Light freighter",
+    "length": 34.37,
+    "crew": "4",
+    "passengers": "6",
+    "hyperdrive_rating": "0.5",
+    "pilots": [
+      {
+        "@id": "terminusdb:///data/Person/Han%20Solo",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Chewbacca",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Starship/X-wing",
+    "@type": "Starship",
+    "name": "X-wing",
+    "model": "T-65 X-wing",
+    "manufacturer": "Incom Corporation",
+    "starship_class": "Starfighter",
+    "length": 12.5,
+    "crew": "1",
+    "passengers": "0",
+    "hyperdrive_rating": "1.0",
+    "pilots": [
+      {
+        "@id": "terminusdb:///data/Person/Luke%20Skywalker",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Wedge%20Antilles",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Starship/TIE%20Advanced%20x1",
+    "@type": "Starship",
+    "name": "TIE Advanced x1",
+    "model": "Twin Ion Engine Advanced x1",
+    "manufacturer": "Sienar Fleet Systems",
+    "starship_class": "Starfighter",
+    "length": 9.2,
+    "crew": "1",
+    "passengers": "0",
+    "hyperdrive_rating": "1.0",
+    "pilots": [
+      {
+        "@id": "terminusdb:///data/Person/Darth%20Vader",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Starship/Jedi%20starfighter",
+    "@type": "Starship",
+    "name": "Jedi starfighter",
+    "model": "Delta-7 Aethersprite-class interceptor",
+    "manufacturer": "Kuat Systems Engineering",
+    "starship_class": "Starfighter",
+    "length": 8,
+    "crew": "1",
+    "passengers": "0",
+    "hyperdrive_rating": "1.0",
+    "pilots": [
+      {
+        "@id": "terminusdb:///data/Person/Obi-Wan%20Kenobi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Anakin%20Skywalker",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Starship/Imperial%20shuttle",
+    "@type": "Starship",
+    "name": "Imperial shuttle",
+    "model": "Lambda-class T-4a shuttle",
+    "manufacturer": "Sienar Fleet Systems",
+    "starship_class": "Armed government transport",
+    "length": 20,
+    "crew": "6",
+    "passengers": "20",
+    "hyperdrive_rating": "1.0",
+    "pilots": [
+      {
+        "@id": "terminusdb:///data/Person/Luke%20Skywalker",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Han%20Solo",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Person/Chewbacca",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Luke%20Skywalker",
+    "@type": "Person",
+    "name": "Luke Skywalker",
+    "height": 172,
+    "mass": 77,
+    "hair_color": "blond",
+    "eye_color": "blue",
+    "birth_year": "19BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Rebel Alliance",
+    "quote": "I am a Jedi, like my father before me.",
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Tatooine",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Force%20Awakens",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ],
+    "starships": [
+      {
+        "@id": "terminusdb:///data/Starship/X-wing",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Starship/Imperial%20shuttle",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Darth%20Vader",
+    "@type": "Person",
+    "name": "Darth Vader",
+    "height": 202,
+    "mass": 136,
+    "hair_color": "none",
+    "eye_color": "yellow",
+    "birth_year": "41.9BBY",
+    "gender": "male",
+    "side": "Dark Side",
+    "faction": "Galactic Empire",
+    "quote": "I find your lack of faith disturbing.",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+      "@type": "@id"
+    },
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Tatooine",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ],
+    "starships": [
+      {
+        "@id": "terminusdb:///data/Starship/TIE%20Advanced%20x1",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Han%20Solo",
+    "@type": "Person",
+    "name": "Han Solo",
+    "height": 180,
+    "mass": 80,
+    "hair_color": "brown",
+    "eye_color": "brown",
+    "birth_year": "29BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Rebel Alliance",
+    "quote": "Never tell me the odds!",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/The%20Force%20Awakens",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Force%20Awakens",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ],
+    "starships": [
+      {
+        "@id": "terminusdb:///data/Starship/Millennium%20Falcon",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Starship/Imperial%20shuttle",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Obi-Wan%20Kenobi",
+    "@type": "Person",
+    "name": "Obi-Wan Kenobi",
+    "height": 182,
+    "mass": 77,
+    "hair_color": "auburn, white",
+    "eye_color": "blue-gray",
+    "birth_year": "57BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Jedi Order",
+    "quote": "Use the Force, Luke.",
+    "died_in_film": {
+      "@id": "terminusdb:///data/Film/A%20New%20Hope",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Phantom%20Menace",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Attack%20of%20the%20Clones",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ],
+    "starships": [
+      {
+        "@id": "terminusdb:///data/Starship/Jedi%20starfighter",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Chewbacca",
+    "@type": "Person",
+    "name": "Chewbacca",
+    "height": 228,
+    "mass": 112,
+    "hair_color": "brown",
+    "eye_color": "blue",
+    "birth_year": "200BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Rebel Alliance",
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Kashyyyk",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Force%20Awakens",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Wookiee",
+        "@type": "@id"
+      }
+    ],
+    "starships": [
+      {
+        "@id": "terminusdb:///data/Starship/Millennium%20Falcon",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Starship/Imperial%20shuttle",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Wedge%20Antilles",
+    "@type": "Person",
+    "name": "Wedge Antilles",
+    "height": 170,
+    "mass": 77,
+    "hair_color": "brown",
+    "eye_color": "hazel",
+    "birth_year": "21BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Rebel Alliance",
+    "quote": "Look at the size of that thing!",
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/A%20New%20Hope",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/The%20Empire%20Strikes%20Back",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Return%20of%20the%20Jedi",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ],
+    "starships": [
+      {
+        "@id": "terminusdb:///data/Starship/X-wing",
+        "@type": "@id"
+      }
+    ]
+  },
+  {
+    "@id": "terminusdb:///data/Person/Anakin%20Skywalker",
+    "@type": "Person",
+    "name": "Anakin Skywalker",
+    "height": 188,
+    "mass": 84,
+    "hair_color": "blond",
+    "eye_color": "blue",
+    "birth_year": "41.9BBY",
+    "gender": "male",
+    "side": "Light Side",
+    "faction": "Jedi Order",
+    "quote": "This is where the fun begins.",
+    "homeworld": {
+      "@id": "terminusdb:///data/Planet/Tatooine",
+      "@type": "@id"
+    },
+    "films": [
+      {
+        "@id": "terminusdb:///data/Film/The%20Phantom%20Menace",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Attack%20of%20the%20Clones",
+        "@type": "@id"
+      },
+      {
+        "@id": "terminusdb:///data/Film/Revenge%20of%20the%20Sith",
+        "@type": "@id"
+      }
+    ],
+    "species": [
+      {
+        "@id": "terminusdb:///data/Species/Human",
+        "@type": "@id"
+      }
+    ],
+    "starships": [
+      {
+        "@id": "terminusdb:///data/Starship/Jedi%20starfighter",
+        "@type": "@id"
+      }
+    ]
+  }
+]
