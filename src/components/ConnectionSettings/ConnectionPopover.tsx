@@ -72,7 +72,7 @@ export function ConnectionPopover({ isOpen, onClose }: ConnectionPopoverProps) {
         </span>
         <button
           onClick={handleDone}
-          className="text-xs font-medium text-sky-600 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-200 transition-colors"
+          className="rounded text-xs font-medium text-sky-600 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-200 transition-colors focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
         >
           Done
         </button>
@@ -120,7 +120,7 @@ export function ConnectionPopover({ isOpen, onClose }: ConnectionPopoverProps) {
         </div>
         <button
           onClick={handleReset}
-          className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
+          className="rounded text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
         >
           Reset to defaults
         </button>

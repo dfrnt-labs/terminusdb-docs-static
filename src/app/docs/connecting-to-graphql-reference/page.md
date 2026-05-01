@@ -21,6 +21,10 @@ media:
     value: https://assets.terminusdb.com/docs/how-to-query-graphql.png
 ---
 
+This page explains how to connect to TerminusDB's GraphQL endpoint — the URL structure, authentication headers, and how to use interactive tools like GraphiQL. Once connected, you can query and mutate documents using standard GraphQL syntax.
+
+## Endpoint URL
+
 TerminusDB hosts a GraphQL endpoint at:
 
 ```url
@@ -88,3 +92,10 @@ For instance, in the default install, as:
   "Authorization": "Basic YWRtaW46cm9vdA=="
 }
 ```
+
+## Further reading
+
+- [**GraphQL Basics**](/docs/graphql-basics/) — write your first queries with worked examples
+- [**GraphQL Mutations**](/docs/graphql-mutations/) — insert, replace, and delete documents via GraphQL
+- [**Connect with Apollo Client**](/docs/connect-with-apollo-client/) — integrate GraphQL into a JavaScript application
+- [**GraphQL Query Reference**](/docs/graphql-query-reference/) — full reference for types, arguments, and fields

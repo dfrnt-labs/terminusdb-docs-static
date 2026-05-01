@@ -101,7 +101,7 @@ The jwt api token to use
 
 ### accessControl.setApiToken(atokenpi)
 
-Sets the API token for the object. Create a DFRNT TerminusDB cloud account to [get your API token](/docs/how-to-connect-terminuscms/).
+Sets the API token for the object. Create a DFRNT TerminusDB cloud account to [get your API token](/docs/how-to-connect-dfrnt-hub/).
 
 Param
 

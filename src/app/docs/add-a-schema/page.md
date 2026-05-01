@@ -1,53 +1,115 @@
 ---
-title: Add a Schema using the JavaScript Client
+title: Add a Schema
 nextjs:
   metadata:
-    title: Add a Schema using the JavaScript Client
-    description: A guide to show how to add a schema to TerminusDB using the TerminusDB JavaScript Client.
-    keywords: terminusdb, add, add a schema using the javascript client, create, data model, document type, insert, javascript
-    alternates:
-      canonical: https://terminusdb.org/docs/add-a-schema
+    title: Add a Schema — TerminusDB
+    description: Define and add a schema to your TerminusDB database using the HTTP API, TypeScript client, or Python client.
+    keywords: terminusdb, schema, add schema, class, document type, data model, javascript client, python client, http api
     openGraph:
-      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-add-a-schema.png?raw=true
+      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+    alternates:
+      canonical: https://terminusdb.org/docs/add-a-schema/
+media: []
 tags:
   - typescript
+  - python
   - schema
   - how-to
+  - beginner
 ---
 
-{% callout type="note" %}
-**Prerequisites**
-- TerminusDB running locally or a DFRNT Hub account
-- The TerminusDB JavaScript client installed ([installation guide](/docs/install-terminusdb-js-client/))
-- A connected client with a database created
+{% callout type="note" title="Prerequisites" %}
+- TerminusDB running on `localhost:6363` — see [installation guide](/docs/install-terminusdb-as-a-docker-container/)
+- A database created: [Create a Database guide](/docs/create-a-database/)
+- A connected client: [TypeScript](/docs/connect-with-the-javascript-client/) or [Python](/docs/connect-with-python-client/)
 {% /callout %}
 
-{% callout type="note" %}
-**What you'll achieve**
-By the end of this guide, you will have defined a schema in your TerminusDB database using the JavaScript client.
+{% callout type="note" title="What you'll achieve" %}
+By the end of this guide, you will have defined a schema (document types) in your TerminusDB database using the HTTP API, TypeScript, or Python.
 {% /callout %}
 
-After you have imported the terminusdb\_client, [created a client](/docs/connect-with-the-javascript-client/), and [connected to a database](/docs/connect-to-a-database/) you can create a schema.
+## Define a schema
 
-## Create a schema
+A schema in TerminusDB defines your document types — their fields, data types, keys, and relationships. Schema documents are JSON objects with `@type: "Class"`.
 
-You can create a JSON schema, in this example, we'll create a schema with one object called Player with two properties name and position with the name forming the lexical key:
+### HTTP API
 
-```javascript
-const schema = { "@type" : "Class",
-                 "@id"   : "Player",
-                 "@key"  : { "@type": "Lexical", "@fields": ["name"] },
-                 name    : "xsd:string",
-                 position: "xsd:string" };
+```bash
+curl -u admin:root -X POST \
+  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&author=admin&message=Add+schema" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {"@type": "Class", "@id": "Country", "@key": {"@type": "Lexical", "@fields": ["name"]}, "name": "xsd:string"},
+    {"@type": "Class", "@id": "Person", "@key": {"@type": "Lexical", "@fields": ["name"]}, "name": "xsd:string", "nationality": "Country"}
+  ]'
 ```
 
-## Add the schema
+**Expected response:**
 
-Add the schema object with:
-
-```javascript
-const addSchema = async () => {
-  const result = await client.addDocument(schema,  { graph_type: "schema" });
-  console.log("the schema has been created", result)
-}
+```json
+["terminusdb:///schema#Country", "terminusdb:///schema#Person"]
 ```
+
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
+```typescript
+const schema = [
+  {
+    "@type": "Class",
+    "@id": "Country",
+    "@key": { "@type": "Lexical", "@fields": ["name"] },
+    "name": "xsd:string",
+  },
+  {
+    "@type": "Class",
+    "@id": "Person",
+    "@key": { "@type": "Lexical", "@fields": ["name"] },
+    "name": "xsd:string",
+    "nationality": "Country",
+  },
+];
+
+const result = await client.addDocument(schema, { graph_type: "schema" });
+console.log("Schema created:", result);
+// ["terminusdb:///schema#Country", "terminusdb:///schema#Person"]
+```
+{% /code-tab %}
+{% code-tab label="Python" %}
+```python
+schema = [
+    {"@type": "Class", "@id": "Country", "@key": {"@type": "Lexical", "@fields": ["name"]}, "name": "xsd:string"},
+    {"@type": "Class", "@id": "Person", "@key": {"@type": "Lexical", "@fields": ["name"]}, "name": "xsd:string", "nationality": "Country"},
+]
+
+results = client.insert_document(schema, graph_type="schema")
+print("Schema created:", results)
+# ["terminusdb:///schema#Country", "terminusdb:///schema#Person"]
+```
+{% /code-tab %}
+{% /code-tabs %}
+
+---
+
+## Schema concepts
+
+| Concept | Description | Example |
+|---------|-------------|---------|
+| `@type: "Class"` | Declares a document type | `{"@type": "Class", "@id": "Person"}` |
+| `@key` | Determines how document IDs are generated | `{"@type": "Lexical", "@fields": ["name"]}` |
+| Field types | Properties use XSD types or references to other classes | `"name": "xsd:string"`, `"nationality": "Country"` |
+| `@subdocument` | Embedded objects without independent identity | `"@subdocument": []` |
+
+### Key strategies
+
+- **Lexical** — deterministic IDs from field values (e.g., `Person/Alice`)
+- **Hash** — content-addressed IDs from a hash of specified fields
+- **ValueHash** — IDs derived from all field values (immutable documents)
+- **Random** — auto-generated unique IDs (default)
+
+---
+
+## Next steps
+
+- [Add Documents](/docs/add-a-document/) — insert data conforming to your schema
+- [Schema Reference](/docs/schema-reference-guide/) — complete schema specification
+- [Edit Documents](/docs/edit-a-document/) — update existing documents

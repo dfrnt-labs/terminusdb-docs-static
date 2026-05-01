@@ -137,7 +137,7 @@ Clone creates a full copy of a database (schema, all branches, all layers) from 
 ```bash
 curl -u admin:root -X POST http://localhost:6363/api/clone/admin/mydb \
   -H "Content-Type: application/json" \
-  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
   -d '{
     "comment": "Clone of remote mydb",
     "label": "My Database",
@@ -151,7 +151,7 @@ curl -u admin:root -X POST http://localhost:6363/api/clone/admin/mydb \
 {"@type": "api:CloneResponse", "api:status": "api:success"}
 ```
 
-The `Authorization` header provides credentials for the **remote** instance. The `-u admin:root` authenticates against the **local** instance.
+The `Authorization-Remote` header provides credentials for the **remote** instance. The `-u admin:root` authenticates against the **local** instance.
 
 {% code-tabs %}
 {% code-tab label="TypeScript" %}
@@ -182,7 +182,7 @@ Fetch retrieves layer information from a remote and updates local references —
 
 ```bash
 curl -u admin:root -X POST http://localhost:6363/api/fetch/admin/mydb/origin/_commits \
-  -H "Authorization: Basic YWRtaW46cm9vdA=="
+  -H "Authorization-Remote: Basic YWRtaW46cm9vdA=="
 ```
 
 **Expected response:**
@@ -193,7 +193,7 @@ curl -u admin:root -X POST http://localhost:6363/api/fetch/admin/mydb/origin/_co
 
 The path format is: `/api/fetch/{organization}/{db}/{remote_name}/_commits`
 
-The `Authorization` header authenticates against the remote instance. The `-u` flag authenticates against the local instance.
+The `Authorization-Remote` header authenticates against the remote instance. The `-u` flag authenticates against the local instance.
 
 {% code-tabs %}
 {% code-tab label="TypeScript" %}
@@ -221,7 +221,7 @@ Pull fetches remote changes **and** applies them to a local branch. Missing laye
 ```bash
 curl -u admin:root -X POST http://localhost:6363/api/pull/admin/mydb \
   -H "Content-Type: application/json" \
-  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
   -d '{"remote": "origin", "remote_branch": "main"}'
 ```
 
@@ -270,7 +270,7 @@ Push sends local branch changes to a remote branch. Missing layers from the loca
 ```bash
 curl -u admin:root -X POST http://localhost:6363/api/push/admin/mydb \
   -H "Content-Type: application/json" \
-  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
   -d '{"remote": "origin", "remote_branch": "main"}'
 ```
 
@@ -317,7 +317,7 @@ To also push prefix/context mappings along with data:
 ```bash
 curl -u admin:root -X POST http://localhost:6363/api/push/admin/mydb \
   -H "Content-Type: application/json" \
-  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
   -d '{"remote": "origin", "remote_branch": "main", "push_prefixes": true}'
 ```
 
@@ -380,7 +380,7 @@ This workflow demonstrates a full collaboration cycle — clone a database, make
 # 1. Clone the remote database
 curl -u admin:root -X POST http://localhost:6363/api/clone/admin/mydb \
   -H "Content-Type: application/json" \
-  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
   -d '{"comment": "Working copy", "label": "My Database", "remote_url": "http://remote:6363/admin/mydb"}'
 
 # 2. Add a document locally
@@ -392,7 +392,7 @@ curl -u admin:root -X POST \
 # 3. Push changes to remote
 curl -u admin:root -X POST http://localhost:6363/api/push/admin/mydb \
   -H "Content-Type: application/json" \
-  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
   -d '{"remote": "origin", "remote_branch": "main"}'
 ```
 
@@ -401,12 +401,12 @@ curl -u admin:root -X POST http://localhost:6363/api/push/admin/mydb \
 ```bash
 # 1. Fetch to see if remote has changed
 curl -u admin:root -X POST http://localhost:6363/api/fetch/admin/mydb/origin/_commits \
-  -H "Authorization: Basic YWRtaW46cm9vdA=="
+  -H "Authorization-Remote: Basic YWRtaW46cm9vdA=="
 
 # 2. Pull changes into local main
 curl -u admin:root -X POST http://localhost:6363/api/pull/admin/mydb \
   -H "Content-Type: application/json" \
-  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
   -d '{"remote": "origin", "remote_branch": "main"}'
 
 # 3. Verify the new data is present

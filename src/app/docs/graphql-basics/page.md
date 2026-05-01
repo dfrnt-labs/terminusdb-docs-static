@@ -1,7 +1,7 @@
 ---
 tags:
   - graphql
-  - tutorial
+  - how-to
   - beginner
 title: Learn the GraphQL Basics for TerminusDB
 nextjs:
@@ -15,6 +15,8 @@ nextjs:
       canonical: https://terminusdb.org/docs/graphql-basics/
 media: []
 ---
+
+This guide teaches you the basics of querying TerminusDB with GraphQL. You will learn how to write queries, select fields, and traverse document relationships — all using a Star Wars dataset as a worked example.
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >
@@ -169,16 +171,11 @@ And now we get two more:
 }
 ```
 
-## Related Pages
+## Next steps
 
-Continue exploring TerminusDB with these related topics:
-
-- **[Get Started](/docs/get-started/)** - Complete quickstart tutorial for TerminusDB
-- **[Document Insertion](/docs/document-insertion/)** - Learn how to insert documents using the REST API
-- **[WOQL Basics](/docs/how-to-query-with-woql/)** - Query your data using TerminusDB's native query language
-- **[Schema Reference](/docs/schema-reference-guide/)** - Understand how to define schemas for your data
-- **[Explore a Real Dataset](/docs/explore-a-real-dataset/)** - Get started with the Star Wars demo dataset
-- **[GraphQL Reference](/docs/connecting-to-graphql-reference/)** - Complete GraphQL API reference
-- **[Connect with JavaScript Client](/docs/connect-with-the-javascript-client/)** - Use the JavaScript client to query GraphQL
-- **[Connect with Python Client](/docs/connect-with-python-client/)** - Use the Python client to query GraphQL
+- [**Filter results**](/docs/filter-with-graphql/) — use `_filter` arguments to narrow queries
+- [**GraphQL mutations**](/docs/graphql-mutations/) — insert, replace, and delete documents via GraphQL
+- [**Path queries in GraphQL**](/docs/path-queries-in-graphql/) — traverse relationships across document types
+- [**Connect with Apollo Client**](/docs/connect-with-apollo-client/) — integrate TerminusDB GraphQL into a JavaScript application
+- [**GraphQL query reference**](/docs/graphql-query-reference/) — full reference for types, arguments, and fields
 

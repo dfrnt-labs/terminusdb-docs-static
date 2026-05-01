@@ -335,7 +335,7 @@ With a bit of practice, designing your knowledge graphs in TerminusDB will becom
   "coordinates": [ ... ] }
 ```
 
-## Next steps
+## Further reading
 
 - [Get Started](/docs/get-started/) — create your first database and insert documents in under 10 minutes
 - [Schema Reference](/docs/schema-reference-guide/) — complete reference for types, keys, and constraints

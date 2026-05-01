@@ -87,14 +87,23 @@ export function Navigation({
           
           return (
             <li key={section.title}>
-              <h2 
+              <h2
                 className={clsx(
-                  "font-display font-medium cursor-pointer flex items-center justify-between py-2 px-2 rounded transition-colors",
-                  isActive 
-                    ? "text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-900/20" 
+                  "font-display font-medium cursor-pointer flex items-center justify-between py-2 px-2 rounded transition-colors focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none",
+                  isActive
+                    ? "text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-900/20"
                     : "text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50"
                 )}
+                role="button"
+                tabIndex={0}
+                aria-expanded={isOpen}
                 onClick={() => toggleMainSection(section.title)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault()
+                    toggleMainSection(section.title)
+                  }
+                }}
               >
                 <span>{section.title}</span>
                 <span className="text-sm text-slate-500 dark:text-slate-400">
@@ -210,7 +219,7 @@ function SubNavigationMap({
               <>
                 <div
                   className={clsx(
-                    'ml-3.5 flex cursor-pointer items-center rounded text-slate-900 transition-all hover:bg-slate-50 dark:text-white dark:hover:bg-slate-800/50',
+                    'ml-3.5 flex cursor-pointer items-center rounded text-slate-900 transition-all hover:bg-slate-50 dark:text-white dark:hover:bg-slate-800/50 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none',
                     indicatorStyle === 'border' && [
                       'border-l-2',
                       isOpen
@@ -218,6 +227,9 @@ function SubNavigationMap({
                         : 'border-transparent hover:border-slate-200 dark:hover:border-slate-700',
                     ],
                   )}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={isOpen}
                   onClick={(e) => {
                     if (link.href) {
                       // Scroll to top before navigation
@@ -227,6 +239,16 @@ function SubNavigationMap({
                       router.push(link.href)
                     }
                     toggleSection(key, e);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault()
+                      if (link.href) {
+                        window.scrollTo(0, 0)
+                        router.push(link.href)
+                      }
+                      toggleSection(key, e as unknown as React.MouseEvent)
+                    }
                   }}
                 >
                   <h2 className="font-display font-medium">

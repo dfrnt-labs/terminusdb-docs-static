@@ -39,7 +39,7 @@ export function OpenInAI() {
         target="_blank"
         rel="noopener noreferrer"
         title="Open in ChatGPT"
-        className="opacity-60 hover:opacity-100 transition-opacity"
+        className="rounded opacity-60 hover:opacity-100 transition-opacity focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
       >
         <svg
           className="h-5 w-5"
@@ -55,7 +55,7 @@ export function OpenInAI() {
         target="_blank"
         rel="noopener noreferrer"
         title="Open in Claude"
-        className="opacity-60 hover:opacity-100 transition-opacity"
+        className="rounded opacity-60 hover:opacity-100 transition-opacity focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
       >
         <svg
           className="h-5 w-5"
@@ -72,7 +72,7 @@ export function OpenInAI() {
         target="_blank"
         rel="noopener noreferrer"
         title="View raw Markdown"
-        className="opacity-60 hover:opacity-100 transition-opacity"
+        className="rounded opacity-60 hover:opacity-100 transition-opacity focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
       >
         <svg
           className="h-5 w-5"

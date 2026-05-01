@@ -76,7 +76,7 @@ export function MobileNavigation() {
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="relative"
+        className="relative rounded focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
         aria-label="Open navigation"
       >
         <MenuIcon className="h-6 w-6 stroke-slate-500" />
@@ -95,6 +95,7 @@ export function MobileNavigation() {
             <button
               type="button"
               onClick={() => close()}
+              className="rounded focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
               aria-label="Close navigation"
             >
               <CloseIcon className="h-6 w-6 stroke-slate-500" />

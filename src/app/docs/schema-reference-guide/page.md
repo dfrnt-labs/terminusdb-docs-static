@@ -3,7 +3,7 @@ title: Schema Reference Guide
 nextjs:
   metadata:
     title: Schema Reference Guide
-    description: A reference guide for the TerminusDB schema
+    description: Complete reference for the TerminusDB schema language — document classes, properties, key strategies, enums, and type inference rules.
     keywords: terminusdb, schema, data model, document type, json schema, graph database schema, document database
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
@@ -16,7 +16,7 @@ tags:
   - reference
 ---
 
-The TerminusDB schema language enables documents and their relationships to be specified using simple JSON syntax. This syntax makes it as easy as possible to specify a JSON object to automatically convert to a graph. This approach enables data to be viewed as collections of documents or as knowledge graphs of interconnected objects.
+This page is the complete reference for the TerminusDB schema language. It covers every schema construct — document classes, properties, key strategies, enums, tagged unions, foreign references, and type inference rules. Use it to look up syntax when defining your data model. For a step-by-step introduction to creating your first schema, see [Add a Schema](/docs/add-a-schema/).
 
 ## Schema Objects
 
@@ -1835,7 +1835,7 @@ An example of a polygon object `GeoPolygon` points to a 2D array of coordinates 
 
 TerminusDB is equipped with a type inference engine that allows types to be inferred under certain conditions.
 
-The algorithm attempts to find a _unique_ type that can successfully be ascribed to a document. In the event that no type is found, you will get an error that no type applies. If _several_ types might apply, you will see the list of candidate types in the error. If TerminusX is able to find the unique type which applies, it will ascribe the type automatically.
+The algorithm attempts to find a _unique_ type that can successfully be ascribed to a document. In the event that no type is found, you will get an error that no type applies. If _several_ types might apply, you will see the list of candidate types in the error. If TerminusDB is able to find the unique type which applies, it will ascribe the type automatically.
 
 Type ascription is perhaps most useful in cases in which abstract types are used as ranges of a property, but in which there are only _sibling_ concrete types that might apply. In this case, it is easy to ensure a unique typing for the range class and improves the flexibility of the interface.
 
@@ -1915,3 +1915,11 @@ We can then insert a point document which might be written as:
     "coordinates" : [33.2,24.0]
 }
 ```
+
+## Further reading
+
+- [**Add a schema**](/docs/add-a-schema/) — create your first schema with TypeScript, Python, or HTTP
+- [**Schema migration**](/docs/schema-migration-reference-guide/) — evolve schemas with automatic data transformation
+- [**Schema weakening**](/docs/what-is-schema-weakening/) — understand backward-compatible schema changes
+- [**Document types compared**](/docs/document-types-comparison/) — choose between documents, subdocuments, and shared documents
+- [**Data types reference**](/docs/data-types/) — all supported XSD and extension types

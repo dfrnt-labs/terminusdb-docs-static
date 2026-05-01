@@ -88,6 +88,10 @@ export const navigation: Navigation[] = [
             href: '/docs/install-terminusdb-as-a-docker-container',
           },
           {
+            title: 'Advanced Docker Config',
+            href: '/docs/docker-advanced-configuration',
+          },
+          {
             title: 'Docker on Windows',
             href: '/docs/install-terminusdb-docker-windows',
           },
@@ -114,27 +118,27 @@ export const navigation: Navigation[] = [
       // TODO: Add "Your First Schema" tutorial
       {
         title: 'DFRNT Cloud Service',
-        href: '/docs/how-to-connect-terminuscms',
+        href: '/docs/how-to-connect-dfrnt-hub',
         // links: [
         //   {
         //     title: 'Get Your API Key',
-        //     href: '/docs/get-your-api-key-from-terminuscms',
+        //     href: '/docs/get-your-api-key',
         //   },
         //   {
         //     title: 'Create a Project',
-        //     href: '/docs/create-a-project-with-terminuscms',
+        //     href: '/docs/create-a-project',
         //   },
         //   {
         //     title: 'Create a Team',
-        //     href: '/docs/create-a-team-with-terminuscms',
+        //     href: '/docs/create-a-team',
         //   },
         //   {
         //     title: 'Invite Users',
-        //     href: '/docs/invite-users-using-terminuscms',
+        //     href: '/docs/invite-users',
         //   },
         //   {
         //     title: 'Manage Projects',
-        //     href: '/docs/manage-projects-with-terminuscms',
+        //     href: '/docs/manage-projects',
         //   },
         // ],
       },
@@ -178,14 +182,6 @@ export const navigation: Navigation[] = [
             href: '/docs/use-the-collaboration-features',
           },
           {
-            title: 'Branching (JS Client)',
-            href: '/docs/branch-a-project',
-          },
-          {
-            title: 'Branch How-To',
-            href: '/docs/branch-howto',
-          },
-          {
             title: 'Merge How-To',
             href: '/docs/merge-howto',
           },
@@ -196,10 +192,6 @@ export const navigation: Navigation[] = [
           {
             title: 'Undo & Reset How-To',
             href: '/docs/undo-reset-howto',
-          },
-          {
-            title: 'Time Travel',
-            href: '/docs/time-travel-to-previous-commits',
           },
           {
             title: 'Diff & Patch',
@@ -229,6 +221,10 @@ export const navigation: Navigation[] = [
           {
             title: 'WOQL Overview',
             href: '/docs/woql-explanation',
+          },
+          {
+            title: 'WOQL Architecture & Security',
+            href: '/docs/woql-architecture',
           },
           {
             title: 'What is Datalog?',
@@ -310,15 +306,11 @@ export const navigation: Navigation[] = [
     title: 'Build with TerminusDB',
     links: [
       {
-        title: 'TypeScript SDK',
+        title: 'Client SDKs',
         links: [
           {
             title: 'Install',
             href: '/docs/install-terminusdb-js-client',
-          },
-          {
-            title: 'Connect',
-            href: '/docs/connect-with-the-javascript-client',
           },
           {
             title: 'Create Database',
@@ -326,7 +318,6 @@ export const navigation: Navigation[] = [
           },
           {
             title: 'Documents (CRUD)',
-            href: '/docs/add-a-document',
             links: [
               {
                 title: 'Add Documents',
@@ -352,7 +343,16 @@ export const navigation: Navigation[] = [
           },
           {
             title: 'Schema',
-            href: '/docs/add-a-schema',
+            links: [
+              {
+                title: 'Add a Schema',
+                href: '/docs/add-a-schema',
+              },
+              {
+                title: 'Schema CRUD Operations',
+                href: '/docs/schema-crud-operations',
+              },
+            ],
           },
           {
             title: 'Run WOQL Queries',
@@ -364,6 +364,18 @@ export const navigation: Navigation[] = [
               {
                 title: 'Clone',
                 href: '/docs/clone-a-project',
+              },
+              {
+                title: 'Pull',
+                href: '/docs/pull-from-project',
+              },
+              {
+                title: 'Push',
+                href: '/docs/push-to-project',
+              },
+              {
+                title: 'Branch',
+                href: '/docs/branch-howto',
               },
               {
                 title: 'Reset',
@@ -378,92 +390,17 @@ export const navigation: Navigation[] = [
         ],
       },
       {
-        title: 'Python SDK',
+        title: 'Python Ecosystem',
         links: [
           {
-            title: 'Install',
-            href: '/docs/install-the-python-client',
-          },
-          {
-            title: 'Connect',
-            href: '/docs/connect-with-python-client',
-          },
-          {
-            title: 'Create Database',
-            href: '/docs/create-database-with-python-client',
-          },
-          {
-            title: 'Documents (CRUD)',
-            href: '/docs/add-documents-with-python-client',
-            links: [
-              {
-                title: 'Add Documents',
-                href: '/docs/add-documents-with-python-client',
-              },
-              {
-                title: 'Get Documents',
-                href: '/docs/get-documents-with-python-client',
-              },
-              {
-                title: 'Edit Documents',
-                href: '/docs/edit-documents-with-python-client',
-              },
-              {
-                title: 'Delete Documents',
-                href: '/docs/delete-documents-with-python-client',
-              },
-            ],
-          },
-          {
-            title: 'Schema',
-            href: '/docs/add-a-schema-with-the-python-client',
-          },
-          {
-            title: 'Import Data',
+            title: 'Import Data (CSV, JSON, Pandas)',
             href: '/docs/import-data-with-python-client',
-          },
-          {
-            title: 'Run WOQL Queries',
-            href: '/docs/woql-query-with-python-client',
           },
           {
             title: 'Certificate Issues',
             href: '/docs/python-certificate-issues',
           },
-          {
-            title: 'Collaboration',
-            links: [
-              {
-                title: 'Clone',
-                href: '/docs/clone-a-database-with-python',
-              },
-              {
-                title: 'Branch',
-                href: '/docs/branch-a-project-with-the-python-client',
-              },
-              {
-                title: 'Reset',
-                href: '/docs/reset-to-a-commit-with-python',
-              },
-              {
-                title: 'Squash',
-                href: '/docs/squash-a-project-with-python',
-              },
-              {
-                title: 'Time Travel',
-                href: '/docs/time-travel-with-python',
-              },
-            ],
-          },
         ],
-      },
-      {
-        title: 'Rust SDK',
-        href: '/docs/rust-client-quickstart',
-      },
-      {
-        title: 'HTTP API (curl)',
-        href: '/docs/http-documents-api',
       },
     ],
   },
@@ -801,10 +738,6 @@ export const navigation: Navigation[] = [
             href: '/docs/document-unfolding-reference',
           },
           {
-            title: 'Shared Documents',
-            href: '/docs/document-types-comparison',
-          },
-          {
             title: 'Schema Migration',
             href: '/docs/schema-migration-reference-guide',
           },
@@ -908,7 +841,7 @@ export const navigation: Navigation[] = [
 
       {
         title: 'Dashboard Reference',
-        href: '/docs/terminuscms-dashboard-reference',
+        href: '/docs/dfrnt-dashboard-reference',
         links: [
           {
             title: 'Model Builder UI',
@@ -979,7 +912,7 @@ export const navigation: Navigation[] = [
           },
           {
             title: 'Data Types',
-            href: '/docs/terminuscms-data-types',
+            href: '/docs/dfrnt-data-types',
             links: [
               {
                 title: 'Array',

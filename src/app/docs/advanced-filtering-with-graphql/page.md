@@ -7,7 +7,7 @@ title: Advanced Filtering
 nextjs:
   metadata:
     title: Advanced Filtering
-    description: Advanced Filtering with GraphQL
+    description: How to use nested conditions, logical operators, and regex patterns to build advanced GraphQL filters in TerminusDB.
     keywords: terminusdb, advanced filtering, api, condition, filter, graphql, query, terminusdb graphql
     openGraph:
       images: https://assets.terminusdb.com/docs/graphql-advanced-filter.png

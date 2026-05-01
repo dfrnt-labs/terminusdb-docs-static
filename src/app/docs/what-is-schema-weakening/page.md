@@ -51,3 +51,9 @@ If there is very little data it can sometimes be more convenient to delete the d
 Later in schema evolution, there will be clients that rely on the shape of data, and any strong change will require filling data, deleting data, or modifying data which is associated with the existing schema. This strong change will _require_ [schema migration](/docs/schema-migration-reference-guide/).
 
 This also means that we need to pay special attention to keeping the two in sync. This can best be done by focusing on schema weakening, coupled with a defensive client style as described above.
+
+## Further reading
+
+- [**Schema migration reference**](/docs/schema-migration-reference-guide/) — perform strong schema changes with data transformation
+- [**Schema reference guide**](/docs/schema-reference-guide/) — full syntax for document classes, properties, and types
+- [**Add a schema**](/docs/add-a-schema/) — create your first schema with TypeScript, Python, or HTTP

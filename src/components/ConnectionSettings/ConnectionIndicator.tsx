@@ -28,7 +28,7 @@ export function ConnectionIndicator() {
     <div className="relative hidden md:block">
       <button
         onClick={handleToggle}
-        className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+        className="inline-flex items-center gap-1.5 rounded text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
         title="Click to configure TerminusDB connection"
         aria-label={`TerminusDB connection: ${displayHost} — click to configure`}
         aria-expanded={isOpen}

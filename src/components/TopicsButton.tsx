@@ -30,7 +30,7 @@ export function TopicsButton() {
       href="/docs/topics"
       aria-label="Browse documentation by topic"
       className={clsx(
-        'group flex items-center gap-1.5 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500',
+        'group flex items-center gap-1.5 rounded focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none',
         isActive
           ? 'text-sky-500 dark:text-sky-400'
           : 'text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400',

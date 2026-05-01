@@ -20,9 +20,11 @@ Branch, diff, and merge your data like code.
 Start with the [quickstart](/docs/get-started/) (10 minutes, requires only Docker)
 or browse the guides below.
 
+TerminusDB is the open-source engine. [DFRNT Hub](https://dfrnt.com/hypergraph-content-studio/) is managed cloud — no install needed.
+
 ## Start building
 
-**[Your First 10 Minutes (clone)](/docs/get-started/)** — Clone a ready-made dataset and start exploring immediately. No SDK required.
+**[Your First 10 Minutes (clone)](/docs/get-started/) ← Recommended first** — Clone a ready-made dataset and start exploring immediately. No SDK required.
 
 **[Your First 15 Minutes (from scratch)](/docs/first-15-minutes/)** — Build the full workflow manually: create, branch, diff branches, and merge with curl.
 
@@ -31,6 +33,10 @@ or browse the guides below.
 **[Python Quickstart](/docs/connect-with-python-client/)** — The same workflow in Python.
 
 **[Rust Quickstart](/docs/rust-client-quickstart/)** — The same workflow in Rust.
+
+{% callout type="note" %}
+**Don't have Docker?** Try [DFRNT Hub](https://dfrnt.com/sign-up/) (cloud — no installation needed) or [build from source](/docs/install-terminusdb-from-source-code/) (Linux/macOS).
+{% /callout %}
 
 ## Query your data
 

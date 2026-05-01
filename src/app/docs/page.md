@@ -32,8 +32,8 @@ TerminusDB is open source and free to use, maintained by the team at [DFRNT](htt
 ### Installation
 
 1. Run with [Docker](/docs/install-terminusdb-as-a-docker-container/) (recommended), or sign up at [dfrnt.com/sign-up](https://dfrnt.com/sign-up) for managed hosting.
-2. Install the [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-the-python-client/) client.
-3. [Connect your client to a DFRNT cloud instance](/docs/how-to-connect-terminuscms/) or your local server.
+2. Install a [client library](/docs/install-terminusdb-js-client/) (TypeScript, Python, or Rust).
+3. [Connect your client to a DFRNT cloud instance](/docs/how-to-connect-dfrnt-hub/) or your local server.
 
 ### Collaborate with teams
 

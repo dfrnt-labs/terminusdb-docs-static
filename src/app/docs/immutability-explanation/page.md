@@ -16,18 +16,9 @@ nextjs:
 media: []
 ---
 
-TerminusDB is an immutable data store. When data is written to a store, it does not change or mutate existing data. Any deleted data is masked, any new data resulting from a transaction is added on top of the mask.
+TerminusDB is an immutable data store — it never modifies data in place. When you write, new data layers are appended on top of existing ones; when you delete, a mask layer hides the removed triples. The original data remains intact underneath. This append-only architecture is what makes branching, time travel, and safe concurrent access possible.
 
 ## Advantages of immutability
-
-Immutability has several advantages, including:
-
-- [Advantages of immutability](#advantages-of-immutability)
-  - [Transaction safety](#transaction-safety)
-  - [Lock-free concurrency](#lock-free-concurrency)
-  - [Commit and branch time travel](#commit-and-branch-time-travel)
-  - [Change audit](#change-audit)
-  - [Collaboration and synchronization](#collaboration-and-synchronization)
 
 ### Transaction safety
 
@@ -48,3 +39,10 @@ Time travel is supplemented with information about what was committed, at what d
 ### Collaboration and synchronization
 
 Historical commit information is also required for TerminusDB collaboration functionality. The state of two databases that share a common lineage can be compared. Commits made by different authors can be rerun on the current database using a rebase operation, enabling the synchronization of both databases.
+
+## Further reading
+
+- [**ACID transactions**](/docs/acid-transactions-explanation/) — how immutability enables atomic, consistent operations
+- [**Time travel**](/docs/time-travel-howto/) — query your database at any historical point
+- [**Graphs explained**](/docs/graphs-explanation/) — the layer hierarchy that makes immutability efficient
+- [**Delta rollup**](/docs/delta-rollup/) — compact accumulated layers for performance

@@ -62,7 +62,7 @@ export function TabBar({ activeTab, onTabChange, instanceId }: TabBarProps) {
             aria-controls={`panel-${tab.id}-${instanceId}`}
             tabIndex={isActive ? 0 : -1}
             onClick={() => onTabChange(tab.id)}
-            className={`relative text-xs font-semibold uppercase tracking-wider px-1 pb-1.5 border-b-2 transition-colors duration-150 ease-out ${
+            className={`relative text-xs font-semibold uppercase tracking-wider px-1 pb-1.5 border-b-2 transition-colors duration-150 ease-out rounded-sm focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none ${
               isActive
                 ? "text-slate-900 dark:text-white border-sky-500"
                 : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 border-transparent"

@@ -234,3 +234,10 @@ This is a breaking schema change. Subdocuments have nested IRIs and restricted k
 4. Update the schema (remove `@subdocument`, add `@shared`)
 
 This cannot currently be done in a single transaction without data restructuring.
+
+## Further reading
+
+- [**The document model**](/docs/documents-explanation/) — how documents, subdocuments, and references work in the graph
+- [**Schema reference guide**](/docs/schema-reference-guide/) — full syntax for `@subdocument`, `@shared`, and key strategies
+- [**Add a schema**](/docs/add-a-schema/) — define document types with practical examples
+- [**Schema migration**](/docs/schema-migration-reference-guide/) — change document types with data transformation

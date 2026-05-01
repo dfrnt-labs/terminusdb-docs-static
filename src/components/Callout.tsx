@@ -36,7 +36,7 @@ export function Callout({
   let IconComponent = icons[type]
 
   return (
-    <div className={clsx('my-8 flex items-start rounded-3xl p-6 overflow-hidden', styles[type].container)}>
+    <div className={clsx('my-8 flex items-start rounded-lg p-6 overflow-hidden', styles[type].container)}>
       <IconComponent className="mt-6 h-8 w-8 flex-none" />
       <div className="ml-4 min-w-0 flex-auto">
         <p

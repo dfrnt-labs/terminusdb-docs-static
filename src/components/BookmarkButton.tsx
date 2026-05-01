@@ -37,7 +37,7 @@ export function BookmarkButton() {
   return (
     <button
       onClick={handleToggle}
-      className="group flex items-center gap-1 rounded-md px-2 py-1 text-sm transition-colors hover:bg-slate-100 dark:hover:bg-slate-800"
+      className="group flex items-center gap-1 rounded-md px-2 py-1 text-sm transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
       aria-label={isBookmarked ? "Remove bookmark" : "Bookmark this page"}
       aria-pressed={isBookmarked}
       title={isBookmarked ? "Remove bookmark" : "Bookmark this page"}
