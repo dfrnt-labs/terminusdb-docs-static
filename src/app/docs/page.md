@@ -17,25 +17,24 @@ nextjs:
 media: []
 ---
 
-## Getting started with TerminusDB in less than a minute
+## TerminusDB Documentation
 
-TerminusDB is a versatile graph database for model-based hierarchically structured records. It is straightforward to use as a flexible headless content management system.
+TerminusDB is a document graph database with built-in version control. It stores JSON documents as graph structures, tracks every change as an immutable commit, and supports branching, merging, and time-travel queries over your data history.
 
-It is designed to give technical professionals and linked data professionals a solution for complex content, knowledge and semantic infrastructures. Bringing together change request workflows, analytics, and complex integrations, TerminusDB aims to be a content platform that sits at the convergence of content and knowledge.
+TerminusDB is open source and free to use, maintained by the team at [DFRNT](https://dfrnt.com) in collaboration with the community.
 
-TerminusDB is open source and free to use, maintained by the team at DFRNT in collaboration with the community.
+### Start here
 
-Get a hosting, a powerful modeller, visualisations, logical query studio, and record editor user interface at [DFRNT.com](https://dfrnt.com/hypergraph-content-studio/) with a free trial. It works with both localhost open source TerminusDB and TerminusDB hosted in the cloud environments, including git-for-data synchronization of content repositories.
+- **New to TerminusDB?** — [Get Started tutorial](/docs/get-started-with-terminusdb/) walks you through installation and your first database.
+- **Evaluating TerminusDB?** — Read [What is TerminusDB?](/docs/terminusdb-explanation/) for capabilities and architecture, or see [how it compares to MongoDB](/docs/terminusdb-vs-mongodb/).
+- **Looking for a specific feature?** — [Browse by Topic](/docs/topics/list) to navigate the documentation by subject area.
 
-When you sign up, you get full commercial hosting. This comes with generous limits to allow you to build without constraints, and then upgrade when needed.
+### Installation
 
-### Steps to get started
+1. Run with [Docker](/docs/install-terminusdb-as-a-docker-container/) (recommended), or sign up at [dfrnt.com/sign-up](https://dfrnt.com/sign-up) for managed hosting.
+2. Install the [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-the-python-client/) client.
+3. [Connect your client to a DFRNT cloud instance](/docs/how-to-connect-terminuscms/) or your local server.
 
-1.  Sign up at [https://dfrnt.com/sign-up](https://dfrnt.com/sign-up), or use it with [Docker](/docs/install-terminusdb-as-a-docker-container/)
-2.  Install the [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-the-python-client/) Client
-3.  [Get your API key to use a client with DFRNT TerminusDB cloud](/docs/how-to-connect-terminuscms/)
-4.  [Familiarize yourself with the client API](/docs/connect-with-the-javascript-client/) to start building with TerminusDB.
+### Collaborate with teams
 
-### Collaborate through TerminusDB cloud teams
-
-Request shared teams in the [DFRNT](https://dfrnt.com/hypergraph-content-studio/) cloud environment to collaborate on data products in shared instances, and for pushing and pulling data products with a local TerminusDB instance, similar to how software engineers collaborate on code.
+Use the [DFRNT](https://dfrnt.com/hypergraph-content-studio/) cloud environment to collaborate on data products in shared instances, push and pull between local and remote databases, and manage change-request workflows — similar to how software teams collaborate on code with Git.

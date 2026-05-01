@@ -178,8 +178,12 @@ export const navigation: Navigation[] = [
             href: '/docs/use-the-collaboration-features',
           },
           {
-            title: 'Branching',
+            title: 'Branching (JS Client)',
             href: '/docs/branch-a-project',
+          },
+          {
+            title: 'Branch How-To',
+            href: '/docs/branch-howto',
           },
           {
             title: 'Time Travel',

@@ -156,6 +156,14 @@ The relationships between two tables in relational databases. In graph databases
 
 ## TerminusDB specific
 
+### Database
+
+In TerminusDB, a **database** is the fundamental storage unit — a named container that holds JSON documents with graph relationships, maintains a full commit history, and supports branching and merging. You interact with databases through the API (creating, querying, cloning, pushing, pulling). Every database has at least one branch (typically `main`) and every write creates an immutable commit.
+
+### Data product
+
+A **data product** is the higher-level concept for a database that is published, shared, or collaborated on within an organisation. When you clone a database from a remote, push changes to a team, or browse available datasets in DFRNT, you are working with data products. In practice, "database" and "data product" often refer to the same underlying object — the distinction is one of perspective: *database* emphasises the storage engine and API operations, while *data product* emphasises collaboration, discovery, and organisational ownership.
+
 ### WOQL
 
 WOQL (**Web Object Query Language**) is TerminusDB's query language for querying complex data patterns and structures. WOQL is based on three fundamental concepts: WOQL [triples](#triples), WOQL **variables** and WOQL **operators**. WOQL also provides [PCRE](#pcre).

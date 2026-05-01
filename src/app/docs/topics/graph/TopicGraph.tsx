@@ -186,16 +186,38 @@ function getLinkVisibility(
   if (isFilterActive(filters)) {
     const sourceIsSelected = isNodeSelected(sourceId, filters, bookmarks, selection)
     const targetIsSelected = isNodeSelected(targetId, filters, bookmarks, selection)
+
+    // Virtual tag filters (Bookmarks/Selection): only highlight edges that directly
+    // involve the virtual tag node. Don't cascade highlighting to page→real-tag edges,
+    // which would incorrectly light up ALL edges touching a bookmarked/selected page.
+    const hasVirtualFilter = filters.activeTags.has(BOOKMARKS_TAG) || filters.activeTags.has(SELECTION_TAG)
+    const hasRealFilter = [...filters.activeTags].some(
+      (t) => t !== BOOKMARKS_TAG && t !== SELECTION_TAG,
+    ) || filters.activeFacets.size > 0
+
+    if (hasVirtualFilter && !hasRealFilter) {
+      // Virtual-only mode: highlight only edges where one end is the virtual tag node
+      const sourceIsVirtualTag = sourceId === `tag:${BOOKMARKS_TAG}` || sourceId === `tag:${SELECTION_TAG}`
+      const targetIsVirtualTag = targetId === `tag:${BOOKMARKS_TAG}` || targetId === `tag:${SELECTION_TAG}`
+      if ((sourceIsVirtualTag || targetIsVirtualTag) && (sourceIsSelected || targetIsSelected)) {
+        return "selected"
+      }
+      return "full" // other edges at default filter-dimmed opacity (0.05)
+    }
+
+    // Real filter mode (regular tags/facets active): standard highlighting
     if (sourceIsSelected || targetIsSelected) return "selected"
-    // Both ends visible but not connected to selection
+    // Both ends visible but not connected to active filter
     return "full" // caller maps this to 0.05 when filter is active
   }
 
   return "full" // caller maps this to default (0.25/0.10 by edge type)
 }
 
-function isNodeSelected(nodeId: string, filters: FilterState, bookmarks?: string[], selection?: string[]): boolean {
-  // Filter-originating nodes (active facets/tags) are "selected" for edge highlighting.
+function isNodeSelected(nodeId: string, filters: FilterState, _bookmarks?: string[], _selection?: string[]): boolean {
+  // Only filter-originating nodes (active facets/tags) are "selected" for edge highlighting
+  // and selection-ring display. Page nodes are never "selected" here — their edge highlighting
+  // for virtual tag filters (Bookmarks/Selection) is handled directly in getLinkVisibility().
   if (nodeId.startsWith("facet:")) {
     const facet = nodeId.replace("facet:", "") as Facet
     return filters.activeFacets.has(facet)
@@ -204,22 +226,6 @@ function isNodeSelected(nodeId: string, filters: FilterState, bookmarks?: string
     const tagId = nodeId.replace("tag:", "")
     return filters.activeTags.has(tagId)
   }
-
-  // Page nodes: when Bookmarks or Selection virtual filter is active, pages that are
-  // bookmarked/selected are also "selected" so their direct edges get highlighted.
-  // This only applies when the virtual tag filter is active — it won't light up ALL
-  // pages, only those whose href matches the bookmarks/selection arrays.
-  if (nodeId.startsWith("page:")) {
-    const pageHref = normalizePath(nodeId.replace("page:", ""))
-    if (pageHref === "") return false
-    if (filters.activeTags.has(BOOKMARKS_TAG) && bookmarks && bookmarks.length > 0) {
-      if (bookmarks.some((b) => normalizePath(b) === pageHref)) return true
-    }
-    if (filters.activeTags.has(SELECTION_TAG) && selection && selection.length > 0) {
-      if (selection.some((s) => normalizePath(s) === pageHref)) return true
-    }
-  }
-
   return false
 }
 
