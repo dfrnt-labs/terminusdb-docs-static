@@ -1,6 +1,6 @@
 ---
 tags:
-  - explanation
+  - reference
   - installation
   - beginner
 title: TerminusDB Installation Options
@@ -15,6 +15,8 @@ nextjs:
       canonical: https://terminusdb.org/docs/terminusdb-install-options/
 media: []
 ---
+
+TerminusDB can be installed in several ways depending on your environment and requirements. Docker is the quickest route for local development, Kubernetes suits production deployments, and building from source gives you full control over the build process.
 
 * [Install on Kubernetes](/docs/install-on-kubernetes/)
 * [Install as a Docker Container](/docs/install-terminusdb-as-a-docker-container/)

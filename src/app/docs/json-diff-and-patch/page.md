@@ -27,9 +27,9 @@ tags:
 By the end of this guide, you will know how to compute JSON diffs and apply patches via the HTTP API.
 {% /callout %}
 
-JSON objects are a common way of representing data for software development. The serialization of JSON is simple and facilitates communication via networks and storage in databases. Almost all modern programming languages support JSON objects natively.
+TerminusDB provides a JSON diff and patch API that computes structural differences between JSON documents and applies those differences as patches. Use it to compare document versions, audit changes, synchronise distributed copies, or build collaborative editing workflows.
 
-When objects are modified in distributed systems, it is useful to compare versions of an object to see what has changed. This is where **diff** and **patch** come in.
+**Diff** computes what changed between two JSON objects. **Patch** applies a previously computed diff to transform one object into another.
 
 #### Diff
 
@@ -91,7 +91,7 @@ Use JSON Diff and Patch with a TerminusDB JavaScript or Python client to find an
 
 ### Requirements
 
-Install a [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-the-python-client/) TerminusDB client.
+Install a [JavaScript](/docs/install-terminusdb-js-client/) or [Python](/docs/install-terminusdb-js-client/) TerminusDB client.
 
 ### Get started
 

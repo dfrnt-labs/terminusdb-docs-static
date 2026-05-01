@@ -1,7 +1,7 @@
 ---
 tags:
   - woql
-  - tutorial
+  - cookbook
   - beginner
 title: WOQL Common Patterns
 nextjs:
@@ -36,17 +36,7 @@ curl -u admin:root -X POST http://localhost:6363/api/clone/admin/star_wars \
 
 **When to use:** Find documents matching a specific field value.
 
-{% http-example method="POST" path="/api/woql/admin/star_wars/local/branch/main" %}
-{% http-woql %}
-import TerminusClient from "@terminusdb/terminusdb-client";
-const WOQL = TerminusClient.WOQL;
-
-const query = WOQL.and(
-  WOQL.triple("v:Person", "rdf:type", "@schema:People"),
-  WOQL.triple("v:Person", "eye_color", WOQL.string("blue")),
-  WOQL.triple("v:Person", "name", "v:Name")
-);
-{% /http-woql %}
+{% http-example method="POST" path="/api/woql/admin/star_wars/local/branch/main" runnable=false %}
 ```json
 {"query": {"@type": "And", "and": [{"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Person"}, "predicate": {"@type": "NodeValue", "node": "rdf:type"}, "object": {"@type": "NodeValue", "node": "@schema:People"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Person"}, "predicate": {"@type": "NodeValue", "node": "eye_color"}, "object": {"@type": "DataValue", "data": "blue"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Person"}, "predicate": {"@type": "NodeValue", "node": "name"}, "object": {"@type": "DataValue", "variable": "Name"}}]}}
 ```
@@ -61,7 +51,7 @@ const query = WOQL.and(
 
 **When to use:** Traverse a relationship between documents — no JOIN syntax needed, just follow the link.
 
-{% http-example method="POST" path="/api/woql/admin/star_wars/local/branch/main" %}
+{% http-example method="POST" path="/api/woql/admin/star_wars/local/branch/main" runnable=false %}
 {% http-woql %}
 import TerminusClient from "@terminusdb/terminusdb-client";
 const WOQL = TerminusClient.WOQL;
@@ -88,7 +78,7 @@ const query = WOQL.and(
 
 **When to use:** Count documents matching a condition.
 
-{% http-example method="POST" path="/api/woql/admin/star_wars/local/branch/main" %}
+{% http-example method="POST" path="/api/woql/admin/star_wars/local/branch/main" runnable=false %}
 {% http-woql %}
 import TerminusClient from "@terminusdb/terminusdb-client";
 const WOQL = TerminusClient.WOQL;
@@ -112,7 +102,7 @@ const query = WOQL.count("v:Count",
 
 **When to use:** Traverse a chain of relationships — like a recursive JOIN.
 
-{% http-example method="POST" path="/api/woql/admin/star_wars/local/branch/main" %}
+{% http-example method="POST" path="/api/woql/admin/star_wars/local/branch/main" runnable=false %}
 {% http-woql %}
 import TerminusClient from "@terminusdb/terminusdb-client";
 const WOQL = TerminusClient.WOQL;
@@ -246,7 +236,7 @@ const query = WOQL.delete_document("terminusdb:///data/Planets/1");
 
 Or with WOQL to find specific class properties:
 
-{% http-example method="POST" path="/api/woql/admin/star_wars/local/branch/main" %}
+{% http-example method="POST" path="/api/woql/admin/star_wars/local/branch/main" runnable=false %}
 {% http-woql %}
 import TerminusClient from "@terminusdb/terminusdb-client";
 const WOQL = TerminusClient.WOQL;
@@ -287,7 +277,7 @@ Replace `{commit_id}` with the commit identifier from the log. You see the exact
 
 **When to use:** Query only documents linked from a specific root — useful for extracting connected subsets.
 
-{% http-example method="POST" path="/api/woql/admin/star_wars/local/branch/main" %}
+{% http-example method="POST" path="/api/woql/admin/star_wars/local/branch/main" runnable=false %}
 {% http-woql %}
 import TerminusClient from "@terminusdb/terminusdb-client";
 const WOQL = TerminusClient.WOQL;

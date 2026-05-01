@@ -510,6 +510,6 @@ For performance-critical operations with millions of calculations:
 
 ## See Also
 
-- [Supported Data Types](/docs/terminuscms-data-types) - Complete list of XSD types
+- [Supported Data Types](/docs/dfrnt-data-types) - Complete list of XSD types
 - [WOQL Math Queries](/docs/maths-based-queries-in-woql) - Arithmetic operations in WOQL
 - [Schema Reference Guide](/docs/schema-reference-guide) - Defining numeric properties in schemas

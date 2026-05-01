@@ -45,3 +45,10 @@ const queryDocuments = async () => {
   "name" : "Doug",
   "position" : "Full Back"}]
 ```
+
+## Next steps
+
+- [**GraphQL queries**](/docs/graphql-basics/) — query with field selection, filtering, and nested traversal
+- [**WOQL queries**](/docs/woql-basics/) — pattern-match across documents and relationships using Datalog
+- [**Edit documents**](/docs/edit-a-document/) — update documents you've retrieved
+- [**Get documents**](/docs/get-documents/) — retrieve documents by ID or type (without a query template)

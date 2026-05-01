@@ -1,6 +1,6 @@
 ---
 tags:
-  - explanation
+  - reference
   - beginner
 title: How to Use the Clients
 nextjs:
@@ -15,7 +15,7 @@ nextjs:
 media: []
 ---
 
-TerminusDB supports two main clients: JavaScript and Python.
+TerminusDB provides official client libraries for JavaScript/TypeScript and Python. Both clients offer full access to document operations, schema management, WOQL queries, and version-control features. Choose the client that matches your stack — they share the same capabilities.
 
 * [Use the JS Client](/docs/use-the-javascript-client/)
 * [Use the Python Client](/docs/use-the-python-client/)

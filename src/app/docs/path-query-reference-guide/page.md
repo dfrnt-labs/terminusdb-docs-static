@@ -16,7 +16,7 @@ nextjs:
 media: []
 ---
 
-TerminusDB allows _path regular expressions_ as a way to describe multi-hop searches in a concise fashion. When you need to follow a link repeatedly for shortest path queries or to find all linked documents meeting some specification you can often use a _path query_.
+This page documents path query syntax — a concise way to express multi-hop graph traversals in WOQL. Path queries let you follow chains of relationships (e.g., "find all ancestors" or "shortest path between two nodes") without writing recursive joins manually. They use a regular-expression-like syntax over property names.
 
 > For guidance on back-links and path queries using GraphQL visit the [GraphQL reference guide](/docs/graphql-query-reference/#backlinks)
 

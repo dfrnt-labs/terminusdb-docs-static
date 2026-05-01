@@ -102,8 +102,7 @@ TerminusDB is built on RDF and stores data as triples internally, but it takes a
 
 Choose TerminusDB when you want RDF semantics and interoperability without the operational complexity of traditional triple stores, and when version control and developer ergonomics matter. Choose a traditional triple store when you need full OWL reasoning, SPARQL federation, or integration with the broader semantic web toolchain.
 
-{% callout type="note" %}
-**Ready to try it?**
+{% callout title="Ready to try it?" %}
 **[Start the quickstart →](/docs/get-started/)** — branch, diff, and merge a database in 10 minutes. Requires only Docker.
 {% /callout %}
 

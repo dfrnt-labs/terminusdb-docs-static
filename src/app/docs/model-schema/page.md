@@ -1,6 +1,6 @@
 ---
 tags:
-  - explanation
+  - reference
   - schema
   - dashboard
   - beginner
@@ -16,6 +16,8 @@ nextjs:
       canonical: https://terminusdb.org/docs/model-schema/
 media: []
 ---
+
+TerminusDB schemas define the structure of your documents — their types, fields, and relationships. You can design schemas visually using the DFRNT Hub model builder, or edit the JSON-LD schema definition directly in the JSON editor.
 
 * [Model Schema UI](/docs/use-the-model-builder-ui/)
 * [JSON Editor](/docs/use-the-json-editor/)

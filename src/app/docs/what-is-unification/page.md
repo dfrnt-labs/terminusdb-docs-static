@@ -16,9 +16,9 @@ nextjs:
 media: []
 ---
 
-TerminusDB has a relatively unique and very powerful feature of the datalog engine that is familiar to those that have used Prolog or certain dialects of datalog. 
+**Unification** is the mechanism that makes WOQL queries work. When the same variable appears in multiple positions within a query, unification finds all values that satisfy every constraint simultaneously — creating implicit joins without explicit JOIN syntax. If you have used Prolog, this will be familiar; if you haven’t, think of it as pattern-matching across multiple conditions at once.
 
-Unification is the cornerstone of query evaluation in TerminusDB’s WOQL (Web Object Query Language). It represents the process of finding values of logical variables which are consistent for a given logical sentence or query. It leverages progressive binding of variables with constraints such that two variables unify to the same set of values.
+This page explains how unification works in WOQL, how variables are bound and scoped, and how to use this to write powerful queries that would require complex JOINs or subqueries in SQL.
 
 ## Core Principles of Variable Binding
 

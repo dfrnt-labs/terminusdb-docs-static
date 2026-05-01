@@ -16,17 +16,13 @@ nextjs:
 media: []
 ---
 
-The thinking behind the Web Object Query Language is well explained on the [WOQL explanation](/docs/woql-explanation/) page. As mentioned there, it is a formal language for querying and updating TerminusDB databases. WOQL is evaluated by TerminusDB's **datalog engine**, which binds variables as it reads the abstract syntax tree — a declarative approach where you specify patterns and the engine finds all matching solutions.
+This page teaches you the building blocks of WOQL — predicates, variables, and literals — through practical examples. By the end, you will understand how to construct queries, bind variables, and read results. For a conceptual overview of WOQL, see [WOQL Explained](/docs/woql-explanation/). For a hands-on interactive tutorial, see [WOQL Basics](/docs/woql-basics/).
 
-This means that some logical behaviours depend on the order of binding the variables to values in the current instance or schema graph that is addressed. 
+WOQL is a formal language for querying and updating TerminusDB databases. It is evaluated by a **datalog engine** that binds variables as it reads the query's abstract syntax tree — a declarative approach where you describe patterns and the engine finds all matching solutions.
 
-## A foundation to get started
+## Prerequisites
 
-This page provides examples of WOQL queries and explanations for how to use it in practice. In general we recommend using the functional style as if has been shown to be easier to reason about in general for practitioners. Senior WOQLers tend to use both based on elegance and the best way to express a particular problem.
-
-In the tutorial we will use the Javascript/Typescript dialect of WOQL. The logic is the same, but the syntax for Python follows traditional Python patterns. For details, refer to the syntax of each.
-
-All examples have been tested in the TerminusDB Logical Studio provided by [DFRNT](https://dfrnt.com/hypergraph-content-studio/). The reader will be expected to have already built a few first classes and stored documents in TerminusDB before embarking on the examples in the tutorial.
+All examples use the TypeScript/JavaScript dialect of WOQL (the Python syntax follows traditional Python patterns but the logic is identical). Examples have been tested in the TerminusDB Logical Studio provided by [DFRNT](https://dfrnt.com/hypergraph-content-studio/). You should have a database with some schema and documents before working through these examples.
 
 ## Predicates, literals and variables in WOQL
 

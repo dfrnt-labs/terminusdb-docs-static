@@ -1,6 +1,6 @@
 ---
 tags:
-  - explanation
+  - reference
   - collaboration
   - dashboard
 title: How to Use the Collaboration Features
@@ -20,4 +20,12 @@ TerminusDB provides **git-like collaboration** for data — clone databases betw
 
 * [Collaboration with JS](/docs/collaboration-with-javascript-client/)
 * [Collaboration with Python](/docs/collaboration-with-python-client/)
-* [Collaboration Dashboard](/docs/collaboration-with-terminuscms-dashboard/)
+* [Collaboration Dashboard](/docs/collaboration-with-dashboard/)
+
+## Next steps
+
+Once you understand the collaboration workflow, try these operations:
+
+- [**Clone a project**](/docs/clone-a-project/) — copy a database between servers
+- [**Branch and merge**](/docs/branch-howto/) — work in isolation, then merge with conflict detection
+- [**Diff and patch**](/docs/diff-and-patch-operations/) — see structural changes between any two states

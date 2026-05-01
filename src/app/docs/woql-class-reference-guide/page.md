@@ -17,6 +17,8 @@ media: []
 lastUpdated: "2026-05-01"
 ---
 
+This page is the complete reference for all WOQL query classes — the building blocks you combine to construct queries. Each class listed here corresponds to a WOQL operation (e.g., `Triple`, `And`, `Select`, `GroupBy`). Use this as a lookup when constructing queries programmatically or debugging query JSON. For a hands-on introduction, see [WOQL Basics](/docs/woql-basics/).
+
 ## WOQL Schema
 
 This is the WOQL schema. It gives a complete specification of the syntax of the WOQL query language. This allows WOQL queries to be checked for syntactic correctness, helps to prevent errors and detect conflicts in merge of queries, and allows the storage and retrieval of queries so that queries can be associated with data products.

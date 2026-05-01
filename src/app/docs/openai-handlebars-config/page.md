@@ -7,7 +7,7 @@ title: OpenAI and Handlebars Configuration
 nextjs:
   metadata:
     title: OpenAI and Handlebars Configuration
-    description: OpenAI and Handlebars Configuration
+    description: How to configure OpenAI embeddings and Handlebars templates for VectorLink semantic indexing in TerminusDB.
     keywords: terminusdb, openai and handlebars configuration
     openGraph:
       images: https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png

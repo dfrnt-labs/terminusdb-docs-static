@@ -17,13 +17,15 @@ nextjs:
 media: []
 ---
 
+This page documents all commands available in the TerminusDB command-line interface. The CLI lets you manage databases, run queries, import data, and perform version-control operations directly from your terminal — without writing client code.
+
 ## SYNOPSIS
 
 `terminusdb [command subcommand positional_arguments] flags`
 
 ## DESCRIPTION
 
-The terminusdb(1) command line tool allows users to interact with a database, allowing common operations such as querying (and updating), database creation, data ingestion and maintainence.
+The terminusdb(1) command line tool allows users to interact with a database, allowing common operations such as querying (and updating), database creation, data ingestion and maintenance.
 
 ## COMMANDS
 

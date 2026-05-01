@@ -7,7 +7,7 @@ title: Mathematical Operations in WOQL
 nextjs:
   metadata:
     title: Mathematical Operations in WOQL
-    description: "A guide to show how to how to perform mathematical operations using WOQL "
+    description: How to perform arithmetic, aggregation, and mathematical comparisons in WOQL queries with TerminusDB.
     keywords: terminusdb, datalog, mathematical operations in woql, query language, terminusdb query, woql
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-maths-query.png
