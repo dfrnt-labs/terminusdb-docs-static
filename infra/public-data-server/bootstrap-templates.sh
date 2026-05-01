@@ -101,6 +101,16 @@ echo "Creating public/sandbox/local/branch/feature branch..."
 $TDB branch create public/sandbox/local/branch/feature \
   --origin public/sandbox/local/branch/main
 
+# Apply changes to the feature branch so diff/merge/time-travel examples have
+# something to show when users clone and compare branches:
+#   - Reduced price on Wireless Noise-Cancelling Headphones (299.99 → 249.99)
+#   - New product Smart Home Hub (only on feature branch)
+echo "Applying feature branch changes..."
+printf '{"@id":"Product/Wireless%%20Noise-Cancelling%%20Headphones","@type":"Product","name":"Wireless Noise-Cancelling Headphones","price":249.99,"category":"Electronics"}\n' | \
+  $TDB doc replace public/sandbox/local/branch/feature
+printf '{"@type":"Product","name":"Smart Home Hub","price":79.99,"category":"Electronics"}\n' | \
+  $TDB doc insert public/sandbox/local/branch/feature
+
 # --- Capability grants (required for anonymous/public access) ---
 # The --public flag does not create Role/consumer in fresh TerminusDB 12.x instances.
 # We create a minimal cloner role (clone + commit_read_access) — tutorials only need

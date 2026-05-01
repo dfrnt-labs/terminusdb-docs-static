@@ -93,6 +93,18 @@ $TDB branch create public/sandbox/local/branch/feature \
   --origin public/sandbox/local/branch/main 2>/dev/null || \
   echo "  (feature branch already exists — skipping)"
 
+# Apply changes to feature branch so diff/merge examples have something to show:
+#   - Reduced price on Wireless Noise-Cancelling Headphones (299.99 → 249.99)
+#   - New product Smart Home Hub added only on this branch
+echo "  Applying feature branch changes..."
+printf '{"@id":"Product/Wireless%%20Noise-Cancelling%%20Headphones","@type":"Product","name":"Wireless Noise-Cancelling Headphones","price":249.99,"category":"Electronics"}\n' | \
+  $TDB doc replace public/sandbox/local/branch/feature 2>/dev/null || \
+  echo "  (headphones price already updated — skipping replace)"
+printf '{"@type":"Product","name":"Smart Home Hub","price":79.99,"category":"Electronics"}\n' | \
+  $TDB doc insert public/sandbox/local/branch/feature 2>/dev/null || \
+  echo "  (Smart Home Hub already exists — skipping insert)"
+echo "  Feature branch changes applied."
+
 # Ensure cloner role exists (idempotent)
 echo "[6/7] Ensuring cloner role exists..."
 $TDB role create cloner clone commit_read_access 2>/dev/null || \
@@ -110,5 +122,13 @@ echo ""
 echo "Verify anonymous access:"
 echo "  curl -s 'https://data.terminusdb.org/api/document/public/sandbox?as_list=true&type=Product&count=5'"
 echo ""
-echo "Clone command (for end-users):"
+echo "Verify branch divergence:"
+echo "  main:    7 products (Headphones at 299.99)"
+echo "  feature: 8 products (Headphones at 249.99, Smart Home Hub added)"
+echo ""
+echo "Clone command for end-users:"
 echo "  terminusdb clone https://data.terminusdb.org/public/sandbox --token=anonymous"
+echo ""
+echo "Local clone via HTTP (for docs examples that use localhost):"
+echo "  curl -u admin:root -X POST http://localhost:6363/api/clone/admin/sandbox \\"
+echo "    -d '{\"remote_url\": \"http://public:public@data.terminusdb.org/public/sandbox\"}'"
