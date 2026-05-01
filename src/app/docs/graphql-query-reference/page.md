@@ -16,19 +16,15 @@ nextjs:
 media: []
 ---
 
-GraphQL queries are composed of:
+This page is the complete reference for querying TerminusDB with GraphQL. It covers query structure, argument types, field resolution, filtering, pagination, and path queries. TerminusDB auto-generates a full GraphQL schema from your document classes — every class becomes a queryable type, every property becomes both a field and a filter argument.
 
-*   Queries
-*   Arguments
-*   Fields
+For a hands-on introduction, see [GraphQL Basics](/docs/graphql-basics/). For data modifications, see [GraphQL Mutations](/docs/graphql-mutations/).
 
-Each Class in TerminusDB automatically generates a top-level Query. Each property of the class automatically generates both arguments and fields.
+## Query structure
 
-The names of the types of arguments and fields are generated automatically [subject to name mapping](/docs/graphql-naming-conventions-reference/).
+GraphQL queries in TerminusDB are composed of **queries**, **arguments**, and **fields**. Each class generates a top-level query. Each property generates both arguments (for filtering) and fields (for selection). Property names follow [automatic naming conventions](/docs/graphql-naming-conventions-reference/).
 
-In turn, each property which is an edge leading to a new object of a class will have its own field with arguments.
-
-Each concrete data query will be terminal and will generate a specific field parameter for search.
+Each property that links to another document class generates a nested field with its own arguments, enabling deep traversal without explicit joins.
 
 ## Example
 

@@ -8,7 +8,7 @@ title: Document UI Template
 nextjs:
   metadata:
     title: Document UI Template
-    description: "The document ui template has components to assemble a dashboard quickly. "
+    description: The Document UI Template provides ready-made React components to assemble a document-driven dashboard quickly with TerminusDB.
     keywords: terminusdb, dashboard, dfrnt hub, document, document database, document ui template, documents, javascript
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

@@ -16,9 +16,9 @@ nextjs:
 media: []
 ---
 
-The TerminusDB document interface blends knowledge graphs with document databases and realize the best parts of both, and offers a database-oriented approach to knowledge graph processing, where the complex and painful handling of relational tables and the inflexibiltiy of working with complete documents in a document databases are avoided.
+This page explains how TerminusDB's document interface combines the convenience of a JSON document store with the traversal power of a knowledge graph. You write and read familiar JSON objects; the database stores them as a typed, schema-enforced graph — giving you both document simplicity and graph relationships in one system.
 
-Documents in TerminusDB follow a strict schema which makes document modelling both precise and easy. Technical professionals will immediately feel at home with a JSON syntax, extended with types and identifiers for precise handling of both top level document, and subdocument handling.
+Documents in TerminusDB follow a strict schema which makes document modelling both precise and easy. The JSON syntax is extended with types and identifiers for precise handling of both top-level documents and subdocuments.
 
 ## Documents offers the best of graph, documents and relations
 

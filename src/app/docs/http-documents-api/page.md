@@ -169,9 +169,13 @@ curl -X GET \
   "https://dfrnt.com/api/hosted/000000000000-0000-0000-0000-00000001/api/document/000000000000-0000-0000-0000-00000001/MyDatabase/local/branch/main?id=Role/ContentProducer"
 ```
 
-For more information about connecting to cloud instances, read [how to connect to the DFRNT API](https://support.dfrnt.com/portal/en/kb/articles/api). 
+For more information about connecting to cloud instances, read [how to connect to the DFRNT API](https://support.dfrnt.com/portal/en/kb/articles/api).
 
+## Next steps
 
+You've seen the HTTP document endpoints. To go further:
 
-
+- [**Document API curl tutorial**](/docs/document-format-api-curl-tutorial/) — worked examples of every operation
+- [**Schema reference**](/docs/schema-reference-guide/) — define types and constraints for your documents
+- [**WOQL query language**](/docs/woql-getting-started/) — query your data with pattern matching
 

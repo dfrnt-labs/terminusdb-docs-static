@@ -1,47 +1,84 @@
 ---
-title: Edit a Document with the JavaScript Client
+title: Edit Documents
 nextjs:
   metadata:
-    title: Edit a Document with the JavaScript Client
-    description: A guide to show how to update a document in TerminusDB using the JavaScript Client.
-    keywords: terminusdb, document, document database, documents, edit, edit a document with the javascript client, javascript, json-ld
-    openGraph:
-      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-edit-a-document.png?raw=true
+    title: Edit Documents
+    description: How to update documents in TerminusDB using the JavaScript client, Python client, or HTTP API.
+    keywords: terminusdb, edit document, update document, modify, javascript client, python client, http api, curl
     alternates:
       canonical: https://terminusdb.org/docs/edit-a-document/
-media: []
+    openGraph:
+      images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-edit-a-document.png?raw=true
 tags:
   - typescript
+  - python
   - documents
   - how-to
 ---
 
 {% callout type="note" %}
 **Prerequisites**
-- TerminusDB running locally or a DFRNT Hub account
-- The TerminusDB JavaScript client installed ([installation guide](/docs/install-terminusdb-js-client/))
-- A connected client instance with an existing database
+- TerminusDB running locally ([install guide](/docs/install-terminusdb-as-a-docker-container/))
+- A connected client instance with existing documents
 {% /callout %}
 
 {% callout type="note" %}
 **What you'll achieve**
-By the end of this guide, you will have updated existing documents in your TerminusDB database using the JavaScript client.
+By the end of this guide, you will have updated existing documents in your TerminusDB database using the JavaScript client, the Python client, or the HTTP API.
 {% /callout %}
 
-To update documents in your database, you first need to [get the document](/docs/get-documents/) you want to change. You then need to make your changes and update it. This example shows how -
+To update a document, first [retrieve it](/docs/get-documents/), make your changes, then submit the update. The document must include its `@id` and `@type` so TerminusDB knows which record to replace.
 
-```javascript
-const docs = {
-    '@id'   : 'Player/George',
-    '@type' : 'Player',
-    name    : 'George',
-    position: 'Center Back' 
-  }
+## Update a document
 
-docs.position = "Full Back"
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
+```typescript
+const doc = {
+    "@id"   : "Player/George",
+    "@type" : "Player",
+    name    : "George",
+    position: "Center Back",
+}
 
-const updateDocs = async () => {
-  const result = await client.updateDocument(docs);
-  console.log("updated document", result)
+doc.position = "Full Back"
+
+const updateDoc = async () => {
+  const result = await client.updateDocument(doc)
+  console.log("Updated document:", result)
 }
 ```
+{% /code-tab %}
+{% code-tab label="Python" %}
+```python
+doc = {
+    "@id"      : "Player/George",
+    "@type"    : "Player",
+    "name"     : "George",
+    "position" : "Center Back",
+}
+doc["position"] = "Full Back"
+client.update_document(doc)
+```
+{% /code-tab %}
+{% code-tab label="HTTP" %}
+```bash
+curl -u admin:root -X PUT \
+  "http://localhost:6363/api/document/admin/mydb/local/branch/main?author=admin&message=Update+document" \
+  -H "Content-Type: application/json" \
+  -d '{"@id":"Player/George","@type":"Player","name":"George","position":"Full Back"}'
+```
+{% /code-tab %}
+{% /code-tabs %}
+
+{% callout type="note" %}
+The update operation replaces the entire document. Include all fields — any field omitted from the update payload will be removed from the stored document.
+{% /callout %}
+
+## Next steps
+
+You've updated documents in TerminusDB. From here you can:
+
+- [**JSON Diff and Patch**](/docs/json-diff-and-patch/) — see exactly what changed between document versions
+- [**Branch your database**](/docs/branch-howto/) — make changes on an isolated branch before merging
+- [**Delete documents**](/docs/delete-a-document/) — remove documents you no longer need

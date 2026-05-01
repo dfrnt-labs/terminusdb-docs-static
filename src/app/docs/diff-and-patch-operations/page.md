@@ -113,3 +113,10 @@ const diffDocToObject = async () => {
    console.log("the diff result ", JSON.stringify(diffResult,null,4))
 }
 ```
+
+## Next steps
+
+- [**JSON Diff & Patch reference**](/docs/json-diff-and-patch/) — HTTP API reference for diff and patch endpoints
+- [**Merge branches**](/docs/merge-howto/) — apply diffs between branches with conflict detection
+- [**Time travel**](/docs/time-travel-howto/) — query historical states to compare snapshots
+- [**Branch your database**](/docs/branch-howto/) — create isolated workspaces for safe experimentation

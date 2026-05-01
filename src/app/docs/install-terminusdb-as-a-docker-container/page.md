@@ -5,12 +5,12 @@ tags:
   - curl
   - self-hosted
   - beginner
-title: Install TerminusDB as a Docker Container
+title: Install TerminusDB with Docker
 nextjs:
   metadata:
-    title: Install TerminusDB as a Docker Container
-    description: Everything you need to install and run TerminusDB server as a docker container on your computer or on a remote server
-    keywords: terminusdb, docker, getting started, install, install terminusdb as a docker container, setup
+    title: Install TerminusDB with Docker
+    description: Get TerminusDB running locally in under 2 minutes with Docker Compose.
+    keywords: terminusdb, docker, getting started, install, docker compose, quick start, setup
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -26,149 +26,93 @@ media: []
 
 {% callout type="note" %}
 **What you'll achieve**
-By the end of this guide, you will have TerminusDB running in a Docker container on your machine.
+By the end of this guide, you will have TerminusDB running in a Docker container on your machine — ready to accept queries on `localhost:6363`.
 {% /callout %}
 
-> **Docker memory allocation on Windows**\\ On Windows, the default memory allocated for the Docker is **2GB**. TerminusDB is an in-memory database so it is advised to increase the allocation in Docker desktop settings. **Install TerminusDB on Windows with Docker Guide**
-> 
-> For a comprehensive guide to installing on Windows, see [Install TerminusDB with Docker on Windows](/docs/install-terminusdb-docker-windows/).
-> 
-> **Linux package manager**\\ On Linux, use your distro's package manager for containerized deployments or [find more information here](https://www.docker.com/products/container-runtime).
+## Quick start (2 minutes)
 
-## Install steps
-
-Install and run the TerminusDB container with the following steps.
-
-*   [Clone the TerminusDB repo](#cloneterminusdb)
-*   [Run the container](#runthecontainer)
-*   [Use the console](#usetheconsole)
-
-### Clone TerminusDB
-
-`clone` the `terminusdb` repository and `cd` to it.
+Clone the repository and start the container:
 
 ```bash
 git clone https://github.com/terminusdb/terminusdb
-```
-
-```bash
 cd terminusdb
-```
-
-### Run the container
-
-Run the container using `docker compose`.
-
-#### Running for the first time
-
-First, set up a `.env` in the cloned directory with the following contents:
-
-```bash
-OPENAI_KEY=YOUR_OPENAI_KEY_HERE
-# And optionally specify number of pages for the vector database
-# for instance
-BUFFER_AMOUNT=120000
-```
-
-The OPENAI\_KEY is not mandatory to use, but without it, the AI indexing will not work. Of course, all the document graph database functionality will still work as intended.
-
-Run the container with the command `docker compose up`. See [Environment configuration](#environmentconfiguration) for further configuration options.
-
-```bash
 docker compose up
 ```
 
-This generates the message: `terminusdb-server container started http://127.0.0.1:6363/`. This is the TerminusDB Server and [Console](#usetheconsole) URL.
+That's it. TerminusDB is now running at **http://localhost:6363**.
 
-#### Subsequent runs
+### Verify it works
 
-*   Stop and remove previous containers.
-*   Rerun the container.
-
-> **Warning:** Adding `-v` to the `down` command will also erase local data by removing volumes.
-
-```bash
-docker compose down
-docker compose up
-```
-
-### Use the console
-
-Open the TerminusDB console in a web browser using the URL.
-
-```bash
-http://127.0.0.1:6363/dashboard
-```
-
-### Use the Dashboard
-
-The TerminusDB local dashboard is included within TerminusDB. The dashboard is a UI to create and manage data products, model data, and test queries. To use the dashboard visit:
+Open the dashboard in your browser:
 
 ```bash
 http://127.0.0.1:6363/dashboard/
 ```
 
-### Use GraphQL
-
-TerminusDB hosts a GraphQL endpoint at:
+Or test with curl:
 
 ```bash
-SERVERNAME/api/graphql/ORG/DATAPRODUCT
+curl -u admin:root http://localhost:6363/api/info
 ```
 
-For instance, with a data product named `admin/people`, and a locally installed TerminusDB, you can query it at:
+You should see a JSON response with the server version.
+
+---
+
+## What's included
+
+The Docker Compose stack gives you:
+
+| Service | URL | Purpose |
+|---------|-----|---------|
+| TerminusDB | `http://localhost:6363` | Database server + HTTP API |
+| Dashboard | `http://localhost:6363/dashboard/` | Visual UI for data modelling and queries |
+| GraphiQL | `http://localhost:6363/api/graphiql/admin/{db}` | Interactive GraphQL query browser |
+
+Default credentials: **admin** / **root**
+
+---
+
+## Stop and restart
 
 ```bash
-http://127.0.0.1:6363/api/graphql/admin/people
+# Stop
+docker compose down
+
+# Restart (data persists in Docker volumes)
+docker compose up
 ```
 
-TerminusDB ships with a GraphiQL graphical GraphQL query interface and schema browser. This is a quick way to get acquainted with GraphQL in TerminusDB.
+{% callout type="warning" %}
+Adding `-v` to `docker compose down -v` **deletes all data** by removing Docker volumes. Only use this if you want a fresh start.
+{% /callout %}
 
-You can reach this browser at:
+---
+
+## Optional: AI indexing
+
+To enable AI-powered vector indexing, create a `.env` file before starting:
 
 ```bash
-http://127.0.0.1:6363/api/graphiql/admin/people
+OPENAI_KEY=your-openai-key-here
+BUFFER_AMOUNT=120000
 ```
 
-## Environment configuration
+The OpenAI key is optional — all database features work without it.
 
-The container uses a set of environment variables with default values. You can configure the environment by setting these variables. You can set additional ENV variables or override already set ones by creating a `.env` file.
+---
 
-## Migrating from terminusdb-bootstrap
+## Windows users
 
-In order to migrate from the default terminusdb-bootstrap installation while stil keeping the data of your previous installation, run the docker compose commands the following way:
+On Windows, the default Docker memory is **2 GB**. TerminusDB benefits from more memory — increase it in Docker Desktop settings.
 
-```bash
-docker compose -f docker-compose.yml -f distribution/docker-compose/bootstrap_storage.yaml
-```
+For a detailed Windows guide, see [Install TerminusDB with Docker on Windows](/docs/install-terminusdb-docker-windows/).
 
-For instance, for the `up` command to start the server, run:
+---
 
-```bash
-docker compose -f docker-compose.yml -f distribution/docker-compose/bootstrap_storage.yaml up
-```
+## Next steps
 
-## Using the CLI
-
-To access the TerminusDB CLI from the Docker Compose, run:
-
-```bash
-docker compose run terminusdb-server ./terminusdb
-```
-
-Or use `exec` when you have the service already running
-
-## Server deployment
-
-> The TerminusDB server is deployed to your computer by default.
-
-### Local computer deployment
-
-By default, the Docker container binds to IP `127.0.0.1`. This prevents insecure deployments and ensures the TerminusDB server is accessible on a local computer only.
-
-### Remote server deployment
-
-To deploy the TerminusDB server to a remote machine:
-
-*   Enable HTTPS with a remote proxy like Nginx
-*   Don't use the `X-Forward-Header` ENV variables unless you really know what you are doing
+- [Create a Database](/docs/create-a-database/) — your first database in under a minute
+- [TypeScript Quickstart](/docs/connect-with-the-javascript-client/) — connect and start querying
+- [Python Quickstart](/docs/connect-with-python-client/) — connect with the Python client
+- [Advanced Docker Configuration](/docs/docker-advanced-configuration/) — production deployment, CLI access, migration from bootstrap

@@ -1,7 +1,7 @@
 ---
 tags:
   - graphql
-  - tutorial
+  - reference
   - beginner
 title: How to Query with GraphQL
 nextjs:

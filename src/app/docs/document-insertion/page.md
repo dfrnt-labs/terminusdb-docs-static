@@ -16,11 +16,12 @@ tags:
   - reference
 ---
 
-The document interface consists of two endpoints, one for instance documents, and one for schema documents. Documents look like typed JSON documents, and implement a subset of JSON-LD functionalities suitable for closed world knowledge graph processing.
+This page is the HTTP API reference for TerminusDB's document interface — the REST endpoints you use to create, read, update, and delete documents and schema. If you are using a client SDK, you won't call these endpoints directly, but understanding them helps you debug and write advanced integrations.
 
-The first endpoint, `document`, is how we get documents into and out of TerminusDB. Since schemas consist of documents too, this is also how you'd update the schema. Documents in TerminusDB are checked against the enhanced entity relationship model implemented through schema documents.
+TerminusDB exposes two endpoints:
 
-The second endpoint, `schema`, is how we can easily get schema information out of TerminusDB. While technically it is possible to get all schema information through the document interface, the schema interface is more convenient for this purpose, as it takes class inheritance into account to give a complete image of all the properties that are usable on a certain class.
+- **`/api/document/`** — CRUD operations on instance documents and schema documents. All documents are validated against the schema on every write.
+- **`/api/schema/`** — A convenience endpoint for reading schema information with inheritance resolved (shows all properties available on a class, including inherited ones).
 
 ## The document endpoint
 

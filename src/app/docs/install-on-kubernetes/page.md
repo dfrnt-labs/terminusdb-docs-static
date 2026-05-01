@@ -133,3 +133,11 @@ This will expose TerminusDB locally on your computer on `localhost:6363`. You ca
 "version":"12.0.5"}, "terminusdb_store": {"version":"0.19.8"}}, 
 "api:status":"api:success"}
 ```
+
+## Next steps
+
+You've deployed TerminusDB on Kubernetes. To continue building your setup:
+
+- [**Advanced Docker configuration**](/docs/docker-advanced-configuration/) — environment variables, CLI access, and production hardening
+- [**Self-hosted production deployment**](/docs/self-hosted-installation/) — full guide for running TerminusDB in production
+- [**Connect with an API key**](/docs/how-to-connect-dfrnt-hub/) — connect clients to your deployed instance programmatically

@@ -17,6 +17,8 @@ nextjs:
 media: []
 ---
 
+This page explains how TerminusDB organises data internally as a hierarchy of graphs. Understanding this structure helps you reason about where your data lives, how version control works, and why operations like branching and time travel are efficient.
+
 ## Graph hierarchy
 
 A TerminusDB database is a hierarchical collection of [data graphs](#datagraphs) and [control graphs](#controlgraphs). These graphs are key to providing a graph database system with **collaboration** and **revision control**.

@@ -15,6 +15,8 @@ nextjs:
 media: []
 ---
 
+This glossary defines key terms used throughout the TerminusDB documentation — from graph database concepts to version-control operations. Use it when you encounter an unfamiliar term in the docs.
+
 > **Context:** Unless otherwise stated, the context for all definitions is computer, data, or information science.
 > 
 > **Source:** Unless otherwise stated, the source of all definitions is [Wikipedia](https://en.wikipedia.org/wiki/Main_Page)

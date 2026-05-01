@@ -15,15 +15,9 @@ nextjs:
 media: []
 ---
 
-TerminusDB has its own flexible schema language which is designed to be compatible with RDF. The RDF world identifies resources with IRIs which are flexible, and use a relatively large space of available characters.
+This page documents how TerminusDB translates its schema class and property names into valid GraphQL identifiers. Because TerminusDB's schema language supports the full IRI character set (including colons, slashes, and accented characters) while GraphQL restricts names to `[A-Z][a-z][0-9][_]`, an automatic translation layer maps between the two. Understanding these conventions helps you predict what your GraphQL types and fields will be called.
 
-GraphQL, by contrast, has a very restrictive allowed character set for naming. Essentially only Alphanumeric characters using un-accented Latin. That is, it is essentially restricted to `[A-Z][a-z][0-9][_]`.
-
-Because of this, we have some naming conventions to translate automatically from TerminusDB classes and properties to GraphQL named classes and properties. While we have endevoured to do so in a way that is unlikely to create naming collisions, these are never-the-less possible.
-
-TerminusDB generates GraphQL schema automatically as a mapping from TerminusDB. TerminusDB's definition language is a strict super-set of GraphQL and so is able to faithfully represent GraphQL features.
-
-For each class in TerminusDB, there is a range of classes that are defined automatically by TerminusDB in the associated GraphQL schema.
+TerminusDB auto-generates a complete GraphQL schema from your document classes. For each class, it creates query types, filter types, and mutation types — all following the naming rules described below.
 
 ## Underscore as reserved
 

@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/get-your-api-key.png
     alternates:
-      canonical: https://terminusdb.org/docs/get-your-api-key-from-terminuscms/
+      canonical: https://terminusdb.org/docs/get-your-api-key/
 media: []
 ---
 

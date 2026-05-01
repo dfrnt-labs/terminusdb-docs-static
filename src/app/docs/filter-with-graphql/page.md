@@ -7,7 +7,7 @@ title: Filter with GraphQL
 nextjs:
   metadata:
     title: Filter with GraphQL
-    description: Filter with GraphQL
+    description: How to filter query results using field conditions and comparison operators in TerminusDB GraphQL queries.
     keywords: terminusdb, api, condition, filter, filter with graphql, graphql, query, terminusdb graphql
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/graphql-filter.png?raw=true
@@ -100,4 +100,9 @@ This results in:
 }
 ```
 
-For more sophisticated filtering, see [Advanced filtering](/docs/advanced-filtering-with-graphql/).
+## Next steps
+
+- [**Advanced filtering**](/docs/advanced-filtering-with-graphql/) — combine filters with `_and`, `_or`, and `_not` logic
+- [**Limit and paginate**](/docs/limit-results-in-graphql/) — control how many results are returned
+- [**Order results**](/docs/order-by-in-graphql/) — sort query results by field values
+- [**Path queries**](/docs/path-queries-in-graphql/) — traverse relationships across multiple hops

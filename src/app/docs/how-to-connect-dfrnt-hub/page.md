@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/how-to-connect-terminuscms/
+      canonical: https://terminusdb.org/docs/how-to-connect-dfrnt-hub/
 media:
   - alt: Client examples
     caption: ""
@@ -24,7 +24,7 @@ media:
 {% callout type="note" %}
 **Prerequisites**
 - A DFRNT Hub account
-- An API key ([get one](/docs/get-your-api-key-from-terminuscms/))
+- An API key ([get one](/docs/get-your-api-key/))
 {% /callout %}
 
 {% callout type="note" %}
@@ -50,3 +50,11 @@ DFRNT is offered as a SaaS platform, complete with the TerminusDB data product A
 [Sign up today to try the modern modelling experience](https://dfrnt.com/sign-up/).
 
 [Read more about the DFRNT content studio](https://dfrnt.com/hypergraph-content-studio/).
+
+## Next steps
+
+You're connected to DFRNT Hub. Now start building:
+
+- [**Get your API key**](/docs/get-your-api-key/) — mint a token to authenticate programmatically
+- [**TypeScript quickstart**](/docs/connect-with-the-javascript-client/) — build, branch, and query with the JS client
+- [**HTTP Documents API**](/docs/http-documents-api/) — CRUD operations using curl or any HTTP client

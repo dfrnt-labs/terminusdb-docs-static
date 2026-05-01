@@ -3,12 +3,13 @@ tags:
   - how-to
   - installation
   - typescript
-title: Install the TerminusDB JavaScript Client
+  - python
+title: Install a TerminusDB Client Library
 nextjs:
   metadata:
-    title: Install the TerminusDB JavaScript Client
-    description: Installation instruction for the TerminusDB JavaScript Client
-    keywords: terminusdb, getting started, install, install the terminusdb javascript client, javascript, setup, terminusdb javascript client, typescript
+    title: Install a TerminusDB Client Library
+    description: Install the TerminusDB client for TypeScript, Python, or Rust. One command to start building.
+    keywords: terminusdb, install, client, npm, pip, cargo, typescript, python, rust, setup, getting started
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -17,42 +18,90 @@ media: []
 ---
 
 {% callout type="note" %}
-**Prerequisites**
-- Node.js (version 14+) and npm installed
-- A terminal or command prompt
-{% /callout %}
-
-{% callout type="note" %}
 **What you'll achieve**
-By the end of this guide, you will have the TerminusDB JavaScript client installed and ready to use in your project.
+By the end of this guide, you will have the TerminusDB client library installed and ready to use in your project.
 {% /callout %}
 
-## Requirements
+This page covers installing the **client library** — the SDK you use to talk to TerminusDB from your application code. If you need to install the TerminusDB **server** itself, see [Install TerminusDB (Docker)](/docs/install-terminusdb-as-a-docker-container/).
 
-Node.js version 18+ if using the TerminusDB client library as a Node.js package
+## Install the client
 
-## Installation
+{% code-tabs %}
+{% code-tab label="TypeScript / Node.js" %}
 
-The TerminusDB JavaScript client library can be used either as a Node.js package or as a script that runs in the browser.
-
-### NPM Package
-
-> If you don't already have Node.js installed, install it first. [node-install](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-
-To install the `terminusdb-client` package as a dependency in an existing package, run:
+**Requirements:** Node.js 18+
 
 ```bash
-npm install --save terminusdb
+npm install terminusdb
 ```
 
-This command updates your `package.json`.
-
-### Script
-
-To use the `terminusdb-client` script on a webpage sourced from a CDN, add this to your HTML:
+This adds `terminusdb` to your `package.json`. You can also use it in a browser via CDN:
 
 ```html
 <script src="https://unpkg.com/terminusdb/dist/terminusdb-client.min.js"></script>
 ```
 
-Alternatively, you can download the latest [`terminusdb-client.min.js`](https://unpkg.com/terminusdb/dist/terminusdb-client.min.js), add it to your sources, and use that in the `<script>` instead.
+**Verify:**
+
+```bash
+node -e "const T = require('terminusdb'); console.log('terminusdb', T.version || 'installed')"
+```
+
+{% /code-tab %}
+{% code-tab label="Python" %}
+
+**Requirements:** Python 3.9+
+
+It is recommended to install in a virtual environment:
+
+```bash
+python3 -m venv ~/.virtualenvs/terminusdb
+source ~/.virtualenvs/terminusdb/bin/activate
+```
+
+Then install:
+
+```bash
+python3 -m pip install terminusdb-client
+```
+
+**Verify:**
+
+```bash
+python3 -c "import terminusdb_client; print('terminusdb-client', terminusdb_client.__version__)"
+```
+
+{% /code-tab %}
+{% code-tab label="Rust" %}
+
+**Requirements:** Rust nightly toolchain
+
+```bash
+rustup install nightly && rustup default nightly
+```
+
+Add to your `Cargo.toml`:
+
+```toml
+[dependencies]
+terminusdb-client = { git = "https://github.com/ParapluOU/terminusdb-rs" }
+tokio = { version = "1", features = ["full"] }
+anyhow = "1"
+```
+
+Add a `rust-toolchain.toml` to your project root:
+
+```toml
+[toolchain]
+channel = "nightly"
+```
+
+{% /code-tab %}
+{% /code-tabs %}
+
+## Next steps
+
+- [**TypeScript Quickstart**](/docs/connect-with-the-javascript-client/) — Branch, edit, diff, and merge documents
+- [**Python Quickstart**](/docs/connect-with-python-client/) — Same workflow in Python
+- [**Rust Quickstart**](/docs/rust-client-quickstart/) — Connect and query from Rust
+- [**First 10 Minutes (curl)**](/docs/get-started/) — Try TerminusDB without installing any SDK

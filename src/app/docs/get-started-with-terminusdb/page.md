@@ -57,7 +57,7 @@ Install as a [Node.js](https://nodejs.org/en/download/)\-based [JavaScript Clien
 
 ## Python client
 
-Install as a [Python Client](/docs/install-the-python-client/). Also requires a [Docker container](/docs/install-terminusdb-as-a-docker-container/) installation.
+Install as a [Python Client](/docs/install-terminusdb-js-client/). Also requires a [Docker container](/docs/install-terminusdb-as-a-docker-container/) installation.
 
 ## Interfaces Overview
 

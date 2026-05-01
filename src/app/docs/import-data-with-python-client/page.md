@@ -20,7 +20,7 @@ media: []
 {% callout type="note" %}
 **Prerequisites**
 - TerminusDB running locally or a DFRNT Hub account
-- The TerminusDB Python client installed ([installation guide](/docs/install-the-python-client/))
+- The TerminusDB Python client installed ([installation guide](/docs/install-terminusdb-js-client/))
 - A database with a schema defined
 - Data to import (CSV, JSON, or DataFrame)
 {% /callout %}
@@ -53,3 +53,10 @@ client.insert_document(objects)
 {% callout type="note" %}
 If your database has only one document class, TerminusDB can infer the `@type` automatically. When you have multiple classes, you must set `@type` on each document explicitly.
 {% /callout %}
+
+## Next steps
+
+- [**Get documents**](/docs/get-documents/) — verify your imported data by retrieving documents
+- [**Add a schema**](/docs/add-a-schema/) — define your document types before importing
+- [**WOQL queries**](/docs/run-woql-query/) — query and transform imported data with Datalog
+- [**Branch your database**](/docs/branch-howto/) — import data on a branch, then merge once validated
