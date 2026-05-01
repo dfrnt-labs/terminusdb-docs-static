@@ -66,6 +66,11 @@ media:
     value: https://assets.terminusdb.com/docs/document-explorer-edit-or-delete.png
 ---
 
+{% callout title="TerminusCMS is now DFRNT Hub" %}
+TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
+{% /callout %}
+
+
 The TerminusDB cloud dashboard features a data and content editing section called the Document Explorer. It is here where users can add, edit and delete content and data directly into the backend.
 
 In this example, we've cloned the [Star Wars demo database](/docs/explore-a-real-dataset/).

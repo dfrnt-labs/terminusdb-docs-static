@@ -16,6 +16,8 @@ nextjs:
 media: []
 ---
 
+TerminusDB is built around a **datalog engine** written in Prolog with a very fast and memory-efficient immutable graph storage layer optimised for version control. This page documents the internal components that make the database work.
+
 ## sys:JSON Storage
 
 TerminusDB provides the `sys:JSON` type for storing arbitrary JSON data with automatic content-addressed deduplication. JSON values are identified by SHA-1 hash, allowing multiple documents to safely share identical JSON structures without duplication or consistency issues.

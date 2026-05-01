@@ -197,6 +197,10 @@ export const navigation: Navigation[] = [
             title: 'Audit Changes',
             href: '/docs/audit-tutorial',
           },
+          {
+            title: 'Operations Reference',
+            href: '/docs/version-control-operations',
+          },
         ],
       },
       {
@@ -259,6 +263,19 @@ export const navigation: Navigation[] = [
           {
             title: 'Segmented Environments',
             href: '/docs/operational-technologies-transfer',
+          },
+        ],
+      },
+      {
+        title: 'Comparisons',
+        links: [
+          {
+            title: 'TerminusDB vs Neo4j',
+            href: '/docs/terminusdb-vs-neo4j',
+          },
+          {
+            title: 'TerminusDB vs MongoDB',
+            href: '/docs/terminusdb-vs-mongodb',
           },
         ],
       },
@@ -579,6 +596,10 @@ export const navigation: Navigation[] = [
           {
             title: 'Patterns & Recipes',
             links: [
+              {
+                title: 'Common Patterns',
+                href: '/docs/woql-common-patterns',
+              },
               {
                 title: 'Working with Data',
                 href: '/docs/woql-data-handling',

@@ -54,6 +54,7 @@ const ALLOWLIST = [
 // Paths excluded from scanning (old blog posts preserve original URLs)
 const EXCLUDED_PATH_PATTERNS = [
   /^src\/app\/blog\//,                          // All blog posts keep historical URLs
+  /^src\/data\//,                               // RDF schema data (woql.json) — namespace URIs use terminusdb.com
 ];
 
 // Files that are allowed to reference terminusdb.com because they are

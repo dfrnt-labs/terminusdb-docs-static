@@ -6,7 +6,7 @@ title: TerminusDB Documentation
 nextjs:
   metadata:
     title: TerminusDB Documentation — Getting Started, Guides, and API Reference
-    keywords: terminusdb, terminusdb documentation, git for data, document graph database, version control database, branch merge data, terminusdb quickstart
+    keywords: terminusdb, terminusdb documentation, git for data, document graph database, version control database, immutable database, datalog engine, branch merge data, terminusdb quickstart
     description: TerminusDB is an open-source document graph database with built-in version control. Branch, diff, and merge your data like code. Start in 10 minutes with Docker.
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

@@ -16,7 +16,7 @@ nextjs:
 media: []
 ---
 
-**WOQL** (Web Object Query Language) is TerminusDB's declarative query language, built on Datalog foundations. Its key insight: because TerminusDB stores data as a graph of linked documents, WOQL traverses relationships directly — no JOINs, no foreign key declarations, no explicit relationship mapping. You describe the pattern you want to match, and WOQL finds all solutions by walking the graph structure natively.
+**WOQL** (Web Object Query Language) is TerminusDB's declarative query language, powered by a **datalog engine** built on Prolog foundations. Its key insight: because TerminusDB stores data as a graph of linked documents, the datalog engine traverses relationships directly — no JOINs, no foreign key declarations, no explicit relationship mapping. You describe the pattern you want to match, and WOQL finds all solutions by walking the graph structure natively.
 
 WOQL queries are composable programs that can match patterns, filter, aggregate, reshape, and transform data in a single declarative expression. Variables in WOQL use **unification** (from Prolog): when the same variable appears in multiple positions, it must hold the same value everywhere — creating implicit joins without any JOIN syntax.
 

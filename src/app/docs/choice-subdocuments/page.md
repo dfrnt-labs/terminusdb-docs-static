@@ -16,6 +16,11 @@ tags:
   - dashboard
 ---
 
+{% callout title="TerminusCMS is now DFRNT Hub" %}
+TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
+{% /callout %}
+
+
 This example shows how `<FrameViewer/>` appears for a document called `Student` with choice subdocument fields in Create/ Edit or View mode.
 
 `Student` has a mandatory `favorite_subject` property with the choices of Zoology, Botany or Maths, an optional `"second_favorite_subject"` property with the same document choices, a set `studied` property with the above choices, and a list `study_time_table` property with the same choices in an ordered fashion.

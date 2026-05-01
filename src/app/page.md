@@ -26,7 +26,7 @@ nextjs:
         - https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
 
-TerminusDB is the modern graph database for knowledge graphs and semantic content infrastructures. Learn how to get started with TerminusDB in under thirty minutes. {% .lead %}
+TerminusDB is a modern open source knowledge graph database for data-centric semantic content infrastructures. Learn how to get started with TerminusDB in under thirty minutes. {% .lead %}
 
 {% callout type="note" title="TerminusDB version 12 released 2025-12-08" %}
 TerminusDB version 12 is out. It includes a number of new features and improvements. See [/blog/terminusdb-12-release](/blog/2025-12-08-terminusdb-12-release/) for more information.

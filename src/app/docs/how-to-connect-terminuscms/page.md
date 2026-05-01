@@ -20,6 +20,11 @@ media:
     value: https://cdn.terminusdb.com/img/terminus-cms/client_api_connection.jpeg
 ---
 
+{% callout title="TerminusCMS is now DFRNT Hub" %}
+TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
+{% /callout %}
+
+
 Cloud hosted TerminusDB is available from [https://dfrnt.com](https://dfrnt.com/hypergraph-content-studio/) that is maintaining TerminusDB since 2025. Register an account or sign up if you haven't already, to get started fast.
 
 DFRNT includes a full high quality modeller, visualisation and git-for-data support for all supported TerminusDB features. It enables a "closed-world" document-oriented knowledge graph with a datalog with variable unification, for a precise and small subset of JSON-LD-like document representation and advanced knowledge graph querying.

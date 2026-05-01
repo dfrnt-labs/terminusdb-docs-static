@@ -20,6 +20,11 @@ media:
     value: https://assets.terminusdb.com/docs/new-data-product.png
 ---
 
+{% callout title="TerminusCMS is now DFRNT Hub" %}
+TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
+{% /callout %}
+
+
 Follow this instructions to create a project/data product in DFRNT TerminusDB cloud -
 
 1.  Login to the dashboard at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/).

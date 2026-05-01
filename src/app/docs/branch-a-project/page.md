@@ -15,6 +15,8 @@ tags:
   - how-to
 ---
 
+**Branching** in TerminusDB works like Git — create a lightweight branch, make changes in isolation, then merge back. Branches share history until they diverge, making them cheap to create and fast to merge.
+
 Assuming you have [connected with the JavaScript Client](/docs/connect-with-the-javascript-client/) and [created a database](/docs/create-a-database/) you can then create a branch of your project.
 
 Creating a branch is the same for TerminusDB and DFRNT TerminusDB cloud. By default, in TerminusDB or DFRNT, you are working in the main branch.

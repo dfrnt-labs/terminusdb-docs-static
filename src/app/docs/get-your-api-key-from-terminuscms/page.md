@@ -15,6 +15,11 @@ nextjs:
 media: []
 ---
 
+{% callout title="TerminusCMS is now DFRNT Hub" %}
+TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
+{% /callout %}
+
+
 ## Generate your API key
 
 To use the Python or JavaScript client with TerminusDB, an API key is required. The API key is obtained in the DFRNT TerminusDB cloud by using the steps below.

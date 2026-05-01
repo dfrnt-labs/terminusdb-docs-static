@@ -8,12 +8,14 @@ nextjs:
   metadata:
     title: ACID Transactions Explanation
     description: "An explanation about ACID Transactions and how TerminusDB ensures ACID compliance, Atomicity, Consistency, Isolation, and Durability"
-    keywords: ACID transactions, knowledge graph, database, RDF, consistency
+    keywords: ACID transactions, immutable database, knowledge graph, database, RDF, consistency, atomic commits
     alternates:
       canonical: https://terminusdb.org/docs/acid-transactions-explanation
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
+
+TerminusDB is a fully **ACID-compliant** immutable database — every write is an atomic commit, schema validation ensures consistency, snapshot isolation prevents dirty reads, and the append-only delta layer guarantees durability. This page explains how each ACID property works in TerminusDB.
 
 ## What is ACID?
 

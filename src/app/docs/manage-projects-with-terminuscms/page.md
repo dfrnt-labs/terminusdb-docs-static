@@ -15,6 +15,11 @@ nextjs:
 media: []
 ---
 
+{% callout title="TerminusCMS is now DFRNT Hub" %}
+TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
+{% /callout %}
+
+
 * [Create Teams with UI](/docs/create-a-team-with-terminuscms/)
 * [Create Projects with UI](/docs/create-a-project-with-terminuscms/)
 * [Invite Users with UI](/docs/invite-users-using-terminuscms/)

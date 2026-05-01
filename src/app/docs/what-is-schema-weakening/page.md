@@ -16,7 +16,7 @@ nextjs:
 media: []
 ---
 
-A schema describes the shape of data in a data product. It provides constraints and assurances about what kind of data will be retrieved.
+**Schema weakening** is TerminusDB's safe schema migration strategy — it allows you to evolve your schema over time without invalidating existing data. Unlike traditional schema migrations that can break applications, schema weakening guarantees backward compatibility by only permitting changes that relax constraints rather than tightening them.
 
 However, often you need to _change_ the schema in the process of developing a data product.
 

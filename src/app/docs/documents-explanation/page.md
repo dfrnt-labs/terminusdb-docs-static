@@ -23,7 +23,7 @@ tags:
 
 TerminusDB combines the developer experience of a JSON document store with the traversal power of a knowledge graph. You write and read JSON documents; under the hood, TerminusDB decomposes them into a typed, schema-enforced graph of triples. This means you get document-store convenience (insert a JSON object, get a JSON object back) *and* graph-database power (traverse relationships across documents without JOINs, query patterns across the entire dataset).
 
-A pure document store (MongoDB, CouchDB) gives you flexible JSON but no enforced relationships between documents. A pure graph database (Neo4j, RDF stores) gives you traversal but forces you to think in triples or nodes-and-edges. TerminusDB gives you both: documents *are* the interface, the graph *is* the engine.
+A pure document store (MongoDB, CouchDB) gives you flexible JSON but no enforced relationships between documents. A pure graph database (Neo4j, RDF stores) gives you traversal but forces you to think in triples or nodes-and-edges. As a **document graph database**, TerminusDB gives you both: documents *are* the interface, the graph *is* the engine.
 
 ## The document model
 

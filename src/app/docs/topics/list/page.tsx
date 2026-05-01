@@ -1,5 +1,4 @@
 import { Metadata } from "next"
-import Link from "next/link"
 import {
   FACET_ORDER,
   FACET_LABELS,
@@ -9,6 +8,7 @@ import {
   type Facet,
 } from "@/lib/taxonomy"
 import { getTagCounts } from "@/lib/tags"
+import { TopicsTabBar } from "@/components/TopicsTabBar"
 
 export const metadata: Metadata = {
   title: "Topics List — TerminusDB Documentation",
@@ -106,16 +106,7 @@ export default function TopicsListPage() {
         </p>
       </header>
 
-      <div className="mb-8 flex items-center gap-4">
-        <span className="text-sm text-slate-500 dark:text-slate-400">View:</span>
-        <span className="text-sm font-medium text-slate-900 dark:text-white">List</span>
-        <Link
-          href="/docs/topics/graph"
-          className="text-sm text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
-        >
-          Graph
-        </Link>
-      </div>
+      <TopicsTabBar activeRoute="topics" />
 
       <nav aria-label="Documentation topics">
         {FACET_ORDER.map((facet) => (

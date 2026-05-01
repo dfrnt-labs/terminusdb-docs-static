@@ -26,6 +26,11 @@ media:
     value: https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.png
 ---
 
+{% callout title="TerminusCMS is now DFRNT Hub" %}
+TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
+{% /callout %}
+
+
 Follow these instruction to create a new team in the TerminusDB dashboard -
 
 > Note, if it is your first time logging in you will see the pricing page. Select Community Package to proceed and follow these instructions.\*

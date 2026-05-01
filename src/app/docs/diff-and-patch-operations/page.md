@@ -15,6 +15,8 @@ tags:
   - how-to
 ---
 
+TerminusDB provides **structural diff and patch** operations — compare any two documents, branches, or commits to see exactly what changed at the field level, then apply those changes programmatically. This is git-like version control for data, not line-based text diff.
+
 ## Diff an object
 
 Return the diff from two objects

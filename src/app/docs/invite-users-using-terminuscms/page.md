@@ -21,6 +21,11 @@ media:
     value: https://assets.terminusdb.com/docs/manage-your-projects-add-a-new-user.png
 ---
 
+{% callout title="TerminusCMS is now DFRNT Hub" %}
+TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
+{% /callout %}
+
+
 To invite team members and manage the team, do the following:
 
 1.  Click the arrow next to your profile icon in the top right corner.

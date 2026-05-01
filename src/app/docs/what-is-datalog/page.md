@@ -29,7 +29,7 @@ Unlike imperative query approaches, Datalog's foundation in declarative logical 
 
 Modern applications need to traverse complex relationships: social networks, organizational hierarchies, supply chains, and knowledge graphs. While SQL handles flat tables effectively, expressing queries like "find all ancestors" or "who knows someone who knows someone" requires verbose recursive Common Table Expressions that are difficult to write and maintain.
 
-**Datalog makes these queries natural.** Instead of wrestling with procedural logic, you describe *what* you want to find, and the query engine determines *how* to find it.
+**Datalog makes these queries natural.** Instead of wrestling with procedural logic, you describe *what* you want to find, and the datalog engine determines *how* to find it. TerminusDB is a **datalog engine** — its query evaluator natively resolves logical predicates, performs unification, and traverses graph structures without requiring explicit join instructions.
 
 Consider the difference:
 - **SQL mindset**: "Join this table to that table, filter these rows, recurse until done"
