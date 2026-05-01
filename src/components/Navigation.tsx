@@ -45,12 +45,14 @@ export function Navigation({
   }
 
   // Initialize open sections based on active page
+  // isSectionActive depends only on pathname (already in deps)
   useEffect(() => {
     const initialOpenState: Record<string, boolean> = {}
     navigation.forEach((section) => {
       initialOpenState[section.title] = isSectionActive(section)
     })
     setOpenMainSections(initialOpenState)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
   // Toggle main section - close others when opening one
@@ -154,6 +156,7 @@ function SubNavigationMap({
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({})
 
   // Set initial open state based on active links
+  // isLinkActive and links are stable per pathname change
   useEffect(() => {
     const initialOpenState: Record<string, boolean> = {}
     links.forEach((link) => {
@@ -163,6 +166,7 @@ function SubNavigationMap({
       }
     })
     setOpenSections(initialOpenState)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
   // Toggle section open/closed

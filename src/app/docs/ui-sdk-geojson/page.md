@@ -24,7 +24,11 @@ These packages (`@terminusdb/terminusdb-documents-ui` etc.) were last published 
 
 ## GeoJSON Demo
 
-Take a look at the [**GeoJSON Playground**](https://documents-ui-playground-geojson.terminusdb.com/Feature) to view the `<FrameViewer/>` demo in create, edit or view mode.
+{% callout type="warning" %}
+The GeoJSON Playground is no longer available. The examples below show the expected behaviour of `<FrameViewer/>` with GeoJSON data types.
+{% /callout %}
+
+The [**GeoJSON Playground**](https://documents-ui-playground-geojson.terminusdb.com/Feature) previously demonstrated `<FrameViewer/>` in create, edit or view mode.
 
 
 ## Example
@@ -519,4 +523,8 @@ The equivalent geoJSON frame that can be retrieved from `getSchemaFrame()` call
 
 ### **Demo**
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground-geojson.terminusdb.com/) to view `<FrameViewer/>` with geoJSON data.
+{% callout type="warning" %}
+The GeoJSON Playground is no longer available. The examples below show the expected behaviour of `<FrameViewer/>` with GeoJSON data types.
+{% /callout %}
+
+The [**Demo Playground**](https://documents-ui-playground-geojson.terminusdb.com/) previously demonstrated `<FrameViewer/>` with geoJSON data.

@@ -61,4 +61,4 @@ This returns fully qualified IRIs such as `terminusdb:///data/Person/Luke%20Skyw
 
 ## Relationship with WOQL
 
-The same IRI behaviour is present in WOQL queries, where identifiers are full IRIs. Read more about [prefixed IRIs and RDF contexts](/docs/explanation-graphs/) to understand how TerminusDB manages document identifiers across its interfaces.
+The same IRI behaviour is present in WOQL queries, where identifiers are full IRIs. Read more about [prefixed IRIs and RDF contexts](/docs/graphs-explanation/) to understand how TerminusDB manages document identifiers across its interfaces.

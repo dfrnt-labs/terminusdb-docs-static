@@ -51,6 +51,11 @@ const ALLOWLIST = [
   /cloud\.terminusdb\.com/i,
 ];
 
+// Paths excluded from scanning (old blog posts preserve original URLs)
+const EXCLUDED_PATH_PATTERNS = [
+  /^src\/app\/blog\//,                          // All blog posts keep historical URLs
+];
+
 // Files that are allowed to reference terminusdb.com because they are
 // linting scripts that need to describe the pattern they detect.
 const ALLOWLISTED_FILES = new Set([
@@ -84,6 +89,9 @@ async function main() {
         // Skip self and allowlisted lint files
         if (rel === SELF) continue;
         if (ALLOWLISTED_FILES.has(rel)) continue;
+
+        // Skip paths excluded from scanning (blog posts keep historical URLs)
+        if (EXCLUDED_PATH_PATTERNS.some(pattern => pattern.test(rel))) continue;
 
         // Skip binary files (bundles, images, etc.)
         if (/\.(bundle|png|jpg|jpeg|gif|ico|woff2?|ttf|eot|svg|lock)$/i.test(filePath)) continue;

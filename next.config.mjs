@@ -33,6 +33,7 @@ const nextConfig = {
       { source: '/docs/curate-and-import-data/', destination: '/docs/use-the-admin-ui-curate-and-import-data/', permanent: true },
       { source: '/docs/terminusdb-install-options/', destination: '/docs/install-terminusdb-as-a-docker-container/', permanent: true },
       { source: '/docs/terminusdb-query-cookbook/', destination: '/docs/how-to-query-with-woql/', permanent: true },
+      { source: '/docs/woql/', destination: '/docs/woql-explanation/', permanent: true },
     ]
   },
 }

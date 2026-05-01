@@ -24,7 +24,7 @@ function getLinkTitle(linkName: string) {
 }
 
 function getAnchorId(link: NodeObject) {
-  return link.id !== "" ? link.id : formatAnchorIds(link.text)
+  return link.id !== "" ? link.id : formatAnchorIds(link.text ?? "")
 }
 
 function getLinks(anchorLabel: NodeObject[]) {
@@ -36,7 +36,7 @@ function getLinks(anchorLabel: NodeObject[]) {
           href={`#${getAnchorId(link)}`}
           className="tdb__on__this__page__links"
         >
-          {getLinkTitle(link.text)}
+          {getLinkTitle(link.text ?? "")}
         </a>
       </li>
     )
@@ -59,7 +59,7 @@ function getNodeList(nodeList: NodeListOf<Element>) {
 }
 
 //return <div className="flex-none hidden w-64 pl-8 mr-8 xl:text-sm xl:block">
-export const OnThisPageContent = (props) => {
+export const OnThisPageContent = (_props?: Record<string, never>) => {
   let nodeList = document.querySelectorAll(
     "#mainContent h2:not(.tdb__subtitle), #mainContent h3, #mainContent h4"
   )

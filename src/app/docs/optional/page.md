@@ -143,7 +143,7 @@ This frame consists of a `Person` document
   }
 ```
 
-#### Create
+### Create
 
 ```javascript
 import { FrameViewer } from '@terminusdb/terminusdb-documents-ui'
@@ -155,7 +155,7 @@ import { FrameViewer } from '@terminusdb/terminusdb-documents-ui'
     type={"Person_Optional"}/>           // type of document 
 ```
 
-#### Edit & View
+### Edit & View
 
 Note - make sure to provide document values for View mode. The form will be in read only mode for View.
 

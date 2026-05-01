@@ -24,8 +24,10 @@ function getMenuId(menuLabel: string) {
   return menuLabel.replaceAll(" ", "_")
 }
 
+type MenuEntry = { document: { slug: string } } | null
+
 /** level 3 */
-function renderLevel3Menu(menuLevel3: any[], entry: any[]) {
+function renderLevel3Menu(menuLevel3: any[], entry: MenuEntry) {
   const level3Items = menuLevel3.map((level3, index) => {
     let activeClassName = getActiveSlugClassName(level3, entry, 3)
     return (
@@ -43,7 +45,7 @@ function renderLevel3Menu(menuLevel3: any[], entry: any[]) {
 }
 
 /** level 2 */
-function renderLevel2Menu(menuLevel2: any[], entry: any[]) {
+function renderLevel2Menu(menuLevel2: any[], entry: MenuEntry) {
   const level2Items = menuLevel2.map((level2, index) => {
     if (typeof level2 === "undefined") {
       return ""
@@ -116,16 +118,11 @@ function renderLevel2Menu(menuLevel2: any[], entry: any[]) {
 }
 
 /** level 1 */
-function renderLevel1Menu(menuLevel1: any[], entry: any[]) {
+function renderLevel1Menu(menuLevel1: any[], entry: MenuEntry) {
   const menuItems = menuLevel1.map(
     (
-      level1: {
-        Level2?: any
-        Menu1Page?: any
-        Menu1Label?: any
-        Level1?: any[]
-      },
-      index: any
+      level1: any,
+      index: number
     ) => {
       let activeClassName = getActiveSlugClassName(level1, entry, 1)
 
@@ -195,7 +192,7 @@ function renderLevel1Menu(menuLevel1: any[], entry: any[]) {
 }
 
 /** level 0 */
-export default function renderMainMenu(menu: any[], entry: any[]) {
+export default function renderMainMenu(menu: any[], entry: MenuEntry) {
   const mainMenuItems = menu.map((menuItem, index) => {
     let className = checkIfMenuOpen(menuItem, entry, 1)
 

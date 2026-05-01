@@ -12,6 +12,7 @@ import { Navigation } from '@/components/Navigation'
 import { Search } from '@/components/Search'
 import { ThemeSelector } from '@/components/ThemeSelector'
 import { TopicsButton } from '@/components/TopicsButton'
+import { CollectionPanel } from '@/components/CollectionPanel'
 import { ScrollLink } from './ScrollLink'
 import { Footer } from '@/components/Footer'
 
@@ -102,6 +103,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </div>
         {children}
       </div>
+      <CollectionPanel />
       <Footer />
     </div>
   )

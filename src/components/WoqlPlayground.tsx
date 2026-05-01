@@ -40,7 +40,7 @@ function buildWoqlFunctions() {
   // Generate all WOQL predicates by delegating to the JS client
   const fns: Record<string, Function> = {}
   for (const name of WOQL_PREDICATES) {
-    fns[name] = (...args: any[]) => WOQL[name](...args).json()
+    fns[name] = (...args: any[]) => (WOQL[name] as (...a: any[]) => { json(): JsonLd })(...args).json()
   }
 
   // Predicates whose last argument is a sub-query need wrapping
@@ -48,7 +48,7 @@ function buildWoqlFunctions() {
   for (const name of ['select', 'not', 'opt', 'limit', 'order_by'] as const) {
     fns[name] = (...args: any[]) => {
       args[args.length - 1] = asQuery(args[args.length - 1])
-      return WOQL[name](...args).json()
+      return (WOQL[name] as (...a: any[]) => { json(): JsonLd })(...args).json()
     }
   }
   // group_by: 4th arg is the sub-query

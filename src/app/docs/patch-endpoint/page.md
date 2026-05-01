@@ -15,6 +15,10 @@ tags:
   - reference
 ---
 
+{% callout type="warning" %}
+The endpoint at data.terminusdb.org is for non-production and exploratory use only. It is deployed with very limited memory to prevent abuse and is provided without any guarantees whatsoever. Do not rely on it for production applications. Availability is not guaranteed.
+{% /callout %}
+
 TerminusDB provides two patch operations for applying structural changes to documents:
 
 - **`patch`** — Apply a patch to a specific document you supply (client-side before + patch)

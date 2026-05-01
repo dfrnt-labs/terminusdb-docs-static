@@ -22,7 +22,7 @@ const Header = () => {
 }
 
 /** Side Bar nav component  */
-const SideBarComponent = (props) => {
+const SideBarComponent = (props: { menu: any[]; entry: { document: { slug: string } } | null }) => {
   return (
     <>
       <aside
@@ -50,8 +50,8 @@ const SideBarComponent = (props) => {
 }
 
 /** Main body of page */
-const MainContent = (props) => {
-  const [onThisPage, setOnThisPage] = useState("")
+const MainContent = (props: { displayElement: React.ReactNode; heading: React.ReactNode; subtitle: React.ReactNode }) => {
+  const [onThisPage, setOnThisPage] = useState<React.ReactNode>("")
   useEffect(() => {
     if (typeof window !== "undefined") {
       Prism.highlightAll()
@@ -59,7 +59,7 @@ const MainContent = (props) => {
       initFlowbite()
       document
         .getElementById("sidebar-multi-level-sidebar")
-        .classList.add("hidden")
+        ?.classList.add("hidden")
       setOnThisPage(<OnThisPageContent />)
     }
   }, [props.displayElement])
@@ -88,7 +88,7 @@ const MainContent = (props) => {
 }
 
 /** layout for all pages to be displayed */
-export const Layout = (props) => {
+export const Layout = (props: { seo_metadata?: { title: string; description: string; og_image: string }; menu: any[]; entry: { document: { slug: string } } | null; displayElement: React.ReactNode; heading: React.ReactNode; subtitle: React.ReactNode }) => {
   return (
     <>
       <Header />

@@ -1,7 +1,7 @@
 import Head from "next/head"
 import Script from "next/script"
 
-export default function SeoComponent(props) {
+export default function SeoComponent(props: { seo_metadata?: { title: string; description: string; og_image: string } }) {
   if (typeof props.seo_metadata === "undefined") {
     return (
       <Head>
@@ -34,7 +34,7 @@ export default function SeoComponent(props) {
   )
 }
 
-export const CommonHeaders = (props) => <>
+export const CommonHeaders = (_props?: Record<string, never>) => <>
   <meta name="algolia-site-verification"  content="63A98BB8F7D12CB0" />
 </>
 

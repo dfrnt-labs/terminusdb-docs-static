@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 
 import { navigation } from '@/lib/navigation'
 import { OpenInAI } from '@/components/OpenInAI'
+import { BookmarkButton } from '@/components/BookmarkButton'
 import { ConnectionIndicator } from '@/components/ConnectionSettings/ConnectionIndicator'
 
 export function DocsHeader({ title }: { title?: string }) {
@@ -32,6 +33,7 @@ export function DocsHeader({ title }: { title?: string }) {
           )}
         </div>
         <div className="flex items-center gap-3 flex-shrink-0 pt-1">
+          <BookmarkButton />
           <ConnectionIndicator />
           <OpenInAI />
         </div>

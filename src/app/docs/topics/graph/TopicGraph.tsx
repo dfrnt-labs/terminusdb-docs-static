@@ -17,6 +17,7 @@ import { zoom, zoomIdentity, zoomTransform, type ZoomBehavior } from "d3-zoom"
 import { useRouter } from "next/navigation"
 import type { GraphData, GraphNode } from "./buildGraphData"
 import type { Facet } from "@/lib/taxonomy"
+import { useLocalStorage, useDebouncedStorage, peekStorage } from "@/lib/useLocalStorage"
 
 // ── Colour scheme ────────────────────────────────────────────────────────────
 
@@ -53,6 +54,11 @@ interface SimLink extends SimulationLinkDatum<SimNode> {
 
 // ── Filter state ─────────────────────────────────────────────────────────────
 
+/** Sentinel tag ID for the bookmarks virtual tag */
+const BOOKMARKS_TAG = "__bookmarks__"
+/** Sentinel tag ID for the selection virtual tag */
+const SELECTION_TAG = "__selection__"
+
 interface FilterState {
   activeFacets: Set<Facet>
   activeTags: Set<string>
@@ -61,6 +67,35 @@ interface FilterState {
 
 function isFilterActive(filters: FilterState): boolean {
   return filters.activeFacets.size > 0 || filters.activeTags.size > 0
+}
+
+const DEFAULT_FILTER_STATE: FilterState = {
+  activeFacets: new Set(),
+  activeTags: new Set(),
+  showPages: true,
+}
+
+/**
+ * Restore filter state from localStorage on initial render.
+ * Gracefully drops facets that are not in ALL_FACETS.
+ * Tag validation against taxonomy happens separately (after data is available).
+ */
+function restoreFilterState(): FilterState {
+  const stored = peekStorage()
+  if (!stored.filterState) return { ...DEFAULT_FILTER_STATE, activeFacets: new Set(), activeTags: new Set() }
+  const validFacetSet = new Set<string>(ALL_FACETS)
+  const restoredFacets = new Set<Facet>(
+    stored.filterState.activeFacets.filter((f) => validFacetSet.has(f)) as Facet[]
+  )
+  // Filter out the virtual tag sentinels from persisted tags (they are ephemeral)
+  const restoredTags = new Set<string>(
+    stored.filterState.activeTags.filter((t) => t !== BOOKMARKS_TAG && t !== SELECTION_TAG)
+  )
+  return {
+    activeFacets: restoredFacets,
+    activeTags: restoredTags,
+    showPages: stored.filterState.showPages,
+  }
 }
 
 // ── Truncation helper ────────────────────────────────────────────────────────
@@ -75,6 +110,8 @@ function getNodeVisibility(
   node: SimNode,
   filters: FilterState,
   tagToFacetMap: Map<string, Facet>,
+  bookmarks?: string[],
+  selection?: string[],
 ): "full" | "hidden" {
   // Facets and tags are ALWAYS full — never dim, never hidden
   if (node.type === "facet" || node.type === "tag") return "full"
@@ -82,14 +119,38 @@ function getNodeVisibility(
   // Pages can be hidden
   if (node.type === "page") {
     if (!filters.showPages) return "hidden"
+
     if (!isFilterActive(filters)) return "full"
-    // Check if page connects to any active filter
+
+    // Check if page matches any active filter (facets, tags, or virtual tags)
     const pageTags = node.tags ?? []
+    const hasBookmarksTag = filters.activeTags.has(BOOKMARKS_TAG)
+    const hasSelectionTag = filters.activeTags.has(SELECTION_TAG)
+
+    // Bookmarks virtual tag: page matches if it's in the bookmarks list
+    if (hasBookmarksTag && bookmarks) {
+      const isBookmarked = node.href ? bookmarks.includes(node.href) : false
+      if (isBookmarked) return "full"
+    }
+
+    // Selection virtual tag: page matches if it's in the selection list
+    if (hasSelectionTag && selection) {
+      const isSelected = node.href ? selection.includes(node.href) : false
+      if (isSelected) return "full"
+    }
+
+    // Real tags: page matches if it has an active tag
     for (const tagId of pageTags) {
+      if (tagId === BOOKMARKS_TAG || tagId === SELECTION_TAG) continue
       if (filters.activeTags.has(tagId)) return "full"
+    }
+
+    // Facets: page matches if any of its tags belong to an active facet
+    for (const tagId of pageTags) {
       const tagFacet = tagToFacetMap.get(tagId)
       if (tagFacet && filters.activeFacets.has(tagFacet)) return "full"
     }
+
     return "hidden"
   }
 
@@ -100,6 +161,8 @@ function getLinkVisibility(
   link: SimLink,
   nodeVisMap: Map<string, "full" | "hidden">,
   filters: FilterState,
+  bookmarks?: string[],
+  selection?: string[],
 ): "selected" | "full" | "hidden" {
   const sourceId = typeof link.source === "string" ? link.source : (link.source as SimNode).id
   const targetId = typeof link.target === "string" ? link.target : (link.target as SimNode).id
@@ -111,8 +174,8 @@ function getLinkVisibility(
 
   // If a filter is active, check if edge connects to an active-filter node
   if (isFilterActive(filters)) {
-    const sourceIsSelected = isNodeSelected(sourceId, filters)
-    const targetIsSelected = isNodeSelected(targetId, filters)
+    const sourceIsSelected = isNodeSelected(sourceId, filters, bookmarks, selection)
+    const targetIsSelected = isNodeSelected(targetId, filters, bookmarks, selection)
     if (sourceIsSelected || targetIsSelected) return "selected"
     // Both ends visible but not connected to selection
     return "full" // caller maps this to 0.05 when filter is active
@@ -121,7 +184,7 @@ function getLinkVisibility(
   return "full" // caller maps this to default (0.25/0.10 by edge type)
 }
 
-function isNodeSelected(nodeId: string, filters: FilterState): boolean {
+function isNodeSelected(nodeId: string, filters: FilterState, bookmarks?: string[], selection?: string[]): boolean {
   if (nodeId.startsWith("facet:")) {
     const facet = nodeId.replace("facet:", "") as Facet
     return filters.activeFacets.has(facet)
@@ -129,6 +192,17 @@ function isNodeSelected(nodeId: string, filters: FilterState): boolean {
   if (nodeId.startsWith("tag:")) {
     const tagId = nodeId.replace("tag:", "")
     return filters.activeTags.has(tagId)
+  }
+  if (nodeId.startsWith("page:")) {
+    const href = nodeId.replace("page:", "")
+    // When bookmarks tag is active, bookmarked page nodes are "selected"
+    if (filters.activeTags.has(BOOKMARKS_TAG) && bookmarks && bookmarks.includes(href)) {
+      return true
+    }
+    // When selection tag is active, selected page nodes are "selected"
+    if (filters.activeTags.has(SELECTION_TAG) && selection && selection.includes(href)) {
+      return true
+    }
   }
   return false
 }
@@ -142,13 +216,15 @@ function applyVisibility(
   nodes: SimNode[],
   filters: FilterState,
   tagToFacetMap: Map<string, Facet>,
+  bookmarks?: string[],
+  selection?: string[],
 ): void {
   const hasFilter = isFilterActive(filters)
 
   // Build node visibility map
   const nodeVisMap = new Map<string, "full" | "hidden">()
   for (const node of nodes) {
-    nodeVisMap.set(node.id, getNodeVisibility(node, filters, tagToFacetMap))
+    nodeVisMap.set(node.id, getNodeVisibility(node, filters, tagToFacetMap, bookmarks, selection))
   }
 
   // Apply to nodes — only pages can be hidden; everything else stays full
@@ -166,13 +242,13 @@ function applyVisibility(
   // Selection ring — visible on active-filter nodes
   nodeSel.select(".selection-ring").attr("opacity", (d) => {
     if (!hasFilter) return 0
-    return isNodeSelected(d.id, filters) ? 1 : 0
+    return isNodeSelected(d.id, filters, bookmarks, selection) ? 1 : 0
   })
 
   // Apply to edges
   linkSel
     .attr("stroke-opacity", (l) => {
-      const vis = getLinkVisibility(l, nodeVisMap, filters)
+      const vis = getLinkVisibility(l, nodeVisMap, filters, bookmarks, selection)
       if (vis === "hidden") return 0
       if (vis === "selected") return 0.70
       // "full" — depends on whether filter is active
@@ -181,12 +257,12 @@ function applyVisibility(
       return l.type === "facet-tag" ? 0.25 : 0.10
     })
     .attr("stroke-width", (l) => {
-      const vis = getLinkVisibility(l, nodeVisMap, filters)
+      const vis = getLinkVisibility(l, nodeVisMap, filters, bookmarks, selection)
       if (vis === "selected") return 1.5
       return l.type === "facet-tag" ? 1.5 : 1.0
     })
     .attr("pointer-events", (l) => {
-      const vis = getLinkVisibility(l, nodeVisMap, filters)
+      const vis = getLinkVisibility(l, nodeVisMap, filters, bookmarks, selection)
       return vis === "hidden" ? "none" : "auto"
     })
 }
@@ -257,23 +333,80 @@ function PillBar({
   onToggleFacet,
   onToggleTag,
   onTogglePages,
+  onToggleBookmarks,
+  onToggleSelection,
   onClearFilters,
   isDark,
   tagsByFacet,
+  bookmarkCount,
+  selectionCount,
 }: {
   filters: FilterState
   onToggleFacet: (facet: Facet) => void
   onToggleTag: (tagId: string) => void
   onTogglePages: () => void
+  onToggleBookmarks: () => void
+  onToggleSelection: () => void
   onClearFilters: () => void
   isDark: boolean
   tagsByFacet: Map<Facet, { id: string; label: string }[]>
+  bookmarkCount: number
+  selectionCount: number
 }) {
   const hasFilter = isFilterActive(filters)
   const [expandedFacet, setExpandedFacet] = useState<Facet | null>(null)
 
   return (
     <div className="flex flex-wrap items-center gap-1.5 border-b border-slate-200 px-4 py-2 dark:border-slate-700">
+      {/* Selection virtual tag pill — blue, clipboard icon */}
+      <button
+        onClick={onToggleSelection}
+        disabled={selectionCount === 0}
+        className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-40"
+        style={{
+          backgroundColor: filters.activeTags.has(SELECTION_TAG)
+            ? "rgba(59, 130, 246, 0.20)"
+            : "rgba(59, 130, 246, 0.10)",
+          color: isDark ? "#60a5fa" : "#2563eb",
+          boxShadow: filters.activeTags.has(SELECTION_TAG) ? "0 0 0 2px #3b82f6" : undefined,
+        }}
+        aria-pressed={filters.activeTags.has(SELECTION_TAG)}
+        aria-label={selectionCount === 0 ? "Selection filter (no pages selected)" : `Selection filter${filters.activeTags.has(SELECTION_TAG) ? " (active)" : ""} — ${selectionCount} selected`}
+        title={selectionCount === 0 ? "No pages selected — click nodes to select" : `${selectionCount} selected pages`}
+      >
+        <span aria-hidden="true">📋</span>
+        Selection
+        {selectionCount > 0 && (
+          <span className="ml-0.5 text-[10px] opacity-70">({selectionCount})</span>
+        )}
+      </button>
+
+      {/* Bookmarks virtual tag pill — amber, star icon */}
+      <button
+        onClick={onToggleBookmarks}
+        disabled={bookmarkCount === 0}
+        className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-40"
+        style={{
+          backgroundColor: filters.activeTags.has(BOOKMARKS_TAG)
+            ? "rgba(251, 191, 36, 0.20)"
+            : "rgba(251, 191, 36, 0.10)",
+          color: isDark ? "#fbbf24" : "#f59e0b",
+          boxShadow: filters.activeTags.has(BOOKMARKS_TAG) ? "0 0 0 2px #fbbf24" : undefined,
+        }}
+        aria-pressed={filters.activeTags.has(BOOKMARKS_TAG)}
+        aria-label={bookmarkCount === 0 ? "Bookmarks filter (no bookmarks yet)" : `Bookmarks filter${filters.activeTags.has(BOOKMARKS_TAG) ? " (active)" : ""} — ${bookmarkCount} bookmarked`}
+        title={bookmarkCount === 0 ? "No bookmarks yet" : `${bookmarkCount} bookmarked pages`}
+      >
+        <span aria-hidden="true">★</span>
+        Bookmarks
+        {bookmarkCount > 0 && (
+          <span className="ml-0.5 text-[10px] opacity-70">({bookmarkCount})</span>
+        )}
+      </button>
+
+      {/* Separator between user-state pills and taxonomy pills */}
+      <span className="mx-1 h-4 w-px bg-slate-200 dark:bg-slate-700" aria-hidden="true" />
+
       {/* Facet pills */}
       {ALL_FACETS.map((facet) => {
         const isActive = filters.activeFacets.has(facet)
@@ -328,8 +461,8 @@ function PillBar({
         )
       })}
 
-      {/* Active tag pills */}
-      {[...filters.activeTags].map((tagId) => {
+      {/* Active tag pills (excluding virtual tags — they have their own pills) */}
+      {[...filters.activeTags].filter((t) => t !== BOOKMARKS_TAG && t !== SELECTION_TAG).map((tagId) => {
         let tagLabel = tagId
         let tagFacet: Facet = "feature"
         for (const [facet, tags] of tagsByFacet) {
@@ -431,14 +564,13 @@ export default function TopicGraph({ data }: TopicGraphProps) {
   const svgRef = useRef<SVGSVGElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const zoomBehaviourRef = useRef<ZoomBehavior<SVGSVGElement, unknown> | null>(null)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const nodeSelRef = useRef<Selection<SVGGElement, SimNode, any, any> | null>(null)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const linkSelRef = useRef<Selection<SVGLineElement, SimLink, any, any> | null>(null)
+  const nodeSelRef = useRef<Selection<SVGGElement, SimNode, SVGGElement, unknown> | null>(null)
+  const linkSelRef = useRef<Selection<SVGLineElement, SimLink, SVGGElement, unknown> | null>(null)
   const nodesRef = useRef<SimNode[]>([])
   const linksRef = useRef<SimLink[]>([])
   // Filter state lives in refs — D3 updates are imperative, not React-driven
-  const filtersRef = useRef<FilterState>({ activeFacets: new Set(), activeTags: new Set(), showPages: true })
+  // Initialised from localStorage (SSR-safe: peekStorage returns defaults if unavailable)
+  const filtersRef = useRef<FilterState>(restoreFilterState())
   const tagToFacetMapRef = useRef<Map<string, Facet>>(new Map())
   // filterVersion triggers pill bar re-render only — does NOT affect the SVG/simulation
   const [filterVersion, setFilterVersion] = useState(0)
@@ -446,6 +578,16 @@ export default function TopicGraph({ data }: TopicGraphProps) {
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
   const [isDark, setIsDark] = useState(false)
   const router = useRouter()
+  const [storedState, setStoredState] = useLocalStorage()
+  const bookmarksRef = useRef<string[]>(storedState.bookmarks ?? [])
+  const selectionRef = useRef<string[]>(storedState.selection ?? [])
+  // Keep refs in sync (state can change from other pages/tabs)
+  bookmarksRef.current = storedState.bookmarks ?? []
+  selectionRef.current = storedState.selection ?? []
+
+  // Debounced persistence writer (500ms)
+  const persistFilters = useDebouncedStorage(500)
+  const persistPositions = useDebouncedStorage(500)
 
   // Build lookup maps from data
   const tagToFacetMap = useMemo(() => {
@@ -478,6 +620,37 @@ export default function TopicGraph({ data }: TopicGraphProps) {
     return map
   }, [data])
 
+  // On mount: validate restored tags against current taxonomy (drop stale ones)
+  useEffect(() => {
+    const current = filtersRef.current
+    if (current.activeTags.size === 0) return
+    const validTags = new Set(tagToFacetMap.keys())
+    let changed = false
+    const pruned = new Set<string>()
+    for (const tagId of current.activeTags) {
+      if (validTags.has(tagId)) {
+        pruned.add(tagId)
+      } else {
+        changed = true
+      }
+    }
+    if (changed) {
+      filtersRef.current = { ...current, activeTags: pruned }
+      setFilterVersion((v) => v + 1)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tagToFacetMap])
+
+  // Helper: serialize current filter state for persistence (excludes ephemeral virtual tag sentinels)
+  const serializeFilters = useCallback((): { activeFacets: string[]; activeTags: string[]; showPages: boolean } => {
+    const f = filtersRef.current
+    return {
+      activeFacets: [...f.activeFacets],
+      activeTags: [...f.activeTags].filter((t) => t !== BOOKMARKS_TAG && t !== SELECTION_TAG),
+      showPages: f.showPages,
+    }
+  }, [])
+
   // Imperative D3 visibility update — call after any filter mutation
   const applyCurrentVisibility = useCallback(() => {
     const nodeSel = nodeSelRef.current
@@ -490,10 +663,12 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       nodes,
       filtersRef.current,
       tagToFacetMapRef.current,
+      bookmarksRef.current,
+      selectionRef.current,
     )
   }, [])
 
-  // Filter handlers — mutate refs, apply D3 imperatively, bump version for pill bar
+  // Filter handlers — mutate refs, apply D3 imperatively, persist, bump version for pill bar
   const handleToggleFacet = useCallback((facet: Facet) => {
     const next = new Set(filtersRef.current.activeFacets)
     if (next.has(facet)) {
@@ -503,8 +678,9 @@ export default function TopicGraph({ data }: TopicGraphProps) {
     }
     filtersRef.current = { ...filtersRef.current, activeFacets: next }
     applyCurrentVisibility()
+    persistFilters({ filterState: serializeFilters() })
     setFilterVersion((v) => v + 1)
-  }, [applyCurrentVisibility])
+  }, [applyCurrentVisibility, persistFilters, serializeFilters])
 
   const handleToggleTag = useCallback((tagId: string) => {
     const next = new Set(filtersRef.current.activeTags)
@@ -515,20 +691,64 @@ export default function TopicGraph({ data }: TopicGraphProps) {
     }
     filtersRef.current = { ...filtersRef.current, activeTags: next }
     applyCurrentVisibility()
+    persistFilters({ filterState: serializeFilters() })
     setFilterVersion((v) => v + 1)
-  }, [applyCurrentVisibility])
+  }, [applyCurrentVisibility, persistFilters, serializeFilters])
 
   const handleTogglePages = useCallback(() => {
     filtersRef.current = { ...filtersRef.current, showPages: !filtersRef.current.showPages }
     applyCurrentVisibility()
+    persistFilters({ filterState: serializeFilters() })
     setFilterVersion((v) => v + 1)
-  }, [applyCurrentVisibility])
+  }, [applyCurrentVisibility, persistFilters, serializeFilters])
 
   const handleClearFilters = useCallback(() => {
     filtersRef.current = { activeFacets: new Set(), activeTags: new Set(), showPages: true }
     applyCurrentVisibility()
+    // Clear persisted filter state and node positions immediately — preserves bookmarks/basket
+    setStoredState({ filterState: undefined, nodePositions: undefined })
+    setFilterVersion((v) => v + 1)
+  }, [applyCurrentVisibility, setStoredState])
+
+  const handleToggleBookmarksFilter = useCallback(() => {
+    const next = new Set(filtersRef.current.activeTags)
+    if (next.has(BOOKMARKS_TAG)) {
+      next.delete(BOOKMARKS_TAG)
+    } else {
+      next.add(BOOKMARKS_TAG)
+    }
+    filtersRef.current = { ...filtersRef.current, activeTags: next }
+    applyCurrentVisibility()
     setFilterVersion((v) => v + 1)
   }, [applyCurrentVisibility])
+
+  const handleToggleSelectionFilter = useCallback(() => {
+    const next = new Set(filtersRef.current.activeTags)
+    if (next.has(SELECTION_TAG)) {
+      next.delete(SELECTION_TAG)
+    } else {
+      next.add(SELECTION_TAG)
+    }
+    filtersRef.current = { ...filtersRef.current, activeTags: next }
+    applyCurrentVisibility()
+    setFilterVersion((v) => v + 1)
+  }, [applyCurrentVisibility])
+
+  // Re-apply visibility when bookmarks change while bookmarks virtual tag is active
+  useEffect(() => {
+    if (filtersRef.current.activeTags.has(BOOKMARKS_TAG)) {
+      applyCurrentVisibility()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storedState.bookmarks])
+
+  // Re-apply visibility when selection changes while selection virtual tag is active
+  useEffect(() => {
+    if (filtersRef.current.activeTags.has(SELECTION_TAG)) {
+      applyCurrentVisibility()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storedState.selection])
 
   // Detect dark mode
   useEffect(() => {
@@ -620,6 +840,66 @@ export default function TopicGraph({ data }: TopicGraphProps) {
     const nodes: SimNode[] = data.nodes.map((n) => ({ ...n }))
     const links: SimLink[] = data.edges.map((e) => ({ ...e }))
 
+    // Inject synthetic Bookmarks virtual-tag node (client-only — bookmarks live in localStorage)
+    const currentBookmarks = bookmarksRef.current
+    const bookmarksNodeId = `tag:${BOOKMARKS_TAG}`
+    nodes.push({
+      id: bookmarksNodeId,
+      type: "tag",
+      label: "Bookmarks",
+      facet: "feature", // placeholder — colour is overridden in render
+      radius: currentBookmarks.length > 0 ? 14 : 10,
+      pageCount: currentBookmarks.length,
+    })
+    // Connect Bookmarks node to each bookmarked page node
+    for (const href of currentBookmarks) {
+      const pageNodeId = `page:${href}`
+      if (nodes.some((n) => n.id === pageNodeId)) {
+        links.push({
+          source: bookmarksNodeId,
+          target: pageNodeId,
+          type: "tag-page",
+        })
+      }
+    }
+
+    // Inject synthetic Selection virtual-tag node (client-only — selection lives in localStorage)
+    const currentSelection = selectionRef.current
+    const selectionNodeId = `tag:${SELECTION_TAG}`
+    nodes.push({
+      id: selectionNodeId,
+      type: "tag",
+      label: "Selection",
+      facet: "feature", // placeholder — colour is overridden in render
+      radius: currentSelection.length > 0 ? 14 : 10,
+      pageCount: currentSelection.length,
+    })
+    // Connect Selection node to each selected page node
+    for (const href of currentSelection) {
+      const pageNodeId = `page:${href}`
+      if (nodes.some((n) => n.id === pageNodeId)) {
+        links.push({
+          source: selectionNodeId,
+          target: pageNodeId,
+          type: "tag-page",
+        })
+      }
+    }
+
+    // Restore pinned positions from localStorage (optimistic cache)
+    const savedPositions = peekStorage().nodePositions
+    if (savedPositions) {
+      for (const node of nodes) {
+        const saved = savedPositions[node.id]
+        if (saved) {
+          node.fx = saved.fx
+          node.fy = saved.fy
+          node.x = saved.fx
+          node.y = saved.fy
+        }
+      }
+    }
+
     // Store refs for filter effect
     nodesRef.current = nodes
     linksRef.current = links
@@ -675,7 +955,7 @@ export default function TopicGraph({ data }: TopicGraphProps) {
         return null
       })
       .attr("aria-label", (d) => {
-        if (d.type === "page") return `${d.label} — navigate to page`
+        if (d.type === "page") return `${d.label} — click to select, double-click to navigate`
         if (d.type === "tag") return `${d.label} — ${d.pageCount ?? 0} pages, click to filter`
         if (d.type === "facet") return `${FACET_DISPLAY[d.facet]} — ${d.pageCount ?? 0} pages, click to filter`
         return null
@@ -688,10 +968,22 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault()
         if (d.type === "page" && d.href) {
-          router.push(d.href)
+          // Enter/Space on page node → toggle selection (same as single-click)
+          const current = peekStorage().selection ?? []
+          const isSelected = current.includes(d.href!)
+          const next = isSelected
+            ? current.filter((s) => s !== d.href)
+            : [...current, d.href!]
+          setStoredState({ selection: next })
         } else if (d.type === "tag") {
           const tagId = d.id.replace("tag:", "")
-          handleToggleTag(tagId)
+          if (tagId === BOOKMARKS_TAG) {
+            handleToggleBookmarksFilter()
+          } else if (tagId === SELECTION_TAG) {
+            handleToggleSelectionFilter()
+          } else {
+            handleToggleTag(tagId)
+          }
         } else if (d.type === "facet") {
           handleToggleFacet(d.facet)
         }
@@ -702,7 +994,11 @@ export default function TopicGraph({ data }: TopicGraphProps) {
     nodeSel
       .append("circle")
       .attr("r", (d) => d.radius)
-      .attr("fill", (d) => FACET_COLOURS[d.facet][isDark ? "dark" : "light"])
+      .attr("fill", (d) => {
+        if (d.id === bookmarksNodeId) return isDark ? "#fbbf24" : "#f59e0b"
+        if (d.id === selectionNodeId) return isDark ? "#60a5fa" : "#3b82f6"
+        return FACET_COLOURS[d.facet][isDark ? "dark" : "light"]
+      })
       .attr("opacity", (d) => (d.type === "page" ? 0.7 : 1.0))
       .attr("stroke", "none")
       .attr("class", "node-circle")
@@ -713,7 +1009,11 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       .append("circle")
       .attr("r", (d) => d.radius + 5)
       .attr("fill", "none")
-      .attr("stroke", (d) => FACET_COLOURS[d.facet][isDark ? "dark" : "light"])
+      .attr("stroke", (d) => {
+        if (d.id === bookmarksNodeId) return isDark ? "#fbbf24" : "#f59e0b"
+        if (d.id === selectionNodeId) return isDark ? "#60a5fa" : "#3b82f6"
+        return FACET_COLOURS[d.facet][isDark ? "dark" : "light"]
+      })
       .attr("stroke-width", 3)
       .attr("opacity", 0)
       .attr("class", "selection-ring")
@@ -867,6 +1167,8 @@ export default function TopicGraph({ data }: TopicGraphProps) {
           nodes,
           filtersRef.current,
           tagToFacetMapRef.current,
+          bookmarksRef.current,
+          selectionRef.current,
         )
       })
 
@@ -874,8 +1176,10 @@ export default function TopicGraph({ data }: TopicGraphProps) {
     let dragTarget: SimNode | null = null
     let didDrag = false
 
-    // Click — facets/tags activate filter, pages navigate
+    // Click — facets/tags activate filter, page nodes toggle Selection
     // Suppress click if a drag just occurred (selection must survive drag)
+    let clickTimer: ReturnType<typeof setTimeout> | null = null
+
     nodeSel.on("click", function (event, d) {
       if (didDrag) {
         didDrag = false
@@ -883,21 +1187,61 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       }
       event.preventDefault()
       if (d.type === "page" && d.href) {
-        router.push(d.href)
+        // Delay page-node click to distinguish from double-click (navigate)
+        if (clickTimer) clearTimeout(clickTimer)
+        clickTimer = setTimeout(() => {
+          clickTimer = null
+          // Toggle page in Selection basket
+          const current = peekStorage().selection ?? []
+          const isSelected = current.includes(d.href!)
+          const next = isSelected
+            ? current.filter((s) => s !== d.href)
+            : [...current, d.href!]
+          setStoredState({ selection: next })
+        }, 250)
       } else if (d.type === "tag") {
         const tagId = d.id.replace("tag:", "")
-        handleToggleTag(tagId)
+        // Virtual tag nodes route to their dedicated toggle handlers (no persistence needed)
+        if (tagId === BOOKMARKS_TAG) {
+          handleToggleBookmarksFilter()
+        } else if (tagId === SELECTION_TAG) {
+          handleToggleSelectionFilter()
+        } else {
+          handleToggleTag(tagId)
+        }
       } else if (d.type === "facet") {
         handleToggleFacet(d.facet)
       }
     })
 
-    // Double-click to unpin (simulation referenced via closure — declared below)
+    // Helper: collect all pinned node positions and persist to localStorage
+    const savePinnedPositions = () => {
+      const positions: Record<string, { fx: number; fy: number }> = {}
+      for (const node of nodes) {
+        if (node.fx != null && node.fy != null) {
+          positions[node.id] = { fx: node.fx, fy: node.fy }
+        }
+      }
+      persistPositions({ nodePositions: Object.keys(positions).length > 0 ? positions : undefined })
+    }
+
+    // Double-click: page nodes → navigate; tag/facet nodes → unpin
     nodeSel.on("dblclick", function (event, d) {
       event.stopPropagation()
-      d.fx = null
-      d.fy = null
-      simulation.alpha(0.3).restart()
+      if (d.type === "page" && d.href) {
+        // Cancel the pending single-click (selection toggle)
+        if (clickTimer) {
+          clearTimeout(clickTimer)
+          clickTimer = null
+        }
+        router.push(d.href)
+      } else {
+        // Unpin tag/facet nodes
+        d.fx = null
+        d.fy = null
+        simulation.alpha(0.3).restart()
+        savePinnedPositions()
+      }
     })
 
     nodeSel.on("mousedown.drag", function (event, d) {
@@ -923,6 +1267,7 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       const onUp = () => {
         if (dragTarget) {
           simulation.alphaTarget(0)
+          savePinnedPositions()
         }
         dragTarget = null
         window.removeEventListener("mousemove", onMove)
@@ -983,11 +1328,24 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       simulation.on("tick", tickFn)
     }
 
+    // Apply restored filter state immediately (no flash of default state)
+    if (isFilterActive(filtersRef.current) || !filtersRef.current.showPages) {
+      applyVisibility(
+        nodeSel as Selection<SVGGElement, SimNode, SVGGElement, unknown>,
+        linkSel as Selection<SVGLineElement, SimLink, SVGGElement, unknown>,
+        nodes,
+        filtersRef.current,
+        tagToFacetMapRef.current,
+        bookmarksRef.current,
+        selectionRef.current,
+      )
+    }
+
     return () => {
       simulation.stop()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, dimensions, isDark, prefersReducedMotion, router, handleToggleFacet, handleToggleTag])
+  }, [data, dimensions, isDark, prefersReducedMotion, router, handleToggleFacet, handleToggleTag, handleToggleBookmarksFilter, handleToggleSelectionFilter])
 
   return (
     <div className="flex h-full w-full flex-col bg-white dark:bg-slate-900">
@@ -996,9 +1354,13 @@ export default function TopicGraph({ data }: TopicGraphProps) {
         onToggleFacet={handleToggleFacet}
         onToggleTag={handleToggleTag}
         onTogglePages={handleTogglePages}
+        onToggleBookmarks={handleToggleBookmarksFilter}
+        onToggleSelection={handleToggleSelectionFilter}
         onClearFilters={handleClearFilters}
         isDark={isDark}
         tagsByFacet={tagsByFacet}
+        bookmarkCount={bookmarksRef.current.length}
+        selectionCount={selectionRef.current.length}
       />
       <div ref={containerRef} className="relative flex-1">
         <svg

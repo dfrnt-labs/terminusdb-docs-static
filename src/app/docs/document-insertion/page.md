@@ -439,7 +439,7 @@ Where resource path is the usual strings like `admin/foo` for database foo, or `
 
 The purpose of this endpoint is to quickly discover the supported fields of a particular type. The primary envisioned use case for this is the automatic generation of forms and other UI elements, as well as client code generation.
 
-#### Parameters
+### Parameters
 
 {% table %}
 
@@ -511,7 +511,7 @@ Where resource path is the usual strings like `admin/foo` for database foo, or `
 
 The request body is a JSON document containing the following fields:
 
-#### Parameters
+### Parameters
 
 {% table %}
 

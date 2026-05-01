@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 // from: https://www.javascripttutorial.net/dom/css/check-if-an-element-is-visible-in-the-viewport/
-function isInViewport(element) {
+function isInViewport(element: Element) {
   const rect = element.getBoundingClientRect()
   return (
     rect.top >= 0 &&
@@ -31,12 +31,12 @@ export function handleScroll() {
         return
       }
       if (entry.intersectionRatio > 0) {
-        element.parentElement.classList.add("active")
+        element.parentElement?.classList.add("active")
         if (!isInViewport(element)) {
           element.scrollIntoView()
         }
       } else {
-        element.parentElement.classList.remove("active")
+        element.parentElement?.classList.remove("active")
       }
     })
   })
@@ -47,13 +47,13 @@ export function handleScroll() {
 
   // Track all sections that have an `id` applied
   document.querySelectorAll("h2[id],h3[id],h4[id]").forEach((section) => {
-    observer.observe(section, options)
+    observer.observe(section)
   })
 }
 
-export function renderExamples(examples: any, language: string, func: string) {
+export function renderExamples(examples: string[], language: string, func: string) {
   let count = 0
-  const rows = examples.map((example) => {
+  const rows = examples.map((example: string) => {
     count = count + 1
     return (
       <pre key={`${func}-${count}-code}`} className={"language-" + language}>
@@ -69,8 +69,8 @@ export function renderExamples(examples: any, language: string, func: string) {
   )
 }
 
-export function renderCodeTable(parameters) {
-  const rows = parameters.map((param) => {
+export function renderCodeTable(parameters: { name: string; type: string; summary: string }[]) {
+  const rows = parameters.map((param: { name: string; type: string; summary: string }) => {
     return (
       <tr key={"tr" + param.name}>
         <td>{param.name}</td>
@@ -115,21 +115,24 @@ export function renderCodeTable(parameters) {
  * if match found then we remove hidden className to unfold the menu item
  */
 export function checkIfMenuOpen(
-  menuItem: { Level1: any[] },
-  entry: { document: { slug: any } },
-  index: any[]
-) {
+  menuItem: Record<string, unknown>,
+  entry: { document: { slug: string } } | null,
+  index: number
+): string {
   let className = "hidden"
   if (!entry) return className
-  if (Array.isArray(menuItem[`Level${index}`])) {
-    menuItem[`Level${index}`].map((level) => {
+  const levelKey = `Level${index}`
+  const levelArray = menuItem[levelKey]
+  if (Array.isArray(levelArray)) {
+    levelArray.map((level: Record<string, unknown>) => {
       // match Found
-      if (level[`Menu${index}Page`].slug === entry.document.slug) {
+      const menuPage = level[`Menu${index}Page`] as { slug: string } | undefined
+      if (menuPage && menuPage.slug === entry.document.slug) {
         className = ""
       }
       // loop further to next menu levels
-      let nextIndex = index + 1
-      let nextLevelClassNames = checkIfMenuOpen(level, entry, nextIndex)
+      const nextIndex = index + 1
+      const nextLevelClassNames = checkIfMenuOpen(level, entry, nextIndex)
       if (nextLevelClassNames !== "hidden") className = nextLevelClassNames
     })
   }
@@ -137,17 +140,23 @@ export function checkIfMenuOpen(
   return className
 }
 
-export function checkIfSubMenuOpen(menuItem, entry, index) {
+export function checkIfSubMenuOpen(
+  menuItem: Record<string, unknown>,
+  entry: { document: { slug: string } } | null,
+  index: number
+): string {
   //let className  = level2.Menu2Page.slug === entry.document.slug ? "" : "hidden"
   let className = "hidden"
   if (!entry) return className
-  if (menuItem[`Menu${index}Page`].slug === entry.document.slug) {
+  const menuPage = menuItem[`Menu${index}Page`] as { slug: string } | undefined
+  if (menuPage && menuPage.slug === entry.document.slug) {
     className = ""
   }
-  let nextIndex = index + 1
-  if (Array.isArray(menuItem[`Level${nextIndex}`])) {
-    menuItem[`Level${nextIndex}`].map((level) => {
-      let nextLevelClassNames = checkIfSubMenuOpen(level, entry, nextIndex)
+  const nextIndex = index + 1
+  const nextLevelArray = menuItem[`Level${nextIndex}`]
+  if (Array.isArray(nextLevelArray)) {
+    nextLevelArray.map((level: Record<string, unknown>) => {
+      const nextLevelClassNames = checkIfSubMenuOpen(level, entry, nextIndex)
       if (nextLevelClassNames !== "hidden") {
         className = nextLevelClassNames
         return className
@@ -166,15 +175,15 @@ export function checkIfSubMenuOpen(menuItem, entry, index) {
  * @returns className activeMenu when slug matches menu List slug
  */
 export function getActiveSlugClassName(
-  menuItem: { Level1: any[] },
-  entry: { document: { slug: any } },
-  index: any[]
-) {
+  menuItem: Record<string, unknown>,
+  entry: { document: { slug: string } } | null,
+  index: number
+): string {
   let className = ""
   if (!entry) return className
-  let menuPage = menuItem[`Menu${index}Page`]
+  const menuPage = menuItem[`Menu${index}Page`] as { slug: string } | undefined
   // this menu is active
-  if (menuPage.slug === entry.document.slug) {
+  if (menuPage && menuPage.slug === entry.document.slug) {
     className = "activeMenu"
   }
   return className
@@ -211,7 +220,7 @@ export function formatAnchorIds(link: string) {
  * @param shortArgs function args
  * @returns formated string with repective function name & arguments
  */
-export function formatShortHandAnchorIds(funcName, shortArgs) {
+export function formatShortHandAnchorIds(funcName: string, shortArgs: string | null | undefined) {
   if (!shortArgs) return funcName
   return `${funcName}(${shortArgs})`
 }

@@ -146,7 +146,7 @@ substr(string, before, length, after, subString)
 
 Notice that there is only one solution for example 1, and two solutions for example 2, as the possible solutions for the open ended variables will be generated automatically.
 
-#### Code: Example 1 of substr
+### Code: Example 1 of substr
 
 ```javascript
 substr("string", 2, 2, "v:after", "ri")

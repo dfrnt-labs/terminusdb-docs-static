@@ -75,7 +75,7 @@ Graph modes include:
 
 Now, some of these might be more common than others, and therefore we might want to make them faster. We'll talk about that later when we get into the guts of our index.
 
-By way of example, let's think of a data point named `Joe`. If we wanted to see everything that `Joe` is connected to, we might say (in [WOQL](/docs/woql/)):
+By way of example, let's think of a data point named `Joe`. If we wanted to see everything that `Joe` is connected to, we might say (in [WOQL](/docs/woql-explanation/)):
 
 ```javascript
 let v = Vars("p","x");

@@ -59,7 +59,7 @@ accessControlLocal.getOrgUsers().then(result=>{
 
 ## getDefaultOrganization
 
-##### accessControl.getDefaultOrganization(params) ⇒ `string` | `undefined`
+### accessControl.getDefaultOrganization(params) ⇒ `string` | `undefined`
 
 Get a organization from parameters.
 
@@ -81,7 +81,7 @@ Get a organization from parameters.
 
 ## setJwtToken
 
-##### accessControl.setJwtToken(jwt)
+### accessControl.setJwtToken(jwt)
 
 Sets the Jwt token for the object
 
@@ -99,7 +99,7 @@ The jwt api token to use
 
 ## setApiToken
 
-##### accessControl.setApiToken(atokenpi)
+### accessControl.setApiToken(atokenpi)
 
 Sets the API token for the object. Create a DFRNT TerminusDB cloud account to [get your API token](/docs/how-to-connect-terminuscms/).
 
@@ -117,7 +117,7 @@ The API token to use to connect with DFRNT TerminusDB cloud
 
 ## setApiKey
 
-##### accessControl.setApiKey(atokenpi)
+### accessControl.setApiKey(atokenpi)
 
 Sets the API token for the object, to request a token create an account in https://terminusdb.org/
 
@@ -135,7 +135,7 @@ The API token to use to connect with TerminusDB
 
 ## getAPIUrl
 
-##### accessControl.getAPIUrl(cloudAPIUrl) ⇒ `string`
+### accessControl.getAPIUrl(cloudAPIUrl) ⇒ `string`
 
 Get a API url from cloudAPIUrl
 
@@ -155,7 +155,7 @@ The base url for cloud
 
 ## customHeaders
 
-##### accessControl.customHeaders(customHeaders) ⇒ `object`
+### accessControl.customHeaders(customHeaders) ⇒ `object`
 
 add extra headers to your request
 
@@ -169,7 +169,7 @@ customHeaders
 
 ## getOrganization
 
-##### accessControl.getOrganization(organization) ⇒ `object`
+### accessControl.getOrganization(organization) ⇒ `object`
 
 \-- TerminusDB API --- Get an organization from the TerminusDB API.
 
@@ -189,7 +189,7 @@ The organization
 
 ## getAllOrganizations
 
-##### accessControl.getAllOrganizations() ⇒ `Promise`
+### accessControl.getAllOrganizations() ⇒ `Promise`
 
 \-- TerminusDB API --- This end point works in basic authentication, admin user Get list of organizations
 
@@ -197,7 +197,7 @@ The organization
 
 ## createOrganization
 
-##### accessControl.createOrganization(orgName) ⇒ `Promise`
+### accessControl.createOrganization(orgName) ⇒ `Promise`
 
 \-- TerminusDB API --- This end point works in basic authentication, admin user Create an organization
 
@@ -225,7 +225,7 @@ accessControl.createOrganization("my_org_name").then(result=>{
 
 ## deleteOrganization
 
-##### accessControl.deleteOrganization(orgName) ⇒ `Promise`
+### accessControl.deleteOrganization(orgName) ⇒ `Promise`
 
 \-- TerminusDB API --- Delete an Organization
 
@@ -253,7 +253,7 @@ accessControl.createOrganization("my_org_name").then(result=>{
 
 ## createRole
 
-##### accessControl.createRole(\[name\], \[actions\]) ⇒ `Promise`
+### accessControl.createRole(\[name\], \[actions\]) ⇒ `Promise`
 
 \--TerminusDB API --- basic authentication, admin user. Create a new role in the system database.
 
@@ -287,7 +287,7 @@ accessControl.createRole("Reader",[ACTIONS.INSTANCE_READ_ACCESS]).then(result=>{
 
 ## deleteRole
 
-##### accessControl.deleteRole(\[name\]) ⇒ `Promise`
+### accessControl.deleteRole(\[name\]) ⇒ `Promise`
 
 \-- TerminusDB API --- basic Authentication, admin user. Delete role in the system database, (this api is enabled only in the local installation)
 
@@ -315,7 +315,7 @@ accessControl.deleteRole("Reader").then(result=>{
 
 ## getAllUsers
 
-##### accessControl.getAllUsers() ⇒ `Promise`
+### accessControl.getAllUsers() ⇒ `Promise`
 
 \-- TerminusDB API --- basic Authentication, admin user. Return the list of all the users (this api is enabled only in the local installation)
 
@@ -330,7 +330,7 @@ accessControl.getAllUsers().then(result=>{
 
 ## createUser
 
-##### accessControl.createUser(name, \[password\]) ⇒ `Promise`
+### accessControl.createUser(name, \[password\]) ⇒ `Promise`
 
 \-- TerminusDB API --- basic Authentication, admin user. Add the user into the system database
 
@@ -364,7 +364,7 @@ accessControl.deleteUser(userId).then(result=>{
 
 ## deleteUser
 
-##### accessControl.deleteUser(userId) ⇒ `Promise`
+### accessControl.deleteUser(userId) ⇒ `Promise`
 
 \-- TerminusDB API --- basic Authentication, admin user. Remove the user from the system database.
 
@@ -392,7 +392,7 @@ accessControl.deleteUser(userId).then(result=>{
 
 ## manageCapability
 
-##### accessControl.manageCapability(userName, resourceName, rolesArr, operation, scopeType) ⇒ `Promise`
+### accessControl.manageCapability(userName, resourceName, rolesArr, operation, scopeType) ⇒ `Promise`
 
 \-- TerminusDB API --- Grant/Revoke Capability
 
@@ -452,7 +452,7 @@ client.manageCapability(myUser,myteam/db__001,[writer],"grant","database").then(
 
 ## getAccessRoles
 
-##### accessControl.getAccessRoles() ⇒ `Promise`
+### accessControl.getAccessRoles() ⇒ `Promise`
 
 \--TerminusDB and TerminusDB API --- Get all the system database roles types.
 
@@ -460,7 +460,7 @@ client.manageCapability(myUser,myteam/db__001,[writer],"grant","database").then(
 
 ## getOrgUsers
 
-##### accessControl.getOrgUsers(\[orgName\]) ⇒ `Promise`
+### accessControl.getOrgUsers(\[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB and TerminusDB API -- Get all the organization's users and roles,
 
@@ -511,7 +511,7 @@ accessControl.getOrgUsers().then(result=>{
 
 ## getTeamUserRoles
 
-##### accessControl.getTeamUserRoles(\[userName\], \[orgName\]) ⇒ `Promise`
+### accessControl.getTeamUserRoles(\[userName\], \[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB and TerminusDB API -- Get the user roles for a given organization or the default organization,
 
@@ -566,7 +566,7 @@ accessControl.getTeamUserRole("myUser").then(result=>{
 
 ## ifOrganizationExists
 
-##### accessControl.ifOrganizationExists(orgName) ⇒ `Promise`
+### accessControl.ifOrganizationExists(orgName) ⇒ `Promise`
 
 \-- TerminusDB API --- Check if the organization exists. it is a Head call . IMPORTANT This does not work with the API-TOKEN.
 
@@ -586,7 +586,7 @@ The organization name to check if exists.
 
 ## createOrganizationRemote
 
-##### accessControl.createOrganizationRemote(orgName) ⇒ `Promise`
+### accessControl.createOrganizationRemote(orgName) ⇒ `Promise`
 
 \-- TerminusDB API ---
 
@@ -616,7 +616,7 @@ accessControl.createOrganization("my_org_name").then(result=>{
 
 ## getPendingOrgInvites
 
-##### accessControl.getPendingOrgInvites(\[orgName\]) ⇒ `Promise`
+### accessControl.getPendingOrgInvites(\[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB API ---
 
@@ -656,7 +656,7 @@ cb0988d992c4bce82b3fa5d25"
 
 ## sendOrgInvite
 
-##### accessControl.sendOrgInvite(userEmail, role, \[note\], \[orgName\]) ⇒ `Promise`
+### accessControl.sendOrgInvite(userEmail, role, \[note\], \[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB API ---
 
@@ -705,7 +705,7 @@ accessControl.sendOrgInvite("new_user@terminusdb.com","Role/admin",
 
 ## getOrgInvite
 
-##### accessControl.getOrgInvite(inviteId, \[orgName\]) ⇒ `Promise`
+### accessControl.getOrgInvite(inviteId, \[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB API --- Get the invitation info
 
@@ -741,7 +741,7 @@ accessControl.getOrgInvite(fullInviteId).then(result=>{
 
 ## deleteOrgInvite
 
-##### accessControl.deleteOrgInvite(inviteId, \[orgName\]) ⇒ `Promise`
+### accessControl.deleteOrgInvite(inviteId, \[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB API ---
 
@@ -779,7 +779,7 @@ accessControl.deleteOrgInvite(fullInviteId).then(result=>{
 
 ## updateOrgInviteStatus
 
-##### accessControl.updateOrgInviteStatus(inviteId, accepted, \[orgName\]) ⇒ `Promise`
+### accessControl.updateOrgInviteStatus(inviteId, accepted, \[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB API ---
 
@@ -825,7 +825,7 @@ accessControl.updateOrgInviteStatus(fullInviteId,true).then(result=>{
 
 ## getTeamUserRole
 
-##### accessControl.getTeamUserRole(\[orgName\]) ⇒ `Promise`
+### accessControl.getTeamUserRole(\[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB API ---
 
@@ -858,7 +858,7 @@ accessControl.getTeamUserRole().then(result=>{
 
 ## removeUserFromOrg
 
-##### accessControl.removeUserFromOrg(userId, \[orgName\]) ⇒ `Promise`
+### accessControl.removeUserFromOrg(userId, \[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB API -- Remove an user from an organization, only an admin user can remove an user from an organization
 
@@ -892,7 +892,7 @@ accessControl.removeUserFromOrg("User/auth0%7C613f5dnndjdjkTTT","my_org_name").t
 
 ## getDatabaseRolesOfUser
 
-##### accessControl.getDatabaseRolesOfUser(userId, \[orgName\]) ⇒ `Promise`
+### accessControl.getDatabaseRolesOfUser(userId, \[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB API --
 
@@ -944,7 +944,7 @@ same of the team
 
 ## createUserRole
 
-##### accessControl.createUserRole(userId, scope, role, \[orgName\]) ⇒ `Promise`
+### accessControl.createUserRole(userId, scope, role, \[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB API --
 
@@ -995,7 +995,7 @@ accessControl.assignUserRole('User/auth0%7C61790e11a3966d006906596a',dbId,
 
 ## updateUserRole
 
-##### accessControl.updateUserRole(userId, capabilityId, scope, role, \[orgName\]) ⇒ `Promise`
+### accessControl.updateUserRole(userId, capabilityId, scope, role, \[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB API --
 
@@ -1053,7 +1053,7 @@ accessControl.updateUserRole('User/auth0%7C61790e11a3966d006906596a',capId,dbId,
 
 ## accessRequestsList
 
-##### accessControl.accessRequestsList(\[orgName\]) ⇒ `Promise`
+### accessControl.accessRequestsList(\[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB API --
 
@@ -1083,7 +1083,7 @@ accessControl.accessRequestsList().then(result=>{
 
 ## sendAccessRequest
 
-##### accessControl.sendAccessRequest(\[email\], \[affiliation\], \[note\], \[orgName\]) ⇒ `Promise`
+### accessControl.sendAccessRequest(\[email\], \[affiliation\], \[note\], \[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB API --
 
@@ -1134,7 +1134,7 @@ accessControl.sendAccessRequest("myemail@terminusdb.com",
 
 ## deleteAccessRequest
 
-##### accessControl.deleteAccessRequest(\[orgName\]) ⇒ `Promise`
+### accessControl.deleteAccessRequest(\[orgName\]) ⇒ `Promise`
 
 \-- TerminusDB API --
 

@@ -28,7 +28,8 @@
     "test:orphan-examples": "node scripts/docs-example-tests/orphan-examples-lint.mjs",
     "test:domain": "node scripts/docs-example-tests/domain-lint.mjs",
     "lint:no-com": "node scripts/no-terminusdb-com-lint.mjs",
-    "test:all": "npm run test:headings && npm run test:nav && npm run test:inline-annotations && npm run test:links && npm run test:branding && npm run test:stubs && npm run test:tags && npm run test:orphan-examples && npm run test:domain && npm run lint:no-com && npm run test:http-examples"
+    "test:all": "npm run test:headings && npm run test:nav && npm run test:inline-annotations && npm run test:links && npm run test:branding && npm run test:stubs && npm run test:tags && npm run test:orphan-examples && npm run test:domain && npm run lint:no-com && npm run test:http-examples",
+    "pr": "npm run lint && npx tsc --noEmit && npm run test:all"
   },
   "browser": {
     "tls": false,

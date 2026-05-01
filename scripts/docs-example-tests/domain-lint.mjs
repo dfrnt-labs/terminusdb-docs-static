@@ -50,6 +50,12 @@ const ALLOWED_PATTERNS = [
   /cdn\.terminusdb\.com/,                      // JS CDN
   /[a-zA-Z0-9._%+-]+@terminusdb\.com/,        // email addresses
   /example\.terminusdb\.com/,                  // placeholder examples
+  /documents-ui-playground[^.]*\.terminusdb\.com/,  // discontinued UI playground (historical)
+]
+
+// Paths excluded from scanning (old blog posts preserve original URLs)
+const EXCLUDED_PATH_PATTERNS = [
+  /src\/app\/blog\//,                          // All blog posts keep historical URLs
 ]
 
 /**
@@ -110,6 +116,12 @@ for (const file of SCAN_FILES) {
     filesToScan.push(file)
   }
 }
+
+// Exclude paths that should keep historical URLs
+filesToScan = filesToScan.filter((filePath) => {
+  const relPath = relative(REPO_ROOT, filePath)
+  return !EXCLUDED_PATH_PATTERNS.some((pattern) => pattern.test(relPath))
+})
 
 let violationCount = 0
 const violations = []

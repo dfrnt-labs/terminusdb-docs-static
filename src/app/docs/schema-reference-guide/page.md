@@ -59,7 +59,7 @@ Property names beginning with `@` (at-sign) are reserved for TerminusDB schema d
 
 The basic unit of specification is a **class**. A class definition is a schema object with the keyword `@type` with type value `Class`. The keyword `@id` specifies the name of the class. The example below define a class named `Person` with a property `name` of type `xsd:string`. See [Data Types](/docs/data-types/) for a complete reference of all supported types.
 
-#### Code: The basic unit of specification
+### Code: The basic unit of specification
 
 ```json
 { 
@@ -73,7 +73,7 @@ The basic unit of specification is a **class**. A class definition is a schema o
 
 The **context object** is a special schema object affecting the entire schema. The context object is specified by the special `@type` value `@context`. An example:
 
-#### Code: The context object
+### Code: The context object
 
 ```json
 {   "@type"            : "@context",
@@ -316,7 +316,7 @@ Classes comes in two types: document classes, and subdocument classes. Document 
 
 An example of a class, and then instance of the class below.
 
-#### Code: An example of a class
+### Code: An example of a class
 
 ```json
 { 
@@ -353,7 +353,7 @@ An example of a class, and then instance of the class below.
 
 An `Enum` is a non-standard class in which each instance is a simple URI with no additional structure. To be a member of the class, you must be one of the referent URIs. An `Enum` example with an extension `Blue` is s shown below. In the database, the actual URI for an Enum is expanded with the preceding type name, so the `blue` extension becomes `http://s#PrimaryColour/blue`
 
-#### Code: An example of an enum class
+### Code: An example of an enum class
 
 ```json
 { 
@@ -374,7 +374,7 @@ A `TaggedUnion` specifies mutually exclusive properties. This is useful when the
 
 Examples below of a schema with a TaggedUnion and a concrete TaggedUnion class extension. In these examples, the `BinaryTree` class specifies a `TaggedUnion` enabling a choice between a `leaf` (with no value), or a `node` class with a value and branches.
 
-#### Code: An example schema with a TaggedUnion
+### Code: An example schema with a TaggedUnion
 
 ```json
 { 
@@ -436,7 +436,7 @@ A foreign type must be declared explicitly by giving the name of the type to be 
 
 Foreign references is in essence a specialization of the `xsd:anyURI` type, where Foreign are stored in one succinct auto-indexing data structure with fast lookup references to a URI reference to any external data product or RDF knowledge graph subject.
 
-#### Code: An example of adding a foreign Person type
+### Code: An example of adding a foreign Person type
 
 For instance, to add a foreign type of type Person, we can write:
 
@@ -1841,7 +1841,7 @@ Type ascription is perhaps most useful in cases in which abstract types are used
 
 It should also be considered that the type being ascribed is based on the schema _as it is_ when the document is inserted. For this reason, in some cases it may be better to tag the document explicitly with the `@type` keyword.
 
-#### Code: An example of type inference
+### Code: An example of type inference
 
 Given the following schema:
 

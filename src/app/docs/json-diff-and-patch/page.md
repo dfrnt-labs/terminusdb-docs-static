@@ -336,6 +336,36 @@ We have the following patch resulting from the diff:
          '@value':[['Platform Engineer','Adidas','Germany','Large','Apparel']]}]}
 ```
 
+## Public Demo Endpoint
+
+The diff and patch endpoints are also available anonymously on the public data server at `data.terminusdb.org` — no authentication required:
+
+{% callout type="warning" %}
+The endpoint at data.terminusdb.org is for non-production and exploratory use only. It is deployed with very limited memory to prevent abuse and is provided without any guarantees whatsoever. Do not rely on it for production applications. Availability is not guaranteed.
+{% /callout %}
+
+```bash test-example id="diff-public-demo"
+curl -X POST https://data.terminusdb.org/api/diff \
+  -H "Content-Type: application/json" \
+  -d '{"before": {"name": "Alice"}, "after": {"name": "Bob"}}'
+```
+
+Expected output:
+```json
+{"name": {"@after":"Bob", "@before":"Alice", "@op":"SwapValue"}}
+```
+
+```bash test-example id="patch-public-demo"
+curl -X POST https://data.terminusdb.org/api/patch \
+  -H "Content-Type: application/json" \
+  -d '{"before": {"name": "Alice"}, "patch": {"name": {"@op": "SwapValue", "@before": "Alice", "@after": "Bob"}}}'
+```
+
+Expected output:
+```json
+{"name": "Bob"}
+```
+
 ## Diff and Patch Endpoints
 
 The Patch and Diff endpoints are available on any TerminusDB instance. Use your local server endpoint for each operation:
@@ -352,7 +382,7 @@ http://localhost:6363/api/diff
 http://localhost:6363/api/patch
 ```
 
-> **Note:** The former cloud endpoints (`cloud.terminusdb.com/jsondiff` and `cloud.terminusdb.com/jsonpatch`) are no longer available. Use your own TerminusDB instance or [create a DFRNT account](https://dfrnt.com/create-account) for hosted access.
+> **Note:** The former cloud endpoints (`cloud.terminusdb.org/jsondiff` and `cloud.terminusdb.org/jsonpatch`) are no longer available. Use your own TerminusDB instance or [create a DFRNT account](https://dfrnt.com/create-account) for hosted access.
 
 ### Diff
 
