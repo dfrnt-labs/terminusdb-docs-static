@@ -24,7 +24,7 @@ A factual comparison of TerminusDB and MongoDB for developers evaluating documen
 
 **TerminusDB** is a document graph database with built-in version control. It stores JSON documents in a schema-enforced graph, tracks every change as an immutable commit, and supports branch, diff, merge, and time-travel. It is designed for collaborative, auditable data workflows.
 
-The key architectural difference: MongoDB is a mutable database optimised for write throughput and horizontal scale. TerminusDB is an immutable database optimised for data integrity, collaboration, and full change history.
+The key architectural difference: MongoDB is a mutable database optimised for write throughput and horizontal scale. TerminusDB is an immutable database optimised for read throughput at scale, data integrity, collaboration, and full change history.
 
 ---
 

@@ -16,12 +16,14 @@ tags:
   - how-to
 ---
 
-{% callout title="Prerequisites" %}
+{% callout type="note" %}
+**Prerequisites**
 - TerminusDB running on `localhost:6363`
 - An HTTP client (curl, Postman, or similar)
 {% /callout %}
 
-{% callout title="What you'll achieve" %}
+{% callout type="note" %}
+**What you'll achieve**
 By the end of this guide, you will know how to compute JSON diffs and apply patches via the HTTP API.
 {% /callout %}
 

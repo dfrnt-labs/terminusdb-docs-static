@@ -17,17 +17,17 @@ media: []
 lastUpdated: "2026-05-01"
 ---
 
-{% callout title="What you'll achieve" %}
+{% callout type="note" title="What you'll achieve" %}
 By the end of this guide, you will know how to reset branches, revert specific changes, squash commits, and recover from accidental resets.
 {% /callout %}
 
 **Undoing changes** in TerminusDB is safe because the database is immutable — every commit is preserved in the history. You can reset a branch to a previous state, revert specific changes, or squash messy commit history into a clean single commit.
 
-{% callout type="info" title="Nothing is truly lost" %}
+{% callout type="note" title="Nothing is truly lost" %}
 TerminusDB never deletes commits. Even after a reset, the "undone" commits still exist in the immutable commit graph — they are just no longer reachable from the branch pointer. You can always recover by resetting forward again.
 {% /callout %}
 
-{% callout title="Prerequisites" %}
+{% callout type="note" title="Prerequisites" %}
 - TerminusDB running on `localhost:6363`
 - A database with commit history. Examples use `admin/mydb`.
 - Know the commit identifier you want to return to. Use `GET /api/log/...` to find it (see [Time-Travel How-To](/docs/time-travel-howto/)).

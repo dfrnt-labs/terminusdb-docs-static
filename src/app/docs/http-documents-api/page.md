@@ -9,12 +9,25 @@ nextjs:
   metadata:
     title: How to use the HTTP Documents API
     description: Quick introduction to the HTTP Documents API and how to use common ways to interact with it using various clients as a quick reference guide
+    keywords: terminusdb, api, document, document database, documents, http, json-ld, use the http documents api
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/http-documents-api/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running on `localhost:6363`
+- An HTTP client (curl, Postman, or similar)
+- A database created
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to perform CRUD operations using the TerminusDB HTTP document API.
+{% /callout %}
 
 TerminusDB exposes a REST API for documents, a WOQL query interface with a datalog interface to the database and a GraphQL API, and several endpoints described in the [TerminusDB OpenAPI specification](/docs/openapi/).
 
@@ -41,10 +54,10 @@ Here is a tutorial to connect to TerminusDB in docker or on localhost.
 * Provider: localhost:6363
 
 ```bash
-BASE64="$(echo -n 'admin:root' | base64)"
-DOC='{"@type":"Class","@id":"Role", "name":"xsd:string"}'
-curl -X POST -H 'Content-Type: application/json' -d "$DOC" -H "Authorization: Basic $BASE64" \
-"http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin@example.com&message=InsertedDocument&graph_type=schema"
+curl -u admin:root -X POST \
+  "http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin%40example.com&message=InsertedDocument&graph_type=schema" \
+  -H "Content-Type: application/json" \
+  -d '{"@type":"Class","@id":"Role","name":"xsd:string"}'
 ```
 
 If you already have the schema element and want to update it, use the `PUT` keyword.
@@ -61,19 +74,19 @@ If you already have the schema element and want to update it, use the `PUT` keyw
 * Provider: localhost:6363
 
 ```bash
-BASE64="$(echo -n 'admin:root' | base64)"
-DOC='{"@type":"Role","@id":"Role/ContentProducer","name":"ContentProducer"}'
-curl -X POST -H 'Content-Type: application/json' -d "$DOC" -H "Authorization: Basic $BASE64" \
-"http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin@example.com&message=InsertedDocument"
+curl -u admin:root -X POST \
+  "http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin%40example.com&message=InsertedDocument" \
+  -H "Content-Type: application/json" \
+  -d '{"@type":"Role","@id":"Role/ContentProducer","name":"ContentProducer"}'
 ```
 
 ### Deleting a document on localhost
 
 ```bash
-BASE64="$(echo -n 'admin:root' | base64)"
-DOCS='["Role/ContentProducer"]'
-curl -X DELETE -H 'Content-Type: application/json' -d "$DOCS" -H "Authorization: Basic $BASE64" \
-"http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin@example.com&message=DeletedDocument"
+curl -u admin:root -X DELETE \
+  "http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin%40example.com&message=DeletedDocument" \
+  -H "Content-Type: application/json" \
+  -d '["Role/ContentProducer"]'
 ```
 
 ## The `raw_json` query parameter
@@ -151,9 +164,9 @@ Example of how to fetch information about the ContentProducer Role in TerminusDB
 * Provider: https://dfrnt.com
 
 ```bash
-API_TOKEN="000000000000-0000-0000-0000-00000001-000000000000-0000-0000-0000-00000001"
-curl -X GET -H "Authorization: Token $API_TOKEN" \
-https://dfrnt.com/api/hosted/000000000000-0000-0000-0000-00000001/api/document/000000000000-0000-0000-0000-00000001/MyDatabase/local/branch/main?id=Role/ContentProducer
+curl -X GET \
+  -H "Authorization: Token 000000000000-0000-0000-0000-00000001-000000000000-0000-0000-0000-00000001" \
+  "https://dfrnt.com/api/hosted/000000000000-0000-0000-0000-00000001/api/document/000000000000-0000-0000-0000-00000001/MyDatabase/local/branch/main?id=Role/ContentProducer"
 ```
 
 For more information about connecting to cloud instances, read [how to connect to the DFRNT API](https://support.dfrnt.com/portal/en/kb/articles/api). 

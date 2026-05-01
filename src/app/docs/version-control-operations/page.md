@@ -19,7 +19,7 @@ lastUpdated: "2026-05-01"
 
 TerminusDB brings **git-style version control to your data** — branch, merge, diff, and time-travel just like you would with code. Every write creates an immutable commit. This page is the single reference for all version control operations.
 
-{% callout type="info" title="Git for Data" %}
+{% callout type="note" title="Git for Data" %}
 TerminusDB is a **git for data** database. Every write creates an immutable commit. You can branch, merge, diff, and time-travel your data just like code in Git.
 {% /callout %}
 
@@ -41,7 +41,8 @@ The difference: Git operates on text files with line-based diffs. TerminusDB ope
 
 ---
 
-{% callout title="Prerequisites" %}
+{% callout type="note" %}
+**Prerequisites**
 - **TerminusDB running** on `localhost:6363` or use the public server at `data.terminusdb.org`.
 - A database to work with. The examples below use `admin/mydb`. Create one with: `curl -u admin:root -X POST http://localhost:6363/api/db/admin/mydb -d '{"label":"My Database"}'`
 {% /callout %}

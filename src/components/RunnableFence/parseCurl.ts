@@ -67,6 +67,15 @@ export function parseCurlToFetch(code: string): ParsedCurl | null {
   if (!urlMatch) return null
   const url = urlMatch[1]
 
+  // Reject when any part contains shell variables — they cannot be substituted in the browser
+  const hasShellVar = /\$[{(]?[A-Za-z_]/
+  if (hasShellVar.test(url)) return null
+  if (body !== undefined && hasShellVar.test(body)) return null
+  if (userCredentials !== undefined && hasShellVar.test(userCredentials)) return null
+  for (const value of Object.values(headers)) {
+    if (hasShellVar.test(value)) return null
+  }
+
   return { url, method, headers, body, userCredentials }
 }
 

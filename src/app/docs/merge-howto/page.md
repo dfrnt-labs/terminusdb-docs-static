@@ -17,17 +17,17 @@ media: []
 lastUpdated: "2026-05-01"
 ---
 
-{% callout title="What you'll achieve" %}
+{% callout type="note" title="What you'll achieve" %}
 By the end of this guide, you will know how to merge branches, detect conflicts, resolve them, and roll back failed merges in TerminusDB.
 {% /callout %}
 
 **Merging** in TerminusDB applies changes from one branch onto another — like `git merge`. TerminusDB uses a three-way merge that detects conflicts at the field level. If both branches modified the same field on the same document, the merge fails with a precise conflict report — no silent data loss.
 
-{% callout type="info" title="No silent overwrites" %}
+{% callout type="note" title="No silent overwrites" %}
 TerminusDB never silently resolves conflicts. If two branches changed the same field, the merge fails and reports exactly what conflicted. You decide which value wins.
 {% /callout %}
 
-{% callout title="Prerequisites" %}
+{% callout type="note" title="Prerequisites" %}
 - TerminusDB running on `localhost:6363`
 - A database with at least two branches. See [How to Branch](/docs/branch-howto/) to create one.
 - Examples use `admin/mydb` with branches `main` and `feature`.

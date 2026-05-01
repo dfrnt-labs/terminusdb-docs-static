@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: WOQL Class Reference Guide
     description: Complete reference for all WOQL query language classes, generated from the authoritative schema definition.
+    keywords: terminusdb, datalog, query, query language, schema, terminusdb query, woql, woql class reference guide
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -24,7 +25,8 @@ This is the WOQL schema. It gives a complete specification of the syntax of the 
 
 **Schema version:** v1.0.3
 
-{% callout title="Auto-generated reference" %}
+{% callout type="note" %}
+**Auto-generated reference**
 This page is generated from the authoritative `woql.json` schema definition (131 classes). Run `npm run generate:woql` to regenerate after schema changes.
 {% /callout %}
 
