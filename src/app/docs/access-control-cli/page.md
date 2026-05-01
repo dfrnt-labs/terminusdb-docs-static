@@ -17,9 +17,15 @@ nextjs:
       canonical: https://terminusdb.org/docs/access-control-cli/
 ---
 
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have configured access control (users, organisations, capabilities) using the CLI.
+{% /callout %}
+
 TerminusDB's CLI provides direct access to the role-based access control system without HTTP requests. Use it to create users, inspect roles, and grant or revoke capabilities from the command line.
 
-{% callout title="Prerequisites" %}
+{% callout type="note" %}
+**Prerequisites**
 - TerminusDB installed and accessible via the `terminusdb` CLI command. If you are running TerminusDB in Docker, prefix commands with `docker exec terminusdb` (e.g. `docker exec terminusdb terminusdb user get`).
 - A database to grant access to. This guide uses the canonical `admin/MyDatabase`.
 {% /callout %}

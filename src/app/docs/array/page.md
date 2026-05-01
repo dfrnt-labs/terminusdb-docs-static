@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Array fields in the document UI
     description: "Examples of how array fields in the document UI "
+    keywords: terminusdb, array fields in the document ui, data model, document, document type, javascript, schema, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

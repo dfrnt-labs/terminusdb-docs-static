@@ -9,11 +9,17 @@ nextjs:
   metadata:
     title: How to add and delete documents and subdocuments using WOQL
     description: A how-to guide  with an example showing how to add documents and subdocuments using a WOQL query.
+    keywords: terminusdb, add, create, datalog, document, document database, documents, insert
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-add-documents.png
     alternates:
       canonical: https://terminusdb.org/docs/add-documents-with-woql/
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to insert documents using WOQL queries.
+{% /callout %}
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >

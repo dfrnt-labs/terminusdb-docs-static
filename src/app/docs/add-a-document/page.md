@@ -15,6 +15,18 @@ tags:
   - how-to
 ---
 
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- The TerminusDB JavaScript client installed ([installation guide](/docs/install-terminusdb-js-client/))
+- A connected client instance ([connection guide](/docs/connect-with-the-javascript-client/))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have inserted documents into your TerminusDB database using the JavaScript client.
+{% /callout %}
+
 After you have imported the terminusdb\_client, [created a client](/docs/connect-with-the-javascript-client/), [connected to a database](/docs/connect-to-a-database/), and [added a schema](/docs/add-a-schema/), you can then use this client to insert a document that conforms to the schema.
 
 ## Insert documents

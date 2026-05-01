@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Add a Schema using the JavaScript Client
     description: A guide to show how to add a schema to TerminusDB using the TerminusDB JavaScript Client.
+    keywords: terminusdb, add, add a schema using the javascript client, create, data model, document type, insert, javascript
     alternates:
       canonical: https://terminusdb.org/docs/add-a-schema
     openGraph:
@@ -13,6 +14,18 @@ tags:
   - schema
   - how-to
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- The TerminusDB JavaScript client installed ([installation guide](/docs/install-terminusdb-js-client/))
+- A connected client with a database created
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have defined a schema in your TerminusDB database using the JavaScript client.
+{% /callout %}
 
 After you have imported the terminusdb\_client, [created a client](/docs/connect-with-the-javascript-client/), and [connected to a database](/docs/connect-to-a-database/) you can create a schema.
 

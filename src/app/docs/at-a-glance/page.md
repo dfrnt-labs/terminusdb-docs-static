@@ -7,6 +7,7 @@ nextjs:
   metadata:
     title: "TerminusDB: At a glance"
     description: "Description of the key technical features and capabilities of TerminusDB at a glance with links to the documentation"
+    keywords: terminusdb, document database, features overview, graph database, immutable database
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

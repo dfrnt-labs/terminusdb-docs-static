@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: Branch a Project with the TerminusDB Dashboard
     description: A guide to show how to branch projects using the TerminusDB dashboard.
+    keywords: terminusdb, branch, branch a project with the terminusdb dashboard, commit, dashboard, dfrnt hub, git for data, terminuscms
     openGraph:
       images: https://assets.terminusdb.com/docs/branch-project.png
     alternates:
@@ -30,6 +31,17 @@ media:
     title: Branch Options
     value: https://assets.terminusdb.com/docs/branch-options.png
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- An existing database
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have created and managed branches in TerminusDB.
+{% /callout %}
 
 The DFRNT TerminusDB cloud dashboard enables you to branch projects and work with the data product in a bitemporal manner, including the revision history. To do this, choose the team and project you want to branch. You will be directed to the project home page. This is where you can branch it.
 

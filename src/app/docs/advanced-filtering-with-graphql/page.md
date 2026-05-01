@@ -8,11 +8,17 @@ nextjs:
   metadata:
     title: Advanced Filtering
     description: Advanced Filtering with GraphQL
+    keywords: terminusdb, advanced filtering, api, condition, filter, graphql, query, terminusdb graphql
     openGraph:
       images: https://assets.terminusdb.com/docs/graphql-advanced-filter.png
     alternates:
       canonical: https://terminusdb.org/docs/advanced-filtering-with-graphql/
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to use advanced filtering operations in TerminusDB's GraphQL interface.
+{% /callout %}
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >
