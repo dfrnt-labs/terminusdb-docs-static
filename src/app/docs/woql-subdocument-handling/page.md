@@ -1,4 +1,10 @@
 ---
+tags:
+  - woql
+  - how-to
+  - schema
+  - documents
+  - intermediate
 title: Subdocument Handling with WOQL
 nextjs:
   metadata:

@@ -9,13 +9,17 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/set/
 media: []
+tags:
+  - typescript
+  - schema
+  - reference
 ---
 
 This example shows how `<FrameViewer/>` appears for a document `UnorderedPerson` with set fields in Create/ Edit or View mode. If a field is described as a Set it means the field can have more than one value to it in any unordered fashion. The field can also be considered optional, meaning it can be empty.
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Set) to view `<FrameViewer/>` with set properties in Create, Edit or View mode.
+Take a look at the [**Demo Playground**](https://github.com/terminusdb/dashboard-examples-sandbox) to view `<FrameViewer/>` with set properties in Create, Edit or View mode.
 
 ## Frame
 
@@ -122,7 +126,7 @@ This frame consists of an `UnorderedPerson` document
 
 ### Create
 
-```python
+```javascript
 import { FrameViewer } from '@terminusdb/terminusdb-documents-ui'
 
   return <FrameViewer

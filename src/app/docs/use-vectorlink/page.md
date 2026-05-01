@@ -1,4 +1,7 @@
 ---
+tags:
+  - explanation
+  - vectorlink
 title: How to Use VectorLink
 nextjs:
   metadata:

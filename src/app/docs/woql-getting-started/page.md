@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - tutorial
+  - beginner
 title: WOQL Getting Started
 nextjs:
   metadata:

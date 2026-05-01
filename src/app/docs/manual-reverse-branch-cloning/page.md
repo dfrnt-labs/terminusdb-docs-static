@@ -1,4 +1,8 @@
 ---
+tags:
+  - how-to
+  - version-control
+  - advanced
 title: Manual reverse branch cloning
 nextjs:
   metadata:

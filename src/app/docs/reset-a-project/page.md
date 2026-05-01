@@ -9,17 +9,21 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/reset-a-project/
 media: []
+tags:
+  - typescript
+  - version-control
+  - how-to
 ---
 
 Assuming you have created a database, and made a few commits, you [can time travel](/docs/time-travel-to-previous-commits/) to inspect them.
 
 You may want to reset the branch to a specific commit. You will need your branch name and commit ID which can be obtained by time travelling.
 
-The below code will rest your branch to a specific commit ID -
+The below code will reset your branch to a specific commit ID -
 
 ```javascript
 const resetBranch = async () => {
-   await  client.resetBracnh(mybranchName, mycommitid)
-   console.log("Succesfully reset branch HEAD to mycommitid")
+   await client.resetBranch(mybranchName, mycommitid)
+   console.log("Successfully reset branch HEAD to mycommitid")
 }
 ```

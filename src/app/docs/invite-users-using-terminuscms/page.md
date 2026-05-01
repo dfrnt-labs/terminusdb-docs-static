@@ -1,4 +1,9 @@
 ---
+tags:
+  - how-to
+  - access-control
+  - dfrnt-cloud
+  - beginner
 title: Invite Users to Your Team
 nextjs:
   metadata:

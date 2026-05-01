@@ -1,4 +1,10 @@
 ---
+tags:
+  - how-to
+  - woql
+  - curl
+  - cli
+  - intermediate
 title: How to use the terminusdb CLI query interface
 nextjs:
   metadata:

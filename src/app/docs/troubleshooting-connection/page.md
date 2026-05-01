@@ -1,4 +1,8 @@
 ---
+tags:
+  - troubleshooting
+  - installation
+  - curl
 title: Connection Failures — TerminusDB Troubleshooting
 nextjs:
   metadata:

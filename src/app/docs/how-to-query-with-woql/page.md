@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - tutorial
+  - beginner
 title: How to query with datalog (WOQL)
 nextjs:
   metadata:

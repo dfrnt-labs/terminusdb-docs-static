@@ -9,6 +9,11 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/terminusdb-internals-sysjson/
 media: []
+tags:
+  - typescript
+  - documents
+  - explanation
+  - advanced
 ---
 
 The `sys:JSON` type in TerminusDB enables storage of arbitrary JSON data with automatic deduplication and content-addressed storage. This guide explains how `sys:JSON` works internally, its behavior characteristics, and best practices for technical users.

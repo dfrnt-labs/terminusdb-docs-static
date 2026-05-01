@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - how-to
+  - beginner
 title: Limit Results with GraphQL
 nextjs:
   metadata:

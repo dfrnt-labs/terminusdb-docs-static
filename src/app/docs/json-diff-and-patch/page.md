@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/json-diff-and-patch/
 media: []
+tags:
+  - typescript
+  - diff-patch
+  - how-to
 ---
 
 JSON objects are a common way of representing data for software development. The serialization of JSON is simple and facilitates communication via networks and storage in databases. Almost all modern programming languages support JSON objects natively.
@@ -99,7 +103,7 @@ Create a client endpoint with `WOQLClient`.
 #### Create an endpoint with the JavaScript Client
 
 ```javascript
-const TerminusClient = require("terminusdb");
+const TerminusClient = require("@terminusdb/terminusdb-client");
 
 var client = new TerminusClient.WOQLClient("http://localhost:6363")
 ```
@@ -118,10 +122,10 @@ Get the difference/s between two hypothetical documents - `Doc1` and `Doc2`.
 
 #### Apply Diff - JS
 
-Use `getDiff`
+Use `getJSONDiff`
 
 ```javascript
-let result_patch = await client.getDiff(Doc1, Doc2)
+let result_patch = await client.getJSONDiff(Doc1, Doc2)
 ```
 
 #### Apply Diff - Python
@@ -243,7 +247,7 @@ Patch the list starting from the current point with the patch list in `"@patch"`
 ```javascript
 var Patch =
 { '@id' : "TaskList/my_tasks",
-  'tasks' : { '@op' : "CopyList",                      % Replace List
+  'tasks' : { '@op' : "CopyList",                      // Replace List
               '@to' : 2,
               '@rest' : { '@op' : "PatchList",
                           '@patch' : [{ '@op' : "SwapValue",

@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/query-documents/
 media: []
+tags:
+  - typescript
+  - documents
+  - how-to
 ---
 
 Get a list of documents matching a query. For more advanced queries, take a look at the GraphQL and WOQL how-to guides.
@@ -16,9 +20,9 @@ Get a list of documents matching a query. For more advanced queries, take a look
 ```javascript
 const queryDocuments = async () => {
 
-  const queryTemplate = { "position": "Full Back" }
+  const queryTemplate = { "@type": "Player", "position": "Full Back" }
 
-  const result = await client.getDocument({"@type":"Player","as_list":true,"query":queryTemplate});
+  const result = await client.getDocument({"as_list":true,"query":queryTemplate});
   console.log("Query Documents",result)
 }
 ```

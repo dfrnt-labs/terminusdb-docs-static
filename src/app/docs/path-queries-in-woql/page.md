@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - how-to
+  - path-queries
+  - intermediate
 title: Path Queries in WOQL
 nextjs:
   metadata:

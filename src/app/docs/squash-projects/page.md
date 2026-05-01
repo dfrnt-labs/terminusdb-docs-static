@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/squash-projects/
 media: []
+tags:
+  - typescript
+  - version-control
+  - how-to
 ---
 
 Squashing allows you to combine multiple commits in your branch's history into a single commit.
@@ -19,7 +23,7 @@ const squashBranch = async () => {
     const commitMessage = "merge all the commits"
     await client.squashBranch(branchName,commitMessage);
     // get mybranch commits list 
-    const commits = await TerminusClient.WOQL.lib().commits("mybranch");
+    const commits = await client.query(TerminusClient.WOQL.lib().commits("mybranch"));
     console.log("Show my commit after squash", JSON.stringify(commits.bindings,null,4))
 }
 ```

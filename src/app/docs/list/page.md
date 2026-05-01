@@ -9,13 +9,18 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/list/
 media: []
+tags:
+  - typescript
+  - schema
+  - reference
+  - dashboard
 ---
 
 This example shows how `<FrameViewer/>` appears for a document called `OrderedPerson` with list fields in Create/ Edit and View mode. If a field is described as a List it means the field can have one or more values and is ordered. The field must have at least one entry.
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/List) to view the `<FrameViewer/>` with list properties in Create, Edit and View mode.
+Take a look at the [**Demo Playground**](https://github.com/terminusdb/dashboard-examples-sandbox) to view the `<FrameViewer/>` with list properties in Create, Edit and View mode.
 
 ## Frame
 
@@ -118,7 +123,7 @@ The below frame consists of an `OrderedPerson` document
 
 ### Create
 
-```python
+```javascript
 import { FrameViewer } from '@terminusdb/terminusdb-documents-ui'
 
   return <FrameViewer

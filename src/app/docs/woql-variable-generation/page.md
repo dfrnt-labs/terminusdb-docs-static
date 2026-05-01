@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - reference
+  - advanced
 title: WOQL Variable Generation Guide (Javascript)
 nextjs:
   metadata:

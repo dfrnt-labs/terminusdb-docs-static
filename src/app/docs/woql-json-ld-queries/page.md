@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - how-to
+  - rdf
+  - advanced
 title: Execute WOQL JSON-LD Queries Directly
 nextjs:
   metadata:

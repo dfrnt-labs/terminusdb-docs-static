@@ -1,4 +1,9 @@
 ---
+tags:
+  - how-to
+  - installation
+  - curl
+  - self-hosted
 title: Install TerminusDB with Docker on Windows
 nextjs:
   metadata:
@@ -47,7 +52,6 @@ echo > docker-compose.yml
 Open the file with Notepad and add the following contents:
 
 ```yaml
-version: "3.5"
 services:
   terminusdb-server:
     image: terminusdb/terminusdb-server:latest
@@ -64,7 +68,7 @@ volumes:
     external: true
 ```
 
-> **Important:** Make sure the file has a `.yml` extension only, not `.yml.txt`, as it will not work otherwise. When running docker-compose commands, you need to be located in the `terminusdbLocalhost` directory.
+> **Important:** Make sure the file has a `.yml` extension only, not `.yml.txt`, as it will not work otherwise. When running `docker compose` commands, you need to be located in the `terminusdbLocalhost` directory.
 
 This configuration tells Docker to:
 - Create a container from the latest TerminusDB image
@@ -120,7 +124,7 @@ local     terminusdb_volume
 Start TerminusDB using Docker Compose:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 Wait for TerminusDB to start, then open your browser and navigate to:
@@ -138,8 +142,8 @@ Login with:
 To verify that your data is stored in the persistent volume, stop and restart the container:
 
 ```bash
-docker-compose down
-docker-compose up -d
+docker compose down
+docker compose up -d
 ```
 
 Your data should persist across container restarts.
@@ -167,17 +171,17 @@ To create a backup, stop TerminusDB, create a compressed archive, and restart:
 **For Command Prompt or PowerShell:**
 
 ```bash
-docker-compose stop terminusdb-server
+docker compose stop terminusdb-server
 docker run --rm -it -v "%CD%":/backup -v terminusdb_volume:/terminusdb ubuntu tar cfz /backup/backup.tar.gz /terminusdb
-docker-compose up -d terminusdb-server
+docker compose up -d terminusdb-server
 ```
 
 **For Git Bash:**
 
 ```bash
-docker-compose stop terminusdb-server
+docker compose stop terminusdb-server
 MSYS_NO_PATHCONV=1 docker run --rm -it -v "$PWD":/backup -v terminusdb_volume:/terminusdb ubuntu tar cfz /backup/backup.tar.gz /terminusdb
-docker-compose up -d terminusdb-server
+docker compose up -d terminusdb-server
 ```
 
 This creates a `backup.tar.gz` file in your current directory.
@@ -189,7 +193,6 @@ To restore your backup to a new TerminusDB instance running on a different port:
 1. Update your `docker-compose.yml` to add a second service:
 
 ```yaml
-version: "3.5"
 services:
   terminusdb-server:
     image: terminusdb/terminusdb-server:latest
@@ -226,7 +229,7 @@ volumes:
 docker volume create terminusdb_restored
 docker run --rm -it -v "%CD%":/restore -v terminusdb_restored:/terminusdb ubuntu tar xvfz /restore/backup.tar.gz
 docker run --rm -it -v terminusdb_restored:/terminusdb ubuntu ls -l ./terminusdb/db
-docker-compose up -d terminusdb-restored
+docker compose up -d terminusdb-restored
 ```
 
 **For Git Bash:**
@@ -235,7 +238,7 @@ docker-compose up -d terminusdb-restored
 docker volume create terminusdb_restored
 MSYS_NO_PATHCONV=1 docker run --rm -it -v "$PWD":/restore -v terminusdb_restored:/terminusdb ubuntu tar xvfz /restore/backup.tar.gz
 MSYS_NO_PATHCONV=1 docker run --rm -it -v terminusdb_restored:/terminusdb ubuntu ls -l ./terminusdb/db
-docker-compose up -d terminusdb-restored
+docker compose up -d terminusdb-restored
 ```
 
 The restored instance will be available at:

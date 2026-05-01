@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/troubleshooting-schema/
 media: []
+tags:
+  - typescript
+  - schema
+  - troubleshooting
 ---
 
 # Schema Validation Errors

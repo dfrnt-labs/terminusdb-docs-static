@@ -1,4 +1,9 @@
 ---
+tags:
+  - how-to
+  - version-control
+  - dashboard
+  - intermediate
 title: Time Travel using the DFRNT TerminusDB cloud dashboard
 nextjs:
   metadata:

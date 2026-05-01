@@ -1,4 +1,8 @@
 ---
+tags:
+  - how-to
+  - vectorlink
+  - dfrnt-cloud
 title: OpenAI and Handlebars Configuration
 nextjs:
   metadata:

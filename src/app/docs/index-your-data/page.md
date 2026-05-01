@@ -1,4 +1,8 @@
 ---
+tags:
+  - how-to
+  - vectorlink
+  - dfrnt-cloud
 title: Index Your Data
 nextjs:
   metadata:
@@ -19,4 +23,4 @@ You can see the commit index history by clicking on the cog symbol on the left. 
 
 Once you have indexed your data, you can ask the semantic index server questions about your data and content.
 
-To sumbit prompts about your data, select the magnifying glass icon from the left and fill in the form with your prompts.
+To submit prompts about your data, select the magnifying glass icon from the left and fill in the form with your prompts.

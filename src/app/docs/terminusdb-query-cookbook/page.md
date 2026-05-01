@@ -1,4 +1,7 @@
 ---
+tags:
+  - woql
+  - cookbook
 title: TerminusDB Query Cookbook
 nextjs:
   metadata:

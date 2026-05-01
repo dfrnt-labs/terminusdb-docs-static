@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - reference
+  - advanced
 title: WOQL Set Operations Reference
 nextjs:
   metadata:

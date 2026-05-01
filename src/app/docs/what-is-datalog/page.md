@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - explanation
+  - beginner
 title: What is Datalog?
 nextjs:
   metadata:

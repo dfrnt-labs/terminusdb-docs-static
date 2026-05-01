@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - tutorial
+  - beginner
 title: WOQL Basics — Pattern Matching and Graph Traversal
 nextjs:
   metadata:

@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - how-to
+  - intermediate
 title: How to Order Results in WOQL
 nextjs:
   metadata:

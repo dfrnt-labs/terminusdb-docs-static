@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - tutorial
+  - time-processing
+  - advanced
 title: "Tutorial 4: Creative Temporal Patterns"
 nextjs:
   metadata:

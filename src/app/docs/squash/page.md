@@ -1,4 +1,9 @@
 ---
+tags:
+  - how-to
+  - version-control
+  - dashboard
+  - intermediate
 title: Squash Commits with the TerminusDB Dashboard
 nextjs:
   metadata:

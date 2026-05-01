@@ -1,4 +1,10 @@
 ---
+tags:
+  - tutorial
+  - documents
+  - curl
+  - beginner
+  - self-hosted
 title: Getting Started
 nextjs:
   metadata:
@@ -188,7 +194,7 @@ curl -u admin:root -X DELETE "http://127.0.0.1:6363/api/document/admin/starter?i
 
 You have now completed the very initial steps of using TerminusDB. You can now explore the rest of the documentation from here.
 
-The next step now is to install a Javascript or Python client that will help you interact effectivety with TerminusDB. You can use the HTTP API directly, and construct WOQL by hand, but we recommend all users to start with a Javascript or Python client, unless using TerminusDB as a pure JSON document store.
+The next step now is to install a Javascript or Python client that will help you interact effectively with TerminusDB. You can use the HTTP API directly, and construct WOQL by hand, but we recommend all users to start with a Javascript or Python client, unless using TerminusDB as a pure JSON document store.
 
 Continue here (Javascript is the primary client):
 

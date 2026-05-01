@@ -1,4 +1,9 @@
 ---
+tags:
+  - how-to
+  - documents
+  - curl
+  - intermediate
 title: How to use the HTTP Documents API
 nextjs:
   metadata:

@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - reference
+  - rdf
+  - advanced
 title: RDF List Transformation Operations
 nextjs:
   metadata:

@@ -1,4 +1,7 @@
 ---
+tags:
+  - explanation
+  - beginner
 title: How to Use the Clients
 nextjs:
   metadata:

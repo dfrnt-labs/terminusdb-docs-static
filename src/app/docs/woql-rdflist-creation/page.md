@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - reference
+  - rdf
+  - advanced
 title: RDF List Creation Operations
 nextjs:
   metadata:

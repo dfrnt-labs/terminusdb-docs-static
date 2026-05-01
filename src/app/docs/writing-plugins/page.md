@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/writing-plugins/
 media: []
+tags:
+  - how-to
+  - advanced
+  - self-hosted
 ---
 
 ## Writing Plugins for TerminusDB

@@ -1,4 +1,9 @@
 ---
+tags:
+  - how-to
+  - version-control
+  - dashboard
+  - beginner
 title: Reset a Project with the TerminusDB Dashboard
 nextjs:
   metadata:

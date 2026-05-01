@@ -1,4 +1,9 @@
 ---
+tags:
+  - explanation
+  - schema
+  - dashboard
+  - beginner
 title: How to Model Schema
 nextjs:
   metadata:

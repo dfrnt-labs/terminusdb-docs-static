@@ -1,4 +1,7 @@
 ---
+tags:
+  - explanation
+  - beginner
 title: What is TerminusDB?
 nextjs:
   metadata:

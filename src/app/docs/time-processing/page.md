@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - reference
+  - time-processing
 title: "ISO 8601 Time Processing in TerminusDB"
 nextjs:
   metadata:

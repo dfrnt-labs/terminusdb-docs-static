@@ -1,4 +1,8 @@
 ---
+tags:
+  - how-to
+  - documents
+  - dashboard
 title: Use the JSON View for building a Schema
 nextjs:
   metadata:

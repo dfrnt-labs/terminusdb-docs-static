@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - how-to
+  - beginner
 title: Order By in GraphQL
 nextjs:
   metadata:

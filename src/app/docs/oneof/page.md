@@ -10,6 +10,11 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/oneof/
 media: []
+tags:
+  - typescript
+  - schema
+  - reference
+  - dashboard
 ---
 
 This example shows how `<FrameViewer/>` appears for a document called `Graduate` with a one of field in Create/ Edit and View mode. The value of the @oneOf field is a set, so can be any number of documents all of which have mutually disjointed properties, but which can coexist.
@@ -18,7 +23,7 @@ In this example `Graduate` has a property `scored` that points to `Grades`. `Gra
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/OneOfs) to view the `<FrameViewer/>` with the OneOfs properties in Create, Edit and View mode.
+Take a look at the [**Demo Playground**](https://github.com/terminusdb/dashboard-examples-sandbox) to view the `<FrameViewer/>` with the OneOfs properties in Create, Edit and View mode.
 
 ## Frame
 
@@ -107,7 +112,7 @@ This frame consists of a Graduate document -
 
 ### Create
 
-```python
+```javascript
 import { FrameViewer } from '@terminusdb/terminusdb-documents-ui'
 
   return <FrameViewer

@@ -1,4 +1,9 @@
 ---
+tags:
+  - reference
+  - access-control
+  - curl
+  - intermediate
 title: Managing Users and Invitations in TerminusDB
 nextjs:
   metadata:
@@ -897,7 +902,6 @@ This tutorial demonstrated:
 - **Database admins** can manage the database but cannot create new databases or invite org-level users
 - **Consumer role** provides read-only access
 - **Delegation works**: Org admins can grant capabilities without requiring system admin intervention
-- 
 
 ## Cleanup
 

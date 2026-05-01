@@ -9,6 +9,11 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/schema-migration-reference-guide/
 media: []
+tags:
+  - typescript
+  - schema
+  - reference
+  - intermediate
 ---
 
 Schema migration allows us to move schema and instance data together automatically in a replayable fashion. This is essential for allowing flexible schemas to co-exist nicely with change-requests and merges.
@@ -168,7 +173,7 @@ Would take the schema:
 to:
 
 ```typescript
-{ "@id" : "Dog",
+{ "@id" : "Person",
   "@type" : "Class",
   "@metadata" : { "ui_preferences" : { "colour" : "blue" } },
   "name" : "xsd:string" }
@@ -247,32 +252,25 @@ The `ExpandEnum` operation will allow new fields to be added to an `Enum`. This 
 The command
 
 ```typescript
-{ "@type" : "ReplaceContext",
-  "context" : { "@type" : "@context",
-                "@base" : "iri://terminusdb.com/data",
-                "@schema" : "iri://terminusdb.com/schema#" } }
+{ "@type" : "ExpandEnum",
+  "enum" : "Colour",
+  "values" : ["purple", "orange"] }
 ```
 
 Will take a schema:
 
 ```typescript
-{ "@type" : "@context",
-  "@base" : "http://example.com/data",
-  "@schema" : "http://example.com/schema#" }
-{ "@id" : "Person",
-  "@type" : "Class",
-  "name" : "xsd:string"}
+{ "@id" : "Colour",
+  "@type" : "Enum",
+  "@value" : ["red", "green", "blue"] }
 ```
 
 To the schema:
 
 ```typescript
-{ "@type" : "@context",
-  "@base" : "iri://terminusdb.com/data",
-  "@schema" : "iri://terminusdb.com/schema#" }
-{ "@id" : "Person",
-  "@type" : "Class",
-  "name" : "xsd:string"}
+{ "@id" : "Colour",
+  "@type" : "Enum",
+  "@value" : ["red", "green", "blue", "purple", "orange"] }
 ```
 
 ## DeleteClassProperty

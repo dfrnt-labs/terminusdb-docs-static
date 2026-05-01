@@ -1,4 +1,8 @@
 ---
+tags:
+  - reference
+  - schema
+  - dfrnt-cloud
 title: TerminusDB Data Types
 nextjs:
   metadata:

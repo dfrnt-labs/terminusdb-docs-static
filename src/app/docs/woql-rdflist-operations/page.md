@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - reference
+  - rdf
+  - intermediate
 title: WOQL RDF List Operations
 nextjs:
   metadata:

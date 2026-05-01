@@ -1,4 +1,10 @@
 ---
+tags:
+  - how-to
+  - installation
+  - curl
+  - self-hosted
+  - beginner
 title: Install TerminusDB as a Docker Container
 nextjs:
   metadata:
@@ -64,14 +70,14 @@ This generates the message: `terminusdb-server container started http://127.0.0.
 
 #### Subsequent runs
 
-*   Remove previous volumes. Enter `y` to confirm removal when prompted.
+*   Stop and remove previous containers.
 *   Rerun the container.
 
-> **Warning:** Removing previous volumes will erase local data.
+> **Warning:** Adding `-v` to the `down` command will also erase local data by removing volumes.
 
 ```bash
-docker compose rm
-docker compose run
+docker compose down
+docker compose up
 ```
 
 ### Use the console

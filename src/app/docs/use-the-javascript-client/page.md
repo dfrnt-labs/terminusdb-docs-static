@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - typescript
+  - beginner
 title: How to Use the JavaScript Client
 nextjs:
   metadata:

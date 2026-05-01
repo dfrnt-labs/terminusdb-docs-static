@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - reference
+  - time-processing
 title: WOQL ISO8601 Time and Date Handling
 nextjs:
   metadata:

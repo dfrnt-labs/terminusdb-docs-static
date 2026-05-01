@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - reference
+  - time-processing
+  - advanced
 title: Allen's Interval Algebra and ISO 8601 Intervals
 nextjs:
   metadata:

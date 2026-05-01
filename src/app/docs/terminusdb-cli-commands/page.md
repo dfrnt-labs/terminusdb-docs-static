@@ -1,4 +1,9 @@
 ---
+tags:
+  - reference
+  - documents
+  - curl
+  - cli
 title: Command Line Interface (CLI) Commands
 nextjs:
   metadata:

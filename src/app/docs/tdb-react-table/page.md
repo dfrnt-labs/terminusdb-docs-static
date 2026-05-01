@@ -9,7 +9,17 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/tdb-react-table/
 media: []
+tags:
+  - typescript
+  - documents
+  - reference
+  - dashboard
 ---
+
+{% callout type="warning" title="Unmaintained package" %}
+These packages (`@terminusdb/terminusdb-documents-ui` etc.) were last published December 2023 and are no longer actively maintained. The documentation is preserved for reference. Community contributions and pull requests are welcome.
+{% /callout %}
+
 
 Learn how to include TerminusDB React Table components in your projects to display documents in an interactive table.
 
@@ -155,7 +165,7 @@ The following options are supported on any column object you can pass to columns
 
 ### Usage
 
-```python
+```javascript
 import  React, {useState,useEffect} from  'react';
 import {TDBReactTable} from  '@terminusdb/terminusdb-react-table'
 import {columnsConfiguration} from  './columnsConfiguration'
@@ -362,7 +372,7 @@ The following options are supported on any files object that you can pass to fie
 
 **You can use the following method to format the advanced search fields**
 
-```python
+```javascript
 import {advancedSearchMatchType} from  "@terminusdb/terminusdb-react-table/advancedSearchUtils"
 
 const  stringFormat = advancedSearchMatchType("String")

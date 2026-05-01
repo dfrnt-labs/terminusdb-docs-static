@@ -1,4 +1,8 @@
 ---
+tags:
+  - version-control
+  - tutorial
+  - curl
 title: Recover Data from Version History
 nextjs:
   metadata:
@@ -24,44 +28,41 @@ export DB="admin/MyDatabase"
 
 ## Step 1 — Create a database with initial data
 
-```bash
-# Create database
-curl -s -u $AUTH -X POST "$SERVER/api/db/$DB" \
-  -H "Content-Type: application/json" \
-  -d '{"label": "MyDatabase", "comment": "Recovery tutorial"}'
+Create the database:
 
-# Insert initial document
-curl -s -u $AUTH -X POST \
-  "$SERVER/api/document/$DB?author=admin&message=Add+initial+product+data&raw_json=true" \
-  -H "Content-Type: application/json" \
-  -d '{"@id": "terminusdb:///data/product-001", "name": "Widget", "price": 9.99, "status": "active"}'
+{% http-example method="POST" path="/api/db/admin/MyDatabase" fixture="docs-test" %}
+```json
+{"label": "MyDatabase", "comment": "Recovery tutorial"}
 ```
+{% /http-example %}
+
+Insert an initial document:
+
+{% http-example method="POST" path="/api/document/admin/MyDatabase?author=admin&message=Add+initial+product+data&raw_json=true" %}
+```json
+{"@id": "terminusdb:///data/product-001", "name": "Widget", "price": 9.99, "status": "active"}
+```
+{% /http-example %}
 
 ## Step 2 — Make a second commit (the "good" state)
 
 Update the product price — this creates a second commit that we will later identify as "last known good":
 
-```bash
-curl -s -u $AUTH -X PUT \
-  "$SERVER/api/document/$DB?author=admin&message=Update+widget+price+to+12.50&raw_json=true" \
-  -H "Content-Type: application/json" \
-  -d '{"@id": "terminusdb:///data/product-001", "name": "Widget", "price": 12.50, "status": "active"}'
+{% http-example method="PUT" path="/api/document/admin/MyDatabase?author=admin&message=Update+widget+price+to+12.50&raw_json=true" %}
+```json
+{"@id": "terminusdb:///data/product-001", "name": "Widget", "price": 12.50, "status": "active"}
 ```
+{% /http-example %}
 
 ## Step 3 — Make a bad change (simulate data corruption)
 
 Delete the product entirely — this is the change we want to recover from:
 
-```bash
-curl -s -u $AUTH -X DELETE \
-  "$SERVER/api/document/$DB?author=admin&message=Accidentally+deleted+product&id=terminusdb:///data/product-001"
-```
+{% http-example method="DELETE" path="/api/document/admin/MyDatabase?author=admin&message=Accidentally+deleted+product&id=terminusdb:///data/product-001" /%}
 
 Verify it is gone:
 
-```bash
-curl -s -u $AUTH "$SERVER/api/document/$DB?id=terminusdb:///data/product-001&raw_json=true"
-```
+{% http-example method="GET" path="/api/document/admin/MyDatabase?id=terminusdb:///data/product-001&raw_json=true" /%}
 
 You should get an empty response or an error — the document no longer exists on `main`.
 
@@ -69,37 +70,48 @@ You should get an empty response or an error — the document no longer exists o
 
 Use the `/api/log/{path}` endpoint to list recent commits:
 
-```bash
-curl -s -u $AUTH "$SERVER/api/log/$DB?count=10" | jq
-```
+{% http-example method="GET" path="/api/log/admin/MyDatabase?count=10" /%}
 
 **Expected output:**
 
 ```json
 [
   {
+    "@id": "ValidCommit/<sha-of-delete-commit>",
     "@type": "ValidCommit",
     "author": "admin",
     "identifier": "<sha-of-delete-commit>",
+    "instance": "layer_data:Layer_<hash>",
     "message": "Accidentally deleted product",
+    "parent": "ValidCommit/<sha-of-good-commit>",
+    "schema": "layer_data:Layer_<hash>",
     "timestamp": 1714400000.0
   },
   {
+    "@id": "ValidCommit/<sha-of-good-commit>",
     "@type": "ValidCommit",
     "author": "admin",
     "identifier": "<sha-of-good-commit>",
+    "instance": "layer_data:Layer_<hash>",
     "message": "Update widget price to 12.50",
+    "parent": "ValidCommit/<sha-of-first-commit>",
+    "schema": "layer_data:Layer_<hash>",
     "timestamp": 1714399900.0
   },
   {
+    "@id": "ValidCommit/<sha-of-first-commit>",
     "@type": "InitialCommit",
     "author": "admin",
     "identifier": "<sha-of-first-commit>",
+    "instance": "layer_data:Layer_<hash>",
     "message": "Add initial product data",
+    "schema": "layer_data:Layer_<hash>",
     "timestamp": 1714399800.0
   }
 ]
 ```
+
+The response includes additional internal fields: `@id` (commit IRI), `instance` and `schema` (storage layer references), and `parent` (link to previous commit, absent on the initial commit). For recovery purposes, focus on `identifier`, `message`, and `timestamp`.
 
 Identify the commit you want to return to. In this case it is the second commit ("Update widget price to 12.50"). Copy its `identifier` value.
 
@@ -158,9 +170,7 @@ curl -s -u $AUTH "$SERVER/api/document/$DB?id=terminusdb:///data/product-001&raw
 
 ## Cleanup
 
-```bash
-curl -s -u $AUTH -X DELETE "$SERVER/api/db/$DB"
-```
+{% http-example method="DELETE" path="/api/db/admin/MyDatabase" /%}
 
 ## What you learned
 

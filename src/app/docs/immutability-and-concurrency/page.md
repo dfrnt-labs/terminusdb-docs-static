@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - documents
+  - advanced
 title: Immutability and Concurrency
 nextjs:
   metadata:

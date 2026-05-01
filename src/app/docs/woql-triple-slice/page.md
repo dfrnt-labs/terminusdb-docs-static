@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - reference
+  - advanced
 title: Range Queries with triple_slice and quad_slice
 nextjs:
   metadata:

@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - reference
+  - time-processing
+  - advanced
 title: End-of-Month Preservation Rules
 nextjs:
   metadata:

@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - troubleshooting
+  - intermediate
 title: Query Errors — TerminusDB Troubleshooting
 nextjs:
   metadata:

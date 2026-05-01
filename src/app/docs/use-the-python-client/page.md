@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - python
+  - beginner
 title: How to Use the Python Client
 nextjs:
   metadata:

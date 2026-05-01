@@ -1,4 +1,10 @@
 ---
+tags:
+  - tutorial
+  - documents
+  - curl
+  - rust
+  - intermediate
 title: Rust Client — Getting Started
 nextjs:
   metadata:

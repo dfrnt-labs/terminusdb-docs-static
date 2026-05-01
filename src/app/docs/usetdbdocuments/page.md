@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - reference
+  - typescript
 title: useTDBDocuments hook
 nextjs:
   metadata:
@@ -10,6 +14,11 @@ nextjs:
       canonical: https://terminusdb.org/docs/usetdbdocuments/
 media: []
 ---
+
+{% callout type="warning" title="Unmaintained package" %}
+These packages (`@terminusdb/terminusdb-documents-ui` etc.) were last published December 2023 and are no longer actively maintained. The documentation is preserved for reference. Community contributions and pull requests are welcome.
+{% /callout %}
+
 
 `useTDBDocuments` is the main hook to connect @terminusdb/terminusdb-documents-ui with the TerminusDB server. To use it, pass it with an instance of [terminusdb](https://github.com/terminusdb/terminusdb-client-js)
 

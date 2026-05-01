@@ -1,4 +1,8 @@
 ---
+tags:
+  - reference
+  - dashboard
+  - dfrnt-cloud
 title: TerminusDB Dashboard Reference Guide
 nextjs:
   metadata:

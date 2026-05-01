@@ -9,26 +9,18 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/mandatory/
 media: []
+tags:
+  - typescript
+  - schema
+  - reference
+  - dashboard
 ---
 
 This example shows how `<FrameViewer/>` appears for a document called `Person` with mandatory fields in Create/ Edit and View mode. A required tag will appear against every mandatory field.
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Mandatory) to view the `<FrameViewer/>` with mandatory properties in Create, Edit and View mode.
-
-## Frame
-
-The below frame consists of a `Person` document with mandatory fields -
-    https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
-media: []
----
-
-This example shows how `<FrameViewer/>` appears for a document called `Person` with mandatory fields in Create/ Edit and View mode. A required tag will appear against every mandatory field.
-
-## Demo
-
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Mandatory) to view the `<FrameViewer/>` with mandatory properties in Create, Edit and View mode.
+Take a look at the [**Demo Playground**](https://github.com/terminusdb/dashboard-examples-sandbox) to view the `<FrameViewer/>` with mandatory properties in Create, Edit and View mode.
 
 ## Frame
 
@@ -126,7 +118,7 @@ The below frame consists of a `Person` document with mandatory fields -
 
 ### Create
 
-```python
+```javascript
 import { FrameViewer } from '@terminusdb/terminusdb-documents-ui'
 
   return <FrameViewer
@@ -155,7 +147,7 @@ Note - make sure to provide document values for View mode. The form will be in r
       "@id": "Person/72a8a2778bafbc4290f59ca851e0307c6918f7205207d93ac1b2a1f796a94587/permanentAddress/Address/5879ec85b65bb0caaa03f48e99073a9d4302c31ec3c3a382889a12980899e95f",
       "@type": "Address",
       "AddressLine1": "somewhere in Europe",
-      "Country": "New Zeeland",
+      "Country": "New Zealand",
       "City": "City",
       "postalCode": "NZ29038"
     },

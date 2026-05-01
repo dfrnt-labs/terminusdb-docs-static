@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - data-import
+  - how-to
+  - intermediate
 title: Import Data with the Python Client
 nextjs:
   metadata:
@@ -23,5 +28,14 @@ objects = []
 with open('test.csv', 'r') as f:
     csv_reader = csv.DictReader(f)
     objects = list(csv_reader)
+
+# Add @type to each row to match your schema class
+for obj in objects:
+    obj['@type'] = 'YourClassName'
+
 client.insert_document(objects)
 ```
+
+{% callout type="note" %}
+If your database has only one document class, TerminusDB can infer the `@type` automatically. When you have multiple classes, you must set `@type` on each document explicitly.
+{% /callout %}

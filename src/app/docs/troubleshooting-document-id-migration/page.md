@@ -1,4 +1,9 @@
 ---
+tags:
+  - troubleshooting
+  - schema
+  - curl
+  - advanced
 title: Troubleshooting Document ID Migration
 nextjs:
   metadata:

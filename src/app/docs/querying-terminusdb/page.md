@@ -1,4 +1,9 @@
 ---
+tags:
+  - explanation
+  - woql
+  - graphql
+  - beginner
 title: "Choosing a Query Interface: WOQL, GraphQL, or HTTP API"
 nextjs:
   metadata:

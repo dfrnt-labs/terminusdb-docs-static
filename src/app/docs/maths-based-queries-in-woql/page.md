@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - how-to
+  - intermediate
 title: Mathematical Operations in WOQL
 nextjs:
   metadata:
@@ -25,7 +29,7 @@ evaluate(times(2,3), v.result)
 This will store the value of 2 times 3 in the variable `result`. The bindings which result from this query are:
 
 ```json
-[ {"result": {"@type":"xsd:decimal", "@value":12}} ]
+[ {"result": {"@type":"xsd:decimal", "@value":6}} ]
 ```
 
 You can also chain these together, to build up more complicated computations, or use the results obtained by queries to derive new values.

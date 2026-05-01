@@ -9,6 +9,11 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/orderby/
 media: []
+tags:
+  - typescript
+  - query
+  - reference
+  - dashboard
 ---
 
 This example shows how `<FrameViewer/>` appears for a document `OrderByExample` in Create/ Edit and View mode.
@@ -17,7 +22,7 @@ The Frame below to shows `@metadata` with an `order_by` tag which tells `<FrameV
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Order%20By) to view `<FrameViewer/>` with properties where order\_by is defined in the `@metadata` tag - in Create, Edit and view mode.
+Take a look at the [**Demo Playground**](https://github.com/terminusdb/dashboard-examples-sandbox) to view `<FrameViewer/>` with properties where order\_by is defined in the `@metadata` tag - in Create, Edit and view mode.
 
 ## Frame
 
@@ -61,14 +66,14 @@ This frame consists of an `OrderByExample` document
             "@type": "Class",
             "text": "xsd:string",
             "section": "xsd:string",
-            "url": "xsd:url"
+            "url": "xdd:url"
         }
     }   
 ```
 
 ### Create
 
-```python
+```javascript
 import { FrameViewer } from '@terminusdb/terminusdb-documents-ui'
 
   return <FrameViewer

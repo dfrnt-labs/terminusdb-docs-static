@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - how-to
+  - schema
+  - intermediate
 title: Query Arrays and Sets with WOQL
 nextjs:
   metadata:

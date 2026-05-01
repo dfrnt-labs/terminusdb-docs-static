@@ -1,4 +1,9 @@
 ---
+tags:
+  - how-to
+  - installation
+  - curl
+  - self-hosted
 title: Self-Hosted Installation Guide
 nextjs:
   metadata:

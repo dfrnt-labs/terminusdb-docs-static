@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - tutorial
+  - time-processing
+  - advanced
 title: "Tutorial 3: Intervals & Allen's Temporal Algebra"
 nextjs:
   metadata:

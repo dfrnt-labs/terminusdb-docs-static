@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - reference
+  - typescript
 title: useTDBGraphqlQuery
 nextjs:
   metadata:
@@ -10,6 +14,11 @@ nextjs:
       canonical: https://terminusdb.org/docs/usetdbgraphqlquery/
 media: []
 ---
+
+{% callout type="warning" title="Unmaintained package" %}
+These packages (`@terminusdb/terminusdb-documents-ui` etc.) were last published December 2023 and are no longer actively maintained. The documentation is preserved for reference. Community contributions and pull requests are welcome.
+{% /callout %}
+
 
 `useTDBGraphqlQuery` is the main hook to connect @terminusdb/terminusdb-react-table with TerminusDB server. To use it, pass it with an instance of [ApolloClient](https://www.apollographql.com/docs/react/).
 

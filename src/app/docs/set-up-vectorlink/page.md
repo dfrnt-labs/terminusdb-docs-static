@@ -1,4 +1,8 @@
 ---
+tags:
+  - how-to
+  - vectorlink
+  - dfrnt-cloud
 title: Set up VectorLink
 nextjs:
   metadata:

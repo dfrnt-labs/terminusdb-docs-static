@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - how-to
+  - typescript
+  - beginner
 title: Run a WOQL Query using the JavaScript Client
 nextjs:
   metadata:
@@ -22,8 +27,8 @@ The example code below shows a simple query that returns all of the database's t
         const query = Terminusdb.WOQL.triple(v.subject,v.predicate,v.object)
         const result = await client.query(query)
 
-        console.log("my query result", JSON.stringyfy(result,null,4))
+        console.log("my query result", JSON.stringify(result,null,4))
     }    
 ```
 
-For more information and examples about querying with WOQL please see the \[/woql-basics)
+For more information and examples about querying with WOQL please see the [WOQL Basics guide](/docs/woql-basics/).

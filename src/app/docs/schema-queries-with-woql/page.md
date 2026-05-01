@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - how-to
+  - schema
+  - intermediate
 title: Schema Queries with WOQL
 nextjs:
   metadata:

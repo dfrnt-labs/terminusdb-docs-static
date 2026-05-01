@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - how-to
+  - version-control
 title: Querying Layers with GraphQL
 nextjs:
   metadata:

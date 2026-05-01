@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - collaboration
+  - dashboard
 title: How to Use the Collaboration Features
 nextjs:
   metadata:

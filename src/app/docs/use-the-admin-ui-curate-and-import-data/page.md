@@ -1,4 +1,9 @@
 ---
+tags:
+  - how-to
+  - documents
+  - dashboard
+  - dfrnt-cloud
 title: Use the DFRNT TerminusDB cloud Dashboard to Curate Data & Content
 nextjs:
   metadata:

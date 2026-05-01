@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - schema
+  - intermediate
 title: What is Schema Weakening
 nextjs:
   metadata:

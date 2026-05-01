@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - how-to
+  - path-queries
 title: Path Queries in GraphQL
 nextjs:
   metadata:

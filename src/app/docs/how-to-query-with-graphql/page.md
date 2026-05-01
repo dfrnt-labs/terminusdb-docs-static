@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - tutorial
+  - beginner
 title: How to Query with GraphQL
 nextjs:
   metadata:

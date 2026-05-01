@@ -9,6 +9,11 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/sysjson/
 media: []
+tags:
+  - typescript
+  - documents
+  - reference
+  - dashboard
 ---
 
 This example shows how `<FrameViewer/>` appears for a document `ComputerStudent` with sys:JSON field in Create/ Edit or View mode.
@@ -17,7 +22,7 @@ This example shows how `<FrameViewer/>` appears for a document `ComputerStudent`
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/JSON) to view `<FrameViewer/>` with sys:JSON properties in Create, Edit or View mode.
+Take a look at the [**Demo Playground**](https://github.com/terminusdb/dashboard-examples-sandbox) to view `<FrameViewer/>` with sys:JSON properties in Create, Edit or View mode.
 
 ## Frame
 
@@ -47,7 +52,7 @@ This frame consists of an ComputerStudent document
 
 ### Create
 
-```python
+```javascript
 import { FrameViewer } from '@terminusdb/terminusdb-documents-ui'
 
   return <FrameViewer

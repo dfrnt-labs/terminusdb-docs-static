@@ -10,6 +10,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/numeric-precision-reference/
 media: []
+tags:
+  - typescript
+  - documents
+  - reference
 ---
 
 TerminusDB provides precise control over numeric types and arithmetic operations, following W3C XSD standards and Prolog's natural semantics. This guide explains how numeric types work, when precision is preserved, and how to choose the right type for your use case.

@@ -1,4 +1,9 @@
 ---
+tags:
+  - reference
+  - schema
+  - curl
+  - intermediate
 title: Prefix Management API
 nextjs:
   metadata:

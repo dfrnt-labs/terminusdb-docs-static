@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - tutorial
+  - time-processing
+  - intermediate
 title: "Tutorial 2: Durations, Month Arithmetic & Sequences"
 nextjs:
   metadata:

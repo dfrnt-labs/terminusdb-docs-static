@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - dfrnt-cloud
+  - dashboard
 title: How to Manage Projects with TerminusDB
 nextjs:
   metadata:

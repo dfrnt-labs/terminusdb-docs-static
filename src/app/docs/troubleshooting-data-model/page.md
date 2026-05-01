@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/troubleshooting-data-model/
 media: []
+tags:
+  - typescript
+  - documents
+  - troubleshooting
 ---
 
 # Data Model Mismatches

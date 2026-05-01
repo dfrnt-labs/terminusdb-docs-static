@@ -1,4 +1,8 @@
 ---
+tags:
+  - graphql
+  - reference
+  - advanced
 title: System Graph Interface to GraphQL
 nextjs:
   metadata:

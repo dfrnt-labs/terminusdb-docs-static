@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - explanation
+  - advanced
 title: How WOQL Finds and Streams Solutions
 nextjs:
   metadata:

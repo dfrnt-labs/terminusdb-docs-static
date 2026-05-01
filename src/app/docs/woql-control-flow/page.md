@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - reference
+  - advanced
 title: "WOQL Control Flow: Backtracking, Scope, and Performance"
 nextjs:
   metadata:

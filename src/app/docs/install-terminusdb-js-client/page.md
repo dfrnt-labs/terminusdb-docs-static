@@ -1,4 +1,8 @@
 ---
+tags:
+  - how-to
+  - installation
+  - typescript
 title: Install the TerminusDB JavaScript Client
 nextjs:
   metadata:
@@ -13,7 +17,7 @@ media: []
 
 ## Requirements
 
-Node.js version 10+ if using the TerminusDB client library as a Node.js package
+Node.js version 18+ if using the TerminusDB client library as a Node.js package
 
 ## Installation
 

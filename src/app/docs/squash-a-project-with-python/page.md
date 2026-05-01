@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - version-control
+  - how-to
+  - intermediate
 title: Squashing Commits with the TerminusDB Python Client
 nextjs:
   metadata:
@@ -22,5 +27,5 @@ result = client.squash(commitMessage)
 The result will contain the new commit id. You can use it to reset the HEAD to the new squashed commit.
 
 ```python
-client.reset(result)
+client.reset(result, use_path=True)
 ```

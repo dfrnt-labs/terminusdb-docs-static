@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - how-to
+  - documents
+  - beginner
 title: Read documents with WOQL
 nextjs:
   metadata:

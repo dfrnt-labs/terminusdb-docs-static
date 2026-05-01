@@ -1,4 +1,8 @@
 ---
+tags:
+  - troubleshooting
+  - access-control
+  - curl
 title: Authentication Errors — TerminusDB Troubleshooting
 nextjs:
   metadata:

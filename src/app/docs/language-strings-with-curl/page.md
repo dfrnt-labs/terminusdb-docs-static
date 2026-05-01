@@ -1,4 +1,10 @@
 ---
+tags:
+  - how-to
+  - documents
+  - curl
+  - rdf
+  - intermediate
 title: Language-Tagged RDF Strings with curl
 nextjs:
   metadata:

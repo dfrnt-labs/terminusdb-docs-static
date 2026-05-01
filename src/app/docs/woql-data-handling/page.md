@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - how-to
+  - intermediate
 title: "Working with Data in WOQL"
 nextjs:
   metadata:

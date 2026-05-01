@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - installation
+  - beginner
 title: TerminusDB Installation Options
 nextjs:
   metadata:

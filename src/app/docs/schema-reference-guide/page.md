@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/schema-reference-guide/
 media: []
+tags:
+  - typescript
+  - schema
+  - reference
 ---
 
 The TerminusDB schema language enables documents and their relationships to be specified using simple JSON syntax. This syntax makes it as easy as possible to specify a JSON object to automatically convert to a graph. This approach enables data to be viewed as collections of documents or as knowledge graphs of interconnected objects.
@@ -273,7 +277,6 @@ The example below shows a document with the ID `People` with the `desc` string p
             "@class": "xsd:string",
             "@type": "Optional"
         },
-        },
         "name": {
             "@class": "xsd:string",
             "@type": "Optional"
@@ -281,6 +284,7 @@ The example below shows a document with the ID `People` with the `desc` string p
         "gender": {
             "@class": "xsd:string",
             "@type": "Optional"
+        }
     }
 ```
 
@@ -299,7 +303,7 @@ You can specify the order of properties within your schema so that it is display
                 "eye_color",
                 "gender",
                 "birth_year"
-            ],
+            ]
         },
 ...
 ```
@@ -880,7 +884,7 @@ An example of the abstract keyword in a schema, and a concrete instance of the `
     "name"      : "xsd:string" 
 }
 { 
-    "@type"     : "Person",
+    "@type"     : "Class",
     "@id"       : "Person",
     "@inherits" : ["NamedEntity"] 
 }
@@ -983,7 +987,7 @@ The purpose of `@unfoldable` is to be able to treat linked (top-level) documents
 #### Cycle detection
 The `@unfoldable` option can be set on any class. Fields with unfoldable class fields may even link back directly or indirectly, forming cycles. 
 
-Self-referencing documents are prevented from being unfolded infinitely by cycle detection. When a cycle is present, the recurring leaf will not be unfolded and instead be represented by its IRI. The same behavior is applied when a document has too many unfolds, going beyong the configurable default of 500.000 documents.
+Self-referencing documents are prevented from being unfolded infinitely by cycle detection. When a cycle is present, the recurring leaf will not be unfolded and instead be represented by its IRI. The same behavior is applied when a document has too many unfolds, going beyond the configurable default of 500.000 documents.
 
 Read more about cycle detection in the [TerminusDB Internals](/docs/terminusdb-internals/), in the section [Document Unfolding Reference](/docs/document-unfolding-reference/).
 
@@ -1048,7 +1052,7 @@ The above example shows both Doug and Phil using the same address document. On r
                        "@id"         : "Address/1",
                        "country"     : "Neverlandistan",
                        "postal_code" : "3",
-                       "street"      : "Cool Hasrbour lane" }
+                       "street"      : "Cool Harbour lane" }
 }
 {
     "@type"        : "Person",
@@ -1058,7 +1062,7 @@ The above example shows both Doug and Phil using the same address document. On r
                        "@id"         : "Address/1",
                        "country"     : "Neverlandistan",
                        "postal_code" : "3",
-                       "street"      : "Cool Hasrbour lane" }
+                       "street"      : "Cool Harbour lane" }
 }
 ```
 

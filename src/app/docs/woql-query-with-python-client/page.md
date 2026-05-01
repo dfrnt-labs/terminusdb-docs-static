@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - woql
+  - how-to
+  - beginner
 title: Run a WOQL Query with the Python Client
 nextjs:
   metadata:
@@ -24,7 +29,7 @@ A simple example, in which we get all the names of the people in the database:
 from terminusdb_client import WOQLQuery, WOQLClient
 query = WOQLQuery().woql_and(
     WOQLQuery().triple('v:PersonId', 'rdf:type', '@schema:Person'),
-    WOQLQuery().trople('v:PersonId', '@schema:name', 'v:Name')
+    WOQLQuery().triple('v:PersonId', '@schema:name', 'v:Name')
 )
 result = client.query(query)
 ```

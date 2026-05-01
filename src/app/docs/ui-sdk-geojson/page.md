@@ -10,7 +10,17 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/ui-sdk-geojson/
 media: []
+tags:
+  - typescript
+  - documents
+  - reference
+  - dashboard
 ---
+
+{% callout type="warning" title="Unmaintained package" %}
+These packages (`@terminusdb/terminusdb-documents-ui` etc.) were last published December 2023 and are no longer actively maintained. The documentation is preserved for reference. Community contributions and pull requests are welcome.
+{% /callout %}
+
 
 ## GeoJSON Demo
 

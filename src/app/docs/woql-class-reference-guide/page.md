@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - reference
+  - advanced
 title: WOQL Class Reference Guide
 nextjs:
   metadata:
@@ -16,6 +20,10 @@ media: []
 This is the WOQL schema. It gives a complete specification of the syntax of the WOQL query language. This allows WOQL queries to be checked for syntactic correctness, helps to prevent errors and detect conflicts in merge of queries, and allows the storage and retrieval of queries so that queries can be associated with data products.
 
 **Authored by:** Gavin Mendel-Gleason
+
+{% callout title="Coverage note" %}
+This reference documents the most commonly used WOQL classes. For the complete AST class list, see the [TerminusDB source](https://github.com/terminusdb/terminusdb). Additional operations such as set operations, triple_slice, and newer additions are documented on their respective pages.
+{% /callout %}
 
 > Syntax is listed in alphabetical order.
 

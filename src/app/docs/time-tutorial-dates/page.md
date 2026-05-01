@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - tutorial
+  - time-processing
+  - beginner
 title: "Tutorial 1: Dates, Comparisons & Range Queries"
 nextjs:
   metadata:

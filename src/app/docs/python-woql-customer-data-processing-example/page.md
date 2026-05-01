@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - woql
+  - tutorial
+  - intermediate
 title: Python WOQL Customer Data Processing Example
 nextjs:
   metadata:
@@ -64,12 +69,13 @@ schema = {
 
 #Add some attributes to the Attributes subdocument
 
+attributes = ["articles_bought", "n_clicks", "duration", "total"]
 for attr_name in attributes:
-    schema["operations"][1]["class_document"][attr_name] = { "@type" : "Optional", "@class" : "xsd:double" }
+    schema["operations"][0]["class_document"][attr_name] = { "@type" : "Optional", "@class" : "xsd:double" }
 
-#POST the changes to the terminusDB API
+#POST the changes to the TerminusDB API
 
-url = "http://localhost:6363/api/migration/admin/terminus"
+url = "http://localhost:6363/api/migration/admin/your_db"
 headers = {
 'Content-Type': 'application/json'
 }
@@ -131,7 +137,7 @@ else:
 
 Now, to better understand what all this means, let's break it down into smaller parts!
 
-> Note: WOQL allows fluent and functional (and even mixed) style of querying. In the functional style, subqueries are arguments for other queries, and triples can be linked by the `woql_and` function. However, we have noted that the fluent style may not always work as expected, so the fluent style is advised. Learn more about WOQL and its styles and more [here](/docs/woql-explanation/).
+> Note: WOQL allows fluent and functional (and even mixed) style of querying. In the functional style, subqueries are arguments for other queries, and triples can be linked by the `woql_and` function. However, we have noted that the fluent style may not always work as expected, so the functional style is advised. Learn more about WOQL and its styles and more [here](/docs/woql-explanation/).
 
 ### Initialise variables
 

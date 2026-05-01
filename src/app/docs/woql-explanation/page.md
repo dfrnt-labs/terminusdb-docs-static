@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - explanation
+  - beginner
 title: "The WOQL Query Language, Explained"
 nextjs:
   metadata:

@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/js-access-control/
 media: []
+tags:
+  - typescript
+  - access-control
+  - reference
 ---
 
 **License**: Apache Version 2

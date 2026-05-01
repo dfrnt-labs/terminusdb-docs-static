@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - documents
+  - intermediate
 title: Immutability Explanation
 nextjs:
   metadata:

@@ -1,4 +1,9 @@
 ---
+tags:
+  - explanation
+  - documents
+  - rdf
+  - advanced
 title: TerminusDB Internals
 nextjs:
   metadata:

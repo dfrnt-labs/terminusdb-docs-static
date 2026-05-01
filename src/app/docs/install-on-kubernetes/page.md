@@ -1,4 +1,10 @@
 ---
+tags:
+  - how-to
+  - installation
+  - curl
+  - self-hosted
+  - advanced
 title: Install on Kubernetes
 nextjs:
   metadata:
@@ -118,6 +124,6 @@ This will expose TerminusDB locally on your computer on `localhost:6363`. You ca
 {"authority":"terminusdb://system/data/User/anonymous", "storage": 
 {"version":"2"}, "terminusdb": 
 {"git_hash":"19029acffcd25c9277451aa30ee0ff4c3029ae67", 
-"version":"11.1.0"}, "terminusdb_store": {"version":"0.19.8"}}, 
+"version":"12.0.5"}, "terminusdb_store": {"version":"0.19.8"}}, 
 "api:status":"api:success"}
 ```

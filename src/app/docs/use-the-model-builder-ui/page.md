@@ -1,4 +1,8 @@
 ---
+tags:
+  - how-to
+  - schema
+  - dashboard
 title: Use the Model Builder UI
 nextjs:
   metadata:

@@ -1,4 +1,9 @@
 ---
+tags:
+  - woql
+  - tutorial
+  - rdf
+  - advanced
 title: RDF List Queue Tutorial
 nextjs:
   metadata:

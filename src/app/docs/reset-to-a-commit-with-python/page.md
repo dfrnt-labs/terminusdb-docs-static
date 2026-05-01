@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - version-control
+  - how-to
+  - intermediate
 title: Reset to a Particular Commit with the Python Client
 nextjs:
   metadata:
@@ -18,17 +23,18 @@ Assuming you have [connected with the Python Client](/docs/connect-with-python-c
 You can use the Python Client Library method to get a list of branch commits. This example uses pagination to get the last commits starting from the branch head -
 
 ```python
-//For TerminusDB
+# For DFRNT Cloud
 from terminusdb_client import Client
 client = Client('https://dfrnt.com/api/hosted/TEAM')
-client.connect(team='MyTeam' db='your_db', api_token='YOUR_API_TOKEN_HERE')
-commits = client.logs(count=10)
+client.connect(team='MyTeam', db='your_db', api_token='YOUR_API_TOKEN_HERE')
+commits = client.log(count=10)
 print(commits)
-// For TerminusDB
+
+# For TerminusDB (local)
 from terminusdb_client import Client
 client = Client('http://localhost:6363')
-client.connect(key='root', user='root', team='root' db='your_db')
-commits = client.logs(count=10)
+client.connect(key='root', user='admin', team='admin', db='your_db')
+commits = client.log(count=10)
 print(commits)
 ```
 

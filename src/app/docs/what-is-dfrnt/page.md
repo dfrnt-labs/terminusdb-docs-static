@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - dfrnt-cloud
+  - beginner
 title: What is DFRNT Hub?
 nextjs:
   metadata:

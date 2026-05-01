@@ -1,4 +1,10 @@
 ---
+tags:
+  - woql
+  - how-to
+  - data-import
+  - rdf
+  - intermediate
 title: Import JSON-LD Documents with WOQL
 nextjs:
   metadata:

@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - cookbook
+  - advanced
 title: "WOQL Cookbook: Pattern generation"
 nextjs:
   metadata:

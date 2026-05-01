@@ -1,4 +1,9 @@
 ---
+tags:
+  - python
+  - installation
+  - troubleshooting
+  - intermediate
 title: Handle SSL Certificate Errors in the Python Client
 nextjs:
   metadata:

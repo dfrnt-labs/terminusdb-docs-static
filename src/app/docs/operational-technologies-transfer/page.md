@@ -1,4 +1,8 @@
 ---
+tags:
+  - explanation
+  - enterprise
+  - advanced
 title: Operational Technologies Information Transfer
 nextjs:
   metadata:

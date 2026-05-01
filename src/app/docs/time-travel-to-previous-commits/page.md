@@ -9,6 +9,10 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/time-travel-to-previous-commits/
 media: []
+tags:
+  - typescript
+  - version-control
+  - how-to
 ---
 
 Assuming you have [connected with the JavaScript Client](/docs/connect-with-the-javascript-client/), created a database, and made a few commits, you can time travel to inspect them to see what they looked like.

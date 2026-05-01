@@ -9,13 +9,17 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/render-as/
 media: []
+tags:
+  - typescript
+  - schema
+  - reference
 ---
 
 This example shows how `<FrameViewer/>` appears for a document `metaDataExample` with the fields `body` & `title` in Create/ Edit or View mode. The Frame below shows `@metadata` with the `render_as` tag included that tells `<FrameViewer/>` to render field `body` as Markdown.
 
 ## Demo
 
-Take a look at the [**Demo Playground**](https://documents-ui-playground.terminusdb.com/Render%20As) to view `<FrameViewer/>` with properties where render\_as is defined in @metadata tag - in Create, Edit or View mode.
+Take a look at the [**Demo Playground**](https://github.com/terminusdb/dashboard-examples-sandbox) to view `<FrameViewer/>` with properties where render\_as is defined in @metadata tag - in Create, Edit or View mode.
 
 ## Frame
 
@@ -50,7 +54,7 @@ This frame consists of an `metaDataExample` document
 
 ### Create
 
-```python
+```javascript
 import { FrameViewer } from '@terminusdb/terminusdb-documents-ui'
 
   return <FrameViewer
