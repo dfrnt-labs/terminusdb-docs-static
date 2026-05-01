@@ -43,11 +43,6 @@ export const navigation: Navigation[] = [
       },
 
       {
-        title: 'What is TerminusDB?',
-        href: '/docs/terminusdb-explanation',
-      },
-
-      {
         title: 'Quickstart',
         links: [
           {
@@ -157,6 +152,10 @@ export const navigation: Navigation[] = [
   {
     title: 'How TerminusDB Works',
     links: [
+      {
+        title: 'What is TerminusDB?',
+        href: '/docs/terminusdb-explanation',
+      },
       {
         title: 'Documents & Schema',
         links: [

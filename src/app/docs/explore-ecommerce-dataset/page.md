@@ -64,7 +64,7 @@ You will see types: `Category`, `Customer`, `Order`, `OrderLine`, and `Product`.
 
 List all orders (30 documents):
 
-{% http-example method="GET" path="/api/document/admin/ecommerce/local/branch/main?type=Order&as_list=true" /%}
+{% http-example method="GET" path="/api/document/admin/ecommerce/local/branch/main?type=Order&as_list=true" runnable=false /%}
 
 Expected: 30 orders, 15 customers, 20 products, 84 order lines. All interconnected, all versioned. Order totals are stored as `xsd:decimal` — arbitrary-precision exact arithmetic, not floating-point. Financial figures stay exact across every query, branch, and diff.
 
@@ -74,7 +74,7 @@ Show all orders still in "processing" status, with the customer's name and count
 
 In a relational database, this requires a JOIN: `SELECT o.order_id, o.total, c.name, c.country FROM orders o JOIN customers c ON o.customer_id = c.id WHERE o.status = 'processing'`. You declare the relationship in the query because the database does not know it intrinsically. In TerminusDB, an Order document has a `customer` field that *is* the link to a Customer document — you simply follow it:
 
-{% http-example method="POST" path="/api/woql/admin/ecommerce/local/branch/main" %}
+{% http-example method="POST" path="/api/woql/admin/ecommerce/local/branch/main" runnable=false %}
 {% http-woql %}
 import TerminusClient from "@terminusdb/terminusdb-client";
 
@@ -114,7 +114,7 @@ A processing order has been shipped. Update its status on a branch and see what 
 
 Create a branch called `fulfillment`:
 
-{% http-example method="POST" path="/api/branch/admin/ecommerce/local/branch/fulfillment" %}
+{% http-example method="POST" path="/api/branch/admin/ecommerce/local/branch/fulfillment" runnable=false %}
 {"origin": "admin/ecommerce/local/branch/main"}
 {% http-expected %}
 {"@type":"api:BranchResponse","api:status":"api:success"}
@@ -123,7 +123,7 @@ Create a branch called `fulfillment`:
 
 Update order ORD-0002 to "shipped" on the branch:
 
-{% http-example method="PUT" path="/api/document/admin/ecommerce/local/branch/fulfillment?author=warehouse@example.com&message=Ship+order+ORD-0002" %}
+{% http-example method="PUT" path="/api/document/admin/ecommerce/local/branch/fulfillment?author=warehouse@example.com&message=Ship+order+ORD-0002" runnable=false %}
 {"@id": "Order/ORD-0002", "@type": "Order", "order_id": "ORD-0002", "customer": "Customer/hana.tanaka%40example.com", "order_date": "2024-03-19T03:10:07.294Z", "status": "shipped", "total": 5235.93}
 {% http-expected %}
 ["terminusdb:///data/Order/ORD-0002"]
@@ -136,7 +136,7 @@ You just updated one field — `status` from "processing" to "shipped" — on an
 
 In any other database, answering "what exactly changed in this order?" means querying an audit table, parsing CDC events, or comparing snapshots you exported. In TerminusDB, you ask the database directly — compare your `fulfillment` branch against `main`:
 
-{% http-example method="POST" path="/api/diff/admin/ecommerce" %}
+{% http-example method="POST" path="/api/diff/admin/ecommerce" runnable=false %}
 {"before_data_version": "main", "after_data_version": "fulfillment"}
 {% http-expected %}
 [{"@id": "terminusdb:///data/Order/ORD-0002", "status": {"@op": "SwapValue", "@before": "processing", "@after": "shipped"}}]
@@ -151,7 +151,7 @@ This is your audit trail — automatic, precise, and queryable. No trigger table
 
 When you are satisfied with the change, merge the fulfillment branch back:
 
-{% http-example method="POST" path="/api/apply/admin/ecommerce/local/branch/main" %}
+{% http-example method="POST" path="/api/apply/admin/ecommerce/local/branch/main" runnable=false %}
 {"before_commit": "main", "after_commit": "fulfillment", "commit_info": {"author": "warehouse@example.com", "message": "Merge fulfillment into main"}}
 {% http-expected %}
 {"@type":"api:ApplyResponse","api:status":"api:success"}

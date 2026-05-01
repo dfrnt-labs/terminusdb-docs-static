@@ -30,28 +30,22 @@ export DB="admin/MyDatabase"
 
 Create the database:
 
-{% http-example method="POST" path="/api/db/admin/MyDatabase" runnable=false %}
-```json
+{% http-example method="POST" path="/api/db/admin/MyDatabase" %}
 {"label": "MyDatabase", "comment": "Recovery tutorial"}
-```
 {% /http-example %}
 
 Insert an initial document:
 
-{% http-example method="POST" path="/api/document/admin/MyDatabase?author=admin&message=Add+initial+product+data&raw_json=true" runnable=false %}
-```json
+{% http-example method="POST" path="/api/document/admin/MyDatabase?author=admin&message=Add+initial+product+data&raw_json=true" %}
 {"@id": "terminusdb:///data/product-001", "name": "Widget", "price": 9.99, "status": "active"}
-```
 {% /http-example %}
 
 ## Step 2 — Make a second commit (the "good" state)
 
 Update the product price — this creates a second commit that we will later identify as "last known good":
 
-{% http-example method="PUT" path="/api/document/admin/MyDatabase?author=admin&message=Update+widget+price+to+12.50&raw_json=true" runnable=false %}
-```json
+{% http-example method="PUT" path="/api/document/admin/MyDatabase?author=admin&message=Update+widget+price+to+12.50&raw_json=true" %}
 {"@id": "terminusdb:///data/product-001", "name": "Widget", "price": 12.50, "status": "active"}
-```
 {% /http-example %}
 
 ## Step 3 — Make a bad change (simulate data corruption)

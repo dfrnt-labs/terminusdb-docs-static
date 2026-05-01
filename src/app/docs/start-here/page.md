@@ -17,32 +17,37 @@ media: []
 
 TerminusDB is an open-source document graph database with built-in version control.
 Branch, diff, and merge your data like code.
-Start with the [quickstart](/docs/get-started/) (10 minutes, requires only Docker)
-or browse the guides below.
 
-TerminusDB is the open-source engine. [DFRNT Hub](https://dfrnt.com/hypergraph-content-studio/) is managed cloud — no install needed.
+**TerminusDB** is the open-source database engine you run yourself. **[DFRNT Hub](https://dfrnt.com/hypergraph-content-studio/)** is a managed cloud platform built on TerminusDB — no installation needed.
 
-## Start building
+## Start here
 
-**[Your First 10 Minutes (clone)](/docs/get-started/) ← Recommended first** — Clone a ready-made dataset and start exploring immediately. No SDK required.
+Choose the path that matches where you are:
 
-**[Your First 15 Minutes (from scratch)](/docs/first-15-minutes/)** — Build the full workflow manually: create, branch, diff branches, and merge with curl.
-
-**[TypeScript Quickstart](/docs/connect-with-the-javascript-client/)** — The same workflow in TypeScript.
-
-**[Python Quickstart](/docs/connect-with-python-client/)** — The same workflow in Python.
-
-**[Rust Quickstart](/docs/rust-client-quickstart/)** — The same workflow in Rust.
+| Goal | Page | Time | What you need |
+|------|------|------|---------------|
+| See it work immediately | [Your First 10 Minutes](/docs/get-started/) **Recommended first →** | 10 min | Docker |
+| Build from scratch (no clone) | [Your First 15 Minutes](/docs/first-15-minutes/) | 15 min | Docker |
+| Explore & query a dataset | [Explore a Real Dataset](/docs/explore-a-real-dataset/) | 15 min | Docker |
+| Try a business scenario | [Explore an Ecommerce Dataset](/docs/explore-ecommerce-dataset/) | 15 min | Docker |
 
 {% callout type="note" %}
 **Don't have Docker?** Try [DFRNT Hub](https://dfrnt.com/sign-up/) (cloud — no installation needed) or [build from source](/docs/install-terminusdb-from-source-code/) (Linux/macOS).
 {% /callout %}
 
-## Query your data
+## Choose your language
 
-TerminusDB offers three query interfaces. The **[HTTP Document API](/docs/document-format-api-curl-tutorial)** handles CRUD with no query language — fetch, create, update, and delete documents by ID. **[GraphQL](/docs/graphql-basics)** provides typed, declarative reads with nested object traversal, ideal for frontend integrations. **[WOQL](/docs/woql-explanation)** is a Datalog-based query language for complex graph traversal, pattern matching, and aggregations.
+All quickstarts teach the same git-for-data workflow (branch, diff, merge). Choose the one matching your preferred language or environment:
 
-Not sure which to use? See [Choosing a Query Interface](/docs/querying-terminusdb).
+| Environment | Quickstart |
+|-------------|------------|
+| **HTTP / curl** | Already covered in the tutorials above |
+| **TypeScript / JavaScript** | [TypeScript Quickstart](/docs/connect-with-the-javascript-client/) |
+| **Python** | [Python Quickstart](/docs/connect-with-python-client/) |
+| **Rust** | [Rust Quickstart](/docs/rust-client-quickstart/) |
+| **Cloud (no install)** | [Connect to DFRNT Hub](/docs/how-to-connect-dfrnt-hub/) |
+
+Not sure which query language to use after connecting? See [Choosing a Query Interface](/docs/querying-terminusdb/) — WOQL, GraphQL, or HTTP API.
 
 ## Understand the concepts
 
@@ -52,7 +57,6 @@ Not sure which to use? See [Choosing a Query Interface](/docs/querying-terminusd
 
 ## Find something specific
 
-- [Choosing a Query Interface](/docs/querying-terminusdb/) — WOQL, GraphQL, or HTTP API — which to use when
 - [HTTP API Reference](/docs/openapi) — All endpoints
 - [Schema Reference](/docs/schema-reference-guide/) — Types and constraints
 - [JSON Diff & Patch](/docs/json-diff-and-patch/) — Structural diff specification

@@ -126,7 +126,7 @@ Collapse all commits on a branch into a single commit — useful for cleaning up
 {% http-example method="POST" path="/api/squash/admin/mydb/local/branch/feature" %}
 {"commit_info": {"author": "alice@example.com", "message": "Squash feature branch into single commit"}}
 {% http-expected %}
-{"@type":"api:SquashResponse","api:status":"api:success","api:commit":"system:data/admin/mydb/local/branch/feature/commit/abc123"}
+{"@type":"api:SquashResponse","api:status":"api:success","api:commit":"*"}
 {% /http-expected %}
 {% /http-example %}
 
@@ -142,7 +142,7 @@ Replace `abc123def456` with an actual commit identifier from the log. The respon
 
 Move a branch pointer back to a previous commit, discarding subsequent commits:
 
-{% http-example method="POST" path="/api/reset/admin/mydb/local/branch/feature" %}
+{% http-example method="POST" path="/api/reset/admin/mydb/local/branch/feature" runnable=false %}
 {"commit_descriptor": "admin/mydb/local/branch/feature/commit/abc123def456"}
 {% http-expected %}
 {"@type":"api:ResetResponse","api:status":"api:success"}
@@ -167,7 +167,7 @@ Remove a branch. The commits remain in the database graph but this branch name n
 
 Apply a previously obtained diff to a document. Useful for conflict resolution or programmatic updates:
 
-{% http-example method="POST" path="/api/patch/admin/mydb/local/branch/main" %}
+{% http-example method="POST" path="/api/patch/admin/mydb/local/branch/main" runnable=false %}
 {"before": {"@id": "terminusdb:///data/Product/Widget", "@type": "Product", "name": "Widget", "price": 9.99}, "patch": {"price": {"@op": "SwapValue", "@before": 9.99, "@after": 14.99}}}
 {% http-expected %}
 {"@type":"api:PatchResponse","api:status":"api:success"}

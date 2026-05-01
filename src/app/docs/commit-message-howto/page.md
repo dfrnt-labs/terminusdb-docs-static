@@ -80,7 +80,7 @@ The fourth parameter to `addDocument` is the commit message. The author is taken
 
 After writing, confirm the message was recorded:
 
-{% http-example method="GET" path="/api/log/admin/MyDatabase?count=1" /%}
+{% http-example method="GET" path="/api/log/admin/MyDatabase?count=1" runnable=false /%}
 
 **Expected:**
 

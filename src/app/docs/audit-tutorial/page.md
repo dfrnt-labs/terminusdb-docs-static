@@ -28,10 +28,8 @@ export DB="admin/MyDatabase"
 
 ## Step 1 — Create a database
 
-{% http-example method="POST" path="/api/db/admin/MyDatabase" runnable=false %}
-```json
+{% http-example method="POST" path="/api/db/admin/MyDatabase" %}
 {"label": "MyDatabase", "comment": "Audit tutorial"}
-```
 {% /http-example %}
 
 ## Step 2 — Insert data with meaningful commit metadata
@@ -39,9 +37,7 @@ export DB="admin/MyDatabase"
 The `author` and `message` query parameters on the Document API are recorded in the commit log. They are the foundation of your audit trail.
 
 {% http-example method="POST" path="/api/document/admin/MyDatabase?author=jane.ops@example.com&message=Onboard+new+customer+ACME+Corp&raw_json=true" %}
-```json
 {"@id": "terminusdb:///data/customer-acme", "name": "ACME Corp", "tier": "standard", "credit_limit": 50000}
-```
 {% /http-example %}
 
 Use the operator's real identity as `author` and a human-readable description as `message`. These become your audit record — "who did what and why" for every change.
@@ -55,17 +51,13 @@ The HTTP Basic Auth credentials (`admin:root`) authorise the request. The `autho
 Another team member updates the customer's credit limit:
 
 {% http-example method="PUT" path="/api/document/admin/MyDatabase?author=bob.finance@example.com&message=Increase+ACME+credit+limit+after+Q1+review&raw_json=true" %}
-```json
 {"@id": "terminusdb:///data/customer-acme", "name": "ACME Corp", "tier": "standard", "credit_limit": 100000}
-```
 {% /http-example %}
 
 ## Step 4 — Make a third change (tier upgrade)
 
 {% http-example method="PUT" path="/api/document/admin/MyDatabase?author=jane.ops@example.com&message=Upgrade+ACME+to+premium+tier&raw_json=true" %}
-```json
 {"@id": "terminusdb:///data/customer-acme", "name": "ACME Corp", "tier": "premium", "credit_limit": 100000}
-```
 {% /http-example %}
 
 ## Step 5 — Query the commit log

@@ -17,12 +17,18 @@ media: []
 lastUpdated: "2026-04-30"
 ---
 
-Clone a pre-populated Star Wars database to your local TerminusDB instance and explore it with queries, branches, and diffs — in 15 minutes.
+Clone a pre-populated Star Wars database to your local TerminusDB instance and explore it with queries, branches, and diffs — in 15 minutes. This tutorial focuses on **querying relationships** across documents — something the [10 Minute quickstart](/docs/get-started/) does not cover.
 
 {% callout type="note" %}
 **Prerequisites**
 - **TerminusDB running on localhost:6363.** Verify: `curl -s -u admin:root http://localhost:6363/api/info` should return JSON containing `"authority": "admin"`. If you get "connection refused", [start TerminusDB first](/docs/get-started/#step-1).
 - **Completed the [First 10 Minutes quickstart](/docs/get-started/)** — you should be comfortable with branches and diffs. This tutorial builds on those concepts with a richer dataset.
+{% /callout %}
+
+{% callout type="note" title="How this differs from other tutorials" %}
+- **[Your First 10 Minutes](/docs/get-started/)** teaches the branch/diff/merge workflow on a cloned dataset.
+- **[Your First 15 Minutes](/docs/first-15-minutes/)** builds a database from scratch — schema, insert, branch, diff, merge.
+- **This tutorial** adds WOQL queries that traverse relationships between documents (films → characters, characters → planets) — showing the graph query power that distinguishes TerminusDB from a plain document store.
 {% /callout %}
 
 ## What you will build
@@ -139,7 +145,7 @@ You just rewrote history — on a branch. Main still has Anakin Skywalker (blue 
 
 This is the moment. In any other database, answering "what changed between these two versions?" means writing audit triggers, maintaining changelog tables, or exporting both states and diffing them externally. In TerminusDB, you ask the database directly:
 
-{% http-example method="POST" path="/api/diff/admin/star-wars" %}
+{% http-example method="POST" path="/api/diff/admin/star-wars" runnable=false %}
 {"before_data_version": "main", "after_data_version": "what-if"}
 {% http-expected %}
 [{"@id": "People/11", "eye_color": {"@op": "SwapValue", "@before": "blue", "@after": "yellow"}, "label": {"@op": "SwapValue", "@before": "Anakin Skywalker", "@after": "Darth Vader"}, "mass": {"@op": "SwapValue", "@before": "84", "@after": "120"}, "skin_colors": {"@op": "SwapValue", "@before": "fair", "@after": "pale"}}]

@@ -22,6 +22,8 @@ TerminusDB is a database built for collaboration. In this quickstart you will cl
 {% callout type="note" %}
 **Prerequisites**
 You need **Docker** installed and running. Nothing else — no npm, no pip, no SDK.
+
+**Prefer not to use Docker?** Try [DFRNT Hub](https://dfrnt.com/sign-up/) (cloud — no installation) or [build from source](/docs/install-terminusdb-from-source-code/) (Linux/macOS).
 {% /callout %}
 
 ## Step 1 — Start TerminusDB
