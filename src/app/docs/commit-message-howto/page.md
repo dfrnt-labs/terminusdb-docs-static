@@ -47,7 +47,7 @@ The HTTP Basic Auth user (`admin`) authorises the API request. The `author` quer
 
 ## curl example (insert)
 
-{% http-example method="POST" path="/api/document/admin/MyDatabase?author=jane@example.com&message=Add+new+product+SKU-2001&raw_json=true" fixture="docs-test" %}
+{% http-example method="POST" path="/api/document/admin/MyDatabase?author=jane@example.com&message=Add+new+product+SKU-2001&raw_json=true" runnable=false %}
 ```json
 {"@id": "terminusdb:///data/product-2001", "name": "Widget Pro", "price": 29.99}
 ```

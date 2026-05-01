@@ -98,7 +98,7 @@ The edit lives only on `what-if`. On `main`, Anakin is still himself — blue ey
 
 This is the moment. See exactly what changed between `main` and `what-if`:
 
-{% http-example method="POST" path="/api/diff/admin/star-wars" %}
+{% http-example method="POST" path="/api/diff/admin/star-wars" runnable=false %}
 {"before_data_version": "main", "after_data_version": "what-if"}
 {% http-expected %}
 [{"@id": "People/11", "eye_color": {"@op": "SwapValue", "@before": "blue", "@after": "yellow"}, "label": {"@op": "SwapValue", "@before": "Anakin Skywalker", "@after": "Darth Vader"}, "mass": {"@op": "SwapValue", "@before": "84", "@after": "120"}, "skin_colors": {"@op": "SwapValue", "@before": "fair", "@after": "pale"}}]

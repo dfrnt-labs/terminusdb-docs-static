@@ -30,7 +30,7 @@ export DB="admin/MyDatabase"
 
 Create the database:
 
-{% http-example method="POST" path="/api/db/admin/MyDatabase" fixture="docs-test" %}
+{% http-example method="POST" path="/api/db/admin/MyDatabase" runnable=false %}
 ```json
 {"label": "MyDatabase", "comment": "Recovery tutorial"}
 ```
@@ -38,7 +38,7 @@ Create the database:
 
 Insert an initial document:
 
-{% http-example method="POST" path="/api/document/admin/MyDatabase?author=admin&message=Add+initial+product+data&raw_json=true" %}
+{% http-example method="POST" path="/api/document/admin/MyDatabase?author=admin&message=Add+initial+product+data&raw_json=true" runnable=false %}
 ```json
 {"@id": "terminusdb:///data/product-001", "name": "Widget", "price": 9.99, "status": "active"}
 ```
@@ -48,7 +48,7 @@ Insert an initial document:
 
 Update the product price — this creates a second commit that we will later identify as "last known good":
 
-{% http-example method="PUT" path="/api/document/admin/MyDatabase?author=admin&message=Update+widget+price+to+12.50&raw_json=true" %}
+{% http-example method="PUT" path="/api/document/admin/MyDatabase?author=admin&message=Update+widget+price+to+12.50&raw_json=true" runnable=false %}
 ```json
 {"@id": "terminusdb:///data/product-001", "name": "Widget", "price": 12.50, "status": "active"}
 ```

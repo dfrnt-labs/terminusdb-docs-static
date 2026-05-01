@@ -2,7 +2,6 @@
 tags:
   - version-control
   - reference
-  - tutorial
 title: "Version Control Operations — Git for Data"
 nextjs:
   metadata:
@@ -79,7 +78,7 @@ Every API path that includes `/local/branch/{name}` targets that branch.
 
 Every write is a commit. Add `author` and `message` query parameters to record who changed what and why:
 
-{% http-example method="POST" path="/api/document/admin/mydb/local/branch/main?author=alice@example.com&message=Add+initial+product+data" %}
+{% http-example method="POST" path="/api/document/admin/mydb/local/branch/main?author=alice@example.com&message=Add+initial+product+data" runnable=false %}
 {"@type": "Product", "name": "Widget", "price": 9.99}
 {% http-expected %}
 ["terminusdb:///data/Product/Widget"]
@@ -98,7 +97,7 @@ Expected response: an array of commit objects with `author`, `message`, `timesta
 
 Compare two branches to see exactly what changed — field-level structural diff, not line diff:
 
-{% http-example method="POST" path="/api/diff/admin/mydb" %}
+{% http-example method="POST" path="/api/diff/admin/mydb" runnable=false %}
 {"before_data_version": "main", "after_data_version": "feature"}
 {% http-expected %}
 [{"@id": "terminusdb:///data/Product/Widget", "price": {"@op": "SwapValue", "@before": 9.99, "@after": 12.50}}]
@@ -192,3 +191,11 @@ Apply a previously obtained diff to a document. Useful for conflict resolution o
 | Time-travel | GET | `/api/document/{org}/{db}/local/commit/{id}` |
 
 Every operation is an HTTP call. Every write is a commit. Every commit is immutable. This is git for data.
+
+## Next steps
+
+You've seen the full version control API. To go deeper:
+
+- [**Diff and patch with the JS Client**](/docs/diff-and-patch-operations/) — compute and apply diffs programmatically in TypeScript
+- [**Clone a project**](/docs/clone-a-project/) — replicate databases between TerminusDB instances
+- [**Set commit messages**](/docs/commit-message-howto/) — write effective audit-trail messages on every write

@@ -4,7 +4,7 @@ nextjs:
   metadata:
     title: TerminusDB Document Model — Documents, Subdocuments, and Graph Relationships
     keywords: terminusdb document model, json document database, document graph database, subdocuments, document references, schema-enforced json, knowledge graph documents
-    description: TerminusDB stores JSON documents in a schema-enforced graph. Documents have typed relationships, subdocuments for nested data, and shared documents for reuse — combining document-store convenience with graph traversal power.
+    description: TerminusDB stores graph documents in a schema-enforced triple store. Documents have typed relationships, subdocuments for nested data, and shared documents for reuse — combining document-store convenience with graph traversal power.
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -335,7 +335,7 @@ With a bit of practice, designing your knowledge graphs in TerminusDB will becom
   "coordinates": [ ... ] }
 ```
 
-## Further reading
+## Next steps
 
 - [Get Started](/docs/get-started/) — create your first database and insert documents in under 10 minutes
 - [Schema Reference](/docs/schema-reference-guide/) — complete reference for types, keys, and constraints

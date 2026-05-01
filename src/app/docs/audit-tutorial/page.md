@@ -28,7 +28,7 @@ export DB="admin/MyDatabase"
 
 ## Step 1 — Create a database
 
-{% http-example method="POST" path="/api/db/admin/MyDatabase" fixture="docs-test" %}
+{% http-example method="POST" path="/api/db/admin/MyDatabase" runnable=false %}
 ```json
 {"label": "MyDatabase", "comment": "Audit tutorial"}
 ```

@@ -33,7 +33,7 @@ You will clone a complete Star Wars database (characters, films, planets, starsh
 
 Pull the entire Star Wars dataset from the public templates server to your local instance in one command:
 
-{% http-example method="POST" path="/api/clone/admin/star-wars" headers='{"Authorization-Remote":"Basic cHVibGljOnB1YmxpYw=="}' fixture="star-wars" %}
+{% http-example method="POST" path="/api/clone/admin/star-wars" headers='{"Authorization-Remote":"Basic cHVibGljOnB1YmxpYw=="}' runnable=false %}
 {"remote_url": "https://data.terminusdb.org/public/star-wars", "label": "Star Wars", "comment": "Cloned from public templates server"}
 {% http-expected %}
 {"@type":"api:CloneResponse","api:status":"api:success"}
@@ -173,6 +173,6 @@ Try [Explore an Ecommerce Dataset →](/docs/explore-ecommerce-dataset) — the 
 
 - [Merge your branch back to main](/docs/first-15-minutes/#step-7--merge-the-branch) — complete the git-for-data cycle
 - [Write your own schema](/docs/schema-reference-guide/) — add validation and type safety
-- [Time-travel to previous commits](/docs/time-travel-to-previous-commits/) — view any previous state of your database
+- [Time-travel to previous commits](/docs/time-travel-howto/) — view any previous state of your database
 - [WOQL query language](/docs/woql-getting-started/) — learn the full query language
 - [Connect with TypeScript](/docs/connect-with-the-javascript-client/) — use the SDK in your application

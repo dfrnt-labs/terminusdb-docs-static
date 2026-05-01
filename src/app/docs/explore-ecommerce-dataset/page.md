@@ -45,7 +45,7 @@ You will clone a complete ecommerce database (customers, orders, order lines, pr
 
 Pull the entire ecommerce dataset from the public templates server to your local instance:
 
-{% http-example method="POST" path="/api/clone/admin/ecommerce" fixture="ecommerce" headers='{"Authorization-Remote":"Basic cHVibGljOnB1YmxpYw=="}' %}
+{% http-example method="POST" path="/api/clone/admin/ecommerce" headers='{"Authorization-Remote":"Basic cHVibGljOnB1YmxpYw=="}' runnable=false %}
 {"remote_url": "https://data.terminusdb.org/public/ecommerce", "label": "Ecommerce", "comment": "Ecommerce tutorial dataset"}
 {% http-expected %}
 {"@type":"api:CloneResponse","api:status":"api:success"}
@@ -58,7 +58,7 @@ You just pulled ~155 documents — customers, orders, products, and their relati
 
 List the document types defined in the schema:
 
-{% http-example method="GET" path="/api/document/admin/ecommerce/local/branch/main?graph_type=schema&as_list=true" /%}
+{% http-example method="GET" path="/api/document/admin/ecommerce/local/branch/main?graph_type=schema&as_list=true" runnable=false /%}
 
 You will see types: `Category`, `Customer`, `Order`, `OrderLine`, and `Product`.
 
@@ -178,6 +178,6 @@ These operations — clone, query, branch, diff, merge — are the core of Termi
 
 - [Explore the Star Wars dataset](/docs/explore-a-real-dataset/) — the same workflow with a fun dataset
 - [Write your own schema](/docs/schema-reference-guide/) — add validation and type safety to your documents
-- [Time-travel to previous commits](/docs/time-travel-to-previous-commits/) — view any previous state of your database
+- [Time-travel to previous commits](/docs/time-travel-howto/) — view any previous state of your database
 - [WOQL query language](/docs/woql-getting-started/) — learn the full query language
 - [Connect with TypeScript](/docs/connect-with-the-javascript-client/) — use the SDK in your application
