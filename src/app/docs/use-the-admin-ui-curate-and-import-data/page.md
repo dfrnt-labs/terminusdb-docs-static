@@ -175,7 +175,7 @@ To accept or reject the change request. Press the corresponding button.
 
 ### Conflict Checking
 
-In some cases when a change request has been opened and worked on, other users may have merged change requests. This results in your change request becoming out-of-date as it was a snapshot of before the recently merged change requests took place.
+In some cases when a change request has been opened and worked on, other users may have merged change requests. This results in your change request becoming out-of-date as it was a snapshot taken before those previously merged change requests.
 
 TerminusDB checks the commit history when you begin to review a change request to ensure it includes the latest data. If it is out-of-date it flags a message and prompts you to update it to ensure no past changes are stomped.
 

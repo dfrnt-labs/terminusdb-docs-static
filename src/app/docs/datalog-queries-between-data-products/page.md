@@ -59,7 +59,7 @@ TerminusDB adds an abstraction on top of the object level, the data product leve
 
 Businesses and enterprises usually prefer closed world assumptions because it makes it easier to build performant and accurate systems, the inaccuracy is to be handled by people, not the system. Combining data products and object information means we have a foundation to build advanced reasoning about business problems. Since TerminusDB allows a data product to be synchronised with clone, push and pull, in a similar fashion as software developers collaborate on code, it becomes possible for data teams to easily collaborate on accurate data.
 
-The collaborative aspects of TerminusDB are important in relation to it's datalog engine that can be accessed with the WOQL language. Data products can exist in two places, to be synchronised between organisations or between teams in an enterprise. By allowing this open-ended collaboration, teams can increase the velocity of feedback by accepting change requests on data (by sending a "data patch") back, or creating a branch. More on that in a future story.
+The collaborative aspects of TerminusDB are important in relation to it's datalog engine that can be accessed with the WOQL language. Data products can exist in two places, to be synchronised between organisations or between teams in an enterprise. By allowing this open-ended collaboration, teams can increase the velocity of feedback by accepting change requests on data (by sending a "data patch") back, or creating a branch.
 
 ## Using datalog with multiple data products
 

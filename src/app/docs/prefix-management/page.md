@@ -405,8 +405,8 @@ Returns `@base`, `@schema`, and all custom prefixes in a single JSON-LD context 
 
 For programmatic access, use the TerminusDB client libraries:
 
-- **JavaScript**: `client.getPrefix()`, `client.addPrefix()`, etc. (coming soon)
-- **Python**: `client.get_prefix()`, `client.add_prefix()`, etc. (coming soon)
+- **JavaScript**: `client.getPrefix()`, `client.addPrefix()`, etc. (not yet available — use HTTP API directly)
+- **Python**: `client.get_prefix()`, `client.add_prefix()`, etc. (not yet available — use HTTP API directly)
 
 ### Related Documentation
 

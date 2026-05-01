@@ -21,10 +21,10 @@ lastUpdated: "2026-05-01"
 By the end of this guide, you will know how to reset branches, revert specific changes, squash commits, and recover from accidental resets.
 {% /callout %}
 
-**Undoing changes** in TerminusDB is safe because the database is immutable — every commit is preserved in the history. You can reset a branch to a previous state, revert specific changes, or squash messy commit history into a clean single commit.
+**Undoing changes** in TerminusDB is safe because the database is immutable — it preserves every commit in history. You can reset a branch to a previous state, revert specific changes, or squash messy commit history into a clean single commit.
 
 {% callout type="note" title="Nothing is truly lost" %}
-TerminusDB never deletes commits. Even after a reset, the "undone" commits still exist in the immutable commit graph — they are just no longer reachable from the branch pointer. You can always recover by resetting forward again.
+TerminusDB never deletes commits. Even after a reset, the "undone" commits still exist in the immutable commit graph — the branch pointer just no longer points to them. You can always recover by resetting forward again.
 {% /callout %}
 
 {% callout type="note" title="Prerequisites" %}
@@ -80,7 +80,7 @@ curl -u admin:root -X POST http://localhost:6363/api/reset/admin/mydb/local/bran
 {"@type": "api:ResetResponse", "api:status": "api:success"}
 ```
 
-The branch now points to `def456`. The `abc123` commit still exists but is no longer reachable from `main`.
+The branch now points to `def456`. The `abc123` commit still exists but `main` no longer reaches it.
 
 ### TypeScript
 
@@ -161,7 +161,7 @@ curl -u admin:root -X PUT \
 ["terminusdb:///data/Product/Widget"]
 ```
 
-The commit history now shows: original → change → revert. Nothing is lost.
+The commit history now shows: original → change → revert. You lose nothing.
 
 ### TypeScript
 
@@ -211,7 +211,7 @@ curl -u admin:root -X POST http://localhost:6363/api/squash/admin/mydb/local/bra
 {"@type": "api:SquashResponse", "api:status": "api:success", "api:commit": "system:data/admin/mydb/local/branch/feature/commit/new123"}
 ```
 
-The branch now has a single commit containing all the cumulative changes. The individual intermediate commits are no longer reachable from this branch.
+The branch now has a single commit containing all the cumulative changes. This branch no longer reaches the individual intermediate commits.
 
 ### TypeScript
 
@@ -242,7 +242,7 @@ curl -u admin:root -X POST http://localhost:6363/api/reset/admin/mydb/local/bran
   -d '{"commit_descriptor": "admin/mydb/local/branch/main/commit/abc123"}'
 ```
 
-This is possible because commits are immutable — they are never deleted, only unreferenced.
+This is possible because commits are immutable — TerminusDB never deletes them, it only unreferences them.
 
 ---
 

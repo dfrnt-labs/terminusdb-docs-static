@@ -6,94 +6,439 @@ tags:
 title: Git-for-Data Reference
 nextjs:
   metadata:
-    title: Git-for-Data Reference
-    keywords: git-for-data, github, data, git
-    description: A how-to guide showing the main operations related to Git-for-Data with TerminusDB in the cloud environment
+    title: Git-for-Data Reference — Push, Pull, Fetch, Clone in TerminusDB
+    description: Complete reference for Git-for-Data operations in TerminusDB — push, pull, fetch, clone, rebase, and remote management with HTTP API, TypeScript, and Python examples.
+    keywords: git for data, terminusdb push, terminusdb pull, terminusdb fetch, terminusdb clone, data replication, database sync, remote database
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/git-for-data-reference/
 media: []
+lastUpdated: "2026-05-01"
 ---
 
-## Git-for-Data Reference
+{% callout title="What you'll achieve" %}
+By the end of this guide, you will know how to push, pull, fetch, and clone data between TerminusDB instances — and how to manage remotes, rebase branches, and resolve diverged histories.
+{% /callout %}
 
-Git-for-Data is a feature of TerminusDB that allows you to use git-like operations on TerminusDB data product branches, including the ability to transport data between TerminusDB instances using `clone`, `push`, `pull` and `fetch`.
+**Git-for-Data** lets you transport data between TerminusDB instances using operations that mirror git: `clone`, `push`, `pull`, and `fetch`. You can collaborate on structured data by synchronising content repositories across cloud-hosted and local TerminusDB instances.
 
-This is useful to collaborate on information by syncronizing content repositories with [cloud-hosted TerminusDB instances](https://dfrnt.com/hypergraph-content-studio/), and also between environments where network segmentation is strict, such as in IEC62443, Purdue model and other environments, as described in [Transfer data in operational technologies landscapes](/docs/operational-technologies-transfer/). 
+{% callout title="Prerequisites" %}
+- Two TerminusDB instances running (examples use `localhost:6363` as local and `localhost:6364` as remote)
+- A database on the remote instance to clone from, or a local database with a remote configured
+- Examples use `admin/mydb` with basic authentication
+{% /callout %}
 
-In addition to the transportation of data between TerminusDB instances, Git-for-Data also allows you to manage data product branches using equivalents to `rebase` (replay commits onto a separate branch) and `merge` (apply) commands.
+---
 
-The ability to `squash` a branch into a single commit, and to `reset` a branch to a previous commit complete the most important aspects of the git-for-data capabilities that enable model-based data to be managed effectively with revision control.
+## Remotes
 
-Additionally, TerminusDB includes the ability to perform `diff` and `patch` operations on data product branches, which allow you to compare and apply specific changes between branches, much like git does with regular files, but instead of structured data.
+Git-for-data operations use **remotes** — stored references to remote databases including branch information and layer state. One or more remotes can be added to a database.
 
-## The git-for-data operations
+### Add a remote
 
-Git-for-data operations use what is called `remotes`, references stored in the data product for remote data products, including branch information and which layers exist so that `push` and `pull` operations can compare the local state, with the remote state. 
+Register a remote TerminusDB instance for push/pull operations:
 
-One or more `remotes` can be added to a data product.
+```bash
+curl -u admin:root -X POST http://localhost:6363/api/remote/admin/mydb \
+  -H "Content-Type: application/json" \
+  -d '{"remote_name": "origin", "remote_location": "http://localhost:6364/admin/mydb"}'
+```
 
-To read more about the git-like model itself in the TerminusDB explanation, see the [Git-like model](/docs/terminusdb-explanation/#git-like-model) section and the [Commit Graphs](/docs/graphs-explanation/#commit-graphs) section of the explanation of the TerminusDB graphs.
+**Expected response:**
 
-### Fetching a Data Product
+```json
+{"@type": "api:RemoteResponse", "api:status": "api:success"}
+```
 
-You can fetch a data product by using the `fetch` command, which will retrieve information about the layers stored in a remote data product and update local references for the remote data product. Note that both `remotes` and `fetch` operate on a data product level.
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
+```typescript
+import TerminusClient from "@terminusdb/terminusdb-client";
 
-### Pull a Data Product
+const client = new TerminusClient.WOQLClient("http://localhost:6363", {
+  user: "admin",
+  key: "root",
+  organization: "admin",
+  db: "mydb",
+});
 
-You can pull a branch of a data product to a local branch by using the `pull` command. Missing layers layers in a remote data product branch will be transported and appended to the local branch that is pulled to as long as the history follows a straight revision control line and has not diverged.
+await client.addRemote("origin", "http://localhost:6364/admin/mydb");
+```
+{% /code-tab %}
+{% code-tab label="Python" %}
+```python
+from terminusdb_client import Client
 
-Schema operations are not pulled and need to be manually maintained. Only instance information is pulled between branches of data products.
+client = Client("http://localhost:6363")
+client.connect(user="admin", key="root", db="mydb")
 
-### Push a Data Product
+client.add_remote("origin", "http://localhost:6364/admin/mydb")
+```
+{% /code-tab %}
+{% /code-tabs %}
 
-You can push a branch of a data product to a remote branch by using the `push` command. Missing layers layers in a local data product branch will be transported and appended to the remote branch that is pushed to as long as the history follows a straight revision control line and has not diverged.
+### List remotes
 
-Schema operations are not pushed and need to be manually applied.
+```bash
+curl -u admin:root "http://localhost:6363/api/remote/admin/mydb"
+```
 
-## Cloning Data Products
+**Expected response:**
 
-Data products contain a main branch and sometimes additional branches. You can clone a data product by using the `clone` command, which will create a copy of the data product in the same, or a different TerminusDB instance. 
+```json
+{"@type": "api:RemoteResponse", "api:remote_names": ["origin"], "api:status": "api:success"}
+```
 
-With cloning, the entire data product, including schema, all layers, all branches, title and description, and more, will be copied to the new data product in the new cloned data product. A remote is created automatically in the new data product, pointing to the original data product so that push and pull can be used easily.
+### Show remote details
 
-When cloning a branch, remote authorization information is included to let the two TerminusDB instances communicate with each other behind the scenes. Practically, the set of layers to that are included the the data product are calculated and then transferred back to the requesting TerminusDB instance.
+```bash
+curl -u admin:root "http://localhost:6363/api/remote/admin/mydb?remote_name=origin"
+```
 
-Cloning works well for moving a data product from a cloud-connected TerminusDB instance such as with the official DFRNT® [TerminusDB Git-for-Data Hosting](https://dfrnt.com/hypergraph-content-studio/), to another cloud instance, or to a local TerminusDB instance that can connect to the cloud instance.
+**Expected response:**
 
-When the source TerminusDB instance is in a location that a cloud instance can't connect to, it becomes necessary to perform reverse cloning operations, which is described in the next section.
+```json
+{"@type": "api:RemoteResponse", "api:remote_name": "origin", "api:remote_url": "http://localhost:6364/admin/mydb", "api:status": "api:success"}
+```
 
-### Reverse Branch Cloning
+### Update a remote URL
 
-When a data product is to be cloned from a local instance to a cloud instance, the `clone` command can't be used as the cloud instance can't connect to a TerminusDB that is technically not accessible from the cloud network.
+```bash
+curl -u admin:root -X PUT http://localhost:6363/api/remote/admin/mydb \
+  -H "Content-Type: application/json" \
+  -d '{"remote_name": "origin", "remote_location": "http://newhost:6363/admin/mydb"}'
+```
 
-Instead, the set of layers to that are to be included has to be moved some other way, where the `fetch` and `push` commands are used.
+**Expected response:**
 
-An example of how to use git-for-data is in how to move a data product from a local TerminusDB instance, to a cloud instance, is described in [Manual Reverse Branch Cloning](/docs/manual-reverse-branch-cloning/).
+```json
+{"@type": "api:RemoteResponse", "api:status": "api:success"}
+```
 
-## Git-for-data branch operations
+### Delete a remote
 
-### Rebase
+```bash
+curl -u admin:root -X DELETE "http://localhost:6363/api/remote/admin/mydb?remote_name=origin"
+```
 
-The `rebase` operation replays commits, layer changes, from one branch onto a different branch. This is similar to the `rebase` operation in git. The two branches must have a commit ancestor layer. The commit messages are retained.
+**Expected response:**
 
-### Merge
+```json
+{"@type": "api:RemoteResponse", "api:status": "api:success"}
+```
 
-The `merge` operation applies commits, layer changes, from one branch onto a different branch as one squashed commit, where all changes are combined into one commit. This is similar to the `merge` operation in git. The two branches must have a commit ancestor layer.
+---
 
-### Squash
+## Clone a database
 
-The `squash` operation merges all commits in the same branch into a single commit with flat history.
+Clone creates a full copy of a database (schema, all branches, all layers) from one TerminusDB instance to another. A remote named `origin` is automatically configured in the new database.
 
-### Reset
+```bash
+curl -u admin:root -X POST http://localhost:6363/api/clone/admin/mydb \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -d '{
+    "comment": "Clone of remote mydb",
+    "label": "My Database",
+    "remote_url": "http://localhost:6364/admin/mydb"
+  }'
+```
 
-The `reset` operation resets a branch to a previous commit, discarding all commits after the specified commit.
+**Expected response:**
 
-### Diff and patch
+```json
+{"@type": "api:CloneResponse", "api:status": "api:success"}
+```
 
-`diff` and `patch` operations are available to compare and apply specific changes between branches of data products. These operations are described in [JSON Diff and Patch](/docs/json-diff-and-patch/).
+The `Authorization` header provides credentials for the **remote** instance. The `-u admin:root` authenticates against the **local** instance.
 
-## More about git-for-data
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
+```typescript
+await client.clonedb({
+  comment: "Clone of remote mydb",
+  label: "My Database",
+  remote_url: "http://localhost:6364/admin/mydb",
+}, "admin", "mydb");
+```
+{% /code-tab %}
+{% code-tab label="Python" %}
+```python
+client.clonedb("http://localhost:6364/admin/mydb", label="My Database")
+```
+{% /code-tab %}
+{% /code-tabs %}
 
-Read more about how git-for-data can be used in operational technologies environments in [Transfer data in operational technologies landscapes](/docs/operational-technologies-transfer/), and how to clone individual branches of data products in [Manual Reverse Branch Cloning](/docs/manual-reverse-branch-cloning/).
+{% callout type="warning" title="Clone direction matters" %}
+Clone pulls data **from** the `remote_url` **into** the local instance. If the remote cannot reach your local instance (e.g. behind a firewall), use [reverse branch cloning](/docs/manual-reverse-branch-cloning/) instead.
+{% /callout %}
+
+---
+
+## Fetch
+
+Fetch retrieves layer information from a remote and updates local references — without changing any local branch data. This tells your local instance what the remote looks like.
+
+```bash
+curl -u admin:root -X POST http://localhost:6363/api/fetch/admin/mydb/origin/_commits \
+  -H "Authorization: Basic YWRtaW46cm9vdA=="
+```
+
+**Expected response:**
+
+```json
+{"@type": "api:FetchRequest", "api:status": "api:success", "api:head_has_changed": true, "api:head": "Layer_ID_abc123"}
+```
+
+The path format is: `/api/fetch/{organization}/{db}/{remote_name}/_commits`
+
+The `Authorization` header authenticates against the remote instance. The `-u` flag authenticates against the local instance.
+
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
+```typescript
+const result = await client.fetch("origin");
+console.log(result);
+// { head_has_changed: true, head: "Layer_ID_abc123" }
+```
+{% /code-tab %}
+{% code-tab label="Python" %}
+```python
+result = client.fetch("origin")
+print(result)
+# {"head_has_changed": True, "head": "Layer_ID_abc123"}
+```
+{% /code-tab %}
+{% /code-tabs %}
+
+---
+
+## Pull
+
+Pull fetches remote changes **and** applies them to a local branch. Missing layers from the remote branch are transported and appended to the local branch.
+
+```bash
+curl -u admin:root -X POST http://localhost:6363/api/pull/admin/mydb \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -d '{"remote": "origin", "remote_branch": "main"}'
+```
+
+**Expected response (new data pulled):**
+
+```json
+{"@type": "api:PullResponse", "api:status": "api:success", "api:head_has_changed": true, "api:head": "Layer_ID_def456"}
+```
+
+**Expected response (already up to date):**
+
+```json
+{"@type": "api:PullResponse", "api:status": "api:success", "api:head_has_changed": false}
+```
+
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
+```typescript
+const result = await client.pull({
+  remote: "origin",
+  remote_branch: "main",
+});
+console.log(result);
+// { head_has_changed: true, head: "Layer_ID_def456" }
+```
+{% /code-tab %}
+{% code-tab label="Python" %}
+```python
+result = client.pull(remote="origin", remote_branch="main")
+print(result)
+# {"head_has_changed": True, "head": "Layer_ID_def456"}
+```
+{% /code-tab %}
+{% /code-tabs %}
+
+{% callout type="warning" title="Pull requires linear history" %}
+Pull succeeds only if the history has not diverged. If both local and remote have commits the other does not, the pull fails. Use [rebase](#rebase) or [merge](/docs/merge-howto/) to resolve diverged histories first.
+{% /callout %}
+
+---
+
+## Push
+
+Push sends local branch changes to a remote branch. Missing layers from the local branch are transported and appended to the remote.
+
+```bash
+curl -u admin:root -X POST http://localhost:6363/api/push/admin/mydb \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -d '{"remote": "origin", "remote_branch": "main"}'
+```
+
+**Expected response (new data pushed):**
+
+```json
+{"@type": "api:PushResponse", "api:status": "api:success", "api:repo_head_updated": true, "api:repo_head": "Layer_ID_ghi789"}
+```
+
+**Expected response (already up to date):**
+
+```json
+{"@type": "api:PushResponse", "api:status": "api:success", "api:repo_head_updated": false, "api:repo_head": "Layer_ID_current"}
+```
+
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
+```typescript
+const result = await client.push({
+  remote: "origin",
+  remote_branch: "main",
+});
+console.log(result);
+// { repo_head_updated: true, repo_head: "Layer_ID_ghi789" }
+```
+{% /code-tab %}
+{% code-tab label="Python" %}
+```python
+result = client.push(remote="origin", remote_branch="main")
+print(result)
+# {"repo_head_updated": True, "repo_head": "Layer_ID_ghi789"}
+```
+{% /code-tab %}
+{% /code-tabs %}
+
+{% callout type="warning" title="Push requires linear history" %}
+Push succeeds only if the remote branch history is a strict ancestor of the local branch. If the remote has diverged (someone else pushed), you must pull and resolve first.
+{% /callout %}
+
+### Push with prefixes
+
+To also push prefix/context mappings along with data:
+
+```bash
+curl -u admin:root -X POST http://localhost:6363/api/push/admin/mydb \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -d '{"remote": "origin", "remote_branch": "main", "push_prefixes": true}'
+```
+
+---
+
+## Rebase
+
+Rebase replays commits from one branch onto another. Both branches must share a common ancestor commit. Commit messages are retained.
+
+```bash
+curl -u admin:root -X POST http://localhost:6363/api/rebase/admin/mydb/local/branch/main \
+  -H "Content-Type: application/json" \
+  -d '{"author": "alice@example.com", "rebase_from": "admin/mydb/local/branch/feature"}'
+```
+
+**Expected response:**
+
+```json
+{
+  "@type": "api:RebaseResponse",
+  "api:status": "api:success",
+  "api:forwarded_commits": ["commit/abc123", "commit/def456"],
+  "api:rebase_report": [],
+  "api:common_commit_id": "commit/ancestor789"
+}
+```
+
+This replays all commits from `feature` onto `main`, starting from the common ancestor.
+
+{% code-tabs %}
+{% code-tab label="TypeScript" %}
+```typescript
+const result = await client.rebase({
+  rebase_from: "admin/mydb/local/branch/feature",
+  author: "alice@example.com",
+});
+console.log(result.forwarded_commits);
+// ["commit/abc123", "commit/def456"]
+```
+{% /code-tab %}
+{% code-tab label="Python" %}
+```python
+result = client.rebase(
+    "admin/mydb/local/branch/feature",
+    author="alice@example.com"
+)
+print(result["forwarded_commits"])
+# ["commit/abc123", "commit/def456"]
+```
+{% /code-tab %}
+{% /code-tabs %}
+
+---
+
+## Complete workflow: clone, edit, push
+
+This workflow demonstrates a full collaboration cycle — clone a database, make changes locally, and push them back:
+
+```bash
+# 1. Clone the remote database
+curl -u admin:root -X POST http://localhost:6363/api/clone/admin/mydb \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -d '{"comment": "Working copy", "label": "My Database", "remote_url": "http://remote:6363/admin/mydb"}'
+
+# 2. Add a document locally
+curl -u admin:root -X POST \
+  "http://localhost:6363/api/document/admin/mydb?author=alice&message=Add+new+product" \
+  -H "Content-Type: application/json" \
+  -d '{"@type": "Product", "name": "Widget", "price": 9.99}'
+
+# 3. Push changes to remote
+curl -u admin:root -X POST http://localhost:6363/api/push/admin/mydb \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -d '{"remote": "origin", "remote_branch": "main"}'
+```
+
+## Complete workflow: pull remote changes
+
+```bash
+# 1. Fetch to see if remote has changed
+curl -u admin:root -X POST http://localhost:6363/api/fetch/admin/mydb/origin/_commits \
+  -H "Authorization: Basic YWRtaW46cm9vdA=="
+
+# 2. Pull changes into local main
+curl -u admin:root -X POST http://localhost:6363/api/pull/admin/mydb \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Basic YWRtaW46cm9vdA==" \
+  -d '{"remote": "origin", "remote_branch": "main"}'
+
+# 3. Verify the new data is present
+curl -u admin:root "http://localhost:6363/api/document/admin/mydb?type=Product&as_list=true"
+```
+
+---
+
+## Schema and instance separation
+
+Push and pull transport **instance data only** — schema changes are not synchronised automatically. You must maintain schema consistency manually across instances.
+
+To push schemas along with instance data, pass `"push_prefixes": true` in the push request (see [Push with prefixes](#push-with-prefixes)).
+
+---
+
+## Operational technology environments
+
+Git-for-Data is useful in environments with strict network segmentation (IEC 62443, Purdue model) where databases cannot maintain persistent connections. You can:
+
+1. Clone a database to an isolated environment
+2. Make changes offline
+3. Push changes back when connectivity is available
+
+For environments where the cloud instance cannot reach the local instance, see [Manual Reverse Branch Cloning](/docs/manual-reverse-branch-cloning/) and [Transfer Data in Operational Technologies Landscapes](/docs/operational-technologies-transfer/).
+
+---
+
+## Next steps
+
+- [How to Branch](/docs/branch-howto/) — create and manage branches locally
+- [How to Merge](/docs/merge-howto/) — merge branches with conflict detection
+- [Manual Reverse Branch Cloning](/docs/manual-reverse-branch-cloning/) — clone when cloud cannot reach local
+- [Transfer Data in OT Landscapes](/docs/operational-technologies-transfer/) — network-segmented environments
+- [Version Control Operations Reference](/docs/version-control-operations/) — complete API reference

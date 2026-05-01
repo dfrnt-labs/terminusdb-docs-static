@@ -8,11 +8,14 @@ Public read-only TerminusDB instance at `https://data.terminusdb.org` for anonym
 - **App name:** `dfrnt-data-terminusdb`
 - **Auto-scaling:** Stops after idle, auto-starts on incoming request
 - **Storage:** 1 GB persistent Fly volume at `/app/terminusdb/storage`
-- **Databases:** `public/star-wars`, `public/ecommerce`, `public/nuclear`, `public/lego` (all public, anonymous access)
+- **Databases:** `public/star-wars`, `public/ecommerce`, `public/nuclear`, `public/lego`, `public/sandbox` (all public, anonymous access)
 
 ## Clone Commands
 
 ```bash
+# Sandbox (docs examples — branch/diff/merge/time-travel howtos)
+terminusdb clone https://data.terminusdb.org/public/sandbox --token=anonymous
+
 # Star Wars demo dataset
 terminusdb clone https://data.terminusdb.org/public/star-wars --token=anonymous
 
@@ -175,7 +178,19 @@ fly ssh console
 /app/terminusdb/terminusdb capability grant anonymous public/ecommerce cloner
 /app/terminusdb/terminusdb capability grant anonymous public/nuclear cloner
 /app/terminusdb/terminusdb capability grant anonymous public/lego cloner
+/app/terminusdb/terminusdb capability grant anonymous public/sandbox cloner
 ```
+
+### Adding or Rebuilding the Sandbox Database
+
+The sandbox database (`public/sandbox`) can be created independently without triggering a full bootstrap. SSH into the container and run the dedicated script:
+
+```bash
+fly ssh console --app dfrnt-data-terminusdb
+/app/terminusdb/setup-sandbox-db.sh
+```
+
+This script is idempotent — safe to re-run if the database already exists. See comments inside the script for full usage and verification steps.
 
 ## Troubleshooting
 

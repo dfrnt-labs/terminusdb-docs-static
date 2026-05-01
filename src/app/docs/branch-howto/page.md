@@ -277,8 +277,8 @@ curl -u admin:root -X POST http://localhost:6363/api/diff/admin/mydb \
 ```
 
 The diff shows typed operations:
-- **Insert** — a new document was added on the branch
-- **Delete** — a document was removed on the branch
+- **Insert** — a new document exists on the branch but not on main
+- **Delete** — a document exists on main but not on the branch
 - **SwapValue** — a field value changed (when the document already existed on both branches)
 
 {% code-tabs %}
@@ -371,7 +371,7 @@ client.apply(
 
 ## 7. Delete a branch
 
-Remove a branch after merging. The commits remain in the database history but are no longer reachable from this branch name.
+Remove a branch after merging. The commits remain in the database history but this branch name no longer reaches them.
 
 ### HTTP API
 

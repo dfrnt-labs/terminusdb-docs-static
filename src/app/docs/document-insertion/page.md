@@ -208,7 +208,7 @@ The documents to be submitted are given as post data. Multiple documents can be 
 
 #### Result
 
-After a successful post, the result will be a list of ids of the newly added documents.
+After a successful post, the result is a list of the IDs of the inserted documents.
 
 ### Replacing documents
 
@@ -345,11 +345,11 @@ In other words, a JSON list of document IDs.
 
 ### ID Capture for Doc Insert & Replace
 
-When inserting or replacing several documents at once, it may occur that some of these documents need to refer to each other. However, at insertion time, you may not know what the IDs of the new documents are going to be. This is especially the case for document types that generate their identifier randomly, but even for non-random key types, it may be convenient to rely on the server's ID generation algorithm, rather than trying to predict what IDs will get generated. Therefore, in order to support cross-references between newly inserted documents, the document interface allows you to capture newly generated document IDs in a variable, and then refer to that variable later in other documents.
+When inserting or replacing several documents at once, it may occur that some of these documents need to refer to each other. However, at insertion time, you may not know what the IDs of the new documents are going to be. This is especially the case for document types that generate their identifier randomly, but even for non-random key types, it may be convenient to rely on the server's ID generation algorithm, rather than trying to predict what IDs will get generated. Therefore, in order to support cross-references between inserted documents, the document interface allows you to capture generated document IDs in a variable, and then refer to that variable later in other documents.
 
 #### Capturing an identifier into a variable
 
-When inserting or replacing a document that we want to refer to in another document inserted in the same operation, you can use a `@capture` key in the document to associate the newly generated identifier with a variable. For example,
+When inserting or replacing a document that you want to refer to in another document inserted in the same operation, use a `@capture` key in the document to associate the generated identifier with a variable. For example,
 
 ```json
 { "@type": "Person",
@@ -358,7 +358,7 @@ When inserting or replacing a document that we want to refer to in another docum
 }
 ```
 
-This will store the newly generated ID in a variable called `ID_Tom` for the duration of the document insert/replace operation.
+This stores the generated ID in a variable called `ID_Tom` for the duration of the document insert/replace operation.
 
 It is allowed to capture an ID and then never actually refer to it.
 

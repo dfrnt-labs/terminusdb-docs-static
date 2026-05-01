@@ -2,9 +2,9 @@
 title: Schema Migration Reference Guide
 nextjs:
   metadata:
-    title: Schema Migration Reference Guide
-    description: A reference guide explaining the schema migration capabilities of TerminusDB
-    keywords: terminusdb, data model, document type, javascript, schema, schema migration reference guide, terminusdb javascript client, typescript
+    title: Schema Migration Reference Guide — TerminusDB Schema Migrations
+    description: Complete reference for schema migration operations in TerminusDB — add fields, rename properties, change types, and re-key documents with worked examples.
+    keywords: schema migration, terminusdb migration, database schema change, add field migration, rename property, change type, schema evolution, backward compatible
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -15,21 +15,156 @@ tags:
   - schema
   - reference
   - intermediate
+lastUpdated: "2026-05-01"
 ---
 
-Schema migration allows us to move schema and instance data together automatically in a replayable fashion. This is essential for allowing flexible schemas to co-exist nicely with change-requests and merges.
+{% callout title="What you'll achieve" %}
+By the end of this guide, you will know how to migrate your TerminusDB schema — add required fields with defaults, rename properties, change field types, and re-key documents — all with automatic instance data transformation.
+{% /callout %}
 
-The schema operations can be performed directly on the branch of interest, or you can _target_ the schema of a given branch in another branch, allowing the migrations to be re-performed such that a new common schema is obtained.
+## Worked example: evolve a Product schema
 
-In addition, schema migrations can be _inferred_ in some cases, and TerminusDB will attempt to silently infer migrations which will not impact instance data.
+This example demonstrates three common migration operations in a single API call. You have a `Product` class and need to:
 
-However, some schema operations require instance data to change, and such alterations must be asked for explicitly.
+1. **Add a required field** (`sku`) with a default value for existing documents
+2. **Rename a field** (`category` → `department`)
+3. **Cast a field type** (`price` from `xsd:string` → `xsd:decimal`)
 
-## Schema Migration Operations
+### Before migration
 
-There are a number of schema operations which can be performed which will change one schema into another. These are specified by passing an ordered list of operations. The operations are sometimes order dependent so different operations orders can lead to different changes to the instance data.
+**Schema:**
 
-Some operations are known as [weakening](/docs/what-is-schema-weakening/) operations, as they can always be performed without altering the existing instance data. These are essentially _backward compatible_ operations. This includes changing a range to a less specific or optional range, adding new optional fields, or adding new classes.
+```json
+{
+  "@id": "Product",
+  "@type": "Class",
+  "@key": {"@type": "Lexical", "@fields": ["name"]},
+  "name": "xsd:string",
+  "price": "xsd:string",
+  "category": "xsd:string"
+}
+```
+
+**Existing document:**
+
+```json
+{"@id": "Product/Widget", "@type": "Product", "name": "Widget", "price": "9.99", "category": "tools"}
+```
+
+### Run the migration
+
+```bash
+curl -u admin:root -X POST "http://localhost:6363/api/migration/admin/mydb" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "author": "alice@example.com",
+    "message": "Evolve Product: add sku, rename category, cast price",
+    "operations": [
+      {
+        "@type": "CreateClassProperty",
+        "class": "Product",
+        "property": "sku",
+        "type": "xsd:string",
+        "default": {"@type": "Default", "value": "UNKNOWN"}
+      },
+      {
+        "@type": "MoveClassProperty",
+        "class": "Product",
+        "from": "category",
+        "to": "department"
+      },
+      {
+        "@type": "CastClassProperty",
+        "class": "Product",
+        "property": "price",
+        "type": "xsd:decimal",
+        "default": {"@type": "Default", "value": 0.0}
+      }
+    ]
+  }'
+```
+
+**Expected response:**
+
+```json
+{"@type": "api:MigrationResponse", "api:status": "api:success"}
+```
+
+### After migration
+
+**Schema:**
+
+```json
+{
+  "@id": "Product",
+  "@type": "Class",
+  "@key": {"@type": "Lexical", "@fields": ["name"]},
+  "name": "xsd:string",
+  "price": "xsd:decimal",
+  "sku": "xsd:string",
+  "department": "xsd:string"
+}
+```
+
+**Transformed document:**
+
+```json
+{"@id": "Product/Widget", "@type": "Product", "name": "Widget", "price": 9.99, "sku": "UNKNOWN", "department": "tools"}
+```
+
+Every existing document was transformed automatically:
+- `sku` added with value `"UNKNOWN"` (the migration default)
+- `category` renamed to `department` (value preserved)
+- `price` cast from string `"9.99"` to decimal `9.99`
+
+### Dry-run mode
+
+Preview what a migration will do without applying it:
+
+```bash
+curl -u admin:root -X POST "http://localhost:6363/api/migration/admin/mydb?dry_run=true&verbose=true" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "author": "alice@example.com",
+    "message": "Preview migration",
+    "operations": [
+      {"@type": "CreateClassProperty", "class": "Product", "property": "sku", "type": "xsd:string", "default": {"@type": "Default", "value": "UNKNOWN"}}
+    ]
+  }'
+```
+
+**Expected response:**
+
+```json
+{"@type": "api:MigrationResponse", "api:status": "api:success"}
+```
+
+The database is unchanged — dry-run validates that the operations are legal without committing.
+
+---
+
+## How schema migration works
+
+Schema migration moves schema and instance data together automatically in a replayable fashion. This is essential for allowing flexible schemas to co-exist nicely with change-requests and merges.
+
+You can perform schema operations directly on the branch of interest, or you can _target_ the schema of a given branch in another branch, allowing the migrations to be re-performed such that a new common schema is obtained.
+
+TerminusDB can _infer_ some migrations silently when they do not impact instance data. However, operations that require instance data to change must be specified explicitly.
+
+### Weakening vs strengthening
+
+- **Weakening** (backward-compatible): add optional fields, add new classes, widen types. No existing data changes.
+- **Strengthening** (breaking): add required fields, delete classes, narrow types. Existing data must be transformed.
+
+The worked example above demonstrates both: `CreateClassProperty` with a default is a strengthening (it modifies instance data), while adding an `Optional` property would be a weakening.
+
+---
+
+## Schema migration operations
+
+Pass an ordered list of operations to `POST /api/migration/{path}`. Operations are order-dependent — different orderings can produce different instance data transformations.
+
+Operations marked **weakening** never alter existing instance data. Those marked **strengthening** require instance data changes and will fail without appropriate defaults.
 
 ## DeleteClass
 

@@ -59,7 +59,7 @@ Instead of the built-in dashboard, we recommend:
 If you still need to use the legacy dashboard component, you can manually download and mount the HTML release to your TerminusDB instance.
 
 {% callout type="warning" title="Legacy Component" %}
-The dashboard is no longer maintained or supported. Security updates, bug fixes, and new features will not be provided. Use at your own risk.
+The dashboard is no longer maintained or supported. It does not receive security updates, bug fixes, or feature additions. Use at your own risk.
 {% /callout %}
 
 ### Step 1: Download the Dashboard
@@ -280,6 +280,6 @@ For questions or support, join our community:
 
 ---
 
-{% callout type="note" title="Looking Forward" %}
-TerminusDB continues to evolve with powerful new features including improved query languages, better performance, and enhanced collaboration capabilities. We believe focusing on these core strengths will better serve our users in the long term.
+{% callout type="note" title="TerminusDB Development" %}
+TerminusDB development focuses on the core database engine — query performance, version control, and collaboration. See the [changelog](https://github.com/terminusdb/terminusdb/releases) for current capabilities.
 {% /callout %}

@@ -105,7 +105,7 @@ Compare two branches to see exactly what changed — field-level structural diff
 {% /http-expected %}
 {% /http-example %}
 
-The diff shows typed operations: `SwapValue` (field changed), `Insert` (added), `Delete` (removed). Nothing else was touched.
+The diff shows typed operations: `SwapValue` (field changed), `Insert` (added), `Delete` (removed). No other fields changed.
 
 ## Merge a branch
 
@@ -137,7 +137,7 @@ Query the database as it was at any previous point in time. Use a commit path in
 
 {% http-example method="GET" path="/api/document/admin/mydb/local/commit/abc123def456?type=Product&as_list=true" runnable=false /%}
 
-Replace `abc123def456` with an actual commit identifier from the log. The response shows the database state at that exact commit — no data was modified, you are simply looking at a snapshot.
+Replace `abc123def456` with an actual commit identifier from the log. The response shows the database state at that exact commit — you did not modify anything, you are simply looking at a snapshot.
 
 ## Reset a branch
 
@@ -151,12 +151,12 @@ Move a branch pointer back to a previous commit, discarding subsequent commits:
 {% /http-example %}
 
 {% callout type="warning" %}
-Reset is destructive — commits after the target are unreachable (though still stored in the immutable commit graph). Use with care.
+Reset is destructive — commits after the target become unreachable (though the immutable commit graph still stores them). Use with care.
 {% /callout %}
 
 ## Delete a branch
 
-Remove a branch. The commits remain in the database graph but are no longer reachable from this branch name:
+Remove a branch. The commits remain in the database graph but this branch name no longer reaches them:
 
 {% http-example method="DELETE" path="/api/branch/admin/mydb/local/branch/feature" %}
 {% http-expected %}

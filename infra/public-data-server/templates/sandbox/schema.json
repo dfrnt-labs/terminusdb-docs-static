@@ -1,0 +1,13 @@
+[
+  {
+    "@type": "Class",
+    "@id": "Product",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": ["name"]
+    },
+    "name": "xsd:string",
+    "price": "xsd:decimal",
+    "category": "xsd:string"
+  }
+]

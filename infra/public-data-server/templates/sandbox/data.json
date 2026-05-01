@@ -1,0 +1,44 @@
+[
+  {
+    "@type": "Product",
+    "name": "Wireless Noise-Cancelling Headphones",
+    "price": 299.99,
+    "category": "Electronics"
+  },
+  {
+    "@type": "Product",
+    "name": "Mechanical Keyboard TKL",
+    "price": 129.99,
+    "category": "Electronics"
+  },
+  {
+    "@type": "Product",
+    "name": "Cordless Drill 18V",
+    "price": 89.99,
+    "category": "Tools"
+  },
+  {
+    "@type": "Product",
+    "name": "Stainless Steel Water Bottle 1L",
+    "price": 24.99,
+    "category": "Kitchen"
+  },
+  {
+    "@type": "Product",
+    "name": "Bamboo Cutting Board",
+    "price": 19.99,
+    "category": "Kitchen"
+  },
+  {
+    "@type": "Product",
+    "name": "USB-C Hub 7-in-1",
+    "price": 49.99,
+    "category": "Electronics"
+  },
+  {
+    "@type": "Product",
+    "name": "Adjustable Standing Desk Mat",
+    "price": 64.99,
+    "category": "Office"
+  }
+]

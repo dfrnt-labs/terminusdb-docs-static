@@ -77,6 +77,30 @@ if [ -f "$BUNDLE_DIR/admin%2flego.bundle" ]; then
     $TDB unbundle public/lego "$BUNDLE_DIR/admin%2flego.bundle"
 fi
 
+# --- Sandbox database (docs examples target) ---
+echo "Creating public/sandbox database..."
+$TDB db create public/sandbox \
+  --label "Sandbox" \
+  --comment "Minimal docs sandbox — Product schema for branch, diff, merge, and time-travel examples" \
+  --public \
+  --schema
+
+if [ -f "$TEMPLATE_DIR/sandbox/schema.json" ] && [ -s "$TEMPLATE_DIR/sandbox/schema.json" ]; then
+    echo "Loading sandbox schema..."
+    $TDB doc insert public/sandbox --graph_type=schema \
+      < "$TEMPLATE_DIR/sandbox/schema.json"
+fi
+
+if [ -f "$TEMPLATE_DIR/sandbox/data.json" ] && [ -s "$TEMPLATE_DIR/sandbox/data.json" ]; then
+    echo "Loading sandbox data..."
+    $TDB doc insert public/sandbox \
+      < "$TEMPLATE_DIR/sandbox/data.json"
+fi
+
+echo "Creating public/sandbox/local/branch/feature branch..."
+$TDB branch create public/sandbox/local/branch/feature \
+  --origin public/sandbox/local/branch/main
+
 # --- Capability grants (required for anonymous/public access) ---
 # The --public flag does not create Role/consumer in fresh TerminusDB 12.x instances.
 # We create a minimal cloner role (clone + commit_read_access) — tutorials only need
@@ -90,6 +114,7 @@ $TDB capability grant public public/star-wars cloner
 $TDB capability grant public public/ecommerce cloner
 $TDB capability grant public public/nuclear cloner
 $TDB capability grant public public/lego cloner
+$TDB capability grant public public/sandbox cloner
 $TDB capability grant public public cloner --scope-type organization
 
 echo "Granting capabilities to anonymous user..."
@@ -97,6 +122,7 @@ $TDB capability grant anonymous public/star-wars cloner
 $TDB capability grant anonymous public/ecommerce cloner
 $TDB capability grant anonymous public/nuclear cloner
 $TDB capability grant anonymous public/lego cloner
+$TDB capability grant anonymous public/sandbox cloner
 $TDB capability grant anonymous public cloner --scope-type organization
 
 echo "---"
@@ -105,9 +131,11 @@ echo "  - public/star-wars (public, anonymous clone enabled)"
 echo "  - public/ecommerce (public, anonymous clone enabled)"
 echo "  - public/nuclear (public, anonymous clone enabled)"
 echo "  - public/lego (public, anonymous clone enabled)"
+echo "  - public/sandbox (public, anonymous clone enabled — docs examples target)"
 echo ""
 echo "Clone with:"
 echo "  terminusdb clone https://data.terminusdb.org/public/star-wars --token=anonymous"
 echo "  terminusdb clone https://data.terminusdb.org/public/ecommerce --token=anonymous"
 echo "  terminusdb clone https://data.terminusdb.org/public/nuclear --token=anonymous"
 echo "  terminusdb clone https://data.terminusdb.org/public/lego --token=anonymous"
+echo "  terminusdb clone https://data.terminusdb.org/public/sandbox --token=anonymous"

@@ -121,8 +121,8 @@ curl -u admin:root -X POST http://localhost:6363/api/diff/admin/mydb \
 
 **Operations explained:**
 - `SwapValue` — a field value changed (shows before and after)
-- `Insert` — a new document was added
-- `Delete` — a document was removed
+- `Insert` — a new document exists on the source branch but not on the target
+- `Delete` — a document exists on the target but not on the source branch
 
 ---
 

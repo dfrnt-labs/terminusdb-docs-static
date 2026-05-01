@@ -128,9 +128,9 @@ const fromJSON = new WOQLQuery().json(jsonLD);
 const result = await client.query(fromJSON);
 ```
 
-## Real-World Example: RandomKey Before Client Support
+## Real-World Example: RandomKey Without Client Helper
 
-Before the `random_idgen()` method was added to the JavaScript client, you could still use the `RandomKey` feature by passing the JSON-LD directly:
+You can use the `RandomKey` feature without the `random_idgen()` client method by passing the JSON-LD directly:
 
 ```javascript
 // Using RandomKey with raw JSON-LD (works even without client helper)
