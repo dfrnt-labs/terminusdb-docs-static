@@ -104,6 +104,14 @@ function truncate(text: string, max: number): string {
   return text.length > max ? text.slice(0, max - 1) + "…" : text
 }
 
+// ── Path normalisation ──────────────────────────────────────────────────────
+// Bookmarks may be stored with trailing slash (e.g. "/docs/get-started/")
+// but graph node hrefs have no trailing slash (e.g. "/docs/get-started").
+// Normalise before comparison to prevent false negatives.
+function normalizePath(p: string): string {
+  return p.replace(/\/$/, "")
+}
+
 // ── Visibility helpers ───────────────────────────────────────────────────────
 
 function getNodeVisibility(
@@ -129,13 +137,15 @@ function getNodeVisibility(
 
     // Bookmarks virtual tag: page matches if it's in the bookmarks list
     if (hasBookmarksTag && bookmarks) {
-      const isBookmarked = node.href ? bookmarks.includes(node.href) : false
+      const normalizedHref = node.href ? normalizePath(node.href) : ""
+      const isBookmarked = normalizedHref !== "" && bookmarks.some((b) => normalizePath(b) === normalizedHref)
       if (isBookmarked) return "full"
     }
 
     // Selection virtual tag: page matches if it's in the selection list
     if (hasSelectionTag && selection) {
-      const isSelected = node.href ? selection.includes(node.href) : false
+      const normalizedHref = node.href ? normalizePath(node.href) : ""
+      const isSelected = normalizedHref !== "" && selection.some((s) => normalizePath(s) === normalizedHref)
       if (isSelected) return "full"
     }
 
@@ -184,7 +194,11 @@ function getLinkVisibility(
   return "full" // caller maps this to default (0.25/0.10 by edge type)
 }
 
-function isNodeSelected(nodeId: string, filters: FilterState, bookmarks?: string[], selection?: string[]): boolean {
+function isNodeSelected(nodeId: string, filters: FilterState, _bookmarks?: string[], _selection?: string[]): boolean {
+  // Only filter-originating nodes (active facets/tags) are "selected" for edge highlighting.
+  // Page visibility is handled separately by getNodeVisibility — pages are never "selected"
+  // here because that would cause ALL edges touching a visible page to light up, not just
+  // edges from the active filter node.
   if (nodeId.startsWith("facet:")) {
     const facet = nodeId.replace("facet:", "") as Facet
     return filters.activeFacets.has(facet)
@@ -192,17 +206,6 @@ function isNodeSelected(nodeId: string, filters: FilterState, bookmarks?: string
   if (nodeId.startsWith("tag:")) {
     const tagId = nodeId.replace("tag:", "")
     return filters.activeTags.has(tagId)
-  }
-  if (nodeId.startsWith("page:")) {
-    const href = nodeId.replace("page:", "")
-    // When bookmarks tag is active, bookmarked page nodes are "selected"
-    if (filters.activeTags.has(BOOKMARKS_TAG) && bookmarks && bookmarks.includes(href)) {
-      return true
-    }
-    // When selection tag is active, selected page nodes are "selected"
-    if (filters.activeTags.has(SELECTION_TAG) && selection && selection.includes(href)) {
-      return true
-    }
   }
   return false
 }
@@ -585,6 +588,12 @@ export default function TopicGraph({ data }: TopicGraphProps) {
   bookmarksRef.current = storedState.bookmarks ?? []
   selectionRef.current = storedState.selection ?? []
 
+  // Stable key that triggers graph rebuild when bookmarks change from other pages.
+  // bookmarksKey is a useEffect dep — bookmarks change from BookmarkButton on other routes.
+  // Selection does NOT need a key dep — it only changes via in-graph clicks, which handle
+  // the visual update imperatively (avoiding a full graph rebuild on every click).
+  const bookmarksKey = (storedState.bookmarks ?? []).sort().join(",")
+
   // Debounced persistence writer (500ms)
   const persistFilters = useDebouncedStorage(500)
   const persistPositions = useDebouncedStorage(500)
@@ -841,7 +850,8 @@ export default function TopicGraph({ data }: TopicGraphProps) {
     const links: SimLink[] = data.edges.map((e) => ({ ...e }))
 
     // Inject synthetic Bookmarks virtual-tag node (client-only — bookmarks live in localStorage)
-    const currentBookmarks = bookmarksRef.current
+    // Use peekStorage() for reliable read (refs may be stale during hydration)
+    const currentBookmarks = peekStorage().bookmarks ?? []
     const bookmarksNodeId = `tag:${BOOKMARKS_TAG}`
     nodes.push({
       id: bookmarksNodeId,
@@ -850,21 +860,29 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       facet: "feature", // placeholder — colour is overridden in render
       radius: currentBookmarks.length > 0 ? 14 : 10,
       pageCount: currentBookmarks.length,
+      // Explicit starting position near center (prevents floating off-screen)
+      x: width / 2 + 60,
+      y: height / 2 - 40,
     })
-    // Connect Bookmarks node to each bookmarked page node
+    // Connect Bookmarks node directly to each bookmarked PAGE node (normalise paths)
     for (const href of currentBookmarks) {
-      const pageNodeId = `page:${href}`
-      if (nodes.some((n) => n.id === pageNodeId)) {
+      const normalizedHref = normalizePath(href)
+      // Find the page node by normalised href match
+      const pageNode = nodes.find(
+        (n) => n.type === "page" && n.href && normalizePath(n.href) === normalizedHref,
+      )
+      if (pageNode) {
         links.push({
           source: bookmarksNodeId,
-          target: pageNodeId,
+          target: pageNode.id,
           type: "tag-page",
         })
       }
     }
 
     // Inject synthetic Selection virtual-tag node (client-only — selection lives in localStorage)
-    const currentSelection = selectionRef.current
+    // Use peekStorage() for reliable read (refs may be stale during hydration)
+    const currentSelection = peekStorage().selection ?? []
     const selectionNodeId = `tag:${SELECTION_TAG}`
     nodes.push({
       id: selectionNodeId,
@@ -873,14 +891,21 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       facet: "feature", // placeholder — colour is overridden in render
       radius: currentSelection.length > 0 ? 14 : 10,
       pageCount: currentSelection.length,
+      // Explicit starting position near center (prevents floating off-screen)
+      x: width / 2 + 80,
+      y: height / 2 - 60,
     })
-    // Connect Selection node to each selected page node
+    // Connect Selection node directly to each selected PAGE node (normalise paths)
     for (const href of currentSelection) {
-      const pageNodeId = `page:${href}`
-      if (nodes.some((n) => n.id === pageNodeId)) {
+      const normalizedHref = normalizePath(href)
+      // Find the page node by normalised href match
+      const pageNode = nodes.find(
+        (n) => n.type === "page" && n.href && normalizePath(n.href) === normalizedHref,
+      )
+      if (pageNode) {
         links.push({
           source: selectionNodeId,
-          target: pageNodeId,
+          target: pageNode.id,
           type: "tag-page",
         })
       }
@@ -969,12 +994,7 @@ export default function TopicGraph({ data }: TopicGraphProps) {
         event.preventDefault()
         if (d.type === "page" && d.href) {
           // Enter/Space on page node → toggle selection (same as single-click)
-          const current = peekStorage().selection ?? []
-          const isSelected = current.includes(d.href!)
-          const next = isSelected
-            ? current.filter((s) => s !== d.href)
-            : [...current, d.href!]
-          setStoredState({ selection: next })
+          togglePageSelection(d.href!)
         } else if (d.type === "tag") {
           const tagId = d.id.replace("tag:", "")
           if (tagId === BOOKMARKS_TAG) {
@@ -1180,6 +1200,90 @@ export default function TopicGraph({ data }: TopicGraphProps) {
     // Suppress click if a drag just occurred (selection must survive drag)
     let clickTimer: ReturnType<typeof setTimeout> | null = null
 
+    // Direct reference to the Selection node for imperative updates
+    const selectionNode = nodes.find((n) => n.id === selectionNodeId)!
+
+    // Helper: imperatively toggle a page in the Selection basket.
+    // Updates D3 links in-place, restarts simulation, persists to localStorage.
+    // Does NOT trigger a full graph rebuild — only the edge set changes.
+    // Note: references simulation/linkGroup which are defined later in this closure
+    // but resolved at call-time (250ms timeout ensures they exist).
+    const togglePageSelection = (pageHref: string) => {
+      const normalizedPageHref = normalizePath(pageHref)
+      const current = peekStorage().selection ?? []
+      const isSelected = current.some((s) => normalizePath(s) === normalizedPageHref)
+      const next = isSelected
+        ? current.filter((s) => normalizePath(s) !== normalizedPageHref)
+        : [...current, normalizedPageHref]  // store normalised (no trailing slash)
+
+      const pageNodeId = `page:${normalizedPageHref}`
+
+      if (isSelected) {
+        // Remove edge: find and splice out
+        const idx = links.findIndex(
+          (l) =>
+            (typeof l.source === "string" ? l.source : (l.source as SimNode).id) === selectionNodeId &&
+            (typeof l.target === "string" ? l.target : (l.target as SimNode).id) === pageNodeId,
+        )
+        if (idx >= 0) links.splice(idx, 1)
+      } else {
+        // Add edge to the page node
+        const targetNode = nodes.find((n) => n.id === pageNodeId)
+        if (targetNode) {
+          links.push({ source: selectionNode, target: targetNode, type: "tag-page" })
+        }
+      }
+
+      // Update Selection node radius
+      selectionNode.radius = next.length > 0 ? 14 : 10
+      selectionNode.pageCount = next.length
+
+      // Update the D3 force link data and restart gently
+      const forceLinksInstance = simulation.force("link") as ReturnType<typeof forceLink<SimNode, SimLink>> | null
+      if (forceLinksInstance) {
+        forceLinksInstance.links(links)
+      }
+      simulation.alpha(0.1).restart()
+
+      // Rebind link selection to updated data
+      const updatedLinkSel = linkGroup
+        .selectAll<SVGLineElement, SimLink>("line")
+        .data(links)
+        .join("line")
+        .attr("stroke-opacity", (l) => (l.type === "facet-tag" ? 0.25 : 0.10))
+        .attr("stroke-width", (l) => (l.type === "facet-tag" ? 1.5 : 1.0))
+        .attr("stroke", (l) => {
+          const targetNode2 = nodes.find(
+            (n) => n.id === (typeof l.target === "string" ? l.target : (l.target as SimNode).id),
+          )
+          const facet = targetNode2?.facet ?? "feature"
+          return FACET_COLOURS[facet][isDark ? "dark" : "light"]
+        })
+      linkSelRef.current = updatedLinkSel as Selection<SVGLineElement, SimLink, SVGGElement, unknown>
+
+      // Update node circle radius
+      nodeSel.select(".node-circle")
+        .filter((n) => n.id === selectionNodeId)
+        .attr("r", selectionNode.radius)
+
+      // Re-apply visibility if Selection filter is active
+      if (filtersRef.current.activeTags.has(SELECTION_TAG)) {
+        selectionRef.current = next
+        applyVisibility(
+          nodeSel as Selection<SVGGElement, SimNode, SVGGElement, unknown>,
+          updatedLinkSel as Selection<SVGLineElement, SimLink, SVGGElement, unknown>,
+          nodes,
+          filtersRef.current,
+          tagToFacetMapRef.current,
+          bookmarksRef.current,
+          next,
+        )
+      }
+
+      // Persist to localStorage (triggers React re-render for pill bar count, NOT graph rebuild)
+      setStoredState({ selection: next })
+    }
+
     nodeSel.on("click", function (event, d) {
       if (didDrag) {
         didDrag = false
@@ -1191,13 +1295,7 @@ export default function TopicGraph({ data }: TopicGraphProps) {
         if (clickTimer) clearTimeout(clickTimer)
         clickTimer = setTimeout(() => {
           clickTimer = null
-          // Toggle page in Selection basket
-          const current = peekStorage().selection ?? []
-          const isSelected = current.includes(d.href!)
-          const next = isSelected
-            ? current.filter((s) => s !== d.href)
-            : [...current, d.href!]
-          setStoredState({ selection: next })
+          togglePageSelection(d.href!)
         }, 250)
       } else if (d.type === "tag") {
         const tagId = d.id.replace("tag:", "")
@@ -1278,6 +1376,84 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       window.addEventListener("mouseup", onUp)
     })
 
+    // Touch support for mobile — mirrors mouse drag but also detects taps.
+    // A tap (touch with <10px movement and <300ms duration) triggers the click action.
+    const TOUCH_TAP_THRESHOLD = 10 // px — movement under this is a tap, not a drag
+    const TOUCH_TAP_DURATION = 300 // ms — touches shorter than this are taps
+
+    nodeSel.on("touchstart.drag", function (event, d) {
+      if (event.touches.length !== 1) return // ignore multi-touch (pinch)
+      event.stopPropagation()
+      const touch = event.touches[0]
+      const startX = touch.clientX
+      const startY = touch.clientY
+      const startTime = Date.now()
+      let touchMoved = false
+
+      dragTarget = d
+      didDrag = false
+      d.fx = d.x
+      d.fy = d.y
+      simulation.alphaTarget(0.3).restart()
+
+      const onTouchMove = (e: TouchEvent) => {
+        if (!dragTarget || e.touches.length !== 1) return
+        const t = e.touches[0]
+        const dx = t.clientX - startX
+        const dy = t.clientY - startY
+        if (Math.abs(dx) > TOUCH_TAP_THRESHOLD || Math.abs(dy) > TOUCH_TAP_THRESHOLD) {
+          touchMoved = true
+          didDrag = true
+        }
+        if (touchMoved) {
+          e.preventDefault() // prevent scroll while dragging a node
+          const svgEl = svgSel.node()
+          if (!svgEl) return
+          const transform = zoomTransform(svgEl)
+          const rect = svgEl.getBoundingClientRect()
+          dragTarget.fx = (t.clientX - rect.left - transform.x) / transform.k
+          dragTarget.fy = (t.clientY - rect.top - transform.y) / transform.k
+        }
+      }
+
+      const onTouchEnd = () => {
+        const elapsed = Date.now() - startTime
+        simulation.alphaTarget(0)
+
+        if (!touchMoved && elapsed < TOUCH_TAP_DURATION) {
+          // Short tap with no movement → treat as click
+          didDrag = false
+          if (d.type === "page" && d.href) {
+            togglePageSelection(d.href)
+          } else if (d.type === "tag") {
+            const tagId = d.id.replace("tag:", "")
+            if (tagId === BOOKMARKS_TAG) {
+              handleToggleBookmarksFilter()
+            } else if (tagId === SELECTION_TAG) {
+              handleToggleSelectionFilter()
+            } else {
+              handleToggleTag(tagId)
+            }
+          } else if (d.type === "facet") {
+            handleToggleFacet(d.facet)
+          }
+          // Unpin — tap shouldn't pin the node
+          d.fx = null
+          d.fy = null
+        } else {
+          // Actual drag — save pinned position
+          savePinnedPositions()
+        }
+
+        dragTarget = null
+        window.removeEventListener("touchmove", onTouchMove)
+        window.removeEventListener("touchend", onTouchEnd)
+      }
+
+      window.addEventListener("touchmove", onTouchMove, { passive: false })
+      window.addEventListener("touchend", onTouchEnd)
+    })
+
     // Force simulation
     const chargeStrength = isMobile ? -80 : -120
     const simulation = forceSimulation<SimNode>(nodes)
@@ -1345,7 +1521,7 @@ export default function TopicGraph({ data }: TopicGraphProps) {
       simulation.stop()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, dimensions, isDark, prefersReducedMotion, router, handleToggleFacet, handleToggleTag, handleToggleBookmarksFilter, handleToggleSelectionFilter])
+  }, [data, dimensions, isDark, prefersReducedMotion, router, handleToggleFacet, handleToggleTag, handleToggleBookmarksFilter, handleToggleSelectionFilter, bookmarksKey])
 
   return (
     <div className="flex h-full w-full flex-col bg-white dark:bg-slate-900">
