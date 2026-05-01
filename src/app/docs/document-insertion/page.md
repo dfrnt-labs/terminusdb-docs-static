@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Document API Reference Guide
     description: A reference guide for the TerminusDB document API interface.
+    keywords: terminusdb, api, document, document api reference guide, document database, documents, javascript, json-ld
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Diff an Object or a Database Branch with the JS Client
     description: A guide to show how to use the JS Client to diff an object or a database branch.
+    keywords: terminusdb, branch, compare, delta, diff, javascript, patch, terminusdb javascript client
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-collaboration-diff-patch.png?raw=true
     alternates:
@@ -14,6 +15,17 @@ tags:
   - diff-patch
   - how-to
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with data (two states to compare)
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to compute diffs between database states and apply patches.
+{% /callout %}
 
 TerminusDB provides **structural diff and patch** operations — compare any two documents, branches, or commits to see exactly what changed at the field level, then apply those changes programmatically. This is git-like version control for data, not line-based text diff.
 

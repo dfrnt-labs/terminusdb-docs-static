@@ -9,12 +9,25 @@ nextjs:
   metadata:
     title: Get Documents with the Python Client
     description: A guide to show how-to get documents from TerminusDB using the Python Client
+    keywords: terminusdb, document, document database, documents, fetch, get, get documents with the python client, json-ld
     openGraph:
       images: https://assets.terminusdb.com/docs/python-client-use-get-documents.png
     alternates:
       canonical: https://terminusdb.org/docs/get-documents-with-python-client/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- The TerminusDB Python client installed ([installation guide](/docs/install-the-python-client/))
+- A database with existing documents
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have retrieved documents from your database using the Python client.
+{% /callout %}
 
 This guide assumes that you are already connected to the database using the Python client.
 

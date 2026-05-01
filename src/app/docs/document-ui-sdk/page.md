@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: How to use the TerminusDB Document UI SDK
     description: How to use the TerminusDB Document UI SDK
+    keywords: terminusdb, document, document database, documents, javascript, json-ld, terminusdb javascript client, typescript
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -15,6 +16,18 @@ tags:
   - how-to
   - dashboard
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- Node.js and npm installed
+- React application set up
+- TerminusDB running locally or a DFRNT Hub account
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have integrated the Document UI SDK into your React application.
+{% /callout %}
 
 {% callout type="warning" title="Unmaintained package" %}
 These packages (`@terminusdb/terminusdb-documents-ui` etc.) were last published December 2023 and are no longer actively maintained. The documentation is preserved for reference. Community contributions and pull requests are welcome.

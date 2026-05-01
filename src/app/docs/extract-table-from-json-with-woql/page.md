@@ -9,10 +9,23 @@ nextjs:
   metadata:
     title: How to extract tabular data from JSON with WOQL
     description: Learn how to extract rows and columns from JSON arrays using the sys:Dictionary pattern and dot operator in WOQL
+    keywords: terminusdb, datalog, extract tabular data from json with woql, query language, terminusdb query, woql
     alternates:
       canonical: https://terminusdb.org/docs/extract-table-from-json-with-woql/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with JSON documents
+- Familiarity with WOQL basics ([getting started](/docs/woql-getting-started/))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to extract tabular data from JSON documents using WOQL.
+{% /callout %}
 
 This guide shows you how to extract tabular data from JSON structures using WOQL. This is useful when you have JSON data with arrays of objects and want to query it like a table with rows and columns.
 

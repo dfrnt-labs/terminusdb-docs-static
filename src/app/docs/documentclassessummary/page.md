@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: DocumentClassesSummary Component
     description: The DocumentClassesSummary component allows you to visualize document classes using interactive cards.
+    keywords: terminusdb, document, document database, documentclassessummary component, documents, javascript, json-ld, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -16,7 +17,8 @@ tags:
   - dashboard
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

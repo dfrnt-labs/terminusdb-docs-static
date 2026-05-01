@@ -14,9 +14,21 @@ nextjs:
       canonical: https://terminusdb.org/docs/delta-rollup/
 ---
 
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally
+- A database with many delta layers (long history)
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have compacted delta layers to improve query performance.
+{% /callout %}
+
 A delta rollup compresses the accumulated delta layers in a TerminusDB database into fewer (or a single) flat layer, improving read performance. **In most deployments this happens automatically** — TerminusDB ships with a rollup plugin enabled by default that triggers optimisation after commits. Manual rollups are only needed if you are calling the `optimize` endpoint directly, running a custom deployment without the plugin, or tuning performance in specific scenarios.
 
-{% callout title="Automatic in standard deployments" %}
+{% callout type="note" %}
+**Automatic in standard deployments**
 TerminusDB includes a rollup plugin that is enabled by default. It probabilistically triggers optimisation after commits, so most users never need to run a manual rollup. Continue reading only if you need to trigger optimisation manually, tune the plugin, or understand what it does under the hood.
 {% /callout %}
 

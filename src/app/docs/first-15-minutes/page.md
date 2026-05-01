@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Your First 15 Minutes — Build from Scratch with TerminusDB
     description: Build a complete git-for-data workflow from scratch. Create a database, insert a document, branch, edit, diff branches, and merge — step by step with curl.
+    keywords: terminusdb, branch, curl, diff, document, javascript, merge, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -16,11 +17,13 @@ tags:
 
 Build the entire git-for-data workflow from scratch. You will create a database, insert a document, branch, edit on the branch, diff the two branches, and merge — all with curl. No schema, no SDK.
 
-{% callout title="Prerequisites" %}
+{% callout type="note" %}
+**Prerequisites**
 You need **Docker** installed and running. Nothing else — no npm, no pip, no SDK.
 {% /callout %}
 
-{% callout title="Want the 10-minute path instead?" %}
+{% callout type="note" %}
+**Want the 10-minute path instead?**
 If you want to skip the manual setup and start exploring immediately, use the [clone-based quickstart](/docs/get-started/) — it gives you a pre-populated database in one click.
 {% /callout %}
 
@@ -118,7 +121,8 @@ This is the moment. TerminusDB computes a structural, semantic diff between any 
 {% /http-expected %}
 {% /http-example %}
 
-{% callout title="What just happened?" %}
+{% callout type="note" %}
+**What just happened?**
 TerminusDB computed a **structural diff** between two branches — not a line-by-line text diff, but a semantic operation (`SwapValue`) that knows exactly which field changed, what the old value was, and what the new value is. This patch can be applied, reversed, or composed with other patches.
 
 The URL path (`/api/diff/admin/MyDatabase`) identifies the database; the body specifies which branches to compare. You can also diff a single document by adding `"document_id": "Person/jane"` to the request body.

@@ -9,12 +9,18 @@ nextjs:
   metadata:
     title: Edit Documents using WOQL
     description: A guide with example showing how to edit documents using WOQL
+    keywords: terminusdb, datalog, document, document database, documents, edit, edit documents using woql, json-ld
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-edit-documents.png
     alternates:
       canonical: https://terminusdb.org/docs/edit-documents-with-woql/
 media: []
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to update documents using WOQL queries.
+{% /callout %}
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >

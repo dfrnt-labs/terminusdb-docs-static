@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Edit a Document with the JavaScript Client
     description: A guide to show how to update a document in TerminusDB using the JavaScript Client.
+    keywords: terminusdb, document, document database, documents, edit, edit a document with the javascript client, javascript, json-ld
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-edit-a-document.png?raw=true
     alternates:
@@ -14,6 +15,18 @@ tags:
   - documents
   - how-to
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- The TerminusDB JavaScript client installed ([installation guide](/docs/install-terminusdb-js-client/))
+- A connected client instance with an existing database
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have updated existing documents in your TerminusDB database using the JavaScript client.
+{% /callout %}
 
 To update documents in your database, you first need to [get the document](/docs/get-documents/) you want to change. You then need to make your changes and update it. This example shows how -
 

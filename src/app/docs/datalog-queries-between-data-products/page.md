@@ -8,12 +8,25 @@ nextjs:
   metadata:
     title: Queries between Data Products
     description: Learn how to use datalog with knowledge graphs in data products to encode data in a way that resembles the real world, and easily query and manipulate it.
+    keywords: terminusdb, datalog, queries between data products, query, terminusdb query, woql
     alternates:
       canonical: https://medium.com/the-semantic-data-practitioner/datalog-with-knowledge-graphs-as-data-products-in-terminusdb-3239c800bb98
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- Two or more databases (data products) to query across
+- Familiarity with WOQL basics ([getting started](/docs/woql-getting-started/))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to write WOQL queries that span multiple data products.
+{% /callout %}
 
 Knowledge graphs enable domain experts to encode their data in a way that resembles the real world, more than traditional relational databases do out of the box. In general, relational databases get very complex very quickly. Most data storage engine make use of one type of language, datalog, that enables users to assert what they want from a data source, and get that back, usually in a tabular format. A good datalog lets the data engine figure out how to get to the data, not the user. Examples of datalog languages include SQL, Cypher, WOQL (TerminusDB), and others.
 

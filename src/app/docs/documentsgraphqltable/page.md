@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: DocumentsGraphqlTable Component
     description: The DocumentsGraphqlTable component allows you to use GraphQL queries and visualize the results in a the TDBReactTable
+    keywords: terminusdb, api, document, documentsgraphqltable component, graphql, javascript, query, terminusdb graphql
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

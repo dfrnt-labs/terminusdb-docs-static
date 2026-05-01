@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: EditDocumentComponent
     description: The EditDocumentComponent allows you to edit an existing document using the FrameViewer component
+    keywords: terminusdb, document, document database, documents, edit, editdocumentcomponent, javascript, json-ld
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

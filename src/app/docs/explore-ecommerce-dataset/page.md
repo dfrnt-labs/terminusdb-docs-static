@@ -19,7 +19,8 @@ lastUpdated: "2026-04-30"
 
 Clone a pre-populated ecommerce database to your local TerminusDB instance, query orders across customers and products, update an order status on a branch, and see a field-level structural diff — in 15 minutes.
 
-{% callout title="Prerequisites" %}
+{% callout type="note" %}
+**Prerequisites**
 - **TerminusDB running on localhost:6363.** Verify: `curl -s -u admin:root http://localhost:6363/api/info` should return JSON containing `"authority": "admin"`. If you get "connection refused", [start TerminusDB first](/docs/get-started/#step-1).
 - **Completed the [First 10 Minutes quickstart](/docs/get-started/)** — you should be comfortable with branches and diffs. This tutorial builds on those concepts with a business dataset.
 {% /callout %}

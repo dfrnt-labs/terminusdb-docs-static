@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: "Document Types: Documents, Subdocuments, and Shared Documents"
     description: "Compare TerminusDB document types - when to use regular documents, subdocuments, and shared documents for different ownership and lifecycle patterns"
+    keywords: terminusdb, data model, diff, document, document database, document type, documents, javascript
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

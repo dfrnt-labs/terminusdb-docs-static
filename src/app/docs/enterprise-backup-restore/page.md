@@ -16,6 +16,18 @@ nextjs:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
 
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB Enterprise edition running
+- Access to the backup/restore CLI or API
+- Sufficient storage for backup files
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to back up and restore TerminusDB Enterprise databases.
+{% /callout %}
+
 Enterprise provides binary bundle and unbundle API endpoints for database backup, migration between servers, and disaster recovery. A bundle captures the complete state of a database — schema, data, and commit history — in a single binary payload.
 
 ## Bundle (export)

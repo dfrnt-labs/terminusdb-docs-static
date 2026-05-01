@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: Document Graph API Howto
     description: A howto guide for the TerminusDB document API interface.
+    keywords: terminusdb, api, document, document database, document graph api howto, documents, json-ld
     alternates:
       canonical: https://terminusdb.org/docs/document-graph-api/
     openGraph:

@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Documents UI SDK Data Types
     description: Understand the different data types to build data driven user interfaces
+    keywords: terminusdb, diff, document, document database, documents, documents ui sdk data types, javascript, json-ld
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

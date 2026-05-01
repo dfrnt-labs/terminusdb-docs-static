@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Get Documents using the JavaScript Client
     description: A guide to show how to get documents to TerminusDB and TerminusDB using the JavaScript Client
+    keywords: terminusdb, document, document database, documents, fetch, get, get documents using the javascript client, javascript
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-get-documents.png?raw=true
     alternates:
@@ -14,6 +15,18 @@ tags:
   - documents
   - how-to
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- The TerminusDB JavaScript client installed ([installation guide](/docs/install-terminusdb-js-client/))
+- A database with existing documents
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have retrieved documents from your TerminusDB database using the JavaScript client.
+{% /callout %}
 
 ## Get a single document
 

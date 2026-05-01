@@ -8,12 +8,18 @@ nextjs:
   metadata:
     title: Filter with GraphQL
     description: Filter with GraphQL
+    keywords: terminusdb, api, condition, filter, filter with graphql, graphql, query, terminusdb graphql
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/graphql-filter.png?raw=true
     alternates:
       canonical: https://terminusdb.org/docs/filter-with-graphql/
 media: []
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to filter query results using TerminusDB's GraphQL interface.
+{% /callout %}
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >
