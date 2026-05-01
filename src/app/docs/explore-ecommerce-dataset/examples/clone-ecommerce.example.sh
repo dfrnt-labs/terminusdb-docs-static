@@ -7,7 +7,7 @@ curl -u "$AUTH" -X POST "$URL/api/clone/admin/ecommerce" \
   -H "Content-Type: application/json" \
   -H "Authorization-Remote: Basic cHVibGljOnB1YmxpYw==" \
   -d '{
-    "remote_url": "https://data.terminusdb.org/admin/ecommerce",
+    "remote_url": "https://data.terminusdb.org/public/ecommerce",
     "label": "Ecommerce",
     "comment": "Ecommerce tutorial dataset"
   }'

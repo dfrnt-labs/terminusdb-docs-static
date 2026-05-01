@@ -1,4 +1,8 @@
 ---
+tags:
+  - woql
+  - tutorial
+  - beginner
 title: Explore an Ecommerce Dataset
 nextjs:
   metadata:
@@ -93,7 +97,9 @@ const query = WOQL.and(
 const result = await client.query(query);
 console.log(result.bindings);
 {% /http-woql %}
+```json
 {"query": {"@type": "And", "and": [{"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Order"}, "predicate": {"@type": "NodeValue", "node": "status"}, "object": {"@type": "DataValue", "data": "processing"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Order"}, "predicate": {"@type": "NodeValue", "node": "order_id"}, "object": {"@type": "DataValue", "variable": "OrderId"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Order"}, "predicate": {"@type": "NodeValue", "node": "total"}, "object": {"@type": "DataValue", "variable": "Total"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Order"}, "predicate": {"@type": "NodeValue", "node": "customer"}, "object": {"@type": "NodeValue", "variable": "Customer"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Customer"}, "predicate": {"@type": "NodeValue", "node": "name"}, "object": {"@type": "DataValue", "variable": "CustomerName"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Customer"}, "predicate": {"@type": "NodeValue", "node": "country"}, "object": {"@type": "DataValue", "variable": "Country"}}]}}
+```
 {% http-expected %}
 [{"OrderId": "ORD-0002", "Total": 5235.93, "CustomerName": "Hana Tanaka", "Country": "Japan"}, {"OrderId": "ORD-0019", "Total": 1094.95, "CustomerName": "Leila Okafor", "Country": "Nigeria"}, {"OrderId": "ORD-0030", "Total": 649.91, "CustomerName": "Erik Lindström", "Country": "Sweden"}]
 {% /http-expected %}
@@ -114,12 +120,12 @@ Create a branch called `fulfillment`:
 {% /http-expected %}
 {% /http-example %}
 
-Update order ORD-0003 to "shipped" on the branch:
+Update order ORD-0002 to "shipped" on the branch:
 
-{% http-example method="PUT" path="/api/document/admin/ecommerce/local/branch/fulfillment?author=warehouse@example.com&message=Ship+order+ORD-0003" %}
-{"@id": "Order/ORD-0003", "@type": "Order", "order_id": "ORD-0003", "customer": "Customer/ivan.petrov%40example.com", "order_date": "2025-01-07T04:46:08.367Z", "status": "shipped", "total": 1094.95}
+{% http-example method="PUT" path="/api/document/admin/ecommerce/local/branch/fulfillment?author=warehouse@example.com&message=Ship+order+ORD-0002" %}
+{"@id": "Order/ORD-0002", "@type": "Order", "order_id": "ORD-0002", "customer": "Customer/hana.tanaka%40example.com", "order_date": "2024-03-19T03:10:07.294Z", "status": "shipped", "total": 5235.93}
 {% http-expected %}
-["terminusdb:///data/Order/ORD-0003"]
+["terminusdb:///data/Order/ORD-0002"]
 {% /http-expected %}
 {% /http-example %}
 
@@ -132,7 +138,7 @@ In any other database, answering "what exactly changed in this order?" means que
 {% http-example method="POST" path="/api/diff/admin/ecommerce" %}
 {"before_data_version": "main", "after_data_version": "fulfillment"}
 {% http-expected %}
-[{"@id": "terminusdb:///data/Order/ORD-0003", "status": {"@op": "SwapValue", "@before": "processing", "@after": "shipped"}}]
+[{"@id": "terminusdb:///data/Order/ORD-0002", "status": {"@op": "SwapValue", "@before": "processing", "@after": "shipped"}}]
 {% /http-expected %}
 {% /http-example %}
 

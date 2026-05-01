@@ -707,11 +707,15 @@ function extractTextFromChildren(children: React.ReactNode): string {
     return children.map(extractTextFromChildren).join("")
   }
 
-  // React element — recurse into its children prop
+  // React element — recurse into its children prop, or fall back to content prop
+  // (Markdoc fence nodes may pass code content as either children or a content attribute)
   if (React.isValidElement(children)) {
     const props = children.props as Record<string, unknown>
     if (props.children !== undefined) {
       return extractTextFromChildren(props.children as React.ReactNode)
+    }
+    if (typeof props.content === "string") {
+      return props.content
     }
     return ""
   }
