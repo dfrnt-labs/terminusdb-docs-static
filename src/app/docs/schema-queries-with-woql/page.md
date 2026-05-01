@@ -9,12 +9,18 @@ nextjs:
   metadata:
     title: Schema Queries with WOQL
     description: A guide to show how to query schema with WOQL in your TerminusDB projects.
+    keywords: terminusdb, data model, datalog, document type, query, query language, schema, schema queries with woql
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-query-schema.png
     alternates:
       canonical: https://terminusdb.org/docs/schema-queries-with-woql/
 media: []
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to query and inspect your schema using WOQL.
+{% /callout %}
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >

@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: TerminusDB Path Query Reference Guide
     description: A reference guide to path queries in TerminusDB.
+    keywords: terminusdb, datalog, find, graph traversal, path, path query, query, relationships
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

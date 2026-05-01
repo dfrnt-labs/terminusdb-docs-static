@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: Managing Users and Invitations in TerminusDB
     description: Learn how to create organizations, invite users with specific roles, and manage authorization in TerminusDB using the REST API
+    keywords: terminusdb, api, managing users and invitations in terminusdb
     alternates:
       canonical: https://terminusdb.org/docs/managing-users-and-invitations/
 ---

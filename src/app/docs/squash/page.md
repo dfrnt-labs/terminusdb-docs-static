@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: Squash Commits with the TerminusDB Dashboard
     description: A guide to show how to squash the commits of a branch or main into one large commit using the TerminusDB dashboard.
+    keywords: terminusdb, branch, clean history, commit, compress, dashboard, dfrnt hub, git for data
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/squashed-branch.png?raw=true
     alternates:
@@ -25,6 +26,17 @@ media:
     title: A squashed branch combines all commits into one big one
     value: https://assets.terminusdb.com/docs/squashed-branch.png
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with multiple commits on a branch
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have squashed multiple commits into one.
+{% /callout %}
 
 To squash a branch of a database, or indeed main, navigate to the project home page, the first icon on the left that looks like a database.
 

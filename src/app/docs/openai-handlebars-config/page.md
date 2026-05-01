@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: OpenAI and Handlebars Configuration
     description: OpenAI and Handlebars Configuration
+    keywords: terminusdb, openai and handlebars configuration
     openGraph:
       images: https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
     alternates:
@@ -19,6 +20,18 @@ media:
     title: High quality text embeddings for OpenAI using GraphQL query with Handlebars templates
     value: https://assets.terminusdb.com/docs/vectorlink-text-embeddings.png
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- VectorLink set up ([setup guide](/docs/set-up-vectorlink/))
+- An OpenAI API key
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have configured Handlebars templates for OpenAI-powered document generation.
+{% /callout %}
 
 To use VectorLink’s semantic search you first need to configure the Handlebars semantic templates to generate the vector embeddings in a word-based query format for OpenAI.
 

@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: Use the Model Builder UI
     description: The model builder UI allows you to construct classes of objects and define what data they have, and what links (or relationships) they have between them.
+    keywords: terminusdb, dashboard, data model, dfrnt hub, document type, schema, terminuscms, use the model builder ui
     openGraph:
       images: https://assets.terminusdb.com/docs/schema-ui-doc-properties.png
     alternates:
@@ -44,6 +45,16 @@ media:
     title: Add an enum property to a document using the schema builder UI
     value: https://assets.terminusdb.com/docs/schema-ui-doc-add-enum-property.png
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- A DFRNT Hub account or TerminusDB with the dashboard
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have built a schema using the visual model builder UI.
+{% /callout %}
 
 ## Make a New Data Product
 

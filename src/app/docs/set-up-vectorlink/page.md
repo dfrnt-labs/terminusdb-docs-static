@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: Set up VectorLink
     description: Steps to set up VectorLink to work with OpenAI
+    keywords: terminusdb, set up vectorlink, vector
     openGraph:
       images: https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
     alternates:
@@ -19,6 +20,17 @@ media:
     title: Add your OpenAI key in the relevant section within your profile
     value: https://assets.terminusdb.com/docs/vectorlink-openai-key.png
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- An OpenAI API key (for embeddings)
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have VectorLink configured for vector similarity search on your TerminusDB data.
+{% /callout %}
 
 VectorLink is a semantic indexer for TerminusDB. It is a vector database that uses OpenAI, vector embeddings and GraphQL to provide AI-assisted semantic search, similar search, clustering and entity resolution.
 

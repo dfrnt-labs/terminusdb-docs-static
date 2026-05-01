@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: How to Manage Projects with TerminusDB
     description: Bit sized how to guides to get to know the TerminusDB dashboard to manage your projects
+    keywords: terminusdb, dashboard, dfrnt hub, manage projects with terminusdb, terminuscms
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -15,7 +16,8 @@ nextjs:
 media: []
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

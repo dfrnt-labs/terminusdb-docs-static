@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: Reset a Project with the TerminusDB Dashboard
     description: A guide to show how to reset to a particular commit of a branch or main using the TerminusDB dashboard.
+    keywords: terminusdb, branch, commit, dashboard, dfrnt hub, git for data, reset, reset a project with the terminusdb dashboard
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/reset-a-branch.png?raw=true
     alternates:
@@ -25,6 +26,17 @@ media:
     title: A squashed branch combines all commits into one big one
     value: https://assets.terminusdb.com/docs/reset-a-branch.png
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with commit history
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have reset a branch to a previous state.
+{% /callout %}
 
 To reset a branch of a database, or indeed main, navigate to the project home page, the first icon on the left that looks like a database.
 

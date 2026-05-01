@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: NewDocumentComponent
     description: The NewDocumentComponent allows you to create new documents using the FrameViewer
+    keywords: terminusdb, document, document database, documents, javascript, json-ld, newdocumentcomponent, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

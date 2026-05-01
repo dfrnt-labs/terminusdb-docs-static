@@ -25,7 +25,8 @@ WOQL (Web Object Query Language) is TerminusDB's Datalog-based query language. I
 
 Not sure which query interface to use? See [Choosing a Query Interface](/docs/querying-terminusdb) for a comparison of WOQL, GraphQL, and the HTTP Document API.
 
-{% callout title="Prerequisites" %}
+{% callout type="note" %}
+**Prerequisites**
 This page uses the Star Wars dataset for examples. [Clone it from the public templates server](/docs/explore-a-real-dataset/#step-1) or follow the [main quickstart](/docs/get-started/) first.
 {% /callout %}
 

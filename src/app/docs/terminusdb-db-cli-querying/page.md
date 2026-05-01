@@ -10,12 +10,25 @@ nextjs:
   metadata:
     title: How to use the terminusdb CLI query interface
     description: Quick introduction to the terminusdb CLI WOQL Query interface which has a distinct syntax to other flavours.
+    keywords: terminusdb, datalog, find, query, search, terminusdb query, use the terminusdb cli query interface, woql
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/terminusdb-db-cli-querying/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally
+- Access to the TerminusDB CLI tool
+- A database to query
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to query your database using the TerminusDB CLI.
+{% /callout %}
 
 This is a tutorial to learn the command line CLI interface to start exploring the local TerminusDB _system database. Be careful in not making incorrect or uncontrolled changes to the _system database as it can lock you out of your data products.
 

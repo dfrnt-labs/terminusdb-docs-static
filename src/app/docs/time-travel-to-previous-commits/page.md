@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Time Travel through your Database History
     description: A guide showing how to time travel to a specific commit in TerminusDB
+    keywords: terminusdb, branch, commit, git for data, history, javascript, point in time, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/js-client-collaboration-time-travel.png
     alternates:
@@ -14,6 +15,17 @@ tags:
   - version-control
   - how-to
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with commit history
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have queried data at a historical commit.
+{% /callout %}
 
 Assuming you have [connected with the JavaScript Client](/docs/connect-with-the-javascript-client/), created a database, and made a few commits, you can time travel to inspect them to see what they looked like.
 

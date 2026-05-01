@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Order By Using @metadata
     description: How to order properties in the document UI
+    keywords: terminusdb, document, javascript, order by, order by @metadata, ordering, sort, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

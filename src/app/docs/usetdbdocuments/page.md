@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: useTDBDocuments hook
     description: useTDBDocuments is the main hook to connect @terminusdb/terminusdb-documents-ui with the TerminusDB server
+    keywords: terminusdb, datalog, document, javascript, terminusdb javascript client, terminusdb query, typescript, usetdbdocuments hook
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -15,7 +16,8 @@ nextjs:
 media: []
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

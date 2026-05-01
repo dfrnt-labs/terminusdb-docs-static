@@ -16,6 +16,11 @@ nextjs:
 media: []
 ---
 
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know techniques for handling and transforming data within WOQL queries.
+{% /callout %}
+
 This guide covers the practical side of working with data in WOQL: what types exist, how values flow through queries, and how to reshape results for real-world use. It assumes you have completed the [Interactive Tutorial](/docs/woql-tutorial/) or are comfortable with `triple`, `and`, `or`, and `eq`.
 
 ---

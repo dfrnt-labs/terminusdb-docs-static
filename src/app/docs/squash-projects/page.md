@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Squashing Commits with the TerminusDB JS Client
     description: A guide to show how to use the JS Client to squash commits in your branch's history.
+    keywords: terminusdb, branch, clean history, commit, compress, git for data, javascript, squash
     openGraph:
       images: https://assets.terminusdb.com/docs/js-client-collaboration-squash.png
     alternates:
@@ -14,6 +15,17 @@ tags:
   - version-control
   - how-to
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- A DFRNT Hub account or TerminusDB running locally
+- A branch with multiple commits to squash
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have squashed commits on a project branch.
+{% /callout %}
 
 Squashing allows you to combine multiple commits in your branch's history into a single commit.
 

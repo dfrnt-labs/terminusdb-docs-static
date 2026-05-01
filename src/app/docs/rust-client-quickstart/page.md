@@ -10,6 +10,7 @@ nextjs:
   metadata:
     title: Rust Client — Getting Started
     description: Connect to TerminusDB from Rust using the community-contributed terminusdb-client crate.
+    keywords: terminusdb, document database, documents, json-ld, rust client — getting started
     alternates:
       canonical: https://terminusdb.org/docs/rust-client-quickstart/
 ---

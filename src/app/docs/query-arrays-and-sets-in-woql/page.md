@@ -9,12 +9,25 @@ nextjs:
   metadata:
     title: Query Arrays and Sets with WOQL
     description: A guide to show how to query arrays and sets with WOQL in your TerminusDB projects.
+    keywords: terminusdb, data model, datalog, document type, find, query, query arrays and sets with woql, query language
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-query-arrays-sets.png
     alternates:
       canonical: https://terminusdb.org/docs/query-arrays-and-sets-in-woql/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with documents containing Array or Set fields
+- Familiarity with WOQL basics ([getting started](/docs/woql-getting-started/))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to query Array and Set properties in documents using WOQL.
+{% /callout %}
 
 In TerminusDB there are a number of collection types, including `List`, `Set`, and `Array`.
 

@@ -8,12 +8,18 @@ nextjs:
   metadata:
     title: Order By in GraphQL
     description: How to use the order by argument in GraphQL queries with TerminusDB
+    keywords: terminusdb, api, graphql, order by, order by in graphql, ordering, query, sort
     openGraph:
       images: https://assets.terminusdb.com/docs/graphql-order-by.png
     alternates:
       canonical: https://terminusdb.org/docs/order-by-in-graphql/
 media: []
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to sort and order results in GraphQL queries.
+{% /callout %}
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >

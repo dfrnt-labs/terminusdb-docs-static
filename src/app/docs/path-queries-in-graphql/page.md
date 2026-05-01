@@ -8,12 +8,18 @@ nextjs:
   metadata:
     title: Path Queries in GraphQL
     description: How to do path queries on TerminusDB data products using GraphQL
+    keywords: terminusdb, api, graph traversal, graphql, path, path queries in graphql, path query, query
     openGraph:
       images: https://assets.terminusdb.com/docs/graphql-path-query.png
     alternates:
       canonical: https://terminusdb.org/docs/path-queries-in-graphql/
 media: []
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to traverse graph paths using TerminusDB's GraphQL path queries.
+{% /callout %}
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >

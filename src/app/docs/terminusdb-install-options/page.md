@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: TerminusDB Installation Options
     description: Choose how you'd like to install TerminusDB
+    keywords: terminusdb, getting started, install, setup, terminusdb installation options
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

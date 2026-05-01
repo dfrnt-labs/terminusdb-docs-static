@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Data Model Mismatches — TerminusDB Troubleshooting
     description: Fix data model issues in TerminusDB including wrong @id format, Set vs Array confusion, Optional field handling, and @key strategy problems.
+    keywords: terminusdb, document database, documents, javascript, json-ld, terminusdb javascript client, typescript
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

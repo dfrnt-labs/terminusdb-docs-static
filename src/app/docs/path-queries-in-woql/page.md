@@ -9,12 +9,18 @@ nextjs:
   metadata:
     title: Path Queries in WOQL
     description: A guide to show how to do path queries in WOQL for your TerminusDB projects.
+    keywords: terminusdb, datalog, graph traversal, path, path queries in woql, path query, query language, relationships
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-path-query.png
     alternates:
       canonical: https://terminusdb.org/docs/path-queries-in-woql/
 media: []
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to traverse graph paths using WOQL path queries.
+{% /callout %}
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >

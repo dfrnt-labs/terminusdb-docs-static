@@ -8,12 +8,18 @@ nextjs:
   metadata:
     title: Offset to Provide Paging
     description: A guide showing how to use offset in GraphQL to provide pagination
+    keywords: terminusdb, graphql, offset, offset to provide paging, pagination, paging, terminusdb graphql
     openGraph:
       images: https://assets.terminusdb.com/docs/graphql-offset.png
     alternates:
       canonical: https://terminusdb.org/docs/offset-to-provide-paging/
 media: []
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to use offset-based pagination in GraphQL queries.
+{% /callout %}
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >

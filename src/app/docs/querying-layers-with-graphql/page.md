@@ -15,6 +15,18 @@ nextjs:
       canonical: https://terminusdb.org/docs/querying-layers-with-graphql/
 ---
 
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with a schema and data
+- Familiarity with GraphQL basics ([getting started](/docs/graphql-basics/))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to query TerminusDB layers using the GraphQL interface.
+{% /callout %}
+
 TerminusDB stores version control information in internal system graphs that can be queried using GraphQL. This guide explains how to access and query layer objects, which represent specific versions of your data and schema at different points in time.
 
 ## Understanding Layers

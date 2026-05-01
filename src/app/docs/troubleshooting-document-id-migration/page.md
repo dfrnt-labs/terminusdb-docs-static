@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: Troubleshooting Document ID Migration
     description: How to fix subdocument ID prefix mismatches after schema changes using the ChangeKey migration operation.
+    keywords: terminusdb, data model, debug, document, document type, error, schema, troubleshooting
 ---
 
 # Troubleshooting Document ID Migration

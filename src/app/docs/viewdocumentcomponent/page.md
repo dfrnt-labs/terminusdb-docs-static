@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: ViewDocumentComponent
     description: The ViewDocumentComponent allows you to view existing documents using the FrameViewer component
+    keywords: terminusdb, document, document database, documents, javascript, json-ld, terminusdb javascript client, typescript
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -16,7 +17,8 @@ tags:
   - dashboard
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

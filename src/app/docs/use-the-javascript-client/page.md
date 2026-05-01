@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: How to Use the JavaScript Client
     description: Bite sized how to guides to get you up and running with the JavaScript Client
+    keywords: terminusdb, javascript, terminusdb javascript client, typescript, use the javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

@@ -9,12 +9,24 @@ nextjs:
   metadata:
     title: Run a WOQL Query using the JavaScript Client
     description: A quick example to show you how to run a query using WOQL.
+    keywords: terminusdb, datalog, find, javascript, query, query language, run a woql query using the javascript client, search
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-woql-query.png?raw=true
     alternates:
       canonical: https://terminusdb.org/docs/run-woql-query/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database to query
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to execute WOQL queries against your TerminusDB database.
+{% /callout %}
 
 Assuming you have [connected with the JavaScript Client](/docs/connect-with-the-javascript-client/), have a database, added a schema and some data, you now would like to query the database.
 

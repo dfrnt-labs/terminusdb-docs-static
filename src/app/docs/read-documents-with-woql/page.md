@@ -9,12 +9,18 @@ nextjs:
   metadata:
     title: Read documents with WOQL
     description: A guide to show how to read documents with WOQL in your TerminusDB projects.
+    keywords: terminusdb, datalog, document, document database, documents, json-ld, query language, read documents with woql
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-read-documents.png
     alternates:
       canonical: https://terminusdb.org/docs/read-documents-with-woql/
 media: []
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to read and retrieve documents using WOQL queries.
+{% /callout %}
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >

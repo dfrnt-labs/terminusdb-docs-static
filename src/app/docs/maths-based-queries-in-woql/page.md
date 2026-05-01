@@ -8,12 +8,25 @@ nextjs:
   metadata:
     title: Mathematical Operations in WOQL
     description: "A guide to show how to how to perform mathematical operations using WOQL "
+    keywords: terminusdb, datalog, mathematical operations in woql, query language, terminusdb query, woql
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-maths-query.png
     alternates:
       canonical: https://terminusdb.org/docs/maths-based-queries-in-woql/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- A database with numeric data
+- Familiarity with WOQL basics ([getting started](/docs/woql-getting-started/))
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to perform mathematical operations in WOQL queries.
+{% /callout %}
 
 WOQL has a number of mathematical operations that can be performed. These include, `plus`, `minus`, `divide`, `times`, `div` (for integer division), `exp` and `floor`.
 

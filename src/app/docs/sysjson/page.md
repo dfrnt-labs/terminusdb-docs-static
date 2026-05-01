@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: sys:JSON Properties in the Document UI
     description: How to use sys:JSON properties in the document UI
+    keywords: terminusdb, document, document database, documents, javascript, json-ld, sys:json properties in the document ui, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

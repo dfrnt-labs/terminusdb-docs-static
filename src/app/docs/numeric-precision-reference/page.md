@@ -129,7 +129,8 @@ When performing arithmetic operations, TerminusDB follows **Prolog's natural sem
 
 {% /table %}
 
-{% callout title="Why are floats contagious?" %}
+{% callout type="note" %}
+**Why are floats contagious?**
 This follows Prolog's arithmetic semantics, ensuring consistent and predictable behavior. When you mix approximate (float) with exact (rational) types, the result must be approximate since the float has already lost precision during parsing.
 {% /callout %}
 

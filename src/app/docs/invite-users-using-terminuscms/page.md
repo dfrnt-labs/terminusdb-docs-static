@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: Invite Users to Your Team
     description: A how-to guide for inviting collaborators to your team using the TerminusDB dashboard.
+    keywords: terminusdb, invite users to your team
     openGraph:
       images: https://assets.terminusdb.com/docs/manage-your-projects-add-a-new-user.png
     alternates:
@@ -21,7 +22,19 @@ media:
     value: https://assets.terminusdb.com/docs/manage-your-projects-add-a-new-user.png
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**Prerequisites**
+- A DFRNT Hub account with admin privileges
+- A team already created
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have invited users to your DFRNT Hub team.
+{% /callout %}
+
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: How to Model Schema
     description: Bit sized how to guides to help you model and build schema for TerminusDB projects.
+    keywords: terminusdb, dashboard, data model, dfrnt hub, document type, model schema, schema, terminuscms
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

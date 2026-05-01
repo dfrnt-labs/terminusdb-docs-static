@@ -8,12 +8,18 @@ nextjs:
   metadata:
     title: How to Order Results in WOQL
     description: A guide to show you how to order results using order_by in WOQL.
+    keywords: terminusdb, datalog, order by, order results in woql, ordering, query language, sort, terminusdb query
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-order-by.png
     alternates:
       canonical: https://terminusdb.org/docs/order-by-with-woql/
 media: []
 ---
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to sort and order query results using WOQL.
+{% /callout %}
 
 > **Prerequisites:** TerminusDB running on `localhost:6363` with the Star Wars dataset cloned. If you haven't done this yet, follow the [Explore a Real Dataset](/docs/explore-a-real-dataset/) tutorial (Steps 1–2), or run:
 >

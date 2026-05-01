@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: Authentication Errors — TerminusDB Troubleshooting
     description: Fix authentication errors with TerminusDB including wrong credentials, password vs key parameter confusion, API key format issues, and permission denied errors.
+    keywords: terminusdb, api, debug, error, troubleshooting
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

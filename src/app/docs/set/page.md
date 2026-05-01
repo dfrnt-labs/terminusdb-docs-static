@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Set Properties in the Document UI
     description: How to use set properties in the document UI
+    keywords: terminusdb, data model, document, document type, javascript, schema, set properties in the document ui, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: Document UI Components
     description: A list of components and links to further information for the document UI components to build dashboards quickly.
+    keywords: terminusdb, dashboard, dfrnt hub, document, document database, document ui components, documents, javascript
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -16,7 +17,8 @@ nextjs:
 media: []
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

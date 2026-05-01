@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Schema Reference Guide
     description: A reference guide for the TerminusDB schema
+    keywords: terminusdb, schema, data model, document type, json schema, graph database schema, document database
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -181,8 +182,7 @@ A custom `@base` can be defined for a type that overrides the default `@base` va
 
 `@documentation` specifies documentation global to the entire schema. See the `@documentation` section in the previous context object example. The `@documentation` tag can be a single value, or it can be a list with each element having an additional `@langugage` tag. The `@language` tag must have an IANA language code, and this will be used to select appropriate descriptions when internationalising the schema.
 
-The documentation section contains the keywords:
-
+The documentation section contains the keywords: terminusdb, data model, document type, javascript, schema, schema reference guide, terminusdb javascript client, typescript
 ### @title
 
 The `@title` of the schema to display.

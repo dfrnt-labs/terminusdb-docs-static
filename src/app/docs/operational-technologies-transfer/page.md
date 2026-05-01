@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: Operational Technologies Information Transfer
     description: How to use TerminusDB in Operational Technologies environments for IEC62443, Purdue model and other environments where network segmentation is strict.
+    keywords: terminusdb, operational technologies information transfer
     alternates:
       canonical: https://terminusdb.org/docs/operational-technologies-transfer/
     openGraph:

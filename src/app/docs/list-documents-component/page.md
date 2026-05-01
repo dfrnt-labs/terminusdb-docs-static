@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: ListDocumentsComponent
     description: The ListDocumentsComponent element allows you to visualize the documents inside the TDBReactTable and query the documents using the advanced search component
+    keywords: terminusdb, document, document database, documents, javascript, json-ld, listdocumentscomponent, query
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

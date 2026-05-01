@@ -19,7 +19,8 @@ lastUpdated: "2026-05-01"
 
 Ten practical WOQL query patterns you can copy and adapt. Each recipe shows the WOQL JavaScript SDK form and the equivalent HTTP API call with expected output.
 
-{% callout title="Prerequisites" %}
+{% callout type="note" %}
+**Prerequisites**
 Examples use the public Star Wars database. Clone it first:
 ```bash
 curl -u admin:root -X POST http://localhost:6363/api/clone/admin/star_wars \
@@ -158,7 +159,8 @@ const query = WOQL.insert_document({
 {% /http-expected %}
 {% /http-example %}
 
-{% callout title="Simpler alternative" %}
+{% callout type="note" %}
+**Simpler alternative**
 For simple inserts, the [Document API](/docs/http-documents-api/) is easier:
 `POST /api/document/admin/star_wars/local/branch/main` with the JSON document as body.
 {% /callout %}

@@ -8,12 +8,24 @@ nextjs:
   metadata:
     title: Manual reverse branch cloning
     description: How to manually clone branches between data products
+    keywords: terminusdb, branch, clone, commit, git for data, manual reverse branch cloning, version control
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.org/docs/manual-reverse-branch-cloning/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally
+- Two databases or branches to synchronise
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have cloned data between branches using manual reverse-clone techniques.
+{% /callout %}
 
 ## Reverse Branch Cloning
 

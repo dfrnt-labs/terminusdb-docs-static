@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: List Properties in the Document UI
     description: How list properties work in the document UI software development kit.
+    keywords: terminusdb, data model, document, document type, javascript, list properties in the document ui, schema, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Render As Markdown Using @metadata
     description: How to render properties as markdown in the document UI
+    keywords: terminusdb, data model, document, document type, javascript, render as markdown @metadata, schema, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

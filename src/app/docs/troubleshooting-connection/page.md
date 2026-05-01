@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: Connection Failures — TerminusDB Troubleshooting
     description: Diagnose and fix connection failures when connecting to TerminusDB, including Docker networking issues, wrong ports, browser fetch errors, and timeouts.
+    keywords: terminusdb, client, connect, connection, connection failures — terminusdb troubleshooting, debug, docker, error
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

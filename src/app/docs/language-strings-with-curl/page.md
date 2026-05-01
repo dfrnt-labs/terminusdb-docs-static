@@ -17,6 +17,11 @@ nextjs:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
 
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will know how to store and query multilingual (language-tagged) strings via the HTTP API.
+{% /callout %}
+
 TerminusDB supports language-tagged strings through the `rdf:langString` data type. This lets you attach a language tag to any text value, which is useful for multilingual content, localized labels, or any field where the language of the text matters.
 
 This guide walks through the full lifecycle: creating a schema with language-tagged fields, inserting documents with language values, and retrieving them — all using curl against the HTTP API.

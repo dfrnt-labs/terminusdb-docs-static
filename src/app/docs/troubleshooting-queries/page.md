@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: Query Errors — TerminusDB Troubleshooting
     description: Fix common WOQL and GraphQL query errors in TerminusDB including the anyuri vs string type mismatch, unbound variables, empty results, and path query syntax issues.
+    keywords: terminusdb, datalog, debug, error, graphql, path, query, query errors — terminusdb troubleshooting
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

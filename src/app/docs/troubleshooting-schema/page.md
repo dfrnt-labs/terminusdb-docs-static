@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Schema Validation Errors — TerminusDB Troubleshooting
     description: Diagnose and fix schema validation errors in TerminusDB including type mismatches on insert, missing required fields, class not found, and enum validation failures.
+    keywords: terminusdb, data model, document type, javascript, schema, terminusdb javascript client, typescript
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

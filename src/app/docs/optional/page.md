@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Optional Properties
     description: How optional properties work in the document UI
+    keywords: terminusdb, data model, document, document type, javascript, optional properties, schema, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

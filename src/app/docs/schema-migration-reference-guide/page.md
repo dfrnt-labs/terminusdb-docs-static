@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Schema Migration Reference Guide
     description: A reference guide explaining the schema migration capabilities of TerminusDB
+    keywords: terminusdb, data model, document type, javascript, schema, schema migration reference guide, terminusdb javascript client, typescript
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

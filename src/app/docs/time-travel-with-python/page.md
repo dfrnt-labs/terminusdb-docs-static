@@ -9,12 +9,25 @@ nextjs:
   metadata:
     title: Time Travel Through your Database History
     description: A guide to show to time travel through your TerminusDB projects using the Python Client.
+    keywords: terminusdb, branch, commit, git for data, history, point in time, python, terminusdb python client
     openGraph:
       images: https://assets.terminusdb.com/docs/python-client-collaboration-time-travel.png
     alternates:
       canonical: https://terminusdb.org/docs/time-travel-with-python/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- The TerminusDB Python client installed ([installation guide](/docs/install-the-python-client/))
+- A database with commit history
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have queried data at historical commits using the Python client.
+{% /callout %}
 
 Assuming you have [connected with the Python Client](/docs/connect-with-python-client/), created a database, and made a few commits, you can time travel to inspect them to see what they looked like.
 

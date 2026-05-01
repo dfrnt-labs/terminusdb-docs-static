@@ -10,6 +10,7 @@ nextjs:
   metadata:
     title: Getting Started
     description: Technical documentation for TerminusDB and the DFRNT TerminusDB cloud.
+    keywords: terminusdb, document, document database, documents, getting started, json-ld
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

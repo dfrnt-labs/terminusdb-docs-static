@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: sys:JSON Internals - How It Works
     description: Technical deep dive into sys:JSON implementation, storage, and behavior in TerminusDB
+    keywords: terminusdb, document database, documents, javascript, json-ld, sys:json internals - how it works, terminusdb javascript client, typescript
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

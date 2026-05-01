@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: How to Use the Python Client
     description: Bite sized how to guides to help you get started with the Python Client
+    keywords: terminusdb, python, terminusdb python client, use the python client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

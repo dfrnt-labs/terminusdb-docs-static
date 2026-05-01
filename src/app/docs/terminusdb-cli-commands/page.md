@@ -9,6 +9,7 @@ nextjs:
   metadata:
     title: TerminusDB CLI Commands
     description: Documentation of the TerminusDB command line interface (CLI) that enables users to interact with the local database using git-for-data and other operations
+    keywords: terminusdb, command line interface (cli) commands, document, document database, documents, json-ld
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

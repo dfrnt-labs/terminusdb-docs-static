@@ -14,6 +14,18 @@ nextjs:
       canonical: https://terminusdb.org/docs/self-hosted-installation/
 ---
 
+{% callout type="note" %}
+**Prerequisites**
+- A Linux server or virtual machine
+- Docker or the ability to compile from source
+- Network access to port 6363
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have a self-hosted TerminusDB instance running and accessible.
+{% /callout %}
+
 This guide covers three ways to run TerminusDB on your own infrastructure, from simplest to most customisable. For a quick local setup, see the [quickstart](/docs/get-started/). This page is for production or shared-team deployments.
 
 ## Option 1: Docker (single container)

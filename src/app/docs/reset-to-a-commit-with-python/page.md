@@ -9,12 +9,25 @@ nextjs:
   metadata:
     title: Reset to a Particular Commit with the Python Client
     description: A guide to show how to reset your TerminusDB project, or project branch, to a specific commit using Python.
+    keywords: terminusdb, branch, commit, git for data, python, reset, rollback, terminusdb python client
     openGraph:
       images: https://assets.terminusdb.com/docs/python-client-collaboration-reset.png
     alternates:
       canonical: https://terminusdb.org/docs/reset-to-a-commit-with-python/
 media: []
 ---
+
+{% callout type="note" %}
+**Prerequisites**
+- TerminusDB running locally or a DFRNT Hub account
+- The TerminusDB Python client installed ([installation guide](/docs/install-the-python-client/))
+- A database with commit history
+{% /callout %}
+
+{% callout type="note" %}
+**What you'll achieve**
+By the end of this guide, you will have reset a branch to a previous commit using the Python client.
+{% /callout %}
 
 Assuming you have [connected with the Python Client](/docs/connect-with-python-client/), created a database, and made a few commits, you can reset the HEAD of a database to a particular commit. Just like you would do in `git` with `git reset`.
 

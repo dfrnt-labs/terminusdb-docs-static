@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: useTDBGraphqlQuery
     description: useTDBGraphqlQuery` is the main hook to connect @terminusdb/terminusdb-react-table with TerminusDB server
+    keywords: terminusdb, api, find, graphql, javascript, query, search, terminusdb graphql
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -15,7 +16,8 @@ nextjs:
 media: []
 ---
 
-{% callout title="TerminusCMS is now DFRNT Hub" %}
+{% callout type="note" %}
+**TerminusCMS is now DFRNT Hub**
 TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
 {% /callout %}
 

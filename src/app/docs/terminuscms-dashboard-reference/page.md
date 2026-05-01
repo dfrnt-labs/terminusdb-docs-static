@@ -8,6 +8,7 @@ nextjs:
   metadata:
     title: TerminusDB Dashboard Reference Guide
     description: A conceptual overview of the TerminusDB dashboard describing its features and their purpose.
+    keywords: terminusdb, dashboard, dfrnt hub, terminuscms, terminusdb dashboard reference guide
     openGraph:
       images: https://assets.terminusdb.com/docs/document-explorer-home.png
     alternates:

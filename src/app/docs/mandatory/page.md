@@ -4,6 +4,7 @@ nextjs:
   metadata:
     title: Mandatory Properties in the Document UI
     description: How mandatory properties work in the document user interface.
+    keywords: terminusdb, data model, document, document type, javascript, mandatory properties in the document ui, schema, terminusdb javascript client
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
