@@ -18,10 +18,11 @@ export function parseCurlToFetch(code: string): ParsedCurl | null {
 
   // Must start with "curl" (ignore leading comments/blank lines)
   const lines = cmd.split("\n")
-  const curlLine = lines.find((l) => l.trim().startsWith("curl"))
-  if (!curlLine) return null
+  const curlLineIdx = lines.findIndex((l) => l.trim().startsWith("curl"))
+  if (curlLineIdx === -1) return null
 
-  const normalized = curlLine.trim()
+  // Join from the curl line onwards (multi-line bodies span subsequent lines)
+  const normalized = lines.slice(curlLineIdx).join(" ").trim()
 
   // Extract -X METHOD (default: GET, or POST if -d is present)
   const methodMatch = normalized.match(/-X\s+(\w+)/)
@@ -45,13 +46,13 @@ export function parseCurlToFetch(code: string): ParsedCurl | null {
   const userMatch = normalized.match(/-u\s+(?:"([^"]+)"|'([^']+)'|(\S+))/)
   const userCredentials = userMatch ? (userMatch[1] || userMatch[2] || userMatch[3]) : undefined
 
-  // Extract -d or --data body (single or double quoted)
-  const bodyMatch = normalized.match(/(?:-d|--data)\s+(?:"((?:[^"\\]|\\.)*)"|'([^']*)')/)
+  // Extract -d or --data body (single or double quoted, may span multiple lines)
+  const bodyMatch = normalized.match(/(?:-d|--data)\s+(?:"((?:[^"\\]|\\.)*)"|'([\s\S]*?)')/)
   let body: string | undefined
   if (bodyMatch) {
     body = bodyMatch[1] !== undefined
       ? bodyMatch[1].replace(/\\"/g, "\"").replace(/\\\\/g, "\\")
-      : bodyMatch[2]
+      : bodyMatch[2]?.trim()
   }
 
   // Determine method

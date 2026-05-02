@@ -57,21 +57,7 @@ The `author` and `message` values are URL-encoded query parameters. Use `+` for 
 
 ## TypeScript example (JS client)
 
-```typescript test-example
-import TerminusClient from "@terminusdb/terminusdb-client";
-
-const client = new TerminusClient.WOQLClient("http://localhost:6363", {
-  user: "admin",
-  key: "root",
-});
-client.db("MyDatabase");
-
-await client.addDocument(
-  { "@id": "terminusdb:///data/product-2001", "name": "Widget Pro", "price": 29.99 },
-  { raw_json: true },
-  undefined,
-  "Add new product SKU-2001"  // commit message
-);
+```typescript test-example id="commit-message-ts" fixture="docs-test" file="examples/commit-message-ts.example.ts"
 ```
 
 The fourth parameter to `addDocument` is the commit message. The author is taken from the client's authenticated user.

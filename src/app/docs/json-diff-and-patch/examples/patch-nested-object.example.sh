@@ -14,7 +14,9 @@ set -e
 
 TERMINUSDB_URL="${TERMINUSDB_URL:-http://localhost:6363}"
 
+# region: display
 curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/patch' -d \
    '{ "before" : { "alpha" : 1, "asdf" : { "fdsa" : "quux"}}, "patch" : {
       "asdf": {"fdsa": {"@after":"quuz", "@before":"quux", "@op":"SwapValue"}}
 }}'
+# endregion

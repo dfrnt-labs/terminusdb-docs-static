@@ -253,17 +253,26 @@ function RunnableFenceInner({
         const baseUrl = serverUrl.replace(/\/+$/, "")
         const curAuthHeader = "Basic " + btoa(`${user}:${password}`)
 
+        // Detect whether the curl targets an external URL (not the user's server)
+        const isExternalUrl = !/(?:localhost|127\.0\.0\.1):6363/.test(parsedCurl.url) &&
+          !/\$\{?TERMINUSDB_URL\}?/.test(parsedCurl.url) &&
+          !parsedCurl.url.startsWith(baseUrl)
+
         // Substitute placeholders in URL with user's connection settings
-        let fetchUrl = parsedCurl.url
+        let fetchUrl = isExternalUrl ? parsedCurl.url : parsedCurl.url
           .replace(/https?:\/\/(?:localhost|127\.0\.0\.1):6363/, baseUrl)
           .replace(/\$\{?TERMINUSDB_URL\}?/g, baseUrl)
 
         // Replace admin/root credentials in URL path if present
-        fetchUrl = fetchUrl.replace(/\/admin\//, `/${user}/`)
+        if (!isExternalUrl) {
+          fetchUrl = fetchUrl.replace(/\/admin\//, `/${user}/`)
+        }
 
-        // Build headers — always override Authorization with settings credentials
+        // Build headers — inject auth only for the user's own server
         const fetchHeaders: Record<string, string> = { ...parsedCurl.headers }
-        fetchHeaders["Authorization"] = curAuthHeader
+        if (!isExternalUrl) {
+          fetchHeaders["Authorization"] = curAuthHeader
+        }
 
         // Ensure Content-Type is set for requests with body
         if (parsedCurl.body && !fetchHeaders["Content-Type"]) {

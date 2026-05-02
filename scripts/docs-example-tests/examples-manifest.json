@@ -1,65 +1,205 @@
 [
   {
-    "id": "connect-python-team-key",
-    "language": "python",
-    "source_file": "src/app/docs/connect-with-python-client/page.md",
+    "id": "browser-fetch",
+    "language": "javascript",
+    "source_file": "src/app/docs/browser-cors-howto/page.md",
     "line": 49,
-    "code": "team=\"MyTeam\",\nclient = Client(\"http://localhost:6363/\")\nclient.connect(team=team, key=\"MyPassword\")  # key= replaced password= in TerminusDB Python client v1.1+"
+    "code": "",
+    "fixture": "docs-test"
   },
   {
-    "id": "connect-python-local-default",
+    "id": "commit-message-ts",
+    "language": "typescript",
+    "source_file": "src/app/docs/commit-message-howto/page.md",
+    "colocated_file": "src/app/docs/commit-message-howto/examples/commit-message-ts.example.ts",
+    "line": 60,
+    "code": "// fixture: docs-test\nimport TerminusClient from \"terminusdb\"\n\nconst server = process.env.TERMINUSDB_URL || \"http://localhost:6363\"\nconst user = process.env.TERMINUSDB_USER || \"admin\"\nconst key = process.env.TERMINUSDB_KEY || \"root\"\nconst db = process.env.TERMINUSDB_DB || \"MyDatabase\"\n\nconst client = new TerminusClient.WOQLClient(server, {\n  user,\n  organization: user,\n  key,\n})\n\nawait client.createDatabase(db, {\n  label: db,\n  comment: \"Commit message how-to\",\n  schema: false,\n})\n\nclient.db(db)\n\n// region: display\nawait client.addDocument(\n  { \"@id\": \"terminusdb:///data/product-2001\", \"name\": \"Widget Pro\", \"price\": 29.99 },\n  { raw_json: true },\n  undefined,\n  \"Add new product SKU-2001\"  // commit message\n)\n// endregion\n",
+    "fixture": "docs-test"
+  },
+  {
+    "id": "py-quickstart-connect",
     "language": "python",
     "source_file": "src/app/docs/connect-with-python-client/page.md",
-    "line": 57,
-    "code": "team=\"admin\",\nclient = Client(\"http://localhost:6363/\")\nclient.connect(team=team)"
+    "colocated_file": "src/app/docs/connect-with-python-client/examples/py-quickstart-connect.example.py",
+    "line": 45,
+    "code": "# region: display\nimport os\nfrom terminusdb_client import Client\n\nclient = Client(os.environ.get(\"TERMINUSDB_URL\", \"http://localhost:6363\"))\nclient.connect(\n    team=os.environ.get(\"TERMINUSDB_USER\", \"admin\"),\n    key=os.environ.get(\"TERMINUSDB_KEY\", \"root\"),\n)\n\ninfo = client.info()\nprint(\"Connected to TerminusDB\", info)\n# endregion\n"
+  },
+  {
+    "id": "py-quickstart-create-db",
+    "language": "python",
+    "source_file": "src/app/docs/connect-with-python-client/page.md",
+    "colocated_file": "src/app/docs/connect-with-python-client/examples/py-quickstart-create-db.example.py",
+    "line": 54,
+    "code": "# fixture: docs-test\nimport os\nfrom terminusdb_client import Client\n\nserver = os.environ.get(\"TERMINUSDB_URL\", \"http://localhost:6363\")\nkey = os.environ.get(\"TERMINUSDB_KEY\", \"root\")\nteam = os.environ.get(\"TERMINUSDB_USER\", \"admin\")\n\nclient = Client(server)\nclient.connect(team=team, key=key)\n\n# region: display\ndb = os.environ.get(\"TERMINUSDB_DB\", \"MyDatabase\")\n\nclient.create_database(db, label=db, description=\"Python quickstart\", include_schema=False)\n\nresult = client.insert_document(\n    {\"@id\": \"terminusdb:///data/jane\", \"name\": \"Jane Smith\", \"email\": \"jane@example.com\", \"age\": 30},\n    raw_json=True,\n    commit_msg=\"Add Jane Smith\",\n)\n\nprint(\"Document created:\", result)\n# endregion\n",
+    "fixture": "docs-test"
+  },
+  {
+    "id": "py-quickstart-branch",
+    "language": "python",
+    "source_file": "src/app/docs/connect-with-python-client/page.md",
+    "colocated_file": "src/app/docs/connect-with-python-client/examples/py-quickstart-branch.example.py",
+    "line": 63,
+    "code": "import os\nfrom terminusdb_client import Client\n\nserver = os.environ.get(\"TERMINUSDB_URL\", \"http://localhost:6363\")\nkey = os.environ.get(\"TERMINUSDB_KEY\", \"root\")\nteam = os.environ.get(\"TERMINUSDB_USER\", \"admin\")\ndb = os.environ.get(\"TERMINUSDB_DB\", \"MyDatabase\")\n\nclient = Client(server)\nclient.connect(team=team, key=key, db=db)\n\n# region: display\n# Create a new branch from the current branch (main)\nclient.create_branch(\"feature\")\n\n# Switch to it\nclient.branch = \"feature\"\n\nprint(\"Now on branch:\", client.branch)\n# endregion\n"
+  },
+  {
+    "id": "py-quickstart-edit",
+    "language": "python",
+    "source_file": "src/app/docs/connect-with-python-client/page.md",
+    "colocated_file": "src/app/docs/connect-with-python-client/examples/py-quickstart-edit.example.py",
+    "line": 72,
+    "code": "import os\nfrom terminusdb_client import Client\n\nserver = os.environ.get(\"TERMINUSDB_URL\", \"http://localhost:6363\")\nkey = os.environ.get(\"TERMINUSDB_KEY\", \"root\")\nteam = os.environ.get(\"TERMINUSDB_USER\", \"admin\")\ndb = os.environ.get(\"TERMINUSDB_DB\", \"MyDatabase\")\n\nclient = Client(server)\nclient.connect(team=team, key=key, db=db, branch=\"feature\")\n\n# region: display\n# Get the document we inserted earlier\nperson = client.get_document(\"terminusdb:///data/jane\", raw_json=True)\nprint(\"Current document:\", person)\n\n# Update the email on this branch\nclient.replace_document(\n    {\"@id\": \"terminusdb:///data/jane\", \"name\": \"Jane Smith\", \"email\": \"jane.smith@company.com\", \"age\": 30},\n    raw_json=True,\n    commit_msg=\"Updated Jane's email\",\n)\n\nprint(\"Document updated on feature branch\")\n# endregion\n"
+  },
+  {
+    "id": "py-quickstart-diff",
+    "language": "python",
+    "source_file": "src/app/docs/connect-with-python-client/page.md",
+    "colocated_file": "src/app/docs/connect-with-python-client/examples/py-quickstart-diff.example.py",
+    "line": 81,
+    "code": "import os\nimport json\nfrom terminusdb_client import Client\n\nserver = os.environ.get(\"TERMINUSDB_URL\", \"http://localhost:6363\")\nkey = os.environ.get(\"TERMINUSDB_KEY\", \"root\")\nteam = os.environ.get(\"TERMINUSDB_USER\", \"admin\")\ndb = os.environ.get(\"TERMINUSDB_DB\", \"MyDatabase\")\n\nclient = Client(server)\nclient.connect(team=team, key=key, db=db)\n\n# region: display\n# Compare main to feature — what changed?\ndiff = client.diff_version(\"main\", \"feature\")\n\nprint(\"Changes between main and feature:\")\nprint(json.dumps(diff, indent=2))\n# endregion\n"
+  },
+  {
+    "id": "py-quickstart-merge",
+    "language": "python",
+    "source_file": "src/app/docs/connect-with-python-client/page.md",
+    "colocated_file": "src/app/docs/connect-with-python-client/examples/py-quickstart-merge.example.py",
+    "line": 104,
+    "code": "import os\nfrom terminusdb_client import Client\n\nserver = os.environ.get(\"TERMINUSDB_URL\", \"http://localhost:6363\")\nkey = os.environ.get(\"TERMINUSDB_KEY\", \"root\")\nteam = os.environ.get(\"TERMINUSDB_USER\", \"admin\")\ndb = os.environ.get(\"TERMINUSDB_DB\", \"MyDatabase\")\n\nclient = Client(server)\nclient.connect(team=team, key=key, db=db)\n\n# region: display\n# Switch back to main\nclient.branch = \"main\"\n\n# Merge feature into main (like git merge)\ndb = os.environ.get(\"TERMINUSDB_DB\", \"MyDatabase\")\nclient.rebase(\n    rebase_source=f\"admin/{db}/local/branch/feature\",\n    message=\"Merge feature: updated Jane's email\",\n)\n\nprint(\"Merged feature into main\")\n# endregion\n"
+  },
+  {
+    "id": "py-quickstart-verify",
+    "language": "python",
+    "source_file": "src/app/docs/connect-with-python-client/page.md",
+    "colocated_file": "src/app/docs/connect-with-python-client/examples/py-quickstart-verify.example.py",
+    "line": 113,
+    "code": "import os\nfrom terminusdb_client import Client\n\nserver = os.environ.get(\"TERMINUSDB_URL\", \"http://localhost:6363\")\nkey = os.environ.get(\"TERMINUSDB_KEY\", \"root\")\nteam = os.environ.get(\"TERMINUSDB_USER\", \"admin\")\ndb = os.environ.get(\"TERMINUSDB_DB\", \"MyDatabase\")\n\nclient = Client(server)\nclient.connect(team=team, key=key, db=db)\n\n# region: display\nupdated = client.get_document(\"terminusdb:///data/jane\", raw_json=True)\nprint(\"Person on main after merge:\", updated)\n# endregion\n"
+  },
+  {
+    "id": "ts-quickstart-connect",
+    "language": "typescript",
+    "source_file": "src/app/docs/connect-with-the-javascript-client/page.md",
+    "colocated_file": "src/app/docs/connect-with-the-javascript-client/examples/ts-quickstart-connect.example.ts",
+    "line": 51,
+    "code": "// region: display\nimport TerminusClient from \"terminusdb\"\n\nconst client = new TerminusClient.WOQLClient(\n  process.env.TERMINUSDB_URL || \"http://localhost:6363\",\n  {\n    user: process.env.TERMINUSDB_USER || \"admin\",\n    organization: process.env.TERMINUSDB_USER || \"admin\",\n    key: process.env.TERMINUSDB_KEY || \"root\",\n  },\n)\n\n// Verify the connection works\nconst info = await client.info()\nconsole.log(\"Connected to TerminusDB\", info)\n// endregion\n"
+  },
+  {
+    "id": "ts-quickstart-create-db",
+    "language": "typescript",
+    "source_file": "src/app/docs/connect-with-the-javascript-client/page.md",
+    "colocated_file": "src/app/docs/connect-with-the-javascript-client/examples/ts-quickstart-create-db.example.ts",
+    "line": 60,
+    "code": "// fixture: docs-test\nimport TerminusClient from \"terminusdb\"\n\nconst server = process.env.TERMINUSDB_URL || \"http://localhost:6363\"\nconst user = process.env.TERMINUSDB_USER || \"admin\"\nconst key = process.env.TERMINUSDB_KEY || \"root\"\nconst db = process.env.TERMINUSDB_DB || \"MyDatabase\"\n\nasync function main() {\n  const client = new TerminusClient.WOQLClient(server, {\n    user,\n    organization: user,\n    key,\n  })\n\n  // region: display\n  // Create a database (no schema required)\n  await client.createDatabase(db, {\n    label: \"My Database\",\n    comment: \"TypeScript quickstart\",\n    schema: false,\n  })\n\n  // Insert a document — choose your own ID, no schema to define\n  const result = await client.addDocument(\n    { \"@id\": \"terminusdb:///data/jane\", name: \"Jane Smith\", email: \"jane@example.com\", age: 30 },\n    { raw_json: true },\n  )\n\n  console.log(\"Document created:\", result)\n  // endregion\n}\n\nmain().catch(console.error)\n",
+    "fixture": "docs-test"
+  },
+  {
+    "id": "ts-quickstart-branch",
+    "language": "typescript",
+    "source_file": "src/app/docs/connect-with-the-javascript-client/page.md",
+    "colocated_file": "src/app/docs/connect-with-the-javascript-client/examples/ts-quickstart-branch.example.ts",
+    "line": 69,
+    "code": "import TerminusClient from \"terminusdb\"\n\nconst server = process.env.TERMINUSDB_URL || \"http://localhost:6363\"\nconst user = process.env.TERMINUSDB_USER || \"admin\"\nconst key = process.env.TERMINUSDB_KEY || \"root\"\nconst db = process.env.TERMINUSDB_DB || \"MyDatabase\"\n\nasync function main() {\n  const client = new TerminusClient.WOQLClient(server, {\n    user,\n    organization: user,\n    key,\n    db,\n  })\n\n  // region: display\n  // Create a new branch from main\n  await client.branch(\"feature\")\n\n  // Switch to it (like git checkout)\n  client.checkout(\"feature\")\n\n  console.log(\"Now on branch:\", client.checkout())\n  // endregion\n}\n\nmain().catch(console.error)\n"
+  },
+  {
+    "id": "ts-quickstart-edit",
+    "language": "typescript",
+    "source_file": "src/app/docs/connect-with-the-javascript-client/page.md",
+    "colocated_file": "src/app/docs/connect-with-the-javascript-client/examples/ts-quickstart-edit.example.ts",
+    "line": 78,
+    "code": "import TerminusClient from \"terminusdb\"\n\nconst server = process.env.TERMINUSDB_URL || \"http://localhost:6363\"\nconst user = process.env.TERMINUSDB_USER || \"admin\"\nconst key = process.env.TERMINUSDB_KEY || \"root\"\nconst db = process.env.TERMINUSDB_DB || \"MyDatabase\"\n\nasync function main() {\n  const client = new TerminusClient.WOQLClient(server, {\n    user,\n    organization: user,\n    key,\n    db,\n  })\n\n  // Switch to the feature branch\n  client.checkout(\"feature\")\n\n  // region: display\n  // Get the document we inserted earlier\n  const person = await client.getDocument({ id: \"terminusdb:///data/jane\", as_list: true })\n\n  console.log(\"Current document:\", person)\n\n  // Update the email on this branch\n  await client.updateDocument(\n    { \"@id\": \"terminusdb:///data/jane\", name: \"Jane Smith\", email: \"jane.smith@company.com\", age: 30 },\n    { raw_json: true },\n    \"\",\n    \"Updated Jane's email\",\n  )\n\n  console.log(\"Document updated on feature branch\")\n  // endregion\n}\n\nmain().catch(console.error)\n"
+  },
+  {
+    "id": "ts-quickstart-diff",
+    "language": "typescript",
+    "source_file": "src/app/docs/connect-with-the-javascript-client/page.md",
+    "colocated_file": "src/app/docs/connect-with-the-javascript-client/examples/ts-quickstart-diff.example.ts",
+    "line": 87,
+    "code": "import TerminusClient from \"terminusdb\"\n\nconst server = process.env.TERMINUSDB_URL || \"http://localhost:6363\"\nconst user = process.env.TERMINUSDB_USER || \"admin\"\nconst key = process.env.TERMINUSDB_KEY || \"root\"\nconst db = process.env.TERMINUSDB_DB || \"MyDatabase\"\n\nasync function main() {\n  const client = new TerminusClient.WOQLClient(server, {\n    user,\n    organization: user,\n    key,\n    db,\n  })\n\n  // region: display\n  // Compare main to feature — what changed?\n  const diff = await client.getVersionDiff(\"main\", \"feature\")\n\n  console.log(\"Changes between main and feature:\")\n  console.log(JSON.stringify(diff, null, 2))\n  // endregion\n}\n\nmain().catch(console.error)\n"
+  },
+  {
+    "id": "ts-quickstart-merge",
+    "language": "typescript",
+    "source_file": "src/app/docs/connect-with-the-javascript-client/page.md",
+    "colocated_file": "src/app/docs/connect-with-the-javascript-client/examples/ts-quickstart-merge.example.ts",
+    "line": 110,
+    "code": "import TerminusClient from \"terminusdb\"\n\nconst server = process.env.TERMINUSDB_URL || \"http://localhost:6363\"\nconst user = process.env.TERMINUSDB_USER || \"admin\"\nconst key = process.env.TERMINUSDB_KEY || \"root\"\nconst db = process.env.TERMINUSDB_DB || \"MyDatabase\"\n\nasync function main() {\n  const client = new TerminusClient.WOQLClient(server, {\n    user,\n    organization: user,\n    key,\n    db,\n  })\n\n  // region: display\n  // Switch back to main\n  client.checkout(\"main\")\n\n  // Merge feature into main (like git merge)\n  await client.rebase({\n    rebase_from: `admin/${db}/local/branch/feature`,\n    message: \"Merge feature: updated Jane's email\",\n  })\n\n  console.log(\"Merged feature into main\")\n  // endregion\n}\n\nmain().catch(console.error)\n"
+  },
+  {
+    "id": "ts-quickstart-verify",
+    "language": "typescript",
+    "source_file": "src/app/docs/connect-with-the-javascript-client/page.md",
+    "colocated_file": "src/app/docs/connect-with-the-javascript-client/examples/ts-quickstart-verify.example.ts",
+    "line": 119,
+    "code": "import TerminusClient from \"terminusdb\"\n\nconst server = process.env.TERMINUSDB_URL || \"http://localhost:6363\"\nconst user = process.env.TERMINUSDB_USER || \"admin\"\nconst key = process.env.TERMINUSDB_KEY || \"root\"\nconst db = process.env.TERMINUSDB_DB || \"MyDatabase\"\n\nasync function main() {\n  const client = new TerminusClient.WOQLClient(server, {\n    user,\n    organization: user,\n    key,\n    db,\n  })\n\n  // region: display\n  // Read the document from main\n  const updated = await client.getDocument({ id: \"terminusdb:///data/jane\", as_list: true })\n\n  console.log(\"Person on main after merge:\", updated)\n  // endregion\n}\n\nmain().catch(console.error)\n"
+  },
+  {
+    "id": "diff-public-demo",
+    "language": "bash",
+    "source_file": "src/app/docs/json-diff-and-patch/page.md",
+    "colocated_file": "src/app/docs/json-diff-and-patch/examples/diff-public-demo.example.sh",
+    "line": 359,
+    "code": "#!/bin/bash\n# Documentation example: diff-public-demo\n# Source: src/app/docs/json-diff-and-patch/page.md:347\n#\n# This file is the canonical source for this example.\n# It is referenced by the docs page and executed by the test runner.\n#\n# Environment variables available:\n#   TERMINUSDB_URL (default: http://localhost:6363)\n#   TERMINUSDB_USER (default: admin)\n#   TERMINUSDB_KEY (default: root)\n\nset -e\n\nTERMINUSDB_URL=\"${TERMINUSDB_URL:-http://localhost:6363}\"\n\n# region: display\ncurl -X POST \"${TERMINUSDB_URL}/api/diff\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"before\": {\"name\": \"Alice\"}, \"after\": {\"name\": \"Bob\"}}'\n# endregion\n"
+  },
+  {
+    "id": "patch-public-demo",
+    "language": "bash",
+    "source_file": "src/app/docs/json-diff-and-patch/page.md",
+    "colocated_file": "src/app/docs/json-diff-and-patch/examples/patch-public-demo.example.sh",
+    "line": 367,
+    "code": "#!/bin/bash\n# Documentation example: patch-public-demo\n# Source: src/app/docs/json-diff-and-patch/page.md:358\n#\n# This file is the canonical source for this example.\n# It is referenced by the docs page and executed by the test runner.\n#\n# Environment variables available:\n#   TERMINUSDB_URL (default: http://localhost:6363)\n#   TERMINUSDB_USER (default: admin)\n#   TERMINUSDB_KEY (default: root)\n\nset -e\n\nTERMINUSDB_URL=\"${TERMINUSDB_URL:-http://localhost:6363}\"\n\n# region: display\ncurl -X POST \"${TERMINUSDB_URL}/api/patch\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"before\": {\"name\": \"Alice\"}, \"patch\": {\"name\": {\"@op\": \"SwapValue\", \"@before\": \"Alice\", \"@after\": \"Bob\"}}}'\n# endregion\n"
   },
   {
     "id": "diff-swap-with-keep",
     "language": "bash",
     "source_file": "src/app/docs/json-diff-and-patch/page.md",
-    "line": 400,
-    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : { \"asdf\" : \"foo\", \"fdsa\" : \"bar\"}, \"after\" : { \"asdf\" : \"bar\", \"fdsa\" : \"bar\"}, \"keep\" : { \"fdsa\" : true}}'"
+    "colocated_file": "src/app/docs/json-diff-and-patch/examples/diff-swap-with-keep.example.sh",
+    "line": 440,
+    "code": "#!/bin/bash\n# Documentation example: diff-swap-with-keep\n# Source: src/app/docs/json-diff-and-patch/page.md:400\n#\n# This file is the canonical source for this example.\n# It is referenced by the docs page and executed by the test runner.\n#\n# Environment variables available:\n#   TERMINUSDB_URL (default: http://localhost:6363)\n#   TERMINUSDB_USER (default: admin)\n#   TERMINUSDB_KEY (default: root)\n\nset -e\n\nTERMINUSDB_URL=\"${TERMINUSDB_URL:-http://localhost:6363}\"\n\n# region: display\ncurl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : { \"asdf\" : \"foo\", \"fdsa\" : \"bar\"}, \"after\" : { \"asdf\" : \"bar\", \"fdsa\" : \"bar\"}, \"keep\" : { \"fdsa\" : true}}'\n# endregion\n"
   },
   {
     "id": "diff-array-object-swap",
     "language": "bash",
     "source_file": "src/app/docs/json-diff-and-patch/page.md",
-    "line": 413,
-    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : [{ \"asdf\" : \"foo\"}], \"after\" : [{ \"asdf\" : \"bar\"}]}'"
+    "colocated_file": "src/app/docs/json-diff-and-patch/examples/diff-array-object-swap.example.sh",
+    "line": 451,
+    "code": "#!/bin/bash\n# Documentation example: diff-array-object-swap\n# Source: src/app/docs/json-diff-and-patch/page.md:413\n#\n# This file is the canonical source for this example.\n# It is referenced by the docs page and executed by the test runner.\n#\n# Environment variables available:\n#   TERMINUSDB_URL (default: http://localhost:6363)\n#   TERMINUSDB_USER (default: admin)\n#   TERMINUSDB_KEY (default: root)\n\nset -e\n\nTERMINUSDB_URL=\"${TERMINUSDB_URL:-http://localhost:6363}\"\n\n# region: display\ncurl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : [{ \"asdf\" : \"foo\"}], \"after\" : [{ \"asdf\" : \"bar\"}]}'\n# endregion\n"
   },
   {
     "id": "diff-list-append",
     "language": "bash",
     "source_file": "src/app/docs/json-diff-and-patch/page.md",
-    "line": 423,
-    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : [0,1,2], \"after\" : [0,1,2,3]}'"
+    "colocated_file": "src/app/docs/json-diff-and-patch/examples/diff-list-append.example.sh",
+    "line": 459,
+    "code": "#!/bin/bash\n# Documentation example: diff-list-append\n# Source: src/app/docs/json-diff-and-patch/page.md:423\n#\n# This file is the canonical source for this example.\n# It is referenced by the docs page and executed by the test runner.\n#\n# Environment variables available:\n#   TERMINUSDB_URL (default: http://localhost:6363)\n#   TERMINUSDB_USER (default: admin)\n#   TERMINUSDB_KEY (default: root)\n\nset -e\n\nTERMINUSDB_URL=\"${TERMINUSDB_URL:-http://localhost:6363}\"\n\n# region: display\ncurl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : [0,1,2], \"after\" : [0,1,2,3]}'\n# endregion\n"
   },
   {
     "id": "diff-list-append-copy-value",
     "language": "bash",
     "source_file": "src/app/docs/json-diff-and-patch/page.md",
-    "line": 442,
-    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : [0,1,2], \"after\" : [0,1,2,3], \"copy_value\" : true}'"
+    "colocated_file": "src/app/docs/json-diff-and-patch/examples/diff-list-append-copy-value.example.sh",
+    "line": 476,
+    "code": "#!/bin/bash\n# Documentation example: diff-list-append-copy-value\n# Source: src/app/docs/json-diff-and-patch/page.md:442\n#\n# This file is the canonical source for this example.\n# It is referenced by the docs page and executed by the test runner.\n#\n# Environment variables available:\n#   TERMINUSDB_URL (default: http://localhost:6363)\n#   TERMINUSDB_USER (default: admin)\n#   TERMINUSDB_KEY (default: root)\n\nset -e\n\nTERMINUSDB_URL=\"${TERMINUSDB_URL:-http://localhost:6363}\"\n\n# region: display\ncurl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : [0,1,2], \"after\" : [0,1,2,3], \"copy_value\" : true}'\n# endregion\n"
   },
   {
     "id": "diff-nested-object-swap",
     "language": "bash",
     "source_file": "src/app/docs/json-diff-and-patch/page.md",
-    "line": 462,
-    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : { \"asdf\" : { \"fdsa\" : \"quux\"}}, \"after\" : { \"asdf\" : { \"fdsa\" : \"quuz\" }}}'"
+    "colocated_file": "src/app/docs/json-diff-and-patch/examples/diff-nested-object-swap.example.sh",
+    "line": 494,
+    "code": "#!/bin/bash\n# Documentation example: diff-nested-object-swap\n# Source: src/app/docs/json-diff-and-patch/page.md:462\n#\n# This file is the canonical source for this example.\n# It is referenced by the docs page and executed by the test runner.\n#\n# Environment variables available:\n#   TERMINUSDB_URL (default: http://localhost:6363)\n#   TERMINUSDB_USER (default: admin)\n#   TERMINUSDB_KEY (default: root)\n\nset -e\n\nTERMINUSDB_URL=\"${TERMINUSDB_URL:-http://localhost:6363}\"\n\n# region: display\ncurl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/diff' -d \\\n  '{ \"before\" : { \"asdf\" : { \"fdsa\" : \"quux\"}}, \"after\" : { \"asdf\" : { \"fdsa\" : \"quuz\" }}}'\n# endregion\n"
   },
   {
     "id": "patch-nested-object",
     "language": "bash",
     "source_file": "src/app/docs/json-diff-and-patch/page.md",
-    "line": 491,
-    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/patch' -d \\\n   '{ \"before\" : { \"alpha\" : 1, \"asdf\" : { \"fdsa\" : \"quux\"}}, \"patch\" : {\n      \"asdf\": {\"fdsa\": {\"@after\":\"quuz\", \"@before\":\"quux\", \"@op\":\"SwapValue\"}}\n}}'"
+    "colocated_file": "src/app/docs/json-diff-and-patch/examples/patch-nested-object.example.sh",
+    "line": 521,
+    "code": "#!/bin/bash\n# Documentation example: patch-nested-object\n# Source: src/app/docs/json-diff-and-patch/page.md:491\n#\n# This file is the canonical source for this example.\n# It is referenced by the docs page and executed by the test runner.\n#\n# Environment variables available:\n#   TERMINUSDB_URL (default: http://localhost:6363)\n#   TERMINUSDB_USER (default: admin)\n#   TERMINUSDB_KEY (default: root)\n\nset -e\n\nTERMINUSDB_URL=\"${TERMINUSDB_URL:-http://localhost:6363}\"\n\n# region: display\ncurl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/patch' -d \\\n   '{ \"before\" : { \"alpha\" : 1, \"asdf\" : { \"fdsa\" : \"quux\"}}, \"patch\" : {\n      \"asdf\": {\"fdsa\": {\"@after\":\"quuz\", \"@before\":\"quux\", \"@op\":\"SwapValue\"}}\n}}'\n# endregion\n"
   },
   {
     "id": "patch-list-append",
     "language": "bash",
     "source_file": "src/app/docs/json-diff-and-patch/page.md",
-    "line": 503,
-    "code": "curl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/patch' -d '\n{ \"before\" : [0,1,2], \"patch\" : {\n  \"@op\":\"CopyList\",\n  \"@rest\": {\n    \"@after\": [3 ],\n    \"@before\": [],\n    \"@op\":\"SwapList\",\n    \"@rest\": {\"@op\":\"KeepList\"}\n  },\n  \"@to\":3\n}}'"
+    "colocated_file": "src/app/docs/json-diff-and-patch/examples/patch-list-append.example.sh",
+    "line": 529,
+    "code": "#!/bin/bash\n# Documentation example: patch-list-append\n# Source: src/app/docs/json-diff-and-patch/page.md:503\n#\n# This file is the canonical source for this example.\n# It is referenced by the docs page and executed by the test runner.\n#\n# Environment variables available:\n#   TERMINUSDB_URL (default: http://localhost:6363)\n#   TERMINUSDB_USER (default: admin)\n#   TERMINUSDB_KEY (default: root)\n\nset -e\n\nTERMINUSDB_URL=\"${TERMINUSDB_URL:-http://localhost:6363}\"\n\n# region: display\ncurl -X POST -H \"Content-Type: application/json\" 'http://localhost:6363/api/patch' -d '\n{ \"before\" : [0,1,2], \"patch\" : {\n  \"@op\":\"CopyList\",\n  \"@rest\": {\n    \"@after\": [3 ],\n    \"@before\": [],\n    \"@op\":\"SwapList\",\n    \"@rest\": {\"@op\":\"KeepList\"}\n  },\n  \"@to\":3\n}}'\n# endregion\n"
   }
 ]

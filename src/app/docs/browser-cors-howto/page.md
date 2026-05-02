@@ -46,22 +46,7 @@ If you see a JSON response with `"authority": "admin"`, CORS is working. No serv
 
 A minimal example using the Fetch API (works in any framework):
 
-```javascript test-example
-const SERVER = "http://localhost:6363";
-const AUTH = "Basic " + btoa("admin:root");
-
-async function getDocuments(database, type) {
-  const response = await fetch(
-    `${SERVER}/api/document/admin/${database}?type=${type}&as_list=true`,
-    { headers: { "Authorization": AUTH, "Accept": "application/json" } }
-  );
-  if (!response.ok) throw new Error(`${response.status}: ${await response.text()}`);
-  return response.json();
-}
-
-// Usage
-const products = await getDocuments("MyDatabase", "Product");
-console.log(products);
+```javascript test-example id="browser-fetch" fixture="docs-test" file="examples/browser-fetch.example.ts"
 ```
 
 ## Step 3 — Insert a document from the browser

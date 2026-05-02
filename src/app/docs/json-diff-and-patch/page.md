@@ -356,10 +356,7 @@ The diff and patch endpoints are also available anonymously on the public data s
 The endpoint at data.terminusdb.org is for non-production and exploratory use only. It is deployed with very limited memory to prevent abuse and is provided without any guarantees whatsoever. Do not rely on it for production applications. Availability is not guaranteed.
 {% /callout %}
 
-```bash test-example id="diff-public-demo"
-curl -X POST https://data.terminusdb.org/api/diff \
-  -H "Content-Type: application/json" \
-  -d '{"before": {"name": "Alice"}, "after": {"name": "Bob"}}'
+```bash test-example id="diff-public-demo" file="examples/diff-public-demo.example.sh"
 ```
 
 Expected output:
@@ -367,10 +364,7 @@ Expected output:
 {"name": {"@after":"Bob", "@before":"Alice", "@op":"SwapValue"}}
 ```
 
-```bash test-example id="patch-public-demo"
-curl -X POST https://data.terminusdb.org/api/patch \
-  -H "Content-Type: application/json" \
-  -d '{"before": {"name": "Alice"}, "patch": {"name": {"@op": "SwapValue", "@before": "Alice", "@after": "Bob"}}}'
+```bash test-example id="patch-public-demo" file="examples/patch-public-demo.example.sh"
 ```
 
 Expected output:
@@ -443,9 +437,7 @@ An example of a payload comparing only dataversions:
 
 #### Diff examples using curl
 
-```bash test-example id="diff-swap-with-keep"
-curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/diff' -d \
-  '{ "before" : { "asdf" : "foo", "fdsa" : "bar"}, "after" : { "asdf" : "bar", "fdsa" : "bar"}, "keep" : { "fdsa" : true}}'
+```bash test-example id="diff-swap-with-keep" file="examples/diff-swap-with-keep.example.sh"
 ```
 
 Expected output:
@@ -456,9 +448,7 @@ Expected output:
 }
 ```
 
-```bash test-example id="diff-array-object-swap"
-curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/diff' -d \
-  '{ "before" : [{ "asdf" : "foo"}], "after" : [{ "asdf" : "bar"}]}'
+```bash test-example id="diff-array-object-swap" file="examples/diff-array-object-swap.example.sh"
 ```
 
 Expected output:
@@ -466,9 +456,7 @@ Expected output:
 [{"asdf": {"@after":"bar", "@before":"foo", "@op":"SwapValue"}}]
 ```
 
-```bash test-example id="diff-list-append"
-curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/diff' -d \
-  '{ "before" : [0,1,2], "after" : [0,1,2,3]}'
+```bash test-example id="diff-list-append" file="examples/diff-list-append.example.sh"
 ```
 
 Expected output:
@@ -485,9 +473,7 @@ Expected output:
 }
 ```
 
-```bash test-example id="diff-list-append-copy-value"
-curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/diff' -d \
-  '{ "before" : [0,1,2], "after" : [0,1,2,3], "copy_value" : true}'
+```bash test-example id="diff-list-append-copy-value" file="examples/diff-list-append-copy-value.example.sh"
 ```
 
 Expected output:
@@ -505,9 +491,7 @@ Expected output:
 }
 ```
 
-```bash test-example id="diff-nested-object-swap"
-curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/diff' -d \
-  '{ "before" : { "asdf" : { "fdsa" : "quux"}}, "after" : { "asdf" : { "fdsa" : "quuz" }}}'
+```bash test-example id="diff-nested-object-swap" file="examples/diff-nested-object-swap.example.sh"
 ```
 
 Expected output:
@@ -534,11 +518,9 @@ Resulting in the following document:
 
 #### Patch examples using curl
 
-```bash test-example id="patch-nested-object"
-curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/patch' -d \
-   '{ "before" : { "alpha" : 1, "asdf" : { "fdsa" : "quux"}}, "patch" : {
-      "asdf": {"fdsa": {"@after":"quuz", "@before":"quux", "@op":"SwapValue"}}
-}}'
+Apply a patch that swaps a nested field value:
+
+```bash test-example id="patch-nested-object" file="examples/patch-nested-object.example.sh"
 ```
 
 Expected output:
@@ -546,18 +528,9 @@ Expected output:
 {"alpha":1, "asdf": {"fdsa":"quuz"}}
 ```
 
-```bash test-example id="patch-list-append"
-curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/patch' -d '
-{ "before" : [0,1,2], "patch" : {
-  "@op":"CopyList",
-  "@rest": {
-    "@after": [3 ],
-    "@before": [],
-    "@op":"SwapList",
-    "@rest": {"@op":"KeepList"}
-  },
-  "@to":3
-}}'
+Append an element to a list using a `CopyList` + `SwapList` patch:
+
+```bash test-example id="patch-list-append" file="examples/patch-list-append.example.sh"
 ```
 
 Expected output:

@@ -14,5 +14,7 @@ set -e
 
 TERMINUSDB_URL="${TERMINUSDB_URL:-http://localhost:6363}"
 
+# region: display
 curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/diff' -d \
   '{ "before" : [0,1,2], "after" : [0,1,2,3]}'
+# endregion

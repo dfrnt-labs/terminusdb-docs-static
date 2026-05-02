@@ -14,6 +14,7 @@ set -e
 
 TERMINUSDB_URL="${TERMINUSDB_URL:-http://localhost:6363}"
 
+# region: display
 curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/patch' -d '
 { "before" : [0,1,2], "patch" : {
   "@op":"CopyList",
@@ -25,3 +26,4 @@ curl -X POST -H "Content-Type: application/json" 'http://localhost:6363/api/patc
   },
   "@to":3
 }}'
+# endregion
