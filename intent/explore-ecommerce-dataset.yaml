@@ -34,7 +34,7 @@ blocks:
     action: "List schema types in ecommerce database"
     expected_outcome:
       type: response_body
-      value: "Array of 6 items: @context + Category, Customer, Order, OrderLine, Product"
+      value: "Array of 5 items: Category, Customer, Order, OrderLine, Product"
       tolerance: count_gte
     depends_on: 0
     skip_reason: null

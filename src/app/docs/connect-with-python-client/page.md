@@ -65,7 +65,7 @@ No schema needed — insert any dict with `raw_json=True` and give it a human-re
 ```python test-example id="py-quickstart-create-db" fixture="docs-test"
 db = os.environ.get("TERMINUSDB_DB", "MyDatabase")
 
-client.create_database(db, label=db, description="Python quickstart", schema=False)
+client.create_database(db, label=db, description="Python quickstart", include_schema=False)
 
 result = client.insert_document(
     {"@id": "terminusdb:///data/jane", "name": "Jane Smith", "email": "jane@example.com", "age": 30},
@@ -121,10 +121,7 @@ This is the moment. TerminusDB can show you exactly what changed between branche
 
 ```python test-example id="py-quickstart-diff"
 # Compare main to feature — what changed?
-diff = client.diff_version(
-    f"admin/{os.environ.get('TERMINUSDB_DB', 'MyDatabase')}/local/branch/main",
-    f"admin/{os.environ.get('TERMINUSDB_DB', 'MyDatabase')}/local/branch/feature",
-)
+diff = client.diff_version("main", "feature")
 
 import json
 print("Changes between main and feature:")

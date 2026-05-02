@@ -16,8 +16,8 @@
  *   node scripts/docs-example-tests/extract-examples.mjs
  */
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs"
-import { join, relative } from "node:path"
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from "node:fs"
+import { join, relative, dirname } from "node:path"
 import { fileURLToPath } from "node:url"
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url))
@@ -76,7 +76,50 @@ function parseInfoString(infoString) {
 }
 
 /**
+ * Map language identifiers to file extensions for colocated example lookup.
+ */
+const LANGUAGE_EXTENSIONS = {
+  python: "py",
+  javascript: "js",
+  js: "js",
+  typescript: "ts",
+  ts: "ts",
+  bash: "sh",
+  shell: "sh",
+  curl: "sh",
+}
+
+/**
+ * Check if a colocated example file exists for a given example ID.
+ *
+ * Convention: colocated files live at:
+ *   <page-directory>/examples/<id>.example.<ext>
+ *
+ * If found, returns the file's content. Otherwise returns null.
+ */
+function findColocatedExample(filePath, id, language) {
+  const ext = LANGUAGE_EXTENSIONS[language]
+  if (!ext) return null
+
+  const pageDir = dirname(filePath)
+  const examplePath = join(pageDir, "examples", `${id}.example.${ext}`)
+
+  if (existsSync(examplePath)) {
+    return {
+      code: readFileSync(examplePath, "utf-8"),
+      colocated_file: relative(REPO_ROOT, examplePath),
+    }
+  }
+  return null
+}
+
+/**
  * Extract all test-example code blocks from a markdown file.
+ *
+ * For each block, checks if a colocated example file exists at
+ * <page-dir>/examples/<id>.example.<ext>. If so, uses the colocated
+ * file's content (which includes connection preamble) instead of the
+ * inline page code (which may be a snippet without context).
  */
 function extractExamples(filePath) {
   const content = readFileSync(filePath, "utf-8")
@@ -105,14 +148,29 @@ function extractExamples(filePath) {
           i++
         }
 
-        examples.push({
-          id: meta.id,
-          language: meta.language,
-          source_file: relativePath,
-          line: startLine,
-          code: codeLines.join("\n"),
-          ...(meta.fixture && { fixture: meta.fixture }),
-        })
+        // Check for colocated example file (self-contained version)
+        const colocated = findColocatedExample(filePath, meta.id, meta.language)
+
+        if (colocated) {
+          examples.push({
+            id: meta.id,
+            language: meta.language,
+            source_file: relativePath,
+            colocated_file: colocated.colocated_file,
+            line: startLine,
+            code: colocated.code,
+            ...(meta.fixture && { fixture: meta.fixture }),
+          })
+        } else {
+          examples.push({
+            id: meta.id,
+            language: meta.language,
+            source_file: relativePath,
+            line: startLine,
+            code: codeLines.join("\n"),
+            ...(meta.fixture && { fixture: meta.fixture }),
+          })
+        }
       }
     }
     i++

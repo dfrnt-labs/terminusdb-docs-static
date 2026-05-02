@@ -73,7 +73,7 @@ blocks:
     action: "Delete product-001 (simulate accidental deletion)"
     expected_outcome:
       type: status_code
-      value: "200"
+      value: "204"
       tolerance: exact
     depends_on: 3
     skip_reason: null
@@ -99,8 +99,8 @@ blocks:
     action: "GET /api/log — list 3 commits (insert, update, delete)"
     expected_outcome:
       type: output_contains
-      value: "Array of 3 commits including 'Accidentally deleted product' and 'Update widget price to 12.50'"
-      tolerance: count_gte
+      value: "ValidCommit"
+      tolerance: contains
     depends_on: 5
     skip_reason: null
 

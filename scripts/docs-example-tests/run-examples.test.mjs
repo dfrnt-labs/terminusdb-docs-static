@@ -122,34 +122,24 @@ async function runJavaScript(code) {
 
 /**
  * Subprocess fallback for JS examples that use `import` statements.
+ * Writes as .mjs to support ESM syntax natively.
  */
 function runJavaScriptSubprocess(code) {
-  const wrapper = `
-const { WOQLClient, WOQL } = require("terminusdb");
-
-const TERMINUSDB_URL = "${SERVER_URL}";
-const TERMINUSDB_USER = "${AUTH_USER}";
-const TERMINUSDB_KEY = "${AUTH_KEY}";
-const TERMINUSDB_DB = "${TEST_DB}";
-
-const client = new WOQLClient("${SERVER_URL}", {
-  user: "${AUTH_USER}",
-  organization: "${AUTH_USER}",
-  key: "${AUTH_KEY}",
-});
-
-(async () => {
-${code}
-})().catch(e => { console.error(e); process.exit(1); });
-`
-  const tmpFile = join(__dirname, "_tmp_example.cjs")
-  writeFileSync(tmpFile, wrapper)
+  const tmpFile = join(__dirname, "_tmp_example.mjs")
+  writeFileSync(tmpFile, code)
   try {
     execSync(`node ${tmpFile}`, {
       cwd: dirname(MANIFEST_PATH),
       timeout: 15000,
       encoding: "utf-8",
       stdio: ["pipe", "pipe", "pipe"],
+      env: {
+        ...process.env,
+        TERMINUSDB_URL: SERVER_URL,
+        TERMINUSDB_USER: AUTH_USER,
+        TERMINUSDB_KEY: AUTH_KEY,
+        TERMINUSDB_DB: TEST_DB,
+      },
     })
   } finally {
     if (existsSync(tmpFile)) unlinkSync(tmpFile)
@@ -191,6 +181,13 @@ ${code}
       timeout: 15000,
       encoding: "utf-8",
       stdio: ["pipe", "pipe", "pipe"],
+      env: {
+        ...process.env,
+        TERMINUSDB_URL: SERVER_URL,
+        TERMINUSDB_USER: AUTH_USER,
+        TERMINUSDB_KEY: AUTH_KEY,
+        TERMINUSDB_DB: TEST_DB,
+      },
     })
   } finally {
     if (existsSync(tmpFile)) unlinkSync(tmpFile)
@@ -236,8 +233,13 @@ function runBash(code) {
 
 /**
  * Route a code block to the appropriate runner.
+ * If the example declares a fixture, ensure a clean database state first.
  */
-function runExample(example) {
+async function runExample(example) {
+  if (example.fixture === "docs-test") {
+    await deleteTestDb()
+  }
+
   switch (example.language) {
     case "javascript":
     case "js":

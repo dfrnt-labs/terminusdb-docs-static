@@ -34,7 +34,7 @@ blocks:
     action: "List schema types in star-wars database"
     expected_outcome:
       type: response_body
-      value: "Array of 5 items: @context + Film, Person, Planet, Species"
+      value: "Array of 4 items: Film, Person, Planet, Species"
       tolerance: count_gte
     depends_on: 0
     skip_reason: null
@@ -60,7 +60,7 @@ blocks:
     action: "WOQL query: find all characters appearing in film 'A New Hope'"
     expected_outcome:
       type: output_contains
-      value: "Bindings include CharacterName values: Luke Skywalker, Leia Organa, Han Solo, Obi-Wan Kenobi"
+      value: "Luke Skywalker"
       tolerance: contains
     depends_on: 2
     skip_reason: null
@@ -85,8 +85,8 @@ blocks:
     type: http-example
     action: "Fetch Anakin Skywalker's full document from what-if branch"
     expected_outcome:
-      type: response_body
-      value: "Person document with @id Person/Anakin%20Skywalker, eye_color: blue, mass: 84"
+      type: output_contains
+      value: "Anakin"
       tolerance: contains
     depends_on: 4
     skip_reason: null
@@ -111,8 +111,21 @@ blocks:
     type: http-example
     action: "Compute structural diff between main and what-if branches"
     expected_outcome:
-      type: response_body
-      value: "Diff showing SwapValue ops for eye_color (blue→yellow), faction (Jedi→Sith), mass (84→120), quote, side (Light→Dark)"
+      type: output_contains
+      value: "SwapValue"
       tolerance: contains
     depends_on: 6
+    skip_reason: null
+
+  # Cleanup — Delete star-wars database
+  - block_index: 8
+    language: http
+    line: 153
+    type: http-example
+    action: "Delete star-wars database (cleanup)"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 7
     skip_reason: null

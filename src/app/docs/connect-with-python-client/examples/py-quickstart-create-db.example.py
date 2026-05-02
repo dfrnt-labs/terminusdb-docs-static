@@ -11,7 +11,7 @@ client.connect(team=team, key=key)
 
 db = os.environ.get("TERMINUSDB_DB", "MyDatabase")
 
-client.create_database(db, label=db, description="Python quickstart", schema=False)
+client.create_database(db, label=db, description="Python quickstart", include_schema=False)
 
 result = client.insert_document(
     {"@id": "terminusdb:///data/jane", "name": "Jane Smith", "email": "jane@example.com", "age": 30},

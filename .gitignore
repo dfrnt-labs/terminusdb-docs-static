@@ -50,5 +50,7 @@ next-env.d.ts
 
 # generated test artifacts
 /scripts/docs-example-tests/intent-assertions.json
+/scripts/docs-example-tests/examples-manifest.json
 /scripts/docs-example-tests/coverage-audit.json
 src/app/docs/*/tests/blocks.test.mjs
+/test-results/

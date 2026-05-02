@@ -11,10 +11,7 @@ client = Client(server)
 client.connect(team=team, key=key, db=db)
 
 # Compare main to feature — what changed?
-diff = client.diff_version(
-    f"{team}/{db}/local/branch/main",
-    f"{team}/{db}/local/branch/feature",
-)
+diff = client.diff_version("main", "feature")
 
 print("Changes between main and feature:")
 print(json.dumps(diff, indent=2))

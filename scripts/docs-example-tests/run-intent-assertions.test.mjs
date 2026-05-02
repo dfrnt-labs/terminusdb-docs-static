@@ -427,6 +427,49 @@ async function deleteDb(dbName) {
   }
 }
 
+/**
+ * Detect and execute quickstart-clone operations from page content.
+ * Returns the list of database names that were cloned.
+ */
+async function executeClones(content) {
+  const cloned = []
+  const clonePattern = /\{%\s*quickstart-clone\s+((?:[^%]|%(?!\}))*?)\/?%\}/g
+  let match
+
+  while ((match = clonePattern.exec(content)) !== null) {
+    const attrs = parseAttributes(match[1])
+    const remoteUrl = attrs.remoteUrl || "https://data.terminusdb.org/public/star-wars"
+    const localPath = attrs.localPath || "star-wars"
+
+    await deleteDb(localPath)
+
+    const cloneUrl = `${SERVER_URL}/api/clone/${AUTH_USER}/${localPath}`
+    const response = await fetch(cloneUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: buildAuthHeader(),
+        "Authorization-Remote": "Token anonymous_user_do_not_delete",
+      },
+      body: JSON.stringify({
+        remote_url: remoteUrl,
+        label: localPath,
+        comment: `Cloned for intent test`,
+      }),
+      signal: AbortSignal.timeout(60000),
+    })
+
+    if (response.ok) {
+      cloned.push(localPath)
+    } else {
+      const text = await response.text()
+      throw new Error(`Clone failed for ${localPath}: ${response.status} ${text}`)
+    }
+  }
+
+  return cloned
+}
+
 async function executeStep(step) {
   const url = `${SERVER_URL}${step.path}`
   const headers = { Authorization: buildAuthHeader() }
@@ -501,17 +544,41 @@ describe("intent-driven HTTP assertions", function () {
             return
           }
 
-          // Detect databases the sequence creates and pre-delete
+          // Execute any quickstart-clone operations first
+          const clonedDbs = await executeClones(content)
+
+          // Detect databases the sequence creates via HTTP and pre-delete
           const createdDbs = detectCreatedDatabases(steps)
           for (const db of createdDbs) {
-            await deleteDb(db)
+            if (!clonedDbs.includes(db)) {
+              await deleteDb(db)
+            }
+          }
+
+          // Detect databases USED but not CREATED — pre-create them as fixtures
+          const usedDbs = detectUsedDatabases(steps)
+          const allProvidedDbs = [...createdDbs, ...clonedDbs]
+          for (const db of usedDbs) {
+            if (!allProvidedDbs.includes(db)) {
+              await deleteDb(db)
+              const createUrl = `${SERVER_URL}/api/db/${AUTH_USER}/${db}`
+              await fetch(createUrl, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: buildAuthHeader(),
+                },
+                body: JSON.stringify({ label: db, comment: "Intent test fixture" }),
+                signal: AbortSignal.timeout(10000),
+              })
+              allProvidedDbs.push(db)
+            }
           }
 
           // Setup fixture if needed
           const fixture = steps.find(s => s.fixture)?.fixture
-          if (fixture && !createdDbs.includes(fixture)) {
+          if (fixture && !allProvidedDbs.includes(fixture)) {
             await deleteDb(fixture)
-            // Create fixture DB
             const createUrl = `${SERVER_URL}/api/db/${AUTH_USER}/${fixture}`
             await fetch(createUrl, {
               method: "POST",
@@ -524,10 +591,23 @@ describe("intent-driven HTTP assertions", function () {
             })
           }
 
-          // Build assertion lookup by block_index
+          // Build assertion lookup by step index.
+          // Steps = only RUNNABLE http-examples (runnable=false are skipped).
+          // Assertions use block_index from the intent YAML (includes all blocks).
+          const intentPath = join(REPO_ROOT, "intent", `${slug}.yaml`)
+          const runnableBlockIndices = detectRunnableBlockIndices(content, intentPath)
           const assertionMap = new Map()
-          for (const a of pageData.assertions) {
-            assertionMap.set(a.block_index, a)
+
+          if (runnableBlockIndices.length > 0) {
+            for (let si = 0; si < runnableBlockIndices.length; si++) {
+              const bi = runnableBlockIndices[si]
+              const assertion = pageData.assertions.find(a => a.block_index === bi)
+              if (assertion) assertionMap.set(si, assertion)
+            }
+          } else {
+            // Fallback: 1:1 mapping by order
+            const sorted = [...pageData.assertions].sort((a, b) => a.block_index - b.block_index)
+            sorted.forEach((a, i) => assertionMap.set(i, a))
           }
 
           const results = []
@@ -587,11 +667,11 @@ describe("intent-driven HTTP assertions", function () {
               }
             }
           } finally {
-            // Cleanup
-            for (const db of createdDbs) {
+            // Cleanup all databases used by the test
+            for (const db of allProvidedDbs) {
               await deleteDb(db)
             }
-            if (fixture && !createdDbs.includes(fixture)) {
+            if (fixture && !allProvidedDbs.includes(fixture)) {
               await deleteDb(fixture)
             }
           }
@@ -620,6 +700,53 @@ describe("intent-driven HTTP assertions", function () {
 })
 
 /**
+ * Determine which intent YAML block_indices correspond to runnable http-examples.
+ *
+ * Parses the page content to find ALL http-example tags in order, tracking which
+ * are runnable (not marked runnable=false). Then maps the position of each
+ * http-example tag to the corresponding intent YAML block_index.
+ *
+ * Returns the block_index values for runnable http-examples only.
+ */
+function detectRunnableBlockIndices(content, intentPath) {
+  // Get the ordered list of http-example block_indices from the intent YAML
+  let httpBlockIndices = []
+  if (intentPath && existsSync(intentPath)) {
+    try {
+      const intentContent = readFileSync(intentPath, "utf-8")
+      const blocks = []
+      const blockPattern = /- block_index:\s*(\d+)[\s\S]*?type:\s*(\S+)/g
+      let bm
+      while ((bm = blockPattern.exec(intentContent)) !== null) {
+        blocks.push({ block_index: Number(bm[1]), type: bm[2] })
+      }
+      httpBlockIndices = blocks
+        .filter(b => b.type === "http-example")
+        .map(b => b.block_index)
+    } catch { /* fall through */ }
+  }
+
+  if (httpBlockIndices.length === 0) return []
+
+  // Parse page content to find http-example tags and which are runnable
+  const tagPattern = /\{%\s*http-example(?:-cleanup)?\s+((?:[^%]|%(?!\}))*?)(\/?)\s*%\}/g
+  let match
+  let httpIdx = 0
+  const runnableIndices = []
+
+  while ((match = tagPattern.exec(content)) !== null) {
+    const attrs = parseAttributes(match[1])
+    if (attrs.runnable !== "false") {
+      if (httpIdx < httpBlockIndices.length) {
+        runnableIndices.push(httpBlockIndices[httpIdx])
+      }
+    }
+    httpIdx++
+  }
+  return runnableIndices
+}
+
+/**
  * Detect databases that a sequence will CREATE via POST /api/db/{org}/{name}.
  */
 function detectCreatedDatabases(steps) {
@@ -633,4 +760,19 @@ function detectCreatedDatabases(steps) {
     }
   }
   return [...new Set(dbs)]
+}
+
+/**
+ * Detect databases that are USED (referenced in paths) but may not be explicitly created.
+ */
+function detectUsedDatabases(steps) {
+  const dbs = new Set()
+  const dbPathPattern = /^\/api\/(?:document|branch|diff|apply|log|history|patch|reset|squash)\/[^/]+\/([^/?_][^/?]*)/
+  for (const step of steps) {
+    if (step.path) {
+      const m = step.path.match(dbPathPattern)
+      if (m) dbs.add(m[1])
+    }
+  }
+  return [...dbs]
 }

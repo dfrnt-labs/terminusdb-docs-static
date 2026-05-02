@@ -33,7 +33,7 @@
     "test:coverage": "node scripts/docs-example-tests/coverage-audit.mjs",
     "test:browser": "npx playwright test --config scripts/docs-example-tests/playwright.config.mjs",
     "test:all": "npm run test:headings && npm run test:nav && npm run test:inline-annotations && npm run test:links && npm run test:branding && npm run test:stubs && npm run test:tags && npm run test:orphan-examples && npm run test:domain && npm run lint:no-com && npm run test:http-examples",
-    "test:integration": "npm run test:http-examples && npm run test:intent-assertions && npm run test:browser && npm run test:coverage",
+    "test:integration": "npm run test:http-examples && npm run test:intent-assertions && npm run test:browser && node scripts/docs-example-tests/coverage-audit.mjs --ci",
     "generate:woql": "node scripts/generate-woql-reference.mjs",
     "pr": "npm run lint && npx tsc --noEmit && npm run test:all"
   },
