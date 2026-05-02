@@ -48,5 +48,7 @@ next-env.d.ts
 # throwaway scripts
 /scripts/tmp/
 
-# generated test manifests
+# generated test artifacts
 /scripts/docs-example-tests/intent-assertions.json
+/scripts/docs-example-tests/coverage-audit.json
+src/app/docs/*/tests/blocks.test.mjs

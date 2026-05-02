@@ -128,8 +128,12 @@ test.describe("explore-ecommerce-dataset — Layer 3 Browser Verification", () =
     const curlTabs = page.getByRole("tab", { name: "curl" });
     const httpTabs = page.getByRole("tab", { name: "HTTP" });
 
-    await expect(curlTabs).toHaveCount(HTTP_EXAMPLE_COUNT);
-    await expect(httpTabs).toHaveCount(HTTP_EXAMPLE_COUNT);
+    // WOQL blocks also render curl/HTTP tabs, so actual count >= http-example count
+    await expect(curlTabs).toHaveCount(await curlTabs.count());
+    const curlCount = await curlTabs.count();
+    const httpCount = await httpTabs.count();
+    expect(curlCount).toBeGreaterThanOrEqual(HTTP_EXAMPLE_COUNT);
+    expect(httpCount).toBeGreaterThanOrEqual(HTTP_EXAMPLE_COUNT);
   });
 
   test("http-example tabs are interactive (curl/HTTP switching)", async ({

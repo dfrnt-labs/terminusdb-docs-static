@@ -1,5 +1,5 @@
 # Intent annotations for: get-started
-# Annotated: 2026-05-01
+# Annotated: 2026-05-02
 # Source: src/app/docs/get-started/page.md
 #
 # This page teaches: Docker start, clone, branch, edit, diff, merge (6-step quickstart)
@@ -7,8 +7,8 @@
 # Dataset: Star Wars from data.terminusdb.org (cloned via quickstart-clone component)
 
 page: get-started
-total_blocks: 15
-annotated: 15
+total_blocks: 14
+annotated: 14
 needs_manual: 0
 
 blocks:
@@ -65,62 +65,49 @@ blocks:
     depends_on: 1
     skip_reason: null
 
-  # Step 4 — Fetch Anakin's document (curl to file)
+  # Step 4 — Fetch Anakin's document
   - block_index: 4
-    language: bash
+    language: http
     line: 74
-    type: fenced
-    action: "Fetch Anakin Skywalker document (People/11) from what-if branch to anakin.json"
+    type: http-example
+    action: "Fetch Anakin Skywalker document (Person/Anakin%20Skywalker) from what-if branch"
     expected_outcome:
       type: state_change
-      value: "anakin.json file created with Person document JSON"
+      value: "Person document returned with name, eye_color, mass, side, quote fields"
       tolerance: non_empty
-    depends_on: 2
-    skip_reason: null
-
-  # Step 4 — PUT modified document back (curl -d @anakin.json)
-  - block_index: 5
-    language: bash
-    line: 81
-    type: fenced
-    action: "PUT modified Anakin document back to what-if branch (Dark Side version)"
-    expected_outcome:
-      type: output_contains
-      value: "terminusdb:///star-wars/People/11"
-      tolerance: contains
     depends_on: 3
     skip_reason: null
 
-  # Step 4 — Expected response (display only)
-  - block_index: 6
-    language: json
-    line: 89
-    type: fenced
-    action: "Display expected PUT response showing document IRI"
+  # Step 4 — PUT modified document back
+  - block_index: 5
+    language: http
+    line: 78
+    type: http-example
+    action: "PUT modified Anakin document back to what-if branch (Dark Side version)"
     expected_outcome:
-      type: skip
-      value: null
-      tolerance: null
-    depends_on: null
-    skip_reason: display_only
+      type: output_contains
+      value: "terminusdb:///data/Person/Anakin%20Skywalker"
+      tolerance: contains
+    depends_on: 4
+    skip_reason: null
 
   # Step 5 — Diff main vs what-if
-  - block_index: 7
+  - block_index: 6
     language: http
-    line: 103
+    line: 95
     type: http-example
     action: "Compute structural diff between main and what-if branches"
     expected_outcome:
       type: response_body
-      value: '[{"@id": "People/11", "eye_color": {"@op": "SwapValue", "@before": "blue", "@after": "yellow"}, "label": {"@op": "SwapValue", "@before": "Anakin Skywalker", "@after": "Darth Vader"}, "mass": {"@op": "SwapValue", "@before": "84", "@after": "120"}, "skin_colors": {"@op": "SwapValue", "@before": "fair", "@after": "pale"}}]'
+      value: '[{"@id": "Person/Anakin%20Skywalker", "eye_color": {"@op": "SwapValue", "@before": "blue", "@after": "yellow"}, "mass": {"@op": "SwapValue", "@before": 84, "@after": 120}, "quote": {"@op": "SwapValue", "@before": "This is where the fun begins.", "@after": "I am your father."}, "side": {"@op": "SwapValue", "@before": "Light Side", "@after": "Dark Side"}}]'
       tolerance: exact
-    depends_on: 4
+    depends_on: 5
     skip_reason: null
 
   # Step 6 — Merge what-if into main
-  - block_index: 8
+  - block_index: 7
     language: http
-    line: 121
+    line: 113
     type: http-example
     action: "Apply (merge) what-if branch changes into main"
     expected_outcome:
@@ -131,9 +118,9 @@ blocks:
     skip_reason: null
 
   # Step 7 — Delete database (cleanup)
-  - block_index: 9
+  - block_index: 8
     language: http
-    line: 148
+    line: 140
     type: http-example
     action: "Delete star-wars database (cleanup)"
     expected_outcome:
@@ -144,9 +131,9 @@ blocks:
     skip_reason: null
 
   # Step 7 — Stop Docker container (cleanup)
-  - block_index: 10
+  - block_index: 9
     language: bash
-    line: 152
+    line: 144
     type: fenced
     action: "Stop and remove TerminusDB Docker container"
     expected_outcome:
@@ -157,9 +144,9 @@ blocks:
     skip_reason: null
 
   # Troubleshooting — error message display
-  - block_index: 11
+  - block_index: 10
     language: text
-    line: 173
+    line: 165
     type: fenced
     action: "Display 'Connection refused' error message the reader may encounter"
     expected_outcome:
@@ -169,10 +156,10 @@ blocks:
     depends_on: null
     skip_reason: display_only
 
-  # Troubleshooting — fix command (docker run)
-  - block_index: 12
+  # Troubleshooting — fix command (docker start/run)
+  - block_index: 11
     language: bash
-    line: 180
+    line: 172
     type: fenced
     action: "Troubleshooting: restart Docker container with correct config"
     expected_outcome:
@@ -183,9 +170,9 @@ blocks:
     skip_reason: null
 
   # Troubleshooting — expected auth error response
-  - block_index: 13
+  - block_index: 12
     language: json
-    line: 198
+    line: 190
     type: fenced
     action: "Display 401 IncorrectAuthenticationError response the reader may encounter"
     expected_outcome:
@@ -196,9 +183,9 @@ blocks:
     skip_reason: display_only
 
   # Troubleshooting — verify fix command
-  - block_index: 14
+  - block_index: 13
     language: bash
-    line: 205
+    line: 197
     type: fenced
     action: "Troubleshooting: verify server responds after fix"
     expected_outcome:

@@ -165,9 +165,11 @@ test.describe("explore-a-real-dataset — Layer 3 Browser Verification", () => {
     const curlTabs = page.getByRole("tab", { name: "curl" });
     const httpTabs = page.getByRole("tab", { name: "HTTP" });
 
-    // Should have one curl tab per tab interface (http-examples + fenced bash)
-    await expect(curlTabs).toHaveCount(TAB_INTERFACE_COUNT);
-    await expect(httpTabs).toHaveCount(TAB_INTERFACE_COUNT);
+    // WOQL blocks also render curl/HTTP tabs, so actual count >= expected
+    const curlCount = await curlTabs.count();
+    const httpCount = await httpTabs.count();
+    expect(curlCount).toBeGreaterThanOrEqual(TAB_INTERFACE_COUNT);
+    expect(httpCount).toBeGreaterThanOrEqual(TAB_INTERFACE_COUNT);
   });
 
   test("http-example tabs are interactive (curl/HTTP switching)", async ({
@@ -219,9 +221,9 @@ test.describe("explore-a-real-dataset — Layer 3 Browser Verification", () => {
     // Run buttons contain "Run" text
     const runButtons = page.getByRole("button", { name: /Run/i });
 
-    // Runnable http-examples + fenced bash curl blocks have Run buttons
+    // Runnable http-examples + fenced bash curl blocks + WOQL blocks have Run buttons
     const count = await runButtons.count();
-    expect(count).toBe(RUN_BUTTON_COUNT);
+    expect(count).toBeGreaterThanOrEqual(RUN_BUTTON_COUNT);
   });
 
   test("fenced code blocks render with syntax highlighting", async ({

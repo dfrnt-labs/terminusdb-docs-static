@@ -4,14 +4,24 @@
  * generate-tests-from-intent.mjs — Generate standalone per-page Mocha test files
  * from intent YAML + page.md source.
  *
- * Reads the intent YAML for a page, extracts executable code blocks from
- * the corresponding page.md, and generates a self-contained blocks.test.mjs
- * file matching the explore-a-real-dataset pattern.
+ * ARCHITECTURE: Two independent sources, one test.
+ *
+ *   INPUT (what to execute):  page.md code blocks — the exact URLs, methods, bodies
+ *                             the user would type or click. The page IS what we test.
+ *
+ *   ORACLE (what to assert):  intent/<slug>.yaml expected_outcome — independent ground
+ *                             truth about what should happen when the page is correct.
+ *
+ *   TEST:  Execute the page's code → assert against the intent's expected outcome.
+ *          If the page has a typo (wrong URL, wrong type), the test runs the broken
+ *          code, gets a bad response, and FAILS the intent assertion.
+ *          If the intent has a wrong expected value, the test passes execution but
+ *          FAILS the assertion check.
  *
  * Usage:
- *   node scripts/docs-example-tests/generate-tests-from-intent.mjs --page graphql-basics
- *   node scripts/docs-example-tests/generate-tests-from-intent.mjs --page graphql-basics --output src/app/docs/graphql-basics/tests/blocks.test.mjs
- *   node scripts/docs-example-tests/generate-tests-from-intent.mjs --page graphql-basics --dry-run
+ *   node scripts/docs-example-tests/generate-tests-from-intent.mjs --page get-started
+ *   node scripts/docs-example-tests/generate-tests-from-intent.mjs --page get-started --output path/to/test.mjs
+ *   node scripts/docs-example-tests/generate-tests-from-intent.mjs --page get-started --dry-run
  *
  * Supported block types:
  *   - http-example (Markdoc tag): Parsed as HTTP requests with method/path/body
@@ -223,7 +233,31 @@ function parseCurlCommand(curlCode) {
 
   // Extract path (strip scheme + host)
   const pathMatch = rawUrl.match(/https?:\/\/[^/]+(\/\S*)/)
-  const path = pathMatch ? pathMatch[1] : "/"
+  let path = pathMatch ? pathMatch[1] : "/"
+
+  // Handle -G + --data-urlencode: append query params to path
+  // curl -G makes --data-urlencode params become query string (not POST body)
+  const isGetWithParams = normalized.includes(" -G")
+  if (isGetWithParams) {
+    const encodeParams = []
+    const encodePattern = /--data-urlencode\s+"([^"]+)"/g
+    let encMatch
+    while ((encMatch = encodePattern.exec(normalized)) !== null) {
+      // The value is already in key=value format; URL-encode the value part
+      const eqIdx = encMatch[1].indexOf("=")
+      if (eqIdx !== -1) {
+        const key = encMatch[1].slice(0, eqIdx)
+        const val = encMatch[1].slice(eqIdx + 1)
+        encodeParams.push(`${key}=${encodeURIComponent(val)}`)
+      } else {
+        encodeParams.push(encodeURIComponent(encMatch[1]))
+      }
+    }
+    if (encodeParams.length > 0) {
+      const separator = path.includes("?") ? "&" : "?"
+      path = path + separator + encodeParams.join("&")
+    }
+  }
 
   // Extract headers (-H "...")
   const headers = {}
@@ -489,9 +523,99 @@ function extractGraphqlTypeName(queryCode) {
   return match ? match[1] : null
 }
 
+// ── File-body curl helpers ──────────────────────────────────────────────────
+
+/**
+ * Find the prior GET curl block that fetches the document for a PUT @file block.
+ * Looks for the most recent curl block (before this one) that saves output to a file
+ * matching the @file reference.
+ */
+function findPriorGetBlock(intentBlock, allBlocks, intentData) {
+  // Find the file name referenced in this PUT block
+  const thisSourceBlock = allBlocks.find(b =>
+    b.type === "fenced" && (b.language === "bash" || b.language === "sh") &&
+    Math.abs(b.lineNumber - intentBlock.line) <= 2
+  )
+  if (!thisSourceBlock) return null
+  const thisCurl = parseCurlCommand(thisSourceBlock.code)
+  if (!thisCurl || !thisCurl.body || thisCurl.body.type !== "file") return null
+  const targetFile = thisCurl.body.filename
+
+  // Search all prior bash blocks for a curl that outputs to that file
+  const priorBlocks = allBlocks.filter(b =>
+    b.type === "fenced" && (b.language === "bash" || b.language === "sh") &&
+    b.lineNumber < intentBlock.line
+  )
+  for (let i = priorBlocks.length - 1; i >= 0; i--) {
+    const parsed = parseCurlCommand(priorBlocks[i].code)
+    if (parsed && parsed.outputFile === targetFile) {
+      return priorBlocks[i]
+    }
+  }
+  return null
+}
+
+/**
+ * Extract the document ID from a prior GET curl command.
+ * e.g. "curl ... ?id=Person/Anakin%2520Skywalker > anakin.json" → "Person/Anakin%2520Skywalker"
+ *
+ * IMPORTANT: Returns the raw query param value WITHOUT decoding, because the
+ * generated test constructs URLs as literal strings (no re-encoding by fetch).
+ */
+function extractDocIdFromGetCurl(priorGetBlock) {
+  if (!priorGetBlock || !priorGetBlock.code) return null
+  const curlParsed = parseCurlCommand(priorGetBlock.code)
+  if (!curlParsed) return null
+
+  // Extract the id parameter from the URL — use raw string matching, not URLSearchParams
+  // URLSearchParams would decode %2520 → %20, but we need the raw value for the test URL
+  const queryStart = curlParsed.path.indexOf("?")
+  if (queryStart === -1) return null
+  const queryString = curlParsed.path.slice(queryStart + 1)
+
+  // Manual extraction to preserve encoding
+  const idMatch = queryString.match(/(?:^|&)id=([^&]*)/)
+  return idMatch ? idMatch[1] : null
+}
+
+/**
+ * Extract field modifications from the page prose between a GET and PUT curl block.
+ * Looks for patterns like: `field` → `"value"` or `field` → `value`
+ */
+function extractModificationsFromPage(intentBlock, allBlocks, mdContent) {
+  if (!mdContent) return []
+
+  // Find text before this block's line number
+  const mdLines = mdContent.split("\n")
+  const blockLine = intentBlock.line || 0
+  // Look at the 10 lines before the PUT block for edit instructions
+  const contextStart = Math.max(0, blockLine - 12)
+  const contextEnd = blockLine
+  const contextText = mdLines.slice(contextStart, contextEnd).join("\n")
+
+  const modifications = []
+
+  // Pattern: `field_name` → `"value"` or `field` → `value` or `field` → `120`
+  const modPattern = /`(\w+)`\s*→\s*`?"?([^`",]+)"?`?/g
+  let match
+  while ((match = modPattern.exec(contextText)) !== null) {
+    const field = match[1]
+    let value = match[2].trim()
+
+    // Determine if value is a number or string
+    if (/^\d+$/.test(value)) {
+      modifications.push({ accessor: `.${field}`, value })
+    } else {
+      modifications.push({ accessor: `.${field}`, value: JSON.stringify(value) })
+    }
+  }
+
+  return modifications
+}
+
 // ── Generate test file ──────────────────────────────────────────────────────
 
-function generateTestFile(slug, intentData, allBlocks, pageContext) {
+function generateTestFile(slug, intentData, allBlocks, pageContext, mdContent) {
   const lines = []
 
   // Header
@@ -661,6 +785,38 @@ function generateTestFile(slug, intentData, allBlocks, pageContext) {
   lines.push(`// Tests — Exact code blocks from page.md`)
   lines.push(`// ============================================================================`)
   lines.push(``)
+  // Detect branch creation and DB deletion in intent blocks
+  const createsBranch = intentData.blocks.some(b =>
+    b.action && b.action.toLowerCase().includes("branch") &&
+    b.action.toLowerCase().includes("create")
+  )
+  const deletesDb = intentData.blocks.some(b =>
+    !b.skip_reason && b.action &&
+    b.action.toLowerCase().includes("delete") &&
+    b.action.toLowerCase().includes("database")
+  )
+
+  // Collect branch names that will be created during the test
+  const branchNames = new Set()
+  if (createsBranch && pageContext.dbName) {
+    for (const block of intentData.blocks) {
+      if (!block.action) continue
+      const nameMatch = block.action.match(/[Cc]reate branch ['"]?([\w-]+)['"]?/)
+      if (nameMatch) branchNames.add(nameMatch[1])
+    }
+    for (const block of allBlocks) {
+      if (block.type === "http-example" && block.path && block.path.includes("/api/branch/")) {
+        // Path is like /api/branch/admin/star-wars/local/branch/what-if
+        // The branch name is the LAST segment after the last /branch/
+        const lastBranchIdx = block.path.lastIndexOf("/branch/")
+        if (lastBranchIdx !== -1) {
+          const branchName = block.path.slice(lastBranchIdx + "/branch/".length).split("/")[0]
+          if (branchName && branchName !== "main") branchNames.add(branchName)
+        }
+      }
+    }
+  }
+
   lines.push(`describe("${slug} — page code blocks", function () {`)
   lines.push(`  let serverOk = false`)
   lines.push(``)
@@ -673,26 +829,27 @@ function generateTestFile(slug, intentData, allBlocks, pageContext) {
     lines.push(`    const dbReady = await ensureDbExists()`)
     lines.push(`    if (!dbReady) return this.skip()`)
   }
+  // Add branch pre-cleanup in before() hook
+  if (branchNames.size > 0) {
+    lines.push(``)
+    lines.push(`    // Clean up branches from prior test runs`)
+    for (const branch of branchNames) {
+      lines.push(`    await deleteBranch(\`\${DB_PATH}/local/branch/${branch}\`)`)
+    }
+    lines.push(`    await new Promise(r => setTimeout(r, 8000)) // TerminusDB eventual consistency for branch deletion`)
+  }
   lines.push(`  })`)
   lines.push(``)
 
-  // After hook for cleanup (delete branches created during test)
-  // But only if the test doesn't already delete the DB itself
-  const createsBranch = intentData.blocks.some(b =>
-    b.action && b.action.toLowerCase().includes("branch") &&
-    b.action.toLowerCase().includes("create")
-  )
-  const deletesDb = intentData.blocks.some(b =>
-    !b.skip_reason && b.action &&
-    b.action.toLowerCase().includes("delete") &&
-    b.action.toLowerCase().includes("database")
-  )
+  // After hook for cleanup — only if the test doesn't already delete the DB itself
   if (createsBranch && pageContext.dbName && !deletesDb) {
     lines.push(`  after(async function () {`)
     lines.push(`    this.timeout(30000)`)
     lines.push(`    if (!serverOk) return`)
     lines.push(`    // Clean up branches created during test`)
-    lines.push(`    await deleteBranch(\`\${DB_PATH}/local/branch/what-if\`)`)
+    for (const branch of branchNames) {
+      lines.push(`    await deleteBranch(\`\${DB_PATH}/local/branch/${branch}\`)`)
+    }
     lines.push(`  })`)
     lines.push(``)
   }
@@ -714,55 +871,41 @@ function generateTestFile(slug, intentData, allBlocks, pageContext) {
     lines.push(``)
 
     if (intentBlock.type === "http-example") {
-      // Parse method and path from intent action field
-      const actionMatch = intentBlock.action?.match(/^(GET|POST|PUT|DELETE|PATCH)\s+(\S+)/)
-      let method = actionMatch ? actionMatch[1] : null
-      let path = actionMatch ? actionMatch[2] : null
-
-      // Also try to find it in the allBlocks by matching line number or block index
+      // INPUT: Parse method, path, body exclusively from the PAGE source block
+      // The page is what the user executes — the test must run exactly that.
       const sourceBlock = allBlocks.find(b =>
         b.type === "http-example" && Math.abs(b.lineNumber - intentBlock.line) <= 2
       )
 
-      if (sourceBlock) {
-        method = method || sourceBlock.method
-        path = path || sourceBlock.path
-      }
-
-      if (!method || !path) {
+      if (!sourceBlock || !sourceBlock.method || !sourceBlock.path) {
         lines.push(`  it("Block ${blockIdx}: ${escapedLabel}", async function () {`)
-        lines.push(`    // Could not parse method/path from intent or page source`)
+        lines.push(`    // Could not find http-example source block in page.md at line ${intentBlock.line}`)
         lines.push(`    this.skip()`)
         lines.push(`  })`)
         lines.push(``)
         continue
       }
 
-      // Clean path — strip query params trailing characters that might be artifacts
-      const cleanPath = path.replace(/[—–].*$/, "").trim()
+      const method = sourceBlock.method
+      const path = sourceBlock.path
 
       lines.push(`  it("Block ${blockIdx}: ${escapedLabel}", async function () {`)
       lines.push(`    this.timeout(30000)`)
 
-      // For branch creation: clean up existing branch first (idempotent test setup)
-      if (method === "POST" && cleanPath.includes("/api/branch/")) {
-        const branchPath = cleanPath.replace("/api/branch/", "")
+      // Branch creation may be slow after fresh clone
+      if (method === "POST" && path.includes("/api/branch/")) {
         lines.push(`    this.timeout(120000) // branch creation can be slow after fresh clone`)
-        lines.push(`    // Clean up branch from previous test run if it exists`)
-        lines.push(`    await deleteBranch("${branchPath}")`)
-        lines.push(`    await new Promise(r => setTimeout(r, 5000)) // TerminusDB eventual consistency`)
-        lines.push(``)
       }
 
-      // Generate the API call
-      if (sourceBlock && sourceBlock.body) {
-        lines.push(`    const res = await apiCall("${method}", "${cleanPath}", ${JSON.stringify(sourceBlock.body)})`)
+      // Generate the API call — EXACTLY what the page says
+      if (sourceBlock.body) {
+        lines.push(`    const res = await apiCall("${method}", "${path}", ${JSON.stringify(sourceBlock.body)})`)
       } else {
-        lines.push(`    const res = await apiCall("${method}", "${cleanPath}")`)
+        lines.push(`    const res = await apiCall("${method}", "${path}")`)
       }
       lines.push(``)
 
-      // Generate assertions
+      // ORACLE: Generate assertions from intent YAML expected_outcome
       const assertionLines = buildHttpAssertionCode(intentBlock)
       if (assertionLines) {
         for (const line of assertionLines) {
@@ -774,6 +917,7 @@ function generateTestFile(slug, intentData, allBlocks, pageContext) {
       lines.push(``)
 
     } else if (intentBlock.language === "graphql") {
+      // INPUT: Parse GraphQL query from page source
       const sourceBlock = allBlocks.find(b =>
         b.type === "fenced" && b.language === "graphql" &&
         Math.abs(b.lineNumber - intentBlock.line) <= 2
@@ -792,6 +936,7 @@ function generateTestFile(slug, intentData, allBlocks, pageContext) {
       const escapedQuery = sourceBlock.code.replace(/\\/g, "\\\\").replace(/`/g, "\\`").replace(/\$/g, "\\$")
 
       lines.push(`  it("Block ${blockIdx}: ${escapedLabel}", async function () {`)
+      // INPUT: Execute exact query from page
       if (hasGraphql && pageContext.graphqlEndpoint) {
         lines.push(`    const query = \`${escapedQuery}\``)
         lines.push(`    const res = await graphqlQuery(query)`)
@@ -801,6 +946,7 @@ function generateTestFile(slug, intentData, allBlocks, pageContext) {
       }
       lines.push(``)
 
+      // ORACLE: Assert against intent expected_outcome
       const assertionCode = buildGraphqlAssertions(intentBlock, sourceBlock.code, typeName)
       lines.push(assertionCode)
 
@@ -808,7 +954,7 @@ function generateTestFile(slug, intentData, allBlocks, pageContext) {
       lines.push(``)
 
     } else if (intentBlock.language === "bash" || intentBlock.language === "curl") {
-      // Find the matching fenced code block
+      // INPUT: Find the matching fenced code block from page source
       const sourceBlock = allBlocks.find(b =>
         b.type === "fenced" && (b.language === "bash" || b.language === "sh") &&
         Math.abs(b.lineNumber - intentBlock.line) <= 2
@@ -823,7 +969,7 @@ function generateTestFile(slug, intentData, allBlocks, pageContext) {
         continue
       }
 
-      // Try to parse as curl command
+      // INPUT: Parse curl command from page source — execute exactly what the page says
       const curlParsed = parseCurlCommand(sourceBlock.code)
 
       if (curlParsed) {
@@ -831,33 +977,38 @@ function generateTestFile(slug, intentData, allBlocks, pageContext) {
         lines.push(`    this.timeout(30000)`)
 
         // Handle file-based body (@anakin.json) — need to fetch document first
+        // The page tells the user to: (1) fetch to file, (2) edit, (3) PUT @file
+        // In test context, we simulate this by: fetch → modify in memory → PUT
         if (curlParsed.body && curlParsed.body.type === "file") {
-          // This is a PUT/POST with @file — we need special handling
-          // The typical pattern is: fetch doc → modify → PUT back
-          lines.push(`    // curl uses -d @${curlParsed.body.filename} — body comes from prior fetch step`)
-          lines.push(`    // The test sequence handles this via depends_on chain`)
+          lines.push(`    // INPUT: page says \`-d @${curlParsed.body.filename}\` — simulating fetch→edit→PUT flow`)
 
           if (curlParsed.method === "PUT" || curlParsed.method === "POST") {
-            // Generate a fetch-then-modify-then-put pattern
-            // First, extract the document URL from context (path without the query params for message/author)
-            const docPath = curlParsed.path.split("?")[0]
-            const queryParams = curlParsed.path.includes("?") ? curlParsed.path.split("?")[1] : ""
-            const idParam = new URLSearchParams(queryParams).get("id")
-
             if (intentBlock.action?.includes("modified") || intentBlock.action?.includes("PUT")) {
-              // This is the "PUT modified document" pattern
-              // Fetch the doc first, modify it, then PUT
-              const fetchPath = docPath + (idParam ? `?id=${encodeURIComponent(idParam)}` : "")
-              lines.push(`    // Fetch the current document first`)
-              lines.push(`    const getPath = "${curlParsed.path.split("?")[0]}?id=" + encodeURIComponent("terminusdb:///star-wars/People/11")`)
-              lines.push(`    const getRes = await apiCall("GET", getPath.replace(/author=.*$/, "").replace(/&$/, ""))`)
+              // Find the preceding GET curl block (from page) that fetched the document
+              const priorGetBlock = findPriorGetBlock(intentBlock, allBlocks, intentData)
+              const fetchDocId = extractDocIdFromGetCurl(priorGetBlock)
+              const modifications = extractModificationsFromPage(intentBlock, allBlocks, mdContent)
+
+              if (fetchDocId) {
+                const basePath = curlParsed.path.split("?")[0]
+                lines.push(`    // Fetch the current document first`)
+                lines.push(`    const getRes = await apiCall("GET", "${basePath}?id=${fetchDocId}")`)
+              } else {
+                // Fallback: use the PUT path without author/message params
+                const docPath = curlParsed.path.split("?")[0]
+                lines.push(`    // Fetch the current document first`)
+                lines.push(`    const getRes = await apiCall("GET", "${docPath}?count=1&as_list=true")`)
+              }
               lines.push(`    assert.ok(getRes.status >= 200 && getRes.status < 300, \`Failed to fetch document: \${getRes.status}\`)`)
               lines.push(`    const doc = getRes.body`)
               lines.push(`    // Apply modifications as described in page`)
-              lines.push(`    doc.eye_color = "yellow"`)
-              lines.push(`    doc.label = "Darth Vader"`)
-              lines.push(`    doc.mass = "120"`)
-              lines.push(`    doc.skin_colors = "pale"`)
+              if (modifications.length > 0) {
+                for (const mod of modifications) {
+                  lines.push(`    doc${mod.accessor} = ${mod.value}`)
+                }
+              } else {
+                lines.push(`    // (no modifications auto-detected — check page content)`)
+              }
               lines.push(`    // PUT modified document`)
               lines.push(`    const res = await apiCall("${curlParsed.method}", "${curlParsed.path}", doc)`)
             } else {
@@ -885,7 +1036,7 @@ function generateTestFile(slug, intentData, allBlocks, pageContext) {
         }
         lines.push(``)
 
-        // Generate assertions
+        // ORACLE: Assert against intent YAML expected_outcome
         const assertionLines = buildHttpAssertionCode(intentBlock)
         if (assertionLines) {
           for (const line of assertionLines) {
@@ -1008,7 +1159,7 @@ function main() {
   }
 
   // Generate test file content
-  const testContent = generateTestFile(pageSlug, intentData, allBlocks, pageContext)
+  const testContent = generateTestFile(pageSlug, intentData, allBlocks, pageContext, mdContent)
 
   // Determine output path
   const finalOutputPath = outputPath

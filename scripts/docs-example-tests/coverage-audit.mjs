@@ -36,6 +36,7 @@ const OUTPUT_PATH = join(__dirname, "coverage-audit.json")
 const args = process.argv.slice(2)
 const jsonMode = args.includes("--json")
 const summaryMode = args.includes("--summary")
+const ciMode = args.includes("--ci")
 
 // ── File collection ─────────────────────────────────────────────────────────
 
@@ -159,22 +160,28 @@ function classifyBlock(block) {
 }
 
 /**
- * Determine if a code block is "tested" (covered by existing test infrastructure).
+ * Determine if a code block is "tested" (covered by meaningful assertions).
  *
- * Currently tested:
- * - {% http-example %} with runnable=true → tested by run-http-examples.test.mjs
- * - Colocated .example.ts/.example.sh files → tested by run-colocated-examples.test.mjs
+ * A block is "tested" ONLY when it has a concrete assertion source:
+ * - Intent YAML entry with expected_outcome (not skip_reason) → assertion-backed
+ * - Colocated .example.ts/.example.sh files → execution-backed
+ *
+ * Note: http-example with runnable=true is NOT sufficient by itself — it only
+ * proves the server didn't 500, not that the response was correct. Only count
+ * it as tested if it also has an intent YAML entry with an expected_outcome.
  */
-function isBlockTested(block, pagePath) {
-  // http-example with runnable (default) is tested
-  if (block.type === "http-example" && block.tested) return true
+function isBlockTested(block, pagePath, intentBlocks) {
+  // Intent YAML covers this block (has entry without skip_reason)
+  if (intentBlocks) {
+    const intentMatch = intentBlocks.find(ib => ib.line === block.line)
+    if (intentMatch && !intentMatch.skip_reason) return true
+  }
 
   // Check if the page has colocated examples
   const pageDir = pagePath.replace(/\/page\.md$/, "")
   try {
     const entries = readdirSync(join(REPO_ROOT, pageDir))
     if (entries.some(e => e.includes(".example."))) {
-      // If page has colocated examples AND this block matches a colocated language
       if (block.language === "bash" || block.language === "sh" ||
           block.language === "typescript" || block.language === "ts" ||
           block.language === "javascript" || block.language === "js") {
@@ -188,6 +195,31 @@ function isBlockTested(block, pagePath) {
   return false
 }
 
+function loadIntentBlocks(slug) {
+  const intentPath = join(REPO_ROOT, "intent", `${slug}.yaml`)
+  try {
+    const content = readFileSync(intentPath, "utf-8")
+    const match = content.match(/^blocks:\s*\n([\s\S]*)$/m)
+    if (!match) return null
+    const blocks = []
+    const blockPattern = /- block_index:.*?\n([\s\S]*?)(?=\n  - block_index:|\n*$)/g
+    let m
+    while ((m = blockPattern.exec(match[1])) !== null) {
+      const lineMatch = m[0].match(/line:\s*(\d+)/)
+      const skipMatch = m[0].match(/skip_reason:\s*(\S+)/)
+      if (lineMatch) {
+        blocks.push({
+          line: parseInt(lineMatch[1]),
+          skip_reason: skipMatch && skipMatch[1] !== "null" ? skipMatch[1] : null
+        })
+      }
+    }
+    return blocks.length > 0 ? blocks : null
+  } catch {
+    return null
+  }
+}
+
 // ── Main scan ───────────────────────────────────────────────────────────────
 
 function scanAllPages() {
@@ -198,11 +230,19 @@ function scanAllPages() {
     const relPath = relative(REPO_ROOT, filePath)
     const slug = relative(DOCS_DIR, filePath).replace(/\/page\.md$/, "")
     const blocks = extractCodeBlocks(filePath)
+    const intentBlocks = loadIntentBlocks(slug)
 
-    // Mark tested blocks
+    // Mark tested blocks and reclassify intent-annotated display blocks
     for (const block of blocks) {
       block.classification = classifyBlock(block)
-      block.tested = isBlockTested(block, relPath)
+      // If intent YAML explicitly marks this block as display_only, reclassify
+      if (intentBlocks) {
+        const intentMatch = intentBlocks.find(ib => ib.line === block.line)
+        if (intentMatch && intentMatch.skip_reason === "display_only") {
+          block.classification = "display"
+        }
+      }
+      block.tested = isBlockTested(block, relPath, intentBlocks)
     }
 
     // Compute coverage stats
@@ -212,6 +252,24 @@ function scanAllPages() {
     const totalExecutable = executableBlocks.length
     const totalTested = testedBlocks.length
     const coverage = totalExecutable > 0 ? Math.round((totalTested / totalExecutable) * 100) : null
+
+    // Coverage source breakdown: intent YAML vs colocated examples
+    const hasIntent = intentBlocks !== null
+    let intentCovered = 0
+    let colocatedCovered = 0
+    if (hasIntent) {
+      for (const block of executableBlocks) {
+        if (!block.tested) continue
+        const intentMatch = intentBlocks.find(ib => ib.line === block.line)
+        if (intentMatch && !intentMatch.skip_reason) {
+          intentCovered++
+        } else {
+          colocatedCovered++
+        }
+      }
+    } else {
+      colocatedCovered = totalTested
+    }
 
     // Language breakdown
     const languages = {}
@@ -226,6 +284,9 @@ function scanAllPages() {
       totalExecutable,
       totalTested,
       coverage,
+      hasIntent,
+      intentCovered,
+      colocatedCovered,
       languages,
       blocks: blocks.map(b => ({
         language: b.language,
@@ -251,10 +312,17 @@ function generateReport(pages) {
   const pagesPartial = pagesWithExecutable.filter(p => p.coverage > 0 && p.coverage < 100)
   const pagesNoCode = pages.filter(p => p.totalBlocks === 0)
 
+  // Intent-based coverage breakdown
+  const pagesWithIntent = pages.filter(p => p.hasIntent)
+  const pagesWithIntentAt100 = pagesWithIntent.filter(p => p.coverage === 100 && p.intentCovered > 0)
+  const pagesColocatedOnly = pagesAt100.filter(p => !p.hasIntent || p.intentCovered === 0)
+
   // Global stats
   const allBlocks = pages.reduce((sum, p) => sum + p.totalBlocks, 0)
   const allExecutable = pages.reduce((sum, p) => sum + p.totalExecutable, 0)
   const allTested = pages.reduce((sum, p) => sum + p.totalTested, 0)
+  const allIntentCovered = pages.reduce((sum, p) => sum + p.intentCovered, 0)
+  const allColocatedCovered = pages.reduce((sum, p) => sum + p.colocatedCovered, 0)
   const globalCoverage = allExecutable > 0 ? Math.round((allTested / allExecutable) * 100) : 0
 
   // Language breakdown
@@ -282,6 +350,12 @@ function generateReport(pages) {
       totalExecutable: allExecutable,
       totalTested: allTested,
       globalCoverage,
+      // Intent vs colocated breakdown
+      pagesWithIntent: pagesWithIntent.length,
+      pagesWithIntentAt100: pagesWithIntentAt100.length,
+      pagesColocatedOnly: pagesColocatedOnly.length,
+      intentCoveredBlocks: allIntentCovered,
+      colocatedCoveredBlocks: allColocatedCovered,
     },
     languages: Object.fromEntries(sortedLanguages),
     pagesAt100Percent: pagesAt100.map(p => p.slug).sort(),
@@ -307,8 +381,14 @@ function printSummary(report) {
   console.log(`  Tested blocks:            ${s.totalTested}`)
   console.log(`  Global coverage:          ${s.globalCoverage}%`)
   console.log("")
+  console.log("  ── Coverage source ──")
+  console.log(`  Intent YAML assertions:   ${s.intentCoveredBlocks} blocks across ${s.pagesWithIntent} pages`)
+  console.log(`  Colocated example files:  ${s.colocatedCoveredBlocks} blocks`)
+  console.log("")
   console.log("  ── Coverage breakdown ──")
-  console.log(`  Pages at 100%:            ${s.pagesAt100} ✅`)
+  console.log(`  Pages at 100% (intent):   ${s.pagesWithIntentAt100} ✅ (oracle-backed assertions)`)
+  console.log(`  Pages at 100% (colocated):${s.pagesColocatedOnly > 0 ? " " + s.pagesColocatedOnly : " 0"} (example files only)`)
+  console.log(`  Pages at 100% (total):    ${s.pagesAt100}`)
   console.log(`  Pages partially tested:   ${s.pagesPartial}`)
   console.log(`  Pages at 0% (untested):   ${s.pagesAt0} ❌`)
   console.log("")
@@ -387,6 +467,30 @@ if (jsonMode) {
   console.log("")
 }
 
-// Exit with appropriate code
-// 0 = success (always, since this is informational)
+// ── CI gate: fail if any page with executable blocks has no intent YAML ─────
+
+if (ciMode) {
+  const INTENT_DIR = join(REPO_ROOT, "intent")
+  const missingIntent = []
+  for (const page of report.pages) {
+    if (page.executable === 0) continue
+    const intentPath = join(INTENT_DIR, `${page.slug}.yaml`)
+    try {
+      statSync(intentPath)
+    } catch {
+      missingIntent.push(page.slug)
+    }
+  }
+  if (missingIntent.length > 0) {
+    console.error(`\n❌ CI FAILED: ${missingIntent.length} page(s) with executable blocks have no intent YAML:`)
+    for (const slug of missingIntent) {
+      console.error(`   - intent/${slug}.yaml (MISSING)`)
+    }
+    console.error(`\nEvery page with executable code blocks must have an intent file.`)
+    console.error(`Run: node scripts/docs-example-tests/generate-intent-skeletons.mjs --page <slug>\n`)
+    process.exit(1)
+  }
+  console.log(`\n✅ CI PASSED: All ${report.pages.filter(p => p.executable > 0).length} pages with executable blocks have intent YAML.`)
+}
+
 process.exit(0)

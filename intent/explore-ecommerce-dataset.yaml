@@ -7,8 +7,8 @@
 # Dataset: Ecommerce (Category, Customer, Order, OrderLine, Product) from data.terminusdb.org
 
 page: explore-ecommerce-dataset
-total_blocks: 9
-annotated: 9
+total_blocks: 10
+annotated: 10
 needs_manual: 0
 
 blocks:
@@ -65,8 +65,21 @@ blocks:
     depends_on: 2
     skip_reason: null
 
-  # Step 4 — Create branch fulfillment
+  # Step 3 — WOQL AST representation (display only)
   - block_index: 4
+    language: json
+    line: 96
+    type: fenced
+    action: "Display the raw WOQL JSON AST for the processing-orders query"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Step 4 — Create branch fulfillment
+  - block_index: 5
     language: http
     line: 112
     type: http-example
@@ -79,7 +92,7 @@ blocks:
     skip_reason: null
 
   # Step 4 — PUT order ORD-0002 as shipped
-  - block_index: 5
+  - block_index: 6
     language: http
     line: 121
     type: http-example
@@ -88,11 +101,11 @@ blocks:
       type: response_body
       value: '["terminusdb:///data/Order/ORD-0002"]'
       tolerance: exact
-    depends_on: 4
+    depends_on: 5
     skip_reason: null
 
   # Step 5 — Diff main vs fulfillment
-  - block_index: 6
+  - block_index: 7
     language: http
     line: 134
     type: http-example
@@ -101,11 +114,11 @@ blocks:
       type: response_body
       value: '[{"@id": "Order/ORD-0002", "status": {"@op": "SwapValue", "@before": "processing", "@after": "shipped"}}]'
       tolerance: exact
-    depends_on: 5
+    depends_on: 6
     skip_reason: null
 
   # Step 6 — Merge fulfillment back to main
-  - block_index: 7
+  - block_index: 8
     language: http
     line: 149
     type: http-example
@@ -114,11 +127,11 @@ blocks:
       type: response_body
       value: '{"@type":"api:ApplyResponse","api:status":"api:success"}'
       tolerance: contains
-    depends_on: 6
+    depends_on: 7
     skip_reason: null
 
   # Clean up — Delete ecommerce database
-  - block_index: 8
+  - block_index: 9
     language: http
     line: 166
     type: http-example
@@ -127,5 +140,5 @@ blocks:
       type: status_code
       value: "200"
       tolerance: exact
-    depends_on: 7
+    depends_on: 8
     skip_reason: null

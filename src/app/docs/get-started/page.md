@@ -69,41 +69,33 @@ You now have two branches: `main` (the cloned data, unchanged) and `what-if` (a 
 
 ## Step 4 — Edit on the branch
 
-Pose a "what if" — what if Anakin Skywalker fell to the Dark Side? First, fetch his current document so you have all fields:
+Pose a "what if" — what if Anakin Skywalker fell to the Dark Side? First, fetch his current document:
 
-```bash
-curl -s -u admin:root \
-  "http://localhost:6363/api/document/admin/star-wars/local/branch/what-if?id=terminusdb:///star-wars/People/11" > anakin.json
-```
+{% http-example method="GET" path="/api/document/admin/star-wars/local/branch/what-if?id=Person/Anakin%2520Skywalker" /%}
 
-Now edit `anakin.json` to change the four fields that tell the story: `eye_color` → `"yellow"`, `label` → `"Darth Vader"`, `mass` → `"120"`, `skin_colors` → `"pale"`. Then PUT it back:
+Now PUT it back with four fields changed to tell the Dark Side story: `eye_color` → yellow, `mass` → 120, `quote` → "I am your father.", `side` → Dark Side:
 
-```bash
-curl -s -u admin:root -X PUT \
-  "http://localhost:6363/api/document/admin/star-wars/local/branch/what-if?author=admin&message=What+if+Anakin+turned+to+the+Dark+Side" \
-  -H "Content-Type: application/json" \
-  -d @anakin.json
-```
-
-**Expected response:**
-```json
-["terminusdb:///star-wars/People/11"]
-```
+{% http-example method="PUT" path="/api/document/admin/star-wars/local/branch/what-if?author=admin&message=What+if+Anakin+turned+to+the+Dark+Side" %}
+{"@type":"Person","@id":"Person/Anakin%20Skywalker","name":"Anakin Skywalker","eye_color":"yellow","mass":120,"quote":"I am your father.","side":"Dark Side","birth_year":"41.9BBY","faction":"Jedi Order","films":["Film/Attack%20of%20the%20Clones","Film/Revenge%20of%20the%20Sith","Film/The%20Phantom%20Menace"],"gender":"male","hair_color":"blond","height":188,"homeworld":"Planet/Tatooine","species":["Species/Human"]}
+{% http-expected %}
+["terminusdb:///data/Person/Anakin%20Skywalker"]
+{% /http-expected %}
+{% /http-example %}
 
 {% callout type="note" title="Why send the full document?" %}
 TerminusDB's PUT replaces the entire document. If you omit optional fields, they become null — and will appear in the diff. By sending the full document with only target fields changed, the diff shows exactly what you intended. TerminusDB detects which fields actually changed, regardless of what you sent.
 {% /callout %}
 
-The edit lives only on `what-if`. On `main`, Anakin is still himself — blue eyes, fair skin, mass 84. The branch is your sandbox.
+The edit lives only on `what-if`. On `main`, Anakin is still himself — blue eyes, Light Side, mass 84, original quote. The branch is your sandbox.
 
 ## Step 5 — Diff the branches
 
 This is the moment. See exactly what changed between `main` and `what-if`:
 
-{% http-example method="POST" path="/api/diff/admin/star-wars" runnable=false %}
+{% http-example method="POST" path="/api/diff/admin/star-wars" %}
 {"before_data_version": "main", "after_data_version": "what-if"}
 {% http-expected %}
-[{"@id": "People/11", "eye_color": {"@op": "SwapValue", "@before": "blue", "@after": "yellow"}, "label": {"@op": "SwapValue", "@before": "Anakin Skywalker", "@after": "Darth Vader"}, "mass": {"@op": "SwapValue", "@before": "84", "@after": "120"}, "skin_colors": {"@op": "SwapValue", "@before": "fair", "@after": "pale"}}]
+[{"@id": "Person/Anakin%20Skywalker", "eye_color": {"@op": "SwapValue", "@before": "blue", "@after": "yellow"}, "mass": {"@op": "SwapValue", "@before": 84, "@after": 120}, "quote": {"@op": "SwapValue", "@before": "This is where the fun begins.", "@after": "I am your father."}, "side": {"@op": "SwapValue", "@before": "Light Side", "@after": "Dark Side"}}]
 {% /http-expected %}
 {% /http-example %}
 
@@ -111,7 +103,7 @@ This is the moment. See exactly what changed between `main` and `what-if`:
 **What just happened?**
 TerminusDB computed a **structural diff** between two branches. This is not a line-by-line text diff — it is a semantic patch that knows exactly which fields changed, what the old values were, and what the new values are. Each change is a `SwapValue` operation that can be applied, reversed, or composed with other patches.
 
-Four fields changed: `eye_color`, `label`, `mass`, and `skin_colors`. You sent the full document, but TerminusDB detected only the differences — no manual tracking, no event sourcing, no change-data-capture pipeline. The database does it natively.
+Four fields changed: `eye_color`, `mass`, `quote`, and `side`. You sent the full document, but TerminusDB detected only the differences — no manual tracking, no event sourcing, no change-data-capture pipeline. The database does it natively.
 {% /callout %}
 
 ## Step 6 — Merge the branch
@@ -125,7 +117,7 @@ Apply the changes from `what-if` back to `main`:
 {% /http-expected %}
 {% /http-example %}
 
-Done. The `main` branch now reflects the "what if" scenario — Anakin Skywalker has become Darth Vader.
+Done. The `main` branch now reflects the "what if" scenario — Anakin has turned to the Dark Side.
 
 ---
 

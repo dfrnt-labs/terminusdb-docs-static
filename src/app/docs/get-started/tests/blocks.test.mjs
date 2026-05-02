@@ -13,14 +13,14 @@
  *   1. [http-example] GET /api/info — verify TerminusDB is running
  *   2. [quickstart-clone] Clone star-wars database from data.terminusdb.org to localhost
  *   3. [http-example] Create branch 'what-if' from main on star-wars database
- *   4. [fenced] Fetch Anakin Skywalker document (People/11) from what-if branch to anakin.json
- *   5. [fenced] PUT modified Anakin document back to what-if branch (Dark Side version)
- *   7. [http-example] Compute structural diff between main and what-if branches
- *   8. [http-example] Apply (merge) what-if branch changes into main
- *   9. [http-example] Delete star-wars database (cleanup)
- *   10. [fenced] Stop and remove TerminusDB Docker container
- *   12. [fenced] Troubleshooting: restart Docker container with correct config
- *   14. [fenced] Troubleshooting: verify server responds after fix
+ *   4. [http-example] Fetch Anakin Skywalker document (Person/Anakin%20Skywalker) from what-if branch
+ *   5. [http-example] PUT modified Anakin document back to what-if branch (Dark Side version)
+ *   6. [http-example] Compute structural diff between main and what-if branches
+ *   7. [http-example] Apply (merge) what-if branch changes into main
+ *   8. [http-example] Delete star-wars database (cleanup)
+ *   9. [fenced] Stop and remove TerminusDB Docker container
+ *   11. [fenced] Troubleshooting: restart Docker container with correct config
+ *   13. [fenced] Troubleshooting: verify server responds after fix
  *
  * Run: npx mocha src/app/docs/get-started/tests/blocks.test.mjs --timeout 180000
  *
@@ -149,6 +149,10 @@ describe("get-started — page code blocks", function () {
 
     const dbReady = await ensureDbExists()
     if (!dbReady) return this.skip()
+
+    // Clean up branches from prior test runs
+    await deleteBranch(`${DB_PATH}/local/branch/what-if`)
+    await new Promise(r => setTimeout(r, 5000)) // TerminusDB eventual consistency
   })
 
   // -------------------------------------------------------------------------
@@ -176,10 +180,6 @@ describe("get-started — page code blocks", function () {
   it("Block 3: Create branch 'what-if' from main on star-wars database", async function () {
     this.timeout(30000)
     this.timeout(120000) // branch creation can be slow after fresh clone
-    // Clean up branch from previous test run if it exists
-    await deleteBranch("admin/star-wars/local/branch/what-if")
-    await new Promise(r => setTimeout(r, 5000)) // TerminusDB eventual consistency
-
     const res = await apiCall("POST", "/api/branch/admin/star-wars/local/branch/what-if", "{\"origin\": \"admin/star-wars/local/branch/main\"}")
 
     assert.ok(res.status >= 200 && res.status < 300, `Request failed: ${res.status} ${res.text}`)
@@ -189,12 +189,12 @@ describe("get-started — page code blocks", function () {
   })
 
   // -------------------------------------------------------------------------
-  // Block 4 — Fetch Anakin Skywalker document (People/11) from what-if branch to anakin.json
+  // Block 4 — Fetch Anakin Skywalker document (Person/Anakin%20Skywalker) from what-if branch
   // -------------------------------------------------------------------------
 
-  it("Block 4: Fetch Anakin Skywalker document (People/11) from what-if branch to anakin.json", async function () {
+  it("Block 4: Fetch Anakin Skywalker document (Person/Anakin%20Skywalker) from what-if branch", async function () {
     this.timeout(30000)
-    const res = await apiCall("GET", "/api/document/admin/star-wars/local/branch/what-if?id=terminusdb:///star-wars/People/11")
+    const res = await apiCall("GET", "/api/document/admin/star-wars/local/branch/what-if?id=Person/Anakin%2520Skywalker")
 
     assert.ok(res.status >= 200 && res.status < 300, `Request failed: ${res.status} ${res.text}`)
     assert.ok(res.body || res.text.length > 0, "Response should not be empty")
@@ -206,30 +206,17 @@ describe("get-started — page code blocks", function () {
 
   it("Block 5: PUT modified Anakin document back to what-if branch (Dark Side version)", async function () {
     this.timeout(30000)
-    // curl uses -d @anakin.json — body comes from prior fetch step
-    // The test sequence handles this via depends_on chain
-    // Fetch the current document first
-    const getPath = "/api/document/admin/star-wars/local/branch/what-if?id=" + encodeURIComponent("terminusdb:///star-wars/People/11")
-    const getRes = await apiCall("GET", getPath.replace(/author=.*$/, "").replace(/&$/, ""))
-    assert.ok(getRes.status >= 200 && getRes.status < 300, `Failed to fetch document: ${getRes.status}`)
-    const doc = getRes.body
-    // Apply modifications as described in page
-    doc.eye_color = "yellow"
-    doc.label = "Darth Vader"
-    doc.mass = "120"
-    doc.skin_colors = "pale"
-    // PUT modified document
-    const res = await apiCall("PUT", "/api/document/admin/star-wars/local/branch/what-if?author=admin&message=What+if+Anakin+turned+to+the+Dark+Side", doc)
+    const res = await apiCall("PUT", "/api/document/admin/star-wars/local/branch/what-if?author=admin&message=What+if+Anakin+turned+to+the+Dark+Side", "{\"@type\":\"Person\",\"@id\":\"Person/Anakin%20Skywalker\",\"name\":\"Anakin Skywalker\",\"eye_color\":\"yellow\",\"mass\":120,\"quote\":\"I am your father.\",\"side\":\"Dark Side\",\"birth_year\":\"41.9BBY\",\"faction\":\"Jedi Order\",\"films\":[\"Film/Attack%20of%20the%20Clones\",\"Film/Revenge%20of%20the%20Sith\",\"Film/The%20Phantom%20Menace\"],\"gender\":\"male\",\"hair_color\":\"blond\",\"height\":188,\"homeworld\":\"Planet/Tatooine\",\"species\":[\"Species/Human\"]}")
 
     assert.ok(res.status >= 200 && res.status < 300, `Request failed: ${res.status} ${res.text}`)
-    assert.ok(res.text.includes("terminusdb:///star-wars/People/11"), `Response should contain "terminusdb:///star-wars/People/11", got: ${res.text.slice(0, 200)}`)
+    assert.ok(res.text.includes("terminusdb:///data/Person/Anakin%20Skywalker"), `Response should contain "terminusdb:///data/Person/Anakin%20Skywalker", got: ${res.text.slice(0, 200)}`)
   })
 
   // -------------------------------------------------------------------------
-  // Block 7 — Compute structural diff between main and what-if branches
+  // Block 6 — Compute structural diff between main and what-if branches
   // -------------------------------------------------------------------------
 
-  it("Block 7: Compute structural diff between main and what-if branches", async function () {
+  it("Block 6: Compute structural diff between main and what-if branches", async function () {
     this.timeout(30000)
     const res = await apiCall("POST", "/api/diff/admin/star-wars", "{\"before_data_version\": \"main\", \"after_data_version\": \"what-if\"}")
 
@@ -237,14 +224,14 @@ describe("get-started — page code blocks", function () {
     assert.ok(res.body, "Response body should not be null")
     assert.ok(Array.isArray(res.body), "Response should be an array")
     assert.ok(res.body.length >= 1, "Response array should not be empty")
-    assert.ok(res.body.some(d => d["@id"] && d["@id"].includes("People/11")), "Response should contain expected document")
+    assert.ok(res.body.some(d => d["@id"] && d["@id"].includes("Person/Anakin%20Skywalker")), "Response should contain expected document")
   })
 
   // -------------------------------------------------------------------------
-  // Block 8 — Apply (merge) what-if branch changes into main
+  // Block 7 — Apply (merge) what-if branch changes into main
   // -------------------------------------------------------------------------
 
-  it("Block 8: Apply (merge) what-if branch changes into main", async function () {
+  it("Block 7: Apply (merge) what-if branch changes into main", async function () {
     this.timeout(30000)
     const res = await apiCall("POST", "/api/apply/admin/star-wars/local/branch/main", "{\"before_commit\": \"main\", \"after_commit\": \"what-if\", \"commit_info\": {\"author\": \"admin\", \"message\": \"Merge what-if: Anakin turns to the Dark Side\"}}")
 
@@ -255,10 +242,10 @@ describe("get-started — page code blocks", function () {
   })
 
   // -------------------------------------------------------------------------
-  // Block 9 — Delete star-wars database (cleanup)
+  // Block 8 — Delete star-wars database (cleanup)
   // -------------------------------------------------------------------------
 
-  it("Block 9: Delete star-wars database (cleanup)", async function () {
+  it("Block 8: Delete star-wars database (cleanup)", async function () {
     this.timeout(30000)
     const res = await apiCall("DELETE", "/api/db/admin/star-wars")
 
@@ -266,10 +253,10 @@ describe("get-started — page code blocks", function () {
   })
 
   // -------------------------------------------------------------------------
-  // Block 14 — Troubleshooting: verify server responds after fix
+  // Block 13 — Troubleshooting: verify server responds after fix
   // -------------------------------------------------------------------------
 
-  it("Block 14: Troubleshooting: verify server responds after fix", async function () {
+  it("Block 13: Troubleshooting: verify server responds after fix", async function () {
     this.timeout(30000)
     const res = await apiCall("GET", "/api/info")
 

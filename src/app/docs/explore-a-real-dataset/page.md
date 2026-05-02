@@ -47,9 +47,9 @@ You just pulled a complete Star Wars database — characters, films, planets, st
 
 List the document types defined in the schema:
 
-{% http-example method="GET" path="/api/document/admin/star-wars/local/branch/main?graph_type=schema&as_list=true" /%}
+{% http-example method="GET" path="/api/document/admin/star-wars/local/branch/main?graph_type=schema&as_list=true&skip=1" /%}
 
-The response is an array of 5 items: a `@context` definition followed by 4 document types — `Film`, `Person`, `Planet`, and `Species`.
+The response lists 4 document types — `Film`, `Person`, `Planet`, and `Species`.
 
 List the first few characters:
 

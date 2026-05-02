@@ -53,9 +53,9 @@ You just pulled ~155 documents — customers, orders, products, and their relati
 
 List the document types defined in the schema:
 
-{% http-example method="GET" path="/api/document/admin/ecommerce/local/branch/main?graph_type=schema&as_list=true" /%}
+{% http-example method="GET" path="/api/document/admin/ecommerce/local/branch/main?graph_type=schema&as_list=true&skip=1" /%}
 
-The response is an array of 6 items: a `@context` definition followed by 5 document types — `Category`, `Customer`, `Order`, `OrderLine`, and `Product`.
+The response lists 5 document types — `Category`, `Customer`, `Order`, `OrderLine`, and `Product`.
 
 List all orders:
 
