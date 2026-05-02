@@ -104,6 +104,20 @@ function parseHttpExamples(content) {
           expected = expectedMatch[1].trim()
         }
 
+        // Strip {% http-woql %}...{% /http-woql %} child tag (TypeScript SDK code)
+        // and extract the JSON body from the remaining code fence
+        const woqlMatch = body.match(
+          /\{%\s*http-woql\s*%\}[\s\S]*?\{%\s*\/http-woql\s*%\}/
+        )
+        if (woqlMatch) {
+          body = body.slice(woqlMatch.index + woqlMatch[0].length).trim()
+          // Body is now a ```json ... ``` fenced code block — extract the JSON
+          const fenceMatch = body.match(/^```(?:json)?\s*\n([\s\S]*?)\n```$/)
+          if (fenceMatch) {
+            body = fenceMatch[1].trim()
+          }
+        }
+
         allMatches.push({
           index: tagStart,
           type: "http-example",
@@ -409,11 +423,15 @@ async function executeStep(step) {
   const url = `${SERVER_URL}${step.path}`
   const headers = buildHeaders(step)
 
+  // Clone operations can take 30s+ (remote fetch + finalization)
+  const isClone = step.path && step.path.includes("/api/clone/")
+  const timeout = isClone ? 60000 : 15000
+
   const response = await fetch(url, {
     method: step.method,
     headers,
     body: step.body || undefined,
-    signal: AbortSignal.timeout(15000),
+    signal: AbortSignal.timeout(timeout),
   })
 
   const responseText = await response.text()
@@ -530,9 +548,10 @@ function findSubsetMismatches(expected, actual, path = "$") {
 function detectCreatedDatabases(steps) {
   const dbs = []
   const dbCreatePattern = /^\/api\/db\/[^/]+\/([^/?]+)/
+  const clonePattern = /^\/api\/clone\/[^/]+\/([^/?]+)/
   for (const step of steps) {
     if (step.method === "POST" && step.path) {
-      const m = step.path.match(dbCreatePattern)
+      const m = step.path.match(dbCreatePattern) || step.path.match(clonePattern)
       if (m) dbs.push(m[1])
     }
   }
@@ -784,7 +803,9 @@ describe("page-level HTTP sequences", function () {
           // REQ-011.2: all steps in one it() block
           it(`runs all ${seq.steps.length} steps in sequence (${seq.pagePath})`, async function () {
             if (!serverAvailable) { this.skip(); return }
-            this.timeout(30000)
+            // Clone pages need longer timeout (remote fetch + 60s branch finalization)
+            const hasClone = seq.steps.some(s => s.path && s.path.includes("/api/clone/"))
+            this.timeout(hasClone ? 120000 : 30000)
 
             const results = await runPageSequence(seq)
             const failures = results.filter(r => !r.passed)
