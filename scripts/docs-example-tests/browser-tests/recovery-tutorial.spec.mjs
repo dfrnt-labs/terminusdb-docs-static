@@ -197,7 +197,7 @@ test.describe("recovery-tutorial — Layer 3 Browser Verification", () => {
 
     // Concepts taught
     expect(pageContent).toContain("branch");
-    expect(pageContent).toContain("version");
+    expect(pageContent).toContain("Version");
   });
 
   test("no hydration mismatch errors", async ({ page }) => {
