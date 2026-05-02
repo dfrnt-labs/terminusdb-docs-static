@@ -273,12 +273,12 @@ blocks:
     depends_on: null
     skip_reason: null
 
-  # Troubleshooting — name conflict display
+  # Troubleshooting — Database does not exist error display
   - block_index: 20
-    language: text
-    line: 214
+    language: json
+    line: 218
     type: fenced
-    action: "Display Docker container name conflict error the reader may encounter"
+    action: "Display UnresolvableAbsoluteDescriptor (Database does not exist 404) error response"
     expected_outcome:
       type: skip
       value: null
@@ -286,12 +286,12 @@ blocks:
     depends_on: null
     skip_reason: display_only
 
-  # Troubleshooting — fix: remove+restart
+  # Troubleshooting — fix: list databases and create if missing
   - block_index: 21
     language: bash
-    line: 220
+    line: 225
     type: fenced
-    action: "Troubleshooting: remove existing container and restart"
+    action: "Troubleshooting: list existing databases and create if missing"
     expected_outcome:
       type: exit_code
       value: "0"
@@ -299,10 +299,10 @@ blocks:
     depends_on: null
     skip_reason: null
 
-  # Troubleshooting — port conflict display
+  # Troubleshooting — jq not found display
   - block_index: 22
     language: text
-    line: 230
+    line: 240
     type: fenced
     action: "Display 'jq: command not found' error the reader may encounter"
     expected_outcome:
@@ -312,12 +312,12 @@ blocks:
     depends_on: null
     skip_reason: display_only
 
-  # Troubleshooting — check port usage
+  # Troubleshooting — fix: install jq or skip it
   - block_index: 23
     language: bash
-    line: 236
+    line: 247
     type: fenced
-    action: "Troubleshooting: check what's using port 6363"
+    action: "Troubleshooting: install jq (brew/apt-get) or skip formatting"
     expected_outcome:
       type: exit_code
       value: "0"
@@ -325,10 +325,10 @@ blocks:
     depends_on: null
     skip_reason: null
 
-  # Troubleshooting — db exists display
+  # Troubleshooting — DatabaseAlreadyExists error display
   - block_index: 24
     language: json
-    line: 245
+    line: 260
     type: fenced
     action: "Display DatabaseAlreadyExists error response the reader may encounter"
     expected_outcome:
@@ -338,12 +338,12 @@ blocks:
     depends_on: null
     skip_reason: display_only
 
-  # Troubleshooting — fix: delete existing db
+  # Troubleshooting — fix: delete existing database
   - block_index: 25
     language: bash
-    line: 253
+    line: 267
     type: fenced
-    action: "Troubleshooting: delete existing MyDatabase"
+    action: "Troubleshooting: delete existing MyDatabase before re-running tutorial"
     expected_outcome:
       type: output_contains
       value: "api:success"
@@ -351,28 +351,28 @@ blocks:
     depends_on: null
     skip_reason: null
 
-  # Troubleshooting — branch exists display
+  # Clean up — Delete MyDatabase
   - block_index: 26
-    language: json
-    line: 262
-    type: fenced
-    action: "Display BranchAlreadyExists error response the reader may encounter"
+    language: http
+    line: 322
+    type: http-example
+    action: "Delete MyDatabase (cleanup, requires user confirmation)"
     expected_outcome:
-      type: skip
-      value: null
-      tolerance: null
+      type: status_code
+      value: "200"
+      tolerance: exact
     depends_on: null
-    skip_reason: display_only
+    skip_reason: null
 
-  # Troubleshooting — fix: delete existing branch
+  # Clean up — Stop Docker container
   - block_index: 27
     language: bash
-    line: 270
+    line: 326
     type: fenced
-    action: "Troubleshooting: delete existing feature branch"
+    action: "Stop and remove TerminusDB Docker container"
     expected_outcome:
-      type: output_contains
-      value: "api:success"
-      tolerance: contains
-    depends_on: null
+      type: exit_code
+      value: "0"
+      tolerance: exact
+    depends_on: 26
     skip_reason: null

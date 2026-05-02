@@ -7,8 +7,8 @@
 # Dataset: Star Wars from data.terminusdb.org (cloned via quickstart-clone component)
 
 page: get-started
-total_blocks: 14
-annotated: 14
+total_blocks: 15
+annotated: 15
 needs_manual: 0
 
 blocks:
@@ -39,11 +39,21 @@ blocks:
     depends_on: 0
     skip_reason: null
 
-  # Step 2 — Clone star-wars (quickstart-clone component, not enumerated here but sequential)
-  # The quickstart-clone component is between blocks 1 and 2
+  # Step 2 — Clone star-wars database
+  - block_index: 2
+    language: component
+    line: 53
+    type: quickstart-clone
+    action: "Clone star-wars database from data.terminusdb.org to localhost"
+    expected_outcome:
+      type: state_change
+      value: "Database admin/star-wars exists on localhost:6363 with Person, Film, Planet, Species types"
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: null
 
   # Step 3 — Create what-if branch
-  - block_index: 2
+  - block_index: 3
     language: http
     line: 61
     type: http-example
@@ -56,7 +66,7 @@ blocks:
     skip_reason: null
 
   # Step 4 — Fetch Anakin's document (curl to file)
-  - block_index: 3
+  - block_index: 4
     language: bash
     line: 74
     type: fenced
@@ -69,7 +79,7 @@ blocks:
     skip_reason: null
 
   # Step 4 — PUT modified document back (curl -d @anakin.json)
-  - block_index: 4
+  - block_index: 5
     language: bash
     line: 81
     type: fenced
@@ -82,7 +92,7 @@ blocks:
     skip_reason: null
 
   # Step 4 — Expected response (display only)
-  - block_index: 5
+  - block_index: 6
     language: json
     line: 89
     type: fenced
@@ -95,7 +105,7 @@ blocks:
     skip_reason: display_only
 
   # Step 5 — Diff main vs what-if
-  - block_index: 6
+  - block_index: 7
     language: http
     line: 103
     type: http-example
@@ -108,7 +118,7 @@ blocks:
     skip_reason: null
 
   # Step 6 — Merge what-if into main
-  - block_index: 7
+  - block_index: 8
     language: http
     line: 121
     type: http-example
@@ -121,7 +131,7 @@ blocks:
     skip_reason: null
 
   # Step 7 — Delete database (cleanup)
-  - block_index: 8
+  - block_index: 9
     language: http
     line: 148
     type: http-example
@@ -134,7 +144,7 @@ blocks:
     skip_reason: null
 
   # Step 7 — Stop Docker container (cleanup)
-  - block_index: 9
+  - block_index: 10
     language: bash
     line: 152
     type: fenced
@@ -147,7 +157,7 @@ blocks:
     skip_reason: null
 
   # Troubleshooting — error message display
-  - block_index: 10
+  - block_index: 11
     language: text
     line: 173
     type: fenced
@@ -160,7 +170,7 @@ blocks:
     skip_reason: display_only
 
   # Troubleshooting — fix command (docker run)
-  - block_index: 11
+  - block_index: 12
     language: bash
     line: 180
     type: fenced
@@ -173,7 +183,7 @@ blocks:
     skip_reason: null
 
   # Troubleshooting — expected auth error response
-  - block_index: 12
+  - block_index: 13
     language: json
     line: 198
     type: fenced
@@ -186,7 +196,7 @@ blocks:
     skip_reason: display_only
 
   # Troubleshooting — verify fix command
-  - block_index: 13
+  - block_index: 14
     language: bash
     line: 205
     type: fenced

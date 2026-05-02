@@ -9,12 +9,12 @@
  * No rewrites, no simplifications — if these tests fail, the docs are wrong.
  *
  * Executable blocks:
- *   1. GraphQL query: get all People with label field
- *   2. GraphQL query: get first 5 People with label
- *   5. GraphQL query: People(limit: 2) with nested homeworld { label }
- *   7. GraphQL query: People(limit: 2, offset: 2) with homeworld
+ *   1. [fenced] GraphQL query: get all People with label field
+ *   2. [fenced] GraphQL query: get first 5 People with label
+ *   5. [fenced] GraphQL query: People(limit: 2) with nested homeworld { label }
+ *   7. [fenced] GraphQL query: People(limit: 2, offset: 2) with homeworld
  *
- * Run: npx mocha src/app/docs/graphql-basics/tests/blocks.test.mjs --timeout 60000
+ * Run: npx mocha src/app/docs/graphql-basics/tests/blocks.test.mjs --timeout 180000
  *
  * Requirements:
  *   - TerminusDB running on localhost:6363
@@ -91,7 +91,7 @@ async function deleteDb(name) {
   }
 }
 
-async function waitForDb(name, maxWait = 15000) {
+async function waitForDb(name, maxWait = 60000) {
   const start = Date.now()
   while (Date.now() - start < maxWait) {
     try {
@@ -109,6 +109,12 @@ async function waitForDb(name, maxWait = 15000) {
   return false
 }
 
+async function deleteBranch(branchPath) {
+  try {
+    await apiCall("DELETE", `/api/branch/${branchPath}`)
+  } catch { /* ignore errors during cleanup */ }
+}
+
 async function ensureDbExists() {
   const check = await apiCall("GET", `/api/document/${DB_PATH}/local/branch/main?count=1&as_list=true`)
   if (check.status === 200) return true
@@ -122,7 +128,7 @@ async function ensureDbExists() {
     { "Authorization-Remote": REMOTE_AUTH }
   )
   if (cloneRes.status < 200 || cloneRes.status >= 300) return false
-  return await waitForDb(DB_NAME, 60000)
+  return await waitForDb(DB_NAME, 90000)
 }
 
 // ============================================================================
@@ -133,7 +139,7 @@ describe("graphql-basics — page code blocks", function () {
   let serverOk = false
 
   before(async function () {
-    this.timeout(90000)
+    this.timeout(120000)
     serverOk = await isServerReachable()
     if (!serverOk) return this.skip()
 

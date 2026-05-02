@@ -315,9 +315,11 @@ curl -u admin:root -X DELETE "http://localhost:6363/api/db/admin/MyDatabase"
 
 ## Clean up
 
-Remove the database when you are done:
+{% callout type="warning" %}
+This deletes the **MyDatabase** data product permanently. Only run this when you are finished experimenting.
+{% /callout %}
 
-{% http-example method="DELETE" path="/api/db/admin/MyDatabase" /%}
+{% http-example method="DELETE" path="/api/db/admin/MyDatabase" confirm="This will permanently delete the MyDatabase data product." /%}
 
 Your TerminusDB instance is still running. To stop it entirely:
 

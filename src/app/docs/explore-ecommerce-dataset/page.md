@@ -157,6 +157,16 @@ The order status change is now on main. The branch remains as a record of who ch
 
 ---
 
+## Clean up
+
+{% callout type="warning" %}
+This deletes the **ecommerce** data product permanently. Only run this when you are finished experimenting.
+{% /callout %}
+
+{% http-example method="DELETE" path="/api/db/admin/ecommerce" confirm="This will permanently delete the ecommerce data product." /%}
+
+---
+
 ## What you just did
 
 In 15 minutes, you:

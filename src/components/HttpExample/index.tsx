@@ -24,6 +24,7 @@ interface HttpExampleComponentProps {
   expect?: string
   "expect-subset"?: boolean
   "expect-contains"?: string
+  confirm?: string
   children?: React.ReactNode
 }
 
@@ -58,6 +59,7 @@ export function HttpExample({
   id: exampleId,
   runnable = true,
   expect: expectAttr,
+  confirm: confirmMessage,
   children,
 }: HttpExampleComponentProps) {
   const instanceId = useId()
@@ -69,6 +71,7 @@ export function HttpExample({
   const [copied, setCopied] = useState(false)
   const abortControllerRef = useRef<AbortController | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const dialogRef = useRef<HTMLDialogElement>(null)
   const { settings, setConnectionStatus } = useConnection()
 
   // Parse extra headers from JSON string attribute
@@ -315,6 +318,24 @@ export function HttpExample({
     clearTimeout(timeoutId)
   }, [executeRequest])
 
+  // Handles Run button click — shows confirm dialog if confirm prop is set
+  const handleRun = useCallback(() => {
+    if (confirmMessage) {
+      dialogRef.current?.showModal()
+    } else {
+      runWithTimeout()
+    }
+  }, [confirmMessage, runWithTimeout])
+
+  const handleConfirm = useCallback(() => {
+    dialogRef.current?.close()
+    runWithTimeout()
+  }, [runWithTimeout])
+
+  const handleCancel = useCallback(() => {
+    dialogRef.current?.close()
+  }, [])
+
   const handleClear = useCallback(() => {
     setState("IDLE")
     setResult(null)
@@ -360,14 +381,14 @@ export function HttpExample({
     if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
       e.preventDefault()
       if (state !== "RUNNING" && runnable) {
-        runWithTimeout()
+        handleRun()
       }
     }
     if (e.key === "Escape" && (state === "SUCCESS" || state === "ERROR" || state === "SERVER_OFFLINE")) {
       e.preventDefault()
       handleClear()
     }
-  }, [state, runWithTimeout, handleClear, runnable])
+  }, [state, handleRun, handleClear, runnable])
 
   const isRunning = state === "RUNNING"
   const showFixtureBadge = Boolean(fixture) && state === "IDLE"
@@ -397,7 +418,7 @@ export function HttpExample({
               {state === "SERVER_OFFLINE" && (
                 <span className="w-2 h-2 rounded-full bg-amber-500 dark:bg-amber-400" aria-hidden="true" />
               )}
-              {runnable && <RunButton state={state} onRun={runWithTimeout} />}
+              {runnable && <RunButton state={state} onRun={handleRun} />}
               <CopyButton copied={copied} onCopy={copyToClipboard} />
             </div>
           </div>
@@ -470,6 +491,43 @@ export function HttpExample({
         fixture={fixture}
         onClear={handleClear}
       />
+
+      {/* Confirmation dialog for destructive actions */}
+      {confirmMessage && (
+        <dialog
+          ref={dialogRef}
+          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 open:flex flex-col rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-xl backdrop:bg-black/50 max-w-md m-0"
+          aria-labelledby={`confirm-title-${instanceId}`}
+          aria-describedby={`confirm-desc-${instanceId}`}
+        >
+          <h3
+            id={`confirm-title-${instanceId}`}
+            className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2"
+          >
+            Confirm action
+          </h3>
+          <p
+            id={`confirm-desc-${instanceId}`}
+            className="text-sm text-slate-600 dark:text-slate-400 mb-6"
+          >
+            {confirmMessage}
+          </p>
+          <div className="flex justify-end gap-3">
+            <button
+              onClick={handleCancel}
+              className="px-4 py-2 rounded-md text-sm font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleConfirm}
+              className="px-4 py-2 rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 transition-colors"
+            >
+              Delete
+            </button>
+          </div>
+        </dialog>
+      )}
     </div>
   )
 }

@@ -145,7 +145,7 @@ In 6 steps you used the full git-for-data workflow:
 
 Delete the cloned database when you are done experimenting:
 
-{% http-example method="DELETE" path="/api/db/admin/star-wars" runnable=false /%}
+{% http-example method="DELETE" path="/api/db/admin/star-wars" confirm="This will permanently delete the star-wars data product." /%}
 
 To stop TerminusDB entirely:
 

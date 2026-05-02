@@ -1,3 +1,4 @@
+import { Tag } from '@markdoc/markdoc'
 import { Callout } from '@/components/Callout'
 import { CodeTabs, CodeTab } from '@/components/CodeTabs'
 import { QuickLink, QuickLinks } from '@/components/QuickLinks'
@@ -231,6 +232,7 @@ const tags = {
       expect: { type: String },
       'expect-subset': { type: Boolean, default: false },
       'expect-contains': { type: String },
+      confirm: { type: String, required: false },
     },
   },
   'http-expected': {
@@ -238,11 +240,53 @@ const tags = {
     attributes: {
       __isHttpExpected: { type: Boolean, default: true },
     },
+    transform(node, config) {
+      // Same raw-source extraction as http-woql — preserve line breaks in expected output
+      const [, contentStart, contentEnd] = node.lines
+      let rawContent = ''
+      if (config.source && contentStart != null && contentEnd != null) {
+        const sourceLines = config.source.split('\n')
+        rawContent = sourceLines.slice(contentStart, contentEnd).join('\n')
+      } else {
+        function extractRawText(n) {
+          if (n.type === 'text') return n.attributes.content || ''
+          if (n.type === 'softbreak' || n.type === 'hardbreak') return '\n'
+          if (n.children) return n.children.map(extractRawText).join('')
+          return ''
+        }
+        rawContent = node.children.map(child => extractRawText(child)).join('\n\n')
+      }
+
+      return new Tag(this.render, { __isHttpExpected: true }, [rawContent])
+    },
   },
   'http-woql': {
     render: HttpWoql,
     attributes: {
       __isHttpWoql: { type: Boolean, default: true },
+    },
+    transform(node, config) {
+      // Markdoc parses tag content as prose paragraphs, destroying line breaks
+      // and indentation in code. We extract the raw source using node.lines
+      // (which gives [tagOpenLine, contentStart, contentEnd, tagCloseLine])
+      // and config.source (provided by @markdoc/next.js).
+      const [, contentStart, contentEnd] = node.lines
+      let rawContent = ''
+      if (config.source && contentStart != null && contentEnd != null) {
+        const sourceLines = config.source.split('\n')
+        rawContent = sourceLines.slice(contentStart, contentEnd).join('\n')
+      } else {
+        // Fallback: reconstruct from AST (loses indentation but preserves newlines)
+        function extractRawText(n) {
+          if (n.type === 'text') return n.attributes.content || ''
+          if (n.type === 'softbreak' || n.type === 'hardbreak') return '\n'
+          if (n.children) return n.children.map(extractRawText).join('')
+          return ''
+        }
+        rawContent = node.children.map(child => extractRawText(child)).join('\n\n')
+      }
+
+      return new Tag(this.render, { __isHttpWoql: true }, [rawContent])
     },
   },
   'http-example-cleanup': {

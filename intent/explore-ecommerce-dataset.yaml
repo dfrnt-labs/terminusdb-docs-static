@@ -7,8 +7,8 @@
 # Dataset: Ecommerce (Category, Customer, Order, OrderLine, Product) from data.terminusdb.org
 
 page: explore-ecommerce-dataset
-total_blocks: 8
-annotated: 8
+total_blocks: 9
+annotated: 9
 needs_manual: 0
 
 blocks:
@@ -115,4 +115,17 @@ blocks:
       value: '{"@type":"api:ApplyResponse","api:status":"api:success"}'
       tolerance: contains
     depends_on: 6
+    skip_reason: null
+
+  # Clean up — Delete ecommerce database
+  - block_index: 8
+    language: http
+    line: 166
+    type: http-example
+    action: "Delete ecommerce database (cleanup, requires user confirmation)"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 7
     skip_reason: null

@@ -144,6 +144,16 @@ TerminusDB replaces all of that with one API call. The database *is* the version
 
 ---
 
+## Clean up
+
+{% callout type="warning" %}
+This deletes the **star-wars** data product permanently. Only run this when you are finished experimenting.
+{% /callout %}
+
+{% http-example method="DELETE" path="/api/db/admin/star-wars" confirm="This will permanently delete the star-wars data product." /%}
+
+---
+
 ## What you just did
 
 In 15 minutes, you:
