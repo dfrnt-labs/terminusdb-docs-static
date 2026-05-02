@@ -24,6 +24,8 @@
     "test:links": "node scripts/docs-example-tests/link-checker.mjs",
     "test:headings": "node scripts/docs-example-tests/heading-lint.mjs",
     "test:http-examples": "npx mocha scripts/docs-example-tests/run-http-examples.test.mjs --timeout 30000",
+    "test:intent-assertions": "node scripts/docs-example-tests/generate-intent-assertions.mjs && npx mocha scripts/docs-example-tests/run-intent-assertions.test.mjs --timeout 60000",
+    "generate:intent-assertions": "node scripts/docs-example-tests/generate-intent-assertions.mjs",
     "test:tags": "node scripts/docs-example-tests/tag-validation.mjs",
     "test:orphan-examples": "node scripts/docs-example-tests/orphan-examples-lint.mjs",
     "test:domain": "node scripts/docs-example-tests/domain-lint.mjs",

@@ -252,7 +252,7 @@ describe("explore-a-real-dataset — Layer 1: HTTP API (exact page code)", funct
   // -------------------------------------------------------------------------
 
   it("Step 4a: Create branch 'what-if'", async function () {
-    this.timeout(90000) // branch creation can be slow after fresh clone
+    this.timeout(120000) // branch creation can be slow after fresh clone (deleteBranch on fresh DB triggers 60s TerminusDB internal timeout)
     // Clean up branch if it exists from a previous run — with retry for TerminusDB delay
     await deleteBranch(`${DB_PATH}/local/branch/what-if`)
     await new Promise(r => setTimeout(r, 3000)) // TerminusDB needs time to process branch deletion

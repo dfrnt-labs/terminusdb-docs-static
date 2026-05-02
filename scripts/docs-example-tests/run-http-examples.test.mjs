@@ -473,7 +473,26 @@ function assertStep(step, responseStatus, responseBody) {
     try {
       const actual = JSON.parse(responseBody)
       const expected = typeof step.expect === "string" ? JSON.parse(step.expect) : step.expect
-      const mismatches = findSubsetMismatches(expected, actual)
+
+      // WOQL responses wrap bindings in an object — unwrap for comparison
+      // when the expected is an array but actual is a WOQL response object
+      let compareTarget = actual
+      if (Array.isArray(expected) && !Array.isArray(actual) && Array.isArray(actual.bindings)) {
+        // Unwrap typed values in bindings (e.g. {"@value": "x", "@type": "xsd:string"} → "x")
+        compareTarget = actual.bindings.map(row => {
+          const unwrapped = {}
+          for (const [key, val] of Object.entries(row)) {
+            if (val && typeof val === "object" && "@value" in val) {
+              unwrapped[key] = val["@value"]
+            } else {
+              unwrapped[key] = val
+            }
+          }
+          return unwrapped
+        })
+      }
+
+      const mismatches = findSubsetMismatches(expected, compareTarget)
       if (mismatches.length > 0) {
         errors.push(`Expected output mismatch:\n    ${mismatches.join("\n    ")}`)
       }
@@ -615,8 +634,14 @@ async function runPageSequence(seq) {
 
   // Setup: clone prerequisite databases (from {% quickstart-clone %} tags)
   // Must happen before branch cleanup so the DB exists for branch operations
+  // Pages that modify main (e.g. merge/apply) need a fresh clone each run
   if (seq.clonePrereqs && seq.clonePrereqs.length > 0) {
+    const modifiesMain = seq.steps.some(s => s.path && s.path.includes("/api/apply/"))
     for (const prereq of seq.clonePrereqs) {
+      if (modifiesMain) {
+        // Force re-clone: delete existing DB so state is clean
+        await deleteDb(prereq.localPath)
+      }
       const available = await cloneDb(prereq.localPath, prereq.remoteUrl, prereq.remoteAuth)
       if (!available) {
         return [{ index: 0, method: "SETUP", path: `(clone ${prereq.localPath} from ${prereq.remoteUrl})`, passed: false, errors: [`Clone prerequisite unavailable: ${prereq.localPath} does not exist locally and remote ${prereq.remoteUrl} is unreachable. Ensure the database exists or the remote is accessible.`] }]

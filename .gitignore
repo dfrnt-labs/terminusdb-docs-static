@@ -47,3 +47,6 @@ next-env.d.ts
 
 # throwaway scripts
 /scripts/tmp/
+
+# generated test manifests
+/scripts/docs-example-tests/intent-assertions.json

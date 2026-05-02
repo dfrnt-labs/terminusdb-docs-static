@@ -45,12 +45,7 @@ You will clone a complete ecommerce database (customers, orders, order lines, pr
 
 Pull the entire ecommerce dataset from the public templates server to your local instance:
 
-{% http-example method="POST" path="/api/clone/admin/ecommerce" headers='{"Authorization-Remote":"Basic cHVibGljOnB1YmxpYw=="}' runnable=false %}
-{"remote_url": "https://data.terminusdb.org/public/ecommerce", "label": "Ecommerce", "comment": "Ecommerce tutorial dataset"}
-{% http-expected %}
-{"@type":"api:CloneResponse","api:status":"api:success"}
-{% /http-expected %}
-{% /http-example %}
+{% quickstart-clone remoteUrl="https://data.terminusdb.org/public/ecommerce" localPath="ecommerce" label="Clone Ecommerce Database" description="Get the ecommerce dataset on your local TerminusDB — ready to branch and diff." /%}
 
 You just pulled ~155 documents — customers, orders, products, and their relationships — from a public TerminusDB server to your local instance. The data is now yours to query, branch, and modify.
 
@@ -58,15 +53,15 @@ You just pulled ~155 documents — customers, orders, products, and their relati
 
 List the document types defined in the schema:
 
-{% http-example method="GET" path="/api/document/admin/ecommerce/local/branch/main?graph_type=schema&as_list=true" runnable=false /%}
+{% http-example method="GET" path="/api/document/admin/ecommerce/local/branch/main?graph_type=schema&as_list=true" /%}
 
-You will see types: `Category`, `Customer`, `Order`, `OrderLine`, and `Product`.
+The response is an array of 6 items: a `@context` definition followed by 5 document types — `Category`, `Customer`, `Order`, `OrderLine`, and `Product`.
 
-List all orders (30 documents):
+List all orders:
 
-{% http-example method="GET" path="/api/document/admin/ecommerce/local/branch/main?type=Order&as_list=true" runnable=false /%}
+{% http-example method="GET" path="/api/document/admin/ecommerce/local/branch/main?type=Order&as_list=true" /%}
 
-Expected: 30 orders, 15 customers, 20 products, 84 order lines. All interconnected, all versioned. Order totals are stored as `xsd:decimal` — arbitrary-precision exact arithmetic, not floating-point. Financial figures stay exact across every query, branch, and diff.
+You see 30 Order documents. The database has 15 customers, 20 products, and 84 order lines — all interconnected, all versioned. Order totals are stored as `xsd:decimal` — arbitrary-precision exact arithmetic, not floating-point. Financial figures stay exact across every query, branch, and diff.
 
 ## Step 3 — Query: find processing orders with customer details
 
@@ -74,7 +69,7 @@ Show all orders still in "processing" status, with the customer's name and count
 
 In a relational database, this requires a JOIN: `SELECT o.order_id, o.total, c.name, c.country FROM orders o JOIN customers c ON o.customer_id = c.id WHERE o.status = 'processing'`. You declare the relationship in the query because the database does not know it intrinsically. In TerminusDB, an Order document has a `customer` field that *is* the link to a Customer document — you simply follow it:
 
-{% http-example method="POST" path="/api/woql/admin/ecommerce/local/branch/main" runnable=false %}
+{% http-example method="POST" path="/api/woql/admin/ecommerce/local/branch/main" %}
 {% http-woql %}
 import TerminusClient from "@terminusdb/terminusdb-client";
 
@@ -114,7 +109,7 @@ A processing order has been shipped. Update its status on a branch and see what 
 
 Create a branch called `fulfillment`:
 
-{% http-example method="POST" path="/api/branch/admin/ecommerce/local/branch/fulfillment" runnable=false %}
+{% http-example method="POST" path="/api/branch/admin/ecommerce/local/branch/fulfillment" %}
 {"origin": "admin/ecommerce/local/branch/main"}
 {% http-expected %}
 {"@type":"api:BranchResponse","api:status":"api:success"}
@@ -123,8 +118,8 @@ Create a branch called `fulfillment`:
 
 Update order ORD-0002 to "shipped" on the branch:
 
-{% http-example method="PUT" path="/api/document/admin/ecommerce/local/branch/fulfillment?author=warehouse@example.com&message=Ship+order+ORD-0002" runnable=false %}
-{"@id": "Order/ORD-0002", "@type": "Order", "order_id": "ORD-0002", "customer": "Customer/hana.tanaka%40example.com", "order_date": "2024-03-19T03:10:07.294Z", "status": "shipped", "total": 5235.93}
+{% http-example method="PUT" path="/api/document/admin/ecommerce/local/branch/fulfillment?author=warehouse@example.com&message=Ship+order+ORD-0002" %}
+{"@id": "Order/ORD-0002", "@type": "Order", "order_id": "ORD-0002", "customer": "Customer/hana.tanaka@example.com", "order_date": "2024-03-19T03:10:07.294Z", "status": "shipped", "total": 5235.93}
 {% http-expected %}
 ["terminusdb:///data/Order/ORD-0002"]
 {% /http-expected %}
@@ -136,10 +131,10 @@ You just updated one field — `status` from "processing" to "shipped" — on an
 
 In any other database, answering "what exactly changed in this order?" means querying an audit table, parsing CDC events, or comparing snapshots you exported. In TerminusDB, you ask the database directly — compare your `fulfillment` branch against `main`:
 
-{% http-example method="POST" path="/api/diff/admin/ecommerce" runnable=false %}
+{% http-example method="POST" path="/api/diff/admin/ecommerce" %}
 {"before_data_version": "main", "after_data_version": "fulfillment"}
 {% http-expected %}
-[{"@id": "terminusdb:///data/Order/ORD-0002", "status": {"@op": "SwapValue", "@before": "processing", "@after": "shipped"}}]
+[{"@id": "Order/ORD-0002", "status": {"@op": "SwapValue", "@before": "processing", "@after": "shipped"}}]
 {% /http-expected %}
 {% /http-example %}
 
@@ -151,7 +146,7 @@ This is your audit trail — automatic, precise, and queryable. No trigger table
 
 When you are satisfied with the change, merge the fulfillment branch back:
 
-{% http-example method="POST" path="/api/apply/admin/ecommerce/local/branch/main" runnable=false %}
+{% http-example method="POST" path="/api/apply/admin/ecommerce/local/branch/main" %}
 {"before_commit": "main", "after_commit": "fulfillment", "commit_info": {"author": "warehouse@example.com", "message": "Merge fulfillment into main"}}
 {% http-expected %}
 {"@type":"api:ApplyResponse","api:status":"api:success"}

@@ -17,6 +17,7 @@ interface QuickstartCloneProps {
   remoteUrl?: string
   localPath?: string
   label?: string
+  description?: string
 }
 
 /** Base64-encoded "public:public" for anonymous read on data.terminusdb.org */
@@ -26,6 +27,7 @@ export function QuickstartClone({
   remoteUrl = "https://data.terminusdb.org/public/star-wars",
   localPath = "star-wars",
   label = "Clone Quickstart Database",
+  description = "Get the Star Wars dataset on your local TerminusDB — ready to branch and diff.",
 }: QuickstartCloneProps) {
   const { settings } = useConnection()
   const [state, setState] = useState<CloneState>("idle")
@@ -98,7 +100,7 @@ export function QuickstartClone({
             {label}
           </p>
           <p className="text-sm text-sky-800 dark:text-slate-300">
-            Get the Star Wars dataset on your local TerminusDB — ready to branch and diff.
+            {description}
           </p>
           <button
             onClick={handleClone}

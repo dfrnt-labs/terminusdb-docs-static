@@ -216,6 +216,7 @@ const tags = {
       remoteUrl: { type: String },
       localPath: { type: String },
       label: { type: String },
+      description: { type: String },
     },
   },
   'http-example': {

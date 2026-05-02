@@ -39,7 +39,7 @@ You will clone a complete Star Wars database (characters, films, planets, starsh
 
 Pull the entire Star Wars dataset from the public templates server to your local instance:
 
-{% quickstart-clone /%}
+{% quickstart-clone remoteUrl="https://data.terminusdb.org/public/star-wars" localPath="star-wars" label="Clone Star Wars Database" description="Get the Star Wars dataset on your local TerminusDB — ready to branch and diff." /%}
 
 You just pulled a complete Star Wars database — characters, films, planets, starships — from a public TerminusDB server to your local instance. No account needed, no sign-up, no credentials. The data is now yours to query, branch, and modify.
 
