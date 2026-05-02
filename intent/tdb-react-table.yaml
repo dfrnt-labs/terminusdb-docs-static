@@ -1,0 +1,38 @@
+# Intent skeleton for: tdb-react-table
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: tdb-react-table
+total_blocks: 2
+auto_filled: 2
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 169
+    type: fenced
+    action: Render TDBReactTable component with pagination and filtering
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: javascript
+    line: 376
+    type: fenced
+    action: Configure advancedSearchMatchType for table filtering
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only

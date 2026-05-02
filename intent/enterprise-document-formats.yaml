@@ -1,0 +1,126 @@
+# Intent Capture: enterprise-document-formats
+# Page: src/app/docs/enterprise-document-formats/page.md
+# Title: Document Formats & Content Negotiation
+# Total blocks: 8
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-02
+# Status: COMPLETE
+# Note: Enterprise reference page for multi-format document API. Shows retrieval (format= query param and Accept header), submission (Content-Type header), JSON-LD output modes, and schema @context remapping. All curl commands require running TerminusDB Enterprise with existing Product data.
+
+page: enterprise-document-formats
+total_blocks: 8
+auto_filled: 8
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: bash
+    line: 69
+    type: fenced
+    action: "GET documents with format= query parameter: jsonld, rdfxml, turtle (3 curl commands)"
+    expected_outcome:
+      type: status_code
+      value: "HTTP 200 for each format"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    note: "Uses $AUTH and $SERVER/$DB variables (must be set beforehand). Requires existing Product documents in database."
+    assertion: "Exit code 0 AND HTTP 200 for each. Response format matches requested: JSON-LD contains '@context', RDF/XML contains '<rdf:RDF', Turtle contains '@prefix'. SKIP if no Product data."
+
+  - block_index: 1
+    language: bash
+    line: 84
+    type: fenced
+    action: "GET documents with Accept header: application/ld+json, application/rdf+xml, text/turtle (3 curl commands)"
+    expected_outcome:
+      type: status_code
+      value: "HTTP 200 for each — identical to format= param"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    note: "Content negotiation alternative to format= query param. format= takes precedence if both present."
+    assertion: "Exit code 0 AND HTTP 200 for each. Same outputs as block 0 (Accept header and format= are equivalent)."
+
+  - block_index: 2
+    language: bash
+    line: 104
+    type: fenced
+    action: "POST documents with Content-Type headers: application/ld+json, application/rdf+xml, text/turtle (3 curl commands)"
+    expected_outcome:
+      type: status_code
+      value: "HTTP 200 for each — documents imported from each format"
+      tolerance: exact
+    depends_on: null
+    skip_reason: display_only
+    note: "Illustrative commands with placeholder bodies ('...' in JSON-LD, '...' in RDF/XML). Not fully executable as-is."
+    assertion: "No assertion — placeholder bodies. See document-format-api-curl-tutorial for complete working examples."
+
+  - block_index: 3
+    language: bash
+    line: 139
+    type: fenced
+    action: "GET documents with format=jsonld (stream mode, no as_list) — one @context per document"
+    expected_outcome:
+      type: status_code
+      value: "HTTP 200 — returns newline-delimited JSON-LD objects"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    note: "Stream mode: each document is self-contained with own @context. Multiple documents separated by newlines."
+    assertion: "Exit code 0 AND HTTP 200 AND response contains '@context' AND '@base'. SKIP if no Product data."
+
+  - block_index: 4
+    language: json
+    line: 143
+    type: fenced
+    action: "Display expected stream mode JSON-LD output (one @context per document line)"
+    expected_outcome:
+      type: skip
+      value: "Shows two JSON-LD objects each with own @context, @id, @type — newline-delimited."
+      tolerance: null
+    depends_on: 3
+    skip_reason: display_only
+    assertion: "No assertion — display only. Expected stream mode output."
+
+  - block_index: 5
+    language: bash
+    line: 150
+    type: fenced
+    action: "GET documents with format=jsonld&as_list=true (list mode) — shared @context with @graph array"
+    expected_outcome:
+      type: status_code
+      value: "HTTP 200 — returns single JSON-LD envelope with @graph"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    note: "List mode: shared @context + @graph array. More efficient for batch processing (context not repeated)."
+    assertion: "Exit code 0 AND HTTP 200 AND response contains '@graph' AND '@context'. SKIP if no Product data."
+
+  - block_index: 6
+    language: json
+    line: 154
+    type: fenced
+    action: "Display expected list mode JSON-LD output (shared @context with @graph envelope)"
+    expected_outcome:
+      type: skip
+      value: "Shows single JSON-LD object with shared @context and @graph array containing Product documents."
+      tolerance: null
+    depends_on: 5
+    skip_reason: display_only
+    assertion: "No assertion — display only. Expected list mode output."
+
+  - block_index: 7
+    language: bash
+    line: 174
+    type: fenced
+    action: "POST schema @context update: set schema.org context for JSON-LD output remapping (full_replace=true)"
+    expected_outcome:
+      type: status_code
+      value: "HTTP 200 — schema context updated"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    note: "Sets custom @context on schema to control JSON-LD output compaction. full_replace=true replaces entire context. After this, JSON-LD output uses schema.org vocabulary."
+    assertion: "Exit code 0 AND HTTP 200. Subsequent JSON-LD GET uses new context. SKIP if DB does not exist."

@@ -1,0 +1,38 @@
+# Intent skeleton for: openai-handlebars-config
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: openai-handlebars-config
+total_blocks: 2
+auto_filled: 2
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: json
+    line: 68
+    type: fenced
+    action: Display semantic template JSON with GraphQL query and Handlebars template
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: handlebars
+    line: 81
+    type: fenced
+    action: Display Handlebars template syntax for linked document property
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner

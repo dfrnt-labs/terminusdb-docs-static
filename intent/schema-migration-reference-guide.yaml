@@ -1,0 +1,554 @@
+# Intent skeleton for: schema-migration-reference-guide
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: schema-migration-reference-guide
+total_blocks: 45
+auto_filled: 45
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: json
+    line: 37
+    type: fenced
+    action: Display Product schema before migration (Lexical key, price as xsd:string, category field)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: json
+    line: 50
+    type: fenced
+    action: Display existing Product document before migration (Widget with string price)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: bash
+    line: 56
+    type: fenced
+    action: POST /api/migration/admin/mydb with CreateClassProperty, MoveClassProperty, CastClassProperty
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 3
+    language: json
+    line: 89
+    type: fenced
+    action: Display expected migration success response (api:MigrationResponse with api:success)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 2
+    skip_reason: display_only
+
+  - block_index: 4
+    language: json
+    line: 97
+    type: fenced
+    action: Display Product schema after migration (price as xsd:decimal, sku added, department replaces category)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 2
+    skip_reason: display_only
+
+  - block_index: 5
+    language: json
+    line: 111
+    type: fenced
+    action: Display transformed Product document after migration (numeric price, sku UNKNOWN, department)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 2
+    skip_reason: display_only
+
+  - block_index: 6
+    language: bash
+    line: 124
+    type: fenced
+    action: POST /api/migration/admin/mydb with dry_run=true&verbose=true
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 7
+    language: json
+    line: 138
+    type: fenced
+    action: Display dry-run success response (validates operations without committing)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 6
+    skip_reason: display_only
+
+  - block_index: 8
+    language: typescript
+    line: 175
+    type: fenced
+    action: Display DeleteClass operation syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 9
+    language: typescript
+    line: 182
+    type: fenced
+    action: Display DeleteClass example removing Person class
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 10
+    language: typescript
+    line: 189
+    type: fenced
+    action: Display schema before DeleteClass (Dog + Person)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 11
+    language: typescript
+    line: 200
+    type: fenced
+    action: Display schema after DeleteClass (Dog only)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 12
+    language: typescript
+    line: 210
+    type: fenced
+    action: Display CreateClass operation syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 13
+    language: typescript
+    line: 219
+    type: fenced
+    action: Display CreateClass example adding Person class
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 14
+    language: typescript
+    line: 229
+    type: fenced
+    action: Display schema before CreateClass (Dog only)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 15
+    language: typescript
+    line: 237
+    type: fenced
+    action: Display schema after CreateClass (Dog + Person)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 16
+    language: typescript
+    line: 250
+    type: fenced
+    action: Display MoveClass operation syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 17
+    language: typescript
+    line: 258
+    type: fenced
+    action: Display MoveClass example renaming Person to Dog
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 18
+    language: typescript
+    line: 266
+    type: fenced
+    action: Display schema before MoveClass (Person)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 19
+    language: typescript
+    line: 274
+    type: fenced
+    action: Display schema after MoveClass (Dog)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 20
+    language: typescript
+    line: 284
+    type: fenced
+    action: Display ReplaceClassMetadata operation syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 21
+    language: typescript
+    line: 294
+    type: fenced
+    action: Display ReplaceClassMetadata example setting colour to blue
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 22
+    language: typescript
+    line: 302
+    type: fenced
+    action: Display schema before ReplaceClassMetadata (colour red)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 23
+    language: typescript
+    line: 311
+    type: fenced
+    action: Display schema after ReplaceClassMetadata (colour blue)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 24
+    language: typescript
+    line: 322
+    type: fenced
+    action: Display ReplaceClassDocumentation operation syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 25
+    language: typescript
+    line: 332
+    type: fenced
+    action: Display ReplaceClassDocumentation example with comment and properties
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 26
+    language: typescript
+    line: 343
+    type: fenced
+    action: Display schema before ReplaceClassDocumentation
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 27
+    language: typescript
+    line: 355
+    type: fenced
+    action: Display schema after ReplaceClassDocumentation
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 28
+    language: typescript
+    line: 371
+    type: fenced
+    action: Display ReplaceContext operation syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 29
+    language: typescript
+    line: 380
+    type: fenced
+    action: Display ExpandEnum operation syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 30
+    language: typescript
+    line: 390
+    type: fenced
+    action: Display ExpandEnum example adding purple and orange to Colour
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 31
+    language: typescript
+    line: 398
+    type: fenced
+    action: Display Colour Enum schema before ExpandEnum (red, green, blue)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 32
+    language: typescript
+    line: 406
+    type: fenced
+    action: Display Colour Enum schema after ExpandEnum (adds purple, orange)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 33
+    language: typescript
+    line: 416
+    type: fenced
+    action: Display DeleteClassProperty operation syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 34
+    language: typescript
+    line: 433
+    type: fenced
+    action: Display CreateClassProperty operation syntax (without default)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 35
+    language: typescript
+    line: 442
+    type: fenced
+    action: Display CreateClassProperty operation syntax (with default)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 36
+    language: typescript
+    line: 454
+    type: fenced
+    action: Display MoveClassProperty operation syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 37
+    language: typescript
+    line: 469
+    type: fenced
+    action: Display UpcastClassProperty operation syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 38
+    language: typescript
+    line: 480
+    type: fenced
+    action: Display CastClassProperty operation syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 39
+    language: typescript
+    line: 490
+    type: fenced
+    action: Display DefaultOrError with Error type (casting failure mode)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 40
+    language: typescript
+    line: 496
+    type: fenced
+    action: Display DefaultOrError with Default type (fallback value)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 41
+    language: typescript
+    line: 515
+    type: fenced
+    action: Display ChangeKey without fields (Random) syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 42
+    language: typescript
+    line: 523
+    type: fenced
+    action: Display ChangeKey with fields (Lexical) syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 43
+    language: typescript
+    line: 532
+    type: fenced
+    action: Display ChangeKey with fields (Hash) syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 44
+    language: typescript
+    line: 541
+    type: fenced
+    action: Display ChangeKey (ValueHash) syntax
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

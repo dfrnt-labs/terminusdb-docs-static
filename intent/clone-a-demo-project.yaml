@@ -1,0 +1,38 @@
+# Intent skeleton for: clone-a-demo-project
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: clone-a-demo-project
+total_blocks: 2
+auto_filled: 2
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: bash
+    line: 39
+    type: fenced
+    action: POST /api/clone/admin/star-wars
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: bash
+    line: 50
+    type: fenced
+    action: POST /api/clone/admin/ecommerce
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null

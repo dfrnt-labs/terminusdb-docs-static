@@ -1,0 +1,170 @@
+# Intent skeleton for: self-hosted-installation
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: self-hosted-installation
+total_blocks: 13
+auto_filled: 13
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: bash
+    line: 35
+    type: fenced
+    action: Start Docker container (docker run terminusdb-server)
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: bash
+    line: 59
+    type: fenced
+    action: PUT /api/users (set admin password after first run)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+
+  - block_index: 2
+    language: bash
+    line: 69
+    type: fenced
+    action: Start Docker container with TERMINUSDB_AUTOLOGIN=false
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+
+  - block_index: 3
+    language: yaml
+    line: 87
+    type: fenced
+    action: Display docker-compose.yml for team deployment
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: config_only
+
+  - block_index: 4
+    language: bash
+    line: 110
+    type: fenced
+    action: Docker compose up -d (start via compose)
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 2
+    skip_reason: null
+
+  - block_index: 5
+    language: yaml
+    line: 118
+    type: fenced
+    action: Display docker-compose.yml with TLS reverse proxy (Caddy/nginx)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: config_only
+
+  - block_index: 6
+    language: unknown
+    line: 148
+    type: fenced
+    action: Display Caddyfile reverse proxy configuration
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 7
+    language: bash
+    line: 162
+    type: fenced
+    action: Download terminusdb binary from GitHub releases (curl -L)
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 8
+    language: bash
+    line: 172
+    type: fenced
+    action: Run terminusdb serve with environment variables
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 7
+    skip_reason: null
+
+  - block_index: 9
+    language: bash
+    line: 213
+    type: fenced
+    action: GET /api/ok (health check endpoint)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 8
+    skip_reason: null
+
+  - block_index: 10
+    language: bash
+    line: 220
+    type: fenced
+    action: GET /api/info (authenticated health check)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 9
+    skip_reason: null
+
+  - block_index: 11
+    language: bash
+    line: 232
+    type: fenced
+    action: Create CLI bundle backup (terminusdb db bundle)
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 10
+    skip_reason: null
+
+  - block_index: 12
+    language: bash
+    line: 246
+    type: fenced
+    action: Storage volume backup (docker compose stop + tar)
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 11
+    skip_reason: null

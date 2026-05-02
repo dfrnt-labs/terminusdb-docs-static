@@ -1,0 +1,153 @@
+# Intent Capture: compare-csv-values-with-woql
+# Page: src/app/docs/compare-csv-values-with-woql/page.md
+# Title: How to compare values with a CSV file using WOQL
+# Total blocks: 10
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-02
+# Status: COMPLETE
+# Note: Advanced WOQL cookbook page. Shows set operations (set_difference, set_intersection) for CSV comparison. All JS blocks are SDK snippets requiring client context and CSV files.
+
+page: compare-csv-values-with-woql
+total_blocks: 10
+auto_filled: 10
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: csv
+    line: 54
+    type: fenced
+    action: "Display example CSV file content (employee-list.csv)"
+    expected_outcome:
+      type: skip
+      value: "Shows CSV with EmployeeId column: E001, E002, E003, E005, E007"
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. File content reference."
+
+  - block_index: 1
+    language: javascript
+    line: 65
+    type: fenced
+    action: "WOQL set operations: group_by + list_to_set + set_difference + set_intersection"
+    expected_outcome:
+      type: non_empty
+      value: "Compares source list [E001,E002,E004,E006] with CSV [E001,E002,E003,E005,E007]. Returns to_add=[E004,E006], to_delete=[E003,E005,E007], no_change=[E001,E002]."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    note: "Primary testable pattern. Requires employee-list.csv file and connected client. Uses set_difference and set_intersection."
+    assertion: "If executed: result.bindings[0].to_add contains E004 AND E006, to_delete contains E003 AND E005 AND E007, no_change contains E001 AND E002. SKIP unless integration env."
+
+  - block_index: 2
+    language: json
+    line: 104
+    type: fenced
+    action: "Display expected results for set operations"
+    expected_outcome:
+      type: skip
+      value: "Shows {to_add: [E004, E006], to_delete: [E003, E005, E007], no_change: [E001, E002]}"
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only
+    assertion: "No assertion — display only. Expected output reference."
+
+  - block_index: 3
+    language: javascript
+    line: 148
+    type: fenced
+    action: "WOQL streaming pattern: find DB records not in CSV using set_member"
+    expected_outcome:
+      type: non_empty
+      value: "Loads CSV into set, streams DB triples, uses not(set_member()) to find DB records missing from CSV."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Requires Employee schema and employee-list.csv. Illustrative pattern for large datasets."
+    assertion: "No assertion — illustrative pattern for large-scale comparison."
+
+  - block_index: 4
+    language: javascript
+    line: 175
+    type: fenced
+    action: "WOQL streaming pattern: find CSV values not in database"
+    expected_outcome:
+      type: non_empty
+      value: "Streams CSV rows, uses not(triple()) to find CSV values missing from database."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Requires Employee schema. Illustrative streaming pattern."
+    assertion: "No assertion — illustrative pattern."
+
+  - block_index: 5
+    language: javascript
+    line: 194
+    type: fenced
+    action: "Complete streaming comparison: two queries for bidirectional diff"
+    expected_outcome:
+      type: non_empty
+      value: "Two separate queries: (1) DB not in CSV → to_remove, (2) CSV not in DB → to_add."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Shows recommended production pattern for very large datasets. Two-query approach."
+    assertion: "No assertion — illustrative production pattern."
+
+  - block_index: 6
+    language: javascript
+    line: 227
+    type: fenced
+    action: "WOQL member-based approach: categorise each value using member + not"
+    expected_outcome:
+      type: non_empty
+      value: "Alternative O(n²) approach using member() and not(member()) for per-value categorisation into to_add/to_delete/no_change."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Slower alternative (O(n²)) shown for completeness. Works well for <1000 elements."
+    assertion: "No assertion — alternative approach. Illustrative."
+
+  - block_index: 7
+    language: json
+    line: 287
+    type: fenced
+    action: "Display expected results for member-based approach"
+    expected_outcome:
+      type: skip
+      value: "Shows array of {value, category} objects: E004/E006 to_add, E003/E005/E007 to_delete, E001/E002 no_change."
+      tolerance: null
+    depends_on: 6
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 8
+    language: javascript
+    line: 301
+    type: fenced
+    action: "Complete JS client example with file upload for CSV comparison"
+    expected_outcome:
+      type: non_empty
+      value: "Full working example: creates client, defines CSV content, builds set operations query, passes CSV via files option. Prints result bindings."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    note: "Most complete testable example — includes client setup and file upload pattern. Requires running TerminusDB with 'mydb' database."
+    assertion: "If executed: exit code 0 AND stdout contains bindings with to_add/to_delete/no_change fields. SKIP unless integration env."
+
+  - block_index: 9
+    language: javascript
+    line: 358
+    type: fenced
+    action: "WOQL pattern for comparing two CSV files against each other"
+    expected_outcome:
+      type: non_empty
+      value: "Reads two CSV files into sets, computes only_in_a, only_in_b, in_both using set operations."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Pattern for two-file comparison. Requires both CSV files."
+    assertion: "No assertion — illustrative pattern for dual-CSV comparison."

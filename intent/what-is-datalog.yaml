@@ -1,0 +1,218 @@
+# Intent skeleton for: what-is-datalog
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: what-is-datalog
+total_blocks: 17
+auto_filled: 17
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: mermaid
+    line: 61
+    type: fenced
+    action: "Display RDF triple structure diagram: Subject (Resource) → Predicate (Property) → Object (Value/Resource) as directed graph"
+    expected_outcome:
+      type: skip
+      value: "Shows: Mermaid LR graph with Subject(Resource) → Predicate(Property) → Object(Value/Resource) — the fundamental triple structure."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: unknown
+    line: 67
+    type: fenced
+    action: "Display RDF triple example: subject: person/alice, predicate: knows, object: person/bob — concrete instance of the triple model"
+    expected_outcome:
+      type: skip
+      value: "Shows: subject: person/alice, predicate: knows, object: person/bob — 'Alice knows Bob' expressed as an RDF triple."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: unknown
+    line: 81
+    type: fenced
+    action: "Display triple predicate syntax: triple(Subject, Predicate, Object) — the fundamental WOQL building block for querying RDF data"
+    expected_outcome:
+      type: skip
+      value: "Shows: triple(Subject, Predicate, Object) — the fundamental WOQL predicate for querying RDF triples."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 3
+    language: javascript
+    line: 91
+    type: fenced
+    action: "Display WOQL logical variables example: triple('v:Person', 'name', 'v:Name') — shows v: prefix for unknowns the engine will bind"
+    expected_outcome:
+      type: skip
+      value: "Shows: triple('v:Person', 'name', 'v:Name') — v: prefix marks logical variables that the engine binds to all matching values."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 4
+    language: javascript
+    line: 113
+    type: fenced
+    action: "Display limit() example: limit(10, triple('v:Person', 'name', 'v:Name')) — restrict result count to at most 10 solutions"
+    expected_outcome:
+      type: skip
+      value: "Shows: limit(10, triple('v:Person', 'name', 'v:Name')) — returns at most 10 matching persons instead of all."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 5
+    language: javascript
+    line: 126
+    type: fenced
+    action: "Display logical connectives: implicit AND (comma-separated triples) and explicit or() for disjunction — Employee in Engineering OR Research"
+    expected_outcome:
+      type: skip
+      value: "Shows: Implicit AND with comma-separated triples (type Employee AND department Engineering), then or() for Engineering OR Research."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 6
+    language: javascript
+    line: 142
+    type: fenced
+    action: "Display unification via shared variable: triple(v:Person, lives_in, v:City), triple(v:City, country, France) — v:City unifies to create a join"
+    expected_outcome:
+      type: skip
+      value: "Shows: Shared v:City variable across two triples — creates an implicit join finding people living in cities in France."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 7
+    language: mermaid
+    line: 149
+    type: fenced
+    action: "Display unification diagram: query pattern (v:Person → lives_in → v:City → country → France) matched against data (Alice/Paris/France vs Bob/London/UK)"
+    expected_outcome:
+      type: skip
+      value: "Shows: Mermaid graph with query pattern subgraph (v:Person→v:City→France) and matched data subgraph (Alice→Paris→France ✓, Bob→London→UK ✗)."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 8
+    language: sql
+    line: 178
+    type: fenced
+    action: "Display SQL recursive CTE for ancestor query: WITH RECURSIVE ancestors AS (...) — verbose 10-line SQL contrasted with 1-line Datalog equivalent"
+    expected_outcome:
+      type: skip
+      value: "Shows: 10-line SQL WITH RECURSIVE CTE selecting parent_id with depth tracking, UNION ALL self-join, WHERE depth < 10 — the verbose imperative approach."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 9
+    language: javascript
+    line: 195
+    type: fenced
+    action: "Display Datalog path query for ancestors: path('person_123', '(parent>)+', 'v:Ancestor') — 1-line equivalent of the recursive SQL CTE"
+    expected_outcome:
+      type: skip
+      value: "Shows: path('person_123', '(parent>)+', 'v:Ancestor') — single line expressing 'find all ancestors via parent links at any depth'."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 10
+    language: javascript
+    line: 238
+    type: fenced
+    action: "Display Level 1 WOQL example: triple('v:Subject', 'v:Predicate', 'v:Object') — retrieve all edges in the graph with all-variable pattern"
+    expected_outcome:
+      type: skip
+      value: "Shows: triple('v:Subject', 'v:Predicate', 'v:Object') — all three positions are variables, returns every edge in the graph."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 11
+    language: javascript
+    line: 248
+    type: fenced
+    action: "Display Level 2: filter by known values — triple(v:Person, rdf:type, @schema:Employee) AND triple(v:Person, department, Department/Engineering)"
+    expected_outcome:
+      type: skip
+      value: "Shows: Two triples with shared v:Person — finds all Employee-type documents in Engineering department. Concrete values replace variables to constrain."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 12
+    language: javascript
+    line: 263
+    type: fenced
+    action: "Display Level 3: join through shared variables — Person→works_at→Company→located_in→City→country→Country/France"
+    expected_outcome:
+      type: skip
+      value: "Shows: Three chained triples with shared v:Company and v:City variables — finds people at companies in French cities. Joins via shared variables."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 13
+    language: javascript
+    line: 279
+    type: fenced
+    action: "Display Level 4: two-hop traversal — triple(v:Person, manages, v:Middle), triple(v:Middle, manages, v:Report) for skip-level reporting"
+    expected_outcome:
+      type: skip
+      value: "Shows: Two manages triples chained via v:Middle — finds skip-level reporting relationships (person manages someone who manages someone else)."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 14
+    language: javascript
+    line: 290
+    type: fenced
+    action: "Display Level 5 recursive path query: path('ceo_jane', '(manages>)+', 'v:Employee') — arbitrary-depth traversal with + (one or more hops)"
+    expected_outcome:
+      type: skip
+      value: "Shows: path('ceo_jane', '(manages>)+', 'v:Employee') — finds everyone in reporting chain under Jane at any depth. + means one or more hops."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 15
+    language: javascript
+    line: 300
+    type: fenced
+    action: "Display Level 6 path capture: path('ceo_jane', '(manages>)+', 'v:Employee', 'v:Chain') — fourth parameter captures traversed edges"
+    expected_outcome:
+      type: skip
+      value: "Shows: path('ceo_jane', '(manages>)+', 'v:Employee', 'v:Chain') — fourth param v:Chain captures the sequence of edges traversed."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 16
+    language: javascript
+    line: 310
+    type: fenced
+    action: "Display Level 7: combine patterns with paths — triple(v:Person, department, Sales) + path(v:Person, (knows>)+, v:Contact) + triple(v:Contact, company, v:TargetCompany)"
+    expected_outcome:
+      type: skip
+      value: "Shows: Composed query — find Sales employees, traverse their social network via knows path, then get target companies. Pattern + recursive path + pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

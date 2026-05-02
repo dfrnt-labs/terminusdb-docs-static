@@ -1,0 +1,324 @@
+# Intent Capture: graphql-query-reference
+# Page: src/app/docs/graphql-query-reference/page.md
+# Title: GraphQL Query Reference Guide
+# Total blocks: 22
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: Reference page with many illustrative code blocks. All blocks use hypothetical schemas (Person, Event, Civilization) — not executable against a specific DB without setup. All are display_only.
+
+page: graphql-query-reference
+total_blocks: 22
+auto_filled: 22
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Block 0 — Person schema (JSON)
+  - block_index: 0
+    language: json
+    line: 33
+    type: fenced
+    action: "Display Person class schema definition"
+    expected_outcome:
+      type: skip
+      value: "Shows Person class with name (string), dob (dateTime), friend (Set of Person)."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 1 — Generated GraphQL types
+  - block_index: 1
+    language: graphql
+    line: 43
+    type: fenced
+    action: "Display auto-generated GraphQL Query and Person type"
+    expected_outcome:
+      type: skip
+      value: "Shows generated Person query with id, offset, limit, filter, orderBy arguments."
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 2 — id argument query
+  - block_index: 2
+    language: graphql
+    line: 89
+    type: fenced
+    action: "Display GraphQL query using id variable"
+    expected_outcome:
+      type: skip
+      value: "Shows query getPerson($id: ID) pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 3 — offset/limit query
+  - block_index: 3
+    language: graphql
+    line: 101
+    type: fenced
+    action: "Display GraphQL query with limit and offset for paging"
+    expected_outcome:
+      type: skip
+      value: "Shows Person(limit: 3, offset: 3) — second page pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 4 — limit query
+  - block_index: 4
+    language: graphql
+    line: 115
+    type: fenced
+    action: "Display limit query syntax"
+    expected_outcome:
+      type: skip
+      value: "Shows Person(limit: 3, offset: 3) — limit explanation."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 5 — orderBy query
+  - block_index: 5
+    language: graphql
+    line: 127
+    type: fenced
+    action: "Display orderBy query syntax"
+    expected_outcome:
+      type: skip
+      value: "Shows orderBy: { dob: DESC, name: ASC } pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 6 — Filter input objects
+  - block_index: 6
+    language: graphql
+    line: 142
+    type: fenced
+    action: "Display auto-generated filter input types"
+    expected_outcome:
+      type: skip
+      value: "Shows Person_Filter, Person_Collection_Filter, StringFilterInputObject, DateTimeFilterInputObject."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 7 — Complex filter query
+  - block_index: 7
+    language: graphql
+    line: 181
+    type: fenced
+    action: "Display complex filter query with regex and _and"
+    expected_outcome:
+      type: skip
+      value: "Shows name regex + friend someHave filter pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 8 — BigInt filter
+  - block_index: 8
+    language: graphql
+    line: 213
+    type: fenced
+    action: "Display BigInt filter query"
+    expected_outcome:
+      type: skip
+      value: "Shows Event filter with years_since_big_bang ge comparison."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 9 — DateTime filter
+  - block_index: 9
+    language: graphql
+    line: 235
+    type: fenced
+    action: "Display DateTime filter query"
+    expected_outcome:
+      type: skip
+      value: "Shows Event filter with date_of_event ge comparison."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 10 — String regex filter
+  - block_index: 10
+    language: graphql
+    line: 261
+    type: fenced
+    action: "Display String regex filter query"
+    expected_outcome:
+      type: skip
+      value: "Shows Event filter with event_name regex."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 11 — Boolean filter
+  - block_index: 11
+    language: graphql
+    line: 278
+    type: fenced
+    action: "Display Boolean filter query"
+    expected_outcome:
+      type: skip
+      value: "Shows Event filter with is_super_nova eq true."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 12 — SmallInteger filter
+  - block_index: 12
+    language: graphql
+    line: 299
+    type: fenced
+    action: "Display SmallInteger filter query"
+    expected_outcome:
+      type: skip
+      value: "Shows Civilization filter with kardashev_scale ge 3."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 13 — _and combinator
+  - block_index: 13
+    language: graphql
+    line: 314
+    type: fenced
+    action: "Display _and filter combinator"
+    expected_outcome:
+      type: skip
+      value: "Shows _and array combining two range filters."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 14 — _or combinator
+  - block_index: 14
+    language: graphql
+    line: 328
+    type: fenced
+    action: "Display _or filter combinator"
+    expected_outcome:
+      type: skip
+      value: "Shows _or with multiple conditions."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 15 — _not combinator
+  - block_index: 15
+    language: graphql
+    line: 343
+    type: fenced
+    action: "Display _not filter combinator"
+    expected_outcome:
+      type: skip
+      value: "Shows _not exclusion filter pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 16 — Person schema (for backlinks section)
+  - block_index: 16
+    language: json
+    line: 357
+    type: fenced
+    action: "Display Person schema for backlink explanation"
+    expected_outcome:
+      type: skip
+      value: "Reuses Person class definition to introduce backlink concept."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 17 — Person schema (for path queries section)
+  - block_index: 17
+    language: json
+    line: 381
+    type: fenced
+    action: "Display Person schema for path query explanation"
+    expected_outcome:
+      type: skip
+      value: "Reuses Person class definition to introduce path query concept."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 18 — Backlink query
+  - block_index: 18
+    language: graphql
+    line: 391
+    type: fenced
+    action: "Display backlink query pattern (_friend_of_Person)"
+    expected_outcome:
+      type: skip
+      value: "Shows Person query with _friend_of_Person backlink."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 19 — Person schema (for path section)
+  - block_index: 19
+    language: json
+    line: 410
+    type: fenced
+    action: "Display Person schema for path query section"
+    expected_outcome:
+      type: skip
+      value: "Same Person schema referenced for path query context."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 20 — Path query
+  - block_index: 20
+    language: graphql
+    line: 420
+    type: fenced
+    action: "Display path query pattern (_path_to_Person)"
+    expected_outcome:
+      type: skip
+      value: "Shows _path_to_Person(path: 'friend{1,3}') for degrees of separation."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 21 — _count query
+  - block_index: 21
+    language: graphql
+    line: 439
+    type: fenced
+    action: "Display _count field query"
+    expected_outcome:
+      type: skip
+      value: "Shows _count(Person:{name:{startsWith:'Alice'}}) pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."

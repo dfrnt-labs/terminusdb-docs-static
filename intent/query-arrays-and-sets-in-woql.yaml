@@ -1,0 +1,74 @@
+# Intent skeleton for: query-arrays-and-sets-in-woql
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: query-arrays-and-sets-in-woql
+total_blocks: 5
+auto_filled: 5
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: json
+    line: 42
+    type: fenced
+    action: Document instance (request body)
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: javascript
+    line: 52
+    type: fenced
+    action: WOQL query snippet
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  - block_index: 2
+    language: text
+    line: 63
+    type: fenced
+    action: "Display RDF list cons-cell chain diagram: linked nodes with rest→next and first→value, terminating at rdf:nil"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 3
+    language: javascript
+    line: 71
+    type: fenced
+    action: WOQL query snippet
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: null
+
+  - block_index: 4
+    language: javascript
+    line: 80
+    type: fenced
+    action: WOQL query snippet
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: null

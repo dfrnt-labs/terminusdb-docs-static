@@ -1,0 +1,152 @@
+# Intent: install-terminusdb-from-source-code
+# Page: src/app/docs/install-terminusdb-from-source-code/page.md
+# Title: Install TerminusDB from Source Code
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a HOW-TO page for building TerminusDB from source.
+#       Reader arrives asking: "how do I compile TerminusDB myself?"
+
+page: install-terminusdb-from-source-code
+total_blocks: 9
+auto_filled: 9
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Install deps: Arch Linux ===
+
+  - block_index: 0
+    language: bash
+    line: 73
+    type: fenced
+    action: "Install all build dependencies on Arch Linux (pacman)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: Arch Linux needs git, swi-prolog, make, automake, autoconf, libtool, zlib, pkgconf, gcc, clang, gmp. Single pacman command installs everything. SWI-Prolog is the runtime, Rust/clang compile the storage layer."
+
+  # === Install deps: Debian/Ubuntu ===
+
+  - block_index: 1
+    language: bash
+    line: 83
+    type: fenced
+    action: "Install build dependencies on Debian/Ubuntu (apt)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: Ubuntu needs the SWI-Prolog PPA for latest stable version, then apt install swi-prolog clang libgmp-dev. The cat/grep checks if Ubuntu (vs plain Debian) for PPA step. Three commands total."
+
+  # === Install deps: Fedora/Red Hat ===
+
+  - block_index: 2
+    language: bash
+    line: 95
+    type: fenced
+    action: "Install build dependencies on Fedora/Red Hat (dnf)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+    ux_intent: "Reader learns: Fedora uses dnf — install pl (SWI-Prolog), pl-devel, clang, gmp-devel. Simpler than Debian — no PPA needed, packages are in default repos."
+
+  # === Install deps: macOS ===
+
+  - block_index: 3
+    language: bash
+    line: 103
+    type: fenced
+    action: "Install build dependencies on macOS (Homebrew)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 2
+    skip_reason: null
+    ux_intent: "Reader learns: macOS uses Homebrew — install gmp, swi-prolog, and rust. Three brew install commands. macOS comes with clang via Xcode Command Line Tools."
+
+  # === Clone repo ===
+
+  - block_index: 4
+    language: bash
+    line: 113
+    type: fenced
+    action: "Clone the TerminusDB repository from GitHub"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 3
+    skip_reason: null
+    ux_intent: "Reader learns: git clone https://github.com/terminusdb/terminusdb. Same for all operating systems. This gets the full source including the Makefile, Prolog code, and Rust storage layer."
+
+  # === Make: Linux ===
+
+  - block_index: 5
+    language: bash
+    line: 123
+    type: fenced
+    action: "Build TerminusDB CLI binary on Linux (make)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+    ux_intent: "Reader learns: cd terminusdb, then 'make install-tus' (installs TUS upload protocol library), then 'make' compiles the terminusdb binary. Two make targets. Result is a ./terminusdb executable."
+
+  # === Make: macOS ===
+
+  - block_index: 6
+    language: bash
+    line: 131
+    type: fenced
+    action: "Build TerminusDB CLI binary on macOS (make)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 5
+    skip_reason: null
+    ux_intent: "Reader learns: identical to Linux — cd terminusdb, make install-tus, make. The Makefile handles platform differences internally."
+
+  # === Run: Linux ===
+
+  - block_index: 7
+    language: bash
+    line: 145
+    type: fenced
+    action: "Initialize system database and start server on Linux"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 6
+    skip_reason: null
+    ux_intent: "Reader learns: two commands — (1) './terminusdb store init --key my_password_here' creates the system database with admin password, (2) './terminusdb serve' starts the server on http://127.0.0.1:6363. Choose a strong password for production."
+
+  # === Run: macOS ===
+
+  - block_index: 8
+    language: bash
+    line: 155
+    type: fenced
+    action: "Initialize system database and start server on macOS"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 7
+    skip_reason: null
+    ux_intent: "Reader learns: same as Linux — store init + serve. Example uses --key root (default password). Server starts on same port. After this, TerminusDB is running and accepting API requests."

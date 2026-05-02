@@ -1,0 +1,50 @@
+# Intent skeleton for: set
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: set
+total_blocks: 3
+auto_filled: 3
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 29
+    type: fenced
+    action: Define FrameViewer schema frame with Set properties
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: javascript
+    line: 130
+    type: fenced
+    action: Render FrameViewer in Create mode for UnorderedPerson
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+
+  - block_index: 2
+    language: javascript
+    line: 144
+    type: fenced
+    action: Render FrameViewer in Edit/View mode with Set data
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only

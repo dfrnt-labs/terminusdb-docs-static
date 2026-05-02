@@ -1,0 +1,210 @@
+# Intent: access-control-tutorial-source
+# Page: src/app/docs/access-control-tutorial-source/page.md
+# Title: Access Control Tutorial Source Code
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a TUTORIAL page — complete JS source walkthrough for programmatic RBAC.
+#       Reader arrives wanting: full working code for managing access control via SDK.
+
+page: access-control-tutorial-source
+total_blocks: 13
+auto_filled: 13
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Setup and initialization ===
+
+  - block_index: 0
+    language: javascript
+    line: 26
+    type: fenced
+    action: "Import TerminusDB client and configure server connection constants"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: require terminusdb-client, import ACTIONS from UTILS (provides action constants like INSTANCE_READ_ACCESS). Set NO_KEY password for authorization-only mode. Configure serverHost URL. Foundation for all subsequent access control operations."
+
+  - block_index: 1
+    language: javascript
+    line: 43
+    type: fenced
+    action: "Initialize WOQLClient and AccessControl instances with admin credentials"
+    expected_outcome:
+      type: non_empty
+      value: "Client and AccessControl objects initialized"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: two objects needed — WOQLClient for database operations, AccessControl for RBAC operations. Both take serverHost + {user, key} credentials. Only global admin can create teams/users. AccessControl is the dedicated class for permission management."
+
+  # === Define custom roles ===
+
+  - block_index: 2
+    language: javascript
+    line: 52
+    type: fenced
+    action: "Define role names and their action arrays (reader, writer, appAdmin, schema_writer)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only
+    ux_intent: "Reader learns: four custom roles with different action sets. appAdmin has 16 actions (everything except manage_capabilities), reader has 4 (read-only + class_frame), writer has 4 (write instance + read schema), schema_writer has 1 (schema_write only). Demonstrates granular permission design — each role serves a specific persona."
+
+  # === Create custom roles ===
+
+  - block_index: 3
+    language: javascript
+    line: 99
+    type: fenced
+    action: "Create custom roles via accessControl.createRole() with error handling"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 2
+    skip_reason: display_only
+    ux_intent: "Reader learns: accessControl.createRole(name, actionsArray) returns the role IRI. Error handling checks for DocumentIdAlreadyExists (idempotent — skip if role exists). Pattern: create all roles in a single function, handle duplicates gracefully."
+
+  # === Define users, teams, databases ===
+
+  - block_index: 4
+    language: javascript
+    line: 132
+    type: fenced
+    action: "Define user, team, and database name constants"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 3
+    skip_reason: display_only
+    ux_intent: "Reader learns: naming convention — User__01/02/03, Team__01/02/03, dataproduct__01/02. Databases (dataproducts) live under Teams (Organizations). Users are linked to Teams via capabilities. This is the multi-tenant model."
+
+  # === Create teams ===
+
+  - block_index: 5
+    language: javascript
+    line: 149
+    type: fenced
+    action: "Create three organisations (teams) via accessControl.createOrganization()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 4
+    skip_reason: display_only
+    ux_intent: "Reader learns: accessControl.createOrganization(teamName) creates a team namespace. Teams are containers for databases. At creation, no users are connected — just empty namespaces. Only admin can create organisations."
+
+  # === Create users ===
+
+  - block_index: 6
+    language: javascript
+    line: 166
+    type: fenced
+    action: "Create three users via accessControl.createUser() with NO_KEY password"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 5
+    skip_reason: display_only
+    ux_intent: "Reader learns: accessControl.createUser(name, password) creates a user. Using NO_KEY because this setup uses TerminusDB for authorization (external IdP handles authentication). Users exist but cannot access anything until granted capabilities."
+
+  # === Connect teams with users ===
+
+  - block_index: 7
+    language: javascript
+    line: 183
+    type: fenced
+    action: "Grant capabilities: link users to teams with specific roles via manageCapability()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 6
+    skip_reason: display_only
+    ux_intent: "Reader learns: accessControl.manageCapability(user, team, [roles], 'grant', 'organization'). User__01 gets appAdmin on team__01 and team__03. User__02 gets appAdmin on team__02 but only reader on team__01. User__03 gets reader+writer on team__01. Organisation-level grants cascade to all databases under that team."
+
+  # === Create databases ===
+
+  - block_index: 8
+    language: javascript
+    line: 224
+    type: fenced
+    action: "Create databases as User__01 (who has appAdmin/create_database permission)"
+    expected_outcome:
+      type: non_empty
+      value: "Two databases created under team__01 by User__01"
+      tolerance: non_empty
+    depends_on: 7
+    skip_reason: null
+    ux_intent: "Reader learns: create a NEW WOQLClient as User__01 (not admin). Pass organization=team__01. Call createDatabase(). Only works because User__01 has appAdmin role which includes CREATE_DATABASE action. Demonstrates: database creation requires the right capability."
+
+  # === Test permission restrictions ===
+
+  - block_index: 9
+    language: javascript
+    line: 252
+    type: fenced
+    action: "Demonstrate permission denial — User__02 cannot create databases on team__01"
+    expected_outcome:
+      type: non_empty
+      value: "Error caught: user__02 does not have permission to create databases"
+      tolerance: non_empty
+    depends_on: 8
+    skip_reason: null
+    ux_intent: "Reader learns: User__02 has only 'reader' role on team__01 — no CREATE_DATABASE action. Attempting createDatabase() throws an error. getTeamUserRoles() shows what actions a user has. The catch block demonstrates graceful error handling for permission failures."
+
+  # === Add roles at database level ===
+
+  - block_index: 10
+    language: javascript
+    line: 287
+    type: fenced
+    action: "Grant additional roles at database level (more specific than team level)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 9
+    skip_reason: display_only
+    ux_intent: "Reader learns: manageCapability with 'database' scope type grants access to a SPECIFIC database (team/db path). User__02 gets writer+schema_writer on team__01/dataproduct__02 only. Database-level grants are additive on top of team-level. Enables: reader at team level but writer on one specific DB."
+
+  # === Cleanup: delete resources ===
+
+  - block_index: 11
+    language: javascript
+    line: 317
+    type: fenced
+    action: "Delete databases, revoke capabilities, delete teams and users (cleanup)"
+    expected_outcome:
+      type: non_empty
+      value: "All resources cleaned up in correct order"
+      tolerance: non_empty
+    depends_on: 10
+    skip_reason: null
+    ux_intent: "Reader learns: CRITICAL deletion order — (1) delete databases first (need appAdmin user alive), (2) revoke all capabilities from teams, (3) delete teams, (4) delete users, (5) delete roles. Cannot delete a team while capabilities reference it. Cannot delete appAdmin user before their databases. Order matters!"
+
+  # === Main orchestrator function ===
+
+  - block_index: 12
+    language: javascript
+    line: 410
+    type: fenced
+    action: "Run the complete tutorial as an async orchestrator function"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 11
+    skip_reason: display_only
+    ux_intent: "Reader learns: the run() function orchestrates all steps in sequence with logging between each phase. Shows the full lifecycle: create roles → create teams → create users → link users to teams → create databases → test permissions → update permissions → cleanup. Copy and adapt for your own setup scripts."

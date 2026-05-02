@@ -1,0 +1,443 @@
+# Intent annotations for: document-format-api-curl-tutorial
+# Annotated: 2026-05-01
+# Source: src/app/docs/document-format-api-curl-tutorial/page.md
+#
+# This page teaches: Multi-format Document API with curl (JSON, JSON-LD, RDF/XML, Turtle round-trip)
+# Prerequisites: TerminusDB Enterprise running on localhost:6363
+# Dataset: Self-created (ProductCatalog with Category and Product documents)
+
+page: document-format-api-curl-tutorial
+total_blocks: 33
+annotated: 33
+needs_manual: 0
+
+blocks:
+
+  # Step 0: Setup — export environment variables
+  - block_index: 0
+    language: bash
+    line: 47
+    type: fenced
+    action: "Set environment variables (BASE64 credentials, SERVER, DB path, AUTH header) for all subsequent requests"
+    expected_outcome:
+      type: exit_code
+      value: "0"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  # Step 1: Create database
+  - block_index: 1
+    language: bash
+    line: 62
+    type: fenced
+    action: "POST /api/db — create ProductCatalog database with schema enabled"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+
+  # Step 1 response display
+  - block_index: 2
+    language: json
+    line: 76
+    type: fenced
+    action: "Display expected response: api:DbCreateResponse with api:success status"
+    expected_outcome:
+      type: skip
+      value: "Shows {type: 'api:DbCreateResponse', 'api:status': 'api:success'}."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Step 2: Define schema (Category, UnitOfMeasure subdocument, Product)
+  - block_index: 3
+    language: bash
+    line: 88
+    type: fenced
+    action: "POST /api/document with graph_type=schema — create Category, UnitOfMeasure (@subdocument), and Product classes with Lexical keys"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+
+  # Step 3: Insert reference data (Category + 2 Products)
+  - block_index: 4
+    language: bash
+    line: 145
+    type: fenced
+    action: "POST /api/document — insert Category/ELEC and two Product documents (SKU-1001, SKU-1002) with UnitOfMeasure subdocuments"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 3
+    skip_reason: null
+
+  # Step 3 response display (inserted IDs)
+  - block_index: 5
+    language: json
+    line: 190
+    type: fenced
+    action: "Display expected response: array of full IRIs for the 3 inserted documents"
+    expected_outcome:
+      type: skip
+      value: "Shows array: ['terminusdb:///data/Category/ELEC', 'terminusdb:///data/Product/SKU-1001', 'terminusdb:///data/Product/SKU-1002']."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Step 4: Retrieve as JSON — all products
+  - block_index: 6
+    language: bash
+    line: 208
+    type: fenced
+    action: "GET /api/document with type=Product&as_list=true — retrieve all Product documents as JSON array"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  # Step 4 response display (JSON Products with subdocuments)
+  - block_index: 7
+    language: json
+    line: 216
+    type: fenced
+    action: "Display expected JSON response: array of 2 Product documents with compressed IDs, inline UnitOfMeasure subdocuments"
+    expected_outcome:
+      type: skip
+      value: "Shows 2 Product documents (SKU-1001, SKU-1002) with @id, @type, all fields, and nested UnitOfMeasure subdocument with symbol/name."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Step 4: Retrieve single document by ID
+  - block_index: 8
+    language: bash
+    line: 255
+    type: fenced
+    action: "GET /api/document with id=Product/SKU-1001 — retrieve single Product document by ID"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  # Step 5: Retrieve as JSON-LD (stream mode)
+  - block_index: 9
+    language: bash
+    line: 271
+    type: fenced
+    action: "GET /api/document with type=Product&format=jsonld — retrieve products as JSON-LD stream (one @context per document)"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  # Step 5 response display (JSON-LD single document with @context)
+  - block_index: 10
+    language: json
+    line: 279
+    type: fenced
+    action: "Display expected JSON-LD response: Product document with @context (@base, @vocab) making it self-describing linked data"
+    expected_outcome:
+      type: skip
+      value: "Shows Product/SKU-1001 as self-contained JSON-LD with @context (@base: 'terminusdb:///data/', @vocab: 'terminusdb:///schema#') and all fields."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Step 5: Retrieve as JSON-LD (list mode with @graph)
+  - block_index: 11
+    language: bash
+    line: 306
+    type: fenced
+    action: "GET /api/document with type=Product&format=jsonld&as_list=true — retrieve products as JSON-LD with shared @context and @graph array"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  # Step 5 response display (JSON-LD @graph envelope)
+  - block_index: 12
+    language: json
+    line: 314
+    type: fenced
+    action: "Display expected JSON-LD list response: shared @context with @graph array containing all Product documents"
+    expected_outcome:
+      type: skip
+      value: "Shows single envelope with shared @context and @graph array containing 2 Product documents (SKU-1001, SKU-1002)."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Step 5: Retrieve as JSON-LD via Accept header
+  - block_index: 13
+    language: bash
+    line: 361
+    type: fenced
+    action: "GET /api/document with Accept: application/ld+json header — content negotiation alternative to format=jsonld"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  # Step 6: Retrieve as RDF/XML
+  - block_index: 14
+    language: bash
+    line: 378
+    type: fenced
+    action: "GET /api/document with type=Product&format=rdfxml — retrieve products serialized as RDF/XML"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  # Step 6 response display (RDF/XML with namespace declarations)
+  - block_index: 15
+    language: xml
+    line: 386
+    type: fenced
+    action: "Display expected RDF/XML response: Products as rdf:RDF with namespace declarations, typed literals (rdf:datatype), rdf:resource references, and nested subdocuments"
+    expected_outcome:
+      type: skip
+      value: "Shows full RDF/XML: rdf:RDF root with xmlns declarations (rdf, xsd, schema), 2 schema:Product elements with rdf:about, rdf:datatype for decimals/booleans, rdf:resource for category link, nested UnitOfMeasure."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Step 6: Retrieve as RDF/XML via Accept header
+  - block_index: 16
+    language: bash
+    line: 427
+    type: fenced
+    action: "GET /api/document with Accept: application/rdf+xml header — content negotiation for RDF/XML"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  # Step 7: Retrieve as Turtle
+  - block_index: 17
+    language: bash
+    line: 450
+    type: fenced
+    action: "GET /api/document with type=Product&format=turtle — retrieve products serialized as Turtle (Terse RDF Triple Language)"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  # Step 7 response display (Turtle with prefixes)
+  - block_index: 18
+    language: turtle
+    line: 458
+    type: fenced
+    action: "Display expected Turtle response: Products with @prefix declarations, 'a' for rdf:type, ^^xsd typed literals, square bracket blank nodes for subdocuments"
+    expected_outcome:
+      type: skip
+      value: "Shows Turtle with @base/@prefix declarations, 2 Products using 'a schema:Product', ^^xsd:decimal prices, ^^xsd:boolean active, [...] blank nodes for UnitOfMeasure."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Step 7: Retrieve as Turtle via Accept header
+  - block_index: 19
+    language: bash
+    line: 495
+    type: fenced
+    action: "GET /api/document with Accept: text/turtle header — content negotiation for Turtle format"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  # Step 8: Import from JSON-LD (POST with Content-Type: application/ld+json)
+  - block_index: 20
+    language: bash
+    line: 522
+    type: fenced
+    action: "POST /api/document with Content-Type: application/ld+json — insert Product/SKU-2001 from JSON-LD with @context mapping id→@id, type→@type"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  # Step 8 response display (inserted IRI)
+  - block_index: 21
+    language: json
+    line: 552
+    type: fenced
+    action: "Display expected response: single-element array with full IRI of inserted JSON-LD document"
+    expected_outcome:
+      type: skip
+      value: "Shows ['terminusdb:///data/Product/SKU-2001'] — full IRI of the newly imported document."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Step 9: Import from RDF/XML (POST with Content-Type: application/rdf+xml)
+  - block_index: 22
+    language: bash
+    line: 566
+    type: fenced
+    action: "POST /api/document with Content-Type: application/rdf+xml — insert Product/SKU-3001 from RDF/XML with namespace declarations and typed literals"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  # Step 9 response display (inserted IRI)
+  - block_index: 23
+    language: json
+    line: 597
+    type: fenced
+    action: "Display expected response: single-element array with full IRI of inserted RDF/XML document"
+    expected_outcome:
+      type: skip
+      value: "Shows ['terminusdb:///data/Product/SKU-3001'] — full IRI of the RDF/XML imported document."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Step 10: Import from Turtle (POST with Content-Type: text/turtle)
+  - block_index: 24
+    language: bash
+    line: 611
+    type: fenced
+    action: "POST /api/document with Content-Type: text/turtle — insert Product/SKU-4001 from Turtle via stdin pipe (avoiding curl @ interpretation)"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  # Step 10 response display (inserted IRI)
+  - block_index: 25
+    language: json
+    line: 639
+    type: fenced
+    action: "Display expected response: single-element array with full IRI of inserted Turtle document"
+    expected_outcome:
+      type: skip
+      value: "Shows ['terminusdb:///data/Product/SKU-4001'] — full IRI of the Turtle imported document."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Step 11: Verify round-trip — list all products
+  - block_index: 26
+    language: bash
+    line: 653
+    type: fenced
+    action: "GET /api/document with type=Product&as_list=true — verify all products (original 2 + 3 imports) are present"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 24
+    skip_reason: null
+
+  # Step 11: Verify JSON-LD import
+  - block_index: 27
+    language: bash
+    line: 663
+    type: fenced
+    action: "GET /api/document with id=Product/SKU-2001 — verify JSON-LD import has correct structure"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 20
+    skip_reason: null
+
+  # Step 11: Verify RDF/XML import
+  - block_index: 28
+    language: bash
+    line: 671
+    type: fenced
+    action: "GET /api/document with id=Product/SKU-3001 — verify RDF/XML import has correct structure"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 22
+    skip_reason: null
+
+  # Step 11: Verify Turtle import
+  - block_index: 29
+    language: bash
+    line: 679
+    type: fenced
+    action: "GET /api/document with id=Product/SKU-4001 — verify Turtle import has correct structure"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 24
+    skip_reason: null
+
+  # Step 11: Full-format cross-check (retrieve SKU-4001 in all 4 formats)
+  - block_index: 30
+    language: bash
+    line: 691
+    type: fenced
+    action: "GET /api/document for SKU-4001 in JSON, JSON-LD, RDF/XML, and Turtle — verify all representations describe the same underlying graph"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 24
+    skip_reason: null
+
+  # Step 12: Replace document using JSON-LD (PUT)
+  - block_index: 31
+    language: bash
+    line: 716
+    type: fenced
+    action: "PUT /api/document with Content-Type: application/ld+json — replace Product/SKU-2001 with updated name and price via JSON-LD"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 20
+    skip_reason: null
+
+  # Step 13: Clean up — delete database
+  - block_index: 32
+    language: bash
+    line: 750
+    type: fenced
+    action: "DELETE /api/db — remove the ProductCatalog test database"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null

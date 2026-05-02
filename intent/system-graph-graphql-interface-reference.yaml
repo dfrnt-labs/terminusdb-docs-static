@@ -1,0 +1,61 @@
+# Intent Capture: system-graph-graphql-interface-reference
+# Page: src/app/docs/system-graph-graphql-interface-reference/page.md
+# Title: System Graph Interface to GraphQL
+# Total blocks: 3
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: Short reference page with three URL patterns. All display only — no executable code.
+
+page: system-graph-graphql-interface-reference
+total_blocks: 3
+auto_filled: 3
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Block 0 — System graph URL
+
+  - block_index: 0
+    language: url
+    line: 25
+    type: fenced
+    action: "Display system graph GraphQL endpoint URL"
+    expected_outcome:
+      type: skip
+      value: "Shows http://localhost:6363/api/graphql/_system"
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. URL reference."
+
+  # Block 1 — Meta graph URL
+
+  - block_index: 1
+    language: url
+    line: 33
+    type: fenced
+    action: "Display meta graph GraphQL endpoint URL pattern"
+    expected_outcome:
+      type: skip
+      value: "Shows http://localhost:6363/api/graphql/ORG/DATA_PRODUCT/_meta"
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. URL pattern."
+
+  # Block 2 — Commit graph URL
+
+  - block_index: 2
+    language: url
+    line: 41
+    type: fenced
+    action: "Display commit graph GraphQL endpoint URL pattern"
+    expected_outcome:
+      type: skip
+      value: "Shows http://localhost:6363/api/graphql/ORG/DATA_PRODUCT/local/_commits"
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. URL pattern."

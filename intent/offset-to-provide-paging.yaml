@@ -1,0 +1,62 @@
+# Intent skeleton for: offset-to-provide-paging
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: offset-to-provide-paging
+total_blocks: 4
+auto_filled: 4
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: graphql
+    line: 45
+    type: fenced
+    action: GraphQL query with limit (first page)
+    expected_outcome:
+      type: response_body
+      value: 5 People documents with label field
+      tolerance: count_gte
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: json
+    line: 55
+    type: fenced
+    action: Display first page query result (5 People)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+
+  - block_index: 2
+    language: graphql
+    line: 81
+    type: fenced
+    action: GraphQL query with limit and offset (second page)
+    expected_outcome:
+      type: response_body
+      value: 5 People documents offset by 5
+      tolerance: count_gte
+    depends_on: 0
+    skip_reason: null
+
+  - block_index: 3
+    language: json
+    line: 91
+    type: fenced
+    action: Display second page query result (next 5 People)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 2
+    skip_reason: display_only

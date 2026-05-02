@@ -1,0 +1,38 @@
+# Intent skeleton for: terminusdb-internals
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: terminusdb-internals
+total_blocks: 2
+auto_filled: 2
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: bash
+    line: 46
+    type: fenced
+    action: Run Prolog datalog query via CLI
+    expected_outcome:
+      type: output_contains
+      value: JSON bindings output
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: bash
+    line: 54
+    type: fenced
+    action: Start TerminusDB in interactive Prolog mode
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

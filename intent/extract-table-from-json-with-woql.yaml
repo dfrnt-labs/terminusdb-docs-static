@@ -1,0 +1,219 @@
+# Intent Capture: extract-table-from-json-with-woql
+# Page: src/app/docs/extract-table-from-json-with-woql/page.md
+# Title: How to extract tabular data from JSON with WOQL
+# Total blocks: 15
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-02
+# Status: COMPLETE
+# Note: How-to page showing dot/member/Doc pattern for JSON table extraction. Progressive tutorial: basic pattern → step breakdown → employee example → filtering → nested → comparison → JS client → JSON-LD format. All blocks are SDK snippets using sys:Dictionary via new Doc().
+
+page: extract-table-from-json-with-woql
+total_blocks: 15
+auto_filled: 15
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 36
+    type: fenced
+    action: "WOQL pattern: extract tabular data from JSON array using select/eq/dot/member"
+    expected_outcome:
+      type: non_empty
+      value: "Uses select('a','b').and() with eq(new Doc({val:[...]})), dot for navigation, member for iteration, dot for field extraction. Returns [{a:'1',b:'2'},{a:'2',b:'3'}]."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Core pattern for the page. Shows complete dot+member technique in minimal form. Self-contained — data embedded in query via new Doc()."
+    assertion: "No assertion — illustrative core pattern. If executed: returns 2 bindings with a and b fields."
+
+  - block_index: 1
+    language: javascript
+    line: 57
+    type: fenced
+    action: "Step 1: Define JSON data using eq() with new Doc() wrapper for sys:Dictionary"
+    expected_outcome:
+      type: non_empty
+      value: "Shows eq('v:val', new Doc({val: [{a:'1',b:'2'},{a:'2',b:'3'}]})) — wraps JSON into sys:Dictionary structure for WOQL traversal."
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: display_only
+    note: "Pedagogical breakdown of block 0. Key concept: new Doc() creates a sys:Dictionary that WOQL can traverse."
+    assertion: "No assertion — pedagogical step breakdown."
+
+  - block_index: 2
+    language: javascript
+    line: 70
+    type: fenced
+    action: "Step 2: Navigate to array using dot operator"
+    expected_outcome:
+      type: non_empty
+      value: "Shows dot('v:val', 'val', 'v:list') — accesses the 'val' property from the Doc, binding the array to v:list."
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical step breakdown."
+
+  - block_index: 3
+    language: javascript
+    line: 78
+    type: fenced
+    action: "Step 3: Iterate over array rows using member predicate"
+    expected_outcome:
+      type: non_empty
+      value: "Shows member('v:member', 'v:list') — iterates over each element in array, binding each object to v:member."
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical step breakdown."
+
+  - block_index: 4
+    language: javascript
+    line: 86
+    type: fenced
+    action: "Step 4: Extract columns from each row using dot operator"
+    expected_outcome:
+      type: non_empty
+      value: "Shows dot('v:member', 'a', 'v:a') and dot('v:member', 'b', 'v:b') — extracts specific fields from each row object."
+      tolerance: non_empty
+    depends_on: 3
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical step breakdown."
+
+  - block_index: 5
+    language: javascript
+    line: 95
+    type: fenced
+    action: "Step 5: Select output columns with select()"
+    expected_outcome:
+      type: non_empty
+      value: "Shows select('a', 'b') — specifies which variables to return in the result."
+      tolerance: non_empty
+    depends_on: 4
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical step breakdown."
+
+  - block_index: 6
+    language: javascript
+    line: 103
+    type: fenced
+    action: "Complete example: extract 4-column employee data using Vars + select + dot + member"
+    expected_outcome:
+      type: non_empty
+      value: "Full pattern with Vars('data','employees','emp','id','name','department','salary'), embedded employee JSON (4 records), dot to navigate to 'employees' array, member to iterate, dot×4 to extract fields."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Most complete self-contained example. If executed: returns 4 bindings with id/name/department/salary."
+    assertion: "No assertion — illustrative complete example. Self-contained data via new Doc()."
+
+  - block_index: 7
+    language: json
+    line: 127
+    type: fenced
+    action: "Display expected result of employee data extraction"
+    expected_outcome:
+      type: skip
+      value: "Shows 4 employee objects: E001/Alice/Engineering/75000, E002/Bob/Sales/65000, E003/Carol/Engineering/80000, E004/Dave/Marketing/70000."
+      tolerance: null
+    depends_on: 6
+    skip_reason: display_only
+    assertion: "No assertion — display only. Expected output reference for block 6."
+
+  - block_index: 8
+    language: javascript
+    line: 140
+    type: fenced
+    action: "WOQL pattern: filter rows using eq() constraint on extracted field"
+    expected_outcome:
+      type: non_empty
+      value: "Same employee pattern as block 6 but adds eq(v.department, string('Engineering')) to filter only Engineering department. Returns id/name/salary for matches."
+      tolerance: non_empty
+    depends_on: 6
+    skip_reason: display_only
+    note: "Shows how to add WHERE-clause-like filtering to the dot+member pattern. Uses string() for typed comparison."
+    assertion: "No assertion — illustrative filtering pattern. If executed: returns 2 bindings (Alice, Carol)."
+
+  - block_index: 9
+    language: json
+    line: 165
+    type: fenced
+    action: "Display expected filtered result (Engineering only)"
+    expected_outcome:
+      type: skip
+      value: "Shows 2 employees: E001/Alice/75000, E003/Carol/80000."
+      tolerance: null
+    depends_on: 8
+    skip_reason: display_only
+    assertion: "No assertion — display only. Expected filtered output."
+
+  - block_index: 10
+    language: javascript
+    line: 176
+    type: fenced
+    action: "WOQL pattern: navigate nested JSON objects with chained dot operators"
+    expected_outcome:
+      type: non_empty
+      value: "Uses dot(v.user, 'address', v.address) then dot(v.address, 'city', v.city) and dot(v.address, 'country', v.country) to extract nested address fields from user objects."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Shows that dot can traverse nested objects — chain dot calls for deep property access."
+    assertion: "No assertion — illustrative pattern for nested JSON navigation."
+
+  - block_index: 11
+    language: json
+    line: 204
+    type: fenced
+    action: "Display expected result of nested JSON extraction"
+    expected_outcome:
+      type: skip
+      value: "Shows 2 users: Alice/London/UK, Bob/Paris/France."
+      tolerance: null
+    depends_on: 10
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 12
+    language: javascript
+    line: 215
+    type: fenced
+    action: "WOQL pattern: compare two JSON tables using distinct/or/once/not for set categorisation"
+    expected_outcome:
+      type: non_empty
+      value: "Two Doc sources compared: source items [1,2,3] vs target items [2,3,4]. Uses distinct for unique IDs, or() with once()/not() to categorise as to_add, to_delete, or no_change."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Advanced pattern combining dot/member with set comparison logic. Uses once() to test membership existence without multiple bindings."
+    assertion: "No assertion — illustrative advanced pattern. Combines JSON extraction with diff categorisation."
+
+  - block_index: 13
+    language: javascript
+    line: 266
+    type: fenced
+    action: "Complete JS client example: connect, create query, execute against database"
+    expected_outcome:
+      type: non_empty
+      value: "Full working example: require terminusdb, create WOQLClient on localhost:6363, connect, select db, build select+dot+member query with WOQL prefix, await client.query(), log bindings."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    note: "Most testable example — includes client setup. Requires running TerminusDB with 'mydb' database."
+    assertion: "If executed: exit code 0 AND stdout contains bindings with id and name fields. SKIP unless integration env."
+
+  - block_index: 14
+    language: json
+    line: 304
+    type: fenced
+    action: "Display JSON-LD equivalent of the dot operator structure"
+    expected_outcome:
+      type: skip
+      value: "Shows raw JSON-LD: {type: 'Dot', dictionary: {type: 'Value', variable: 'data'}, key: {type: 'DataValue', data: 'employees'}, value: {type: 'Value', variable: 'employees'}}."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    note: "Reference: shows the underlying JSON-LD AST representation of the dot operator for protocol-level understanding."
+    assertion: "No assertion — display only. JSON-LD AST reference."

@@ -1,0 +1,86 @@
+# Intent skeleton for: path-query-reference-guide
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: path-query-reference-guide
+total_blocks: 6
+auto_filled: 6
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: json
+    line: 112
+    type: fenced
+    action: Display Person schema with optional mother/father fields (Lexical key)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: bash
+    line: 123
+    type: fenced
+    action: Create admin/ancestor DB and insert Person schema via CLI
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 2
+    language: json
+    line: 135
+    type: fenced
+    action: Display family tree data (Charles II, Philip IV, Mariana, etc.) with @capture/@ref
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only
+
+  - block_index: 3
+    language: javascript
+    line: 248
+    type: fenced
+    action: WOQL path query finding ancestors via mother/father traversal
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: null
+
+  - block_index: 4
+    language: javascript
+    line: 259
+    type: fenced
+    action: WOQL path query with plus operator for transitive closure
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 3
+    skip_reason: null
+
+  - block_index: 5
+    language: javascript
+    line: 275
+    type: fenced
+    action: WOQL path query with star operator for reflexive transitive closure
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 4
+    skip_reason: null

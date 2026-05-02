@@ -1,0 +1,1279 @@
+# Intent: schema-reference-guide
+# Page: src/app/docs/schema-reference-guide/page.md
+# Title: Schema Reference Guide
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a pure REFERENCE page. Blocks are all JSON schema/instance examples
+#       illustrating syntax. None are executable against a running server.
+#       Reader arrives looking for "how do I write X in TerminusDB schema?"
+#       Each block answers a specific syntax question.
+
+page: schema-reference-guide
+total_blocks: 84
+auto_filled: 84
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Class Definition (the basic unit) ===
+
+  - block_index: 0
+    language: json
+    line: 65
+    type: fenced
+    action: "Define a minimal Class with one string property"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees the simplest possible schema: @type=Class, @id=name, one property. This is the mental anchor — everything else builds on this shape."
+
+  # === Context Object ===
+
+  - block_index: 1
+    language: json
+    line: 79
+    type: fenced
+    action: "Define a @context object with prefixes and documentation"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @context controls URI expansion for the entire schema. @schema sets class prefix, @base sets data prefix. Custom prefixes (xsd) enable vocabulary reuse. @documentation adds human-readable metadata."
+
+  # === Context Prefixes ===
+
+  - block_index: 2
+    language: text
+    line: 112
+    type: fenced
+    action: "Display prefix/URI pattern grammar"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees the formal pattern: Prefix := alpha followed by alphanumeric, URI := protocol + path. Confirms prefix naming rules."
+
+  # === @schema keyword ===
+
+  - block_index: 3
+    language: json
+    line: 131
+    type: fenced
+    action: "Show @schema URI expansion with NamedQuery class"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @schema prefix auto-expands class names. 'NamedQuery' becomes 'http://terminusdb.com/schema/woql#NamedQuery'. Also introduces @key Lexical and inter-class reference ('query': 'Query')."
+
+  # === @base keyword (instance document) ===
+
+  - block_index: 4
+    language: json
+    line: 169
+    type: fenced
+    action: "Show instance document with @id expanded by @base"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @base expands instance @id values. 'NamedQuery_my_query' becomes 'terminusdb://woql/data/NamedQuery_my_query'. The instance references the schema class via @type."
+
+  # === @metadata on context ===
+
+  - block_index: 5
+    language: json
+    line: 204
+    type: fenced
+    action: "Add arbitrary JSON metadata to the @context object"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @metadata on context stores branch/product-level configuration as arbitrary JSON. Not schema-checked — store whatever structured data you need."
+
+  # === @language on context (i18n) ===
+
+  - block_index: 6
+    language: json
+    line: 218
+    type: fenced
+    action: "Define multilingual schema documentation with @language"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @documentation can be a list with @language tags (IANA codes). Same schema can have English and Georgian (ka) descriptions. Internationalisation is built into the schema layer."
+
+  # === @metadata on Class ===
+
+  - block_index: 7
+    language: json
+    line: 252
+    type: fenced
+    action: "Add display metadata to a Class definition"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @metadata on a class stores UI hints (colour, size) or backend config. Best practice: nest under a key ('display_format') to leave room for other metadata consumers."
+
+  # === render_as Markdown ===
+
+  - block_index: 8
+    language: json
+    line: 267
+    type: fenced
+    action: "Configure render_as metadata for Markdown rendering"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: render_as in @metadata instructs clients to use Markdown editor for specific string fields. Property name maps to mime type. Used by TerminusCMS document explorer."
+
+  # === order_by metadata ===
+
+  - block_index: 9
+    language: json
+    line: 295
+    type: fenced
+    action: "Configure property display order with order_by metadata"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: order_by in @metadata controls property display order in document explorer. Array of property names in desired sequence."
+
+  # === Class type: Dog schema definition ===
+
+  - block_index: 10
+    language: json
+    line: 321
+    type: fenced
+    action: "Define a Class with @base and Lexical key strategy"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: full Class pattern with @base (URI prefix for instances), @key Lexical (deterministic ID from 'name' field), typed property ('hair_colour': 'Colour' references another class)."
+
+  # === Dog instance ===
+
+  - block_index: 11
+    language: json
+    line: 338
+    type: fenced
+    action: "Show context + instance document for the Dog class"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: context defines @base and @schema, then instance uses @type=Dog with explicit @id (Dog_Cerberus). Enum-like string value for hair_colour."
+
+  # === Enum schema type ===
+
+  - block_index: 12
+    language: json
+    line: 358
+    type: fenced
+    action: "Define an Enum type with fixed values"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Enum has @type=Enum, @id=name, @value=array of allowed strings. Values are URIs internally (PrimaryColour/blue). Use for controlled vocabularies with no additional properties."
+
+  # === TaggedUnion schema ===
+
+  - block_index: 13
+    language: json
+    line: 379
+    type: fenced
+    action: "Define a TaggedUnion for mutually exclusive properties"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: TaggedUnion has exactly one property set at a time ('leaf' or 'node'). BinaryTree example shows recursive data structure: leaf=Unit (no value), node=Node (with value+branches). ValueHash key for content-addressed identity."
+
+  # === TaggedUnion instance ===
+
+  - block_index: 14
+    language: json
+    line: 411
+    type: fenced
+    action: "Show a concrete TaggedUnion instance (binary tree)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: nested BinaryTree with Node(value=0, left=leaf, right=leaf). The 'leaf': [] syntax for sys:Unit. Demonstrates recursive structure in practice."
+
+  # === Foreign type declaration ===
+
+  - block_index: 15
+    language: json
+    line: 443
+    type: fenced
+    action: "Declare a Foreign type reference"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Foreign types are opaque references to external data products. Minimal declaration: @type=Foreign, @id=TypeName. No properties needed — the definition lives in the remote product."
+
+  # === Foreign type: home data product definition ===
+
+  - block_index: 16
+    language: json
+    line: 450
+    type: fenced
+    action: "Show the actual Person class in its home data product"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: the 'real' Person class has properties (name, Lexical key). The Foreign declaration in the consuming product doesn't need to know these details."
+
+  # === Foreign type: using as Optional property ===
+
+  - block_index: 17
+    language: json
+    line: 459
+    type: fenced
+    action: "Reference a Foreign type in an Optional property"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Foreign types are used exactly like local class references. @class=Person, @type=Optional. The consumer doesn't see the foreign type differently from a local type."
+
+  # === Foreign type CLI: create HR db ===
+
+  - block_index: 18
+    language: bash
+    line: 472
+    type: fenced
+    action: "Create the HR data product via CLI"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: 'terminusdb db create admin/hr' creates a new database. First step in a two-product Foreign reference example."
+
+  # === Foreign type CLI: add HR schema ===
+
+  - block_index: 19
+    language: bash
+    line: 478
+    type: fenced
+    action: "Insert Person schema into HR data product"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 18
+    skip_reason: display_only
+    ux_intent: "Reader learns: pipe JSON schema to 'terminusdb doc insert --graph_type=schema'. The Person class with Lexical key lives in admin/hr."
+
+  # === Foreign type CLI: create Events db ===
+
+  - block_index: 20
+    language: bash
+    line: 484
+    type: fenced
+    action: "Create the Events data product via CLI"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: second database 'admin/events' created. This product will reference Person as a Foreign type."
+
+  # === Foreign type CLI: add Events schema with Foreign ===
+
+  - block_index: 21
+    language: bash
+    line: 490
+    type: fenced
+    action: "Insert Event schema with Foreign Person declaration"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 20
+    skip_reason: display_only
+    ux_intent: "Reader learns: Foreign declaration and Event class are inserted together as a stream. Event has 'person': 'Person' — referencing the foreign type. No schema check on Person's properties in this product."
+
+  # === Foreign type CLI: add person to HR ===
+
+  - block_index: 22
+    language: bash
+    line: 496
+    type: fenced
+    action: "Insert a Person document into the HR product"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 19
+    skip_reason: display_only
+    ux_intent: "Reader sees: 'Gavin' inserted into admin/hr. The generated @id (Person/Gavin via Lexical key) will be used as the foreign reference."
+
+  # === Foreign type CLI: add event referencing person ===
+
+  - block_index: 23
+    language: bash
+    line: 502
+    type: fenced
+    action: "Insert an Event referencing the foreign Person"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 21
+    skip_reason: display_only
+    ux_intent: "Reader learns: the foreign reference uses the full IRI ('terminusdb:///data/Person/Gavin'). No integrity check — the events product trusts that this IRI exists in HR. Cross-product linking."
+
+  # === Foreign type CLI: retrieve event ===
+
+  - block_index: 24
+    language: bash
+    line: 508
+    type: fenced
+    action: "Retrieve the Event document containing the foreign reference"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 23
+    skip_reason: display_only
+    ux_intent: "Reader sees: 'terminusdb doc get' retrieves the event with the person field as a plain IRI string. The foreign reference is not unfolded — it's just a pointer to another product."
+
+  # === @id keyword (NamedQuery class) ===
+
+  - block_index: 25
+    language: json
+    line: 522
+    type: fenced
+    action: "Show @id as class name identifier"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @id uniquely names the class. Without a prefix, it expands using @schema. Same NamedQuery example reinforces: @id + @type + @key + properties = complete class."
+
+  # === Lexical key strategy ===
+
+  - block_index: 26
+    language: json
+    line: 550
+    type: fenced
+    action: "Define a Lexical key from multiple fields"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Lexical key concatenates @fields values into a deterministic URI. Person with first_name+last_name → Person_Hasdrupal_Barca. @base on class prepends to the generated key. Predictable, human-readable IDs."
+
+  # === Simple document definition (Lexical key result) ===
+
+  - block_index: 27
+    language: json
+    line: 577
+    type: fenced
+    action: "Show instance document whose @id is generated by Lexical key"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: no @id in document — it is generated from first_name + last_name. Result: 'http://example.com/people/Person_Hasdrupal_Barca'. Demonstrates key generation in action."
+
+  # === ValueHash key strategy ===
+
+  - block_index: 28
+    language: json
+    line: 611
+    type: fenced
+    action: "Define a ValueHash key (content-addressed identity)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: ValueHash = content-addressed. Key is SHA of entire document subtree. No @fields needed. Same content = same ID = deduplication. Constraint: documents must be DAGs (no cycles)."
+
+  # === Random key strategy ===
+
+  - block_index: 29
+    language: json
+    line: 638
+    type: fenced
+    action: "Define a Random key (non-reproducible unique ID)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Random = UUID-like, no determinism. Use when: no natural key exists, reproducibility not needed, or uniqueness is the only requirement. Also shows @inherits and @documentation with @properties."
+
+  # === @documentation multilingual example ===
+
+  - block_index: 30
+    language: json
+    line: 669
+    type: fenced
+    action: "Define multilingual class documentation with @language"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @documentation on classes supports i18n via @language list. Properties documented with @label + @comment or just a string. Both Georgian and English shown. Schema is self-documenting."
+
+  # === Enum @documentation example ===
+
+  - block_index: 31
+    language: json
+    line: 699
+    type: fenced
+    action: "Document an Enum with @values descriptions"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Enums use @values (not @properties) in @documentation. Each enum value maps to a human-readable description string. 'dog': 'A doggie'."
+
+  # === Class @documentation with @properties ===
+
+  - block_index: 32
+    language: json
+    line: 716
+    type: fenced
+    action: "Document a Class with @properties descriptions"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Classes use @properties (not @values) in @documentation. Property name maps to description. Also shows Set type family inline ('friends': Set of Person)."
+
+  # === @properties simple pattern ===
+
+  - block_index: 33
+    language: json
+    line: 743
+    type: fenced
+    action: "Display @properties documentation pattern (simple strings)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Pattern reference: @properties as { property: description_string } pairs. Simplest form."
+
+  # === @properties object pattern ===
+
+  - block_index: 34
+    language: json
+    line: 755
+    type: fenced
+    action: "Display @properties documentation pattern (with @label and @comment)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Pattern reference: @properties with structured objects { @label, @comment } for each property. Richer documentation format."
+
+  # === @base keyword (layer schema + context) ===
+
+  - block_index: 35
+    language: json
+    line: 771
+    type: fenced
+    action: "Show @base keyword with fully qualified URI prefix"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @base on a class prepends to the key. When @base uses a prefix (layer_data:Layer_), it expands through context. Full URI form: terminusdb://layer/data/Layer_ + key. Multiple prefixes in context enable cross-namespace references."
+
+  # === @subdocument declaration ===
+
+  - block_index: 36
+    language: json
+    line: 820
+    type: fenced
+    action: "Declare a subdocument class (owned by parent)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @subdocument=[] makes a class owned by its parent. Cannot be directly updated/deleted — only through the containing document. Must use Random or ValueHash key. Person has Address as nested subdocument."
+
+  # === @subdocument instance ===
+
+  - block_index: 37
+    language: json
+    line: 849
+    type: fenced
+    action: "Show a document with an inline subdocument"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: Address is nested inline within Person. No @id on subdocument (auto-generated). Feels like embedded JSON — but schema-validated and queryable via WOQL triples."
+
+  # === @abstract keyword ===
+
+  - block_index: 38
+    language: json
+    line: 874
+    type: fenced
+    action: "Define an abstract class that cannot be instantiated"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @abstract=[] prevents direct instantiation. NamedEntity defines shared properties (name), Person inherits them via @inherits. Like interfaces in TypeScript — define shape without concrete instances."
+
+  # === @abstract instance (concrete subclass) ===
+
+  - block_index: 39
+    language: json
+    line: 893
+    type: fenced
+    action: "Show instance of concrete subclass (not abstract)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: Person instance with @type=Person, not NamedEntity. The 'name' property inherited from abstract parent. Confirms: abstract classes define the contract, concrete classes fulfil it."
+
+  # === @inherits single class ===
+
+  - block_index: 40
+    language: json
+    line: 909
+    type: fenced
+    action: "Display single-class @inherits syntax"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Pattern reference: @inherits with a single class name (string). Simplest inheritance form."
+
+  # === @inherits list of classes ===
+
+  - block_index: 41
+    language: json
+    line: 921
+    type: fenced
+    action: "Display multi-class @inherits syntax (multiple inheritance)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Pattern reference: @inherits with an array of class names. Multiple inheritance — properties from all parents combined. Constraint: same-named properties must have same range."
+
+  # === Multiple inheritance schema ===
+
+  - block_index: 42
+    language: json
+    line: 944
+    type: fenced
+    action: "Define multiple inheritance: TwoHanded inherits from RightHanded and LeftHanded"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: TwoHanded gets both right_hand and left_hand properties via multiple inheritance. DAG inheritance model — supports mix-in patterns. No key strategy inherited (only properties)."
+
+  # === Multiple inheritance instance ===
+
+  - block_index: 43
+    language: json
+    line: 970
+    type: fenced
+    action: "Show instance using inherited properties from multiple parents"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: TwoHanded instance has both left_hand and right_hand — each from a different parent. Multiple inheritance working in practice."
+
+  # === @unfoldable schema ===
+
+  - block_index: 44
+    language: json
+    line: 996
+    type: fenced
+    action: "Declare a class as @unfoldable (auto-expand on retrieval)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @unfoldable=[] on Address makes it expand inline on retrieval (like a subdocument) but it's still a top-level document that can be shared. Person references Address — will get full object, not just IRI."
+
+  # === @unfoldable: shared document instances ===
+
+  - block_index: 45
+    language: json
+    line: 1020
+    type: fenced
+    action: "Show two documents sharing the same unfoldable Address"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Doug and Phil both reference Address/1 (shared, unlike subdocument). address field stores the IRI 'Address/1' — but retrieval will unfold it. Key difference from subdocument: multiple owners allowed."
+
+  # === @unfoldable retrieval result ===
+
+  - block_index: 46
+    language: json
+    line: 1046
+    type: fenced
+    action: "Show retrieval result with Address unfolded inline"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: both Person documents have full Address object inline despite storing only a reference. @unfoldable gives subdocument-like retrieval with top-level document semantics. Same Address/1 in both."
+
+  # === @unfold field-level: syntax ===
+
+  - block_index: 47
+    language: json
+    line: 1087
+    type: fenced
+    action: "Show field-level @unfold syntax on a property"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @unfold=true on an individual property (inside Optional/Set/Array wrapper). customer unfolds, product doesn't — fine-grained control per field, not per class."
+
+  # === @unfold cycle detection example ===
+
+  - block_index: 48
+    language: json
+    line: 1124
+    type: fenced
+    action: "Show cycle detection result with @unfold"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: cycles terminate gracefully — recurring document shows as IRI instead of infinite nesting. A→B→A result: B.ref='A' (IRI, not unfolded). Prevents infinite recursion."
+
+  # === @unfold: distinguishing from @unfoldable ===
+
+  - block_index: 49
+    language: json
+    line: 1136
+    type: fenced
+    action: "Display interaction table context: full @unfold schema example"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: complete schema with Customer (not unfoldable), Product (not unfoldable), and Order using field-level @unfold on customer but not items. Full working example of selective unfolding."
+
+  # === @unfold: retrieval result ===
+
+  - block_index: 50
+    language: json
+    line: 1172
+    type: fenced
+    action: "Show retrieval with selective field-level unfolding"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees the payoff: customer field is full object (unfolded via @unfold=true), items field shows only IRI strings (no @unfold). Same document, different behaviors per field."
+
+  # === @shared document declaration ===
+
+  - block_index: 51
+    language: json
+    line: 1211
+    type: fenced
+    action: "Declare a @shared class with lifecycle management"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @shared=[] enables reference-counted lifecycle. Footnote is shared between Articles. When last reference removed, Footnote cascade-deletes. Supports any key type (here: Lexical). Not a subdocument — can have multiple parents."
+
+  # === @shared: instance documents ===
+
+  - block_index: 52
+    language: json
+    line: 1248
+    type: fenced
+    action: "Show shared document referenced by multiple parents"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: Footnote/fn1 referenced by both Article/intro and Article/appendix. Delete intro → fn1 survives (still referenced). Delete appendix → fn1 cascade-deleted (zero references). Automatic garbage collection."
+
+  # === @oneOf schema ===
+
+  - block_index: 53
+    language: json
+    line: 1279
+    type: fenced
+    action: "Define @oneOf for disjoint property groups in a Class"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @oneOf defines mutually exclusive property sets within a Class (alternative to TaggedUnion). Can have multiple @oneOf groups — each is independent. Pet must pick one from {cat,dog} AND one from {employers,unemployed}. More flexible than TaggedUnion."
+
+  # === @oneOf: IntOrString instance (integer) ===
+
+  - block_index: 54
+    language: json
+    line: 1333
+    type: fenced
+    action: "Show @oneOf instance choosing 'integer' variant"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: IntOrString with only 'integer' set. Exactly one property from the @oneOf group present."
+
+  # === @oneOf: IntOrString instance (string) ===
+
+  - block_index: 55
+    language: json
+    line: 1340
+    type: fenced
+    action: "Show @oneOf instance choosing 'string' variant"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: same type, different choice. Only 'string' set this time. Confirms mutual exclusivity."
+
+  # === @oneOf: Pet instance (cat + employers) ===
+
+  - block_index: 56
+    language: json
+    line: 1347
+    type: fenced
+    action: "Show Pet with choices from two @oneOf groups"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: Pet picks 'cat' from group 1 AND 'employers' from group 2. Multiple @oneOf groups are independent — one choice from each."
+
+  # === @oneOf: Pet instance (dog + unemployed) ===
+
+  - block_index: 57
+    language: json
+    line: 1358
+    type: fenced
+    action: "Show Pet with alternative choices from both groups"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: different valid combination — 'dog' from group 1, 'unemployed' from group 2. All valid combinations work independently."
+
+  # === @oneOf: alternative Pet variant ===
+
+  - block_index: 58
+    language: json
+    line: 1369
+    type: fenced
+    action: "Show another valid @oneOf variant"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees another valid form of the Pet type. Reinforces: exactly one property from each @oneOf group."
+
+  # === @oneOf: INVALID example (both set) ===
+
+  - block_index: 59
+    language: json
+    line: 1378
+    type: fenced
+    action: "Show INVALID @oneOf instance (mutual exclusion violated)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Critical: reader sees what FAILS. IntOrString with both 'integer' AND 'string' set — schema violation. @oneOf enforces: exactly one, never both. This would be rejected on insert."
+
+  # === Class properties: simple syntax ===
+
+  - block_index: 60
+    language: text
+    line: 1390
+    type: fenced
+    action: "Display property syntax: simple form"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Pattern reference: <property> : <Class>. Simplest property form — required, single-valued, referencing a type."
+
+  # === Class properties: type family syntax ===
+
+  - block_index: 61
+    language: text
+    line: 1396
+    type: fenced
+    action: "Display property syntax: type family form"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Pattern reference: <property> : { @type: TypeFamily, @class: Class }. Used for Optional, Set, List, Array wrappers. The complex property form."
+
+  # === Range class: Person with Set of friends ===
+
+  - block_index: 62
+    language: json
+    line: 1408
+    type: fenced
+    action: "Define a class with self-referential Set property"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: 'knows' property uses Set type family pointing to same class (Person). Self-referential graph structure. xsd:gYear for year_of_birth. Lexical key from two string fields."
+
+  # === Concrete set of documents (Barca family) ===
+
+  - block_index: 63
+    language: json
+    line: 1439
+    type: fenced
+    action: "Show three interlinked Person documents with Set references"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: three Persons cross-referencing each other via 'knows' Set arrays. IRI references as strings in the array. Demonstrates graph relationships via Set — a social network in 3 documents."
+
+  # === sys:JSON field type example ===
+
+  - block_index: 64
+    language: json
+    line: 1497
+    type: fenced
+    action: "Define a class with a sys:JSON schemaless field"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: 'metadata': 'sys:JSON' creates an unconstrained JSON subdocument field. Person is schema-checked, but metadata accepts any JSON. Useful for UI preferences, external data, flexible config."
+
+  # === sys:JSON instance ===
+
+  - block_index: 65
+    language: json
+    line: 1513
+    type: fenced
+    action: "Show document with arbitrary JSON in sys:JSON field"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: Person with typed 'name' field plus free-form 'metadata' containing arbitrary keys (theme, last_visit). No schema validation on the metadata content."
+
+  # === sys:JSONDocument CLI example ===
+
+  - block_index: 66
+    language: bash
+    line: 1527
+    type: fenced
+    action: "Insert a completely schemaless JSONDocument via CLI"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: -j flag (or json=true) creates a sys:JSONDocument — no schema at all. Random hash ID generated. Useful for prototyping or ingesting external JSON. Full CRUD works on these documents."
+
+  # === Optional type family: schema ===
+
+  - block_index: 67
+    language: json
+    line: 1542
+    type: fenced
+    action: "Define Optional property (not required)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Optional = { @type: 'Optional', @class: 'xsd:string' }. Property may be absent from the document. CodeBlock has required 'code' and optional 'comment'. Nullable semantics."
+
+  # === Optional: instance WITH optional field ===
+
+  - block_index: 68
+    language: json
+    line: 1562
+    type: fenced
+    action: "Show document instance with Optional field present"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: CodeBlock with both code and comment. When present, Optional field looks like any other property."
+
+  # === Optional: instance WITHOUT optional field ===
+
+  - block_index: 69
+    language: json
+    line: 1573
+    type: fenced
+    action: "Show document instance with Optional field absent"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: same CodeBlock without comment — still valid. Key: absent field is simply omitted from JSON, not set to null. Both forms pass schema validation."
+
+  # === List type family: schema ===
+
+  - block_index: 70
+    language: json
+    line: 1587
+    type: fenced
+    action: "Define an ordered List property"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: List = { @type: 'List', @class: 'Task' }. Ordered, allows duplicates, preserves insertion order. Task uses ValueHash key (content-addressed). TaskList contains ordered sequence of Tasks."
+
+  # === List type family: instance ===
+
+  - block_index: 71
+    language: json
+    line: 1612
+    type: fenced
+    action: "Show document with ordered List of subdocuments"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: TaskList with 'tasks' as JSON array. Order preserved (Laundry before Take_Garage_Out). Duplicates allowed. Retrieved in same insertion order. Tasks are inline subdocuments."
+
+  # === Set type family: schema ===
+
+  - block_index: 72
+    language: json
+    line: 1636
+    type: fenced
+    action: "Define an unordered Set property"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Set = { @type: 'Set', @class: 'Person' }. Unordered, no duplicates. 'friends' can hold 0-N Person references. Retrieval order may vary. Duplicates silently deduplicated."
+
+  # === Set type family: instance ===
+
+  - block_index: 73
+    language: json
+    line: 1656
+    type: fenced
+    action: "Show document with Set of inline documents"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: Person/Me with friends as array. Each friend is an inline document with its own @id. Set semantics: order not guaranteed, inserting same friend twice has no effect."
+
+  # === Set with @cardinality: schema ===
+
+  - block_index: 74
+    language: json
+    line: 1690
+    type: fenced
+    action: "Define Set with exact @cardinality constraint"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @cardinality=3 on Set means exactly 3 friends required. Schema validation enforces the count. Equivalent to specifying both @min_cardinality=3 and @max_cardinality=3."
+
+  # === Set with @cardinality: instance ===
+
+  - block_index: 75
+    language: json
+    line: 1711
+    type: fenced
+    action: "Show instance satisfying exact cardinality constraint"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: exactly 3 friends in the array. Fewer or more would fail schema validation. Cardinality is enforced at commit time."
+
+  # === @min_cardinality example ===
+
+  - block_index: 76
+    language: json
+    line: 1740
+    type: fenced
+    action: "Define Set with @min_cardinality (at least N)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @min_cardinality=1 means at least one friend required. Cannot be empty. Useful for 'required but multi-valued' patterns (like 'at least one email address')."
+
+  # === @max_cardinality example ===
+
+  - block_index: 77
+    language: json
+    line: 1763
+    type: fenced
+    action: "Define Set with @max_cardinality (no more than N)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @max_cardinality limits the upper bound. When set to 1, functionally equivalent to Optional. Useful for 'at most 3 contact methods' patterns."
+
+  # === Array type family: schema (2D) ===
+
+  - block_index: 78
+    language: json
+    line: 1790
+    type: fenced
+    action: "Define a multi-dimensional Array property"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Array = { @type: 'Array', @dimensions: 2, @class: 'xsd:decimal' }. Ordered with random access. @dimensions enables nested arrays (2D = array of arrays). Supports sparse arrays (gaps become null)."
+
+  # === Array type family: instance (GeoPolygon) ===
+
+  - block_index: 79
+    language: json
+    line: 1811
+    type: fenced
+    action: "Show 2D Array instance (GeoPolygon coordinates)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: 2D array as nested JSON arrays. GeoJSON-like coordinates for a polygon. Each inner array is [longitude, latitude]. Practical use case: geospatial data stored with schema validation."
+
+  # === Type inference: schema ===
+
+  - block_index: 80
+    language: json
+    line: 1848
+    type: fenced
+    action: "Show schema where type can be inferred"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: when only one concrete type matches a document's properties, TerminusDB can infer @type automatically. Here, only Person has 'name' + 'friends' — so @type can be omitted on insert."
+
+  # === Type inference: document without @type ===
+
+  - block_index: 81
+    language: json
+    line: 1868
+    type: fenced
+    action: "Insert document without @type (inferred as Person)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: no @type in the JSON, yet it is accepted as Person. Nested friends also inferred. Convenient for simple schemas. Caveat: schema changes could make inference ambiguous later — explicit @type is safer."
+
+  # === Type inference: GeoJSON schema with singleton Enum tag ===
+
+  - block_index: 82
+    language: json
+    line: 1879
+    type: fenced
+    action: "Show GeoJSON schema using singleton Enum for type discrimination"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: singleton Enum (Point_Type with only 'Point') guarantees unique type inference. GeoJSON's 'type' field acts as discriminator. Abstract Geometry parent + concrete Point child. Schema designed for unambiguous inference."
+
+  # === Type inference: GeoJSON document ===
+
+  - block_index: 83
+    language: json
+    line: 1912
+    type: fenced
+    action: "Insert GeoJSON Point without explicit @type"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: standard GeoJSON format accepted directly. 'type': 'Point' (the singleton enum value) uniquely identifies this as a Point class. No TerminusDB-specific @type needed — native JSON formats work when schema is designed for inference."

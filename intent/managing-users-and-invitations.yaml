@@ -1,0 +1,794 @@
+# Intent skeleton for: managing-users-and-invitations
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: managing-users-and-invitations
+total_blocks: 65
+auto_filled: 65
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: bash
+    line: 69
+    type: fenced
+    action: Set environment variables (BASE_URL, ORG)
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: bash
+    line: 93
+    type: fenced
+    action: POST /api/organizations (create organization)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+
+  - block_index: 2
+    language: json
+    line: 101
+    type: fenced
+    action: Display create organization success response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only
+
+  - block_index: 3
+    language: bash
+    line: 109
+    type: fenced
+    action: GET /api/organizations (list organizations)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+
+  - block_index: 4
+    language: json
+    line: 116
+    type: fenced
+    action: Display organizations list response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 3
+    skip_reason: display_only
+
+  - block_index: 5
+    language: bash
+    line: 130
+    type: fenced
+    action: POST /api/users (create user)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+
+  - block_index: 6
+    language: json
+    line: 141
+    type: fenced
+    action: Display create user success response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 5
+    skip_reason: display_only
+
+  - block_index: 7
+    language: bash
+    line: 147
+    type: fenced
+    action: POST /api/users (create second user)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 5
+    skip_reason: null
+
+  - block_index: 8
+    language: bash
+    line: 159
+    type: fenced
+    action: POST /api/users (create third user)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 7
+    skip_reason: null
+
+  - block_index: 9
+    language: bash
+    line: 173
+    type: fenced
+    action: GET /api/users with capability=true (list user with capabilities)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 8
+    skip_reason: null
+
+  - block_index: 10
+    language: json
+    line: 180
+    type: fenced
+    action: Display user with capabilities response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 9
+    skip_reason: display_only
+
+  - block_index: 11
+    language: bash
+    line: 195
+    type: fenced
+    action: POST /api/capabilities (grant capability to user)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 9
+    skip_reason: null
+
+  - block_index: 12
+    language: json
+    line: 209
+    type: fenced
+    action: Display grant capability success response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 11
+    skip_reason: display_only
+
+  - block_index: 13
+    language: bash
+    line: 218
+    type: fenced
+    action: GET /api/users with capability=true (verify granted capability)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 11
+    skip_reason: null
+
+  - block_index: 14
+    language: json
+    line: 225
+    type: fenced
+    action: Display user capabilities after grant
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 13
+    skip_reason: display_only
+
+  - block_index: 15
+    language: bash
+    line: 267
+    type: fenced
+    action: POST /api/capabilities (grant database-scoped capability)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 13
+    skip_reason: null
+
+  - block_index: 16
+    language: json
+    line: 286
+    type: fenced
+    action: Display database-scoped capability response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 15
+    skip_reason: display_only
+
+  - block_index: 17
+    language: bash
+    line: 297
+    type: fenced
+    action: GET /api/organizations/*/users/* (get specific org user)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 15
+    skip_reason: null
+
+  - block_index: 18
+    language: json
+    line: 303
+    type: fenced
+    action: Display org user details response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 17
+    skip_reason: display_only
+
+  - block_index: 19
+    language: bash
+    line: 318
+    type: fenced
+    action: POST /api/db (create database under org)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 17
+    skip_reason: null
+
+  - block_index: 20
+    language: json
+    line: 330
+    type: fenced
+    action: Display create database success response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 19
+    skip_reason: display_only
+
+  - block_index: 21
+    language: bash
+    line: 339
+    type: fenced
+    action: GET /api/db (get database info)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 19
+    skip_reason: null
+
+  - block_index: 22
+    language: bash
+    line: 353
+    type: fenced
+    action: GET /api/db with verbose=true (detailed database info)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 21
+    skip_reason: null
+
+  - block_index: 23
+    language: unknown
+    line: 360
+    type: fenced
+    action: Display verbose database info response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 22
+    skip_reason: display_only
+
+  - block_index: 24
+    language: bash
+    line: 368
+    type: fenced
+    action: POST /api/capabilities (grant user access to database)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 22
+    skip_reason: null
+
+  - block_index: 25
+    language: json
+    line: 388
+    type: fenced
+    action: Display grant database access response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 24
+    skip_reason: display_only
+
+  - block_index: 26
+    language: bash
+    line: 399
+    type: fenced
+    action: GET /api/organizations/*/users (list org users)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 24
+    skip_reason: null
+
+  - block_index: 27
+    language: json
+    line: 406
+    type: fenced
+    action: Display org users list response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 26
+    skip_reason: display_only
+
+  - block_index: 28
+    language: bash
+    line: 441
+    type: fenced
+    action: POST /api/roles (create custom role)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 26
+    skip_reason: null
+
+  - block_index: 29
+    language: json
+    line: 458
+    type: fenced
+    action: Display create role success response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 28
+    skip_reason: display_only
+
+  - block_index: 30
+    language: bash
+    line: 480
+    type: fenced
+    action: GET /api/db with verbose=true (verify role assignment)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 28
+    skip_reason: null
+
+  - block_index: 31
+    language: bash
+    line: 488
+    type: fenced
+    action: POST /api/capabilities (assign custom role to user)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 30
+    skip_reason: null
+
+  - block_index: 32
+    language: bash
+    line: 502
+    type: fenced
+    action: POST /api/capabilities (assign role at org scope)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 31
+    skip_reason: null
+
+  - block_index: 33
+    language: json
+    line: 524
+    type: fenced
+    action: Display capability assignment response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 32
+    skip_reason: display_only
+
+  - block_index: 34
+    language: bash
+    line: 535
+    type: fenced
+    action: GET /api/organizations/*/users/* (verify user role)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 32
+    skip_reason: null
+
+  - block_index: 35
+    language: json
+    line: 541
+    type: fenced
+    action: Display user role verification response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 34
+    skip_reason: display_only
+
+  - block_index: 36
+    language: bash
+    line: 552
+    type: fenced
+    action: GET /api/roles (list all roles)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 34
+    skip_reason: null
+
+  - block_index: 37
+    language: bash
+    line: 567
+    type: fenced
+    action: POST /api/db (create unauthorized_db for access testing)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 36
+    skip_reason: null
+
+  - block_index: 38
+    language: json
+    line: 578
+    type: fenced
+    action: Display unauthorized_db creation response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 37
+    skip_reason: display_only
+
+  - block_index: 39
+    language: bash
+    line: 595
+    type: fenced
+    action: POST /api/capabilities (grant limited access for testing)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 37
+    skip_reason: null
+
+  - block_index: 40
+    language: bash
+    line: 617
+    type: fenced
+    action: GET /api/document schema (verify user can read schema)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 39
+    skip_reason: null
+
+  - block_index: 41
+    language: json
+    line: 624
+    type: fenced
+    action: Display schema read response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 40
+    skip_reason: display_only
+
+  - block_index: 42
+    language: bash
+    line: 633
+    type: fenced
+    action: POST /api/graphql (test GraphQL access with user credentials)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 40
+    skip_reason: null
+
+  - block_index: 43
+    language: json
+    line: 641
+    type: fenced
+    action: Display GraphQL query response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 42
+    skip_reason: display_only
+
+  - block_index: 44
+    language: bash
+    line: 649
+    type: fenced
+    action: GET /api/db (list databases as non-admin user)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 42
+    skip_reason: null
+
+  - block_index: 45
+    language: json
+    line: 656
+    type: fenced
+    action: Display databases visible to non-admin user
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 44
+    skip_reason: display_only
+
+  - block_index: 46
+    language: bash
+    line: 668
+    type: fenced
+    action: GET /api/db (get specific database info as user)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 44
+    skip_reason: null
+
+  - block_index: 47
+    language: json
+    line: 674
+    type: fenced
+    action: Display database info response for user
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 46
+    skip_reason: display_only
+
+  - block_index: 48
+    language: bash
+    line: 682
+    type: fenced
+    action: GET /api/db with verbose=true (detailed info as user)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 46
+    skip_reason: null
+
+  - block_index: 49
+    language: json
+    line: 688
+    type: fenced
+    action: Display verbose database info with capabilities for user
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 48
+    skip_reason: display_only
+
+  - block_index: 50
+    language: bash
+    line: 717
+    type: fenced
+    action: POST /api/db (create inventory database)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 48
+    skip_reason: null
+
+  - block_index: 51
+    language: json
+    line: 728
+    type: fenced
+    action: Display create inventory database response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 50
+    skip_reason: display_only
+
+  - block_index: 52
+    language: bash
+    line: 739
+    type: fenced
+    action: GET /api/db/*/inventory?verbose=true (verify new database)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 50
+    skip_reason: null
+
+  - block_index: 53
+    language: bash
+    line: 747
+    type: fenced
+    action: POST /api/capabilities (grant access to inventory db)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 52
+    skip_reason: null
+
+  - block_index: 54
+    language: json
+    line: 766
+    type: fenced
+    action: Display capability grant response for inventory
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 53
+    skip_reason: display_only
+
+  - block_index: 55
+    language: bash
+    line: 781
+    type: fenced
+    action: GET /api/organizations/*/users/* (verify user access to inventory)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 53
+    skip_reason: null
+
+  - block_index: 56
+    language: json
+    line: 787
+    type: fenced
+    action: Display user access verification for inventory db
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 55
+    skip_reason: display_only
+
+  - block_index: 57
+    language: bash
+    line: 806
+    type: fenced
+    action: GET /api/organizations/*/users/ (list all org users with roles)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 55
+    skip_reason: null
+
+  - block_index: 58
+    language: json
+    line: 813
+    type: fenced
+    action: Display all org users with their roles
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 57
+    skip_reason: display_only
+
+  - block_index: 59
+    language: bash
+    line: 839
+    type: fenced
+    action: GET /api/db with verbose=true (final state verification)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 57
+    skip_reason: null
+
+  - block_index: 60
+    language: bash
+    line: 847
+    type: fenced
+    action: POST /api/capabilities (revoke capability)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 59
+    skip_reason: null
+
+  - block_index: 61
+    language: json
+    line: 860
+    type: fenced
+    action: Display revoke capability response
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 60
+    skip_reason: display_only
+
+  - block_index: 62
+    language: bash
+    line: 871
+    type: fenced
+    action: GET /api/document (verify access after revocation)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 60
+    skip_reason: null
+
+  - block_index: 63
+    language: json
+    line: 877
+    type: fenced
+    action: Display access verification response after revoke
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 62
+    skip_reason: display_only
+
+  - block_index: 64
+    language: bash
+    line: 911
+    type: fenced
+    action: DELETE /api/db (cleanup test databases)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 62
+    skip_reason: null

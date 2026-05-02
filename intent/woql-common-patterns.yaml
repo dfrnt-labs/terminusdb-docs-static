@@ -1,0 +1,489 @@
+# Intent annotations for: woql-common-patterns
+# Annotated: 2026-05-01
+# Source: src/app/docs/woql-common-patterns/page.md
+#
+# This page teaches: 10 WOQL query recipes (filter, join, count, path, insert, update, delete, schema, time-travel, subgraph)
+# Prerequisites: TerminusDB running with Star Wars dataset cloned
+# Dataset: Star Wars (data.terminusdb.org)
+
+page: woql-common-patterns
+total_blocks: 35
+annotated: 35
+needs_manual: 0
+
+blocks:
+
+  # Setup — clone Star Wars
+  - block_index: 0
+    language: bash
+    line: 25
+    type: fenced
+    action: "Clone Star Wars database from data.terminusdb.org as prerequisite"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  # === Pattern 1: Filter by property value ===
+
+  # Pattern 1 — TypeScript SDK
+  - block_index: 1
+    language: typescript
+    line: 41
+    type: fenced
+    action: "WOQL filter: find all People with blue eyes and return their names"
+    expected_outcome:
+      type: non_empty
+      value: "Returns bindings with Name for blue-eyed people (Luke, Owen, Beru, Anakin)"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  # Pattern 1 — WOQL AST display
+  - block_index: 2
+    language: json
+    line: 54
+    type: fenced
+    action: "Shows equivalent WOQL AST JSON for filter by eye_color=blue"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Pattern 1 — expected result display
+  - block_index: 3
+    language: json
+    line: 86
+    type: fenced
+    action: "Shows expected result: Luke, Owen, Beru, Anakin (blue-eyed people)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === Pattern 2: Join two document types ===
+
+  # Pattern 2 — TypeScript SDK
+  - block_index: 4
+    language: typescript
+    line: 98
+    type: fenced
+    action: "WOQL join: traverse Person→homeworld→Planet to get person and planet names"
+    expected_outcome:
+      type: non_empty
+      value: "Returns PersonName+PlanetName pairs (Luke/Tatooine, Vader/Tatooine, Leia/Alderaan)"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  # Pattern 2 — WOQL AST display
+  - block_index: 5
+    language: json
+    line: 112
+    type: fenced
+    action: "Shows equivalent WOQL AST JSON for Person→Planet join query"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Pattern 2 — expected result display
+  - block_index: 6
+    language: json
+    line: 150
+    type: fenced
+    action: "Shows expected join result: person/planet name pairs"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === Pattern 3: Aggregate (count) ===
+
+  # Pattern 3 — TypeScript SDK
+  - block_index: 7
+    language: typescript
+    line: 162
+    type: fenced
+    action: "WOQL count: count all People documents"
+    expected_outcome:
+      type: non_empty
+      value: "Returns count of all People documents"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  # Pattern 3 — WOQL AST display
+  - block_index: 8
+    language: json
+    line: 173
+    type: fenced
+    action: "Shows equivalent WOQL AST JSON for Count query"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Pattern 3 — expected result display
+  - block_index: 9
+    language: json
+    line: 192
+    type: fenced
+    action: "Shows expected count result: 82 people"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === Pattern 4: Path query (follow relationships) ===
+
+  # Pattern 4 — TypeScript SDK
+  - block_index: 10
+    language: typescript
+    line: 204
+    type: fenced
+    action: "WOQL path query: traverse characters relationship chain (Film→People→Film)"
+    expected_outcome:
+      type: non_empty
+      value: "Returns paths through the characters relationship graph"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  # Pattern 4 — WOQL AST display
+  - block_index: 11
+    language: json
+    line: 217
+    type: fenced
+    action: "Shows equivalent WOQL AST JSON for path query"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Pattern 4 — expected result display
+  - block_index: 12
+    language: json
+    line: 250
+    type: fenced
+    action: "Shows expected path query results"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === Pattern 5: Insert a document ===
+
+  # Pattern 5 — TypeScript SDK
+  - block_index: 13
+    language: typescript
+    line: 262
+    type: fenced
+    action: "Insert new document via WOQL insert_document (SDK)"
+    expected_outcome:
+      type: non_empty
+      value: "New document inserted, returns document IRI"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  # Pattern 5 — WOQL AST
+  - block_index: 14
+    language: json
+    line: 276
+    type: fenced
+    action: "Shows equivalent WOQL AST JSON for InsertDocument operation"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Pattern 5 — expected result display
+  - block_index: 15
+    language: json
+    line: 301
+    type: fenced
+    action: "Shows expected insert result: inserts count > 0"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === Pattern 6: Update a document ===
+
+  # Pattern 6 — HTTP API (PUT)
+  - block_index: 16
+    language: bash
+    line: 319
+    type: fenced
+    action: "PUT full document replacement to update Tatooine climate via HTTP"
+    expected_outcome:
+      type: output_contains
+      value: "Planets"
+      tolerance: contains
+    depends_on: 0
+    skip_reason: null
+
+  # Pattern 6 — TypeScript SDK
+  - block_index: 17
+    language: typescript
+    line: 330
+    type: fenced
+    action: "Update document via TypeScript SDK client.updateDocument()"
+    expected_outcome:
+      type: non_empty
+      value: "Document updated successfully"
+      tolerance: non_empty
+    depends_on: 16
+    skip_reason: null
+
+  # Pattern 6 — WOQL AST display
+  - block_index: 18
+    language: json
+    line: 348
+    type: fenced
+    action: "Shows WOQL AST for read_document + update_document pattern"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Pattern 6 — expected result display
+  - block_index: 19
+    language: json
+    line: 384
+    type: fenced
+    action: "Shows expected update result"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === Pattern 7: Delete a document ===
+
+  # Pattern 7 — HTTP API (DELETE)
+  - block_index: 20
+    language: bash
+    line: 396
+    type: fenced
+    action: "DELETE document (Planets/1 = Tatooine) via HTTP API with document ID param"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+
+  # Pattern 7 — TypeScript SDK
+  - block_index: 21
+    language: typescript
+    line: 405
+    type: fenced
+    action: "Delete document via TypeScript SDK client.deleteDocument()"
+    expected_outcome:
+      type: non_empty
+      value: "Document deleted successfully"
+      tolerance: non_empty
+    depends_on: 20
+    skip_reason: null
+
+  # Pattern 7 — WOQL AST display
+  - block_index: 22
+    language: json
+    line: 413
+    type: fenced
+    action: "Shows WOQL AST for DeleteDocument operation"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: woql_ast_display
+
+  # Pattern 7 — expected result display
+  - block_index: 23
+    language: json
+    line: 426
+    type: fenced
+    action: "Shows expected delete result: deletes count > 0"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === Pattern 8: Schema query ===
+
+  # Pattern 8 — HTTP API (GET schema)
+  - block_index: 24
+    language: bash
+    line: 438
+    type: fenced
+    action: "GET all schema documents via HTTP API with graph_type=schema"
+    expected_outcome:
+      type: output_contains
+      value: "Class"
+      tolerance: contains
+    depends_on: 0
+    skip_reason: null
+
+  # Pattern 8 — TypeScript SDK (WOQL schema query)
+  - block_index: 25
+    language: typescript
+    line: 447
+    type: fenced
+    action: "Query schema graph via WOQL triple on schema graph (find class properties)"
+    expected_outcome:
+      type: non_empty
+      value: "Returns schema class definitions and their properties"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  # Pattern 8 — WOQL AST display
+  - block_index: 26
+    language: json
+    line: 459
+    type: fenced
+    action: "Shows WOQL AST for schema graph triple query"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Pattern 8 — expected result display
+  - block_index: 27
+    language: json
+    line: 486
+    type: fenced
+    action: "Shows expected schema query result: class names and their properties"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === Pattern 9: Time-travel (query historical state) ===
+
+  # Pattern 9 — HTTP API (get log)
+  - block_index: 28
+    language: bash
+    line: 498
+    type: fenced
+    action: "GET commit log (last 3 commits) to find historical commit IDs"
+    expected_outcome:
+      type: output_contains
+      value: "identifier"
+      tolerance: contains
+    depends_on: 0
+    skip_reason: null
+
+  # Pattern 9 — HTTP API (query at commit)
+  - block_index: 29
+    language: bash
+    line: 504
+    type: fenced
+    action: "GET documents at a specific historical commit (time-travel read)"
+    expected_outcome:
+      type: output_contains
+      value: "People"
+      tolerance: contains
+    depends_on: 28
+    skip_reason: null
+
+  # Pattern 9 — TypeScript SDK (time-travel WOQL)
+  - block_index: 30
+    language: typescript
+    line: 513
+    type: fenced
+    action: "Query historical state via TypeScript SDK using commit path in resource"
+    expected_outcome:
+      type: non_empty
+      value: "Returns documents as they existed at the specified historical commit"
+      tolerance: non_empty
+    depends_on: 28
+    skip_reason: null
+
+  # Pattern 9 — WOQL AST display
+  - block_index: 31
+    language: json
+    line: 536
+    type: fenced
+    action: "Shows WOQL AST for time-travel query (using_resource with commit path)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === Pattern 10: Subgraph / nested document query ===
+
+  # Pattern 10 — TypeScript SDK
+  - block_index: 32
+    language: typescript
+    line: 554
+    type: fenced
+    action: "WOQL subgraph query: read nested/related documents in one query"
+    expected_outcome:
+      type: non_empty
+      value: "Returns documents with resolved nested references"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  # Pattern 10 — WOQL AST display
+  - block_index: 33
+    language: json
+    line: 567
+    type: fenced
+    action: "Shows WOQL AST for subgraph/nested document read"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Pattern 10 — expected result display
+  - block_index: 34
+    language: json
+    line: 599
+    type: fenced
+    action: "Shows expected subgraph query result with resolved references"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

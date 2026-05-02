@@ -1,0 +1,62 @@
+# Intent skeleton for: enterprise-backup-restore
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: enterprise-backup-restore
+total_blocks: 4
+auto_filled: 4
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: bash
+    line: 37
+    type: fenced
+    action: POST /api/bundle/admin/MyDatabase
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: bash
+    line: 61
+    type: fenced
+    action: POST /api/db/admin/MyDatabase-restored
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+
+  - block_index: 2
+    language: bash
+    line: 85
+    type: fenced
+    action: POST /api/bundle/admin/production
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+
+  - block_index: 3
+    language: bash
+    line: 97
+    type: fenced
+    action: POST /api/bundle/admin/MyDatabase
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 2
+    skip_reason: null

@@ -1,0 +1,32 @@
+# Intent Capture: import-data-with-python-client
+# Page: src/app/docs/import-data-with-python-client/page.md
+# Title: Import Data with the Python Client
+# Total blocks: 1
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: Single Python code block showing CSV import pattern. Requires pre-existing DB with schema and a test.csv file. Display-only in isolation.
+
+page: import-data-with-python-client
+total_blocks: 1
+auto_filled: 1
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Block 0 — Python CSV import code
+
+  - block_index: 0
+    language: python
+    line: 39
+    type: fenced
+    action: "Python code to import CSV data using DictReader and insert_document"
+    expected_outcome:
+      type: non_empty
+      value: "Reads test.csv into dictionaries, adds @type to each row, and inserts into database. Requires: test.csv exists, client is connected, schema has 'YourClassName' class."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: environment_dependent
+    note: "Requires: (1) terminusdb-client Python package installed, (2) connected client object, (3) test.csv file, (4) database with matching schema. Not independently executable. SKIP in automated tests."
+    assertion: "SKIP — requires pre-configured Python environment with connected client and matching schema. If integration-tested: no exceptions AND documents appear in DB."

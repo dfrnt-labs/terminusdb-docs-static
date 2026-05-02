@@ -1,0 +1,40 @@
+# Intent annotations for: query-documents
+# Annotated: 2026-05-01
+# Source: src/app/docs/query-documents/page.md
+#
+# This page teaches: query documents using template matching (JS client getDocument with query)
+# Prerequisites: TerminusDB running, JavaScript client, database with documents
+# Dataset: Self-created (Player documents)
+
+page: query-documents
+total_blocks: 2
+annotated: 2
+needs_manual: 0
+
+blocks:
+
+  # Query documents by template
+  - block_index: 0
+    language: javascript
+    line: 33
+    type: fenced
+    action: "Query documents by template (Player with position=Full Back) via JS client getDocument"
+    expected_outcome:
+      type: non_empty
+      value: "Returns array of Player documents matching position=Full Back"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Query result display
+  - block_index: 1
+    language: json
+    line: 43
+    type: fenced
+    action: "Shows expected query result: Player/Doug with position Full Back"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

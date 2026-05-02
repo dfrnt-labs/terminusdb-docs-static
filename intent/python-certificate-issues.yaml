@@ -1,0 +1,74 @@
+# Intent skeleton for: python-certificate-issues
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: python-certificate-issues
+total_blocks: 5
+auto_filled: 5
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: python
+    line: 23
+    type: fenced
+    action: "Connect to TerminusDB with verify=False — disable SSL certificate verification entirely"
+    expected_outcome:
+      type: skip
+      value: "Shows: Client('https://localhost:6363', verify=False) then client.connect() — skips SSL validation for local dev."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: python
+    line: 38
+    type: fenced
+    action: "Connect to TerminusDB with custom CA bundle — verify='/path/to/ca-bundle.crt' for self-signed certs"
+    expected_outcome:
+      type: skip
+      value: "Shows: Client('https://...', verify='/path/to/ca-bundle.crt') then client.connect() — validates against custom CA."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: bash
+    line: 51
+    type: fenced
+    action: Extract self-signed certificate via openssl s_client
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 3
+    language: python
+    line: 59
+    type: fenced
+    action: "Connect using exported self-signed certificate file — verify='./terminusdb-cert.pem'"
+    expected_outcome:
+      type: skip
+      value: "Shows: Client('https://...', verify='./terminusdb-cert.pem') then client.connect() — uses the exported cert from block 2."
+      tolerance: null
+    depends_on: 2
+    skip_reason: display_only
+
+  - block_index: 4
+    language: bash
+    line: 68
+    type: fenced
+    action: Set REQUESTS_CA_BUNDLE environment variable for CI/CD
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null

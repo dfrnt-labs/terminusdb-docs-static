@@ -1,0 +1,46 @@
+# Intent Capture: graphql-naming-conventions-reference
+# Page: src/app/docs/graphql-naming-conventions-reference/page.md
+# Title: GraphQL Naming Conventions Reference Guide
+# Total blocks: 2
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: Pure reference page — one JSON schema example and one GraphQL translation. Both display only.
+
+page: graphql-naming-conventions-reference
+total_blocks: 2
+auto_filled: 2
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Block 0 — TerminusDB class definition (JSON)
+
+  - block_index: 0
+    language: json
+    line: 34
+    type: fenced
+    action: "Display TerminusDB class definition with non-GraphQL-safe characters"
+    expected_outcome:
+      type: skip
+      value: "Shows Galactic-Civilisation class with 'kardashev-scale' property — both have hyphens that must be translated."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Schema example showing naming translation input."
+
+  # Block 1 — GraphQL translation output
+
+  - block_index: 1
+    language: graphql
+    line: 43
+    type: fenced
+    action: "Display resulting GraphQL type after naming convention translation"
+    expected_outcome:
+      type: skip
+      value: "Shows Galactic_Civilisation type with kardashev_scale field — hyphens replaced with underscores, filter/orderBy types auto-generated."
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only. Shows the output of the naming convention translation."

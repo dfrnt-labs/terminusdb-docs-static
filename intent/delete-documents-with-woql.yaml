@@ -1,0 +1,71 @@
+# Intent Capture: delete-documents-with-woql
+# Page: src/app/docs/delete-documents-with-woql/page.md
+# Title: How to delete documents using WOQL
+# Total blocks: 4
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-02
+# Status: COMPLETE
+# Note: Short how-to page. Shows insert_document then delete_document, plus subdocument deletion with triple cleanup. Requires star-wars DB with Planet class. All blocks are SDK snippets.
+
+page: delete-documents-with-woql
+total_blocks: 4
+auto_filled: 4
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 40
+    type: fenced
+    action: "Insert a Planet document using WOQL insert_document with Vars for id capture"
+    expected_outcome:
+      type: non_empty
+      value: "Inserts a Planet document with label 'Planet-X' and captures the generated IRI in v.id variable."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    note: "Requires star-wars DB with Planet class in schema. SDK snippet — needs client context."
+    assertion: "If executed via SDK: result.bindings[0].id contains 'Planet/' prefix IRI. SKIP unless integration env with star-wars DB."
+
+  - block_index: 1
+    language: json
+    line: 47
+    type: fenced
+    action: "Display the generated document IRI returned from insert"
+    expected_outcome:
+      type: skip
+      value: "Shows 'Planet/01dd97a75800f01f43ab7ab55b6dd08f198dd34d2bdbbeeb7bf4edee45111863' — hash-based IRI for the inserted Planet."
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only. Example IRI result from block 0."
+
+  - block_index: 2
+    language: javascript
+    line: 53
+    type: fenced
+    action: "Delete the Planet document using WOQL delete_document with explicit IRI"
+    expected_outcome:
+      type: non_empty
+      value: "Calls delete_document with the full Planet IRI to remove the previously inserted document."
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    note: "Requires the Planet document from block 0 to exist. Destructive operation."
+    assertion: "If executed: document at that IRI no longer exists. Subsequent read_document returns error. SKIP unless integration env."
+
+  - block_index: 3
+    language: javascript
+    line: 61
+    type: fenced
+    action: "Delete a subdocument using and() with eq, triple, delete_document, and delete_triple to clean parent link"
+    expected_outcome:
+      type: non_empty
+      value: "Uses and() to: (1) bind subdoc IRI, (2) find parent via triple, (3) delete_document for subdoc, (4) delete_triple to remove parent→subdoc link. Both operations required for clean subdocument removal."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Critical pattern: subdocument deletion requires BOTH delete_document AND delete_triple on parent link. Without delete_triple, the parent retains a dangling reference."
+    assertion: "No assertion — illustrative pattern. Requires Person/John with PersonRole subdocument linked via 'role' property."

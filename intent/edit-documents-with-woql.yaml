@@ -1,0 +1,62 @@
+# Intent skeleton for: edit-documents-with-woql
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: edit-documents-with-woql
+total_blocks: 4
+auto_filled: 4
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 36
+    type: fenced
+    action: Retrieve document via WOQL
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: javascript
+    line: 45
+    type: fenced
+    action: Insert document via WOQL
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  - block_index: 2
+    language: javascript
+    line: 56
+    type: fenced
+    action: Update document via WOQL
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: null
+
+  - block_index: 3
+    language: javascript
+    line: 72
+    type: fenced
+    action: Insert document via WOQL
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: null

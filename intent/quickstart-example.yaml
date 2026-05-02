@@ -1,0 +1,146 @@
+# Intent skeleton for: quickstart-example
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: quickstart-example
+total_blocks: 11
+auto_filled: 11
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: bash
+    line: 47
+    type: fenced
+    action: Start Docker container
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: bash
+    line: 61
+    type: fenced
+    action: POST /api/db/admin/starter
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+
+  - block_index: 2
+    language: bash
+    line: 78
+    type: fenced
+    action: "POST /api/document/admin/starter?raw_json=true&author=me&message=First+document"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+
+  - block_index: 3
+    language: bash
+    line: 94
+    type: fenced
+    action: "GET /api/document/admin/starter?id=JSONDocument/hello-world"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 2
+    skip_reason: null
+
+  - block_index: 4
+    language: bash
+    line: 104
+    type: fenced
+    action: "PUT /api/document/admin/starter?raw_json=true&author=me&message=Update+document"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 3
+    skip_reason: null
+
+  - block_index: 5
+    language: bash
+    line: 118
+    type: fenced
+    action: "DELETE /api/document/admin/starter?id=JSONDocument/hello-world&author=me&message=Delete+document"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  - block_index: 6
+    language: bash
+    line: 130
+    type: fenced
+    action: "POST /api/document/admin/starter?graph_type=schema&author=me&message=Add+Person+schema"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 5
+    skip_reason: null
+
+  - block_index: 7
+    language: bash
+    line: 145
+    type: fenced
+    action: "POST /api/document/admin/starter?author=me&message=Add+person"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 6
+    skip_reason: null
+
+  - block_index: 8
+    language: bash
+    line: 162
+    type: fenced
+    action: "GET /api/document/admin/starter?id=Person/Alice"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 7
+    skip_reason: null
+
+  - block_index: 9
+    language: bash
+    line: 173
+    type: fenced
+    action: "PUT /api/document/admin/starter?author=me&message=Add+person"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 8
+    skip_reason: null
+
+  - block_index: 10
+    language: bash
+    line: 190
+    type: fenced
+    action: "DELETE /api/document/admin/starter?id=Person/Alice&author=me&message=Delete+person"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 9
+    skip_reason: null

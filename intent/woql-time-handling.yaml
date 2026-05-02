@@ -1,0 +1,896 @@
+# Intent: woql-time-handling
+# Page: src/app/docs/woql-time-handling/page.md
+# Title: WOQL ISO8601 Time and Date Handling
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page for WOQL time predicates. All blocks are
+#       illustrative code snippets (JavaScript/Python WOQL queries).
+#       None are directly executable against a server in isolation.
+#       The page structure: (1) Four temporal concepts, (2) Display vs Calculation,
+#       (3) Existing predicates, (4) Comparators, (5) in_range, (6) sequence,
+#       (7) Month boundaries, (8) day_before/after, (9) weekday/iso_week,
+#       (10) Duration arithmetic, (11) Allen's Interval Algebra,
+#       (12) interval construction, (13) range_min/max, (14) Financial workflow,
+#       (15) Timezone handling.
+
+page: woql-time-handling
+total_blocks: 64
+auto_filled: 64
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Four Temporal Concepts (introductory) ===
+
+  - block_index: 0
+    language: unknown
+    line: 35
+    type: fenced
+    action: "Display instant examples (xsd:date, xsd:dateTime)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: an instant is a point on the timeline. Two formats shown — full dateTime with timezone and plain date. Answers 'when did it happen?' First of four temporal concepts."
+
+  - block_index: 1
+    language: unknown
+    line: 46
+    type: fenced
+    action: "Display duration examples (xsd:duration)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: durations are ISO 8601 'P' notation. P90D=90 days, P3M=3 months, PT8H30M=8.5 hours. Critical distinction: day-durations are unambiguous, month-durations depend on start date."
+
+  - block_index: 2
+    language: unknown
+    line: 60
+    type: fenced
+    action: "Display interval example (half-open dateTimeInterval)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: interval = start/end pair as ISO 8601. '2025-01-01/2025-04-01' = Q1 2025 as half-open [start, end). Start included, end excluded. Answers 'from when to when?'"
+
+  - block_index: 3
+    language: unknown
+    line: 70
+    type: fenced
+    action: "Display interval relation examples (Allen's Algebra)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: 'Q1 meets Q2' and 'Q2 during FY' — English-language relations between intervals. 13 possible relations exist. Fourth temporal concept: how do two periods relate?"
+
+  # === Display vs Calculation: interval_inclusive pattern ===
+
+  - block_index: 4
+    language: javascript
+    line: 122
+    type: fenced
+    action: "Show the inclusive-in, half-open-inside, inclusive-out pattern"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns THE key pattern: (1) accept inclusive dates from users (Jan 1 – Mar 31), (2) convert via interval_inclusive to half-open (Jan 1 / Apr 1), (3) compute with Allen's algebra, (4) unpack back to inclusive for display. Never mix conventions."
+
+  # === Display vs Calculation: as-of date queries ===
+
+  - block_index: 5
+    language: javascript
+    line: 159
+    type: fenced
+    action: "Show 'as of' date query vs period query patterns"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: 'as of March 31' uses lte (inclusive — include March 31 transactions). 'Transactions in Q1' uses in_range (half-open — exclude April 1). Mixing them loses or gains one day. Critical for financial accuracy."
+
+  # === Existing Predicates: timestamp_now ===
+
+  - block_index: 6
+    language: javascript
+    line: 212
+    type: fenced
+    action: "Get current system time with timestamp_now"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: timestamp_now(v.now) binds a decimal Unix timestamp. System time — useful for audit trails or cache invalidation. Not a calendar date."
+
+  # === Existing Predicates: less/greater ===
+
+  - block_index: 7
+    language: javascript
+    line: 222
+    type: fenced
+    action: "Filter documents using greater() date comparison"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: greater(v.date, literal(...)) is strict >. Works on dates, numbers, strings — any ordered type. Combined with triple() for property filtering."
+
+  # === Existing Predicates: triple_slice ===
+
+  - block_index: 8
+    language: javascript
+    line: 234
+    type: fenced
+    action: "Efficient range query using triple_slice"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: triple_slice pushes range constraints into the storage engine for O(log n) performance. Five args: doc, property, variable, lower bound, upper bound. For stored values — not computed ones."
+
+  # === Comparators: gte/lte half-open range ===
+
+  - block_index: 9
+    language: javascript
+    line: 259
+    type: fenced
+    action: "Half-open range check using gte() and lt()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: gte(v.date, start) + lt(v.date, end) = half-open range [start, end). All fiscal year 2024 dates. The pattern for period filtering."
+
+  - block_index: 10
+    language: javascript
+    line: 271
+    type: fenced
+    action: "Show gte succeeds when values are equal"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: gte(Feb29, Feb29) succeeds — equality included. The 'or equal' part of greater-than-or-equal. Confirms boundary behaviour."
+
+  - block_index: 11
+    language: javascript
+    line: 279
+    type: fenced
+    action: "Show lte with xsd:decimal (exact rational arithmetic)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: lte works on decimals too. '0.1' <= '0.2' uses exact rational arithmetic — no floating-point issues. Important for financial amounts."
+
+  # === in_range predicate ===
+
+  - block_index: 12
+    language: unknown
+    line: 290
+    type: fenced
+    action: "Display in_range signature"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: in_range(Value, Start, End) — semantics: Start <= Value < End. A readable shorthand for gte + lt. Half-open [Start, End)."
+
+  - block_index: 13
+    language: javascript
+    line: 300
+    type: fenced
+    action: "Check if filing date is within reporting period using in_range"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: in_range with triple-bound variables — all from the database. Checks if filing_date falls within [period_start, period_end). Practical compliance use case."
+
+  - block_index: 14
+    language: javascript
+    line: 312
+    type: fenced
+    action: "Show in_range boundary behaviour (start inclusive, end exclusive)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: in_range(5, 5, 10) succeeds (start is inclusive). in_range(10, 5, 10) fails (end is exclusive). The defining characteristic of half-open intervals."
+
+  - block_index: 15
+    language: javascript
+    line: 322
+    type: fenced
+    action: "Show adjacent ranges partition cleanly (no overlap, no gap)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: [5,10) and [10,15) cover [5,15) with no overlap. Value 10 belongs only to the second range. Half-open intervals give clean partitions — the reason financial systems use them."
+
+  - block_index: 16
+    language: javascript
+    line: 331
+    type: fenced
+    action: "Show in_range with leap day (Feb 29 within February)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: Feb 29 in_range [Feb 1, Mar 1) succeeds. February boundary correctly handled for leap years. Dates work naturally with in_range."
+
+  # === sequence predicate ===
+
+  - block_index: 17
+    language: unknown
+    line: 346
+    type: fenced
+    action: "Display sequence signatures and supported types table"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: sequence(Value, Start, End, Step, Count) — generates values in [Start, End). Works with integers, decimals, gYear, gYearMonth, date, dateTime. Default steps vary by type. Both generator and matcher."
+
+  - block_index: 18
+    language: javascript
+    line: 374
+    type: fenced
+    action: "Generate every month in FY2024 using sequence with gYearMonth"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: sequence with gYearMonth generates monthly values. [2024-01, 2025-01) = 12 months. Default step = +1 month. Financial period enumeration."
+
+  - block_index: 19
+    language: javascript
+    line: 384
+    type: fenced
+    action: "Generate integer range for scenario indices"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: sequence(v.id, 1, 1001) generates 1–1000. Simple integer range. Useful for generating test data or scenario identifiers."
+
+  - block_index: 20
+    language: javascript
+    line: 392
+    type: fenced
+    action: "Generate weekly dates with count validation"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Step=7 (days) with Count variable. Produces weekly dates across the year; count unifies with actual result (52 or 53). Count can validate or be left unbound."
+
+  - block_index: 21
+    language: javascript
+    line: 404
+    type: fenced
+    action: "Generate decimal steps with exact rational arithmetic"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: sequence with xsd:decimal step 0.3 produces exactly 0.0, 0.3, 0.6, 0.9. No floating-point drift. Rational arithmetic — critical for financial rate tables."
+
+  - block_index: 22
+    language: javascript
+    line: 416
+    type: fenced
+    action: "Generate date sequence crossing leap year February"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: Feb 27 → Mar 2 in leap year produces 4 dates including Feb 29. Leap day handled naturally — sequence doesn't skip or duplicate."
+
+  - block_index: 23
+    language: javascript
+    line: 427
+    type: fenced
+    action: "Show empty range (Start == End) produces zero results"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: sequence(v.i, 5, 5) = zero results. Start == End means empty half-open interval [5,5) contains nothing. Not an error — just no bindings."
+
+  - block_index: 24
+    language: javascript
+    line: 435
+    type: fenced
+    action: "Generate gYearMonth sequence crossing year boundary"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: 2024-11 → 2025-02 produces 2024-11, 2024-12, 2025-01. Year boundary crossed naturally. No special handling needed."
+
+  # === Month Boundary Predicates ===
+
+  - block_index: 25
+    language: javascript
+    line: 460
+    type: fenced
+    action: "Generate all month-end dates in FY2024 using month_end_dates"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: month_end_dates(v.date, start, end) generates every last-of-month in [start, end). FY2024: Jan 31, Feb 29 (leap), Mar 31, ..., Dec 31. 12 dates. Financial accrual schedule."
+
+  - block_index: 26
+    language: javascript
+    line: 470
+    type: fenced
+    action: "Get month-end date for a specific month (leap vs non-leap February)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: month_end_date(YearMonth, Date) — specific month end. 2024-02 → Feb 29 (leap), 2023-02 → Feb 28 (not leap). Handles the edge case correctly."
+
+  - block_index: 27
+    language: javascript
+    line: 481
+    type: fenced
+    action: "Show century leap year rules (2000 vs 1900)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: 2000-02 → Feb 29 (century divisible by 400 = leap). 1900-02 → Feb 28 (century NOT divisible by 400 = not leap). Full Gregorian calendar compliance."
+
+  - block_index: 28
+    language: javascript
+    line: 491
+    type: fenced
+    action: "Show non-boundary date fails month_start_date"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: month_start_date is NOT reversible for arbitrary dates. Jan 15 fails as start-of-month for January. These predicates validate boundaries, not compute from arbitrary dates."
+
+  - block_index: 29
+    language: javascript
+    line: 500
+    type: fenced
+    action: "Derive quarter-end dates using sequence + month_end_date"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: compose predicates! sequence(gYearMonth, step=3) generates quarter months, then month_end_date extracts the last day. Result: Mar 31, Jun 30, Sep 30, Dec 31. Composable building blocks."
+
+  # === day_before / day_after ===
+
+  - block_index: 30
+    language: javascript
+    line: 526
+    type: fenced
+    action: "Use day_before with triple for filing date context"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: day_before(Date, PreviousDate) — calendar day immediately before. Combined with triple() for 'the day before the filing date'. Bidirectional — given either, computes the other."
+
+  - block_index: 31
+    language: javascript
+    line: 536
+    type: fenced
+    action: "Show day_after crossing leap year February boundary"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: day_after(Feb 28, 2024) → Feb 29 (leap year). day_after(Feb 28, 2023) → Mar 1 (non-leap). Leap year boundary handled correctly."
+
+  - block_index: 32
+    language: javascript
+    line: 546
+    type: fenced
+    action: "Show day_after/before crossing year boundary"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: day_after(Dec 31) → Jan 1 next year. day_before(Jan 1) → Dec 31 previous year. Year boundary crossed naturally."
+
+  # === weekday / iso_week ===
+
+  - block_index: 33
+    language: javascript
+    line: 570
+    type: fenced
+    action: "Find all Wednesdays in January 2024 using sequence + weekday"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: compose sequence(dates) + weekday(date, 3) to find specific weekdays. ISO 8601: 1=Mon, 3=Wed, 7=Sun. Generator + filter pattern."
+
+  - block_index: 34
+    language: javascript
+    line: 583
+    type: fenced
+    action: "Filter to business days using weekday + lte(dow, 5)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: weekday(date, dow) + lte(dow, 5) = Monday-Friday only. Business day filter. Combine with date sequences for settlement or trading day calendars."
+
+  - block_index: 35
+    language: javascript
+    line: 596
+    type: fenced
+    action: "Show ISO week year differing from calendar year"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: iso_week(Jan 1 2023) → year=2022, week=52. The ISO week-numbering year can differ from the calendar year! Jan 1 may belong to the previous year's last week. Critical for ISO week-based reporting."
+
+  - block_index: 36
+    language: javascript
+    line: 604
+    type: fenced
+    action: "Show year with 53 ISO weeks"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: iso_week(Dec 31 2020) → week=53. Some years have 53 ISO weeks — systems must handle this. 2020 is one such year."
+
+  # === Duration Arithmetic: time_interval / date_interval ===
+
+  - block_index: 37
+    language: javascript
+    line: 632
+    type: fenced
+    action: "Compute filing deadline 60 days after period end"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: date_add(period_end, P60D, deadline) computes the deadline. Combined with triple() and lt() to find filings before deadline. Practical SEC compliance pattern."
+
+  - block_index: 38
+    language: javascript
+    line: 646
+    type: fenced
+    action: "Compute day-count duration between two dates (Q1 in leap vs non-leap year)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: date_interval(start, end, v.duration) computes day-count. Q1 2024 (leap) = P91D, Q1 2025 (non-leap) = P90D. The one-day difference matters for day-count conventions in finance."
+
+  - block_index: 39
+    language: javascript
+    line: 662
+    type: fenced
+    action: "Show same date = zero duration (P0D)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: date_interval(same, same) = P0D. Zero duration when dates are equal. Expected boundary case."
+
+  - block_index: 40
+    language: javascript
+    line: 672
+    type: fenced
+    action: "Verify a period is exactly 3 months using date_add"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: date_add(start, P3M, end) as a validation — succeeds only if end is exactly 3 calendar months after start (with EOM rules). Use for period length assertions."
+
+  # === EOM Preservation: non-reversibility ===
+
+  - block_index: 41
+    language: javascript
+    line: 714
+    type: fenced
+    action: "Show month duration non-reversibility (Jan 31 + 1M ≠ Feb 29 - 1M)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Critical: Jan 31 + P1M = Feb 29 (EOM preserved). But Feb 29 - P1M = Jan 29 (NOT Jan 31!). Month arithmetic is NOT a simple inverse. This is the source of financial reporting bugs. Day-only durations (P60D) are fully reversible."
+
+  # === Allen's Interval Algebra: interval_relation ===
+
+  - block_index: 42
+    language: javascript
+    line: 740
+    type: fenced
+    action: "Validate adjacent quarters 'meet' using interval_relation"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: interval_relation('meets', Xs, Xe, Ys, Ye) with explicit start/end dates. Q1 end (Apr 1) = Q2 start (Apr 1) = 'meets'. No gap, no overlap."
+
+  - block_index: 43
+    language: javascript
+    line: 750
+    type: fenced
+    action: "Classify relationship between two intervals (variable rel)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: unbound first arg → interval_relation classifies and binds the relation. v.rel = 'meets'. Discovery mode — ask 'what is the relationship?' rather than assert one."
+
+  # === interval_relation_typed ===
+
+  - block_index: 44
+    language: javascript
+    line: 772
+    type: fenced
+    action: "Verify quarters meet using interval_relation_typed with interval values"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: interval_relation_typed('meets', v.q1, v.q2) works on interval VALUES directly — no unpacking. Combines interval_inclusive (construction) with Allen's algebra (verification). The practical pattern."
+
+  - block_index: 45
+    language: javascript
+    line: 788
+    type: fenced
+    action: "Classify relationship between two stored interval values"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: triple() fetches stored intervals, interval_relation_typed classifies their relationship. Pattern for: 'find all reports whose periods overlap this one'."
+
+  - block_index: 46
+    language: javascript
+    line: 802
+    type: fenced
+    action: "Audit period overlap check (compliance use case)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: realistic compliance scenario. Audit window [Feb 15, Apr 15] vs reporting period [Jan 1, Mar 31]. Result: 'overlapped_by' — audit started during reporting and extends beyond. Precisely the check regulators require."
+
+  - block_index: 47
+    language: python
+    line: 819
+    type: fenced
+    action: "Python: validate adjacent fiscal quarters with interval_relation_typed"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Python SDK equivalent. Intervals as typed dicts with @type/@value. query + assert on bindings length. Same Allen's algebra, different language."
+
+  # === Interval Construction: interval, interval_inclusive ===
+
+  - block_index: 48
+    language: javascript
+    line: 846
+    type: fenced
+    action: "Construct interval from inclusive reporting dates"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: interval_inclusive(start, inclusive_end, v.interval) converts user-facing 'Jan 1 – Mar 31' to internal '2025-01-01/2025-04-01'. The conversion step between display and computation."
+
+  - block_index: 49
+    language: javascript
+    line: 857
+    type: fenced
+    action: "Unpack interval back to inclusive dates for display"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: bidirectional! Given an interval value, interval_inclusive unpacks to start + inclusive_end. Use for rendering periods back to users. Round-trip: inclusive → half-open → compute → half-open → inclusive."
+
+  - block_index: 50
+    language: javascript
+    line: 865
+    type: fenced
+    action: "Convert dateRange to dateTimeInterval via typecast"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: WOQL.typecast converts between interval types. xdd:dateRange '[2025-01-01, 2025-03-31]' → xdd:dateTimeInterval '2025-01-01/2025-04-01'. Useful when ingesting data in different formats."
+
+  # === range_min / range_max ===
+
+  - block_index: 51
+    language: javascript
+    line: 890
+    type: fenced
+    action: "Find earliest and latest filing dates using range_min/range_max"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: group_by collects all dates into a list, then range_min/range_max find extremes. Pattern for: 'what is the reporting window across all filings?'"
+
+  - block_index: 52
+    language: javascript
+    line: 904
+    type: fenced
+    action: "Determine reporting period boundaries from transaction dates"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: same pattern with transaction_date. Earliest = period start, latest = period end. Dynamic period discovery from actual data."
+
+  - block_index: 53
+    language: javascript
+    line: 918
+    type: fenced
+    action: "Find minimum of a literal integer list"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: range_min on inline list [7,2,9,1,5] → 1. Works on numbers too, not just dates. Same ordering as less/greater."
+
+  - block_index: 54
+    language: python
+    line: 932
+    type: fenced
+    action: "Python: find extremes of a date set"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Python SDK equivalent. Dates as typed dicts. range_min/range_max on a list of date values. Same semantics, Python syntax."
+
+  # === Financial Reporting Workflow (putting it all together) ===
+
+  - block_index: 55
+    language: javascript
+    line: 965
+    type: fenced
+    action: "Step 1: Define fiscal quarters from inclusive dates"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: four interval_inclusive calls defining Q1–Q4 from human-readable dates. Plus the full FY interval. Convert once at the boundary — all subsequent computation uses half-open intervals."
+
+  - block_index: 56
+    language: javascript
+    line: 991
+    type: fenced
+    action: "Step 2: Verify temporal structure with Allen's Algebra"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: assert 'meets' between adjacent quarters, 'starts'/'during'/'finishes' for containment in FY, 'before' for non-adjacent. If any check fails (0 bindings), quarters are wrong. Structural validation of the fiscal calendar."
+
+  - block_index: 57
+    language: javascript
+    line: 1016
+    type: fenced
+    action: "Step 3: Calculate day-counts using half-open ends"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: day-count uses half-open end (Apr 1, not Mar 31) to get correct count. Q1 2025 = P90D (31+28+31). The display says 'Jan 1 – Mar 31' but computation uses [Jan 1, Apr 1)."
+
+  - block_index: 58
+    language: javascript
+    line: 1038
+    type: fenced
+    action: "Step 4: Compute filing deadlines from as-of date"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: deadline starts from inclusive end (Mar 31 = the as-of date). date_duration(Mar 31, v.deadline, P60D) → May 30. Deadline calculation uses the reporting date as starting point."
+
+  - block_index: 59
+    language: javascript
+    line: 1051
+    type: fenced
+    action: "Step 5: Find earliest and latest filing dates across subsidiaries"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: group_by + range_min/range_max across subsidiaries. Determines the overall reporting window. Practical: 'when did the first sub file? When did the last?'"
+
+  - block_index: 60
+    language: javascript
+    line: 1065
+    type: fenced
+    action: "Step 6: Generate month-end accrual dates within Q1"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: month_end_dates in [Jan 1, Apr 1) generates Jan 31, Feb 28, Mar 31. Three accrual dates for quarterly close. Half-open range means Apr 30 is NOT included."
+
+  - block_index: 61
+    language: javascript
+    line: 1077
+    type: fenced
+    action: "Step 7: Filter accrual dates to business days"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: compose month_end_dates + weekday + lte(dow, 5). If month-end falls on weekend, it's excluded. Full financial workflow: generate accrual schedule → filter to valid settlement days."
+
+  # === Timezone Handling ===
+
+  - block_index: 62
+    language: javascript
+    line: 1112
+    type: fenced
+    action: "Show timezone preservation in date arithmetic"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: day_after with timezone offset ('+05:00') → offset preserved. Calendar arithmetic is timezone-agnostic — the date changes, the offset stays. No DST surprises."
+
+  - block_index: 63
+    language: javascript
+    line: 1124
+    type: fenced
+    action: "Show UTC-normalized dateTime arithmetic"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: dateTime arithmetic normalises to UTC. time_interval between +05:00 and Z = PT5H (the UTC offset difference). Financial rationale: UTC ensures unique, monotonically ordered timestamps — no DST ambiguity."

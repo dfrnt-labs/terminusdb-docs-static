@@ -1,0 +1,157 @@
+# Intent annotations for: woql-getting-started
+# Annotated: 2026-05-01
+# Source: src/app/docs/woql-getting-started/page.md
+#
+# This page teaches: WOQL building blocks (predicates, literals, variables), triple structure, read_document, and/or/opt/not
+# Prerequisites: TerminusDB running with a database containing documents
+# Dataset: Conceptual (Person/JohnDoe examples, logical operators)
+
+page: woql-getting-started
+total_blocks: 11
+annotated: 11
+needs_manual: 0
+
+blocks:
+
+  # Minimal document structure — JSON-LD
+  - block_index: 0
+    language: json
+    line: 75
+    type: fenced
+    action: "Shows minimal Person/JohnDoe document structure (@id and @type only)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Default context — @base and @schema
+  - block_index: 1
+    language: json
+    line: 150
+    type: fenced
+    action: "Shows TerminusDB default context: @base=terminusdb:///data/, @schema=terminusdb:///schema#"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # read_document — fluent style with WOQL prefix
+  - block_index: 2
+    language: javascript
+    line: 179
+    type: fenced
+    action: "WOQL read_document: select v:docs, read_document v:docId → v:docs (WOQL prefix style)"
+    expected_outcome:
+      type: non_empty
+      value: "Returns all documents in the database as resolved JSON objects"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # read_document — fluent style (no WOQL prefix)
+  - block_index: 3
+    language: javascript
+    line: 185
+    type: fenced
+    action: "WOQL read_document: same query in fluent style without WOQL. prefix"
+    expected_outcome:
+      type: non_empty
+      value: "Same result as block 2 — shows alternative syntax"
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: null
+
+  # read_document — functional style
+  - block_index: 4
+    language: javascript
+    line: 191
+    type: fenced
+    action: "WOQL read_document: same query in functional style — select wraps read_document"
+    expected_outcome:
+      type: non_empty
+      value: "Same result — demonstrates functional (nested) WOQL style"
+      tolerance: non_empty
+    depends_on: 3
+    skip_reason: null
+
+  # read_document with eq + triple — target specific document
+  - block_index: 5
+    language: javascript
+    line: 199
+    type: fenced
+    action: "WOQL: eq + triple + read_document to match specific Person/JohnDoe and read full doc"
+    expected_outcome:
+      type: non_empty
+      value: "Returns Person/JohnDoe document as resolved JSON"
+      tolerance: non_empty
+    depends_on: 4
+    skip_reason: null
+
+  # and() — conflicting equality (no results)
+  - block_index: 6
+    language: javascript
+    line: 219
+    type: fenced
+    action: "WOQL and(): eq v:var=a AND eq v:var=b — demonstrates impossible constraint (0 results)"
+    expected_outcome:
+      type: non_empty
+      value: "Returns empty bindings — both cannot be true simultaneously"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # and() — non-conflicting (1 result)
+  - block_index: 7
+    language: javascript
+    line: 228
+    type: fenced
+    action: "WOQL and(): eq v:var_a=a AND eq v:var_b=b — separate variables both grounded (1 result)"
+    expected_outcome:
+      type: non_empty
+      value: "Returns 1 binding with var_a=a and var_b=b"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # or() — two alternatives (2 results)
+  - block_index: 8
+    language: javascript
+    line: 243
+    type: fenced
+    action: "WOQL or(): eq v:var_a=a OR eq v:var_b=b — demonstrates cardinality expansion (2 results)"
+    expected_outcome:
+      type: non_empty
+      value: "Returns 2 bindings — one for each successful branch"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # opt() — optional grounding
+  - block_index: 9
+    language: javascript
+    line: 256
+    type: fenced
+    action: "WOQL opt(): or() combined with opt().eq() to optionally fill ungrounded variables"
+    expected_outcome:
+      type: non_empty
+      value: "Returns 2 bindings with both variables grounded where possible"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # not() — negation to exclude subdocuments and lists
+  - block_index: 10
+    language: javascript
+    line: 272
+    type: fenced
+    action: "WOQL not(): find all top-level document subjects, excluding subdocuments and rdf:List"
+    expected_outcome:
+      type: non_empty
+      value: "Returns only top-level document types, excluding subdocuments and lists"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null

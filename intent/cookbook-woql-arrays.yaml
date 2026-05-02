@@ -1,0 +1,169 @@
+# Intent Capture: cookbook-woql-arrays
+# Page: src/app/docs/cookbook-woql-arrays/page.md
+# Title: Cookbook: Leveraging Arrays with WOQL
+# Total blocks: 11
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-02
+# Status: COMPLETE
+# Note: Cookbook page for WOQL array patterns. All blocks are SDK snippets demonstrating multidimensional array query techniques using sys:value/sys:index triple patterns. Requires DataMatrix schema and populated data.
+
+page: cookbook-woql-arrays
+total_blocks: 11
+auto_filled: 11
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: json
+    line: 39
+    type: fenced
+    action: "Display schema definition for DataMatrix class with 2D decimal array"
+    expected_outcome:
+      type: skip
+      value: "Shows @context with base/schema URIs, and DataMatrix class with 'measurements' as 2D Array of xsd:decimal."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Schema definition reference for subsequent patterns."
+
+  - block_index: 1
+    language: javascript
+    line: 65
+    type: fenced
+    action: "WOQL pattern: find array elements by value using sys:value/sys:index/sys:index2"
+    expected_outcome:
+      type: non_empty
+      value: "Uses triple() on sys:value, sys:index, sys:index2 then eq(v.value, 42) to find all elements with value 42 and return their coordinates."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Standalone pattern using Vars() style. Requires populated 2D array data."
+    assertion: "No assertion — illustrative pattern. Shows value-based element search in 2D arrays."
+
+  - block_index: 2
+    language: javascript
+    line: 82
+    type: fenced
+    action: "WOQL pattern: access array element by specific index coordinates using literal()"
+    expected_outcome:
+      type: non_empty
+      value: "Uses triple with literal(0, 'xsd:nonNegativeInteger') for index coordinates to get value at position [0,1] in measurements array."
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: display_only
+    note: "Critical pattern: array indices must use xsd:nonNegativeInteger type. Uses v: prefix variable style."
+    assertion: "No assertion — illustrative pattern. Shows typed literal requirement for array index access."
+
+  - block_index: 3
+    language: javascript
+    line: 95
+    type: fenced
+    action: "WOQL pattern: range queries on array indices using greater()/less()"
+    expected_outcome:
+      type: non_empty
+      value: "Combines sys:index/sys:index2/sys:value triples with greater(v.index1, 2), less(v.index2, 5), greater(v.value, 10) for multidimensional range filtering."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Shows how to combine index and value constraints for range queries on 2D arrays."
+    assertion: "No assertion — illustrative pattern for multidimensional range queries."
+
+  - block_index: 4
+    language: javascript
+    line: 114
+    type: fenced
+    action: "WOQL pattern: sparse array handling using opt() for missing values"
+    expected_outcome:
+      type: non_empty
+      value: "Uses and() with opt().and() wrapping the triple pattern for sys:index/sys:index2/sys:value to gracefully handle gaps in sparse arrays."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Key pattern for production use — arrays may have gaps (null values). opt() prevents query failure on missing elements."
+    assertion: "No assertion — illustrative pattern for sparse array handling."
+
+  - block_index: 5
+    language: javascript
+    line: 136
+    type: fenced
+    action: "WOQL pattern: 3D array navigation with sys:index3 for time dimension"
+    expected_outcome:
+      type: non_empty
+      value: "Extends 2D pattern with sys:index3 for time dimension. Queries x/y/time coordinates, filters by eq(v.time, 5) for specific time slice."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Shows N-dimensional extension: sys:index, sys:index2, sys:index3 for 3D data (e.g., time series)."
+    assertion: "No assertion — illustrative pattern for 3D array access."
+
+  - block_index: 6
+    language: javascript
+    line: 159
+    type: fenced
+    action: "WOQL optimisation: index-first querying pattern for better performance"
+    expected_outcome:
+      type: non_empty
+      value: "Places index constraint (sys:index with targetRow) first in triple chain, then sys:index2, then sys:value — limits search space early."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Performance tip: start with index constraints to limit cardinality before fetching values."
+    assertion: "No assertion — illustrative optimisation pattern."
+
+  - block_index: 7
+    language: javascript
+    line: 167
+    type: fenced
+    action: "WOQL optimisation: value-based filtering with value search first"
+    expected_outcome:
+      type: non_empty
+      value: "Places sys:value triple first (leveraging succinct auto-indexing), then retrieves index coordinates, then applies greater() constraint."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Performance tip: when searching by value, put value triple first to exploit TerminusDB's succinct data structure indexing."
+    assertion: "No assertion — illustrative optimisation pattern."
+
+  - block_index: 8
+    language: javascript
+    line: 187
+    type: fenced
+    action: "WOQL debugging: inspect array structure with re() regex filter on sys: properties"
+    expected_outcome:
+      type: non_empty
+      value: "Uses triple(v.element, v.prop, v.val) with re('sys:(index|value)', v.prop) to view all sys-prefixed properties of array elements."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Debugging tool: reveals internal triple structure of array storage. Uses re() for regex property matching."
+    assertion: "No assertion — illustrative debugging pattern."
+
+  - block_index: 9
+    language: javascript
+    line: 204
+    type: fenced
+    action: "WOQL pattern: multiple variables for all_of match in 3D arrays with select()"
+    expected_outcome:
+      type: non_empty
+      value: "Uses separate arr_subject1/arr_subject2 variables for independent binding, with select('').and() to match multiple array positions [0,0,0] and [1,0,0] simultaneously on a single result row."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Advanced pattern: avoids single-variable binding limitation by using independent subjects per match. Uses type_of() for type inspection."
+    assertion: "No assertion — advanced illustrative pattern for multi-position matching."
+
+  - block_index: 10
+    language: javascript
+    line: 233
+    type: fenced
+    action: "WOQL pattern: handling missing array elements with opt() and @id lookup"
+    expected_outcome:
+      type: non_empty
+      value: "Uses triple(v.doc, '@id', 'MyDocument') then opt(and(...)) wrapping measurements/index/value triples for safe access when element may not exist."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Defensive pattern: combines document lookup by @id with opt() to handle cases where array element at [0,0] may not exist."
+    assertion: "No assertion — illustrative defensive access pattern."

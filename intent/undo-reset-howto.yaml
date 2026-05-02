@@ -1,0 +1,144 @@
+# Intent Annotations: undo-reset-howto
+# Page: src/app/docs/undo-reset-howto/page.md
+# Title: How to Undo and Reset
+# Total blocks: ~18
+# Annotated by: systems-engineer (Phase III)
+# Date: 2026-05-02
+# Fixture: Requires TerminusDB running with admin/mydb and commit history
+
+blocks:
+  # Section 1: View history to find reset target
+  - block_index: 0
+    language: bash
+    action: "GET commit log to find commit to reset to"
+    expected_outcome:
+      type: count_gte
+      value: "Returns array of commits"
+      tolerance: count_gte
+    depends_on: null
+    skip_reason: null
+    assertion: "Exit code 0 AND stdout is JSON array with >= 2 entries, each with 'identifier'."
+
+  - block_index: 1
+    language: json
+    action: "Display expected commit log"
+    expected_outcome:
+      type: display_only
+      value: "Commits with identifiers to choose from"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 2
+    language: typescript
+    action: "Get log via TypeScript SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK log example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  - block_index: 3
+    language: python
+    action: "Get log via Python SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK log example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  # Section 2: Reset a branch to a previous commit
+  - block_index: 4
+    language: bash
+    action: "Reset branch HEAD to a specific commit via POST /api/reset"
+    expected_outcome:
+      type: output_contains
+      value: "ResetResponse with api:success"
+      tolerance: contains
+    depends_on: 0
+    skip_reason: null
+    assertion: "Exit code 0 AND stdout contains 'api:success'. NOTE: requires actual SHA from block 0."
+
+  - block_index: 5
+    language: json
+    action: "Display expected reset response"
+    expected_outcome:
+      type: display_only
+      value: '{"@type": "api:ResetResponse", "api:status": "api:success"}'
+      tolerance: exact
+    depends_on: 4
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 6
+    language: typescript
+    action: "Reset via TypeScript SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK reset example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  - block_index: 7
+    language: python
+    action: "Reset via Python SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK reset example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  # Section 3: Verify after reset
+  - block_index: 8
+    language: bash
+    action: "GET document to confirm reset restored previous state"
+    expected_outcome:
+      type: output_contains
+      value: "Document with historical field values"
+      tolerance: contains
+    depends_on: 4
+    skip_reason: null
+    assertion: "Exit code 0 AND stdout contains expected field values from before the reset target."
+
+  # Section 4: Branch from history as alternative to reset
+  - block_index: 9
+    language: bash
+    action: "Create branch from historical commit (safer alternative to reset)"
+    expected_outcome:
+      type: output_contains
+      value: "BranchResponse with api:success"
+      tolerance: contains
+    depends_on: 0
+    skip_reason: null
+    assertion: "Exit code 0 AND stdout contains 'api:success'. NOTE: requires SHA."
+
+  - block_index: 10
+    language: typescript
+    action: "Branch from commit via TypeScript SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK branch from commit example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  - block_index: 11
+    language: python
+    action: "Branch from commit via Python SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK branch from commit example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."

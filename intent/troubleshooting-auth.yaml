@@ -1,0 +1,38 @@
+# Intent skeleton for: troubleshooting-auth
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: troubleshooting-auth
+total_blocks: 2
+auto_filled: 2
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: python
+    line: 67
+    type: fenced
+    action: Connect to TerminusDB via Python SDK
+    expected_outcome:
+      type: state_change
+      value: null
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: bash
+    line: 80
+    type: fenced
+    action: Install Python package
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null

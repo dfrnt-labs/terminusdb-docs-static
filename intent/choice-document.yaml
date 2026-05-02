@@ -1,0 +1,63 @@
+# Intent: choice-document
+# Page: src/app/docs/choice-document/page.md
+# Title: Choice Document in the Document UI
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page for the Document UI SDK showing how choice document fields
+#       (polymorphic references to other document classes) render in FrameViewer.
+#       Reader arrives asking: "how do I render fields that can reference one of several document types?"
+
+page: choice-document
+total_blocks: 3
+auto_filled: 3
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Frame definition with choice document fields ===
+
+  - block_index: 0
+    language: javascript
+    line: 40
+    type: fenced
+    action: "Define a frame with polymorphic document reference fields (mandatory, Optional, Set, List)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: Guy document with four fields referencing 'Group' (an abstract parent of Art, Dance, Music). favorite_group is mandatory (exactly one), second_favorite_group is Optional, member_of is a Set (unordered, unique), attends_group_in_order is a List (ordered). Art/Dance/Music each have @key Lexical on name + capacity field. Reader learns: choice document fields reference other top-level document classes — the UI presents a picker from existing documents of the allowed types."
+
+  # === Create mode ===
+
+  - block_index: 1
+    language: javascript
+    line: 189
+    type: fenced
+    action: "Render FrameViewer in Create mode for Guy document"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    ux_intent: "Reader learns: Create mode with empty formData shows document reference pickers. The UI lets users select from existing Art, Dance, or Music documents for each field. Mandatory field must be filled; Optional can be skipped; Set/List allow multiple selections."
+
+  # === Edit & View mode ===
+
+  - block_index: 2
+    language: javascript
+    line: 203
+    type: fenced
+    action: "Render FrameViewer in View mode with populated document references"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only
+    ux_intent: "Reader learns: View mode shows document references as IDs (e.g., 'Art/Charcoal%20Art%20Group'). favorite_group has one Art reference, attends_group_in_order has 3 references (Dance, Art, Music) in order, member_of has 2 references (Set — unordered), second_favorite_group has one Dance reference. IDs are URL-encoded Lexical keys derived from the name field."

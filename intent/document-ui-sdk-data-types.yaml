@@ -1,0 +1,108 @@
+# Intent: document-ui-sdk-data-types
+# Page: src/app/docs/document-ui-sdk-data-types/page.md
+# Title: Documents UI SDK Data Types
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page showing how different TerminusDB data types render
+#       in the Document UI SDK's FrameViewer component.
+#       Reader arrives asking: "how does each data type look in the auto-generated form?"
+
+page: document-ui-sdk-data-types
+total_blocks: 6
+auto_filled: 6
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === String/Boolean/Decimal frame ===
+
+  - block_index: 0
+    language: javascript
+    line: 108
+    type: fenced
+    action: "Define a frame showing basic data type fields (string, boolean, decimal, enum)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: schema frame with xsd:string (text input), xsd:boolean (checkbox), xsd:decimal (number input), and Enum type (dropdown select). Each type maps to a specific HTML input widget in FrameViewer. Reader learns the mapping: schema type → UI control."
+
+  # === Optional/Set/List modifiers ===
+
+  - block_index: 1
+    language: javascript
+    line: 160
+    type: fenced
+    action: "Define a frame showing collection type modifiers (Optional, Set, List)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    ux_intent: "Reader learns: Optional wraps a type to make it non-mandatory (field can be empty), Set allows multiple unique unordered values (add/remove buttons), List allows multiple ordered values (add/remove/reorder). These are type modifiers, not types themselves — they change the field's cardinality in the UI."
+
+  # === Document links ===
+
+  - block_index: 2
+    language: javascript
+    line: 211
+    type: fenced
+    action: "Define a frame showing document link fields (references to other documents)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only
+    ux_intent: "Reader learns: when a field's type is another document class name (e.g., 'Address'), FrameViewer renders a document picker/selector. The user selects from existing documents of that type. Combined with Optional/Set/List for cardinality control."
+
+  # === Subdocuments ===
+
+  - block_index: 3
+    language: javascript
+    line: 244
+    type: fenced
+    action: "Define a frame showing subdocument fields (embedded, owned documents)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 2
+    skip_reason: display_only
+    ux_intent: "Reader learns: @subdocument types render as inline nested forms — the subdocument's fields appear directly within the parent form. Unlike document links (which show a picker), subdocuments show all their fields expanded. They're created/edited in place, owned by the parent."
+
+  # === DateTime and temporal types ===
+
+  - block_index: 4
+    language: javascript
+    line: 284
+    type: fenced
+    action: "Define a frame showing date/time type fields (dateTime, date, time)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 3
+    skip_reason: display_only
+    ux_intent: "Reader learns: xsd:dateTime renders as a datetime picker, xsd:date as a date picker, xsd:time as a time picker. Each temporal type gets an appropriate browser-native input. Format follows ISO 8601."
+
+  # === Geo types (coordinate, polygon) ===
+
+  - block_index: 5
+    language: javascript
+    line: 334
+    type: fenced
+    action: "Define a frame showing geographic data type fields (coordinate, polygon)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 4
+    skip_reason: display_only
+    ux_intent: "Reader learns: xdd:coordinate renders as a map point picker (longitude/latitude), xdd:coordinatePolygon renders as a polygon drawing tool. These are TerminusDB extension types (xdd: namespace) that get specialized UI widgets beyond simple text inputs."

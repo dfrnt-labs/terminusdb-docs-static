@@ -1,0 +1,158 @@
+# Intent skeleton for: python-woql-customer-data-processing-example
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: python-woql-customer-data-processing-example
+total_blocks: 12
+auto_filled: 12
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: python
+    line: 34
+    type: fenced
+    action: "POST /api/migration — define Attributes subdocument and Purchase class via schema migration operations, then submit via Python requests"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: python
+    line: 97
+    type: fenced
+    action: "Full WOQL query via Python SDK: connect, declare variables, build select/and/triple/not/greater/read_document/order_by query, execute and extract bindings"
+    expected_outcome:
+      type: skip
+      value: "Shows: Complete Python WOQL query — vars(), WOQLClient connect, nested select with triple patterns, woql_not(greater()) filter, read_document for subdocs, order_by asc, client.query() execution."
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+
+  - block_index: 2
+    language: python
+    line: 148
+    type: fenced
+    action: "Display vars() initialisation: destructure wq().vars() into (purchase, user_id, attributes_id, attributes, at) — declares logical variables for the query"
+    expected_outcome:
+      type: skip
+      value: "Shows: (purchase, user_id, attributes_id, attributes, at) = wq().vars('purchase', 'user_id', 'attributes_id', 'attributes', 'at')."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 3
+    language: python
+    line: 158
+    type: fenced
+    action: "Display inner filter query: select(attributes_id, at) with triple patterns for Purchase type, userId match, attributes link, timestamp filter via woql_not(greater())"
+    expected_outcome:
+      type: skip
+      value: "Shows: wq().select(attributes_id, at, wq().woql_and(triple patterns for Purchase type, userId, attributes, at, plus woql_not(greater(at, timestamp))))."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 4
+    language: python
+    line: 180
+    type: fenced
+    action: "Display unification equivalence: triple(purchase, 'userId', user_id) + eq(user_id, string(customer_id)) is same as triple(purchase, 'userId', string(customer_id))"
+    expected_outcome:
+      type: skip
+      value: "Shows: wq().triple(purchase, 'userId', user_id), wq().eq(user_id, wq().string(customer_id)) — two-step extract-and-check pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 5
+    language: python
+    line: 187
+    type: fenced
+    action: "Display concise unification pattern: triple(purchase, 'userId', wq().string(customer_id)) — direct value matching without separate eq() call"
+    expected_outcome:
+      type: skip
+      value: "Shows: wq().triple(purchase, 'userId', wq().string(customer_id)) — single-step direct match (equivalent to block 4)."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 6
+    language: python
+    line: 195
+    type: fenced
+    action: "Display 'not greater than' timestamp filter: woql_not(wq().greater(at, timestamp)) — retrieves purchases at or before the given time"
+    expected_outcome:
+      type: skip
+      value: "Shows: wq().woql_not(wq().greater(at, timestamp)) — negation of greater-than gives <= semantics."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 7
+    language: python
+    line: 203
+    type: fenced
+    action: "Display alternative 'less than or equal' filter: woql_or(wq().less(at, timestamp), wq().equal(at, timestamp)) — equivalent to not-greater approach"
+    expected_outcome:
+      type: skip
+      value: "Shows: wq().woql_or(wq().less(at, timestamp), wq().equal(at, timestamp)) — explicit OR of less-than and equal-to."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 8
+    language: python
+    line: 216
+    type: fenced
+    action: "Display complete composed query: select(attributes, at) wrapping inner filter + read_document(attributes_id, attributes) + order_by(at, order='asc')"
+    expected_outcome:
+      type: skip
+      value: "Shows: Full nested query — outer select(attributes, at) with inner select for filtering, read_document() to fetch subdocument content, order_by(at, order='asc')."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 9
+    language: python
+    line: 240
+    type: fenced
+    action: "Display order_by usage: single-attribute ascending and multi-attribute mixed ordering (order=['asc', 'desc'])"
+    expected_outcome:
+      type: skip
+      value: "Shows: wq().order_by(at, order='asc') for single attribute, and wq().order_by(at, other_attribute, order=['asc', 'desc']) for multiple."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 10
+    language: python
+    line: 252
+    type: fenced
+    action: "Display query execution and result extraction: client.query(query) then check result['bindings'] for purchase data"
+    expected_outcome:
+      type: skip
+      value: "Shows: result = client.query(query), then if result['bindings']: purchases = result['bindings'] — standard execution and extraction pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 11
+    language: json
+    line: 267
+    type: fenced
+    action: "Display api:WoqlResponse example: shows bindings array with 2 purchase results containing xsd:integer timestamps and Attributes subdocuments (articles_bought, n_clicks, total)"
+    expected_outcome:
+      type: skip
+      value: "Shows: api:WoqlResponse with api:success, variable_names ['attributes', 'at'], bindings array with Attributes subdocuments (articles_bought, n_clicks, total, duration) and xsd:integer timestamps."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

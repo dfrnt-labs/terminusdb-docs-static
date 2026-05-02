@@ -1,0 +1,47 @@
+# Intent: edit-document-component
+# Page: src/app/docs/edit-document-component/page.md
+# Title: EditDocumentComponent
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page for the EditDocumentComponent from the Document UI SDK.
+#       Reader arrives asking: "how do I use EditDocumentComponent to edit documents?"
+
+page: edit-document-component
+total_blocks: 2
+auto_filled: 2
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === npm install ===
+
+  - block_index: 0
+    language: bash
+    line: 31
+    type: fenced
+    action: "Install Document UI SDK packages from npm"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: three npm packages required — terminusdb-documents-ui (core FrameViewer), terminusdb-react-table (table component), and terminusdb-documents-ui-templates (pre-built page templates including EditDocumentComponent). All from @terminusdb scope."
+
+  # === Full React example ===
+
+  - block_index: 1
+    language: python
+    line: 83
+    type: fenced
+    action: "Show a complete React component using EditDocumentComponent with useTDBDocuments hook"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    ux_intent: "Reader learns: (1) import EditDocumentComponent + useTDBDocuments from the templates package, (2) useTDBDocuments(tdbClient) provides updateDocument, getDocument, selectedDocument, getDocumentFrames, frames, error, (3) useEffect fetches frames + document on mount, (4) updateDocumentHandler calls updateDocument then re-fetches, (5) pass all props to EditDocumentComponent: SearchComponent, documentID, updateDocument, type, frames, closeButtonClick, documentJson. Complete integration pattern — copy and adapt."

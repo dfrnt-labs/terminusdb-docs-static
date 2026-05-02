@@ -1,0 +1,96 @@
+# Intent Annotations: advanced-filtering-with-graphql
+# Page: src/app/docs/advanced-filtering-with-graphql/page.md
+# Title: Advanced Filtering with GraphQL
+# Total blocks: ~10
+# Annotated by: systems-engineer (Phase III)
+# Date: 2026-05-02
+# Fixture: Requires star-wars DB or dataset with filterable fields
+
+blocks:
+  - block_index: 0
+    language: graphql
+    action: "Filter with _and (multiple conditions)"
+    expected_outcome:
+      type: response_body
+      value: "Returns results matching ALL conditions"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    assertion: "POST /api/graphql returns HTTP 200 AND all results satisfy both conditions."
+
+  - block_index: 1
+    language: json
+    action: "Display expected _and filter result"
+    expected_outcome:
+      type: display_only
+      value: "Results satisfying both conditions"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 2
+    language: graphql
+    action: "Filter with _or (any condition)"
+    expected_outcome:
+      type: response_body
+      value: "Returns results matching ANY condition"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    assertion: "POST /api/graphql returns HTTP 200 AND results satisfy at least one condition."
+
+  - block_index: 3
+    language: json
+    action: "Display expected _or filter result"
+    expected_outcome:
+      type: display_only
+      value: "Results matching either condition"
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 4
+    language: graphql
+    action: "Filter with _not (exclusion)"
+    expected_outcome:
+      type: response_body
+      value: "Returns results NOT matching condition"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    assertion: "POST /api/graphql returns HTTP 200 AND no results match the excluded condition."
+
+  - block_index: 5
+    language: json
+    action: "Display expected _not filter result"
+    expected_outcome:
+      type: display_only
+      value: "Results excluding specified condition"
+      tolerance: non_empty
+    depends_on: 4
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 6
+    language: graphql
+    action: "Combined filter with nested _and/_or/_not"
+    expected_outcome:
+      type: response_body
+      value: "Returns results matching complex boolean logic"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    assertion: "POST /api/graphql returns HTTP 200 AND results match the composed filter logic."
+
+  - block_index: 7
+    language: json
+    action: "Display expected combined filter result"
+    expected_outcome:
+      type: display_only
+      value: "Results from complex boolean filter"
+      tolerance: non_empty
+    depends_on: 6
+    skip_reason: display_only
+    assertion: "No assertion — display only."

@@ -1,0 +1,669 @@
+# Intent: json-diff-and-patch
+# Page: src/app/docs/json-diff-and-patch/page.md
+# Title: JSON Diff and Patch with TerminusDB
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This page is a HOW-TO reference covering diff/patch operations via
+#       HTTP API, JS client, Python client, and curl examples. The page structure:
+#       (1) Cloud endpoint examples, (2) Client SDK workflow, (3) Operation types reference,
+#       (4) Public demo endpoint, (5) Localhost curl examples, (6) Patch curl examples.
+
+page: json-diff-and-patch
+total_blocks: 48
+auto_filled: 48
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Cloud Endpoint Examples (authenticated) ===
+
+  - block_index: 0
+    language: bash
+    line: 56
+    type: fenced
+    action: "POST a diff request to the DFRNT cloud API"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: diff endpoint URL structure for cloud (dfrnt.com/api/hosted/{user}/api/diff). Auth via Token header. Body has 'before' and 'after' JSON objects plus optional 'keep'. Response shows which fields changed."
+
+  - block_index: 1
+    language: json
+    line: 64
+    type: fenced
+    action: "Display diff result showing SwapValue operation"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: diff output structure. Changed field 'asdf' shows @op=SwapValue with @before/@after. Unchanged field 'fdsa' appears as-is because 'keep' was specified. Key insight: only differences are described as operations."
+
+  - block_index: 2
+    language: bash
+    line: 72
+    type: fenced
+    action: "POST a patch request to the DFRNT cloud API"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: patch endpoint takes 'before' document + 'patch' (a diff), returns transformed document. Same auth pattern. Patch is the diff output from the previous step — round-trip: diff produces patch, patch applies it."
+
+  - block_index: 3
+    language: json
+    line: 82
+    type: fenced
+    action: "Display patch result showing transformed document"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: patch output is the final document with changes applied. 'fdsa' changed from 'quux' to 'quuz'. The patch was applied to 'before' to produce this result. Simple, predictable transformation."
+
+  # === Client SDK: Create Endpoint ===
+
+  - block_index: 4
+    language: javascript
+    line: 117
+    type: fenced
+    action: "Create a WOQLClient endpoint (JavaScript)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: JS client setup for diff/patch. Import terminusdb-client, create WOQLClient with server URL. Same client used for all TerminusDB operations."
+
+  - block_index: 5
+    language: python
+    line: 125
+    type: fenced
+    action: "Create a WOQLClient endpoint (Python)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Python equivalent. Import WOQLClient from terminusdb_client. Same server URL pattern. Choose whichever language matches your stack."
+
+  # === Client SDK: Apply Diff ===
+
+  - block_index: 6
+    language: javascript
+    line: 139
+    type: fenced
+    action: "Compute diff between two documents (JavaScript)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: client.getJSONDiff(Doc1, Doc2) returns a patch object. One method call — no HTTP plumbing needed. Async operation (await)."
+
+  - block_index: 7
+    language: text
+    line: 147
+    type: fenced
+    action: "Compute diff between two documents (Python)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Python equivalent is client.diff(Doc1, Doc2). Returns a patch object. Synchronous call."
+
+  # === Client SDK: Review Patch ===
+
+  - block_index: 8
+    language: javascript
+    line: 157
+    type: fenced
+    action: "Print the diff result (JavaScript)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: result_patch is a plain JSON object — console.log() shows the operations. Inspect before applying."
+
+  - block_index: 9
+    language: python
+    line: 165
+    type: fenced
+    action: "Print the diff result (Python)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Python result has .content property. Use pprint for readable output. Review operations before committing them."
+
+  # === Client SDK: Apply Patch ===
+
+  - block_index: 10
+    language: javascript
+    line: 175
+    type: fenced
+    action: "Apply a patch to a document (JavaScript)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: client.patch(Doc1, result_patch) produces the transformed document. Full workflow: diff → review → patch. Three method calls total."
+
+  - block_index: 11
+    language: python
+    line: 181
+    type: fenced
+    action: "Apply a patch to a document (Python)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Python equivalent — client.patch(Doc1, result_patch). Same three-step workflow in both languages."
+
+  # === Operation Types Reference ===
+
+  - block_index: 12
+    language: typescript
+    line: 199
+    type: fenced
+    action: "Display Mandatory Diff operation (SwapValue with @id)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Mandatory diff = SwapValue with explicit @before/@after. @id identifies which document. Used for required fields that must have a value. Field-level precision — only changed properties appear."
+
+  - block_index: 13
+    language: typescript
+    line: 211
+    type: fenced
+    action: "Display Optional Diff operation (null before/after)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: Optional diff uses null for missing values. @before=null means field was absent, @after='Jim' means it was added. Handles Optional schema fields gracefully."
+
+  - block_index: 14
+    language: typescript
+    line: 230
+    type: fenced
+    action: "Display CopyList operation structure"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: CopyList copies elements from current position to @to index unchanged. @rest contains the next diff operation. List diffs are position-based chains of operations."
+
+  - block_index: 15
+    language: typescript
+    line: 240
+    type: fenced
+    action: "Display SwapList operation structure"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: SwapList replaces @before elements with @after elements at current position. Can extend (add) or drop (remove) elements. @rest chains the next operation."
+
+  - block_index: 16
+    language: typescript
+    line: 251
+    type: fenced
+    action: "Display PatchList operation structure"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: PatchList applies element-level patches within a list. @patch is an array of per-element operations. Must not exceed list length. Used for in-place modifications without moving elements."
+
+  - block_index: 17
+    language: javascript
+    line: 259
+    type: fenced
+    action: "Show complete List diff example (CopyList + PatchList + SwapValue)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: full practical example. TaskList with 6 items → CopyList(to:2) copies first 2, PatchList swaps items 3-5, KeepList preserves the rest. Before/After shows the net result. Key insight: list diffs compose as a chain — read left to right."
+
+  - block_index: 18
+    language: typescript
+    line: 293
+    type: fenced
+    action: "Display ForceValue operation (unsafe override)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: ForceValue sets a field regardless of current state — no @before check. UNSAFE: no conflict detection. Use only when you intentionally want to overwrite without verifying current value. Last-write-wins semantics."
+
+  # === Table Diff (ModifyTable) ===
+
+  - block_index: 19
+    language: typescript
+    line: 311
+    type: fenced
+    action: "Display original table (before sorting)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: 2D array (table) with headers + 4 data rows. Job titles, companies, locations. This is the 'before' state for the table diff example. Think: Excel/CSV data."
+
+  - block_index: 20
+    language: typescript
+    line: 321
+    type: fenced
+    action: "Display sorted table (after sorting on first column)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: same data sorted alphabetically by Job Title. Rows moved but content unchanged. This is the 'after' state. The diff should detect moves, not treat as delete+insert."
+
+  - block_index: 21
+    language: typescript
+    line: 331
+    type: fenced
+    action: "Display ModifyTable patch result for row reordering"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: ModifyTable has dimensions, copies (unchanged regions), moves (relocated regions with @from/@to coordinates), deletes, inserts. Key insight: 'moves' detect row/column reordering without data duplication. Useful for CSV/Excel change tracking."
+
+  # === Public Demo Endpoint (data.terminusdb.org) ===
+
+  - block_index: 22
+    language: bash test
+    line: 359
+    type: fenced
+    action: "POST diff to public demo endpoint (no auth required)"
+    expected_outcome:
+      type: output_contains
+      value: "SwapValue"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader can test immediately — no auth, no setup. Public endpoint at data.terminusdb.org/api/diff. Simplest possible diff: one field changed from 'Alice' to 'Bob'. Instant gratification."
+
+  - block_index: 23
+    language: json
+    line: 366
+    type: fenced
+    action: "Display expected diff output from public demo"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: {name: {SwapValue, before:Alice, after:Bob}}. Minimal, clear diff result to compare against their actual output."
+
+  - block_index: 24
+    language: bash test
+    line: 370
+    type: fenced
+    action: "POST patch to public demo endpoint (no auth required)"
+    expected_outcome:
+      type: output_contains
+      value: "Bob"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader applies the patch from the previous diff. Input: before={name:Alice} + patch={SwapValue Alice→Bob}. Output: {name:Bob}. Confirms the round-trip: diff → patch → result."
+
+  - block_index: 25
+    language: json
+    line: 377
+    type: fenced
+    action: "Display expected patch output from public demo"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: {name: 'Bob'} — the final transformed document. Clean, no diff operations — just the result."
+
+  # === Endpoint Reference (localhost URLs) ===
+
+  - block_index: 26
+    language: text
+    line: 387
+    type: fenced
+    action: "Display localhost diff endpoint URL"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reference: http://localhost:6363/api/diff — the endpoint for local TerminusDB instances. No auth needed for localhost."
+
+  - block_index: 27
+    language: text
+    line: 393
+    type: fenced
+    action: "Display localhost patch endpoint URL"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reference: http://localhost:6363/api/patch — the patch endpoint. Same host/port as diff."
+
+  # === Diff Endpoint: Payload Examples ===
+
+  - block_index: 28
+    language: json
+    line: 417
+    type: fenced
+    action: "Show diff payload with before/after JSON objects"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: simplest diff payload — 'before' and 'after' as full JSON documents. Person/Jane name change. This is the direct comparison form (no data versions)."
+
+  - block_index: 29
+    language: json
+    line: 424
+    type: fenced
+    action: "Display diff result for name swap"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: SwapValue on 'name' from 'Jane' to 'Janine'. Only changed field appears in output. @id and @type implicitly copied."
+
+  - block_index: 30
+    language: json
+    line: 430
+    type: fenced
+    action: "Show diff payload with before_data_version and document_id"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: can diff against a stored version. 'before_data_version' points to a commit/branch state, 'document_id' identifies which doc, 'after' is the new version. Useful for: 'what changed since commit X?'"
+
+  - block_index: 31
+    language: json
+    line: 438
+    type: fenced
+    action: "Show diff payload comparing two data versions"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: both before and after can be data versions (commit SHAs or branch identifiers). With document_id: diff one specific document between two points in history. Without: diff ALL documents."
+
+  # === Diff Curl Examples (localhost, executable) ===
+
+  - block_index: 32
+    language: bash test
+    line: 446
+    type: fenced
+    action: "Diff two objects with 'keep' parameter (SwapValue + retained field)"
+    expected_outcome:
+      type: output_contains
+      value: "SwapValue"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: 'keep' parameter forces named fields into the output even if unchanged. Without keep: only changes appear. With keep:{fdsa:true}: fdsa appears in output as-is. Useful for context in diffs."
+
+  - block_index: 33
+    language: json
+    line: 452
+    type: fenced
+    action: "Display expected output: SwapValue with kept field"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: 'asdf' has SwapValue (changed), 'fdsa' appears as plain value (kept for context). Two behaviours in one response."
+
+  - block_index: 34
+    language: bash test
+    line: 459
+    type: fenced
+    action: "Diff two arrays of objects (element-level swap)"
+    expected_outcome:
+      type: output_contains
+      value: "SwapValue"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: diff works on arrays too. Array of objects → element-level diff. Each array element compared positionally. Changed property inside array element gets SwapValue."
+
+  - block_index: 35
+    language: json
+    line: 465
+    type: fenced
+    action: "Display expected output: array element with SwapValue"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: [{asdf: {SwapValue, foo→bar}}] — array wrapping preserved, inner object diffed normally."
+
+  - block_index: 36
+    language: bash test
+    line: 469
+    type: fenced
+    action: "Diff two lists showing CopyList + SwapList (append element)"
+    expected_outcome:
+      type: output_contains
+      value: "CopyList"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: appending to a list produces CopyList(@to:3) + SwapList(@before:[], @after:[3]). The diff detects 'copy first 3 unchanged elements, then swap empty→[3] at end'. Efficient representation of list growth."
+
+  - block_index: 37
+    language: json
+    line: 475
+    type: fenced
+    action: "Display expected CopyList + SwapList output"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: nested structure. CopyList(@to:3) → SwapList(@before:[], @after:[3]) → KeepList. Read as: copy 3, insert [3], keep rest. Chain of operations."
+
+  - block_index: 38
+    language: bash test
+    line: 488
+    type: fenced
+    action: "Diff two lists with copy_value=true (explicit copied values)"
+    expected_outcome:
+      type: output_contains
+      value: "CopyList"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: copy_value=true makes CopyList include @value with the actual copied elements. Without: implicit (saves space). With: explicit (shows [0,1,2] were copied). KeepList also gets @value:[]."
+
+  - block_index: 39
+    language: json
+    line: 494
+    type: fenced
+    action: "Display CopyList output with explicit @value field"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: same structure as block 37 but with @value:[0,1,2] on CopyList and @value:[] on KeepList. More verbose but self-documenting — can reconstruct full 'before' from the patch alone."
+
+  - block_index: 40
+    language: bash test
+    line: 508
+    type: fenced
+    action: "Diff nested objects (deep property change)"
+    expected_outcome:
+      type: output_contains
+      value: "SwapValue"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: diff traverses nested objects. asdf.fdsa changed from 'quux' to 'quuz' — the path is preserved in output structure. Only the leaf that changed gets SwapValue; parent objects are structural wrappers."
+
+  - block_index: 41
+    language: json
+    line: 514
+    type: fenced
+    action: "Display nested object diff output"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: {asdf: {fdsa: {SwapValue, quux→quuz}}}. Nesting preserved — path to the change is the JSON path. Clean structural diff."
+
+  # === Patch Endpoint: Payload Reference ===
+
+  - block_index: 42
+    language: json
+    line: 524
+    type: fenced
+    action: "Show patch payload structure (before + patch)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: patch payload has 'before' (original document) and 'patch' (diff operations to apply). Result is the transformed document. Note: @op is 'ValueSwap' here — alternative name for SwapValue."
+
+  - block_index: 43
+    language: json
+    line: 531
+    type: fenced
+    action: "Display patch result (transformed document)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: final document with name changed to 'Janine'. The patch was applied cleanly. @id and @type preserved. Only the patched field changed."
+
+  # === Patch Curl Examples (localhost, executable) ===
+
+  - block_index: 44
+    language: bash test
+    line: 537
+    type: fenced
+    action: "Patch a nested object (apply SwapValue to deep property)"
+    expected_outcome:
+      type: output_contains
+      value: "quuz"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: patch applies to nested structures. Input: {alpha:1, asdf:{fdsa:'quux'}} + patch targeting asdf.fdsa. Result: fdsa becomes 'quuz', alpha unchanged. Patch is surgical — untouched fields preserved."
+
+  - block_index: 45
+    language: json
+    line: 545
+    type: fenced
+    action: "Display expected patch output (nested object transformed)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: {alpha:1, asdf:{fdsa:'quuz'}} — alpha preserved, fdsa changed. Confirms non-destructive patching."
+
+  - block_index: 46
+    language: bash test
+    line: 549
+    type: fenced
+    action: "Patch a list (apply CopyList + SwapList to append an element)"
+    expected_outcome:
+      type: output_contains
+      value: "[0, 1, 2, 3]"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: applying the list diff from earlier as a patch. Input: [0,1,2] + CopyList/SwapList patch. Result: [0,1,2,3]. Confirms round-trip: diff produces this patch, patch reproduces the 'after'. Full cycle demonstrated."
+
+  - block_index: 47
+    language: json
+    line: 564
+    type: fenced
+    action: "Display expected patch output (list with appended element)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: [0, 1, 2, 3] — the list with element appended. Clean result, no diff operations — just the final state."

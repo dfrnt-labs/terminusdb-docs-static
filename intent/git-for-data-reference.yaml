@@ -1,0 +1,525 @@
+# Intent: git-for-data-reference
+# Page: src/app/docs/git-for-data-reference/page.md
+# Title: Git-for-Data Reference
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page for Git-for-Data operations (push, pull, fetch, clone, rebase).
+#       Reader arrives asking: "how do I sync data between TerminusDB instances?"
+#       Each operation is shown in curl + TypeScript + Python.
+
+page: git-for-data-reference
+total_blocks: 37
+auto_filled: 37
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === REMOTES: Add a remote ===
+
+  - block_index: 0
+    language: bash
+    line: 42
+    type: fenced
+    action: "Add a named remote to a database via POST /api/remote"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: POST /api/remote/admin/mydb with remote_name + remote_location registers a remote TerminusDB instance. This is the first step before any push/pull/fetch operation. Remotes store the URL of the other instance."
+
+  - block_index: 1
+    language: json
+    line: 50
+    type: fenced
+    action: "Display expected response for adding a remote"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: api:RemoteResponse with api:success. Confirms the remote was registered successfully."
+
+  - block_index: 2
+    language: typescript
+    line: 56
+    type: fenced
+    action: "Add a remote using the TypeScript client (client.addRemote)"
+    expected_outcome:
+      type: non_empty
+      value: "Remote 'origin' added to mydb"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: TypeScript equivalent — create WOQLClient with org/db, then call client.addRemote('origin', url). The client handles authentication and URL construction. Same result as the curl call."
+
+  - block_index: 3
+    language: python
+    line: 70
+    type: fenced
+    action: "Add a remote using the Python client (client.add_remote)"
+    expected_outcome:
+      type: state_change
+      value: "Remote 'origin' configured on mydb"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: Python equivalent — Client().connect(user, key, db), then client.add_remote('origin', url). Snake_case naming convention. Same operation across all three interfaces."
+
+  # === REMOTES: List remotes ===
+
+  - block_index: 4
+    language: bash
+    line: 83
+    type: fenced
+    action: "List all remotes configured on a database via GET /api/remote"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: GET /api/remote/admin/mydb (no query params) returns a list of all configured remote names. Use to discover what remotes exist before push/pull."
+
+  - block_index: 5
+    language: json
+    line: 89
+    type: fenced
+    action: "Display expected response listing remote names"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: api:remote_names array containing ['origin']. Confirms which remotes are configured."
+
+  # === REMOTES: Show remote details ===
+
+  - block_index: 6
+    language: bash
+    line: 95
+    type: fenced
+    action: "Get details of a specific remote via GET /api/remote with remote_name parameter"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: GET /api/remote/admin/mydb?remote_name=origin returns the remote's name and URL. Use to verify the configured remote location before operations."
+
+  - block_index: 7
+    language: json
+    line: 101
+    type: fenced
+    action: "Display expected response showing remote name and URL"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: api:remote_name and api:remote_url fields. Confirms the remote points to the expected instance."
+
+  # === REMOTES: Update remote URL ===
+
+  - block_index: 8
+    language: bash
+    line: 107
+    type: fenced
+    action: "Update a remote's URL via PUT /api/remote"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: PUT /api/remote/admin/mydb with remote_name + remote_location updates the URL of an existing remote. Use when the remote instance moves to a new host."
+
+  - block_index: 9
+    language: json
+    line: 115
+    type: fenced
+    action: "Display expected response for updating a remote"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: api:success. Same response shape as add — no distinction between create and update responses."
+
+  # === REMOTES: Delete a remote ===
+
+  - block_index: 10
+    language: bash
+    line: 121
+    type: fenced
+    action: "Delete a remote from a database via DELETE /api/remote"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: DELETE /api/remote/admin/mydb?remote_name=origin removes a named remote. The remote's layer references are removed but no data is deleted from either instance."
+
+  - block_index: 11
+    language: json
+    line: 127
+    type: fenced
+    action: "Display expected response for deleting a remote"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: api:success. Remote removed. Push/pull to that remote will no longer work until re-added."
+
+  # === CLONE ===
+
+  - block_index: 12
+    language: bash
+    line: 137
+    type: fenced
+    action: "Clone a remote database to the local instance via POST /api/clone"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: POST /api/clone/admin/mydb creates a full copy of a remote database locally. Key details: (1) Authorization-Remote header authenticates to the REMOTE instance, (2) -u authenticates to the LOCAL instance, (3) remote_url specifies what to clone. An 'origin' remote is auto-configured in the new database."
+
+  - block_index: 13
+    language: json
+    line: 150
+    type: fenced
+    action: "Display expected response for a successful clone"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: api:CloneResponse with api:success. Database now exists locally with all schema, branches, and data from the remote."
+
+  - block_index: 14
+    language: typescript
+    line: 158
+    type: fenced
+    action: "Clone a database using the TypeScript client (client.clonedb)"
+    expected_outcome:
+      type: state_change
+      value: "Database cloned from remote to local instance"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: TypeScript — client.clonedb({comment, label, remote_url}, org, dbName). The client handles both local and remote auth internally. Same operation as the curl call but with cleaner syntax."
+
+  - block_index: 15
+    language: python
+    line: 167
+    type: fenced
+    action: "Clone a database using the Python client (client.clonedb)"
+    expected_outcome:
+      type: state_change
+      value: "Database cloned from remote to local instance"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: Python — client.clonedb(remote_url, label=...). Minimal API — just the URL and a label. Python client infers org/db from the connection context."
+
+  # === FETCH ===
+
+  - block_index: 16
+    language: bash
+    line: 183
+    type: fenced
+    action: "Fetch remote commit state without changing local branches via POST /api/fetch"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: POST /api/fetch/admin/mydb/origin/_commits retrieves layer info from remote WITHOUT modifying local data. Path format: /api/fetch/{org}/{db}/{remote_name}/_commits. Authorization-Remote authenticates to the remote. Use fetch to check for changes before pulling."
+
+  - block_index: 17
+    language: json
+    line: 190
+    type: fenced
+    action: "Display expected response for fetch showing head_has_changed"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: api:head_has_changed (true/false) and api:head (layer ID). If head_has_changed is true, the remote has new data since the last fetch. Use this to decide whether to pull."
+
+  - block_index: 18
+    language: typescript
+    line: 200
+    type: fenced
+    action: "Fetch remote state using the TypeScript client (client.fetch)"
+    expected_outcome:
+      type: non_empty
+      value: "{ head_has_changed: true, head: 'Layer_ID_abc123' }"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: TypeScript — client.fetch('origin') returns {head_has_changed, head}. Simple one-liner. Check head_has_changed to decide if pull is needed."
+
+  - block_index: 19
+    language: python
+    line: 207
+    type: fenced
+    action: "Fetch remote state using the Python client (client.fetch)"
+    expected_outcome:
+      type: non_empty
+      value: "{'head_has_changed': True, 'head': 'Layer_ID_abc123'}"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: Python — client.fetch('origin') returns dict with head_has_changed and head. Same semantics across all three interfaces."
+
+  # === PULL ===
+
+  - block_index: 20
+    language: bash
+    line: 221
+    type: fenced
+    action: "Pull remote changes into a local branch via POST /api/pull"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: POST /api/pull/admin/mydb with remote + remote_branch fetches AND applies remote changes to the local branch. Two auth headers: -u for local, Authorization-Remote for remote. This is fetch + apply in one operation. Fails if histories have diverged — use rebase first."
+
+  - block_index: 21
+    language: json
+    line: 230
+    type: fenced
+    action: "Display expected response for pull when new data was received"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: head_has_changed: true with new head layer ID. Confirms remote changes were applied to local branch."
+
+  - block_index: 22
+    language: json
+    line: 236
+    type: fenced
+    action: "Display expected response for pull when already up to date"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: head_has_changed: false. No new data — local branch already has all remote commits. No-op but not an error."
+
+  - block_index: 23
+    language: typescript
+    line: 242
+    type: fenced
+    action: "Pull remote changes using the TypeScript client (client.pull)"
+    expected_outcome:
+      type: non_empty
+      value: "{ head_has_changed: true, head: 'Layer_ID_def456' }"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: TypeScript — client.pull({remote: 'origin', remote_branch: 'main'}) returns {head_has_changed, head}. Same response shape as fetch but data is actually applied to the local branch."
+
+  - block_index: 24
+    language: python
+    line: 252
+    type: fenced
+    action: "Pull remote changes using the Python client (client.pull)"
+    expected_outcome:
+      type: non_empty
+      value: "{'head_has_changed': True, 'head': 'Layer_ID_def456'}"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: Python — client.pull(remote='origin', remote_branch='main'). Keyword arguments for remote and branch. Returns dict with change status."
+
+  # === PUSH ===
+
+  - block_index: 25
+    language: bash
+    line: 270
+    type: fenced
+    action: "Push local branch changes to a remote via POST /api/push"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: POST /api/push/admin/mydb with remote + remote_branch sends local commits to the remote. Reverse of pull. Fails if remote has diverged — must pull first. Response includes repo_head_updated (true/false) and repo_head (new layer ID)."
+
+  - block_index: 26
+    language: json
+    line: 279
+    type: fenced
+    action: "Display expected response for push when data was sent"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: repo_head_updated: true with new repo_head layer ID. Confirms local changes are now on the remote."
+
+  - block_index: 27
+    language: json
+    line: 285
+    type: fenced
+    action: "Display expected response for push when already up to date"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: repo_head_updated: false. Remote already has all local commits. No data transferred."
+
+  - block_index: 28
+    language: typescript
+    line: 291
+    type: fenced
+    action: "Push local changes using the TypeScript client (client.push)"
+    expected_outcome:
+      type: non_empty
+      value: "{ repo_head_updated: true, repo_head: 'Layer_ID_ghi789' }"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: TypeScript — client.push({remote: 'origin', remote_branch: 'main'}) returns {repo_head_updated, repo_head}. Same pattern as pull but in the opposite direction."
+
+  - block_index: 29
+    language: python
+    line: 301
+    type: fenced
+    action: "Push local changes using the Python client (client.push)"
+    expected_outcome:
+      type: non_empty
+      value: "{'repo_head_updated': True, 'repo_head': 'Layer_ID_ghi789'}"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: Python — client.push(remote='origin', remote_branch='main'). Same keyword argument pattern as pull. Returns dict with update status."
+
+  # === PUSH with prefixes ===
+
+  - block_index: 30
+    language: bash
+    line: 317
+    type: fenced
+    action: "Push local changes with prefix/context mappings via push_prefixes option"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: adding 'push_prefixes': true to the push body also sends prefix/context mappings alongside data. Use when the remote needs to understand custom prefixes defined locally. Without this, only instance data is pushed — schema and prefix changes are not synchronised by default."
+
+  # === REBASE ===
+
+  - block_index: 31
+    language: bash
+    line: 330
+    type: fenced
+    action: "Rebase commits from one branch onto another via POST /api/rebase"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: POST /api/rebase/admin/mydb/local/branch/main with rebase_from + author replays commits from the source branch onto the target branch. The URL path specifies the TARGET branch. Both branches must share a common ancestor. Use after pull fails due to diverged history."
+
+  - block_index: 32
+    language: json
+    line: 338
+    type: fenced
+    action: "Display expected response for rebase showing forwarded commits"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: api:forwarded_commits (array of replayed commit IDs), api:common_commit_id (the ancestor both branches share), api:rebase_report (conflict info, empty if clean). Reader now knows which commits were moved and from what common point."
+
+  - block_index: 33
+    language: typescript
+    line: 352
+    type: fenced
+    action: "Rebase branches using the TypeScript client (client.rebase)"
+    expected_outcome:
+      type: non_empty
+      value: "{ forwarded_commits: ['commit/abc123', 'commit/def456'] }"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: TypeScript — client.rebase({rebase_from: 'admin/mydb/local/branch/feature', author: 'email'}). Returns forwarded_commits array. The client must be connected to the target branch."
+
+  - block_index: 34
+    language: python
+    line: 362
+    type: fenced
+    action: "Rebase branches using the Python client (client.rebase)"
+    expected_outcome:
+      type: non_empty
+      value: "{ 'forwarded_commits': ['commit/abc123', 'commit/def456'] }"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: Python — client.rebase('admin/mydb/local/branch/feature', author='email'). First positional arg is the source (rebase_from). Returns dict with forwarded_commits."
+
+  # === Complete workflow: clone, edit, push ===
+
+  - block_index: 35
+    language: bash
+    line: 379
+    type: fenced
+    action: "Demonstrate full collaboration workflow: clone remote, add document, push back"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: end-to-end collaboration pattern in three steps: (1) clone remote database locally, (2) add a document with author+message (creates a commit), (3) push changes back to remote. This is the standard 'fork-edit-push' workflow for data collaboration. All three steps use the same auth pattern."
+
+  # === Complete workflow: pull remote changes ===
+
+  - block_index: 36
+    language: bash
+    line: 401
+    type: fenced
+    action: "Demonstrate pull workflow: fetch to check, pull to apply, verify data"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: consumer-side workflow: (1) fetch to check if remote has new data, (2) pull to apply those changes locally, (3) query documents to verify the pulled data is present. This is the 'sync from upstream' pattern — use when someone else pushed changes you need."

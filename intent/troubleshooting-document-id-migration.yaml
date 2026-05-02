@@ -1,0 +1,86 @@
+# Intent skeleton for: troubleshooting-document-id-migration
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: troubleshooting-document-id-migration
+total_blocks: 6
+auto_filled: 6
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: unknown
+    line: 19
+    type: fenced
+    action: Display error message (submitted_document_id_does_not_have_expected_prefix)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: unknown
+    line: 29
+    type: fenced
+    action: Display expected subdocument ID prefix pattern (terminusdb:///data/...)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: bash
+    line: 52
+    type: fenced
+    action: POST /api/migration/admin/mydb (ChangeKey same-strategy to fix subdocument prefixes)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 3
+    language: bash
+    line: 73
+    type: fenced
+    action: POST /api/migration/admin/mydb (ChangeKey targeting subdocument class directly)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 4
+    language: bash
+    line: 92
+    type: fenced
+    action: POST /api/migration/admin/mydb (ChangeKey from Random to Lexical with fields)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 5
+    language: bash
+    line: 112
+    type: fenced
+    action: "GET /api/document/admin/mydb?type=MyParentClass&as_list=true + PUT (verify fix)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 2
+    skip_reason: null

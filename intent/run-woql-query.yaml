@@ -1,0 +1,105 @@
+# Intent annotations for: run-woql-query
+# Annotated: 2026-05-01
+# Source: src/app/docs/run-woql-query/page.md
+#
+# This page teaches: execute WOQL queries (all triples, filter by type+property)
+# Prerequisites: TerminusDB running, database with schema and data
+# Dataset: Self-created (Person documents, e.g. Person/Alice)
+
+page: run-woql-query
+total_blocks: 7
+annotated: 7
+needs_manual: 0
+
+blocks:
+
+  # Run a query — HTTP API (all triples)
+  - block_index: 0
+    language: bash
+    line: 37
+    type: fenced
+    action: "POST WOQL Triple query (all subjects/predicates/objects) via HTTP API"
+    expected_outcome:
+      type: output_contains
+      value: '"bindings"'
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+
+  # Run a query — expected response display
+  - block_index: 1
+    language: json
+    line: 45
+    type: fenced
+    action: "Shows expected WOQL response: bindings array with Subject/Predicate/Object triples"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Run a query — TypeScript SDK (all triples)
+  - block_index: 2
+    language: typescript
+    line: 59
+    type: fenced
+    action: "Execute WOQL Triple query (all triples) via TypeScript SDK with WOQL.Vars"
+    expected_outcome:
+      type: non_empty
+      value: "Returns bindings with Subject, Predicate, Object for all triples"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Run a query — Python SDK (all triples)
+  - block_index: 3
+    language: python
+    line: 71
+    type: fenced
+    action: "Execute WOQL Triple query (all triples) via Python SDK WOQLQuery"
+    expected_outcome:
+      type: non_empty
+      value: "Returns bindings with Subject, Predicate, Object for all triples"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Filter by type — HTTP API (Person with name)
+  - block_index: 4
+    language: bash
+    line: 93
+    type: fenced
+    action: "POST WOQL And query: find all Person documents and read their name field"
+    expected_outcome:
+      type: output_contains
+      value: '"bindings"'
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+
+  # Filter by type — TypeScript SDK
+  - block_index: 5
+    language: typescript
+    line: 101
+    type: fenced
+    action: "Execute WOQL And query (Person type + name property) via TypeScript SDK"
+    expected_outcome:
+      type: non_empty
+      value: "Returns bindings with Person IRI and Name value for each Person document"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Filter by type — Python SDK
+  - block_index: 6
+    language: python
+    line: 115
+    type: fenced
+    action: "Execute WOQL And query (Person type + name property) via Python SDK"
+    expected_outcome:
+      type: non_empty
+      value: "Returns bindings with Person and Name for each Person document"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null

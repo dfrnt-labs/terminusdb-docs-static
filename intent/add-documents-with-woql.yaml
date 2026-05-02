@@ -1,0 +1,61 @@
+# Intent Capture: add-documents-with-woql
+# Page: src/app/docs/add-documents-with-woql/page.md
+# Title: How to add and delete documents and subdocuments using WOQL
+# Total blocks: 3
+# Annotated by: systems-engineer (technical assertions), design-engineer (UX intent)
+# Date: 2026-05-02
+# Status: COMPLETE
+# Note: WOQL JS SDK snippets for insert_document. Requires star-wars DB for block 1. All are SDK code patterns.
+
+page: add-documents-with-woql
+total_blocks: 3
+auto_filled: 3
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 37
+    type: fenced
+    action: "Insert a new Planet document using WOQL insert_document"
+    expected_outcome:
+      type: non_empty
+      value: "Inserts a Planet document with label 'Planet-X'. Returns binding with id containing the new document IRI."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    note: "Requires star-wars DB with Planet class in schema. SDK snippet — needs client context."
+    assertion: "If executed via SDK: result.bindings[0].id contains 'Planet' IRI. SKIP unless integration env with star-wars DB."
+    ux_intent: "Reader learns: insert_document(doc({...}), variable) creates a document and binds the generated @id to the variable. The doc() wrapper marks the object as a document literal. @type and properties go inside. Vars('id') declares the output variable for the generated ID."
+
+  - block_index: 1
+    language: javascript
+    line: 44
+    type: fenced
+    action: "Insert a new Planet for each Person in the database using WOQL"
+    expected_outcome:
+      type: non_empty
+      value: "For each People document, creates a new Planet with the person's name as label. Returns bindings for each inserted planet."
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    note: "Uses isa + triple + insert_document pattern. Creates many documents — destructive in test context."
+    assertion: "If executed: result.bindings is non-empty array AND each binding represents an inserted Planet. SKIP unless integration env."
+    ux_intent: "Reader learns: combine insert_document with query patterns using and(). For each binding from isa() + triple(), a new document is inserted. Here: find all People, get their names, create a Planet with that name. Powerful pattern — bulk insert driven by existing data. Variable v.name flows from the query into the doc() literal."
+
+  - block_index: 2
+    language: javascript
+    line: 57
+    type: fenced
+    action: "Insert a subdocument with @linked-by annotation"
+    expected_outcome:
+      type: non_empty
+      value: "Creates a PersonRole subdocument linked to Person/John via the 'role' property. Returns SubdocumentId binding."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Requires a Person/John document with 'role' property in schema. Illustrative pattern — schema-dependent."
+    assertion: "No assertion — illustrative SDK pattern. Requires specific schema with PersonRole subdocument class."
+    ux_intent: "Reader learns: subdocuments require @linked-by to specify which parent owns them and which property links them. @linked-by has @id (parent document ID) and @property (the field name on the parent). TerminusDB creates the linking triple automatically. Without @linked-by, subdocuments cannot exist independently — they must be owned."

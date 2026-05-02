@@ -1,0 +1,98 @@
+# Intent skeleton for: woql-rdflist-operations
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: woql-rdflist-operations
+total_blocks: 7
+auto_filled: 7
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: text
+    line: 33
+    type: fenced
+    action: "Display RDF list cons-cell structure diagram: Cell→rdf:first (value) + rdf:rest (next cell or rdf:nil)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: javascript
+    line: 63
+    type: fenced
+    action: Insert document via WOQL
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 2
+    language: javascript
+    line: 144
+    type: fenced
+    action: WOQL query snippet
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  - block_index: 3
+    language: javascript
+    line: 159
+    type: fenced
+    action: WOQL query via SDK
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: null
+
+  - block_index: 4
+    language: javascript
+    line: 170
+    type: fenced
+    action: WOQL query via SDK
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: null
+
+  - block_index: 5
+    language: javascript
+    line: 180
+    type: fenced
+    action: WOQL query snippet
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 3
+    skip_reason: null
+
+  - block_index: 6
+    language: javascript
+    line: 192
+    type: fenced
+    action: WOQL query snippet
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 4
+    skip_reason: null

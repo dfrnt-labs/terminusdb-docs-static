@@ -1,0 +1,98 @@
+# Intent skeleton for: terminusdb-vs-neo4j
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: terminusdb-vs-neo4j
+total_blocks: 7
+auto_filled: 7
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: cypher
+    line: 58
+    type: fenced
+    action: Display Cypher CREATE for Person node with properties and LIVES_IN relationship
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner
+
+  - block_index: 1
+    language: json
+    line: 70
+    type: fenced
+    action: Display TerminusDB JSON document representation (Person with lives_in link)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: javascript
+    line: 76
+    type: fenced
+    action: Display WOQL triple-based query for Person with name and lives_in traversal
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 3
+    language: cypher
+    line: 93
+    type: fenced
+    action: Display Cypher MATCH pattern for Person living in a City
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner
+
+  - block_index: 4
+    language: javascript
+    line: 105
+    type: fenced
+    action: Display WOQL equivalent query with string literal matching
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 5
+    language: cypher
+    line: 193
+    type: fenced
+    action: Display Cypher versioning pattern with SUPERSEDED_BY relationship
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner
+
+  - block_index: 6
+    language: bash
+    line: 204
+    type: fenced
+    action: POST /api/branch + PUT /api/document + POST /api/diff + POST /api/apply (version control workflow)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null

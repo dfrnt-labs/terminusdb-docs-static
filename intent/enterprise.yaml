@@ -1,0 +1,27 @@
+# Intent skeleton for: enterprise
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: enterprise
+total_blocks: 1
+auto_filled: 0
+needs_manual: 1
+auto_fill_rate: 0%
+
+blocks:
+
+  - block_index: 0
+    language: bash
+    line: 56
+    type: fenced
+    action: "Enable enterprise features and start TerminusDB server"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: set TERMINUSDB_ENTERPRISE=true env var, then run ./terminusdb serve. Enterprise features are opt-in via environment variable — existing installations just need this flag to unlock enterprise capabilities."

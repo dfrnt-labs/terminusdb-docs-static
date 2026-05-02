@@ -1,0 +1,306 @@
+# Intent Capture: document-unfolding-reference
+# Page: src/app/docs/document-unfolding-reference/page.md
+# Title: Document Unfolding and Cycle Detection Reference
+# Total blocks: 22
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-02
+# Status: COMPLETE
+# Note: Reference page for @unfoldable/@unfold annotations, cycle detection, and work limit. Mostly display-only schema definitions and response examples. One curl command and one Docker command are potentially executable. Valid as of TerminusDB 11.2+.
+
+page: document-unfolding-reference
+total_blocks: 22
+auto_filled: 22
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: json
+    line: 34
+    type: fenced
+    action: "Display schema: Person class with @unfoldable annotation and self-referential friend Set"
+    expected_outcome:
+      type: skip
+      value: "Shows Person with @unfoldable: [], name (xsd:string), friend (Set of Person)."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Schema reference for @unfoldable."
+
+  - block_index: 1
+    language: json
+    line: 50
+    type: fenced
+    action: "Display non-unfolded result: Person/Alice with friend as ID string reference"
+    expected_outcome:
+      type: skip
+      value: "Shows Person/Alice with friend: 'Person/Bob' — just an ID string, not expanded."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Contrasts with block 2 (unfolded)."
+
+  - block_index: 2
+    language: json
+    line: 60
+    type: fenced
+    action: "Display unfolded result: Person/Alice with friend expanded inline as full object"
+    expected_outcome:
+      type: skip
+      value: "Shows Person/Alice with friend as array containing full Person/Bob object with @id, @type, name."
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only. Demonstrates @unfoldable expansion behaviour."
+
+  - block_index: 3
+    language: json
+    line: 81
+    type: fenced
+    action: "Display schema: Order class with field-level @unfold on customer (Optional) but not on product"
+    expected_outcome:
+      type: skip
+      value: "Shows Order with customer property having @unfold: true, product without. Demonstrates selective field-level unfolding."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Schema reference for @unfold field-level annotation."
+
+  - block_index: 4
+    language: json
+    line: 99
+    type: fenced
+    action: "Display result of Order retrieval: customer unfolded inline, product as IRI reference"
+    expected_outcome:
+      type: skip
+      value: "Shows Order/123 with customer as full inline object (name, email) and product as 'Product/widget' ID string."
+      tolerance: null
+    depends_on: 3
+    skip_reason: display_only
+    assertion: "No assertion — display only. Demonstrates mixed unfold/reference behaviour."
+
+  - block_index: 5
+    language: json
+    line: 150
+    type: fenced
+    action: "Display schema: mixed unfold example with UnfoldableClass, RegularClass, and TestClass demonstrating all combinations"
+    expected_outcome:
+      type: skip
+      value: "Shows 3 classes: UnfoldableClass (@unfoldable), RegularClass (plain), TestClass with 3 fields demonstrating all unfold combinations."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Schema for comprehensive unfold behaviour demo."
+
+  - block_index: 6
+    language: json
+    line: 185
+    type: fenced
+    action: "Display retrieval result for TestClass showing all 3 unfold scenarios"
+    expected_outcome:
+      type: skip
+      value: "Shows TestClass/test1 with: unfoldableRef expanded (class @unfoldable), regularWithUnfold expanded (@unfold: true), regularWithoutUnfold as ID string."
+      tolerance: null
+    depends_on: 5
+    skip_reason: display_only
+    assertion: "No assertion — display only. Demonstrates interaction matrix between @unfoldable and @unfold."
+
+  - block_index: 7
+    language: json
+    line: 210
+    type: fenced
+    action: "Display schema: Invoice with @unfold on billingAddress but not shippingAddress (context-specific expansion)"
+    expected_outcome:
+      type: skip
+      value: "Shows Invoice with billingAddress (Optional, @unfold: true) and shippingAddress (Optional, no unfold) — both reference Address class."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Best practice example for context-specific @unfold."
+
+  - block_index: 8
+    language: json
+    line: 254
+    type: fenced
+    action: "Display schema: LinguisticObject with @unfoldable and self-referential partOf Set"
+    expected_outcome:
+      type: skip
+      value: "Shows LinguisticObject with @unfoldable: [], name (xsd:string), partOf (Set of LinguisticObject) — self-referential for cycle demo."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Schema for cycle detection examples."
+
+  - block_index: 9
+    language: json
+    line: 268
+    type: fenced
+    action: "Display data: self-referencing LinguisticObject document (partOf points to itself)"
+    expected_outcome:
+      type: skip
+      value: "Shows LinguisticObject/self with partOf: ['LinguisticObject/self'] — direct self-reference."
+      tolerance: null
+    depends_on: 8
+    skip_reason: display_only
+    assertion: "No assertion — display only. Test data for direct self-reference cycle."
+
+  - block_index: 10
+    language: json
+    line: 278
+    type: fenced
+    action: "Display result: self-reference resolved as ID string (cycle detected, not expanded)"
+    expected_outcome:
+      type: skip
+      value: "Shows LinguisticObject/self with partOf: ['LinguisticObject/self'] as ID string — cycle detected, not recursively expanded."
+      tolerance: null
+    depends_on: 9
+    skip_reason: display_only
+    assertion: "No assertion — display only. Demonstrates cycle detection preventing infinite recursion."
+
+  - block_index: 11
+    language: json
+    line: 290
+    type: fenced
+    action: "Display data: circular reference chain Node/A → Node/B → Node/A"
+    expected_outcome:
+      type: skip
+      value: "Shows two Node documents forming a cycle: A.next=B, B.next=A."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Test data for indirect cycle (A→B→A)."
+
+  - block_index: 12
+    language: json
+    line: 308
+    type: fenced
+    action: "Display result: circular chain resolved — B expanded once, then A returned as ID on second encounter"
+    expected_outcome:
+      type: skip
+      value: "Shows Node/A with next: {Node/B expanded with next: 'Node/A' as ID string} — B expanded, back-reference to A is just ID."
+      tolerance: null
+    depends_on: 11
+    skip_reason: display_only
+    assertion: "No assertion — display only. Demonstrates path-stack cycle detection for A→B→A."
+
+  - block_index: 13
+    language: unknown
+    line: 327
+    type: fenced
+    action: "Display ASCII diagram of complex graph with multiple circular paths (A→B→C→A, A→D→A, B→D)"
+    expected_outcome:
+      type: skip
+      value: "Shows text diagram of multi-cycle graph structure for illustration."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Visual representation of complex cycle topology."
+
+  - block_index: 14
+    language: json
+    line: 339
+    type: fenced
+    action: "Display result: deep nested chain (ChainNode/0 → 1 → 2 → ...) fully expanded without cycle"
+    expected_outcome:
+      type: skip
+      value: "Shows ChainNode/0 nested to ChainNode/2+ — full expansion because no cycles exist. 100+ nodes traversed entirely."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Shows that acyclic chains expand fully regardless of depth."
+
+  - block_index: 15
+    language: bash
+    line: 366
+    type: fenced
+    action: "Set TERMINUSDB_DOC_WORK_LIMIT env var and Docker run command with custom limit"
+    expected_outcome:
+      type: exit_code
+      value: "Exit code 0 — environment variable set or Docker container started"
+      tolerance: exact
+    depends_on: null
+    skip_reason: display_only
+    note: "Configuration reference showing 3 ways to set work limit: export, docker run -e, Kubernetes ConfigMap. Not a single executable block."
+    assertion: "No assertion — display only. Configuration reference showing multiple deployment contexts."
+
+  - block_index: 16
+    language: json
+    line: 419
+    type: fenced
+    action: "Display schema: Category with @unfoldable and parent (Optional Category) — limit depth pattern"
+    expected_outcome:
+      type: skip
+      value: "Shows Category with parent (Optional, same class) and subcategories (Set of SubCategory) — recommends separating parent/child types."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Schema design recommendation for limiting unfold depth."
+
+  - block_index: 17
+    language: json
+    line: 437
+    type: fenced
+    action: "Display schema: Person with separate unfoldable (profile) and non-unfoldable (posts) relationships"
+    expected_outcome:
+      type: skip
+      value: "Shows Person @unfoldable with profile (Optional Profile, unfoldable) and posts (Set Post, not unfoldable) — separate high-cardinality refs."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Schema design recommendation for mixed-cardinality relationships."
+
+  - block_index: 18
+    language: json
+    line: 455
+    type: fenced
+    action: "Display schema: Node with Optional self-reference for safe cycle termination"
+    expected_outcome:
+      type: skip
+      value: "Shows Node @unfoldable with next (Optional Node) — Optional allows natural chain termination."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Schema design recommendation for circular reference safety."
+
+  - block_index: 19
+    language: bash
+    line: 506
+    type: fenced
+    action: "GET /api/document/admin/mydb with id=Person/Alice and as_list=true — retrieve with automatic unfolding"
+    expected_outcome:
+      type: status_code
+      value: "HTTP 200 — returns unfolded Person document"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    note: "Requires admin/mydb with Person/Alice and @unfoldable annotation on Person class."
+    assertion: "Exit code 0 AND HTTP 200 AND response contains unfolded Person document. SKIP if mydb does not exist."
+
+  - block_index: 20
+    language: graphql
+    line: 515
+    type: fenced
+    action: "GraphQL query: Person with nested friend expansion (automatic for @unfoldable classes)"
+    expected_outcome:
+      type: non_empty
+      value: "Query selecting Person.name, friend.name, friend.friend.name — nested automatic expansion. Returns unfolded person graph."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Illustrative GraphQL query showing automatic unfold for @unfoldable classes. Requires Person schema with @unfoldable."
+    assertion: "No assertion — illustrative pattern. Would return nested person objects if executed against appropriate schema."
+
+  - block_index: 21
+    language: javascript
+    line: 532
+    type: fenced
+    action: "WOQL read_document for Person/Alice — retrieves with automatic unfolding"
+    expected_outcome:
+      type: non_empty
+      value: "Shows WOQL.read_document('Person/Alice', 'v:Doc') — SDK call that returns unfolded document when class is @unfoldable."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Single-line SDK pattern. Unfolding handled automatically by read_document when schema has @unfoldable."
+    assertion: "No assertion — illustrative WOQL pattern."

@@ -1,0 +1,66 @@
+# Intent annotations for: add-a-schema
+# Annotated: 2026-05-01
+# Source: src/app/docs/add-a-schema/page.md
+#
+# This page teaches: define schema (document types) via HTTP, TypeScript, Python
+# Prerequisites: TerminusDB running, database created, client connected
+# Dataset: Self-created (Country and Person classes with Lexical keys)
+
+page: add-a-schema
+total_blocks: 4
+annotated: 4
+needs_manual: 0
+
+blocks:
+
+  # HTTP API — add schema classes
+  - block_index: 0
+    language: bash
+    line: 37
+    type: fenced
+    action: "POST schema documents (Country + Person classes with Lexical keys) via HTTP API"
+    expected_outcome:
+      type: output_contains
+      value: '["terminusdb:///schema#Country", "terminusdb:///schema#Person"]'
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+
+  # Expected response display
+  - block_index: 1
+    language: json
+    line: 49
+    type: fenced
+    action: "Shows expected schema creation response: array of schema IRIs"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # TypeScript SDK — add schema
+  - block_index: 2
+    language: typescript
+    line: 55
+    type: fenced
+    action: "Add schema documents (Country + Person) via TypeScript SDK client.addDocument()"
+    expected_outcome:
+      type: non_empty
+      value: '["terminusdb:///schema#Country", "terminusdb:///schema#Person"]'
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Python SDK — add schema
+  - block_index: 3
+    language: python
+    line: 78
+    type: fenced
+    action: "Add schema documents (Country + Person) via Python SDK client.insert_document()"
+    expected_outcome:
+      type: non_empty
+      value: '["terminusdb:///schema#Country", "terminusdb:///schema#Person"]'
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null

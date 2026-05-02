@@ -1,0 +1,62 @@
+# Intent skeleton for: patch-endpoint
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: patch-endpoint
+total_blocks: 4
+auto_filled: 4
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 34
+    type: fenced
+    action: Apply patch to single document via client.patch(before, patch)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: json
+    line: 60
+    type: fenced
+    action: Display patch format with @id for patchResource array
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: javascript
+    line: 83
+    type: fenced
+    action: Apply patches to branch via client.patchResource(patch, message)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+
+  - block_index: 3
+    language: json
+    line: 107
+    type: fenced
+    action: Display 409 Conflict error response for failed patch
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

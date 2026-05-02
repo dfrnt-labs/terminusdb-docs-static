@@ -1,0 +1,76 @@
+# Intent skeleton for: enterprise-context-cache
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: enterprise-context-cache
+total_blocks: 5
+auto_filled: 5
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: unknown
+    line: 25
+    type: fenced
+    action: "Display the context cache directory structure (catalog + http-cache)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: the cache has two layers — catalog/ (plain JSON-LD files keyed by SHA-1 of URL, with index.json mapping) and http-cache/ (automatic RFC-compliant HTTP cache via cacache). The catalog is the fast primary lookup; http-cache handles network fetches."
+
+  - block_index: 1
+    language: bash
+    line: 70
+    type: fenced
+    action: "Compute SHA-1 hash of URL and download context file as seed (shasum + curl -sL)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 2
+    language: json
+    line: 82
+    type: fenced
+    action: "Display the index.json mapping of URLs to cached filenames"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: index.json maps full URLs (e.g., 'https://schema.org/') to hashed filenames (e.g., '63403d...01.jsonld'). To add a custom seed, add a new entry mapping the URL to the SHA-1 hash filename."
+
+  - block_index: 3
+    language: bash
+    line: 105
+    type: fenced
+    action: Set environment variables
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+
+  - block_index: 4
+    language: bash
+    line: 113
+    type: fenced
+    action: Set environment variables
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null

@@ -1,0 +1,92 @@
+# Intent: install-terminusdb-as-a-docker-container
+# Page: src/app/docs/install-terminusdb-as-a-docker-container/page.md
+# Title: Install TerminusDB with Docker
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a HOW-TO page — the primary installation path for most users.
+#       Reader arrives asking: "how do I install TerminusDB?" or "quickest way to get started?"
+
+page: install-terminusdb-as-a-docker-container
+total_blocks: 5
+auto_filled: 5
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Quick start: git clone + docker compose up ===
+
+  - block_index: 0
+    language: bash
+    line: 36
+    type: fenced
+    action: "Clone the TerminusDB repo and start with Docker Compose (3 commands)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: three commands to a running database — git clone, cd, docker compose up. This is the fastest path. No configuration needed. TerminusDB is immediately available at localhost:6363 after this."
+
+  # === Verify: open dashboard ===
+
+  - block_index: 1
+    language: bash
+    line: 48
+    type: fenced
+    action: "Show the dashboard URL for browser verification"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    ux_intent: "Reader learns: navigate to http://127.0.0.1:6363/dashboard/ in browser to see the visual UI. First visual confirmation that installation worked."
+
+  # === Verify: curl API ===
+
+  - block_index: 2
+    language: bash
+    line: 54
+    type: fenced
+    action: "Verify TerminusDB is running with curl (GET /api/info)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+    ux_intent: "Reader learns: curl -u admin:root http://localhost:6363/api/info returns JSON with server version. Programmatic verification. Default credentials are admin/root. If this works, the database is ready for use."
+
+  # === Stop and restart ===
+
+  - block_index: 3
+    language: bash
+    line: 78
+    type: fenced
+    action: "Stop and restart the Docker Compose stack"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 2
+    skip_reason: null
+    ux_intent: "Reader learns: 'docker compose down' stops, 'docker compose up' restarts. Data persists in Docker volumes between stops. WARNING: 'docker compose down -v' deletes ALL data. Key lifecycle commands for daily use."
+
+  # === Optional: .env file for AI indexing ===
+
+  - block_index: 4
+    language: bash
+    line: 96
+    type: fenced
+    action: "Create .env file with optional OpenAI key for AI indexing"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 3
+    skip_reason: null
+    ux_intent: "Reader learns: create a .env file with OPENAI_KEY and BUFFER_AMOUNT before starting. This is entirely optional — all database features work without it. Only needed for AI-powered vector indexing."

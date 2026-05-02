@@ -1,0 +1,50 @@
+# Intent skeleton for: terminusdb-db-cli-querying
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: terminusdb-db-cli-querying
+total_blocks: 3
+auto_filled: 3
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: bash
+    line: 115
+    type: fenced
+    action: CLI query _system — find UserDatabase instances via t() triple
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: bash
+    line: 134
+    type: fenced
+    action: CLI query _system — find user capabilities with select and bind
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 2
+    language: bash
+    line: 153
+    type: fenced
+    action: CLI query _system — list all users capabilities (no user filter)
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null

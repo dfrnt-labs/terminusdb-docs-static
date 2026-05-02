@@ -1,0 +1,86 @@
+# Intent skeleton for: pull-from-project
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: pull-from-project
+total_blocks: 6
+auto_filled: 6
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: typescript
+    line: 38
+    type: fenced
+    action: "Pull enriched branch from remote via TypeScript SDK — client.pull() with remote auth and branch options"
+    expected_outcome:
+      type: skip
+      value: "Shows: client.remoteAuth() then client.pull({remote: 'origin', remote_branch: 'enriched', message: '...'}) — TypeScript pull pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: python
+    line: 52
+    type: fenced
+    action: "Pull enriched branch from remote via Python SDK — client.pull() with remote_auth dict"
+    expected_outcome:
+      type: skip
+      value: "Shows: client.connect(...) then client.pull(remote='origin', remote_branch='enriched', remote_auth={...}) — Python pull pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: bash
+    line: 65
+    type: fenced
+    action: POST /api/pull/admin/star-wars/local/branch/main (pull from remote)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 3
+    language: typescript
+    line: 86
+    type: fenced
+    action: "Inspect pulled changes via TypeScript SDK — getCommitHistory() and getDocument({type: 'Starship'})"
+    expected_outcome:
+      type: skip
+      value: "Shows: client.getCommitHistory() for recent commits and client.getDocument({type: 'Starship'}) to verify new data arrived."
+      tolerance: null
+    depends_on: 2
+    skip_reason: display_only
+
+  - block_index: 4
+    language: python
+    line: 99
+    type: fenced
+    action: "Inspect pulled changes via Python SDK — client.log(count=3) and client.get_all_documents(type='Starship')"
+    expected_outcome:
+      type: skip
+      value: "Shows: client.log(count=3) for recent commits and client.get_all_documents(type='Starship') to verify new data arrived."
+      tolerance: null
+    depends_on: 2
+    skip_reason: display_only
+
+  - block_index: 5
+    language: bash
+    line: 110
+    type: fenced
+    action: GET /api/log/admin/star-wars/local/branch/main?count=3 (verify pull log)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 2
+    skip_reason: null

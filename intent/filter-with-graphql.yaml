@@ -1,0 +1,41 @@
+# Intent Annotations: filter-with-graphql
+# Page: src/app/docs/filter-with-graphql/page.md
+# Title: Filter with GraphQL
+# Total blocks: 3
+# Annotated by: systems-engineer (Phase III)
+# Date: 2026-05-02
+# Fixture: Requires star-wars DB cloned (data.terminusdb.org). SKIP if unreachable.
+
+blocks:
+  - block_index: 0
+    language: graphql
+    action: "Show filter query skeleton with cursor position"
+    expected_outcome:
+      type: display_only
+      value: "Illustrates where filter arguments go in a query"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative syntax."
+
+  - block_index: 1
+    language: graphql
+    action: "Query People filtered by regex '.*oo.*' with homeworld"
+    expected_outcome:
+      type: response_body
+      value: "Returns People whose label contains 'oo' pattern"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    assertion: "POST /api/graphql/admin/star-wars returns HTTP 200 AND response.data.People is non-empty AND each entry label contains 'oo' (case-insensitive) AND each has homeworld.label."
+
+  - block_index: 2
+    language: json
+    action: "Display expected regex filter result (5 People with 'oo')"
+    expected_outcome:
+      type: display_only
+      value: "Roos Tarpals, Yarael Poof, Plo Koon, Dooku, Sly Moore — all with homeworlds"
+      tolerance: exact
+    depends_on: 1
+    skip_reason: display_only
+    assertion: "No assertion — display only."

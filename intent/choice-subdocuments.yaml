@@ -1,0 +1,63 @@
+# Intent: choice-subdocuments
+# Page: src/app/docs/choice-subdocuments/page.md
+# Title: TerminusDB Document UI SDK - Using Choice Subdocuments
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page for the Document UI SDK showing how choice subdocument fields
+#       (polymorphic embedded subdocuments) render in FrameViewer.
+#       Reader arrives asking: "how do I render fields where the user picks between subdocument types?"
+
+page: choice-subdocuments
+total_blocks: 3
+auto_filled: 3
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Frame definition with choice subdocument fields ===
+
+  - block_index: 0
+    language: javascript
+    line: 40
+    type: fenced
+    action: "Define a frame with polymorphic subdocument choice fields (mandatory, Optional, Set, List)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: Student document with four fields offering a choice between Zoology, Botany, or Maths subdocuments. favorite_subject is mandatory (pick one type then fill its fields), second_favorite_subject is Optional, studied is a Set (multiple, unordered), study_time_table is a List (multiple, ordered). Each subdocument type has its own unique fields (Maths has level/love_maths, Botany has number_of_assignments, Zoology has Notes). Reader learns: choice subdocuments differ from choice documents — these are @subdocument (embedded, owned by parent) not independent documents."
+
+  # === Create mode ===
+
+  - block_index: 1
+    language: javascript
+    line: 297
+    type: fenced
+    action: "Render FrameViewer in Create mode for Student document"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    ux_intent: "Reader learns: Create mode presents a type picker (Zoology/Botany/Maths) for each choice field. After selecting a type, the UI expands to show that subdocument type's specific fields. For Set/List fields, the user can add multiple entries each with their own type selection."
+
+  # === Edit & View mode ===
+
+  - block_index: 2
+    language: javascript
+    line: 311
+    type: fenced
+    action: "Render FrameViewer in View mode with populated choice subdocument data"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only
+    ux_intent: "Reader learns: View mode shows subdocuments fully expanded with their type-specific fields. favorite_subject is a Botany instance (Grade A, 4 classes, 5 assignments). studied is a Set with Botany + Maths entries. study_time_table is an ordered List with Zoology then Botany. Subdocument @id paths include the parent path + property + type + hash — showing TerminusDB's hierarchical ID generation for owned subdocuments."

@@ -1,0 +1,50 @@
+# Intent skeleton for: mandatory
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: mandatory
+total_blocks: 3
+auto_filled: 3
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 30
+    type: fenced
+    action: Define FrameViewer schema frame with mandatory Person fields
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: javascript
+    line: 122
+    type: fenced
+    action: Render FrameViewer in Create mode for Person
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+
+  - block_index: 2
+    language: javascript
+    line: 136
+    type: fenced
+    action: Render FrameViewer in Edit/View mode with Person data
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only

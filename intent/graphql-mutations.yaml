@@ -1,0 +1,85 @@
+# Intent Annotations: graphql-mutations
+# Page: src/app/docs/graphql-mutations/page.md
+# Title: GraphQL Mutations
+# Total blocks: ~12
+# Annotated by: systems-engineer (Phase III)
+# Date: 2026-05-02
+# Fixture: Requires TerminusDB running with a database and schema
+
+blocks:
+  - block_index: 0
+    language: graphql
+    action: "Insert document via GraphQL mutation"
+    expected_outcome:
+      type: response_body
+      value: "Returns created document ID"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    assertion: "POST /api/graphql with mutation returns HTTP 200 AND response.data contains document ID."
+
+  - block_index: 1
+    language: json
+    action: "Display expected insert mutation response"
+    expected_outcome:
+      type: display_only
+      value: "Mutation response with document ID"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 2
+    language: graphql
+    action: "Replace/update document via GraphQL mutation"
+    expected_outcome:
+      type: response_body
+      value: "Returns updated document ID"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    assertion: "POST /api/graphql with replace mutation returns HTTP 200 AND response.data contains document ID."
+
+  - block_index: 3
+    language: json
+    action: "Display expected replace mutation response"
+    expected_outcome:
+      type: display_only
+      value: "Mutation response with updated document"
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 4
+    language: graphql
+    action: "Delete document via GraphQL mutation"
+    expected_outcome:
+      type: response_body
+      value: "Returns success/empty for deletion"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    assertion: "POST /api/graphql with delete mutation returns HTTP 200."
+
+  - block_index: 5
+    language: json
+    action: "Display expected delete mutation response"
+    expected_outcome:
+      type: display_only
+      value: "Deletion confirmation"
+      tolerance: non_empty
+    depends_on: 4
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 6
+    language: graphql
+    action: "Mutation with commit message and author"
+    expected_outcome:
+      type: display_only
+      value: "Shows how to pass author and message in mutation context"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative (shows header pattern)."

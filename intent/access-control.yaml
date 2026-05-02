@@ -1,0 +1,342 @@
+# Intent: access-control
+# Page: src/app/docs/access-control/page.md
+# Title: Access Control Reference
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page for TerminusDB RBAC. All blocks are curl commands
+#       against localhost:6363 showing CRUD for users, roles, orgs, and capabilities.
+#       Reader arrives asking: "how do I grant/revoke access?" or "what's the API for users?"
+
+page: access-control
+total_blocks: 24
+auto_filled: 24
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Access Control Model Diagram ===
+
+  - block_index: 0
+    language: text
+    line: 38
+    type: fenced
+    action: "Display the access control model relationship diagram"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: User → Capability → Role (Actions) + Resource. Mental model: a capability is the JOIN between a user, a role, and a resource. This is the conceptual anchor for everything below."
+
+  # === Users CRUD ===
+
+  - block_index: 1
+    language: bash
+    line: 95
+    type: fenced
+    action: "List all users (GET /api/users)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: GET /api/users returns JSON array of all users. Each user has @id, @type, capability list, and name. Default installation has only 'admin'. Uses Basic Auth (admin:root)."
+
+  - block_index: 2
+    language: json
+    line: 100
+    type: fenced
+    action: "Display expected user list response"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: user object shape — @id='User/admin', capability=['Capability/server_access'], name='admin'. Capabilities are references (IDs), not inline objects."
+
+  - block_index: 3
+    language: bash
+    line: 113
+    type: fenced
+    action: "Get a specific user with capabilities expanded (GET /api/users/admin?capability=true)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: ?capability=true query param expands capability details inline. Shows which roles and resources the user has access to. Useful for debugging 'why can't this user do X?'"
+
+  - block_index: 4
+    language: bash
+    line: 119
+    type: fenced
+    action: "Create a new user (POST /api/users)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: POST with {name, password} creates a user. Response is the full system IRI ('terminusdb://system/data/User/alice'). User exists but has NO capabilities yet — must grant separately."
+
+  - block_index: 5
+    language: json
+    line: 126
+    type: fenced
+    action: "Display create user response (user IRI)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: response is a string IRI, not a full object. The IRI is the user's permanent identifier in the system graph."
+
+  - block_index: 6
+    language: bash
+    line: 132
+    type: fenced
+    action: "Change a user's password (PUT /api/users)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: PUT with {name, password} updates the password. Same endpoint as create but PUT method. Requires admin auth — users cannot self-service password changes via this API."
+
+  - block_index: 7
+    language: bash
+    line: 140
+    type: fenced
+    action: "Delete a user (DELETE /api/users/alice)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: DELETE /api/users/{username} removes the user. Username in URL path. Capabilities referencing this user are cleaned up automatically."
+
+  # === Roles CRUD ===
+
+  - block_index: 8
+    language: bash
+    line: 148
+    type: fenced
+    action: "List all roles (GET /api/roles)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: GET /api/roles returns all roles. Built-in: Admin Role (all actions) and Consumer Role (read-only). Each role has name and action array."
+
+  - block_index: 9
+    language: json
+    line: 153
+    type: fenced
+    action: "Display expected roles list response"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: two built-in roles. Admin has all 17 actions. Consumer has 3 read-only actions (class_frame, instance_read_access, schema_read_access). Role shape: @id, @type, action[], name."
+
+  - block_index: 10
+    language: bash
+    line: 172
+    type: fenced
+    action: "Create a custom role with specific actions (POST /api/roles)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: POST with {name, action[]} creates a custom role. Example 'writer' role has 5 actions: commit_write + instance_read/write + schema_read + class_frame. Principle of least privilege — only grant what's needed."
+
+  - block_index: 11
+    language: json
+    line: 188
+    type: fenced
+    action: "Display create role response (role IRI)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: response is 'terminusdb://system/data/Role/writer'. Same IRI pattern as users."
+
+  - block_index: 12
+    language: bash
+    line: 194
+    type: fenced
+    action: "Update a role's actions (PUT /api/roles)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: PUT replaces the role's action list entirely. Here adding schema_write_access to the writer role. Must include ALL desired actions — not additive."
+
+  - block_index: 13
+    language: bash
+    line: 212
+    type: fenced
+    action: "Delete a custom role (DELETE /api/roles/writer)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: DELETE /api/roles/{role-name} removes the role. Capabilities using this role will lose those permissions. Role name in URL path."
+
+  # === Organisations CRUD ===
+
+  - block_index: 14
+    language: bash
+    line: 220
+    type: fenced
+    action: "List all organisations (GET /api/organizations)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: organisations are the top-level resource container. Default: 'admin'. All databases belong to an organisation. Capabilities can be granted at org level (inherited by all DBs)."
+
+  - block_index: 15
+    language: bash
+    line: 226
+    type: fenced
+    action: "Create an organisation (POST /api/organizations/MyTeam)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: org name goes in URL path. Body is empty JSON object. Creates a namespace for databases. Useful for multi-tenant setups or team separation."
+
+  - block_index: 16
+    language: bash
+    line: 233
+    type: fenced
+    action: "Delete an organisation (DELETE /api/organizations/MyTeam)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: DELETE removes the organisation. Presumably requires no databases to exist within it (or cascades). Org name in URL path."
+
+  - block_index: 17
+    language: bash
+    line: 239
+    type: fenced
+    action: "List users in an organisation (GET /api/organizations/admin/users)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: nested URL path /organizations/{org}/users shows which users have capabilities on this org. Useful for auditing: 'who has access to our production org?'"
+
+  - block_index: 18
+    language: bash
+    line: 245
+    type: fenced
+    action: "Get a user's accessible databases in an organisation"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: /organizations/{org}/users/{user}/databases shows which databases a specific user can access within that org. The compliance question: 'what can alice see?'"
+
+  # === Capabilities (Grant/Revoke) ===
+
+  - block_index: 19
+    language: bash
+    line: 255
+    type: fenced
+    action: "Grant a role to a user on an organisation (POST /api/capabilities)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: capabilities endpoint does both grant and revoke. Body: {operation:'grant', scope_type:'organization', scope:'admin', user:'alice', roles:['Consumer Role']}. This gives alice read-only access to ALL databases in the org. Org-level = inherited by all DBs."
+
+  - block_index: 20
+    language: bash
+    line: 271
+    type: fenced
+    action: "Grant a role to a user on a specific database"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: scope_type='database', scope='admin/MyDatabase' targets a single DB. More restrictive than org-level. User gets write on one DB without getting write everywhere. Additive: org + DB capabilities combine."
+
+  - block_index: 21
+    language: bash
+    line: 287
+    type: fenced
+    action: "Revoke a role from a user (POST /api/capabilities with operation=revoke)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: same endpoint, operation='revoke'. Removes the specific capability. Must match scope_type, scope, user, and roles exactly. After revoke, user loses that access immediately."
+
+  # === Common Patterns ===
+
+  - block_index: 22
+    language: bash
+    line: 317
+    type: fenced
+    action: "Create a read-only user for a single database (two-step pattern)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: complete recipe — (1) create user, (2) grant Consumer Role on specific DB. Two API calls. The most common access pattern: give someone read-only access to one database. Copy-paste ready."
+
+  - block_index: 23
+    language: bash
+    line: 337
+    type: fenced
+    action: "Create a writer user for an entire organisation (three-step pattern)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: full recipe — (1) create custom writer role, (2) create user, (3) grant role at org level. Three calls. Org-level grant means user can write to ALL databases in the org — current and future. Power pattern."

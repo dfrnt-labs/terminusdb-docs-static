@@ -1,0 +1,39 @@
+# Intent skeleton for: viewdocumentcomponent
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: viewdocumentcomponent
+total_blocks: 2
+auto_filled: 1
+needs_manual: 1
+auto_fill_rate: 50%
+
+blocks:
+
+  - block_index: 0
+    language: bash
+    line: 37
+    type: fenced
+    action: npm operation
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: python
+    line: 94
+    type: fenced
+    action: "Show complete React component example using ViewDocumentComponent with useTDBDocuments hook"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    ux_intent: "Reader learns: full integration pattern — useTDBDocuments(client) provides frames, selectedDocument, deleteDocument, getSelectedDocument, getDocumentById, getDocumentFrames. useEffect fetches frames and document on mount. ViewDocumentComponent takes type, documentJson, frames, documentID + callback props (closeButtonClick, deleteDocument, editDocument, getDocumentById). Reader can copy this as a starting template."

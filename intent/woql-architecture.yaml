@@ -1,0 +1,134 @@
+# Intent skeleton for: woql-architecture
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: woql-architecture
+total_blocks: 10
+auto_filled: 6
+needs_manual: 4
+auto_fill_rate: 60%
+
+blocks:
+
+  - block_index: 0
+    language: typescript
+    line: 28
+    type: fenced
+    action: Execute WOQL query (SDK)
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: json
+    line: 40
+    type: fenced
+    action: "Display WOQL AST JSON-LD output: Select with And containing two Triple nodes — shows typed tree structure sent to server"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: python
+    line: 74
+    type: fenced
+    action: "Display SQL injection vulnerability example: string concatenation allows user input to control query structure"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 3
+    language: typescript
+    line: 87
+    type: fenced
+    action: "Display WOQL injection-proof example: user input is always a typed DataValue, never structural — cannot alter query semantics"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 4
+    language: json
+    line: 96
+    type: fenced
+    action: "Display resulting Triple JSON-LD from safe WOQL: shows userInput safely encapsulated as a data value node"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 5
+    language: unknown
+    line: 124
+    type: fenced
+    action: "Display execution model diagram: Client (build AST, serialise, send) → JSON-LD over HTTP → Server (validate AST, execute, return bindings)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 6
+    language: typescript
+    line: 158
+    type: fenced
+    action: "Display TypeScript WOQL triple example: triple('v:X', 'rdf:type', '@schema:Person') — shows language-agnostic API"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 7
+    language: python
+    line: 163
+    type: fenced
+    action: "Display Python WOQL triple example: WOQLQuery().triple('v:X', 'rdf:type', '@schema:Person') — produces same AST as TypeScript"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 8
+    language: json
+    line: 168
+    type: fenced
+    action: "Display shared Triple AST JSON-LD output: identical structure produced by both TypeScript and Python clients"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 9
+    language: typescript
+    line: 216
+    type: fenced
+    action: WOQL query snippet
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 4
+    skip_reason: null

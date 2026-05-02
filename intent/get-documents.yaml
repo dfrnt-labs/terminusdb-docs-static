@@ -1,0 +1,170 @@
+# Intent annotations for: get-documents
+# Annotated: 2026-05-01
+# Source: src/app/docs/get-documents/page.md
+#
+# This page teaches: get single document by ID, get all documents
+# Prerequisites: TerminusDB running, database with existing documents
+# Dataset: Self-created (Player documents: Doug, George, Karen)
+
+page: get-documents
+total_blocks: 12
+annotated: 12
+needs_manual: 0
+
+blocks:
+
+  # Get single — TypeScript SDK
+  - block_index: 0
+    language: typescript
+    line: 36
+    type: fenced
+    action: "Get single document by ID (Player/Doug) via TypeScript SDK"
+    expected_outcome:
+      type: non_empty
+      value: "Returns Player/Doug document with name and position fields"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Get single — TypeScript result display
+  - block_index: 1
+    language: json
+    line: 45
+    type: fenced
+    action: "Shows expected single document: Player/Doug with name=Doug, position=Full Back"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Get single — Python SDK
+  - block_index: 2
+    language: python
+    line: 55
+    type: fenced
+    action: "Get single document by ID (Player/Doug) via Python SDK client.get_document()"
+    expected_outcome:
+      type: non_empty
+      value: "Returns Player/Doug document dict"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Get single — Python result display
+  - block_index: 3
+    language: json
+    line: 61
+    type: fenced
+    action: "Shows expected single document: Player/Doug with name=Doug, position=Full Back"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Get single — HTTP API
+  - block_index: 4
+    language: bash
+    line: 71
+    type: fenced
+    action: "GET /api/document with ?id=Player/Doug — retrieve single document by ID"
+    expected_outcome:
+      type: output_contains
+      value: "Player/Doug"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+
+  # Get single — HTTP result display
+  - block_index: 5
+    language: json
+    line: 78
+    type: fenced
+    action: "Shows expected HTTP response: Player/Doug document JSON"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Get all — TypeScript SDK
+  - block_index: 6
+    language: typescript
+    line: 95
+    type: fenced
+    action: "Get all documents via TypeScript SDK with as_list=true"
+    expected_outcome:
+      type: non_empty
+      value: "Returns array of all Player documents (Doug, George, Karen)"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Get all — TypeScript result display
+  - block_index: 7
+    language: json
+    line: 104
+    type: fenced
+    action: "Shows expected array of 3 Player documents (Doug, George, Karen)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Get all — Python SDK
+  - block_index: 8
+    language: python
+    line: 128
+    type: fenced
+    action: "Get all documents via Python SDK client.get_all_documents() generator"
+    expected_outcome:
+      type: non_empty
+      value: "Returns generator yielding all Player documents"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Get all — Python result display
+  - block_index: 9
+    language: json
+    line: 134
+    type: fenced
+    action: "Shows expected array of 3 Player documents (Doug, George, Karen)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Get all — HTTP API
+  - block_index: 10
+    language: bash
+    line: 158
+    type: fenced
+    action: "GET /api/document with ?as_list=true — retrieve all documents in database"
+    expected_outcome:
+      type: output_contains
+      value: "Player"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+
+  # Get all — HTTP result display
+  - block_index: 11
+    language: json
+    line: 165
+    type: fenced
+    action: "Shows expected array of 3 Player documents (Doug, George, Karen)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

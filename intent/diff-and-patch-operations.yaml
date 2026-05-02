@@ -1,0 +1,79 @@
+# Intent annotations for: diff-and-patch-operations
+# Annotated: 2026-05-01
+# Source: src/app/docs/diff-and-patch-operations/page.md
+#
+# This page teaches: JS Client diff (object, version, doc-to-object) and patch operations
+# Prerequisites: TerminusDB running locally or DFRNT Hub account, database with data
+# Dataset: Self-created (Person/Jane examples)
+
+page: diff-and-patch-operations
+total_blocks: 5
+annotated: 5
+needs_manual: 0
+
+blocks:
+
+  # Section 1 — Diff an object (getJSONDiff)
+  - block_index: 0
+    language: javascript
+    line: 36
+    type: fenced
+    action: "Compute JSON diff between two in-memory objects (Person/Jane name change)"
+    expected_outcome:
+      type: output_contains
+      value: '{"name":{"@op":"ValueSwap","@before":"Jane","@after":"Janine"},"@id":"Person/Jane"}'
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+
+  # Section 1 — Diff result display
+  - block_index: 1
+    language: json
+    line: 51
+    type: fenced
+    action: "Shows expected diff result: name ValueSwap Jane→Janine with @id kept"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Section 2 — Diff between versions (getVersionDiff)
+  - block_index: 2
+    language: javascript
+    line: 64
+    type: fenced
+    action: "Get patch of differences between two commit versions using getVersionDiff"
+    expected_outcome:
+      type: output_contains
+      value: "Array of diffs showing field-level changes between commits"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  # Section 2 — Version diff result display
+  - block_index: 3
+    language: json
+    line: 78
+    type: fenced
+    action: "Shows expected version diff: Person/Jane age 22→23 and Person/Tom age null→10"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Section 3 — Diff document to object (getVersionObjectDiff)
+  - block_index: 4
+    language: javascript
+    line: 105
+    type: fenced
+    action: "Compute diff between a stored document on a branch and a local JSON object"
+    expected_outcome:
+      type: non_empty
+      value: "Diff showing name change between stored Person/Jane and provided object"
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: null

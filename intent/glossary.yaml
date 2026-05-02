@@ -1,0 +1,33 @@
+# Intent: glossary
+# Page: src/app/docs/glossary/page.md
+# Title: Glossary of Terms for TerminusDB
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page — glossary of graph/data/version-control terms.
+#       Single code block shows an RDF triple example.
+#       Reader arrives asking: "what does [term] mean in TerminusDB?"
+
+page: glossary
+total_blocks: 1
+auto_filled: 1
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === RDF triple example ===
+
+  - block_index: 0
+    language: rdf
+    line: 124
+    type: fenced
+    action: "Display an example RDF triple showing subject-predicate-object URI structure"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner
+    ux_intent: "Reader sees: a single RDF triple with three URIs — http://example.name#Bob12 (subject) http://xmlns.com/foaf/0.1/knows (predicate) http://example.name#John34 (object). Demonstrates that every part of a triple is individually addressable via unique URIs. Concrete example of the abstract subject-predicate-object pattern described in the surrounding text."

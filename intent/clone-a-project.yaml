@@ -1,0 +1,86 @@
+# Intent skeleton for: clone-a-project
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: clone-a-project
+total_blocks: 6
+auto_filled: 6
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: typescript
+    line: 38
+    type: fenced
+    action: Clone via SDK
+    expected_outcome:
+      type: state_change
+      value: null
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: python
+    line: 52
+    type: fenced
+    action: Clone via SDK
+    expected_outcome:
+      type: state_change
+      value: null
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  - block_index: 2
+    language: bash
+    line: 66
+    type: fenced
+    action: POST /api/clone/admin/star-wars
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+
+  - block_index: 3
+    language: typescript
+    line: 88
+    type: fenced
+    action: Clone via SDK
+    expected_outcome:
+      type: state_change
+      value: null
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: null
+
+  - block_index: 4
+    language: python
+    line: 102
+    type: fenced
+    action: Clone via SDK
+    expected_outcome:
+      type: state_change
+      value: null
+      tolerance: non_empty
+    depends_on: 3
+    skip_reason: null
+
+  - block_index: 5
+    language: bash
+    line: 116
+    type: fenced
+    action: POST /api/clone/admin/my_local_copy
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null

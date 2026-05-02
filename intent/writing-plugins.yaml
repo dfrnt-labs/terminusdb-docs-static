@@ -1,0 +1,206 @@
+# Intent skeleton for: writing-plugins
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: writing-plugins
+total_blocks: 16
+auto_filled: 11
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: prolog
+    line: 50
+    type: fenced
+    action: "Display correct plugin module loading: use_module(core(api)), use_module(core(util)), use_module(core(query)) — parent modules only"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner
+
+  - block_index: 1
+    language: prolog
+    line: 62
+    type: fenced
+    action: "Display incorrect plugin module loading: use_module(core(util/json_log)) — submodule paths will fail at runtime"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner
+
+  - block_index: 2
+    language: unknown
+    line: 72
+    type: fenced
+    action: "Display error message when submodule import fails: ERROR: source_sink `core(util/json_log)' does not exist"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 3
+    language: prolog
+    line: 82
+    type: fenced
+    action: "Display post_commit_hook/2 multifile predicate: plugins:post_commit_hook(Validation_Objects, Meta_Data) — the primary plugin hook point"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner
+
+  - block_index: 4
+    language: prolog
+    line: 103
+    type: fenced
+    action: "Display full auto-optimize plugin example: probabilistic execution, thread pool, descriptor traversal, post_commit_hook integration"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner
+
+  - block_index: 5
+    language: bash
+    line: 217
+    type: fenced
+    action: "Display plugin file placement: src/plugins/my_plugin.pl — development deployment location"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 6
+    language: bash
+    line: 223
+    type: fenced
+    action: "Display TerminusDB restart command: ./terminusdb serve — restart server to load new plugin"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 7
+    language: bash
+    line: 231
+    type: fenced
+    action: Start Docker container
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+
+  - block_index: 8
+    language: dockerfile
+    line: 238
+    type: fenced
+    action: "Display custom Dockerfile for plugin: FROM terminusdb-server, COPY my_plugin.pl /plugins/"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: config_only
+
+  - block_index: 9
+    language: bash
+    line: 247
+    type: fenced
+    action: "Display debug logging setup: export TERMINUSDB_LOG_LEVEL=debug then ./terminusdb serve — enables plugin activity logging"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 10
+    language: bash
+    line: 254
+    type: fenced
+    action: "Display test commit via CLI: ./terminusdb doc insert admin/mydb '{...}' — triggers post_commit_hook to verify plugin execution"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 11
+    language: bash
+    line: 263
+    type: fenced
+    action: "Display log tailing: tail -f /var/log/terminusdb.log — check for plugin log messages after triggering a commit"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 12
+    language: unknown
+    line: 281
+    type: fenced
+    action: "Display submodule load error message: ERROR: source_sink `core(util/json_log)' does not exist — common debugging scenario"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 13
+    language: prolog
+    line: 287
+    type: fenced
+    action: "Display fix for submodule error: change use_module(core(util/json_log)) to use_module(core(util)) — parent module re-exports submodule predicates"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner
+
+  - block_index: 14
+    language: prolog
+    line: 299
+    type: fenced
+    action: "Display custom multifile predicate definition: my_plugin:custom_hook/2 with forall/2 dispatch — allows other plugins to extend"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner
+
+  - block_index: 15
+    language: prolog
+    line: 309
+    type: fenced
+    action: "Display inter-plugin hook usage: another plugin declares multifile my_plugin:custom_hook/2 and provides an implementation clause"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner

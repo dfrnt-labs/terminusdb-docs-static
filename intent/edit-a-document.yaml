@@ -1,0 +1,53 @@
+# Intent annotations for: edit-a-document
+# Annotated: 2026-05-01
+# Source: src/app/docs/edit-a-document/page.md
+#
+# This page teaches: update/replace an existing document (full replacement)
+# Prerequisites: TerminusDB running, database with existing documents
+# Dataset: Self-created (Player/George position change: Center Back → Full Back)
+
+page: edit-a-document
+total_blocks: 3
+annotated: 3
+needs_manual: 0
+
+blocks:
+
+  # Update document — TypeScript SDK
+  - block_index: 0
+    language: typescript
+    line: 36
+    type: fenced
+    action: "Update Player/George position to Full Back via TypeScript SDK client.updateDocument()"
+    expected_outcome:
+      type: non_empty
+      value: "Returns document IRI confirming update"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Update document — Python SDK
+  - block_index: 1
+    language: python
+    line: 53
+    type: fenced
+    action: "Update Player/George position to Full Back via Python SDK client.update_document()"
+    expected_outcome:
+      type: non_empty
+      value: "Document updated successfully (full replacement)"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  # Update document — HTTP API
+  - block_index: 2
+    language: bash
+    line: 65
+    type: fenced
+    action: "PUT full document (Player/George with position=Full Back) via HTTP API"
+    expected_outcome:
+      type: output_contains
+      value: "Player/George"
+      tolerance: contains
+    depends_on: 1
+    skip_reason: null

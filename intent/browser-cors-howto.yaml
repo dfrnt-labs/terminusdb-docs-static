@@ -1,0 +1,109 @@
+# Intent Capture: browser-cors-howto
+# Page: src/app/docs/browser-cors-howto/page.md
+# Title: Call TerminusDB from the Browser
+# Total blocks: 6
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: How-to page for browser CORS. JavaScript examples require browser context or running TerminusDB. The fetch/axios patterns are illustrative for framework users.
+
+page: browser-cors-howto
+total_blocks: 6
+auto_filled: 6
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Block 0 — Verify CORS with fetch (browser console)
+
+  - block_index: 0
+    language: javascript
+    line: 35
+    type: fenced
+    action: "Browser fetch to /api/info to verify CORS works"
+    expected_outcome:
+      type: response_body
+      value: "Returns JSON with 'authority': 'admin' field — proves CORS is working. Intended to be run in browser dev console."
+      tolerance: contains
+    depends_on: null
+    skip_reason: environment_dependent
+    note: "Requires browser context OR can be adapted to Node.js fetch for testing. If adapted: GET http://localhost:6363/api/info with Basic auth."
+    assertion: "SKIP (browser-only) OR if adapted to Node: HTTP 200 AND response contains '\"authority\"'."
+
+  # Block 1 — getDocuments function (test-example)
+
+  - block_index: 1
+    language: javascript
+    line: 49
+    type: fenced
+    action: "Fetch API helper to get documents by type from TerminusDB"
+    expected_outcome:
+      type: non_empty
+      value: "Function definition + usage example. If executed against running TerminusDB with MyDatabase containing Product documents, returns JSON array."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: environment_dependent
+    note: "Marked 'test-example' in source. Requires running TerminusDB with 'MyDatabase' and 'Product' type. SKIP unless integration env."
+    assertion: "SKIP unless integration env with MyDatabase. If tested: response is JSON array (may be empty if no Product documents)."
+
+  # Block 2 — insertDocument function
+
+  - block_index: 2
+    language: javascript
+    line: 69
+    type: fenced
+    action: "Fetch API helper to insert a document from browser"
+    expected_outcome:
+      type: non_empty
+      value: "Function definition + usage example. Shows POST with raw_json=true. Returns array of inserted document IRIs."
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: environment_dependent
+    note: "Requires running TerminusDB. SKIP unless integration env."
+    assertion: "SKIP unless integration env. If tested: response is array containing IRI string."
+
+  # Block 3 — Angular HttpClient example
+
+  - block_index: 3
+    language: typescript
+    line: 98
+    type: fenced
+    action: "Display Angular HttpClient integration pattern"
+    expected_outcome:
+      type: skip
+      value: "Shows Angular HttpClient with Authorization header for TerminusDB requests. Framework-specific pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Framework pattern reference."
+
+  # Block 4 — React/axios example
+
+  - block_index: 4
+    language: typescript
+    line: 116
+    type: fenced
+    action: "Display axios client configuration for React/Next.js"
+    expected_outcome:
+      type: skip
+      value: "Shows axios.create with baseURL and Authorization header. Framework-specific pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Framework pattern reference."
+
+  # Block 5 — CORS response headers (text)
+
+  - block_index: 5
+    language: text
+    line: 135
+    type: fenced
+    action: "Display TerminusDB CORS response headers"
+    expected_outcome:
+      type: skip
+      value: "Shows Access-Control-Allow-Methods, Allow-Credentials, Max-Age, Allow-Headers, Allow-Origin headers."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Technical reference for CORS headers."

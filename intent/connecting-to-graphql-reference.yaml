@@ -1,0 +1,119 @@
+# Intent Capture: connecting-to-graphql-reference
+# Page: src/app/docs/connecting-to-graphql-reference/page.md
+# Title: Connecting to GraphQL Reference Guide
+# Total blocks: 7
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: Reference page — mostly URL patterns and config snippets. Two bash commands for Apollo CLI are environment-dependent (require npx/apollo installed).
+
+page: connecting-to-graphql-reference
+total_blocks: 7
+auto_filled: 7
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Block 0–2: URL patterns (display only)
+
+  - block_index: 0
+    language: url
+    line: 30
+    type: fenced
+    action: "Display GraphQL endpoint URL pattern"
+    expected_outcome:
+      type: skip
+      value: "Shows URL pattern: SERVERNAME/api/graphql/ORG/DATAPRODUCT"
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. URL template."
+
+  - block_index: 1
+    language: url
+    line: 36
+    type: fenced
+    action: "Display local GraphQL endpoint example"
+    expected_outcome:
+      type: skip
+      value: "Shows http://localhost:6363/api/graphql/admin/people"
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 2
+    language: url
+    line: 42
+    type: fenced
+    action: "Display DFRNT cloud GraphQL endpoint URL"
+    expected_outcome:
+      type: skip
+      value: "Shows https://dfrnt.com/api/hosted/TEAM/api/graphql/TEAM/DATA_PRODUCT"
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 3 — Apollo CLI download schema (Basic Auth)
+
+  - block_index: 3
+    language: bash
+    line: 58
+    type: fenced
+    action: "Download GraphQL schema using Apollo CLI with Basic Auth"
+    expected_outcome:
+      type: exit_code
+      value: "Produces schema.graphql file from local TerminusDB endpoint"
+      tolerance: exact
+    depends_on: null
+    skip_reason: environment_dependent
+    note: "Requires npx, apollo CLI, and 'people' database to exist locally. SKIP in automated tests — environment-dependent."
+    assertion: "SKIP — requires apollo CLI installed AND a 'people' database. If tested: exit code 0 AND schema.graphql file created."
+
+  # Block 4 — Apollo CLI download schema (DFRNT cloud)
+
+  - block_index: 4
+    language: bash
+    line: 68
+    type: fenced
+    action: "Download GraphQL schema using Apollo CLI with DFRNT API token"
+    expected_outcome:
+      type: exit_code
+      value: "Produces schema.graphql file from DFRNT cloud endpoint"
+      tolerance: exact
+    depends_on: null
+    skip_reason: environment_dependent
+    note: "Requires DFRNT API token in ~/my_token_file. SKIP in automated tests."
+    assertion: "SKIP — requires DFRNT account and API token."
+
+  # Block 5 — GraphiQL URL (display only)
+
+  - block_index: 5
+    language: url
+    line: 82
+    type: fenced
+    action: "Display GraphiQL browser URL"
+    expected_outcome:
+      type: skip
+      value: "Shows http://localhost:6363/api/graphiql/admin/people"
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 6 — Authorization header JSON (display only)
+
+  - block_index: 6
+    language: json
+    line: 90
+    type: fenced
+    action: "Display Authorization header example for GraphiQL"
+    expected_outcome:
+      type: skip
+      value: "Shows {\"Authorization\": \"Basic YWRtaW46cm9vdA==\"}"
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Config snippet."

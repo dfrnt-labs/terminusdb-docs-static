@@ -1,0 +1,58 @@
+# Intent annotations for: delete-a-document
+# Annotated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Source: src/app/docs/delete-a-document/page.md
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# This page teaches: delete a document by ID
+# Prerequisites: TerminusDB running, database with documents to delete
+# Dataset: Self-created (Player/George)
+
+page: delete-a-document
+total_blocks: 3
+annotated: 3
+needs_manual: 0
+
+blocks:
+
+  # Delete document — TypeScript SDK
+  - block_index: 0
+    language: typescript
+    line: 36
+    type: fenced
+    action: "Delete Player/George document via TypeScript SDK client.deleteDocument()"
+    expected_outcome:
+      type: non_empty
+      value: "Document Player/George deleted successfully"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: client.deleteDocument({id: docId}) removes a document by its full ID. The ID is the document type + identifier (e.g., 'Player/George'). Deletion is permanent within the current branch — but recoverable via time travel to a previous commit."
+
+  # Delete document — Python SDK
+  - block_index: 1
+    language: python
+    line: 45
+    type: fenced
+    action: "Delete Player/George document via Python SDK client.delete_document()"
+    expected_outcome:
+      type: non_empty
+      value: "Document deleted successfully"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: Python equivalent — client.delete_document(doc_id). Same document ID format. Simpler API surface than TypeScript (no options object, just the ID string)."
+
+  # Delete document — HTTP API
+  - block_index: 2
+    language: bash
+    line: 51
+    type: fenced
+    action: "DELETE document Player/George via HTTP API with JSON body containing document ID"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+    ux_intent: "Reader learns: DELETE /api/document/{resource path} with author + message query params and a JSON array body of IDs. The body is ['Player/George'] — an array even for a single deletion. Uses Basic Auth. Full URL includes org/db/local/branch/main path. This is the raw HTTP equivalent of the SDK calls above."

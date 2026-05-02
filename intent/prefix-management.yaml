@@ -1,0 +1,266 @@
+# Intent skeleton for: prefix-management
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: prefix-management
+total_blocks: 21
+auto_filled: 21
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: json
+    line: 32
+    type: fenced
+    action: "Display document without prefixes — full IRIs for @id, @type, and property names"
+    expected_outcome:
+      type: skip
+      value: "Shows JSON with full IRIs: @id http://example.org/data/Person/alice, @type http://schema.org/Person, http://schema.org/name: Alice."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: json
+    line: 41
+    type: fenced
+    action: "Display document with prefixes — compact form using ex: and schema: prefix shorthand"
+    expected_outcome:
+      type: skip
+      value: "Shows JSON with prefixed IRIs: @id ex:Person/alice, @type schema:Person, schema:name: Alice."
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+
+  - block_index: 2
+    language: bash
+    line: 62
+    type: fenced
+    action: POST /api/prefix/admin/MyDatabase/schema
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+
+  - block_index: 3
+    language: bash
+    line: 78
+    type: fenced
+    action: POST /api/prefix/admin/MyDatabase/company
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 2
+    skip_reason: null
+
+  - block_index: 4
+    language: bash
+    line: 91
+    type: fenced
+    action: PUT /api/prefix/admin/MyDatabase/api
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 3
+    skip_reason: null
+
+  - block_index: 5
+    language: unknown
+    line: 102
+    type: fenced
+    action: "Display the prefix API base endpoint path format: /api/prefix/{organization}/{database}/{prefix_name}"
+    expected_outcome:
+      type: skip
+      value: "Shows: /api/prefix/{organization}/{database}/{prefix_name} — the URL template for all prefix CRUD operations."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 6
+    language: bash
+    line: 122
+    type: fenced
+    action: GET /api/prefix/admin/MyDatabase/myprefix
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+
+  - block_index: 7
+    language: json
+    line: 129
+    type: fenced
+    action: "Display GET response (200 OK): PrefixResponse with prefix_name, prefix_uri, and api:success status"
+    expected_outcome:
+      type: skip
+      value: "Shows: api:PrefixResponse with api:prefix_name 'myprefix', api:prefix_uri 'http://example.org/myprefix/', api:status api:success."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 8
+    language: json
+    line: 139
+    type: fenced
+    action: "Display GET error response (404 Not Found): PrefixErrorResponse with PrefixNotFound error type"
+    expected_outcome:
+      type: skip
+      value: "Shows: api:PrefixErrorResponse with api:status api:not_found, api:PrefixNotFound error, message 'Prefix myprefix not found'."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 9
+    language: bash
+    line: 159
+    type: fenced
+    action: POST /api/prefix/admin/MyDatabase/myprefix (create new prefix)
+    expected_outcome:
+      type: status_code
+      value: 201
+      tolerance: exact
+    depends_on: 6
+    skip_reason: null
+
+  - block_index: 10
+    language: json
+    line: 168
+    type: fenced
+    action: "Display POST response (201 Created): PrefixAddResponse with prefix_name, prefix_uri, api:success"
+    expected_outcome:
+      type: skip
+      value: "Shows: api:PrefixAddResponse with api:prefix_name 'myprefix', api:prefix_uri 'http://example.org/myprefix/', api:status api:success."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 11
+    language: json
+    line: 186
+    type: fenced
+    action: "Display POST error response: PrefixAlreadyExists when attempting to create a prefix that already exists"
+    expected_outcome:
+      type: skip
+      value: "Shows: api:PrefixErrorResponse with api:status api:failure, api:PrefixAlreadyExists error, message 'Prefix myprefix already exists'."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 12
+    language: bash
+    line: 206
+    type: fenced
+    action: PUT /api/prefix/admin/MyDatabase/myprefix
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 6
+    skip_reason: null
+
+  - block_index: 13
+    language: json
+    line: 215
+    type: fenced
+    action: "Display PUT response (200 OK): PrefixUpdateResponse with updated prefix_uri"
+    expected_outcome:
+      type: skip
+      value: "Shows: api:PrefixUpdateResponse with api:prefix_name 'myprefix', api:prefix_uri 'http://example.org/updated/', api:status api:success."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 14
+    language: bash
+    line: 232
+    type: fenced
+    action: "PUT /api/prefix/admin/MyDatabase/myprefix?create=true"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 7
+    skip_reason: null
+
+  - block_index: 15
+    language: bash
+    line: 253
+    type: fenced
+    action: DELETE /api/prefix/admin/MyDatabase/myprefix
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 8
+    skip_reason: null
+
+  - block_index: 16
+    language: json
+    line: 260
+    type: fenced
+    action: "Display DELETE response (200 OK): PrefixDeleteResponse confirming prefix removal"
+    expected_outcome:
+      type: skip
+      value: "Shows: api:PrefixDeleteResponse with api:prefix_name 'myprefix', api:status api:success."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 17
+    language: json
+    line: 324
+    type: fenced
+    action: "Display InvalidIRI error response: when URI is missing a valid scheme (http://, https://)"
+    expected_outcome:
+      type: skip
+      value: "Shows: api:PrefixErrorResponse with api:InvalidIRI error, api:iri 'example.org/', message explaining IRIs must have a valid scheme."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 18
+    language: json
+    line: 353
+    type: fenced
+    action: "Display ReservedPrefix error response: when attempting to modify @-prefixed names (reserved for JSON-LD keywords)"
+    expected_outcome:
+      type: skip
+      value: "Shows: api:PrefixErrorResponse with api:ReservedPrefix error, api:prefix_name '@base', message 'Cannot modify reserved prefix'."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 19
+    language: bash
+    line: 369
+    type: fenced
+    action: POST /api/prefix/admin/MyDatabase/rocket
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 9
+    skip_reason: null
+
+  - block_index: 20
+    language: bash
+    line: 398
+    type: fenced
+    action: GET /api/prefixes/admin/MyDatabase
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 10
+    skip_reason: null

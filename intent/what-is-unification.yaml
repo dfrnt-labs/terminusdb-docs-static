@@ -1,0 +1,110 @@
+# Intent skeleton for: what-is-unification
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: what-is-unification
+total_blocks: 8
+auto_filled: 8
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 45
+    type: fenced
+    action: "Display type-constrained query: and(eq('v:type', '@schema:Entity'), triple('v:subject', 'rdf:type', 'v:type')) — filters solutions to Entity type"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: javascript
+    line: 86
+    type: fenced
+    action: "Display basic variable unification: triple('v:Subject', 'v:Predicate', 'v:Object') — returns all edges in the instance graph"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: javascript
+    line: 94
+    type: fenced
+    action: "Display multi-hop path query: shared v:Intermediate variable joins two triples into a two-hop traversal"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 3
+    language: javascript
+    line: 105
+    type: fenced
+    action: "Display specific starting point query: constant 'terminusdb://data/My_Object' anchors a two-hop path discovery"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 4
+    language: javascript
+    line: 114
+    type: fenced
+    action: "Display simplified query using @base prefix: 'My_Object' instead of full IRI when @base is terminusdb://data/"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 5
+    language: javascript
+    line: 143
+    type: fenced
+    action: "Display substr() predicate signature: substr(string, before, length, after, subString) — shows pattern generation with multiple solutions"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 6
+    language: javascript
+    line: 151
+    type: fenced
+    action: "Display substr() Example 1: substr('string', 2, 2, 'v:after', 'ri') — single solution with known before/length/subString, generates after=2"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 7
+    language: javascript
+    line: 159
+    type: fenced
+    action: "Display substr() Example 2: substr('string', 'v:before', 5, 'v:after', 'v:subString') — generates two solutions (before=0/after=1/strin, before=1/after=0/tring)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

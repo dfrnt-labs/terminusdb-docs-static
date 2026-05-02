@@ -1,0 +1,74 @@
+# Intent Annotations: path-queries-in-graphql
+# Page: src/app/docs/path-queries-in-graphql/page.md
+# Title: Path Queries in GraphQL
+# Total blocks: ~8
+# Annotated by: systems-engineer (Phase III)
+# Date: 2026-05-02
+# Fixture: Requires star-wars DB or dataset with linked documents
+
+blocks:
+  - block_index: 0
+    language: graphql
+    action: "Basic path query traversing one relationship"
+    expected_outcome:
+      type: response_body
+      value: "Returns results traversing document link"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    assertion: "POST /api/graphql returns HTTP 200 AND response.data contains nested linked documents."
+
+  - block_index: 1
+    language: json
+    action: "Display expected path query result"
+    expected_outcome:
+      type: display_only
+      value: "Nested result showing traversed relationship"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 2
+    language: graphql
+    action: "Multi-hop path query (2+ relationships deep)"
+    expected_outcome:
+      type: response_body
+      value: "Returns results traversing multiple links"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    assertion: "POST /api/graphql returns HTTP 200 AND response has nested objects at 2+ depth."
+
+  - block_index: 3
+    language: json
+    action: "Display expected multi-hop result"
+    expected_outcome:
+      type: display_only
+      value: "Deeply nested result"
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 4
+    language: graphql
+    action: "Path query with filter on nested document"
+    expected_outcome:
+      type: response_body
+      value: "Returns filtered results from linked documents"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    assertion: "POST /api/graphql returns HTTP 200 AND results satisfy filter on nested field."
+
+  - block_index: 5
+    language: json
+    action: "Display expected filtered path result"
+    expected_outcome:
+      type: display_only
+      value: "Filtered nested results"
+      tolerance: non_empty
+    depends_on: 4
+    skip_reason: display_only
+    assertion: "No assertion — display only."

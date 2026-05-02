@@ -1,0 +1,152 @@
+# Intent Capture: graphql-basics
+# Page: src/app/docs/graphql-basics/page.md
+# Title: Learn the GraphQL Basics for TerminusDB
+# Total blocks: 9
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: Beginner GraphQL tutorial using Star Wars dataset. Requires star-wars DB cloned from data.terminusdb.org. 4 executable GraphQL queries, 2 display-only (incomplete/duplicate), 3 JSON response displays.
+
+page: graphql-basics
+total_blocks: 9
+auto_filled: 9
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Block 0 — Incomplete query (illustrative)
+
+  - block_index: 0
+    language: graphql
+    line: 38
+    type: fenced
+    action: "Display incomplete query skeleton with cursor placeholder"
+    expected_outcome:
+      type: skip
+      value: "Shows empty query{ █ } — not executable, illustrates starting point."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Intentionally incomplete (cursor placeholder)."
+
+  # Block 1 — People query (all)
+
+  - block_index: 1
+    language: graphql
+    line: 46
+    type: fenced
+    action: "GraphQL query: get all People with label field"
+    expected_outcome:
+      type: response_body
+      value: "Returns data.People array with label field for all characters in star-wars database."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    note: "Requires star-wars DB. No limit — returns all People (87 in dataset). SKIP if star-wars not available."
+    assertion: "HTTP 200 AND response.data.People is non-empty array AND each element has 'label' field."
+
+  # Block 2 — People query with limit: 5
+
+  - block_index: 2
+    language: graphql
+    line: 56
+    type: fenced
+    action: "GraphQL query: get first 5 People with label"
+    expected_outcome:
+      type: response_body
+      value: "Returns exactly 5 People. First results include Luke Skywalker, Obi-Wan Kenobi, Anakin Skywalker, Wilhuff Tarkin, Chewbacca."
+      tolerance: contains
+    depends_on: 1
+    skip_reason: null
+    assertion: "HTTP 200 AND response.data.People is array AND array length == 5 AND contains element with label 'Luke Skywalker'."
+
+  # Block 3 — Expected JSON response for limit:5
+
+  - block_index: 3
+    language: json
+    line: 66
+    type: fenced
+    action: "Display expected response for People(limit: 5)"
+    expected_outcome:
+      type: display_only
+      value: "Shows 5 People: Luke Skywalker, Obi-Wan Kenobi, Anakin Skywalker, Wilhuff Tarkin, Chewbacca."
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: display_only
+    assertion: "No assertion — display only. Expected output reference."
+
+  # Block 4 — Duplicate of block 2 (same query shown again contextually)
+
+  - block_index: 4
+    language: graphql
+    line: 92
+    type: fenced
+    action: "GraphQL query: People(limit: 5) — duplicate for context"
+    expected_outcome:
+      type: skip
+      value: "Same query as block 2 — shown again before explaining link traversal."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — duplicate of block 2."
+
+  # Block 5 — Nested homeworld query
+
+  - block_index: 5
+    language: graphql
+    line: 102
+    type: fenced
+    action: "GraphQL query: People(limit: 2) with nested homeworld { label }"
+    expected_outcome:
+      type: response_body
+      value: "Returns 2 People with their homeworld labels. Luke Skywalker → Tatooine, Obi-Wan Kenobi → Stewjon."
+      tolerance: contains
+    depends_on: 1
+    skip_reason: null
+    assertion: "HTTP 200 AND response.data.People is array AND array length == 2 AND first element has 'homeworld' object with 'label' field."
+
+  # Block 6 — Expected response for homeworld query
+
+  - block_index: 6
+    language: json
+    line: 115
+    type: fenced
+    action: "Display expected response for nested homeworld query"
+    expected_outcome:
+      type: display_only
+      value: "Shows Luke → Tatooine, Obi-Wan → Stewjon."
+      tolerance: non_empty
+    depends_on: 5
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 7 — Paging query with offset
+
+  - block_index: 7
+    language: graphql
+    line: 140
+    type: fenced
+    action: "GraphQL query: People(limit: 2, offset: 2) with homeworld"
+    expected_outcome:
+      type: response_body
+      value: "Returns 2 People starting from offset 2. Anakin Skywalker → Tatooine, Wilhuff Tarkin → Eriadu."
+      tolerance: contains
+    depends_on: 5
+    skip_reason: null
+    assertion: "HTTP 200 AND response.data.People is array AND array length == 2 AND contains element with label 'Anakin Skywalker'."
+
+  # Block 8 — Expected response for paging
+
+  - block_index: 8
+    language: json
+    line: 153
+    type: fenced
+    action: "Display expected response for offset paging query"
+    expected_outcome:
+      type: display_only
+      value: "Shows Anakin → Tatooine, Wilhuff Tarkin → Eriadu."
+      tolerance: non_empty
+    depends_on: 7
+    skip_reason: display_only
+    assertion: "No assertion — display only."

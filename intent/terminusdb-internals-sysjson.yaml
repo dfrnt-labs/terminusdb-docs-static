@@ -1,0 +1,446 @@
+# Intent skeleton for: terminusdb-internals-sysjson
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: terminusdb-internals-sysjson
+total_blocks: 36
+auto_filled: 36
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 48
+    type: fenced
+    action: Display sys:JSON content-addressed deduplication example (Person A and B share metadata)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: javascript
+    line: 76
+    type: fenced
+    action: Display internal sys:JSONDocument representation with @id hash
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: javascript
+    line: 85
+    type: fenced
+    action: Display internal representation for primitives and arrays
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 3
+    language: javascript
+    line: 97
+    type: fenced
+    action: Display internal representation for objects (keys become fields)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 4
+    language: javascript
+    line: 122
+    type: fenced
+    action: Display Document API insert and get behavior (native JSON return)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 5
+    language: javascript
+    line: 145
+    type: fenced
+    action: Display supported JSON type — Object (Config with settings)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 6
+    language: javascript
+    line: 157
+    type: fenced
+    action: Display supported JSON type — Array (DataSet with values)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 7
+    language: javascript
+    line: 166
+    type: fenced
+    action: Display supported JSON type — Nested structures (items with tags)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 8
+    language: javascript
+    line: 180
+    type: fenced
+    action: Display supported JSON type — String (Message with content)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 9
+    language: javascript
+    line: 189
+    type: fenced
+    action: Display supported JSON type — Number (Metric with value)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 10
+    language: javascript
+    line: 198
+    type: fenced
+    action: Display supported JSON type — Boolean (Flag with enabled)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 11
+    language: javascript
+    line: 207
+    type: fenced
+    action: Display supported JSON type — Null within objects/arrays and top-level caveat
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 12
+    language: javascript
+    line: 226
+    type: fenced
+    action: Display preferred null wrapping pattern (nested vs top-level)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 13
+    language: javascript
+    line: 240
+    type: fenced
+    action: Display copy-on-write behavior for sys:JSON updates
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 14
+    language: javascript
+    line: 258
+    type: fenced
+    action: Display multiple update pattern (each creates new JSON node)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 15
+    language: javascript
+    line: 281
+    type: fenced
+    action: Display safe deletion with reference counting (shared JSON)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 16
+    language: javascript
+    line: 294
+    type: fenced
+    action: Display independent deletion of documents with shared JSON
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 17
+    language: javascript
+    line: 322
+    type: fenced
+    action: Display schema definition — required sys:JSON field
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 18
+    language: javascript
+    line: 331
+    type: fenced
+    action: Display schema definition — Optional sys:JSON field
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 19
+    language: javascript
+    line: 343
+    type: fenced
+    action: Display schema definition — Set of sys:JSON
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 20
+    language: javascript
+    line: 355
+    type: fenced
+    action: Display schema definition — Array of sys:JSON
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 21
+    language: graphql
+    line: 373
+    type: fenced
+    action: Display GraphQL query for sys:JSON field (returns as string)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 22
+    language: json
+    line: 383
+    type: fenced
+    action: Display GraphQL response showing metadata as JSON string
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 23
+    language: javascript
+    line: 396
+    type: fenced
+    action: Display JSON.parse pattern for GraphQL sys:JSON strings
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 24
+    language: json
+    line: 409
+    type: fenced
+    action: Display all JSON types serialized uniformly as strings in GraphQL
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 25
+    language: javascript
+    line: 425
+    type: fenced
+    action: Display deduplication benefits — 1000 documents sharing one metadata node
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 26
+    language: javascript
+    line: 438
+    type: fenced
+    action: Display update efficiency — only changed portions stored
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 27
+    language: javascript
+    line: 456
+    type: fenced
+    action: Display common pattern — API payload storage with nested metadata
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 28
+    language: javascript
+    line: 475
+    type: fenced
+    action: Display common pattern — configuration management with features and limits
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 29
+    language: javascript
+    line: 495
+    type: fenced
+    action: Display common pattern — GeoJSON storage (Point coordinates)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 30
+    language: javascript
+    line: 509
+    type: fenced
+    action: Display common pattern — event logging with nested details
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 31
+    language: javascript
+    line: 531
+    type: fenced
+    action: Display troubleshooting — GraphQL @value wrapper bug (pre-v11.1.x)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 32
+    language: unknown
+    line: 542
+    type: fenced
+    action: Display troubleshooting — cannot delete document error message
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 33
+    language: javascript
+    line: 553
+    type: fenced
+    action: Display troubleshooting — top-level null issues and workaround
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 34
+    language: javascript
+    line: 559
+    type: fenced
+    action: Display troubleshooting — nested null preferred pattern
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 35
+    language: javascript
+    line: 604
+    type: fenced
+    action: Display migration example — before/after for direct array support (v11.1.x)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

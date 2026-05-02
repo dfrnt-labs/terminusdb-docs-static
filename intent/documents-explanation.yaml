@@ -1,0 +1,131 @@
+# Intent annotations for: documents-explanation
+# Annotated: 2026-05-01
+# Source: src/app/docs/documents-explanation/page.md
+#
+# This page teaches: TerminusDB document model (documents, subdocuments, references, graph visualization)
+# Prerequisites: None (conceptual explanation page)
+# Dataset: Conceptual examples (Football roster, Contact graph)
+
+page: documents-explanation
+total_blocks: 9
+annotated: 9
+needs_manual: 0
+
+blocks:
+
+  # Football roster CSV data
+  - block_index: 0
+    language: csv
+    line: 74
+    type: fenced
+    action: "Display football roster CSV data (name, position) with 3 players as source data example"
+    expected_outcome:
+      type: skip
+      value: "Shows CSV with headers name/position and 3 rows: George/Centre Back, Doug/Full Back, Karen/Centre Forward."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Football roster class definition
+  - block_index: 1
+    language: json
+    line: 83
+    type: fenced
+    action: "Display Player class schema definition with @context (@schema, @base) and two xsd:string fields"
+    expected_outcome:
+      type: skip
+      value: "Shows @context with @schema and @base URIs, then Player class with name (xsd:string) and position (xsd:string)."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Football roster JSON document instance
+  - block_index: 2
+    language: json
+    line: 96
+    type: fenced
+    action: "Display Player/George JSON document instance showing @type, @id, @base, and field values"
+    expected_outcome:
+      type: skip
+      value: "Shows Player document with @type: Player, @id: Player/George, @base URI, name: George, position: Centre Back."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Player and Roster classes with Set reference
+  - block_index: 3
+    language: json
+    line: 154
+    type: fenced
+    action: "Display Player + Roster class definitions showing Set type family for document references"
+    expected_outcome:
+      type: skip
+      value: "Shows @context, Player class (name, position), and Roster class with player property as {type: Set, class: Player}."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # CSV roster data as documents (Roster + Players)
+  - block_index: 4
+    language: json
+    line: 177
+    type: fenced
+    action: "Display Roster/Wolves document referencing 3 Player documents via Set (document graph example)"
+    expected_outcome:
+      type: skip
+      value: "Shows Roster/Wolves with player array referencing Player/George, Player/Karen, Player/Doug, plus the 3 Player document instances."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Stats subdocument schema definition
+  - block_index: 5
+    language: json
+    line: 210
+    type: fenced
+    action: "Display Stats @subdocument class with Random key + Player class referencing Stats (nested document pattern)"
+    expected_outcome:
+      type: skip
+      value: "Shows @context, Stats class with @subdocument: [], @key: Random, 6 xsd:integer fields (strength, intelligence, dexterity, charisma, wisdom, constitution), and Player class with stats: Stats."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Player with nested Stats subdocument instance
+  - block_index: 6
+    language: json
+    line: 236
+    type: fenced
+    action: "Display Player/Hieronymous document instance with inline Stats subdocument (nested JSON)"
+    expected_outcome:
+      type: skip
+      value: "Shows Player/Hieronymous with inline stats object containing Stats type and 6 integer values (strength:14, intelligence:10, etc.)."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Contact graph schema (complex relationships)
+  - block_index: 7
+    language: json
+    line: 270
+    type: fenced
+    action: "Display Contact graph schema: Person, Address (@subdocument), Coordinate (@subdocument), Map, Country — shows cross-document references and subdocument ownership"
+    expected_outcome:
+      type: skip
+      value: "Shows @context + 5 classes: Coordinate (@subdocument, lat/long), Map (Array of Coordinate), Country (name + map), Address (@subdocument, country ref + street), Person (name + address + friend self-ref)."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Contact graph document instances
+  - block_index: 8
+    language: json
+    line: 308
+    type: fenced
+    action: "Display Contact graph document instances: Person/Joe and Person/Jill with Address subdocuments, friend references, and Country documents — illustrates full document graph"
+    expected_outcome:
+      type: skip
+      value: "Shows Person/Joe (Elm St, Country/USA, friend: Person/Jill), Person/Jill (Main St, Country/Ireland, friend: Person/Joe), Country/USA, Country/Ireland — full graph with cross-references and subdocuments."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

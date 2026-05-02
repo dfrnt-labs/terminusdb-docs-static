@@ -1,0 +1,328 @@
+# Intent Capture: querying-layers-with-graphql
+# Page: src/app/docs/querying-layers-with-graphql/page.md
+# Title: Querying Layers with GraphQL
+# Total blocks: 21
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: Advanced reference page. One curl command is executable (block 3). GraphQL queries are illustrative patterns for system graphs (_meta, _commits). JSON blocks are expected-output displays.
+
+page: querying-layers-with-graphql
+total_blocks: 21
+auto_filled: 21
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Blocks 0–2: URL patterns (display only)
+
+  - block_index: 0
+    language: url
+    line: 52
+    type: fenced
+    action: "Display meta graph endpoint URL"
+    expected_outcome:
+      type: skip
+      value: "Shows http://localhost:6363/api/graphql/ORG/DATA_PRODUCT/_meta"
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 1
+    language: url
+    line: 60
+    type: fenced
+    action: "Display commit graph endpoint URL"
+    expected_outcome:
+      type: skip
+      value: "Shows http://localhost:6363/api/graphql/ORG/DATA_PRODUCT/local/_commits"
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 2
+    language: url
+    line: 68
+    type: fenced
+    action: "Display system graph endpoint URL"
+    expected_outcome:
+      type: skip
+      value: "Shows http://localhost:6363/api/graphql/_system"
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 3 — curl query (executable)
+
+  - block_index: 3
+    language: bash
+    line: 80
+    type: fenced
+    action: "POST GraphQL query to _meta endpoint via curl — get repository head layer"
+    expected_outcome:
+      type: response_body
+      value: "Returns JSON with data.Local array containing repository name and head.layer_identifier (40 hex chars)."
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    note: "Requires 'MyDatabase' to exist. Replace with actual DB name in test. Uses _meta system graph."
+    assertion: "Exit code 0 AND stdout is valid JSON AND contains '\"Local\"' AND contains '\"layer_identifier\"'. SKIP if MyDatabase does not exist."
+
+  # Block 4 — GraphQL query (equivalent to curl above)
+
+  - block_index: 4
+    language: graphql
+    line: 91
+    type: fenced
+    action: "Display GraphQL query for repository head layer"
+    expected_outcome:
+      type: skip
+      value: "Shows query { Local { name head { layer_identifier } } }"
+      tolerance: null
+    depends_on: 3
+    skip_reason: display_only
+    assertion: "No assertion — display only. Same query as block 3 in GraphQL syntax."
+
+  # Block 5 — Expected response JSON
+
+  - block_index: 5
+    language: json
+    line: 104
+    type: fenced
+    action: "Display expected repository head response"
+    expected_outcome:
+      type: skip
+      value: "Shows {data: {Local: [{name: 'local', head: {layer_identifier: '2da4448a...'}}]}}"
+      tolerance: null
+    depends_on: 4
+    skip_reason: display_only
+    assertion: "No assertion — display only. Illustrative response."
+
+  # Block 6 — Commit layers query
+
+  - block_index: 6
+    language: graphql
+    line: 140
+    type: fenced
+    action: "Display GraphQL query for commit schema and instance layers"
+    expected_outcome:
+      type: skip
+      value: "Shows Commit query with identifier, message, author, timestamp, schema.layer_identifier, instance.layer_identifier."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 7 — Commit response example
+
+  - block_index: 7
+    language: json
+    line: 159
+    type: fenced
+    action: "Display expected commit layers response"
+    expected_outcome:
+      type: skip
+      value: "Shows commit with schema and instance layer_identifier values."
+      tolerance: null
+    depends_on: 6
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 8 — Filter by author
+
+  - block_index: 8
+    language: graphql
+    line: 195
+    type: fenced
+    action: "Display filter commits by author query"
+    expected_outcome:
+      type: skip
+      value: "Shows Commit(filter: { author: { eq: 'admin' } }) pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 9 — Latest commits with orderBy
+
+  - block_index: 9
+    language: graphql
+    line: 212
+    type: fenced
+    action: "Display orderBy timestamp DESC with limit query"
+    expected_outcome:
+      type: skip
+      value: "Shows Commit(orderBy: { timestamp: DESC }, limit: 5) pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 10 — Parent commit traversal
+
+  - block_index: 10
+    language: graphql
+    line: 234
+    type: fenced
+    action: "Display parent commit traversal query"
+    expected_outcome:
+      type: skip
+      value: "Shows Commit with nested parent { identifier, message, schema { layer_identifier } }."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 11 — Same layer detection example
+
+  - block_index: 11
+    language: json
+    line: 259
+    type: fenced
+    action: "Display example showing same layer between commits (no schema change)"
+    expected_outcome:
+      type: skip
+      value: "Shows parent and child with same schema.layer_identifier — no schema change."
+      tolerance: null
+    depends_on: 10
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 12 — Different layer detection example
+
+  - block_index: 12
+    language: json
+    line: 276
+    type: fenced
+    action: "Display example showing different layer between commits (schema changed)"
+    expected_outcome:
+      type: skip
+      value: "Shows parent and child with different schema.layer_identifier — schema was modified."
+      tolerance: null
+    depends_on: 10
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 13 — Branch head layers query
+
+  - block_index: 13
+    language: graphql
+    line: 297
+    type: fenced
+    action: "Display branch head layers query"
+    expected_outcome:
+      type: skip
+      value: "Shows Branch { name head { identifier schema { layer_identifier } instance { layer_identifier } } }."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 14 — Branch response example
+
+  - block_index: 14
+    language: json
+    line: 316
+    type: fenced
+    action: "Display expected branch head layers response"
+    expected_outcome:
+      type: skip
+      value: "Shows main and development branches with their layer identifiers."
+      tolerance: null
+    depends_on: 13
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 15 — Audit layer changes query
+
+  - block_index: 15
+    language: graphql
+    line: 357
+    type: fenced
+    action: "Display audit layer changes query (full commit log)"
+    expected_outcome:
+      type: skip
+      value: "Shows Commit(orderBy: { timestamp: DESC }) with all metadata and layers."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 16 — Find commits by specific layer
+
+  - block_index: 16
+    language: graphql
+    line: 378
+    type: fenced
+    action: "Display filter commits by specific layer_identifier"
+    expected_outcome:
+      type: skip
+      value: "Shows Commit(filter: { schema: { layer_identifier: { eq: '...' } } }) pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 17 — Compare branches query
+
+  - block_index: 17
+    language: graphql
+    line: 397
+    type: fenced
+    action: "Display compare branch layers query"
+    expected_outcome:
+      type: skip
+      value: "Shows Branch { name head { schema { layer_identifier } instance { layer_identifier } } }."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 18 — Layer identifier format example
+
+  - block_index: 18
+    language: unknown
+    line: 421
+    type: fenced
+    action: "Display layer identifier format (40 hex characters)"
+    expected_outcome:
+      type: skip
+      value: "Shows a3f5e7b2c4d1f8e9a6b3c5d2e4f1a7b9c2d5e8f1 — 40 hex char SHA-1 hash."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 19 — Storage path example
+
+  - block_index: 19
+    language: unknown
+    line: 429
+    type: fenced
+    action: "Display storage file path pattern for layers"
+    expected_outcome:
+      type: skip
+      value: "Shows storage/db_hash/a3f/a3f5...f1.larch — prefix-based directory structure."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  # Block 20 — Monitor repository health query
+
+  - block_index: 20
+    language: graphql
+    line: 465
+    type: fenced
+    action: "Display repository health monitoring query"
+    expected_outcome:
+      type: skip
+      value: "Shows Local { name head { layer_identifier } } — same as block 4 but in monitoring context."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only."

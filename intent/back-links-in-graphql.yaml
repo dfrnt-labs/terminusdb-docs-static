@@ -1,0 +1,62 @@
+# Intent Capture: back-links-in-graphql
+# Page: src/app/docs/back-links-in-graphql/page.md
+# Title: Use GraphQL Back Links for easy queries
+# Total blocks: 3
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: Requires star-wars database cloned. Page has 2 GraphQL queries + 1 JSON response.
+
+page: back-links-in-graphql
+total_blocks: 3
+auto_filled: 3
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Block 0 — Incomplete GraphQL query (illustrative, shows introspection)
+
+  - block_index: 0
+    language: graphql
+    line: 38
+    type: fenced
+    action: "Incomplete GraphQL query — illustrates starting point for exploration"
+    expected_outcome:
+      type: skip
+      value: "Incomplete query fragment shown to illustrate exploration. Not executable as-is (contains █ placeholder)."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Query is intentionally incomplete (placeholder character)."
+
+  # Block 1 — Back link query (executable)
+
+  - block_index: 1
+    language: graphql
+    line: 48
+    type: fenced
+    action: "GraphQL query using _pilot_of_Starship back link to find starships for first person"
+    expected_outcome:
+      type: response_body
+      value: "Returns first Person (Luke Skywalker) with _pilot_of_Starship array containing X-wing and Imperial shuttle."
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    note: "Requires star-wars database cloned from data.terminusdb.org. Uses People type (not Person — star-wars schema uses 'People'). SKIP if star-wars DB not available."
+    assertion: "HTTP 200 AND response.data.People is array AND array length >= 1 AND first element has 'label' field AND first element has '_pilot_of_Starship' array"
+
+  # Block 2 — Expected JSON response (display only)
+
+  - block_index: 2
+    language: json
+    line: 61
+    type: fenced
+    action: "Display expected back link query response"
+    expected_outcome:
+      type: display_only
+      value: "Shows Luke Skywalker with _pilot_of_Starship containing X-wing and Imperial shuttle."
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: display_only
+    assertion: "No assertion — display only. Illustrative expected output."

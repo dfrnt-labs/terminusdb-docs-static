@@ -1,0 +1,78 @@
+# Intent skeleton for: enterprise-rdfxml
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: enterprise-rdfxml
+total_blocks: 5
+auto_filled: 5
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: bash
+    line: 26
+    type: fenced
+    action: "GET /api/document/*?type=Product&format=rdfxml"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: xml
+    line: 32
+    type: fenced
+    action: "Display complete RDF/XML output example with namespaces, typed literals, and subdocument nesting"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: well-formed RDF/XML with proper xmlns declarations (rdf, xsd, schema), xml:base, typed literals (rdf:datatype for decimal/boolean), document references (rdf:resource for links), and nested subdocuments (UnitOfMeasure inside Product). Reader learns the complete output structure."
+
+  - block_index: 2
+    language: xml
+    line: 73
+    type: fenced
+    action: "Display rdf:resource reference syntax for document links in RDF/XML"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: references to other documents use rdf:resource with the full IRI (e.g., terminusdb:///data/Category/ELEC). This is the RDF/XML equivalent of a JSON document link — a pointer to another top-level document."
+
+  - block_index: 3
+    language: xml
+    line: 81
+    type: fenced
+    action: "Display subdocument nesting syntax in RDF/XML output"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @subdocument types serialize as nested child elements (not flat references). The subdocument's rdf:about IRI is hierarchical (parent/field/Type/key). This preserves structure for XPath/XSLT processing — subdocuments are inline, owned by their parent."
+
+  - block_index: 4
+    language: bash
+    line: 94
+    type: fenced
+    action: "Submit an RDF/XML document via POST with Content-Type: application/rdf+xml"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: POST to the document endpoint with Content-Type: application/rdf+xml and the full RDF/XML body. The parser reads xmlns declarations, resolves rdf:about to document IDs, maps rdf:datatype to schema types, handles nested subdocuments, and validates against the schema. Supports rdf:resource references and element-order independence."

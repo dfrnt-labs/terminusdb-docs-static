@@ -1,0 +1,77 @@
+# Intent: create-a-database
+# Page: src/app/docs/create-a-database/page.md
+# Title: Create a Database
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a HOW-TO page showing how to create a database using HTTP API, TypeScript, or Python.
+#       Reader arrives asking: "how do I create a new database in TerminusDB?"
+
+page: create-a-database
+total_blocks: 4
+auto_filled: 4
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === HTTP API ===
+
+  - block_index: 0
+    language: bash
+    line: 37
+    type: fenced
+    action: "Create a new database via HTTP API (POST /api/db/admin/mydb)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: POST to /api/db/{org}/{dbname} creates a database. Body has label (human name), comment (description), and schema:true (create with schema graph). Uses Basic Auth (admin:root). The URL path encodes organisation and database name — 'admin/mydb' means org=admin, db=mydb."
+
+  # === Expected response ===
+
+  - block_index: 1
+    language: json
+    line: 45
+    type: fenced
+    action: "Display expected database creation response"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: {api:DbCreateResponse, api:status: api:success}. Confirms the API returns a typed response object. Reader knows what to expect on success."
+
+  # === TypeScript SDK ===
+
+  - block_index: 2
+    language: typescript
+    line: 51
+    type: fenced
+    action: "Create a database using the TypeScript SDK (client.createDatabase)"
+    expected_outcome:
+      type: non_empty
+      value: "Database created successfully"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: instantiate WOQLClient with server URL and credentials, then call createDatabase(name, options). Options mirror the HTTP body: label, comment, schema. After creation the client is automatically connected to the new database — ready for immediate schema/data operations."
+
+  # === Python SDK ===
+
+  - block_index: 3
+    language: python
+    line: 70
+    type: fenced
+    action: "Create a database using the Python SDK (client.create_database)"
+    expected_outcome:
+      type: state_change
+      value: "Database created successfully"
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: null
+    ux_intent: "Reader learns: Python pattern — Client(url), connect(user, key), then create_database(name, org, label, description, prefixes). Prefixes dict sets @base and @schema IRIs. Unlike TypeScript, Python requires explicit org parameter and uses 'description' instead of 'comment'."

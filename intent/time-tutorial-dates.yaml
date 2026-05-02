@@ -1,0 +1,50 @@
+# Intent skeleton for: time-tutorial-dates
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: time-tutorial-dates
+total_blocks: 3
+auto_filled: 3
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 131
+    type: fenced
+    action: WOQL query snippet
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: javascript
+    line: 145
+    type: fenced
+    action: WOQL query snippet
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  - block_index: 2
+    language: javascript
+    line: 174
+    type: fenced
+    action: WOQL query snippet
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: null

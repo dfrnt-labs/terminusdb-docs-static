@@ -1,0 +1,52 @@
+# Intent Annotations: limit-results-in-graphql
+# Page: src/app/docs/limit-results-in-graphql/page.md
+# Title: Limit Results in GraphQL
+# Total blocks: ~6
+# Annotated by: systems-engineer (Phase III)
+# Date: 2026-05-02
+# Fixture: Requires star-wars DB cloned
+
+blocks:
+  - block_index: 0
+    language: graphql
+    action: "Query with limit argument"
+    expected_outcome:
+      type: response_body
+      value: "Returns exactly N documents where N = limit value"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    assertion: "POST /api/graphql/admin/star-wars returns HTTP 200 AND response.data array length == limit value."
+
+  - block_index: 1
+    language: json
+    action: "Display expected limited result"
+    expected_outcome:
+      type: display_only
+      value: "Exactly N results"
+      tolerance: exact
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 2
+    language: graphql
+    action: "Query with limit and offset for paging"
+    expected_outcome:
+      type: response_body
+      value: "Returns next page of results"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    assertion: "POST /api/graphql returns HTTP 200 AND response.data array length == limit AND results differ from block 0."
+
+  - block_index: 3
+    language: json
+    action: "Display expected paged result"
+    expected_outcome:
+      type: display_only
+      value: "Different results from first query (offset applied)"
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: display_only
+    assertion: "No assertion — display only."

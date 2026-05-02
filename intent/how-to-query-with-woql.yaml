@@ -1,0 +1,440 @@
+# Intent Capture: how-to-query-with-woql
+# Page: src/app/docs/how-to-query-with-woql/page.md
+# Title: How to query with datalog (WOQL)
+# Total blocks: 31
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: Large tutorial page with JS SDK code. Block 0 is npm setup, block 1 is the complete tutorial script, block 2 runs it. Blocks 3–26 are individual step functions shown for pedagogical breakdown. Blocks 27–30 are cleanup commands. The complete script (block 1) is the primary testable artefact.
+
+page: how-to-query-with-woql
+total_blocks: 31
+auto_filled: 31
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Setup
+
+  - block_index: 0
+    language: bash
+    line: 60
+    type: fenced
+    action: "Create tutorial directory and install terminusdb npm package"
+    expected_outcome:
+      type: exit_code
+      value: "Exit code 0 — directory created and terminusdb package installed"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    note: "Creates woql-tutorial/ dir, npm init, npm install terminusdb. Test in isolated temp dir."
+    assertion: "Exit code 0 AND woql-tutorial/node_modules/terminusdb/ exists."
+
+  # Block 1 — Complete tutorial script (the primary artefact)
+
+  - block_index: 1
+    language: javascript
+    line: 79
+    type: fenced
+    action: "Complete WOQL tutorial script — all 12 steps in one file"
+    expected_outcome:
+      type: non_empty
+      value: "When run with 'node woql-tutorial.js', executes steps 1-11: creates DB, defines schema, inserts 5 documents, runs queries (read all, filter, multi-variable, complex AND, OR, optional, order/limit, group). Outputs checkmarks for each step."
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    note: "This is the main testable block. Requires running TerminusDB on localhost:6363 with admin:root credentials. The script is idempotent (checks for existing DB/documents)."
+    assertion: "Exit code 0 AND stdout contains 'Tutorial Complete' AND stdout contains 'STEP 1' through 'STEP 11'. NOTE: requires running TerminusDB instance."
+
+  # Block 2 — Run the tutorial
+
+  - block_index: 2
+    language: bash
+    line: 697
+    type: fenced
+    action: "Execute the tutorial script"
+    expected_outcome:
+      type: exit_code
+      value: "Exit code 0 — tutorial runs successfully"
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+    assertion: "Exit code 0 AND stdout contains step output (same as block 1 assertion)."
+
+  # Blocks 3–26: Individual step function breakdowns (pedagogical)
+  # These are the same functions from block 1 shown individually with explanations.
+  # They are testable if the DB from block 1 exists, but primarily serve as display/explanation.
+
+  - block_index: 3
+    language: javascript
+    line: 719
+    type: fenced
+    action: "Boilerplate code — imports, config, main function (step-by-step version)"
+    expected_outcome:
+      type: non_empty
+      value: "The boilerplate file structure: imports TerminusClient and WOQL, sets config, defines main() dispatcher."
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: display_only
+    note: "Same code as beginning of block 1 but shown separately for pedagogical breakdown."
+    assertion: "No assertion — pedagogical breakdown of block 1."
+
+  - block_index: 4
+    language: javascript
+    line: 838
+    type: fenced
+    action: "Step 1 — Initialize database function"
+    expected_outcome:
+      type: non_empty
+      value: "Creates or connects to woql_tutorial database."
+      tolerance: non_empty
+    depends_on: 3
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical breakdown."
+
+  - block_index: 5
+    language: javascript
+    line: 891
+    type: fenced
+    action: "Step 2 — Define schema function"
+    expected_outcome:
+      type: non_empty
+      value: "Creates Person class with name, age, city (Optional), email (Optional)."
+      tolerance: non_empty
+    depends_on: 4
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical breakdown."
+
+  - block_index: 6
+    language: javascript
+    line: 962
+    type: fenced
+    action: "Step 3 — Insert sample documents function"
+    expected_outcome:
+      type: non_empty
+      value: "Inserts 5 Person documents with explicit IDs."
+      tolerance: non_empty
+    depends_on: 5
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical breakdown."
+
+  - block_index: 7
+    language: javascript
+    line: 1055
+    type: fenced
+    action: "Step 4 — Read all documents with WOQL (isa + read_document)"
+    expected_outcome:
+      type: non_empty
+      value: "WOQL query using isa() and read_document() to retrieve all Person documents."
+      tolerance: non_empty
+    depends_on: 6
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical breakdown."
+
+  - block_index: 8
+    language: javascript
+    line: 1112
+    type: fenced
+    action: "Step 5 — Filter by age with triple() and literal()"
+    expected_outcome:
+      type: non_empty
+      value: "WOQL query filtering Person documents where age=28 using typed literal."
+      tolerance: non_empty
+    depends_on: 7
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical breakdown."
+
+  - block_index: 9
+    language: woql
+    line: 1171
+    type: fenced
+    action: "Display WOQL pattern for multiple variable extraction"
+    expected_outcome:
+      type: skip
+      value: "Shows triple('v:docid', 'property1', 'v:var1') pattern repeated."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. WOQL pseudocode pattern."
+
+  - block_index: 10
+    language: javascript
+    line: 1178
+    type: fenced
+    action: "Step 6 — Multiple variables with triple()"
+    expected_outcome:
+      type: non_empty
+      value: "WOQL query extracting name, age, city from Person documents using multiple triple() patterns."
+      tolerance: non_empty
+    depends_on: 9
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical breakdown."
+
+  - block_index: 11
+    language: javascript
+    line: 1236
+    type: fenced
+    action: "Step 7 — Complex AND query with greater()"
+    expected_outcome:
+      type: non_empty
+      value: "WOQL query combining city=San Francisco AND age>30."
+      tolerance: non_empty
+    depends_on: 10
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical breakdown."
+
+  - block_index: 12
+    language: javascript
+    line: 1303
+    type: fenced
+    action: "Step 8 — OR query with or()"
+    expected_outcome:
+      type: non_empty
+      value: "WOQL query finding people in New York OR San Francisco."
+      tolerance: non_empty
+    depends_on: 11
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical breakdown."
+
+  - block_index: 13
+    language: javascript
+    line: 1361
+    type: fenced
+    action: "Step 9 — Optional data with opt()"
+    expected_outcome:
+      type: non_empty
+      value: "WOQL query using opt() to handle optional email property."
+      tolerance: non_empty
+    depends_on: 12
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical breakdown."
+
+  - block_index: 14
+    language: unknown
+    line: 1416
+    type: fenced
+    action: "Display order_by + limit pattern (pseudocode)"
+    expected_outcome:
+      type: skip
+      value: "Shows limit(N, order_by('v:property', 'asc', and(...))) structure."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Pattern template."
+
+  - block_index: 15
+    language: javascript
+    line: 1429
+    type: fenced
+    action: "Step 10 — Order and limit"
+    expected_outcome:
+      type: non_empty
+      value: "WOQL query using limit(3, order_by('v:age', 'asc', ...)) to get 3 youngest."
+      tolerance: non_empty
+    depends_on: 13
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical breakdown."
+
+  - block_index: 16
+    language: unknown
+    line: 1487
+    type: fenced
+    action: "Display group_by pattern (pseudocode)"
+    expected_outcome:
+      type: skip
+      value: "Shows and(group_by([...], [...], 'v:group', query), length(...)) pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Pattern template."
+
+  - block_index: 17
+    language: javascript
+    line: 1497
+    type: fenced
+    action: "Step 11 — Group and aggregate"
+    expected_outcome:
+      type: non_empty
+      value: "WOQL query using group_by(['city'], ['docid'], 'v:city_group', ...) + length()."
+      tolerance: non_empty
+    depends_on: 15
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical breakdown."
+
+  - block_index: 18
+    language: javascript
+    line: 1568
+    type: fenced
+    action: "Step 12 — Negation with not() and delete_document()"
+    expected_outcome:
+      type: non_empty
+      value: "WOQL query using not(triple(...email...)) + delete_document() to remove people without email."
+      tolerance: non_empty
+    depends_on: 17
+    skip_reason: display_only
+    assertion: "No assertion — pedagogical breakdown. Note: this step is destructive."
+
+  # Concept explanation blocks (19–26)
+
+  - block_index: 19
+    language: javascript
+    line: 1616
+    type: fenced
+    action: "Display variable binding concept example"
+    expected_outcome:
+      type: skip
+      value: "Shows triple + greater pattern for variable binding explanation."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — conceptual example."
+
+  - block_index: 20
+    language: javascript
+    line: 1627
+    type: fenced
+    action: "Display triple pattern concept example"
+    expected_outcome:
+      type: skip
+      value: "Shows WOQL.triple('v:person', '@schema:name', 'v:name') pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — conceptual example."
+
+  - block_index: 21
+    language: javascript
+    line: 1635
+    type: fenced
+    action: "Display imperative vs declarative comparison (imperative)"
+    expected_outcome:
+      type: skip
+      value: "Shows imperative JavaScript: fetchPeople → filter → map."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — conceptual comparison."
+
+  - block_index: 22
+    language: javascript
+    line: 1642
+    type: fenced
+    action: "Display imperative vs declarative comparison (declarative WOQL)"
+    expected_outcome:
+      type: skip
+      value: "Shows equivalent WOQL: triple + greater + triple pattern."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — conceptual comparison."
+
+  - block_index: 23
+    language: javascript
+    line: 1654
+    type: fenced
+    action: "Display unification concept example"
+    expected_outcome:
+      type: skip
+      value: "Shows two triples with same v:age variable + not().eq() for unification demo."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — conceptual example."
+
+  - block_index: 24
+    language: javascript
+    line: 1705
+    type: fenced
+    action: "Display troubleshooting connection example"
+    expected_outcome:
+      type: skip
+      value: "Shows SERVER_URL and setApiKey for troubleshooting connection errors."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — troubleshooting reference."
+
+  - block_index: 25
+    language: javascript
+    line: 1717
+    type: fenced
+    action: "Display troubleshooting schema reset example"
+    expected_outcome:
+      type: skip
+      value: "Shows deleteDatabase + createDatabase for schema error recovery."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — troubleshooting reference."
+
+  - block_index: 26
+    language: javascript
+    line: 1736
+    type: fenced
+    action: "Display WOQL query result structure"
+    expected_outcome:
+      type: skip
+      value: "Shows { bindings: [{ 'v:name': '...', 'v:age': 28 }] } structure."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — result format reference."
+
+  # Cleanup blocks (27–30)
+
+  - block_index: 27
+    language: bash
+    line: 1763
+    type: fenced
+    action: "DELETE all tutorial Person documents via curl"
+    expected_outcome:
+      type: status_code
+      value: "HTTP 200 — all 5 Person documents deleted"
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+    note: "Cleanup command. Run only after tutorial is complete."
+    assertion: "Exit code 0 AND HTTP 200 response. Subsequent GET for Person/1 returns 404."
+
+  - block_index: 28
+    language: bash
+    line: 1773
+    type: fenced
+    action: "DELETE individual Person documents via curl (alternative)"
+    expected_outcome:
+      type: status_code
+      value: "HTTP 200 for each delete"
+      tolerance: exact
+    depends_on: 1
+    skip_reason: display_only
+    note: "Alternative to block 27 — shown for completeness. Test only one approach."
+    assertion: "No assertion — alternative approach to block 27."
+
+  - block_index: 29
+    language: javascript
+    line: 1788
+    type: fenced
+    action: "Delete tutorial database via JS client"
+    expected_outcome:
+      type: non_empty
+      value: "client.deleteDatabase('woql_tutorial') — removes the tutorial database entirely."
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: display_only
+    note: "Alternative cleanup via JS SDK. Display only — use block 30 (curl) for testing."
+    assertion: "No assertion — alternative approach shown via SDK."
+
+  - block_index: 30
+    language: bash
+    line: 1804
+    type: fenced
+    action: "DELETE tutorial database via curl"
+    expected_outcome:
+      type: status_code
+      value: "HTTP 200 — woql_tutorial database deleted"
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+    note: "Final cleanup. After this, GET /api/db/admin/woql_tutorial returns 404."
+    assertion: "Exit code 0 AND HTTP 200. Subsequent GET /api/db/admin/woql_tutorial returns 404."

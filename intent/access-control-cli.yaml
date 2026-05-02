@@ -1,0 +1,382 @@
+# Intent: access-control-cli
+# Page: src/app/docs/access-control-cli/page.md
+# Title: Manage Access Control with the CLI
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a HOW-TO page showing CLI commands for access control.
+#       Structure: (1) role CRUD, (2) user CRUD, (3) capability grant/revoke,
+#       (4) worked example: enable anonymous cloning.
+#       Reader arrives asking: "how do I manage access without HTTP/curl?"
+
+page: access-control-cli
+total_blocks: 27
+auto_filled: 27
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === List built-in roles ===
+
+  - block_index: 0
+    language: bash
+    line: 41
+    type: fenced
+    action: "List all built-in roles (terminusdb role get)"
+    expected_outcome:
+      type: output_contains
+      value: "admin"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader sees: two built-in roles — admin (all 17 actions) and consumer (read-only: clone, read instance/schema/meta, class_frame). First command teaches the verb pattern: 'terminusdb {resource} {action}'."
+
+  - block_index: 1
+    language: json
+    line: 47
+    type: fenced
+    action: "Display expected role list output"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: JSON array with Role/admin and Role/consumer. Each has @id, name, action[]. Admin has 17 actions; consumer has 5. Reader now knows the baseline before creating custom roles."
+
+  # === Get a single role ===
+
+  - block_index: 2
+    language: bash
+    line: 69
+    type: fenced
+    action: "Get a single role by name (terminusdb role get consumer --json)"
+    expected_outcome:
+      type: output_contains
+      value: "consumer"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: append role name to filter. --json flag for structured output. Useful for scripting or verifying a role's exact actions."
+
+  # === Create a custom role ===
+
+  - block_index: 3
+    language: bash
+    line: 77
+    type: fenced
+    action: "Show role create syntax pattern"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: 'terminusdb role create ROLE_NAME ACTION_1 ACTION_2 ...'. Actions are space-separated positional args. All 17 available actions listed in the surrounding prose."
+
+  - block_index: 4
+    language: bash
+    line: 85
+    type: fenced
+    action: "Create a clone-only role (minimal: clone + commit_read_access)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: create role with exactly the actions needed. 'cloner' has only clone + commit_read_access — minimum for anonymous public access. Principle of least privilege demonstrated."
+
+  - block_index: 5
+    language: bash
+    line: 93
+    type: fenced
+    action: "Create a read-write role without admin powers"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: 'writer' role has 7 actions — instance read/write, schema read, commit read/write, branch, rebase. Covers day-to-day data work but no admin powers (no create/delete_database, no manage_capabilities)."
+
+  - block_index: 6
+    language: bash
+    line: 99
+    type: fenced
+    action: "Delete a custom role (terminusdb role delete)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: 'terminusdb role delete cloner' removes the role. Clean up unused roles."
+
+  # === User CRUD ===
+
+  - block_index: 7
+    language: bash
+    line: 107
+    type: fenced
+    action: "Create a user with password (terminusdb user create)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: 'terminusdb user create alice --password alice-secret'. Creates user with Basic Auth credentials. User exists but has NO capabilities until granted."
+
+  - block_index: 8
+    language: bash
+    line: 113
+    type: fenced
+    action: "Create a user without password (anonymous/token-based)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: user without --password for token-based or anonymous access. The built-in 'anonymous' user works this way — no credentials required."
+
+  - block_index: 9
+    language: bash
+    line: 119
+    type: fenced
+    action: "Verify a user exists (terminusdb user get alice --json)"
+    expected_outcome:
+      type: output_contains
+      value: "alice"
+      tolerance: contains
+    depends_on: 7
+    skip_reason: null
+    ux_intent: "Reader learns: 'user get USERNAME --json' returns the user record. Verification step — confirm creation succeeded."
+
+  - block_index: 10
+    language: bash
+    line: 125
+    type: fenced
+    action: "List all users (terminusdb user get)"
+    expected_outcome:
+      type: output_contains
+      value: "admin"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: 'user get' without a name lists all users. Default: only 'admin' unless others created."
+
+  # === Grant/Revoke Capabilities ===
+
+  - block_index: 11
+    language: bash
+    line: 133
+    type: fenced
+    action: "Show capability grant syntax pattern"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: 'terminusdb capability grant USER SCOPE ROLE'. Three positional args: who, where, what. Optional --scope-type flag for org vs database."
+
+  - block_index: 12
+    language: bash
+    line: 154
+    type: fenced
+    action: "Grant read-only access to a database"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 7
+    skip_reason: null
+    ux_intent: "Reader learns: 'capability grant alice admin/MyDatabase consumer'. Alice now has consumer (read-only) on one database. Scope is 'org/database' format. Most common grant pattern."
+
+  - block_index: 13
+    language: bash
+    line: 162
+    type: fenced
+    action: "Grant admin access to an entire organisation"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 7
+    skip_reason: null
+    ux_intent: "Reader learns: '--scope-type organization' changes scope interpretation. 'grant alice admin admin --scope-type organization' gives full admin on ALL databases in the org. Power operation — use carefully."
+
+  - block_index: 14
+    language: bash
+    line: 172
+    type: fenced
+    action: "Show capability revoke syntax pattern"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: 'terminusdb capability revoke USER SCOPE ROLE'. Same args as grant — symmetric API. Immediate effect."
+
+  - block_index: 15
+    language: bash
+    line: 180
+    type: fenced
+    action: "Revoke read-only access from a user"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 12
+    skip_reason: null
+    ux_intent: "Reader learns: 'capability revoke alice admin/MyDatabase consumer'. Alice can no longer access that database. Must match exact scope and role from the original grant."
+
+  - block_index: 16
+    language: bash
+    line: 190
+    type: fenced
+    action: "Verify a user's capabilities (terminusdb user get --capability)"
+    expected_outcome:
+      type: output_contains
+      value: "capability"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: '--capability --json' on user get expands capabilities inline. Shows which roles on which resources. The audit question: 'what can this user actually do?'"
+
+  # === Worked Example: Enable Anonymous Cloning ===
+
+  - block_index: 17
+    language: bash
+    line: 214
+    type: fenced
+    action: "Step 1: Create a minimal cloner role"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: 'role create cloner clone commit_read_access' — two actions only. This is the principle of least privilege in action. Anonymous users get exactly clone capability and nothing more."
+
+  - block_index: 18
+    language: bash
+    line: 222
+    type: fenced
+    action: "Verify the cloner role was created"
+    expected_outcome:
+      type: output_contains
+      value: "cloner"
+      tolerance: contains
+    depends_on: 17
+    skip_reason: null
+    ux_intent: "Reader verifies: 'role get cloner --json' confirms the role exists with expected actions. Trust but verify."
+
+  - block_index: 19
+    language: json
+    line: 228
+    type: fenced
+    action: "Display expected cloner role output"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: { @id: Role/cloner, name: cloner, action: [clone, commit_read_access] }. Confirms minimal footprint — no read, no write, no admin. Just clone."
+
+  - block_index: 20
+    language: bash
+    line: 244
+    type: fenced
+    action: "Step 2: Confirm the target database exists"
+    expected_outcome:
+      type: output_contains
+      value: "MyDatabase"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: 'terminusdb db list' shows all databases. Sanity check before granting — can't grant access to a database that doesn't exist."
+
+  - block_index: 21
+    language: bash
+    line: 252
+    type: fenced
+    action: "Step 3: Grant clone access to the anonymous user"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 17
+    skip_reason: null
+    ux_intent: "Reader learns: 'capability grant anonymous admin/MyDatabase cloner'. The key action — anonymous user can now clone this specific database without any credentials. Public access enabled."
+
+  - block_index: 22
+    language: bash
+    line: 260
+    type: fenced
+    action: "Step 4: Verify the anonymous user's capabilities"
+    expected_outcome:
+      type: output_contains
+      value: "cloner"
+      tolerance: contains
+    depends_on: 21
+    skip_reason: null
+    ux_intent: "Reader verifies: 'user get anonymous --capability --json' shows the grant. Capability links anonymous → cloner → admin/MyDatabase. Confirms setup before testing."
+
+  - block_index: 23
+    language: json
+    line: 266
+    type: fenced
+    action: "Display expected anonymous user capabilities"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: User/anonymous with capability array containing one entry: role=[Role/cloner], scope=admin/MyDatabase. Clear visual confirmation of the grant."
+
+  - block_index: 24
+    language: bash
+    line: 284
+    type: fenced
+    action: "Step 5: Test anonymous cloning (curl without credentials)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 21
+    skip_reason: null
+    ux_intent: "Reader learns: curl POST to /api/clone with NO -u flag (no credentials). Body has remote_url pointing at the database. SUCCESS means anonymous access works. Key insight: no -u admin:root — this is the test."
+
+  - block_index: 25
+    language: bash
+    line: 300
+    type: fenced
+    action: "Step 6: Revoke anonymous access (make database private again)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 21
+    skip_reason: null
+    ux_intent: "Reader learns: 'capability revoke anonymous admin/MyDatabase cloner'. Immediately blocks anonymous clone. Next request without credentials returns 401. Reversible — can re-grant at any time."
+
+  - block_index: 26
+    language: bash
+    line: 308
+    type: fenced
+    action: "Clean up: delete the cloner role"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 25
+    skip_reason: null
+    ux_intent: "Reader learns: 'role delete cloner' removes the role entirely. Clean up after revoking. Optional — keep it if you'll re-enable anonymous access later."

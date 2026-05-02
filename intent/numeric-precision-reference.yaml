@@ -1,0 +1,194 @@
+# Intent skeleton for: numeric-precision-reference
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: numeric-precision-reference
+total_blocks: 15
+auto_filled: 15
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 165
+    type: fenced
+    action: WOQL Eval division examples showing rational vs IEEE 754 results
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: javascript
+    line: 199
+    type: fenced
+    action: WOQL Eval demonstrating 0.1 + 0.2 precision behavior
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: javascript
+    line: 228
+    type: fenced
+    action: WOQL Eval showing mixed decimal/double type precision differences
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 3
+    language: javascript
+    line: 252
+    type: fenced
+    action: Best practice WOQL pattern for financial calculations using xsd:decimal
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 4
+    language: javascript
+    line: 271
+    type: fenced
+    action: Best practice WOQL pattern for scientific measurements using xsd:double
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 5
+    language: javascript
+    line: 289
+    type: fenced
+    action: Best practice WOQL pattern for integer counting using xsd:integer
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 6
+    language: javascript
+    line: 301
+    type: fenced
+    action: WOQL variable arithmetic with Eval and typed results
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 7
+    language: javascript
+    line: 336
+    type: fenced
+    action: Pitfall example showing wrong assumption about float equality
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 8
+    language: javascript
+    line: 342
+    type: fenced
+    action: Reality correction showing actual decimal arithmetic result
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 9
+    language: javascript
+    line: 350
+    type: fenced
+    action: Wrong money pattern using xsd:double for currency (anti-pattern)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 10
+    language: javascript
+    line: 359
+    type: fenced
+    action: Correct money pattern using xsd:decimal for currency
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 11
+    language: javascript
+    line: 369
+    type: fenced
+    action: Pitfall showing float equality comparison failure
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 12
+    language: javascript
+    line: 374
+    type: fenced
+    action: Solution using xsd:decimal for exact equality comparison
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 13
+    language: prolog
+    line: 424
+    type: fenced
+    action: Prolog internal representation of numeric type hierarchy
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner
+
+  - block_index: 14
+    language: javascript
+    line: 483
+    type: fenced
+    action: WOQL CastClassProperty migration from xsd:double to xsd:decimal
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

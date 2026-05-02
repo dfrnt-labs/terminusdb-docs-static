@@ -1,0 +1,40 @@
+# Intent annotations for: schema-queries-with-woql
+# Annotated: 2026-05-01
+# Source: src/app/docs/schema-queries-with-woql/page.md
+#
+# This page teaches: query schema graph with WOQL (quad with schema graph, from("schema"))
+# Prerequisites: TerminusDB running with Star Wars dataset cloned
+# Dataset: Star Wars (data.terminusdb.org)
+
+page: schema-queries-with-woql
+total_blocks: 2
+annotated: 2
+needs_manual: 0
+
+blocks:
+
+  # Query schema classes using quad()
+  - block_index: 0
+    language: javascript
+    line: 42
+    type: fenced
+    action: "WOQL quad(): find all classes in schema graph (quad(cls, rdf:type, sys:Class, schema))"
+    expected_outcome:
+      type: non_empty
+      value: "Returns all schema classes: Film, People, Planet, Species, Starship, Vehicle"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Query schema classes using from("schema") + triple()
+  - block_index: 1
+    language: javascript
+    line: 71
+    type: fenced
+    action: "WOQL from(schema).triple(): alternative syntax to query schema graph using from() context"
+    expected_outcome:
+      type: non_empty
+      value: "Returns same classes as block 0 — from() sets default graph to schema"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null

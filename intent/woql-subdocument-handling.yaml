@@ -1,0 +1,98 @@
+# Intent skeleton for: woql-subdocument-handling
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: woql-subdocument-handling
+total_blocks: 7
+auto_filled: 6
+needs_manual: 1
+auto_fill_rate: 86%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 52
+    type: fenced
+    action: "Display @linked-by annotation structure: JSON showing parent document ID and linking property for subdocument context"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: javascript
+    line: 69
+    type: fenced
+    action: Insert document via WOQL
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  - block_index: 2
+    language: javascript
+    line: 94
+    type: fenced
+    action: Retrieve document via WOQL
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: null
+
+  - block_index: 3
+    language: javascript
+    line: 112
+    type: fenced
+    action: Insert document via WOQL
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: null
+
+  - block_index: 4
+    language: javascript
+    line: 149
+    type: fenced
+    action: Delete document via WOQL
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 3
+    skip_reason: null
+
+  - block_index: 5
+    language: javascript
+    line: 165
+    type: fenced
+    action: Retrieve document via WOQL
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 4
+    skip_reason: null
+
+  - block_index: 6
+    language: javascript
+    line: 176
+    type: fenced
+    action: Insert document via WOQL
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 5
+    skip_reason: null

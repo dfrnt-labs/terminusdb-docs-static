@@ -1,0 +1,52 @@
+# Intent Annotations: order-by-in-graphql
+# Page: src/app/docs/order-by-in-graphql/page.md
+# Title: Order Results in GraphQL
+# Total blocks: ~6
+# Annotated by: systems-engineer (Phase III)
+# Date: 2026-05-02
+# Fixture: Requires star-wars or other dataset with sortable fields
+
+blocks:
+  - block_index: 0
+    language: graphql
+    action: "Query with orderBy ascending"
+    expected_outcome:
+      type: response_body
+      value: "Results sorted in ascending order by specified field"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    assertion: "POST /api/graphql returns HTTP 200 AND response.data array is sorted ascending by target field."
+
+  - block_index: 1
+    language: json
+    action: "Display expected ascending ordered result"
+    expected_outcome:
+      type: display_only
+      value: "Results in alphabetical/numerical ascending order"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 2
+    language: graphql
+    action: "Query with orderBy descending"
+    expected_outcome:
+      type: response_body
+      value: "Results sorted in descending order"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    assertion: "POST /api/graphql returns HTTP 200 AND results sorted descending."
+
+  - block_index: 3
+    language: json
+    action: "Display expected descending ordered result"
+    expected_outcome:
+      type: display_only
+      value: "Results in reverse order from block 1"
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: display_only
+    assertion: "No assertion — display only."

@@ -1,0 +1,65 @@
+# Intent skeleton for: enterprise-observability
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: enterprise-observability
+total_blocks: 4
+auto_filled: 4
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: unknown
+    line: 23
+    type: fenced
+    action: "Display the metrics endpoint path (GET /api/metrics)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: metrics are at GET /api/metrics — no authentication required so monitoring infrastructure can scrape without storing credentials."
+
+  - block_index: 1
+    language: bash
+    line: 29
+    type: fenced
+    action: GET /api/metrics
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 2
+    language: unknown
+    line: 35
+    type: fenced
+    action: "Display example Prometheus metrics response (all available gauges)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: full example output showing all available metrics — server info (version, edition), uptime, stack/table memory, active requests, layer cache (total/live/dead + memory by state), and LRU cache (limit, used, pinned count/bytes). Reader now knows exactly what metrics are available for dashboards."
+
+  - block_index: 3
+    language: yaml
+    line: 207
+    type: fenced
+    action: "Display Prometheus scrape_configs YAML for TerminusDB metrics"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: config_only
+    ux_intent: "Reader learns: add a job to prometheus.yml with job_name 'terminusdb', target 'localhost:6363', metrics_path '/api/metrics', scrape_interval 15s. Copy this block directly into your Prometheus config to start scraping."

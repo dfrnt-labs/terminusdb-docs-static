@@ -1,0 +1,33 @@
+# Intent: data-types
+# Page: src/app/docs/data-types/page.md
+# Title: TerminusDB Data Types
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page listing all supported data types in TerminusDB.
+#       The single code block is a type hierarchy tree diagram (display_only).
+#       Reader arrives asking: "what data types does TerminusDB support?" or "what's the type hierarchy?"
+
+page: data-types
+total_blocks: 1
+auto_filled: 1
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Type hierarchy tree ===
+
+  - block_index: 0
+    language: unknown
+    line: 68
+    type: fenced
+    action: "Display the complete TerminusDB type hierarchy as a tree diagram"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: full type inheritance tree — xsd:anySimpleType at root, branching to string (→ normalizedString → token → language/NMTOKEN/Name/NCName, plus xdd:url/email/html), boolean, decimal (→ integer → long/int/short/byte, unsigned variants, constrained variants, xdd:integerRange/decimalRange), double, float, dateTime (→ dateTimeStamp), date (→ xdd:dateRange), time, duration (→ yearMonthDuration/dayTimeDuration/xdd:dateTimeInterval), Gregorian types, binary types, anyURI. Also: rdf:langString → PlainLiteral, standalone xdd types (json, coordinate, coordinatePolygon, coordinatePolyline), and system types (sys:JSON, sys:JSONDocument, sys:Dictionary). Reader learns: type subsumption rules — child types are usable where parent types are expected."

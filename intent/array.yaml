@@ -1,0 +1,63 @@
+# Intent: array
+# Page: src/app/docs/array/page.md
+# Title: Array fields in the document UI
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page for the Document UI SDK showing how array/List fields
+#       render in FrameViewer. Structure: (1) frame definition, (2) Create mode, (3) View mode.
+#       Reader arrives asking: "how do array fields look in the Document UI?"
+
+page: array
+total_blocks: 3
+auto_filled: 3
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Frame definition with array fields ===
+
+  - block_index: 0
+    language: javascript
+    line: 29
+    type: fenced
+    action: "Define a frame with List-typed fields (strings, enums, subdocuments)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: ArrayExamplePerson schema with three List fields — to_do (List of strings), likes_color (List of Enum values), hangs_out_at (List of Address subdocuments). Also shows Address as @subdocument with @documentation in multiple languages. Reader learns: List type wraps any field type to make it ordered and repeatable."
+
+  # === Create mode ===
+
+  - block_index: 1
+    language: javascript
+    line: 126
+    type: fenced
+    action: "Render FrameViewer in Create mode for ArrayExamplePerson"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    ux_intent: "Reader learns: pass frame, empty formData, mode='Create', and type to FrameViewer. In Create mode, array fields appear as repeatable input groups — user can add/remove items. Empty formData means all lists start empty."
+
+  # === Edit & View mode ===
+
+  - block_index: 2
+    language: javascript
+    line: 140
+    type: fenced
+    action: "Render FrameViewer in View mode with populated array data"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only
+    ux_intent: "Reader learns: View mode requires formData with actual document values. Array data shows: hangs_out_at has 2 Address subdocuments (France, Germany), likes_color has 3 enum values, to_do has 3 strings. In View mode the form is read-only — demonstrates how ordered lists render with their items displayed sequentially."

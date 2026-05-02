@@ -1,0 +1,94 @@
+# Intent Capture: connect-with-apollo-client
+# Page: src/app/docs/connect-with-apollo-client/page.md
+# Title: Connect with Apollo Client to use GraphQL with TerminusDB
+# Total blocks: 5
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: SDK integration page. npm install is testable; JS code blocks are illustrative patterns requiring a running app context.
+
+page: connect-with-apollo-client
+total_blocks: 5
+auto_filled: 5
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Block 0 — npm install
+
+  - block_index: 0
+    language: bash
+    line: 39
+    type: fenced
+    action: "Install Apollo Client and GraphQL dependencies"
+    expected_outcome:
+      type: exit_code
+      value: "npm install succeeds — @apollo/client and graphql packages added"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    note: "Requires Node.js project with package.json. Test in isolated temp dir."
+    assertion: "Exit code 0 AND node_modules/@apollo/client/ exists AND node_modules/graphql/ exists."
+
+  # Block 1 — ESM import statement
+
+  - block_index: 1
+    language: javascript
+    line: 47
+    type: fenced
+    action: "Display ESM import for Apollo Client dependencies"
+    expected_outcome:
+      type: skip
+      value: "Shows import { ApolloClient, InMemoryCache, ... } from '@apollo/client'"
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only. Import statement pattern."
+
+  # Block 2 — CJS require statement
+
+  - block_index: 2
+    language: javascript
+    line: 53
+    type: fenced
+    action: "Display CommonJS require for Apollo Client"
+    expected_outcome:
+      type: skip
+      value: "Shows const Apollo = require('@apollo/client') destructuring pattern"
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only. Alternative import pattern."
+
+  # Block 3 — Local TerminusDB connection example
+
+  - block_index: 3
+    language: javascript
+    line: 65
+    type: fenced
+    action: "Apollo Client connection to local TerminusDB with Basic Auth and GraphQL query"
+    expected_outcome:
+      type: non_empty
+      value: "Complete working example: initialises ApolloClient with local endpoint, Basic Auth middleware, and queries Person documents. Should log person data to console."
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: environment_dependent
+    note: "Requires running TerminusDB with a database containing Person documents. SKIP in automated tests unless full integration environment available. If tested: must output array of Person objects with _id and name fields."
+    assertion: "SKIP unless integration env. If run: exit code 0 AND stdout contains data (no unhandled rejection)."
+
+  # Block 4 — DFRNT cloud connection example
+
+  - block_index: 4
+    language: javascript
+    line: 119
+    type: fenced
+    action: "Apollo Client connection to DFRNT cloud with Token auth and GraphQL query"
+    expected_outcome:
+      type: non_empty
+      value: "Complete working example: initialises ApolloClient with DFRNT cloud endpoint, Token auth middleware, and queries Person documents."
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: environment_dependent
+    note: "Requires DFRNT account and API token. SKIP in automated tests."
+    assertion: "SKIP — requires DFRNT cloud credentials."

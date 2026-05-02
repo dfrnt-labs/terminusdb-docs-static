@@ -1,0 +1,83 @@
+# Intent Capture: cookbook-taxonomy-inheritance
+# Page: src/app/docs/cookbook-taxonomy-inheritance/page.md
+# Title: Cookbook: Taxonomy Inheritance and Property Inheritance
+# Total blocks: 5
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-02
+# Status: COMPLETE
+# Note: Advanced WOQL cookbook showing property inheritance via path traversal. Two use cases: legal entity subdocument inheritance and product taxonomy tree inheritance. WOQL blocks use path() with direction operators and limit/opt patterns. Requires specific schemas (LegalEntity, SKU, TaxonomyElement).
+
+page: cookbook-taxonomy-inheritance
+total_blocks: 5
+auto_filled: 5
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: json
+    line: 71
+    type: fenced
+    action: "Display JSON-LD record of a LegalEntity with customerEntity and supplierEntity subdocuments"
+    expected_outcome:
+      type: skip
+      value: "Shows LegalEntity with duns '351323425', name 'DFRNT AB', steward 'Person/JohnDoe', containing CustomerEntity subdocument with overridden steward 'Person/JaneSmith' and empty SupplierEntity subdocument."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Illustrates hierarchical record structure with subdocument property inheritance."
+
+  - block_index: 1
+    language: woql
+    line: 159
+    type: fenced
+    action: "WOQL path traversal: inherit duns, name, steward from LegalEntity into CustomerEntity using path() with <customerEntity* direction"
+    expected_outcome:
+      type: non_empty
+      value: "Uses select, triple for type filtering (CustomerEntity, LegalEntity), path('v:customerId', '<customerEntity*', ...) for upward traversal, limit(1) for first-found inheritance, opt() for optional steward."
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: display_only
+    note: "Key pattern: path with '<propertyName*' means traverse backwards 0-or-more times. limit(1) ensures first matching ancestor wins. opt() handles optional properties."
+    assertion: "No assertion — illustrative WOQL pattern. Requires LegalEntity/CustomerEntity schema and data."
+
+  - block_index: 2
+    language: woql
+    line: 183
+    type: fenced
+    action: "Display expected result of CustomerEntity inheritance query"
+    expected_outcome:
+      type: skip
+      value: "Shows materialised record: {type: CustomerEntity, name: 'DFRNT AB', duns: '351323425', steward: 'Person/JaneSmith'} — steward overridden from CustomerEntity, name/duns inherited from LegalEntity."
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only
+    assertion: "No assertion — display only. Expected output showing inheritance with override (steward from child, name/duns from parent)."
+
+  - block_index: 3
+    language: woql
+    line: 212
+    type: fenced
+    action: "WOQL path traversal: inherit taxonomy properties for SKU by traversing parent+ path to typed taxonomy levels"
+    expected_outcome:
+      type: non_empty
+      value: "Uses eq for specific SKU, triple for name/sku, then path('v:skuId', 'parent+>', ...) with type constraints (@schema:1-ProductCategory through @schema:5-ProductVariant) to extract each taxonomy level name. opt().limit(1) for inherited steward."
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    note: "Key pattern: path with 'parent+>' means traverse forward 1-or-more times. Type constraint on each level (1-ProductCategory, 2-ProductSubcategory etc.) ensures correct level resolution. select() scopes variable binding."
+    assertion: "No assertion — illustrative WOQL pattern. Requires SKU/TaxonomyElement schema with parent relationships and typed taxonomy levels."
+
+  - block_index: 4
+    language: json
+    line: 254
+    type: fenced
+    action: "Display expected result of SKU taxonomy inheritance query"
+    expected_outcome:
+      type: skip
+      value: "Shows materialised SKU record: skuId 'SKU/00000001', name 'Bravia X90J - 55-inch', sku '00000001', steward 'Jane Smith', with inherited productCategory 'Electronics', productSubcategory 'Televisions', productLine 'Bravia Series', productModel 'Bravia X90J', productVariant 'Bravia X90J - 55-inch'."
+      tolerance: null
+    depends_on: 3
+    skip_reason: display_only
+    assertion: "No assertion — display only. Expected output showing full taxonomy inheritance materialisation for a single SKU."

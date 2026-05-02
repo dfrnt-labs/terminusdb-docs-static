@@ -1,0 +1,105 @@
+# Intent annotations for: filter-with-woql
+# Annotated: 2026-05-01
+# Source: src/app/docs/filter-with-woql/page.md
+#
+# This page teaches: WOQL filtering (limit/select, eq, not, regex)
+# Prerequisites: TerminusDB running with Star Wars dataset cloned
+# Dataset: Star Wars (data.terminusdb.org)
+
+page: filter-with-woql
+total_blocks: 7
+annotated: 7
+needs_manual: 0
+
+blocks:
+
+  # Query 1 — limit + select with triple joins (pilots and vehicles)
+  - block_index: 0
+    language: javascript
+    line: 37
+    type: fenced
+    action: "WOQL limit/select query: find person→vehicle relationships via pilot predicate (top 10)"
+    expected_outcome:
+      type: non_empty
+      value: "Returns 10 bindings with person_name and vehicle_name (Chewbacca/Millennium Falcon, etc.)"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Query 1 — result display
+  - block_index: 1
+    language: json
+    line: 48
+    type: fenced
+    action: "Shows expected results: 10 pilot/vehicle pairs (Chewbacca→MF, Han→MF, Luke→X-wing, etc.)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Query 2 — equality filter (eq)
+  - block_index: 2
+    language: javascript
+    line: 76
+    type: fenced
+    action: "WOQL eq filter: find all pilots of 'Millennium Falcon' specifically"
+    expected_outcome:
+      type: non_empty
+      value: "Returns 4 bindings: Chewbacca, Han Solo, Lando Calrissian, Nien Nunb"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  # Query 2 — result display
+  - block_index: 3
+    language: json
+    line: 87
+    type: fenced
+    action: "Shows expected results: 4 Millennium Falcon pilots"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Query 3 — negation filter (not + eq)
+  - block_index: 4
+    language: javascript
+    line: 101
+    type: fenced
+    action: "WOQL not(eq(...)) filter: find all pilots NOT on Millennium Falcon"
+    expected_outcome:
+      type: non_empty
+      value: "Returns complement of query 2 — pilots of other vehicles"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Query 4 — regex filter
+  - block_index: 5
+    language: javascript
+    line: 114
+    type: fenced
+    action: "WOQL regex filter: find all pilots whose vehicle name ends in 'wing'"
+    expected_outcome:
+      type: non_empty
+      value: "Returns pilots of X-wing and A-wing (Luke, Wedge, Jek, Biggs, Arvel)"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Query 4 — result display
+  - block_index: 6
+    language: json
+    line: 125
+    type: fenced
+    action: "Shows expected results: 5 *-wing pilots (4 X-wing + 1 A-wing)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

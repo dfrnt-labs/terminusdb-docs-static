@@ -1,0 +1,369 @@
+# Intent Annotations: branch-howto
+# Page: src/app/docs/branch-howto/page.md
+# Title: How to Branch Your Database
+# Total blocks: 32
+# Annotated by: systems-engineer (Phase III)
+# Date: 2026-05-02
+# Fixture: Requires TerminusDB running, no pre-existing admin/mydb
+
+blocks:
+  # Setup
+  - block_index: 0
+    language: bash
+    action: "Create mydb database and add Product schema"
+    expected_outcome:
+      type: side_effect
+      value: "Database admin/mydb created with Product class (name, price, category)"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    assertion: "Exit code 0 for both curl commands. GET /api/db/admin/mydb returns 200."
+
+  # Section 1: Create a branch
+  - block_index: 1
+    language: bash
+    action: "Create feature branch via HTTP POST"
+    expected_outcome:
+      type: output_contains
+      value: "api:BranchResponse with api:success"
+      tolerance: contains
+    depends_on: 0
+    skip_reason: null
+    assertion: "Exit code 0 AND stdout contains 'api:success'"
+
+  - block_index: 2
+    language: json
+    action: "Display expected branch creation response"
+    expected_outcome:
+      type: display_only
+      value: '{"@type":"api:BranchResponse","api:status":"api:success"}'
+      tolerance: exact
+    depends_on: 1
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 3
+    language: typescript
+    action: "Create feature branch via TypeScript SDK"
+    expected_outcome:
+      type: non_empty
+      value: "client.branch('feature') creates branch without error"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    assertion: "No runtime error. Branch 'feature' exists afterward."
+
+  - block_index: 4
+    language: python
+    action: "Create feature branch via Python SDK"
+    expected_outcome:
+      type: non_empty
+      value: "client.branch('feature') creates branch without error"
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+    assertion: "No runtime error. Branch 'feature' exists afterward."
+
+  # Section 2: List branches
+  - block_index: 5
+    language: bash
+    action: "List all branches via HTTP GET"
+    expected_outcome:
+      type: output_contains
+      value: "Response includes both 'feature' and 'main' branch names"
+      tolerance: contains
+    depends_on: 1
+    skip_reason: null
+    assertion: "Exit code 0 AND stdout contains 'feature' AND stdout contains 'main'"
+
+  - block_index: 6
+    language: json
+    action: "Display expected branch list response"
+    expected_outcome:
+      type: display_only
+      value: '{"path": "admin/mydb", "branches": ["feature", "main"]}'
+      tolerance: exact
+    depends_on: 5
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 7
+    language: typescript
+    action: "List branches via TypeScript SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK list branches example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  - block_index: 8
+    language: python
+    action: "List branches via Python SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK list branches example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  # Section 3: Switch to a branch
+  - block_index: 9
+    language: bash
+    action: "Demonstrate branch switching by URL path (two curl commands)"
+    expected_outcome:
+      type: status_code
+      value: "Both GET requests return 200 — shows targeting different branches by path"
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+    assertion: "Exit code 0 for both. Demonstrates URL-based branch targeting."
+
+  - block_index: 10
+    language: typescript
+    action: "Switch branch context via TypeScript SDK checkout"
+    expected_outcome:
+      type: display_only
+      value: "client.checkout('feature') changes branch context"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  - block_index: 11
+    language: python
+    action: "Switch branch context via Python SDK checkout"
+    expected_outcome:
+      type: display_only
+      value: "client.checkout('feature') changes branch context"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  # Section 4: Make changes on a branch
+  - block_index: 12
+    language: bash
+    action: "Insert Product/Widget on feature branch via HTTP POST"
+    expected_outcome:
+      type: output_contains
+      value: "terminusdb:///data/Product/Widget"
+      tolerance: contains
+    depends_on: 1
+    skip_reason: null
+    assertion: "Exit code 0 AND stdout contains 'Product/Widget'"
+
+  - block_index: 13
+    language: json
+    action: "Display expected insert response"
+    expected_outcome:
+      type: display_only
+      value: '["terminusdb:///data/Product/Widget"]'
+      tolerance: exact
+    depends_on: 12
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 14
+    language: bash
+    action: "Update Product/Widget price on feature branch via HTTP PUT"
+    expected_outcome:
+      type: output_contains
+      value: "terminusdb:///data/Product/Widget"
+      tolerance: contains
+    depends_on: 12
+    skip_reason: null
+    assertion: "Exit code 0 AND stdout contains 'Product/Widget'"
+
+  - block_index: 15
+    language: json
+    action: "Display expected update response"
+    expected_outcome:
+      type: display_only
+      value: '["terminusdb:///data/Product/Widget"]'
+      tolerance: exact
+    depends_on: 14
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 16
+    language: typescript
+    action: "Insert and update document via TypeScript SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK add/update document example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  - block_index: 17
+    language: python
+    action: "Insert and update document via Python SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK insert/update document example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  # Section 5: Compare branch to main (diff)
+  - block_index: 18
+    language: bash
+    action: "Diff feature vs main via HTTP POST"
+    expected_outcome:
+      type: output_contains
+      value: "Product/Widget"
+      tolerance: contains
+    depends_on: 14
+    skip_reason: null
+    assertion: "Exit code 0 AND stdout contains 'Product/Widget' AND stdout contains '\"@op\"' or '\"@insert\"'"
+
+  - block_index: 19
+    language: json
+    action: "Display expected diff response (Insert op for Widget)"
+    expected_outcome:
+      type: display_only
+      value: "@insert with Product/Widget — shows Insert operation"
+      tolerance: contains
+    depends_on: 18
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 20
+    language: typescript
+    action: "Get version diff via TypeScript SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK getVersionDiff example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  - block_index: 21
+    language: python
+    action: "Get version diff via Python SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK diff_version example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  # Section 6: Merge branch to main
+  - block_index: 22
+    language: bash
+    action: "Merge feature into main via HTTP POST /api/apply"
+    expected_outcome:
+      type: output_contains
+      value: "api:success"
+      tolerance: contains
+    depends_on: 18
+    skip_reason: null
+    assertion: "Exit code 0 AND stdout contains 'api:success'"
+
+  - block_index: 23
+    language: json
+    action: "Display expected merge success response"
+    expected_outcome:
+      type: display_only
+      value: '{"@type":"api:ApplyResponse","api:status":"api:success"}'
+      tolerance: exact
+    depends_on: 22
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 24
+    language: json
+    action: "Display conflict response example"
+    expected_outcome:
+      type: display_only
+      value: "api:conflict with witnesses — shows how conflicts are reported"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only (error case illustration)."
+
+  - block_index: 25
+    language: typescript
+    action: "Merge via TypeScript SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK apply example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  - block_index: 26
+    language: python
+    action: "Merge via Python SDK"
+    expected_outcome:
+      type: display_only
+      value: "SDK apply example"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  # Section 7: Delete a branch
+  - block_index: 27
+    language: bash
+    action: "Delete feature branch via HTTP DELETE"
+    expected_outcome:
+      type: output_contains
+      value: "api:success"
+      tolerance: contains
+    depends_on: 22
+    skip_reason: null
+    assertion: "Exit code 0 AND stdout contains 'api:success'"
+
+  - block_index: 28
+    language: json
+    action: "Display expected delete branch response"
+    expected_outcome:
+      type: display_only
+      value: '{"@type":"api:BranchResponse","api:status":"api:success"}'
+      tolerance: exact
+    depends_on: 27
+    skip_reason: display_only
+    assertion: "No assertion — display only."
+
+  - block_index: 29
+    language: typescript
+    action: "Delete branch via TypeScript SDK"
+    expected_outcome:
+      type: display_only
+      value: "client.deleteBranch('feature')"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  - block_index: 30
+    language: python
+    action: "Delete branch via Python SDK"
+    expected_outcome:
+      type: display_only
+      value: "client.delete_branch('feature')"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  # Complete workflow example
+  - block_index: 31
+    language: bash
+    action: "End-to-end branch workflow (create, change, diff, merge, delete)"
+    expected_outcome:
+      type: exit_code
+      value: "All 5 commands succeed in sequence — full lifecycle"
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    assertion: "Exit code 0 for all 5 commands in sequence. After completion: Product/Gadget exists on main AND price-update branch is deleted."

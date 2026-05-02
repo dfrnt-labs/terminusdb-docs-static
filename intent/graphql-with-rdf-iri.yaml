@@ -1,0 +1,63 @@
+# Intent Capture: graphql-with-rdf-iri
+# Page: src/app/docs/graphql-with-rdf-iri/page.md
+# Title: GraphQL with RDF URI/IRI
+# Total blocks: 3
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: How-to page explaining IRI handling in GraphQL. Two GraphQL queries are illustrative patterns (require star-wars DB). One JSON is a variables example (display only).
+
+page: graphql-with-rdf-iri
+total_blocks: 3
+auto_filled: 3
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Block 0 — GraphQL query with $id variable
+
+  - block_index: 0
+    language: graphql
+    line: 41
+    type: fenced
+    action: "Display GraphQL query using $id variable with full IRI"
+    expected_outcome:
+      type: skip
+      value: "Shows query getPerson($id: ID) pattern — illustrates that IDs in GraphQL use full IRIs (terminusdb:///data/...), not short-form."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    note: "Query pattern shown alongside variables block. Not independently executable without variables JSON."
+    assertion: "No assertion — display only. Query pattern reference."
+
+  # Block 1 — Variables JSON
+
+  - block_index: 1
+    language: json
+    line: 51
+    type: fenced
+    action: "Display GraphQL variables JSON with full IRI as id"
+    expected_outcome:
+      type: skip
+      value: "Shows {\"id\": \"terminusdb:///data/Person/Luke%20Skywalker\"} — the full IRI format required."
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only. Variable example."
+
+  # Block 2 — _id field query
+
+  - block_index: 2
+    language: graphql
+    line: 63
+    type: fenced
+    action: "Display GraphQL query using _id field to return full IRIs"
+    expected_outcome:
+      type: skip
+      value: "Shows Person(limit: 2) { _id name } — demonstrates that _id returns full IRI form."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    note: "Could be executable against star-wars DB but is primarily illustrative of IRI return format."
+    assertion: "No assertion — display only. Pattern reference for IRI handling in results."

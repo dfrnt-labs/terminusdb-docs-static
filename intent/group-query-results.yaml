@@ -1,0 +1,77 @@
+# Intent: group-query-results
+# Page: src/app/docs/group-query-results/page.md
+# Title: How to Group Results in WOQL
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a HOW-TO page showing WOQL group_by for aggregating query results.
+#       Reader arrives asking: "how do I group or aggregate results in WOQL?"
+
+page: group-query-results
+total_blocks: 4
+auto_filled: 4
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Single variable template (flat array) ===
+
+  - block_index: 0
+    language: javascript
+    line: 43
+    type: fenced
+    action: "Group People by eye_color using group_by with a single-variable template"
+    expected_outcome:
+      type: non_empty
+      value: "Returns bindings with groups of labels grouped by eye color"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: group_by(focus, template, group_var, query). Focus='eyes' (group around this variable). Template=['label'] (single variable = flat array output). group_var=v.group (receives the grouped results). Query finds People with label and eye_color. Result: for each eye color, a flat array of character names."
+
+  # === Single variable output ===
+
+  - block_index: 1
+    language: json
+    line: 63
+    type: fenced
+    action: "Display expected group_by output with single-variable template (flat array)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    ux_intent: "Reader sees: eyes='black', group=[Greedo, Nien Nunb, Gasgano, Kit Fisto, ...]. Key insight: single-variable template produces a FLAT array of values (not nested). Each value is typed {xsd:string, @value}. The 'member' operator can expand this array back into individual bindings."
+
+  # === Multiple variable template (array of tuples) ===
+
+  - block_index: 2
+    language: javascript
+    line: 122
+    type: fenced
+    action: "Group People by eye_color with a multi-variable template (produces tuples)"
+    expected_outcome:
+      type: non_empty
+      value: "Returns bindings with groups of [label, eyes] tuples grouped by eye color"
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: null
+    ux_intent: "Reader learns: template=['label', 'eyes'] — two variables produces an ARRAY OF TUPLES. Each result is [label_value, eyes_value] instead of just label_value. Useful when you need to carry multiple fields through the grouping. Same focus, same query, different template shape."
+
+  # === Multiple variable output ===
+
+  - block_index: 3
+    language: json
+    line: 136
+    type: fenced
+    action: "Display expected group_by output with multi-variable template (tuples)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 2
+    skip_reason: display_only
+    ux_intent: "Reader sees: group=[[Greedo, black], [Nien Nunb, black], ...]. Key difference from block 1: each entry is a 2-element array (tuple) not a single value. The nesting depth increases with template variables. Reader now understands the single vs. multi variable template distinction."

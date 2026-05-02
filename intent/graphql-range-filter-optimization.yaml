@@ -1,0 +1,44 @@
+# Intent Capture: graphql-range-filter-optimization
+# Page: src/app/docs/graphql-range-filter-optimization/page.md
+# Title: GraphQL Range Filter Optimization Plan
+# Total blocks: 2
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: Architecture/design document page. GraphQL query is illustrative; Rust code is a function signature. Neither are executable.
+
+page: graphql-range-filter-optimization
+total_blocks: 2
+auto_filled: 2
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Block 0 — Illustrative range filter query
+  - block_index: 0
+    language: graphql
+    line: 23
+    type: fenced
+    action: "Display example range filter query (timestamp ge/lt)"
+    expected_outcome:
+      type: skip
+      value: "Shows SensorReading query with timestamp ge/lt range filter — illustrates the optimisation target."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — display only. Architecture document showing the query pattern being optimised."
+
+  # Block 1 — Rust function signature
+  - block_index: 1
+    language: rust
+    line: 66
+    type: fenced
+    action: "Display proposed Rust function signature for range bound extraction"
+    expected_outcome:
+      type: skip
+      value: "Shows filter_value_to_range_bounds function signature — design spec, not executable."
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner
+    assertion: "No assertion — design document code. Not intended to be executed."

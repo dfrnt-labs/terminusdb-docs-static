@@ -1,0 +1,107 @@
+# Intent: dashboard
+# Page: src/app/docs/dashboard/page.md
+# Title: TerminusDB Dashboard Status
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is an EXPLANATION page about the discontinued dashboard component.
+#       Reader arrives asking: "how do I use the dashboard?" or "where's the dashboard?"
+
+page: dashboard
+total_blocks: 6
+auto_filled: 6
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Download dashboard release ===
+
+  - block_index: 0
+    language: bash
+    line: 69
+    type: fenced
+    action: "Download and extract the last stable dashboard release (v6.0.10)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: curl -L to download release.tar.gz from GitHub, mkdir + tar to extract. The dashboard is a pre-built static HTML/JS/CSS bundle — no npm install or build step needed. Creates a 'dashboard' directory with all files ready to mount."
+
+  # === Docker run with dashboard mount ===
+
+  - block_index: 1
+    language: bash
+    line: 97
+    type: fenced
+    action: "Start TerminusDB Docker container with dashboard volume-mounted"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: mount ~/dashboard to /app/terminusdb/dashboard inside the container + set TERMINUSDB_DASHBOARD_ENABLED=true. Port 6363 mapped. This is the minimum config to serve the legacy dashboard from the TerminusDB server process."
+
+  # === Docker Compose config ===
+
+  - block_index: 2
+    language: yaml
+    line: 110
+    type: fenced
+    action: "Show docker-compose.yml for mounting the dashboard"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: config_only
+    ux_intent: "Reader sees: complete docker-compose.yml with volumes (storage + dashboard mount), environment vars (DASHBOARD_ENABLED + ADMIN_PASS), and port mapping. Copy-paste ready. Includes named volume for data persistence."
+
+  # === Docker compose up ===
+
+  - block_index: 3
+    language: bash
+    line: 130
+    type: fenced
+    action: "Start the Docker Compose stack with dashboard enabled"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+    ux_intent: "Reader learns: 'docker-compose up -d' starts the stack in background. After this command, the dashboard is accessible. Simple one-liner to bring up the full environment."
+
+  # === Dashboard URL ===
+
+  - block_index: 4
+    language: text
+    line: 148
+    type: fenced
+    action: "Show the dashboard access URL"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: http://localhost:6363/dashboard — the URL to access the mounted dashboard. Clear, copy-pasteable destination."
+
+  # === Directory structure ===
+
+  - block_index: 5
+    language: text
+    line: 162
+    type: fenced
+    action: "Show the expected dashboard directory structure"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: /app/terminusdb/dashboard/ contains index.html + assets/ (css/, js/, images/). Explains what files need to exist at the mount path. Useful for troubleshooting 404 errors — check these files exist."

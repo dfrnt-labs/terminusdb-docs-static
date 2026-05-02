@@ -1,0 +1,43 @@
+# Intent Capture: documentclassessummary
+# Page: src/app/docs/documentclassessummary/page.md
+# Title: DocumentClassesSummary Component
+# Total blocks: 2
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-02
+# Status: COMPLETE
+# Note: Unmaintained package reference (last published Dec 2023). React component from @terminusdb/terminusdb-documents-ui-templates. npm install is testable; React component is display_only.
+
+page: documentclassessummary
+total_blocks: 2
+auto_filled: 2
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: bash
+    line: 37
+    type: fenced
+    action: "Install 3 npm packages: terminusdb-documents-ui, terminusdb-react-table, terminusdb-documents-ui-templates"
+    expected_outcome:
+      type: exit_code
+      value: "Exit code 0 — all 3 packages installed"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    note: "Packages are unmaintained (last published Dec 2023). May have peer dependency warnings. Testable in isolated temp directory."
+    assertion: "Exit code 0 AND node_modules/@terminusdb/terminusdb-documents-ui/ exists."
+
+  - block_index: 1
+    language: javascript
+    line: 69
+    type: fenced
+    action: "Display React component example using DocumentClassesSummary with useTDBDocuments hook"
+    expected_outcome:
+      type: skip
+      value: "Shows React component importing DocumentClassesSummary and useTDBDocuments, calling getDocumentNumbers() on mount, rendering card summary with totalDocumentCount and perDocumentCount."
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    assertion: "No assertion — display only. React component pattern requiring browser environment and connected TerminusDB client."

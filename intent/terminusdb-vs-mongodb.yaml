@@ -1,0 +1,122 @@
+# Intent skeleton for: terminusdb-vs-mongodb
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: terminusdb-vs-mongodb
+total_blocks: 9
+auto_filled: 9
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 58
+    type: fenced
+    action: Display MongoDB embedded vs referenced document insertion patterns
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: json
+    line: 82
+    type: fenced
+    action: Display TerminusDB schema-enforced Order document with typed links
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: javascript
+    line: 102
+    type: fenced
+    action: Display MongoDB opt-in JSON Schema validation example
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 3
+    language: json
+    line: 123
+    type: fenced
+    action: Display TerminusDB mandatory schema Class definition (Order)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 4
+    language: bash
+    line: 146
+    type: fenced
+    action: POST /api/document with author+message (TerminusDB version control)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 5
+    language: javascript
+    line: 172
+    type: fenced
+    action: Display MongoDB $lookup aggregation for joining collections
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 6
+    language: javascript
+    line: 191
+    type: fenced
+    action: Display WOQL native graph traversal query (triple-based joins)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 7
+    language: javascript
+    line: 233
+    type: fenced
+    action: Display MongoDB application-layer draft/review workflow pattern
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 8
+    language: bash
+    line: 253
+    type: fenced
+    action: POST /api/branch (TerminusDB branch for review workflow)
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null

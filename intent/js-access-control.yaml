@@ -1,0 +1,314 @@
+# Intent skeleton for: js-access-control
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: js-access-control
+total_blocks: 25
+auto_filled: 25
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 28
+    type: fenced
+    action: Initialize AccessControl with API token, JWT, or basic auth
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: javascript
+    line: 233
+    type: fenced
+    action: Create organization via accessControl.createOrganization()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: javascript
+    line: 263
+    type: fenced
+    action: Delete organization via accessControl.createOrganization() (doc error - shows delete)
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 3
+    language: javascript
+    line: 299
+    type: fenced
+    action: Create role via accessControl.createRole() with ACTIONS
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 4
+    language: javascript
+    line: 329
+    type: fenced
+    action: Delete role via accessControl.deleteRole()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 5
+    language: javascript
+    line: 344
+    type: fenced
+    action: List all users via accessControl.getAllUsers()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 6
+    language: javascript
+    line: 380
+    type: fenced
+    action: Create user via accessControl.createUser() with password
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 7
+    language: javascript
+    line: 410
+    type: fenced
+    action: Delete user via accessControl.deleteUser()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 8
+    language: javascript
+    line: 464
+    type: fenced
+    action: Grant/revoke capability via client.manageCapability() for org and db scopes
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 9
+    language: javascript
+    line: 509
+    type: fenced
+    action: Get organization users and roles via accessControl.getOrgUsers()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 10
+    language: javascript
+    line: 567
+    type: fenced
+    action: Get team user roles via accessControl.getTeamUserRole()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 11
+    language: javascript
+    line: 639
+    type: fenced
+    action: Create organization (remote) via accessControl.createOrganization()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 12
+    language: javascript
+    line: 669
+    type: fenced
+    action: Get pending org invitations via accessControl.getPendingOrgInvites()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 13
+    language: javascript
+    line: 726
+    type: fenced
+    action: Send org invite via accessControl.sendOrgInvite() with role and note
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 14
+    language: javascript
+    line: 763
+    type: fenced
+    action: Get org invite details via accessControl.getOrgInvite()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 15
+    language: javascript
+    line: 801
+    type: fenced
+    action: Delete org invite via accessControl.deleteOrgInvite()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 16
+    language: javascript
+    line: 845
+    type: fenced
+    action: Accept/reject invite via accessControl.updateOrgInviteStatus()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 17
+    language: javascript
+    line: 877
+    type: fenced
+    action: Get current user team role via accessControl.getTeamUserRole()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 18
+    language: javascript
+    line: 915
+    type: fenced
+    action: Remove user from org via accessControl.removeUserFromOrg()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 19
+    language: javascript
+    line: 951
+    type: fenced
+    action: Get database roles of user via accessControl.getDatabaseRolesOfUser()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 20
+    language: javascript
+    line: 1013
+    type: fenced
+    action: Create user role for database via accessControl.assignUserRole()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 21
+    language: javascript
+    line: 1069
+    type: fenced
+    action: Update user role for database via accessControl.updateUserRole()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 22
+    language: javascript
+    line: 1102
+    type: fenced
+    action: List access requests via accessControl.accessRequestsList()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 23
+    language: javascript
+    line: 1150
+    type: fenced
+    action: Send access request via accessControl.sendAccessRequest()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 24
+    language: javascript
+    line: 1183
+    type: fenced
+    action: Delete access request via accessControl.deleteAccessRequest()
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

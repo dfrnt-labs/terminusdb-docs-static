@@ -1,0 +1,227 @@
+# Intent: language-strings-with-curl
+# Page: src/app/docs/language-strings-with-curl/page.md
+# Title: Language Strings with curl
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a HOW-TO page showing how to work with rdf:langString using curl/HTTP API.
+#       Reader arrives asking: "how do I store multilingual text in TerminusDB?"
+
+page: language-strings-with-curl
+total_blocks: 14
+auto_filled: 14
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Create database ===
+
+  - block_index: 0
+    language: bash
+    line: 43
+    type: fenced
+    action: "Create a 'greetings' database for multilingual content (POST /api/db)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: start with a fresh database (POST /api/db/admin/greetings). Standard database creation pattern — label, comment, schema:true."
+
+  # === Create database response ===
+
+  - block_index: 1
+    language: json
+    line: 51
+    type: fenced
+    action: "Display expected database creation response"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: api:DbCreateResponse with api:success. Confirms database ready for schema definition."
+
+  # === Add schema with langString field ===
+
+  - block_index: 2
+    language: bash
+    line: 64
+    type: fenced
+    action: "Add a schema with an rdf:langString property (full_replace=true)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: POST to document endpoint with graph_type=schema + full_replace=true replaces the entire schema. The Greeting class has a 'message' field typed as rdf:langString. Also shows @key Lexical on 'name' field. rdf:langString enables language-tagged string values."
+
+  # === Insert document with langString ===
+
+  - block_index: 3
+    language: bash
+    line: 96
+    type: fenced
+    action: "Insert a Greeting document with a language-tagged string value"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+    ux_intent: "Reader learns: langString values are JSON objects with @lang and @value. Example: {\"@lang\": \"en\", \"@value\": \"Hello\"}. The @lang tag follows BCP 47 (e.g., 'en', 'fr', 'de'). A single document gets one language value per field."
+
+  # === Insert response ===
+
+  - block_index: 4
+    language: json
+    line: 110
+    type: fenced
+    action: "Display expected insert response (document ID)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: response is the generated document ID (Greeting/hello). Lexical key derived from the 'name' field value. Confirms insertion succeeded."
+
+  # === Retrieve document ===
+
+  - block_index: 5
+    language: bash
+    line: 120
+    type: fenced
+    action: "Retrieve the Greeting document to see langString value (GET by ID)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 2
+    skip_reason: null
+    ux_intent: "Reader learns: GET with id=Greeting/hello and minimized=false returns pretty-printed document. Shows the stored langString value with its @lang tag intact."
+
+  # === Retrieved document body ===
+
+  - block_index: 6
+    language: json
+    line: 127
+    type: fenced
+    action: "Display the retrieved document showing langString structure"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 3
+    skip_reason: display_only
+    ux_intent: "Reader sees: full document JSON with message={@lang: 'en', @value: 'Hello'}. The @type and @id are present. Reader confirms: langString values round-trip correctly through insert → retrieve."
+
+  # === Update document with new translation ===
+
+  - block_index: 7
+    language: bash
+    line: 146
+    type: fenced
+    action: "Update the greeting's message to a different language (PUT)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+    ux_intent: "Reader learns: PUT /api/document replaces the document. Change @lang to 'fr' and @value to 'Bonjour'. A single langString field holds ONE language value at a time — to store multiple languages, use a Set or List of langString."
+
+  # === Get all greetings ===
+
+  - block_index: 8
+    language: bash
+    line: 162
+    type: fenced
+    action: "Retrieve all Greeting documents as a JSON list"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 5
+    skip_reason: null
+    ux_intent: "Reader learns: GET with type=Greeting and as_list=true returns all documents of that type as a JSON array. Useful for listing all greetings and seeing their language tags."
+
+  # === Update schema to Set of langString ===
+
+  - block_index: 9
+    language: bash
+    line: 175
+    type: fenced
+    action: "Update schema to allow multiple languages per field (Set of rdf:langString)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 6
+    skip_reason: null
+    ux_intent: "Reader learns: change 'message' from bare rdf:langString to {\"@type\": \"Set\", \"@class\": \"rdf:langString\"}. Now each Greeting can store MULTIPLE language-tagged values for the same field. This is the pattern for true multilingual content."
+
+  # === Insert multilingual document ===
+
+  - block_index: 10
+    language: bash
+    line: 200
+    type: fenced
+    action: "Insert a greeting with multiple language translations (Set of langStrings)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 7
+    skip_reason: null
+    ux_intent: "Reader learns: with Set type, message becomes an array of {\"@lang\", \"@value\"} objects. Example: [{\"@lang\":\"en\",\"@value\":\"World\"}, {\"@lang\":\"fr\",\"@value\":\"Monde\"}, {\"@lang\":\"de\",\"@value\":\"Welt\"}]. Three translations stored on one document."
+
+  # === Retrieve multilingual document ===
+
+  - block_index: 11
+    language: bash
+    line: 218
+    type: fenced
+    action: "Retrieve the multilingual greeting to verify Set of langStrings"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 8
+    skip_reason: null
+    ux_intent: "Reader learns: GET by ID confirms all three translations are stored. The Set is unordered — order may differ from insertion order."
+
+  # === Retrieved multilingual document ===
+
+  - block_index: 12
+    language: json
+    line: 225
+    type: fenced
+    action: "Display the multilingual document showing Set of langString values"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: 9
+    skip_reason: display_only
+    ux_intent: "Reader sees: message is an array with en/fr/de entries. Each has @lang + @value. Confirms the Set pattern works for multi-language content. Reader now knows the full pattern: schema → insert → retrieve for multilingual data."
+
+  # === Clean up: delete database ===
+
+  - block_index: 13
+    language: bash
+    line: 256
+    type: fenced
+    action: "Delete the greetings database (cleanup)"
+    expected_outcome:
+      type: status_code
+      value: 200
+      tolerance: exact
+    depends_on: 10
+    skip_reason: null
+    ux_intent: "Reader learns: DELETE /api/db/admin/greetings removes the tutorial database. Clean up after experimenting. Standard cleanup pattern."

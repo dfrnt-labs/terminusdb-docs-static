@@ -1,0 +1,392 @@
+# Intent: access-control-with-javascript
+# Page: src/app/docs/access-control-with-javascript/page.md
+# Title: Access Control Reference Guide (JavaScript SDK)
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page for the AccessControl JS SDK class.
+#       Reader arrives asking: "how do I use the JS client to manage users, roles, and permissions?"
+
+page: access-control-with-javascript
+total_blocks: 25
+auto_filled: 25
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Constructor: new AccessControl() ===
+
+  - block_index: 0
+    language: javascript
+    line: 28
+    type: fenced
+    action: "Instantiate AccessControl with three authentication methods (API token, JWT, basic auth)"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: AccessControl takes a server URL + credentials object. Three auth modes: (1) token — API token from terminusdb.org account, (2) jwt — for dashboard/login-flow integration, (3) user+key — for local installations only. Also shows setJwtToken() for refreshing expired JWTs. Reader picks their auth mode and copies the matching pattern."
+
+  # === createOrganization ===
+
+  - block_index: 1
+    language: javascript
+    line: 220
+    type: fenced
+    action: "Create a new organisation via accessControl.createOrganization()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    ux_intent: "Reader learns: createOrganization(orgName) returns a Promise. Pass the org name as a string. Requires admin/basic auth. Creates a team namespace that can hold databases and users."
+
+  # === deleteOrganization ===
+
+  - block_index: 2
+    language: javascript
+    line: 248
+    type: fenced
+    action: "Delete an organisation via accessControl.deleteOrganization()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only
+    ux_intent: "Reader learns: deleteOrganization(orgName) removes the organisation. Same pattern as create — pass org name string, get a Promise back. NOTE: the code example shows createOrganization (documentation bug) but the section documents deletion. Requires admin auth."
+
+  # === createRole ===
+
+  - block_index: 3
+    language: javascript
+    line: 282
+    type: fenced
+    action: "Create a custom role with specific action permissions via accessControl.createRole()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 2
+    skip_reason: display_only
+    ux_intent: "Reader learns: createRole(name, actionsArray) creates a named role. Actions come from the ACTIONS constants (e.g., ACTIONS.INSTANCE_READ_ACCESS). Roles are stored in the system database. Admin-only, local installation only."
+
+  # === deleteRole ===
+
+  - block_index: 4
+    language: javascript
+    line: 310
+    type: fenced
+    action: "Delete a role from the system database via accessControl.deleteRole()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 3
+    skip_reason: display_only
+    ux_intent: "Reader learns: deleteRole(name) removes the named role. Local installation only. Must revoke capabilities referencing this role before deletion."
+
+  # === getAllUsers ===
+
+  - block_index: 5
+    language: javascript
+    line: 325
+    type: fenced
+    action: "List all users in the system via accessControl.getAllUsers()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 4
+    skip_reason: display_only
+    ux_intent: "Reader learns: getAllUsers() takes no arguments, returns all user records. Admin-only, local installation only. Use for auditing or building user management UIs."
+
+  # === createUser ===
+
+  - block_index: 6
+    language: javascript
+    line: 359
+    type: fenced
+    action: "Create a new user in the system database via accessControl.createUser()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 5
+    skip_reason: display_only
+    ux_intent: "Reader learns: createUser(name, password) adds a user to the system database. Password is for basic auth (use a placeholder if using external IdP). NOTE: the code example shows deleteUser (documentation bug) but the section documents user creation. Admin-only, local installation."
+
+  # === deleteUser ===
+
+  - block_index: 7
+    language: javascript
+    line: 387
+    type: fenced
+    action: "Delete a user from the system database via accessControl.deleteUser()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 6
+    skip_reason: display_only
+    ux_intent: "Reader learns: deleteUser(userId) removes a user by their document ID (e.g., 'User/username'). Must revoke capabilities first. Admin-only, local installation only."
+
+  # === manageCapability ===
+
+  - block_index: 8
+    language: javascript
+    line: 439
+    type: fenced
+    action: "Grant or revoke role capabilities for a user on a team or database via manageCapability()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 7
+    skip_reason: display_only
+    ux_intent: "Reader learns: manageCapability(userName, resourceName, rolesArr, operation, scopeType) is the central permission assignment method. Two examples: (1) grant 'reader' role at organization scope — cascades to all databases, (2) grant 'writer' role at database scope — targets one specific database (team/db path). Operations: 'grant' or 'revoke'. Scope types: 'organization' or 'database'."
+
+  # === getOrgUsers ===
+
+  - block_index: 9
+    language: javascript
+    line: 483
+    type: fenced
+    action: "List all users and their roles for an organisation via accessControl.getOrgUsers()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 8
+    skip_reason: display_only
+    ux_intent: "Reader learns: getOrgUsers(orgName?) returns capabilities array — each entry has user, role, scope, email. Two response formats shown: (1) cloud response — flat array with capability ID, email, role, scope, (2) local installation — nested structure with full Capability objects containing Role arrays with action lists. Use to build team member lists or audit permissions."
+
+  # === getTeamUserRoles ===
+
+  - block_index: 10
+    language: javascript
+    line: 540
+    type: fenced
+    action: "Get a specific user's roles within an organisation via accessControl.getTeamUserRoles()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 9
+    skip_reason: display_only
+    ux_intent: "Reader learns: getTeamUserRoles(userName, orgName?) returns one user's capability structure — their @id, name, and capability array showing roles and scopes. Response includes the Role objects with their action lists. Use to check what a specific user can do before attempting operations."
+
+  # === createOrganizationRemote ===
+
+  - block_index: 11
+    language: javascript
+    line: 611
+    type: fenced
+    action: "Create an organisation on the remote cloud via accessControl.createOrganizationRemote()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 10
+    skip_reason: display_only
+    ux_intent: "Reader learns: createOrganizationRemote(orgName) creates an org on the cloud API (not local). IMPORTANT: does not work with API-TOKEN auth — requires JWT or basic auth. Different from createOrganization which targets local installation."
+
+  # === getPendingOrgInvites ===
+
+  - block_index: 12
+    language: javascript
+    line: 641
+    type: fenced
+    action: "Retrieve pending invitation list for an organisation via accessControl.getPendingOrgInvites()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 11
+    skip_reason: display_only
+    ux_intent: "Reader learns: getPendingOrgInvites(orgName?) returns array of Invitation objects. Each has: @id (full invitation path), creation_date, email_to, invited_by (User document ID), role (Role/@id), status ('needs_invite'). Use to build invitation management UIs or audit pending access."
+
+  # === sendOrgInvite ===
+
+  - block_index: 13
+    language: javascript
+    line: 699
+    type: fenced
+    action: "Send an invitation to join an organisation via accessControl.sendOrgInvite()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 12
+    skip_reason: display_only
+    ux_intent: "Reader learns: sendOrgInvite(email, role, note?, orgName?) creates and sends an invitation. Role must be the full document @id (e.g., 'Role/admin'). Optional note is included in the invitation email. The invited user accepts via updateOrgInviteStatus."
+
+  # === getOrgInvite ===
+
+  - block_index: 14
+    language: javascript
+    line: 734
+    type: fenced
+    action: "Retrieve details of a specific invitation via accessControl.getOrgInvite()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 13
+    skip_reason: display_only
+    ux_intent: "Reader learns: getOrgInvite(inviteId, orgName?) retrieves one invitation by its full @id path (Organization/.../invitations/Invitation/<hash>). Use to check invitation status or display details before accepting/rejecting."
+
+  # === deleteOrgInvite ===
+
+  - block_index: 15
+    language: javascript
+    line: 772
+    type: fenced
+    action: "Delete a pending invitation via accessControl.deleteOrgInvite()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 14
+    skip_reason: display_only
+    ux_intent: "Reader learns: deleteOrgInvite(inviteId, orgName?) removes an invitation by its full @id path. Use to revoke invitations that haven't been accepted yet. Admin-only operation."
+
+  # === updateOrgInviteStatus ===
+
+  - block_index: 16
+    language: javascript
+    line: 818
+    type: fenced
+    action: "Accept or reject an invitation via accessControl.updateOrgInviteStatus()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 15
+    skip_reason: display_only
+    ux_intent: "Reader learns: updateOrgInviteStatus(inviteId, accepted, orgName?) accepts (true) or rejects (false) an invitation. On acceptance, the current user (identified by JWT) is added to the organisation with the invited role. Only the user whose email matches the invitation can accept it."
+
+  # === getTeamUserRole (singular — current user) ===
+
+  - block_index: 17
+    language: javascript
+    line: 850
+    type: fenced
+    action: "Get the current authenticated user's role in an organisation via accessControl.getTeamUserRole()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 16
+    skip_reason: display_only
+    ux_intent: "Reader learns: getTeamUserRole(orgName?) returns the current user's role (identified by JWT/access token). Response: {userRole: 'Role/admin'}. Different from getTeamUserRoles (plural) — this one is for the currently authenticated user, not arbitrary users. Use for UI permission checks."
+
+  # === removeUserFromOrg ===
+
+  - block_index: 18
+    language: javascript
+    line: 887
+    type: fenced
+    action: "Remove a user from an organisation via accessControl.removeUserFromOrg()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 17
+    skip_reason: display_only
+    ux_intent: "Reader learns: removeUserFromOrg(userId, orgName?) removes a user by their full document @id (e.g., 'User/auth0%7C...'). Admin-only. Revokes all capabilities the user has within that organisation. Use for offboarding team members."
+
+  # === getDatabaseRolesOfUser ===
+
+  - block_index: 19
+    language: javascript
+    line: 923
+    type: fenced
+    action: "Get a user's roles for every database in an organisation via accessControl.getDatabaseRolesOfUser()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 18
+    skip_reason: display_only
+    ux_intent: "Reader learns: getDatabaseRolesOfUser(userId, orgName?) returns a capabilities array per database. Each entry shows: capability (ID or null), name (db name), role, scope (UserDatabase/@id), user. Key insight: if capability is null, the user inherits team-level access for that database. If capability has an ID, it's a user-specific override. Use for building per-database permission audit views."
+
+  # === createUserRole ===
+
+  - block_index: 20
+    language: javascript
+    line: 987
+    type: fenced
+    action: "Assign a role to a user for a specific database via accessControl.createUserRole()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 19
+    skip_reason: display_only
+    ux_intent: "Reader learns: createUserRole(userId, scope, role, orgName?) assigns a database-specific role. The scope is the full UserDatabase/@id (not just the name). Role is the full Role/@id (e.g., 'Role/collaborator'). Creates a user-specific capability override on top of team-level access."
+
+  # === updateUserRole ===
+
+  - block_index: 21
+    language: javascript
+    line: 1044
+    type: fenced
+    action: "Update an existing user role assignment via accessControl.updateUserRole()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 20
+    skip_reason: display_only
+    ux_intent: "Reader learns: updateUserRole(userId, capabilityId, scope, role, orgName?) modifies an existing capability. Requires the capabilityId from getDatabaseRolesOfUser(). Changes the role while keeping the same scope. Cloud API only. Use when promoting/demoting a user's access to a specific database."
+
+  # === accessRequestsList ===
+
+  - block_index: 22
+    language: javascript
+    line: 1078
+    type: fenced
+    action: "List all access requests for an organisation via accessControl.accessRequestsList()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 21
+    skip_reason: display_only
+    ux_intent: "Reader learns: accessRequestsList(orgName?) returns pending access requests from external users wanting to join the team. Admin-only. Use to build an approval queue UI for team membership requests."
+
+  # === sendAccessRequest ===
+
+  - block_index: 23
+    language: javascript
+    line: 1126
+    type: fenced
+    action: "Send an access request to join an organisation via accessControl.sendAccessRequest()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 22
+    skip_reason: display_only
+    ux_intent: "Reader learns: sendAccessRequest(email, affiliation, note, orgName?) sends a request to join a team. The requesting user provides their email, company/university affiliation, and a message for the team admin. The request appears in accessRequestsList() for admin approval. User-facing — does not require admin."
+
+  # === deleteAccessRequest ===
+
+  - block_index: 24
+    language: javascript
+    line: 1159
+    type: fenced
+    action: "Delete an access request via accessControl.deleteAccessRequest()"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 23
+    skip_reason: display_only
+    ux_intent: "Reader learns: deleteAccessRequest(requestId) removes a pending access request. The requestId is the hash/token identifying the request. Admin-only — used to reject or clean up access requests from the approval queue."

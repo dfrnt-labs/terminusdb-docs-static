@@ -1,0 +1,38 @@
+# Intent skeleton for: enterprise-configuration
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: enterprise-configuration
+total_blocks: 2
+auto_filled: 2
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: bash
+    line: 172
+    type: fenced
+    action: Set environment variables
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: yaml
+    line: 185
+    type: fenced
+    action: "Display Docker Compose configuration: TerminusDB Enterprise service with environment variables (TERMINUSDB_ENTERPRISE, ADMIN_PASS, LRU_CACHE_SIZE, ALLOW_REMOTE_CONTEXT) and named volume"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: config_only

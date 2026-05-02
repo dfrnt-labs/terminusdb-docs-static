@@ -1,0 +1,243 @@
+# Intent: document-insertion
+# Page: src/app/docs/document-insertion/page.md
+# Title: Document API Reference Guide
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page for the TerminusDB Document HTTP API.
+#       Covers: GET/POST/PUT/DELETE /api/document, GET/POST /api/schema, POST /api/apply.
+#       Reader arrives asking: "what are the document API endpoints and parameters?"
+
+page: document-insertion
+total_blocks: 15
+auto_filled: 15
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === GET /api/document ===
+
+  - block_index: 0
+    language: http
+    line: 32
+    type: fenced
+    action: "Show the GET endpoint for retrieving documents"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: GET /api/document/<resource path> retrieves documents. Resource path follows TerminusDB's standard pattern: admin/foo for a database, _system for system graph, admin/foo/_meta for metadata. Default returns a stream of ALL documents at that location — parameters refine what's returned."
+
+  # === POST query mechanism (JSON body) ===
+
+  - block_index: 1
+    language: json
+    line: 122
+    type: fenced
+    action: "Show the alternate POST-based query mechanism with JSON body"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: alternative to query params — POST with X-HTTP-Method-Override: GET and a JSON body. Body can include @rdf:type (filter by class), count (pagination), and query (template matching). Example finds first 10 Person documents where age=42. Useful for complex queries or large filter documents that don't fit in URL params."
+
+  # === POST /api/document ===
+
+  - block_index: 2
+    language: http
+    line: 138
+    type: fenced
+    action: "Show the POST endpoint for inserting new documents"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    ux_intent: "Reader learns: POST /api/document/<resource path> inserts new documents. Body is either a JSON stream or a JSON array of documents. Key params: author, message (commit info), graph_type (instance/schema), full_replace (delete-all-then-insert), raw_json (skip schema validation), overwrite (upsert). Returns list of inserted document IDs."
+
+  # === PUT /api/document ===
+
+  - block_index: 3
+    language: http
+    line: 218
+    type: fenced
+    action: "Show the PUT endpoint for replacing existing documents"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only
+    ux_intent: "Reader learns: PUT /api/document/<resource path> replaces existing documents. Key difference from POST: document must already exist (unless create=true for upsert). Same body format — stream or array. Params include create (insert-if-missing), author, message, graph_type, raw_json, merge_repeats."
+
+  # === DELETE /api/document ===
+
+  - block_index: 4
+    language: http
+    line: 288
+    type: fenced
+    action: "Show the DELETE endpoint for removing documents"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 2
+    skip_reason: display_only
+    ux_intent: "Reader learns: DELETE /api/document/<resource path> removes documents. Can specify a single ID via query param, or POST a JSON array of IDs to delete multiple. The 'nuke' param (dangerous!) deletes everything at the resource location. Requires author and message for the commit."
+
+  # === Delete body format (JSON array of IDs) ===
+
+  - block_index: 5
+    language: json
+    line: 338
+    type: fenced
+    action: "Show the JSON body format for batch document deletion"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 3
+    skip_reason: display_only
+    ux_intent: "Reader sees: simple JSON array of document ID strings — ['..id 1..', '..id 2..', ...]. This is the body format when deleting multiple documents in one request. Each string is a full document ID."
+
+  # === @capture example ===
+
+  - block_index: 6
+    language: json
+    line: 355
+    type: fenced
+    action: "Show @capture syntax for storing a generated document ID in a variable"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 4
+    skip_reason: display_only
+    ux_intent: "Reader learns: add '@capture': 'Id_Tom' to a document being inserted to save its generated ID in a variable named 'Id_Tom'. This variable is available for the duration of the insert/replace operation. Useful when other documents in the same batch need to reference this one but you don't know its ID ahead of time (especially with Random keys)."
+
+  # === CaptureIdAlreadyBound error ===
+
+  - block_index: 7
+    language: json
+    line: 368
+    type: fenced
+    action: "Show the error response when a capture variable is used twice"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 5
+    skip_reason: display_only
+    ux_intent: "Reader learns: capturing the same variable name twice is an error — returns api:CaptureIdAlreadyBound with the capture name and the offending document. Each capture name must be unique within a single operation."
+
+  # === @ref example ===
+
+  - block_index: 8
+    language: json
+    line: 378
+    type: fenced
+    action: "Show @ref syntax for referencing a captured document ID"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 6
+    skip_reason: display_only
+    ux_intent: "Reader learns: use {'@ref': 'Id_Tom'} in place of a document ID to reference a captured variable. Here Jerry's 'rival' field references Tom's captured ID. At insert time, TerminusDB resolves the reference to Tom's actual generated ID."
+
+  # === NotAllCapturesFound error ===
+
+  - block_index: 9
+    language: json
+    line: 387
+    type: fenced
+    action: "Show the error response when a referenced capture variable is never defined"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 7
+    skip_reason: display_only
+    ux_intent: "Reader learns: referencing a variable that is never captured produces api:NotAllCapturesFound with the list of missing capture IDs. All @ref variables must have a corresponding @capture somewhere in the same batch."
+
+  # === Cross-reference example (bidirectional) ===
+
+  - block_index: 10
+    language: json
+    line: 397
+    type: fenced
+    action: "Show cross-reference pattern where two documents reference each other via @capture/@ref"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 8
+    skip_reason: display_only
+    ux_intent: "Reader learns: ordering doesn't matter — Tom references Jerry via @ref even though Jerry hasn't been processed yet. Both get @capture and both use @ref to the other. TerminusDB resolves all references after processing the full batch. Enables bidirectional relationships in a single insert operation."
+
+  # === Self-reference example ===
+
+  - block_index: 11
+    language: json
+    line: 416
+    type: fenced
+    action: "Show self-reference pattern where a document references its own captured ID"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 9
+    skip_reason: display_only
+    ux_intent: "Reader learns: a document can @capture its own ID and @ref it in the same document — creating a self-referential link. Here Elmo captures 'Captured_Id' and uses it as his own 'friend' value. Result: Elmo is his own friend. Demonstrates that capture/ref resolution is fully deferred."
+
+  # === GET /api/schema ===
+
+  - block_index: 12
+    language: http
+    line: 436
+    type: fenced
+    action: "Show the GET endpoint for querying schema information with inheritance resolved"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 10
+    skip_reason: display_only
+    ux_intent: "Reader learns: GET /api/schema/<resource path> returns class definitions with inheritance resolved — shows ALL fields available on a type including inherited ones. Primary use: automatic form generation, UI element creation, client code generation. Optional 'type' param filters to a single class."
+
+  # === POST /api/schema (schema checking toggle) ===
+
+  - block_index: 13
+    language: http
+    line: 470
+    type: fenced
+    action: "Show the POST endpoint for toggling schema checking on/off"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 11
+    skip_reason: display_only
+    ux_intent: "Reader learns: POST /api/schema/<resource path> with schema_checking='enabled' or 'disabled' toggles validation. Disabling allows inserting non-conforming documents. Re-enabling only succeeds if all existing documents pass validation. The schema itself is not deleted when disabled — just enforcement is paused."
+
+  # === POST /api/apply (cherry-pick/squash) ===
+
+  - block_index: 14
+    language: http
+    line: 508
+    type: fenced
+    action: "Show the POST endpoint for applying a diff between two commits to a branch"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 12
+    skip_reason: display_only
+    ux_intent: "Reader learns: POST /api/apply/<resource path> takes the diff between before_commit and after_commit and applies it to a branch. Use for cherry-picking changes or squash-merging. Params: before_commit, after_commit, commit_info (author/message), match_final_state (ignore conflicts if end state matches), keep (fields to preserve from target on conflict)."

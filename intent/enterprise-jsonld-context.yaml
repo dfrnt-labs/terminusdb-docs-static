@@ -1,0 +1,152 @@
+# Intent: enterprise-jsonld-context
+# Page: src/app/docs/enterprise-jsonld-context/page.md
+# Title: JSON-LD Context Processing
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page explaining how Enterprise processes JSON-LD @context.
+#       Reader arrives asking: "how does TerminusDB handle @context for linked data?"
+
+page: enterprise-jsonld-context
+total_blocks: 9
+auto_filled: 9
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === Inline object @context ===
+
+  - block_index: 0
+    language: json
+    line: 39
+    type: fenced
+    action: "Show inline object @context form with @base and @vocab"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: the simplest @context form is an inline JSON object with @base (document ID prefix) and @vocab (property namespace). This is the default internal context TerminusDB uses. Properties map to terminusdb:///schema# and IDs to terminusdb:///data/."
+
+  # === Remote URL @context ===
+
+  - block_index: 1
+    language: json
+    line: 55
+    type: fenced
+    action: "Show remote URL @context form (e.g., schema.org)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @context can be a URL string (e.g., 'https://schema.org/'). Enterprise fetches and caches the remote context automatically. Schema.org is pre-seeded so resolves instantly. Property names use schema.org vocabulary ('type' instead of '@type')."
+
+  # === Array of contexts ===
+
+  - block_index: 2
+    language: json
+    line: 70
+    type: fenced
+    action: "Show array @context form combining multiple context entries"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: @context can be an array — later entries take precedence for conflicts. Useful for combining a remote vocabulary (schema.org) with local overrides (custom @base for document IDs). Array order matters for precedence."
+
+  # === Mixed URL and inline @context ===
+
+  - block_index: 3
+    language: json
+    line: 88
+    type: fenced
+    action: "Show mixed array @context combining a remote URL with inline overrides"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: combine a remote URL with inline property mappings in one array. The inline entries override schema.org's definitions for specific properties, mapping external vocabulary terms to internal schema fields. Enables schema.org-style input → internal storage."
+
+  # === Schema-level @context definition ===
+
+  - block_index: 4
+    language: json
+    line: 115
+    type: fenced
+    action: "Show how to set a custom @context on the database schema"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: include a '@type': '@context' document in schema updates to set the output context for all documents. @schema maps types, @base maps IDs, @context sets what appears in JSON-LD output. After this, all document output uses the specified context for compaction."
+
+  # === Output without schema @context (default) ===
+
+  - block_index: 5
+    language: json
+    line: 138
+    type: fenced
+    action: "Show default document output without a custom schema @context"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: default output uses internal context (@base: terminusdb:///data/, @vocab: terminusdb:///schema#). Properties appear as 'name', '@type' as '@type', '@id' as '@id'. This is standard TerminusDB behaviour without enterprise context processing."
+
+  # === Output with schema.org @context ===
+
+  - block_index: 6
+    language: json
+    line: 151
+    type: fenced
+    action: "Show document output when schema has a schema.org @context set"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: same document now outputs with @context: 'https://schema.org/', using schema.org aliases — '@type' becomes 'type', '@id' becomes 'id'. The JSON-LD processor compacts using the schema's context. Same data, different representation."
+
+  # === Schema array @context ===
+
+  - block_index: 7
+    language: json
+    line: 166
+    type: fenced
+    action: "Show schema @context as an array for multi-tranche output control"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: schema @context can also be an array — gives fine-grained control over output compaction. Combine custom prefix definitions with @vocab fallback. Same array-precedence rules as input contexts."
+
+  # === Input without @context (plain JSON) ===
+
+  - block_index: 8
+    language: json
+    line: 182
+    type: fenced
+    action: "Show document input without any @context (treated as plain JSON)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: documents without @context use the database's default internal context automatically. Property names map to terminusdb:///schema# and IDs to terminusdb:///data/. This is standard TerminusDB behaviour — works identically in community and enterprise editions."

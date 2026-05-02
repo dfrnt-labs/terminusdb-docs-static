@@ -1,0 +1,74 @@
+# Intent Annotations: commit-message-howto
+# Page: src/app/docs/commit-message-howto/page.md
+# Title: Set Commit Messages on Document Operations
+# Total blocks: 7
+# Annotated by: systems-engineer (Phase III)
+# Date: 2026-05-02
+# Fixture: Requires TerminusDB running with admin/MyDatabase
+
+blocks:
+  - block_index: 0
+    language: http
+    action: "POST document with author and message query params (curl example)"
+    expected_outcome:
+      type: response_body
+      value: "Document inserted with commit metadata recorded"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+    assertion: "HTTP 200 AND response contains document ID. runnable=false on page."
+
+  - block_index: 1
+    language: typescript
+    action: "Insert document with commit message via TypeScript SDK"
+    expected_outcome:
+      type: non_empty
+      value: "addDocument with commit message parameter succeeds"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+    assertion: "No runtime error. Document created. test-example attribute — may be auto-tested."
+
+  - block_index: 2
+    language: http
+    action: "GET /api/log to verify commit message was recorded"
+    expected_outcome:
+      type: response_body
+      value: "Log entry contains author 'jane@example.com' and message 'Add new product SKU-2001'"
+      tolerance: contains
+    depends_on: 0
+    skip_reason: null
+    assertion: "HTTP 200 AND response array length >= 1 AND first entry contains 'jane@example.com' AND contains 'SKU-2001'. runnable=false."
+
+  - block_index: 3
+    language: json
+    action: "Display expected log entry showing commit metadata"
+    expected_outcome:
+      type: display_only
+      value: "ValidCommit with author, message, timestamp, identifier"
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: display_only
+    assertion: "No assertion — display only (illustrative SHAs)."
+
+  - block_index: 4
+    language: python
+    action: "Insert document with commit message via Python SDK"
+    expected_outcome:
+      type: display_only
+      value: "Python insert_document with commit_msg parameter"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."
+
+  - block_index: 5
+    language: typescript
+    action: "WOQL query with commit message and author parameters"
+    expected_outcome:
+      type: display_only
+      value: "client.query() with message and author args"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: display_only
+    assertion: "No assertion — illustrative SDK code."

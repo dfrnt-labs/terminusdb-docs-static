@@ -1,0 +1,422 @@
+# Intent: graph-spec-db-spec-database-path-identifiers
+# Page: src/app/docs/graph-spec-db-spec-database-path-identifiers/page.md
+# Title: Database Path Identifiers Reference
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a REFERENCE page explaining DB_SPEC and GRAPH_SPEC path identifiers.
+#       Reader arrives asking: "how do I address a specific branch/commit/graph in TerminusDB?"
+
+page: graph-spec-db-spec-database-path-identifiers
+total_blocks: 27
+auto_filled: 27
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === DB_SPEC structure pattern ===
+
+  - block_index: 0
+    language: text
+    line: 30
+    type: fenced
+    action: "Show the general DB_SPEC path structure format"
+    expected_outcome:
+      type: skip
+      value: "Shows: <organization>/<database>/<repository>/<ref_type>/<ref_name> — the 5-part path structure."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: <organization>/<database>/<repository>/<ref_type>/<ref_name>. The foundational pattern — every database address in TerminusDB follows this 5-part structure. Sets the mental model for all examples that follow."
+
+  # === Simple database reference ===
+
+  - block_index: 1
+    language: text
+    line: 47
+    type: fenced
+    action: "Show the simple DB_SPEC shorthand (org/database)"
+    expected_outcome:
+      type: skip
+      value: "Shows: <organization>/<database> shorthand. Example: admin/MyDatabase expands to admin/MyDatabase/local/branch/main."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: 'admin/MyDatabase' is shorthand that expands to admin/MyDatabase/local/branch/main. Most API calls only need this short form. Defaults: repository=local, ref_type=branch, ref_name=main."
+
+  # === Specific branch ===
+
+  - block_index: 2
+    language: text
+    line: 55
+    type: fenced
+    action: "Show DB_SPEC format for addressing a specific branch"
+    expected_outcome:
+      type: skip
+      value: "Shows: admin/MyDatabase/local/branch/development — explicit branch path with /local/branch/<name> structure."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: admin/MyDatabase/local/branch/development — explicit branch reference. Use when working with non-main branches (feature branches, dev branches). The '/local/branch/' segment is always present."
+
+  # === Specific commit ===
+
+  - block_index: 3
+    language: text
+    line: 64
+    type: fenced
+    action: "Show DB_SPEC format for addressing a specific commit (time travel)"
+    expected_outcome:
+      type: skip
+      value: "Shows: admin/MyDatabase/local/commit/<commit_id> — pin to a specific historical commit via its hash."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: admin/MyDatabase/local/commit/<commit_id> — pin to a specific point in history. Use for time-travel queries, auditing, or recovering past state. The commit ID is the hash from the commit graph."
+
+  # === Repository metadata ===
+
+  - block_index: 4
+    language: text
+    line: 72
+    type: fenced
+    action: "Show DB_SPEC format for accessing repository metadata (_meta)"
+    expected_outcome:
+      type: skip
+      value: "Shows: admin/MyDatabase/_meta — access repository metadata graph (local repo info + configured remotes)."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: admin/MyDatabase/_meta — access the repository graph. Contains info about the local repository and all configured remotes. Special path — _meta replaces the normal /local/branch/... suffix."
+
+  # === Commit graph ===
+
+  - block_index: 5
+    language: text
+    line: 80
+    type: fenced
+    action: "Show DB_SPEC format for accessing the commit graph (_commits)"
+    expected_outcome:
+      type: skip
+      value: "Shows: admin/MyDatabase/local/_commits — access the commit graph containing branch histories, commit objects, and timestamps."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: admin/MyDatabase/local/_commits — the commit graph contains branch histories, commit objects, authorship, and timestamps. Useful for querying version history programmatically."
+
+  # === Remote repository ===
+
+  - block_index: 6
+    language: text
+    line: 88
+    type: fenced
+    action: "Show DB_SPEC format for referencing a remote branch"
+    expected_outcome:
+      type: skip
+      value: "Shows: admin/MyDatabase/origin/branch/main — remote repository reference replacing 'local' with remote name 'origin'."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: admin/MyDatabase/origin/branch/main — replace 'local' with the remote name (e.g., 'origin'). Used after configuring a remote with 'terminusdb remote add'. Enables fetch/pull/push operations."
+
+  # === System database ===
+
+  - block_index: 7
+    language: text
+    line: 96
+    type: fenced
+    action: "Show the _system database special identifier"
+    expected_outcome:
+      type: skip
+      value: "Shows: _system — the special system database identifier (no org/db prefix). Contains users, organisations, and database records."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: '_system' is the special system database containing users, organisations, and database records. Requires admin permissions. No org/db prefix — just the literal string '_system'."
+
+  # === GRAPH_SPEC structure ===
+
+  - block_index: 8
+    language: text
+    line: 107
+    type: fenced
+    action: "Show the GRAPH_SPEC format (DB_SPEC + graph_type)"
+    expected_outcome:
+      type: skip
+      value: "Shows: <DB_SPEC>/<graph_type> where graph_type is 'instance' or 'schema'. GRAPH_SPEC = DB_SPEC + which data layer."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: GRAPH_SPEC extends DB_SPEC by appending /instance or /schema. Two graph types: instance (actual data documents) and schema (data model definitions). Reader now knows: DB_SPEC = where, GRAPH_SPEC = where + which layer."
+
+  # === GRAPH_SPEC examples (schema + instance) ===
+
+  - block_index: 9
+    language: text
+    line: 118
+    type: fenced
+    action: "Show GRAPH_SPEC examples for schema and instance graphs"
+    expected_outcome:
+      type: skip
+      value: "Shows: admin/MyDatabase/local/branch/main/schema and admin/MyDatabase/local/branch/main/instance — the two graph types."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: admin/MyDatabase/local/branch/main/schema (read/modify schema) and admin/MyDatabase/local/branch/main/instance (query/update data). Also shows schema on a specific commit — combining time-travel with graph selection."
+
+  # === Schema on commit ===
+
+  - block_index: 10
+    language: text
+    line: 124
+    type: fenced
+    action: "Show GRAPH_SPEC for schema at a specific commit"
+    expected_outcome:
+      type: skip
+      value: "Shows: admin/products/local/commit/abc123def456/schema — schema graph at a specific historical commit."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: admin/products/local/commit/abc123def456/schema — view the schema as it existed at a specific commit. Useful for understanding schema evolution or debugging migration issues."
+
+  # === Instance graph example ===
+
+  - block_index: 11
+    language: text
+    line: 130
+    type: fenced
+    action: "Show GRAPH_SPEC for instance data graph"
+    expected_outcome:
+      type: skip
+      value: "Shows: .../instance — the instance graph targeting actual data documents (default graph_type for most API calls)."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader learns: .../instance targets the actual data documents. This is what most API calls address by default (graph_type=instance is the default)."
+
+  # === CLI: query a database ===
+
+  - block_index: 12
+    language: bash
+    line: 140
+    type: fenced
+    action: "Query a database using DB_SPEC in the CLI"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: 'terminusdb query admin/MyDatabase \"select(...)\"' — the DB_SPEC is the first argument after the command. Short form (org/db) uses default branch."
+
+  # === CLI: optimize a branch ===
+
+  - block_index: 13
+    language: bash
+    line: 145
+    type: fenced
+    action: "Optimize a specific branch using full DB_SPEC path"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 0
+    skip_reason: null
+    ux_intent: "Reader learns: 'terminusdb optimize admin/MyDatabase/local/branch/main' — full path for operations that need an explicit branch target."
+
+  # === CLI: dump triples from schema ===
+
+  - block_index: 14
+    language: bash
+    line: 150
+    type: fenced
+    action: "Dump triples from the schema graph using GRAPH_SPEC"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 1
+    skip_reason: null
+    ux_intent: "Reader learns: 'terminusdb triples dump admin/people/local/branch/main/schema' — GRAPH_SPEC in action. The /schema suffix targets the schema graph specifically."
+
+  # === CLI: load triples into instance ===
+
+  - block_index: 15
+    language: bash
+    line: 155
+    type: fenced
+    action: "Load triples into the instance graph of a specific branch"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 2
+    skip_reason: null
+    ux_intent: "Reader learns: 'terminusdb triples load .../development/instance data.ttl' — load RDF data into a non-main branch's instance graph. Combines branch selection with graph type targeting."
+
+  # === REST API: insert document ===
+
+  - block_index: 16
+    language: bash
+    line: 164
+    type: fenced
+    action: "Show how DB_SPEC maps to REST API URL structure"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 3
+    skip_reason: null
+    ux_intent: "Reader learns: REST API embeds the DB_SPEC directly in the URL path after /api/document/. Example: POST .../api/document/admin/MyDatabase/local/branch/main. The URL structure IS the DB_SPEC."
+
+  # === REST API: set env vars for auth ===
+
+  - block_index: 17
+    language: bash
+    line: 175
+    type: fenced
+    action: "Show REST API query with graph_type parameter for schema access"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 4
+    skip_reason: null
+    ux_intent: "Reader learns: GET .../api/document/admin/MyDatabase/local/branch/main?graph_type=schema — in REST API, graph type is a query parameter rather than a URL path component. This differs from CLI where it's appended to the path."
+
+  # === JavaScript client ===
+
+  - block_index: 18
+    language: javascript
+    line: 182
+    type: fenced
+    action: "Show how the JavaScript client constructs DB_SPEC from connection params"
+    expected_outcome:
+      type: skip
+      value: "Shows: JS client with organization, db, branch options — constructs DB_SPEC internally. Default branch is 'main'."
+      tolerance: null
+    depends_on: 5
+    skip_reason: display_only
+    ux_intent: "Reader learns: JS client takes organization, db, branch as separate options. It constructs the DB_SPEC internally. Default branch is 'main'. The client abstracts the path construction — you provide components, it builds the address."
+
+  # === Python client ===
+
+  - block_index: 19
+    language: python
+    line: 193
+    type: fenced
+    action: "Show how the Python client constructs DB_SPEC from connection params"
+    expected_outcome:
+      type: skip
+      value: "Shows: Python client.connect(team='admin', db='MyDatabase', branch='main') — 'team' is Python equivalent of 'organization'."
+      tolerance: null
+    depends_on: 6
+    skip_reason: display_only
+    ux_intent: "Reader learns: Python client uses client.connect(team='admin', db='MyDatabase', branch='main'). Same concept — provide components, client builds the path. 'team' is the Python equivalent of 'organization'."
+
+  # === Defaults expansion ===
+
+  - block_index: 20
+    language: text
+    line: 212
+    type: fenced
+    action: "Show how short DB_SPEC expands to full path with defaults"
+    expected_outcome:
+      type: skip
+      value: "Shows: admin/MyDatabase expands to admin/MyDatabase/local/branch/main. Defaults: repository=local, branch=main, graph_type=instance."
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+    ux_intent: "Reader sees: admin/MyDatabase ↓ expands to ↓ admin/MyDatabase/local/branch/main. Visual confirmation of default expansion. No repository = local, no branch = main, no graph_type = instance."
+
+  # === Working with remotes: add ===
+
+  - block_index: 21
+    language: bash
+    line: 222
+    type: fenced
+    action: "Add a remote repository to a database"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 7
+    skip_reason: null
+    ux_intent: "Reader learns: 'terminusdb remote add admin/MyDatabase origin https://...' — configure a named remote. After this, 'origin' can replace 'local' in DB_SPEC paths for fetch/pull/push operations."
+
+  # === Working with remotes: pull ===
+
+  - block_index: 22
+    language: bash
+    line: 228
+    type: fenced
+    action: "Pull from a remote branch using remote DB_SPEC"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 8
+    skip_reason: null
+    ux_intent: "Reader learns: 'terminusdb pull admin/MyDatabase/origin/branch/main' — use the remote name in the path to pull changes. Same path structure, different repository segment."
+
+  # === Time travel query ===
+
+  - block_index: 23
+    language: bash
+    line: 238
+    type: fenced
+    action: "Query historical data using a commit-based DB_SPEC"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 9
+    skip_reason: null
+    ux_intent: "Reader learns: replace /branch/main with /commit/<id> to query historical state. Same query, different point in time. This is TerminusDB's time-travel capability expressed through path identifiers."
+
+  # === Multi-branch development ===
+
+  - block_index: 24
+    language: bash
+    line: 246
+    type: fenced
+    action: "Show multi-branch workflow: create, query, push a feature branch"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 10
+    skip_reason: null
+    ux_intent: "Reader learns: full branch workflow using DB_SPEC paths — create (branch create .../branch/feature-new-fields), query (terminusdb query .../branch/feature-new-fields), push (terminusdb push .../branch/feature-new-fields). Same path pattern across all operations."
+
+  # === Schema evolution: compare across commits ===
+
+  - block_index: 25
+    language: bash
+    line: 261
+    type: fenced
+    action: "Compare schema at current vs. previous commit using GRAPH_SPEC"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 11
+    skip_reason: null
+    ux_intent: "Reader learns: dump schema at two different points — .../branch/main/schema (current) vs. .../commit/previous123/schema (historical). Enables schema diff by comparing outputs. Demonstrates combining time-travel with graph-type selection."
+
+  # === System database warning ===
+
+  - block_index: 26
+    language: bash
+    line: 271
+    type: fenced
+    action: "Show querying the _system database (with caution note)"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: 12
+    skip_reason: null
+    ux_intent: "Reader learns: 'terminusdb query _system \"...\"' accesses the system database directly. WARNING: be extremely careful with write operations here — this contains all user accounts, organisations, and database records. Read-only access for auditing is the safe pattern."

@@ -1,0 +1,50 @@
+# Intent skeleton for: ui-sdk-geojson
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: ui-sdk-geojson
+total_blocks: 3
+auto_filled: 3
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  - block_index: 0
+    language: python
+    line: 40
+    type: fenced
+    action: Render FrameViewer in Create mode for FeatureCollection GeoJSON
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 1
+    language: json
+    line: 54
+    type: fenced
+    action: Display GeoJSON schema definition for TerminusDB
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: json
+    line: 228
+    type: fenced
+    action: Display GeoJSON FeatureCollection document instance
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only

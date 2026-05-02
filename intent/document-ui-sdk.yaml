@@ -1,0 +1,167 @@
+# Intent: document-ui-sdk
+# Page: src/app/docs/document-ui-sdk/page.md
+# Title: How to use the TerminusDB Document UI SDK
+# Generated: 2026-05-01 (skeleton), 2026-05-02 (UX annotations by design-engineer)
+# Status: UX annotations complete
+#
+# UX annotations by: design-engineer
+# Note: This is a HOW-TO page for integrating the Document UI SDK (FrameViewer) into React.
+#       Reader arrives asking: "how do I auto-generate forms from my TerminusDB schema?"
+
+page: document-ui-sdk
+total_blocks: 10
+auto_filled: 10
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # === npm install ===
+
+  - block_index: 0
+    language: bash
+    line: 43
+    type: fenced
+    action: "Install the Document UI SDK package from npm"
+    expected_outcome:
+      type: exit_code
+      value: 0
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    ux_intent: "Reader learns: npm install @terminusdb/terminusdb-documents-ui --save. Single package. This provides the FrameViewer component that auto-generates forms from schema frames."
+
+  # === Import FrameViewer ===
+
+  - block_index: 1
+    language: javascript
+    line: 49
+    type: fenced
+    action: "Import the FrameViewer component into your React code"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    ux_intent: "Reader learns: import {FrameViewer} from '@terminusdb/terminusdb-documents-ui'. Named export. This is the main component that renders schema-driven forms."
+
+  # === Import dark mode CSS ===
+
+  - block_index: 2
+    language: javascript
+    line: 57
+    type: fenced
+    action: "Import the dark mode CSS theme"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 1
+    skip_reason: display_only
+    ux_intent: "Reader learns: import the darkly CSS from dist/css/terminusdb__darkly.css. Must import one theme file for the forms to render correctly. Two options: dark or light."
+
+  # === Import light mode CSS ===
+
+  - block_index: 3
+    language: javascript
+    line: 63
+    type: fenced
+    action: "Import the light mode CSS theme"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 2
+    skip_reason: display_only
+    ux_intent: "Reader learns: alternative light theme at dist/css/terminusdb__light.css. Choose one — don't import both."
+
+  # === FrameViewer usage example ===
+
+  - block_index: 4
+    language: javascript
+    line: 172
+    type: fenced
+    action: "Show FrameViewer component usage with all key props"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 3
+    skip_reason: display_only
+    ux_intent: "Reader learns: FrameViewer takes frame (schema JSON), type (document class name), mode (Create/Edit/View), formData (document values), and optional callbacks (onSubmit, onChange, onSelect). This shows the complete props interface. Frame comes from getSchemaFrame(), formData from document API."
+
+  # === onSubmit callback ===
+
+  - block_index: 5
+    language: javascript
+    line: 200
+    type: fenced
+    action: "Show the onSubmit callback pattern for handling form submission"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 4
+    skip_reason: display_only
+    ux_intent: "Reader learns: onSubmit receives the complete form data as a JSON document. Use this to call client.addDocument() or client.updateDocument(). The callback bridges the UI component to the TerminusDB document API."
+
+  # === onChange callback ===
+
+  - block_index: 6
+    language: javascript
+    line: 228
+    type: fenced
+    action: "Show the onChange callback pattern for tracking field changes"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 5
+    skip_reason: display_only
+    ux_intent: "Reader learns: onChange fires on every field change with the updated document. Useful for auto-save, validation, or dependent field updates. Fires more frequently than onSubmit — every keystroke/selection."
+
+  # === JSX rendering pattern ===
+
+  - block_index: 7
+    language: jsx
+    line: 244
+    type: fenced
+    action: "Show complete JSX rendering pattern with FrameViewer in a React component"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: no_test_runner
+    ux_intent: "Reader learns: full React component pattern — useState for mode/formData, useEffect to fetch frames, conditional render (loading state), FrameViewer wrapped in a container. Shows how all the pieces fit together in a real component."
+
+  # === Custom widget override ===
+
+  - block_index: 8
+    language: javascript
+    line: 270
+    type: fenced
+    action: "Show how to override default field widgets with custom React components"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 6
+    skip_reason: display_only
+    ux_intent: "Reader learns: pass a 'uiFrames' prop to FrameViewer to override default rendering for specific fields. Map field names to custom React components. Enables rich editors (maps, media, code) for specific schema properties while keeping auto-generation for the rest."
+
+  # === Multi-language support ===
+
+  - block_index: 9
+    language: javascript
+    line: 307
+    type: fenced
+    action: "Show how to configure multi-language support in FrameViewer"
+    expected_outcome:
+      type: null
+      value: null
+      tolerance: null
+    depends_on: 7
+    skip_reason: display_only
+    ux_intent: "Reader learns: pass 'language' prop to FrameViewer to activate multi-language labels/comments from @documentation. The schema's @documentation array with @language tags drives which labels appear. Enables localised form labels without code changes."

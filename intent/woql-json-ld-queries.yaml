@@ -1,0 +1,266 @@
+# Intent skeleton for: woql-json-ld-queries
+# Generated: 2026-05-01
+# Auto-fill rate: see stats below
+#
+# Fields marked "null" require manual annotation.
+# See INTENT-CAPTURE-PLAN.md for format specification.
+
+page: woql-json-ld-queries
+total_blocks: 21
+auto_filled: 19
+needs_manual: 2
+auto_fill_rate: 90%
+
+blocks:
+
+  - block_index: 0
+    language: javascript
+    line: 51
+    type: fenced
+    action: WOQL query snippet
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  - block_index: 1
+    language: json
+    line: 56
+    type: fenced
+    action: "Display JSON-LD equivalent of WOQL.triple(): Triple type with NodeValue subject/predicate/object"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 2
+    language: javascript
+    line: 82
+    type: fenced
+    action: WOQL query via SDK
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  - block_index: 3
+    language: javascript
+    line: 118
+    type: fenced
+    action: Execute WOQL query (SDK)
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 1
+    skip_reason: null
+
+  - block_index: 4
+    language: javascript
+    line: 135
+    type: fenced
+    action: WOQL query via SDK
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: null
+
+  - block_index: 5
+    language: javascript
+    line: 156
+    type: fenced
+    action: WOQL query via SDK
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 3
+    skip_reason: null
+
+  - block_index: 6
+    language: javascript
+    line: 166
+    type: fenced
+    action: Execute WOQL query (SDK)
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 4
+    skip_reason: null
+
+  - block_index: 7
+    language: json
+    line: 191
+    type: fenced
+    action: "Display DataValue JSON-LD pattern for string literal: {type: DataValue, data: {type: xsd:string, value: ...}}"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 8
+    language: json
+    line: 202
+    type: fenced
+    action: "Display DataValue JSON-LD pattern for integer literal: {type: DataValue, data: {type: xsd:integer, value: 42}}"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 9
+    language: json
+    line: 215
+    type: fenced
+    action: "Display NodeValue JSON-LD pattern for variable: {type: NodeValue, variable: 'Person'}"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: woql_ast_display
+
+  - block_index: 10
+    language: json
+    line: 223
+    type: fenced
+    action: "Display NodeValue JSON-LD pattern for IRI/node: {type: NodeValue, node: '@schema:Person'}"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: woql_ast_display
+
+  - block_index: 11
+    language: json
+    line: 233
+    type: fenced
+    action: "Display And compound query JSON-LD: {type: And, and: [query1, query2, ...]}"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 12
+    language: json
+    line: 244
+    type: fenced
+    action: "Display Or compound query JSON-LD: {type: Or, or: [query1, query2, ...]}"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 13
+    language: json
+    line: 255
+    type: fenced
+    action: "Display Select JSON-LD: {type: Select, variables: ['Name', 'Age'], query: {subquery}}"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: woql_ast_display
+
+  - block_index: 14
+    language: javascript
+    line: 267
+    type: fenced
+    action: WOQL query snippet
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 7
+    skip_reason: null
+
+  - block_index: 15
+    language: javascript
+    line: 286
+    type: fenced
+    action: WOQL query snippet
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 8
+    skip_reason: null
+
+  - block_index: 16
+    language: json
+    line: 301
+    type: fenced
+    action: "Display RandomKey JSON-LD for integration tests: {type: RandomKey, base: DataValue, uri: NodeValue}"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: woql_ast_display
+
+  - block_index: 17
+    language: javascript
+    line: 314
+    type: fenced
+    action: WOQL query via SDK
+    expected_outcome:
+      type: non_empty
+      value: null
+      tolerance: non_empty
+    depends_on: 9
+    skip_reason: null
+
+  - block_index: 18
+    language: json
+    line: 338
+    type: fenced
+    action: "Display error example: Triple type with missing required fields (subject, predicate, object)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  - block_index: 19
+    language: json
+    line: 347
+    type: fenced
+    action: "Display error example: incorrect @type (TriplePattern instead of Triple)"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: woql_ast_display
+
+  - block_index: 20
+    language: json
+    line: 356
+    type: fenced
+    action: "Display error example: invalid field name in NodeValue ('var' instead of 'variable')"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: woql_ast_display

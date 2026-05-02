@@ -1,0 +1,48 @@
+# Intent Capture: documentsgraphqltable
+# Page: src/app/docs/documentsgraphqltable/page.md
+# Title: DocumentsGraphqlTable Component
+# Total blocks: 2
+# Annotated by: systems-engineer (technical assertions)
+# Date: 2026-05-01
+# Status: COMPLETE
+# Note: React UI component documentation. npm install is testable; React code is display-only (requires app context).
+
+page: documentsgraphqltable
+total_blocks: 2
+auto_filled: 2
+needs_manual: 0
+auto_fill_rate: 100%
+
+blocks:
+
+  # Block 0 — npm install dependencies
+
+  - block_index: 0
+    language: bash
+    line: 25
+    type: fenced
+    action: "Install TerminusDB UI component packages"
+    expected_outcome:
+      type: exit_code
+      value: "Exit code 0 — three packages installed: terminusdb-documents-ui, terminusdb-react-table, terminusdb-documents-ui-templates"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+    note: "Requires Node.js project. Packages are @terminusdb scoped. Test in isolated temp dir."
+    assertion: "Exit code 0 AND node_modules/@terminusdb/terminusdb-documents-ui/ exists AND node_modules/@terminusdb/terminusdb-react-table/ exists AND node_modules/@terminusdb/terminusdb-documents-ui-templates/ exists."
+
+  # Block 1 — React component example
+
+  - block_index: 1
+    language: javascript
+    line: 92
+    type: fenced
+    action: "Display DocumentsGraphqlTable React component usage example"
+    expected_outcome:
+      type: skip
+      value: "Shows DocumentSearchComponent using useTDBDocuments hook, gql query, and DocumentsGraphqlTable with tableConfig, apolloClient, etc. React component pattern — not independently executable."
+      tolerance: null
+    depends_on: 0
+    skip_reason: display_only
+    note: "Requires React app context, Apollo Client instance, and connected tdbClient. Display only."
+    assertion: "No assertion — display only. React component integration pattern."

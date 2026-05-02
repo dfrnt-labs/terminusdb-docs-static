@@ -1,0 +1,569 @@
+# Intent annotations for: schema-crud-operations
+# Annotated: 2026-05-01
+# Source: src/app/docs/schema-crud-operations/page.md
+#
+# This page teaches: full schema CRUD lifecycle (create, read/list/filter, update/add field, delete, migration)
+# Prerequisites: TerminusDB running, database created
+# Dataset: Self-created (Country + Person classes with Lexical keys)
+
+page: schema-crud-operations
+total_blocks: 41
+annotated: 41
+needs_manual: 0
+
+blocks:
+
+  # === CREATE SCHEMA ===
+
+  # Create schema — TypeScript SDK
+  - block_index: 0
+    language: typescript
+    line: 42
+    type: fenced
+    action: "Create schema classes (Country + Person with Lexical keys) via TypeScript SDK"
+    expected_outcome:
+      type: non_empty
+      value: '["terminusdb:///schema#Country", "terminusdb:///schema#Person"]'
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Create schema — Python SDK
+  - block_index: 1
+    language: python
+    line: 69
+    type: fenced
+    action: "Create schema classes (Country + Person with Lexical keys) via Python SDK"
+    expected_outcome:
+      type: non_empty
+      value: '["terminusdb:///schema#Country", "terminusdb:///schema#Person"]'
+      tolerance: non_empty
+    depends_on: 0
+    skip_reason: null
+
+  # Create schema — HTTP API
+  - block_index: 2
+    language: bash
+    line: 94
+    type: fenced
+    action: "POST schema classes (Country + Person) with graph_type=schema via HTTP API"
+    expected_outcome:
+      type: output_contains
+      value: "terminusdb:///schema#Country"
+      tolerance: contains
+    depends_on: 1
+    skip_reason: null
+
+  # Create schema — expected response display
+  - block_index: 3
+    language: json
+    line: 119
+    type: fenced
+    action: "Shows expected schema creation response: array of schema IRIs"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === READ SCHEMA (list all) ===
+
+  # List all schema — TypeScript SDK
+  - block_index: 4
+    language: typescript
+    line: 139
+    type: fenced
+    action: "List all schema classes via TypeScript SDK getDocument({graph_type: schema, as_list: true})"
+    expected_outcome:
+      type: non_empty
+      value: "Returns array including @context, Country, and Person class definitions"
+      tolerance: non_empty
+    depends_on: 2
+    skip_reason: null
+
+  # List all schema — TypeScript result display
+  - block_index: 5
+    language: json
+    line: 151
+    type: fenced
+    action: "Shows expected schema list: @context + Country + Person with all fields"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # List all schema — Python SDK
+  - block_index: 6
+    language: python
+    line: 177
+    type: fenced
+    action: "List all schema classes via Python SDK get_all_documents(graph_type=schema)"
+    expected_outcome:
+      type: non_empty
+      value: "Returns list of schema objects including @context and class definitions"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # List all schema — Python result display
+  - block_index: 7
+    language: python
+    line: 184
+    type: fenced
+    action: "Shows expected Python schema list result with @context, Country, Person"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # List all schema — HTTP API
+  - block_index: 8
+    language: bash
+    line: 193
+    type: fenced
+    action: "GET all schema documents with graph_type=schema&as_list=true via HTTP"
+    expected_outcome:
+      type: output_contains
+      value: "Class"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+
+  # List all schema — HTTP result display
+  - block_index: 9
+    language: json
+    line: 200
+    type: fenced
+    action: "Shows expected HTTP schema list with @context, Country, Person classes"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === READ SCHEMA (single class) ===
+
+  # Get single class — TypeScript SDK
+  - block_index: 10
+    language: typescript
+    line: 214
+    type: fenced
+    action: "Get single schema class (Person) by ID via TypeScript SDK"
+    expected_outcome:
+      type: non_empty
+      value: "Returns Person class definition with @type, @id, @key, fields"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Get single class — TypeScript result display
+  - block_index: 11
+    language: json
+    line: 226
+    type: fenced
+    action: "Shows expected Person class definition: Lexical key, name, age, nationality fields"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Get single class — Python SDK
+  - block_index: 12
+    language: python
+    line: 238
+    type: fenced
+    action: "Get single schema class (Person) by ID via Python SDK get_document(graph_type=schema)"
+    expected_outcome:
+      type: non_empty
+      value: "Returns Person class definition dict"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Get single class — Python result display
+  - block_index: 13
+    language: json
+    line: 245
+    type: fenced
+    action: "Shows expected Person class JSON from Python SDK"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # Get single class — HTTP API
+  - block_index: 14
+    language: bash
+    line: 250
+    type: fenced
+    action: "GET single schema class (Person) with graph_type=schema&id=Person via HTTP"
+    expected_outcome:
+      type: output_contains
+      value: "Person"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+
+  # Get single class — HTTP result display
+  - block_index: 15
+    language: json
+    line: 257
+    type: fenced
+    action: "Shows expected Person class HTTP response"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === READ SCHEMA (filter by type) ===
+
+  # Filter by Class type — TypeScript SDK
+  - block_index: 16
+    language: typescript
+    line: 276
+    type: fenced
+    action: "Filter schema by type=Class to exclude @context via TypeScript SDK"
+    expected_outcome:
+      type: non_empty
+      value: "Returns only Class documents (excludes @context)"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Filter by Class type — Python SDK
+  - block_index: 17
+    language: python
+    line: 288
+    type: fenced
+    action: "Filter schema by doc_type=Class to exclude @context via Python SDK"
+    expected_outcome:
+      type: non_empty
+      value: "Returns only Class documents"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Filter by Class type — HTTP API
+  - block_index: 18
+    language: bash
+    line: 294
+    type: fenced
+    action: "GET schema documents filtered by type=Class via HTTP"
+    expected_outcome:
+      type: output_contains
+      value: "Class"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+
+  # === UPDATE SCHEMA (add optional field) ===
+
+  # Add field — TypeScript SDK
+  - block_index: 19
+    language: typescript
+    line: 313
+    type: fenced
+    action: "Add optional email field to Person class via TypeScript SDK updateDocument()"
+    expected_outcome:
+      type: non_empty
+      value: "Person class updated with new optional email field"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Add field — Python SDK
+  - block_index: 20
+    language: python
+    line: 331
+    type: fenced
+    action: "Add optional email field to Person class via Python SDK update_document()"
+    expected_outcome:
+      type: non_empty
+      value: "Person class updated with email field"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Add field — HTTP API
+  - block_index: 21
+    language: bash
+    line: 347
+    type: fenced
+    action: "PUT updated Person class (with email field added) via HTTP API"
+    expected_outcome:
+      type: output_contains
+      value: "Person"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+
+  # === UPDATE SCHEMA (change field to Optional) ===
+
+  # Make field optional — TypeScript SDK
+  - block_index: 22
+    language: typescript
+    line: 374
+    type: fenced
+    action: "Change nationality from required to Optional on Person class via TypeScript SDK"
+    expected_outcome:
+      type: non_empty
+      value: "Person class updated with nationality as Optional"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Make field optional — Python SDK
+  - block_index: 23
+    language: python
+    line: 393
+    type: fenced
+    action: "Change nationality from required to Optional on Person class via Python SDK"
+    expected_outcome:
+      type: non_empty
+      value: "Person class updated with nationality as Optional"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Make field optional — HTTP API
+  - block_index: 24
+    language: bash
+    line: 409
+    type: fenced
+    action: "PUT Person class with nationality changed to Optional via HTTP API"
+    expected_outcome:
+      type: output_contains
+      value: "Person"
+      tolerance: contains
+    depends_on: null
+    skip_reason: null
+
+  # === DELETE SCHEMA (delete a class) ===
+
+  # Delete class — TypeScript SDK
+  - block_index: 25
+    language: typescript
+    line: 440
+    type: fenced
+    action: "Delete Country schema class via TypeScript SDK deleteDocument()"
+    expected_outcome:
+      type: non_empty
+      value: "Country class deleted from schema"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Delete class — Python SDK
+  - block_index: 26
+    language: python
+    line: 451
+    type: fenced
+    action: "Delete Country schema class via Python SDK delete_document()"
+    expected_outcome:
+      type: non_empty
+      value: "Country class deleted from schema"
+      tolerance: non_empty
+    depends_on: null
+    skip_reason: null
+
+  # Delete class — HTTP API
+  - block_index: 27
+    language: bash
+    line: 457
+    type: fenced
+    action: "DELETE Country schema class with graph_type=schema via HTTP API"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: null
+    skip_reason: null
+
+  # Delete class — error display (dependency)
+  - block_index: 28
+    language: json
+    line: 466
+    type: fenced
+    action: "Shows expected error when deleting class still referenced by other classes"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === UPDATE SCHEMA (remove field referencing deleted class) ===
+
+  # Remove field — TypeScript SDK
+  - block_index: 29
+    language: typescript
+    line: 482
+    type: fenced
+    action: "Remove nationality field from Person class (after Country deleted) via TypeScript SDK"
+    expected_outcome:
+      type: non_empty
+      value: "Person class updated without nationality field"
+      tolerance: non_empty
+    depends_on: 27
+    skip_reason: null
+
+  # Remove field — Python SDK
+  - block_index: 30
+    language: python
+    line: 510
+    type: fenced
+    action: "Remove nationality field from Person class via Python SDK"
+    expected_outcome:
+      type: non_empty
+      value: "Person class updated without nationality field"
+      tolerance: non_empty
+    depends_on: 29
+    skip_reason: null
+
+  # Remove field — HTTP API
+  - block_index: 31
+    language: bash
+    line: 535
+    type: fenced
+    action: "PUT Person class without nationality field via HTTP API"
+    expected_outcome:
+      type: output_contains
+      value: "Person"
+      tolerance: contains
+    depends_on: 30
+    skip_reason: null
+
+  # === REPLACE ENTIRE SCHEMA ===
+
+  # Replace schema — TypeScript SDK
+  - block_index: 32
+    language: typescript
+    line: 576
+    type: fenced
+    action: "Replace entire schema (create=true) with new classes via TypeScript SDK"
+    expected_outcome:
+      type: non_empty
+      value: "Schema fully replaced with new class definitions"
+      tolerance: non_empty
+    depends_on: 31
+    skip_reason: null
+
+  # Replace schema — Python SDK
+  - block_index: 33
+    language: python
+    line: 612
+    type: fenced
+    action: "Replace entire schema (create=true) with new classes via Python SDK"
+    expected_outcome:
+      type: non_empty
+      value: "Schema fully replaced"
+      tolerance: non_empty
+    depends_on: 32
+    skip_reason: null
+
+  # Replace schema — HTTP API
+  - block_index: 34
+    language: bash
+    line: 643
+    type: fenced
+    action: "PUT entire schema with create=true param to add-or-replace all classes via HTTP"
+    expected_outcome:
+      type: output_contains
+      value: "terminusdb:///schema"
+      tolerance: contains
+    depends_on: 33
+    skip_reason: null
+
+  # Replace schema — expected response display
+  - block_index: 35
+    language: json
+    line: 679
+    type: fenced
+    action: "Shows expected schema replacement response"
+    expected_outcome:
+      type: skip
+      value: null
+      tolerance: null
+    depends_on: null
+    skip_reason: display_only
+
+  # === SCHEMA MIGRATION ===
+
+  # Migration — HTTP API (apply)
+  - block_index: 36
+    language: bash
+    line: 709
+    type: fenced
+    action: "POST /api/migration — apply schema migration with operations and data transforms"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 34
+    skip_reason: null
+
+  # Migration — HTTP API (dry run)
+  - block_index: 37
+    language: bash
+    line: 733
+    type: fenced
+    action: "POST /api/migration with dry_run=true — preview migration without applying"
+    expected_outcome:
+      type: status_code
+      value: "200"
+      tolerance: exact
+    depends_on: 36
+    skip_reason: null
+
+  # Migration — TypeScript SDK
+  - block_index: 38
+    language: typescript
+    line: 756
+    type: fenced
+    action: "Schema migration via TypeScript SDK (equivalent of migration endpoint)"
+    expected_outcome:
+      type: non_empty
+      value: "Migration applied, schema and data transformed"
+      tolerance: non_empty
+    depends_on: 37
+    skip_reason: null
+
+  # === SCHEMA DIFF (version comparison) ===
+
+  # Schema diff — HTTP API
+  - block_index: 39
+    language: bash
+    line: 773
+    type: fenced
+    action: "GET /api/diff between main and feature branches for Person schema class"
+    expected_outcome:
+      type: output_contains
+      value: "@op"
+      tolerance: contains
+    depends_on: 38
+    skip_reason: null
+
+  # Schema diff — TypeScript SDK (branch schema operations)
+  - block_index: 40
+    language: typescript
+    line: 782
+    type: fenced
+    action: "Schema operations on a branch (add new class on feature branch) via TypeScript SDK"
+    expected_outcome:
+      type: non_empty
+      value: "New class created on feature branch only"
+      tolerance: non_empty
+    depends_on: 39
+    skip_reason: null
