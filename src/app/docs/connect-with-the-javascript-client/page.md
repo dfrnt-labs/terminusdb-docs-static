@@ -48,18 +48,7 @@ Create a file called `index.ts`. You will build it up step by step below, or cop
 
 ## Connect to TerminusDB
 
-```typescript test-example id="ts-quickstart-connect"
-import TerminusClient from "terminusdb"
-
-const client = new TerminusClient.WOQLClient("http://localhost:6363", {
-  user: "admin",
-  organization: "admin",
-  key: "root",
-})
-
-// Verify the connection works
-const info = await client.info()
-console.log("Connected to TerminusDB", info)
+```typescript test-example id="ts-quickstart-connect" file="examples/ts-quickstart-connect.example.ts"
 ```
 
 **What you should see:** A server info object with version and storage details. If you see a connection error, check that Docker is running and TerminusDB is on port 6363.
@@ -68,21 +57,7 @@ console.log("Connected to TerminusDB", info)
 
 No schema needed — insert any JSON document with `raw_json: true` and give it a human-readable ID:
 
-```typescript test-example id="ts-quickstart-create-db" fixture="docs-test"
-// Create a database (no schema required)
-await client.createDatabase("MyDatabase", {
-  label: "My Database",
-  comment: "TypeScript quickstart",
-  schema: false,
-})
-
-// Insert a document — choose your own ID, no schema to define
-const result = await client.addDocument(
-  { "@id": "terminusdb:///data/jane", name: "Jane Smith", email: "jane@example.com", age: 30 },
-  { raw_json: true },
-)
-
-console.log("Document created:", result)
+```typescript test-example id="ts-quickstart-create-db" fixture="docs-test" file="examples/ts-quickstart-create-db.example.ts"
 ```
 
 **What you should see:** `["terminusdb:///data/jane"]`. The `@id` gives the document a stable, human-readable identifier you choose. Schema comes later when you are ready.
@@ -91,14 +66,7 @@ console.log("Document created:", result)
 
 Just like `git branch`, this creates an isolated copy of your data:
 
-```typescript test-example id="ts-quickstart-branch"
-// Create a new branch from main
-await client.branch("feature")
-
-// Switch to it (like git checkout)
-client.checkout("feature")
-
-console.log("Now on branch:", client.checkout())
+```typescript test-example id="ts-quickstart-branch" file="examples/ts-quickstart-branch.example.ts"
 ```
 
 **What you should see:** `Now on branch: feature`
@@ -107,21 +75,7 @@ Everything you do now happens on `feature` — main is untouched.
 
 ## Edit the document on the branch
 
-```typescript test-example id="ts-quickstart-edit"
-// Get the document we inserted earlier
-const person = await client.getDocument({ id: "terminusdb:///data/jane", as_list: true })
-
-console.log("Current document:", person)
-
-// Update the email on this branch
-await client.updateDocument(
-  { "@id": "terminusdb:///data/jane", name: "Jane Smith", email: "jane.smith@company.com", age: 30 },
-  { raw_json: true },
-  "",
-  "Updated Jane's email",
-)
-
-console.log("Document updated on feature branch")
+```typescript test-example id="ts-quickstart-edit" file="examples/ts-quickstart-edit.example.ts"
 ```
 
 **What you should see:** The document retrieved, then confirmation of the update. The change only exists on `feature` — `main` still has the original email.
@@ -130,12 +84,7 @@ console.log("Document updated on feature branch")
 
 This is the moment. TerminusDB can show you exactly what changed between branches — structurally, field by field:
 
-```typescript test-example id="ts-quickstart-diff"
-// Compare main to feature — what changed?
-const diff = await client.getVersionDiff("main", "feature")
-
-console.log("Changes between main and feature:")
-console.log(JSON.stringify(diff, null, 2))
+```typescript test-example id="ts-quickstart-diff" file="examples/ts-quickstart-diff.example.ts"
 ```
 
 **What you should see:**
@@ -158,17 +107,7 @@ TerminusDB computed a **structural diff** — not a line-by-line text diff, but 
 
 Bring the changes back to `main`:
 
-```typescript test-example id="ts-quickstart-merge"
-// Switch back to main
-client.checkout("main")
-
-// Merge feature into main (like git merge)
-await client.rebase({
-  rebase_from: "admin/MyDatabase/local/branch/feature",
-  message: "Merge feature: updated Jane's email",
-})
-
-console.log("Merged feature into main")
+```typescript test-example id="ts-quickstart-merge" file="examples/ts-quickstart-merge.example.ts"
 ```
 
 **What you should see:** `Merged feature into main`
@@ -177,11 +116,7 @@ console.log("Merged feature into main")
 
 Confirm the changes are now on `main`:
 
-```typescript test-example id="ts-quickstart-verify"
-// Read the document from main
-const updated = await client.getDocument({ id: "terminusdb:///data/jane", as_list: true })
-
-console.log("Person on main after merge:", updated)
+```typescript test-example id="ts-quickstart-verify" file="examples/ts-quickstart-verify.example.ts"
 ```
 
 **What you should see:** Jane Smith with `jane.smith@company.com` — the changes from the feature branch are now on `main`.

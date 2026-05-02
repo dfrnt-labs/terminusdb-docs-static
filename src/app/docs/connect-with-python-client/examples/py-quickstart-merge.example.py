@@ -9,13 +9,16 @@ db = os.environ.get("TERMINUSDB_DB", "MyDatabase")
 client = Client(server)
 client.connect(team=team, key=key, db=db)
 
+# region: display
 # Switch back to main
 client.branch = "main"
 
 # Merge feature into main (like git merge)
+db = os.environ.get("TERMINUSDB_DB", "MyDatabase")
 client.rebase(
-    rebase_source=f"{team}/{db}/local/branch/feature",
+    rebase_source=f"admin/{db}/local/branch/feature",
     message="Merge feature: updated Jane's email",
 )
 
 print("Merged feature into main")
+# endregion

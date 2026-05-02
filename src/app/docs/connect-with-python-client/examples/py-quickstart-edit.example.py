@@ -9,6 +9,7 @@ db = os.environ.get("TERMINUSDB_DB", "MyDatabase")
 client = Client(server)
 client.connect(team=team, key=key, db=db, branch="feature")
 
+# region: display
 # Get the document we inserted earlier
 person = client.get_document("terminusdb:///data/jane", raw_json=True)
 print("Current document:", person)
@@ -21,3 +22,4 @@ client.replace_document(
 )
 
 print("Document updated on feature branch")
+# endregion

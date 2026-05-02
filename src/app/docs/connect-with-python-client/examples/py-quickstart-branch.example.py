@@ -9,6 +9,7 @@ db = os.environ.get("TERMINUSDB_DB", "MyDatabase")
 client = Client(server)
 client.connect(team=team, key=key, db=db)
 
+# region: display
 # Create a new branch from the current branch (main)
 client.create_branch("feature")
 
@@ -16,3 +17,4 @@ client.create_branch("feature")
 client.branch = "feature"
 
 print("Now on branch:", client.branch)
+# endregion

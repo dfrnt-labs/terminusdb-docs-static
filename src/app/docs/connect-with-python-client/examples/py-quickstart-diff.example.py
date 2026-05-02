@@ -10,8 +10,10 @@ db = os.environ.get("TERMINUSDB_DB", "MyDatabase")
 client = Client(server)
 client.connect(team=team, key=key, db=db)
 
+# region: display
 # Compare main to feature — what changed?
 diff = client.diff_version("main", "feature")
 
 print("Changes between main and feature:")
 print(json.dumps(diff, indent=2))
+# endregion

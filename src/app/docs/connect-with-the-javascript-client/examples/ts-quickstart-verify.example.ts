@@ -13,10 +13,12 @@ async function main() {
     db,
   })
 
+  // region: display
   // Read the document from main
   const updated = await client.getDocument({ id: "terminusdb:///data/jane", as_list: true })
 
   console.log("Person on main after merge:", updated)
+  // endregion
 }
 
 main().catch(console.error)

@@ -13,16 +13,18 @@ async function main() {
     db,
   })
 
+  // region: display
   // Switch back to main
   client.checkout("main")
 
   // Merge feature into main (like git merge)
   await client.rebase({
-    rebase_from: `${user}/${db}/local/branch/feature`,
+    rebase_from: `admin/${db}/local/branch/feature`,
     message: "Merge feature: updated Jane's email",
   })
 
   console.log("Merged feature into main")
+  // endregion
 }
 
 main().catch(console.error)

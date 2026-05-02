@@ -13,11 +13,13 @@ async function main() {
     db,
   })
 
+  // region: display
   // Compare main to feature — what changed?
   const diff = await client.getVersionDiff("main", "feature")
 
   console.log("Changes between main and feature:")
   console.log(JSON.stringify(diff, null, 2))
+  // endregion
 }
 
 main().catch(console.error)

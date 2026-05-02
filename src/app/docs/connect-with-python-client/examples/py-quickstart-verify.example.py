@@ -9,5 +9,7 @@ db = os.environ.get("TERMINUSDB_DB", "MyDatabase")
 client = Client(server)
 client.connect(team=team, key=key, db=db)
 
+# region: display
 updated = client.get_document("terminusdb:///data/jane", raw_json=True)
 print("Person on main after merge:", updated)
+# endregion

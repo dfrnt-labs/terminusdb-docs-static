@@ -13,6 +13,7 @@ async function main() {
     db,
   })
 
+  // region: display
   // Create a new branch from main
   await client.branch("feature")
 
@@ -20,6 +21,7 @@ async function main() {
   client.checkout("feature")
 
   console.log("Now on branch:", client.checkout())
+  // endregion
 }
 
 main().catch(console.error)

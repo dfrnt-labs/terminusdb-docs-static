@@ -13,6 +13,7 @@ async function main() {
     key,
   })
 
+  // region: display
   // Create a database (no schema required)
   await client.createDatabase(db, {
     label: "My Database",
@@ -27,6 +28,7 @@ async function main() {
   )
 
   console.log("Document created:", result)
+  // endregion
 }
 
 main().catch(console.error)

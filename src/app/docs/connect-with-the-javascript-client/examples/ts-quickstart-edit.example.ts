@@ -16,6 +16,7 @@ async function main() {
   // Switch to the feature branch
   client.checkout("feature")
 
+  // region: display
   // Get the document we inserted earlier
   const person = await client.getDocument({ id: "terminusdb:///data/jane", as_list: true })
 
@@ -30,6 +31,7 @@ async function main() {
   )
 
   console.log("Document updated on feature branch")
+  // endregion
 }
 
 main().catch(console.error)

@@ -3,6 +3,7 @@ import withMarkdoc from '@markdoc/next.js'
 import withSearch from './src/markdoc/search.mjs'
 import withMetadataEnhancer from './src/markdoc/metadata-enhancer.mjs'
 import withFenceAnnotations from './src/markdoc/fence-annotations.mjs'
+import withCodeExamples from './src/markdoc/code-examples.mjs'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -72,10 +73,12 @@ const nextConfig = {
   },
 }
 
-export default withFenceAnnotations(
-  withMetadataEnhancer(
-    withSearch(
-      withMarkdoc({ schemaPath: './src/markdoc' })(nextConfig),
+export default withCodeExamples(
+  withFenceAnnotations(
+    withMetadataEnhancer(
+      withSearch(
+        withMarkdoc({ schemaPath: './src/markdoc' })(nextConfig),
+      ),
     ),
   ),
 )

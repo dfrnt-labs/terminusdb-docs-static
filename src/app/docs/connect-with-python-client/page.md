@@ -42,18 +42,7 @@ Create a file called `quickstart.py`. You will build it up step by step below.
 
 ## Connect to TerminusDB
 
-```python test-example id="py-quickstart-connect"
-import os
-from terminusdb_client import Client
-
-client = Client(os.environ.get("TERMINUSDB_URL", "http://localhost:6363"))
-client.connect(
-    team=os.environ.get("TERMINUSDB_USER", "admin"),
-    key=os.environ.get("TERMINUSDB_KEY", "root"),
-)
-
-info = client.info()
-print("Connected to TerminusDB", info)
+```python test-example id="py-quickstart-connect" file="examples/py-quickstart-connect.example.py"
 ```
 
 **What you should see:** A dict with server version and storage details. If you see a connection error, check that Docker is running and TerminusDB is on port 6363.
@@ -62,18 +51,7 @@ print("Connected to TerminusDB", info)
 
 No schema needed — insert any dict with `raw_json=True` and give it a human-readable ID:
 
-```python test-example id="py-quickstart-create-db" fixture="docs-test"
-db = os.environ.get("TERMINUSDB_DB", "MyDatabase")
-
-client.create_database(db, label=db, description="Python quickstart", include_schema=False)
-
-result = client.insert_document(
-    {"@id": "terminusdb:///data/jane", "name": "Jane Smith", "email": "jane@example.com", "age": 30},
-    raw_json=True,
-    commit_msg="Add Jane Smith",
-)
-
-print("Document created:", result)
+```python test-example id="py-quickstart-create-db" fixture="docs-test" file="examples/py-quickstart-create-db.example.py"
 ```
 
 **What you should see:** A list containing `"terminusdb:///data/jane"`. The `@id` gives the document a stable, human-readable identifier. Schema comes later when you are ready.
@@ -82,14 +60,7 @@ print("Document created:", result)
 
 Just like `git branch`, this creates an isolated copy of your data:
 
-```python test-example id="py-quickstart-branch"
-# Create a new branch from the current branch (main)
-client.create_branch("feature")
-
-# Switch to it
-client.branch = "feature"
-
-print("Now on branch:", client.branch)
+```python test-example id="py-quickstart-branch" file="examples/py-quickstart-branch.example.py"
 ```
 
 **What you should see:** `Now on branch: feature`
@@ -98,19 +69,7 @@ Everything you do now happens on `feature` — main is untouched.
 
 ## Edit the document on the branch
 
-```python test-example id="py-quickstart-edit"
-# Get the document we inserted earlier
-person = client.get_document("terminusdb:///data/jane", raw_json=True)
-print("Current document:", person)
-
-# Update the email on this branch
-client.replace_document(
-    {"@id": "terminusdb:///data/jane", "name": "Jane Smith", "email": "jane.smith@company.com", "age": 30},
-    raw_json=True,
-    commit_msg="Updated Jane's email",
-)
-
-print("Document updated on feature branch")
+```python test-example id="py-quickstart-edit" file="examples/py-quickstart-edit.example.py"
 ```
 
 **What you should see:** The document retrieved, then confirmation of the update. The change only exists on `feature` — `main` still has the original email.
@@ -119,13 +78,7 @@ print("Document updated on feature branch")
 
 This is the moment. TerminusDB can show you exactly what changed between branches — structurally, field by field:
 
-```python test-example id="py-quickstart-diff"
-# Compare main to feature — what changed?
-diff = client.diff_version("main", "feature")
-
-import json
-print("Changes between main and feature:")
-print(json.dumps(diff, indent=2))
+```python test-example id="py-quickstart-diff" file="examples/py-quickstart-diff.example.py"
 ```
 
 **What you should see:**
@@ -148,18 +101,7 @@ TerminusDB computed a **structural diff** — not a line-by-line text diff, but 
 
 Bring the changes back to `main`:
 
-```python test-example id="py-quickstart-merge"
-# Switch back to main
-client.branch = "main"
-
-# Merge feature into main (like git merge)
-db = os.environ.get("TERMINUSDB_DB", "MyDatabase")
-client.rebase(
-    rebase_source=f"admin/{db}/local/branch/feature",
-    message="Merge feature: updated Jane's email",
-)
-
-print("Merged feature into main")
+```python test-example id="py-quickstart-merge" file="examples/py-quickstart-merge.example.py"
 ```
 
 **What you should see:** `Merged feature into main`
@@ -168,9 +110,7 @@ print("Merged feature into main")
 
 Confirm the changes are now on `main`:
 
-```python test-example id="py-quickstart-verify"
-updated = client.get_document("terminusdb:///data/jane", raw_json=True)
-print("Person on main after merge:", updated)
+```python test-example id="py-quickstart-verify" file="examples/py-quickstart-verify.example.py"
 ```
 
 **What you should see:** Jane Smith with `jane.smith@company.com` — the changes from the feature branch are now on `main`.

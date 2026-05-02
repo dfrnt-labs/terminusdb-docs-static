@@ -9,6 +9,7 @@ team = os.environ.get("TERMINUSDB_USER", "admin")
 client = Client(server)
 client.connect(team=team, key=key)
 
+# region: display
 db = os.environ.get("TERMINUSDB_DB", "MyDatabase")
 
 client.create_database(db, label=db, description="Python quickstart", include_schema=False)
@@ -20,3 +21,4 @@ result = client.insert_document(
 )
 
 print("Document created:", result)
+# endregion
