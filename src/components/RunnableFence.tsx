@@ -174,6 +174,13 @@ function RunnableFenceInner({
   const hasTabs = parsedCurl !== null
   const highlightLang = languageAliases[lang] || lang
 
+  // Determine non-browser-runnable languages and their help messages
+  const nonBrowserMessage = ["python", "py"].includes(lang)
+    ? "This Python example cannot be run in the browser. Copy the code and run it in your terminal."
+    : ["typescript", "ts"].includes(lang)
+      ? "This TypeScript example uses the Node.js TerminusDB client. Copy the code and run it with npx tsx index.ts in your terminal."
+      : null
+
   const authHeader = "Basic " + btoa(`${settings.user}:${settings.password}`)
 
   // Reset copied state after 2 seconds
@@ -223,15 +230,23 @@ function RunnableFenceInner({
     abortControllerRef.current = controller
 
     // Determine if this language can be run in-browser
-    const isJsExecutable = ["javascript", "js", "typescript", "ts", "woql", "schema"].includes(lang)
+    const isJsExecutable = ["javascript", "js", "woql", "schema"].includes(lang)
     const isCurlExecutable = isBashLang && parsedCurl !== null
+    const isPython = ["python", "py"].includes(lang)
+    const isTypescript = ["typescript", "ts"].includes(lang)
 
     const isExecutableInBrowser = isJsExecutable || isCurlExecutable
 
     if (!isExecutableInBrowser) {
-      // For bash scripts (non-curl), python, etc.: show "Run in terminal" message
+      // Show language-specific helpful messages for non-browser languages
+      const terminalMessage = isPython
+        ? "This Python example cannot be run in the browser. Copy the code and run it in your terminal."
+        : isTypescript
+          ? "This TypeScript example uses the Node.js TerminusDB client. Copy the code and run it with `npx tsx index.ts` in your terminal."
+          : `This ${lang || "code"} example cannot be run in the browser. Copy the code and run it in your terminal.`
+
       setError({
-        message: `This ${lang || "code"} example cannot be run in the browser. Copy the code and run it in your terminal.`,
+        message: terminalMessage,
         isNetworkError: false,
         isCorsError: false,
         isTimeout: false,
@@ -660,7 +675,13 @@ function RunnableFenceInner({
               {state === "SERVER_OFFLINE" && (
                 <span className="w-2 h-2 rounded-full bg-amber-500 dark:bg-amber-400" aria-hidden="true" />
               )}
-              <RunButton state={state} onRun={runWithTimeout} />
+              {nonBrowserMessage ? (
+                <span className="text-xs text-slate-500 dark:text-slate-400" title={nonBrowserMessage}>
+                  Run locally
+                </span>
+              ) : (
+                <RunButton state={state} onRun={runWithTimeout} />
+              )}
               <CopyButton copied={copied} onCopy={copyToClipboard} />
             </div>
           </div>

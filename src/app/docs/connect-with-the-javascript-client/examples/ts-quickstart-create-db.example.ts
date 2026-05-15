@@ -4,9 +4,16 @@ import TerminusClient from "terminusdb"
 const server = process.env.TERMINUSDB_URL || "http://localhost:6363"
 const user = process.env.TERMINUSDB_USER || "admin"
 const key = process.env.TERMINUSDB_KEY || "root"
-const db = process.env.TERMINUSDB_DB || "MyDatabase"
+const db = process.env.TERMINUSDB_DB || "ts_qs_create"
 
-async function main() {
+async function deleteDb() {
+  const auth = "Basic " + Buffer.from(`${user}:${key}`).toString("base64")
+  await fetch(`${server}/api/db/${user}/${db}?force=true`, { method: "DELETE", headers: { Authorization: auth } })
+}
+
+export default async function run() {
+  await deleteDb()
+
   const client = new TerminusClient.WOQLClient(server, {
     user,
     organization: user,
@@ -29,6 +36,6 @@ async function main() {
 
   console.log("Document created:", result)
   // endregion
-}
 
-main().catch(console.error)
+  await deleteDb()
+}

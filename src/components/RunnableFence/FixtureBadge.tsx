@@ -4,14 +4,11 @@ interface FixtureBadgeProps {
   fixture: string
 }
 
-export function FixtureBadge({ fixture }: FixtureBadgeProps) {
+export function FixtureBadge({ fixture: _fixture }: FixtureBadgeProps) {
   return (
-    <div className="hidden md:flex items-center justify-end px-3 py-1 bg-slate-50 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700">
-      <span
-        className="text-xs text-slate-400 dark:text-slate-500 italic"
-        title="Run the setup example above first"
-      >
-        Requires: {fixture} ↑
+    <div className="flex items-center justify-end px-3 py-1 bg-amber-50 dark:bg-amber-950/30 border-t border-slate-200 dark:border-slate-700">
+      <span className="text-xs text-amber-700 dark:text-amber-400">
+        Run the setup example above first to create the database
       </span>
     </div>
   )
