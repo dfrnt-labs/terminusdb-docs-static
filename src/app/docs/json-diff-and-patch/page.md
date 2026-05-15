@@ -57,7 +57,7 @@ A **patch** applies a diff to two objects to obtain a new object with any differ
 The diff and patch endpoints are available anonymously on the public data server at `data.terminusdb.org` — no authentication required:
 
 {% callout type="warning" %}
-The endpoint at data.terminusdb.org is for non-production and exploratory use only. It is deployed with very limited memory to prevent abuse and is provided without any guarantees whatsoever. Do not rely on it for production applications. Availability is not guaranteed.
+The endpoint at data.terminusdb.org is for non-production and exploratory use only. It is deployed with very limited memory to prevent abuse and is provided without any guarantees whatsoever. Do not rely on it for production applications. Availability is not guaranteed. It also scales to zero to save energy and can take a few seconds to spin back up when idle.
 {% /callout %}
 
 ```bash test-example id="diff-public-demo" file="examples/diff-public-demo.example.sh"
