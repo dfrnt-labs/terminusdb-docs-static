@@ -52,8 +52,9 @@ export function Hero() {
                 Document Graph Database with Git-for-Data on JSON
               </p>
               <p className="mt-3 text-2xl tracking-tight text-slate-400">
-                TerminusDB is the Open Source Knowledge Graph Database with Git-like Version Control combining JSON and RDF with high precision temporal reasoning.
-                
+                TerminusDB is the Open Source Knowledge Graph Database with
+                Git-like Version Control combining JSON and RDF with high
+                precision temporal reasoning.
               </p>
               <div className="mt-8 flex gap-4 md:justify-center lg:justify-start">
                 <Button
