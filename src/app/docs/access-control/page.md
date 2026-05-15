@@ -70,9 +70,9 @@ The consumer role grants read-only access to instance data and schema.
 | `fetch` | Fetch from a remote |
 | `instance_read_access` | Read instance (document) data |
 | `instance_write_access` | Write instance (document) data |
-| `manage_capabilities` | Grant or revoke capabilities for other users |
-| `meta_read_access` | Read repository metadata |
-| `meta_write_access` | Write repository metadata |
+| `manage_capabilities` | Grant or revoke capabilities for other users over the resource |
+| `meta_read_access` | Read repository metadata for the resource |
+| `meta_write_access` | Write repository metadata for the resource |
 | `push` | Push to a remote |
 | `rebase` | Rebase branches |
 | `schema_read_access` | Read schema definitions |
@@ -362,6 +362,7 @@ curl -s -u admin:root -X POST http://localhost:6363/api/capabilities \
 ## See Also
 
 - [Access Control Tutorial](/docs/access-control-tutorial) — Step-by-step guide with the JavaScript client
+- [Name Mode vs ID Mode](/docs/capabilities-api-modes) — When to use `scope_type` and how to avoid 500 errors
 - [JavaScript Access Control Reference](/docs/access-control-with-javascript/) — Full client library API
 - [Tutorial Source Code](/docs/access-control-tutorial-source/) — Complete JavaScript example
 - [OpenAPI Specification](/docs/openapi) — Interactive API explorer

@@ -800,6 +800,10 @@ export const navigation: Navigation[] = [
             href: '/docs/access-control-tutorial',
           },
           {
+            title: 'Name Mode vs ID Mode',
+            href: '/docs/capabilities-api-modes',
+          },
+          {
             title: 'JavaScript Client',
             href: '/docs/access-control-with-javascript',
           },
