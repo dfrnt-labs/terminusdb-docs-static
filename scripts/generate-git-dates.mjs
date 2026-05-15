@@ -32,7 +32,7 @@ import { promisify } from "node:util"
 const execAsync = promisify(exec)
 
 const PROJECT_ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "")
-const DOCS_DIR = join(PROJECT_ROOT, "src", "app", "docs")
+const APP_DIR = join(PROJECT_ROOT, "src", "app")
 const OUTPUT_DIR = join(PROJECT_ROOT, "src", "data")
 const OUTPUT_FILE = join(OUTPUT_DIR, "gitDates.json")
 
@@ -51,6 +51,55 @@ function isGitAvailable() {
     return true
   } catch {
     return false
+  }
+}
+
+/**
+ * Detect a shallow clone. CI providers and `git clone --depth N` produce a
+ * worktree where `git log --follow` only sees the single most recent commit
+ * touching each file, which collapses every page's created/updated date to
+ * the build timestamp.
+ */
+function isShallowClone() {
+  try {
+    const out = execSync("git rev-parse --is-shallow-repository", {
+      cwd: PROJECT_ROOT,
+      stdio: ["pipe", "pipe", "pipe"],
+    })
+      .toString()
+      .trim()
+    return out === "true"
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Attempt to fetch full history when running in a shallow clone. Best-effort
+ * only — if the network is unavailable or the remote is missing, we log a
+ * warning and continue with whatever history is available.
+ */
+function unshallowIfPossible() {
+  if (!isShallowClone()) {
+    return
+  }
+
+  console.warn(
+    "[generate-git-dates] Shallow clone detected — attempting `git fetch --unshallow` so per-page dates can be derived from full history. Configure your CI checkout with fetch-depth: 0 to avoid this network round-trip.",
+  )
+
+  try {
+    execSync("git fetch --unshallow --quiet", {
+      cwd: PROJECT_ROOT,
+      stdio: ["pipe", "pipe", "pipe"],
+      timeout: 60000,
+    })
+    console.log("[generate-git-dates] Successfully unshallowed the repository.")
+  } catch (err) {
+    console.warn(
+      "[generate-git-dates] Could not unshallow the repository — page dates will reflect the available history only:",
+      err && err.message ? err.message : err,
+    )
   }
 }
 
@@ -156,14 +205,18 @@ async function main() {
     return
   }
 
-  if (!existsSync(DOCS_DIR)) {
-    console.warn("[generate-git-dates] docs directory not found at", DOCS_DIR)
+  // Best-effort recovery from shallow clones (e.g. unconfigured CI). Has no
+  // effect on full clones and is a no-op when the network is unreachable.
+  unshallowIfPossible()
+
+  if (!existsSync(APP_DIR)) {
+    console.warn("[generate-git-dates] app directory not found at", APP_DIR)
     mkdirSync(OUTPUT_DIR, { recursive: true })
     writeFileSync(OUTPUT_FILE, JSON.stringify({}, null, 2) + "\n")
     return
   }
 
-  const pageFiles = findPageFiles(DOCS_DIR)
+  const pageFiles = findPageFiles(APP_DIR)
   console.log(`[generate-git-dates] Processing ${pageFiles.length} page files...`)
 
   // Process files in parallel with concurrency limit

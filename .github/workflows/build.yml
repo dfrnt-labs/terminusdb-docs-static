@@ -9,5 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          # Full history is required so scripts/generate-git-dates.mjs can
+          # derive accurate created/updated timestamps for each page.md.
+          # A shallow clone collapses every page to the single HEAD commit,
+          # which breaks footer dates and sitemap <lastmod>.
+          fetch-depth: 0
       - run: npx bun install
       - run: npx npm run build
