@@ -3,12 +3,12 @@ tags:
   - explanation
   - documents
   - intermediate
-title: Immutability Explanation
+title: Immutable Database Explanation
 nextjs:
   metadata:
-    title: Immutability Explanation
-    description: An explanation of how TerminusDB implements immutability, and handles deleted and new data.
-    keywords: terminusdb, document database, documents, immutability explanation, json-ld
+    title: Immutable Database Explanation
+    description: An explanation of how the TerminusDB immutable database with Git-like version control implements immutability, and handles deleted and new data.
+    keywords: db, document graph database, documents, immutable database, layers, json-ld
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -16,13 +16,13 @@ nextjs:
 media: []
 ---
 
-TerminusDB is an immutable data store — it never modifies data in place. When you write, new data layers are appended on top of existing ones; when you delete, a mask layer hides the removed triples. The original data remains intact underneath. This append-only architecture is what makes branching, time travel, and safe concurrent access possible.
+TerminusDB is an immutable database with git-like version control for its RDF document graph — it never modifies data in place. When you write, new data layers are appended on top of existing ones; when you delete, a mask layer hides the removed triples. The original data remains intact underneath. This append-only architecture is what makes branching, time travel, and safe concurrent access possible.
 
 ## Advantages of immutability
 
 ### Transaction safety
 
-Transactions are safer and more reliable in an immutable store and any issues during transactions are easier to handle. In most cases, even in system crashes, TerminusDB resumes operation with data integrity intact and any incomplete transactions are undone.
+Transactions are safer and more reliable in an immutable data store and any issues during transactions are easier to handle. In most cases, even in system crashes, TerminusDB resumes operation with data integrity intact and any incomplete transactions are undone.
 
 ### Lock-free concurrency
 
@@ -34,7 +34,7 @@ The transaction history of TerminusDB databases is preserved. It is easy to trav
 
 ### Change audit
 
-Time travel is supplemented with information about what was committed, at what date and time, and by whom. Data provenance is reliably tracked adding significant value to data in regulated environments.
+Time travel is supplemented with information about what was committed, at what date and time, and by whom. Data provenance is reliably tracked adding significant value to data in regulated environments and for records management.
 
 ### Collaboration and synchronization
 
