@@ -71,8 +71,8 @@ function enhanceFrontmatter(content, filePath) {
   }
 
   const metadata = frontmatter.nextjs.metadata
-  const title = metadata.title || 'TerminusDB, a git-for-data JSON and RDF graph and document database'
-  const description = metadata.description || 'TerminusDB provides Semantic Document Graph Infrastructure; a model-based, in-memory, and distributed RDF and JSON graph database with git-for-data collaboration'
+  const title = metadata.title || 'TerminusDB, Document Graph Database with Git-for-data'
+  const description = metadata.description || 'TerminusDB is the Semantic Document Graph Database; a model-based, in-memory, and distributed RDF and JSON graph database with git-for-data collaboration'
   const canonical = metadata.alternates?.canonical || SITE_URL
 
   const ogModified = enhanceOpenGraph(metadata, title, description, canonical)

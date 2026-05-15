@@ -18,8 +18,8 @@ interface MetadataInput {
  * when fields are missing from the frontmatter.
  */
 export function generateMetadata(input: MetadataInput = {}): Metadata {
-  const title = input.title || 'TerminusDB, a git-for-data JSON and RDF graph and document database'
-  const description = input.description || 'TerminusDB provides Semantic Document Graph Infrastructure; a model-based, in-memory, and distributed RDF and JSON graph database with git-for-data collaboration'
+  const title = input.title || 'TerminusDB, Document Graph Database with Git-for-data'
+  const description = input.description || 'TerminusDB is the Semantic Document Graph Database; a model-based, in-memory, and distributed RDF and JSON graph database with git-for-data collaboration'
   const canonical = input.canonical || SITE_URL
   
   // Build OpenGraph metadata with defaults

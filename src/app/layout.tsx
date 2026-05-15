@@ -27,10 +27,10 @@ const lexend = localFont({
 export const metadata: Metadata = {
   title: {
     template: '%s',
-    default: 'TerminusDB, a git-for-data document graph database',
+    default: 'TerminusDB, Document Graph Database with Git-for-data',
   },
   description:
-    'TerminusDB provides Semantic Document Graph Infrastructure; a model-based, in-memory, and distributed graph database with git-for-data collaboration',
+    'TerminusDB is a Semantic Document Graph Database; model-based, in-memory and distributed RDF+JSON knowledge graph database with git-for-data collaboration',
   metadataBase: new URL('https://terminusdb.org'),
   alternates: {
     canonical: '/',

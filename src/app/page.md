@@ -1,14 +1,14 @@
 ---
 nextjs:
   metadata:
-    title: TerminusDB, a git-for-data JSON and RDF graph and document database
-    description: TerminusDB provides Semantic Document Graph Infrastructure; a model-based, in-memory, and distributed RDF and JSON graph database with git-for-data collaboration
+    title: TerminusDB, Document Graph Database with Git-for-data
+    description: TerminusDB is a Semantic Document Graph Database; model-based, in-memory and distributed RDF+JSON knowledge graph database with git-for-data collaboration
     alternates:
       canonical: https://terminusdb.org
     keywords: git-for-data, graph, RDF, JSON, document, database
     openGraph:
-      title: TerminusDB, a git-for-data JSON and RDF graph and document database
-      description: TerminusDB provides Semantic Document Graph Infrastructure; a model-based, in-memory, and distributed RDF and JSON graph database with git-for-data collaboration
+      title: TerminusDB, Document Graph Database with Git-for-data
+      description: TerminusDB is a Semantic Document Graph Database; model-based, in-memory and distributed RDF+JSON knowledge graph database with git-for-data collaboration
       url: https://terminusdb.org
       siteName: TerminusDB
       images:
@@ -20,8 +20,8 @@ nextjs:
       type: website
     twitter:
       card: summary_large_image
-      title: TerminusDB, a git-for-data JSON and RDF graph and document database
-      description: TerminusDB provides Semantic Document Graph Infrastructure; a model-based, in-memory, and distributed RDF and JSON graph database with git-for-data collaboration
+      title: TerminusDB, Document Graph Database with Git-for-data
+      description: TerminusDB is a Semantic Document Graph Database; model-based, in-memory and distributed RDF+JSON knowledge graph database with git-for-data collaboration
       images:
         - https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
