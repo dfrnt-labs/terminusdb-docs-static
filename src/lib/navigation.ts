@@ -141,6 +141,10 @@ export const navigation: Navigation[] = [
         title: 'Browse by Topic',
         href: '/docs/topics',
       },
+      {
+        title: "What's New",
+        href: '/docs/whats-new',
+      },
       // {
     ],
   },
