@@ -169,6 +169,12 @@ export default function WhatsNewPage() {
           </span>{' '}
           badge so brand-new content stands out among the updates.
         </p>
+        <p className="mt-3 text-lg text-slate-600 dark:text-slate-400">
+          Many documents were ported from the original documentation site and
+          have not carried along the original publication dates from 2019
+          onwards. A significant documentation revision was done May 2026 where
+          all documents received some polish and improved metadata.
+        </p>
         <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
           {dated.length} {dated.length === 1 ? 'page' : 'pages'} with tracked
           history
@@ -178,12 +184,6 @@ export default function WhatsNewPage() {
               {newCount} new in the last {DEFAULT_NEW_WINDOW_DAYS} days
             </>
           )}
-        </p>
-        <p>
-          Many documents were ported from the original documentation site and
-          have not carried along the original publication dates from 2019
-          onwards. A significant documentation revision was done May 2026 where
-          all documents received some polish and improved metadata.
         </p>
       </header>
 
