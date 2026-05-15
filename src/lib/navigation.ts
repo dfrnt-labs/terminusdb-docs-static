@@ -157,6 +157,10 @@ export const navigation: Navigation[] = [
         href: '/docs/terminusdb-explanation',
       },
       {
+        title: 'Knowledge Graph Database',
+        href: '/docs/knowledge-graph-database',
+      },
+      {
         title: 'Documents & Schema',
         links: [
           {
@@ -174,8 +178,12 @@ export const navigation: Navigation[] = [
         ],
       },
       {
-        title: 'Version Control (Branch, Diff, Merge)',
+        title: 'Git-like Version Control',
         links: [
+          {
+            title: 'Overview',
+            href: '/docs/knowledge-graph-version-control',
+          },
           {
             title: 'Clone, Push, Pull',
             href: '/docs/use-the-collaboration-features',
