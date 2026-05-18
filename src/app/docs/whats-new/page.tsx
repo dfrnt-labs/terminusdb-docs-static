@@ -33,15 +33,8 @@ function RecentPageCard({
   page: RecentPage
   showNewBadge?: boolean
 }) {
-  // Use whatsNewDate for the primary display on this page
   const displayDate = page.whatsNewDate
   const displayShort = formatShortDate(displayDate)
-  const displayRelative = formatRelative(displayDate)
-  const createdShort = formatShortDate(page.created)
-  const sameDay =
-    page.created &&
-    displayDate &&
-    page.created.slice(0, 10) === displayDate.slice(0, 10)
 
   return (
     <li className="py-4">
@@ -71,26 +64,49 @@ function RecentPageCard({
           )}
         </div>
 
-        {/* Date column — prominent, monospace-ish layout so the eye can scan
-            down the column even when titles wrap. */}
+        {/* Date block — structured metadata for each page */}
         <div className="shrink-0 text-left text-sm sm:text-right">
           {displayShort ? (
             <>
+              {/* Primary date: whatsNewDate (lastUpdated ?? created) */}
               <time
                 dateTime={displayDate!.slice(0, 10)}
+                title={displayDate!}
                 className="block font-medium text-slate-900 dark:text-white"
               >
                 {displayShort}
               </time>
-              {displayRelative && (
-                <span className="block text-xs text-slate-500 dark:text-slate-400">
-                  {page.isNew ? 'Added' : 'Updated'} {displayRelative}
-                </span>
+              {/* Added: git first-commit date */}
+              {page.created && (
+                <time
+                  dateTime={page.created}
+                  title={page.created}
+                  className="block text-xs text-slate-500 dark:text-slate-400"
+                >
+                  Added {formatRelative(page.created) ?? formatShortDate(page.created)}
+                </time>
               )}
-              {createdShort && !sameDay && !page.isNew && (
-                <span className="mt-1 block text-xs text-slate-400 dark:text-slate-500">
-                  Published {createdShort}
-                </span>
+              {/* Updated: lastUpdated frontmatter (only if explicitly set) */}
+              {page.lastUpdated && (
+                <time
+                  dateTime={page.lastUpdated}
+                  title={page.lastUpdated}
+                  className="block text-xs text-slate-500 dark:text-slate-400"
+                >
+                  Updated {formatRelative(page.lastUpdated) ?? formatShortDate(page.lastUpdated)}
+                </time>
+              )}
+              {/* Modified: git mtime — only shown when it differs from created by day */}
+              {page.updated &&
+                (!page.created ||
+                  page.created.slice(0, 10) !== page.updated.slice(0, 10)) && (
+                <time
+                  dateTime={page.updated}
+                  title={page.updated}
+                  className="block text-xs text-slate-500 dark:text-slate-400"
+                >
+                  Modified {formatRelative(page.updated) ?? formatShortDate(page.updated)}
+                </time>
               )}
             </>
           ) : (
@@ -154,7 +170,15 @@ export default function WhatsNewPage() {
   const pages = getPagesByLastModified(DEFAULT_NEW_WINDOW_DAYS)
   const dated = pages.filter((p) => p.whatsNewDate)
   const undated = pages.filter((p) => !p.whatsNewDate)
-  const newCount = dated.filter((p) => p.isNew).length
+
+  // Count pages with whatsNewDate in the last 30 days (new + updated)
+  const now = Date.now()
+  const windowMs = DEFAULT_NEW_WINDOW_DAYS * 24 * 60 * 60 * 1000
+  const windowStart = now - windowMs
+  const recentCount = dated.filter((p) => {
+    const ms = new Date(p.whatsNewDate!).getTime()
+    return !Number.isNaN(ms) && ms >= windowStart && ms <= now
+  }).length
 
   return (
     <main className="w-full max-w-4xl min-w-0 flex-auto px-4 py-16 lg:pr-0 lg:pl-8 xl:px-16">
@@ -180,10 +204,10 @@ export default function WhatsNewPage() {
         <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
           {dated.length} {dated.length === 1 ? 'page' : 'pages'} with tracked
           history
-          {newCount > 0 && (
+          {recentCount > 0 && (
             <>
               {' · '}
-              {newCount} new in the last {DEFAULT_NEW_WINDOW_DAYS} days
+              {recentCount} new or updated in the last {DEFAULT_NEW_WINDOW_DAYS} days
             </>
           )}
         </p>

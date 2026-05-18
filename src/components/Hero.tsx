@@ -4,7 +4,9 @@ import clsx from 'clsx'
 import { Highlight } from 'prism-react-renderer'
 
 import { Button } from '@/components/Button'
+import { FreshnessIndicator } from '@/components/FreshnessIndicator'
 import { HeroBackground } from '@/components/HeroBackground'
+import { countPagesUpdatedThisMonth } from '@/lib/freshnessCount'
 import blurCyanImage from '@/images/blur-cyan.png'
 import blurIndigoImage from '@/images/blur-indigo.png'
 
@@ -33,6 +35,8 @@ function TrafficLightsIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 }
 
 export function Hero() {
+  const freshnessCount = countPagesUpdatedThisMonth()
+
   return (
     <div className="overflow-hidden bg-slate-900 dark:mt-[-4.75rem] dark:-mb-32 dark:pt-[4.75rem] dark:pb-32">
       <div className="py-16 sm:px-2 lg:relative lg:px-0 lg:py-20">
@@ -72,6 +76,10 @@ export function Hero() {
                   Try Cloud Experience
                 </Button>
               </div>
+              <FreshnessIndicator
+                count={freshnessCount}
+                href="/docs/whats-new/"
+              />
             </div>
           </div>
           <div className="relative lg:static xl:pl-10">
