@@ -101,9 +101,9 @@ test.describe("get-started — Layer 5: Browser Functional", () => {
     const cloneButton = page.getByRole("button", { name: /Clone Quickstart Database/i });
     await cloneButton.click();
 
-    // Wait for success state: "Database ready" or "already exists"
+    // Wait for success state: "Local cloned data is ready" or "already exists"
     // Clone from remote server can take 30-60s
-    const successIndicator = page.getByText("Database ready").or(
+    const successIndicator = page.getByText("Local cloned data is ready").or(
       page.getByText("already exists")
     );
     await expect(successIndicator).toBeVisible({ timeout: CLONE_TIMEOUT });

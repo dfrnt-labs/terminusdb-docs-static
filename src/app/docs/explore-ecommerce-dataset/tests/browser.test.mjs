@@ -88,7 +88,7 @@ test.describe("explore-ecommerce-dataset — Layer 5: Browser Functional", () =>
     await cloneButton.click();
 
     // Wait for success state — clone from remote server can take 30-60s
-    const successIndicator = page.getByText("Database ready").or(
+    const successIndicator = page.getByText("Local cloned data is ready").or(
       page.getByText("already exists")
     );
     await expect(successIndicator).toBeVisible({ timeout: CLONE_TIMEOUT });

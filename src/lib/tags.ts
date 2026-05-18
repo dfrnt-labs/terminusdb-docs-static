@@ -20,6 +20,12 @@ export interface PageMeta {
   description: string
   /** Tag IDs assigned to this page */
   tags: string[]
+  /**
+   * Optional ISO 8601 date string from frontmatter `lastUpdated` field.
+   * When set, signals a deliberate major update (not just a typo fix).
+   * Used by the What's New page to surface explicitly updated content.
+   */
+  lastUpdated: string | null
 }
 
 /**
@@ -68,7 +74,12 @@ export function getAllTaggedPages(): PageMeta[] {
           (frontmatter.nextjs as Record<string, unknown>)?.metadata as Record<string, unknown>
         )?.description as string ?? ''
 
-      pages.push({ href, title: String(title), description: String(description), tags: validTags })
+      // Extract optional lastUpdated from frontmatter (ISO 8601 date string)
+      const lastUpdated = typeof frontmatter.lastUpdated === 'string'
+        ? frontmatter.lastUpdated
+        : null
+
+      pages.push({ href, title: String(title), description: String(description), tags: validTags, lastUpdated })
     } catch {
       // Skip pages with unparseable frontmatter
       continue

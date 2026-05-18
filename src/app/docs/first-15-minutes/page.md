@@ -17,12 +17,7 @@ tags:
 
 Build the entire git-for-data workflow from scratch. You will create a database, insert a document, branch, edit on the branch, diff the two branches, and merge — all with curl. No schema, no SDK.
 
-{% callout type="note" %}
-**Prerequisites**
-You need **Docker** installed and running. Nothing else — no npm, no pip, no SDK.
-
-**Prefer not to use Docker?** Try [DFRNT Hub](https://dfrnt.com/sign-up/) (cloud — no installation) or [build from source](/docs/install-terminusdb-from-source-code/) (Linux/macOS).
-{% /callout %}
+{% prerequisites /%}
 
 {% callout type="note" %}
 **Want the 10-minute path instead?**

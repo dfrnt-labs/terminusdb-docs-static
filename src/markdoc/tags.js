@@ -16,6 +16,7 @@ import { QuickstartClone } from '@/components/QuickstartClone'
 import { HttpExample } from '@/components/HttpExample'
 import { HttpExpected } from '@/components/HttpExample/HttpExpected'
 import { HttpWoql } from '@/components/HttpExample/HttpWoql'
+import { Prerequisites } from '@/components/Prerequisites'
 
 const tags = {
   callout: {
@@ -218,6 +219,13 @@ const tags = {
       localPath: { type: String },
       label: { type: String },
       description: { type: String },
+    },
+  },
+  prerequisites: {
+    selfClosing: true,
+    render: Prerequisites,
+    attributes: {
+      variant: { type: String, default: 'docker' },
     },
   },
   'http-example': {

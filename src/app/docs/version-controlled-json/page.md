@@ -29,13 +29,7 @@ TerminusDB is a document database that provides Git-like version control for JSO
 
 This tutorial walks through all of these operations with working curl examples against a local TerminusDB instance. No schema is required — store any valid JSON and get versioning for free.
 
-{% callout type="note" %}
-**Prerequisites**
-- **Docker** installed and running — see [Your First 10 Minutes](/docs/get-started/) for setup instructions
-- An HTTP client (curl examples throughout; any HTTP tool works)
-
-**Prefer not to use Docker?** Install via [snap](https://snapcraft.io/terminusdb) (Linux) or [build from source](/docs/install-terminusdb-from-source-code/) (Linux/macOS).
-{% /callout %}
+{% prerequisites /%}
 
 {% callout type="note" %}
 **What you will build**

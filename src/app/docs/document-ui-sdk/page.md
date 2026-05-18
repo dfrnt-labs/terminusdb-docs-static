@@ -21,7 +21,7 @@ tags:
 **Prerequisites**
 - Node.js and npm installed
 - React application set up
-- TerminusDB running locally or a DFRNT Hub account
+- TerminusDB running locally — see [Docker setup](/docs/get-started/) for instructions
 {% /callout %}
 
 {% callout type="note" %}

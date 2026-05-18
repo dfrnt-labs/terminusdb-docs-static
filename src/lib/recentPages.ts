@@ -12,8 +12,15 @@ import { getAllPageDates } from "./gitDates"
 export interface RecentPage extends PageMeta {
   /** ISO 8601 timestamp of the first commit, or null if unknown. */
   created: string | null
-  /** ISO 8601 timestamp of the most recent commit, or null if unknown. */
+  /** ISO 8601 timestamp of the most recent commit (git mtime), or null if unknown. */
   updated: string | null
+  /**
+   * The effective date used for What's New ordering.
+   * - For new pages: the created date
+   * - For explicitly updated pages: the `lastUpdated` frontmatter value
+   * - Never uses git mtime (which changes on every typo fix)
+   */
+  whatsNewDate: string | null
   /** True when the page's first commit is within `newWindowDays`. */
   isNew: boolean
 }
@@ -34,8 +41,17 @@ function hrefToSlug(href: string): string {
 
 /**
  * Returns all tagged pages decorated with git dates and an `isNew` flag,
- * sorted by most-recently-updated first. Pages that have no git history at
- * all sort to the end so they don't poison the top of the list.
+ * sorted for the What's New page.
+ *
+ * **Ordering logic (What's New page):**
+ * - New pages appear by their created date (from git history)
+ * - Explicitly major-updated pages appear by their `lastUpdated` frontmatter date
+ * - Git mtime (file modification date) is NEVER used for ordering — it changes
+ *   on every typo fix and would pollute the What's New list
+ *
+ * **Individual page display:**
+ * - Uses `lastUpdated` from frontmatter if set, otherwise falls back to git mtime
+ *   (exposed via the `updated` field for components that render page-level dates)
  */
 export function getPagesByLastModified(
   newWindowDays: number = DEFAULT_NEW_WINDOW_DAYS,
@@ -59,17 +75,23 @@ export function getPagesByLastModified(
       }
     }
 
-    return { ...page, created, updated, isNew }
+    // What's New ordering date:
+    // - If page has explicit lastUpdated in frontmatter → use that (major update)
+    // - Otherwise → use the created date only (page appears once when new, then stays put)
+    // - Never use git mtime for ordering (typo fixes shouldn't surface pages)
+    const whatsNewDate = page.lastUpdated ?? created
+
+    return { ...page, created, updated, whatsNewDate, isNew }
   })
 
-  // Sort: pages with an `updated` date first (newest → oldest), then pages
-  // with no git history at the bottom in their original alphabetical order.
+  // Sort by whatsNewDate (newest → oldest). Pages without a whatsNewDate
+  // sort to the end so they don't poison the top of the list.
   decorated.sort((a, b) => {
-    if (a.updated && b.updated) {
-      return b.updated.localeCompare(a.updated)
+    if (a.whatsNewDate && b.whatsNewDate) {
+      return b.whatsNewDate.localeCompare(a.whatsNewDate)
     }
-    if (a.updated && !b.updated) return -1
-    if (!a.updated && b.updated) return 1
+    if (a.whatsNewDate && !b.whatsNewDate) return -1
+    if (!a.whatsNewDate && b.whatsNewDate) return 1
     return a.title.localeCompare(b.title)
   })
 
@@ -133,8 +155,11 @@ export function groupByMonth(pages: RecentPage[]): MonthGroup[] {
     let key: string | null = null
     let label = "Without tracked history"
 
-    if (page.updated) {
-      const d = new Date(page.updated)
+    // Group by whatsNewDate (not git mtime) so groups reflect
+    // meaningful update dates rather than typo-fix timestamps
+    const groupDate = page.whatsNewDate
+    if (groupDate) {
+      const d = new Date(groupDate)
       if (!Number.isNaN(d.getTime())) {
         const year = d.getUTCFullYear()
         const month = d.getUTCMonth()

@@ -31,9 +31,7 @@ Choose the path that matches where you are:
 | Explore & query a dataset | [Explore a Real Dataset](/docs/explore-a-real-dataset/) | 15 min | Docker |
 | Try a business scenario | [Explore an Ecommerce Dataset](/docs/explore-ecommerce-dataset/) | 15 min | Docker |
 
-{% callout type="note" %}
-**Don't have Docker?** Try [DFRNT Hub](https://dfrnt.com/sign-up/) (cloud — no installation needed) or [build from source](/docs/install-terminusdb-from-source-code/) (Linux/macOS).
-{% /callout %}
+{% prerequisites /%}
 
 ## Choose your language
 

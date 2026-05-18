@@ -74,9 +74,9 @@ test.describe("explore-a-real-dataset — Layer 5: Browser Functional", () => {
     const cloneButton = page.getByRole("button", { name: /Clone Star Wars Database/i });
     await cloneButton.click();
 
-    // Wait for success state: "Database ready" text appears
-    // (QuickstartClone shows "Database ready" on success, or "already exists" which is also OK)
-    const successIndicator = page.getByText("Database ready").or(
+    // Wait for success state: "Local cloned data is ready" text appears
+    // (QuickstartClone shows "Local cloned data is ready" on success, or "already exists" which is also OK)
+    const successIndicator = page.getByText("Local cloned data is ready").or(
       page.getByText("already exists")
     );
     await expect(successIndicator).toBeVisible({ timeout: RUN_TIMEOUT });

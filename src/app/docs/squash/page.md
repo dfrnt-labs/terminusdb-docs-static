@@ -29,7 +29,7 @@ media:
 
 {% callout type="note" %}
 **Prerequisites**
-- TerminusDB running locally or a DFRNT Hub account
+- TerminusDB running locally — see [Docker setup](/docs/get-started/) for instructions
 - A database with multiple commits on a branch
 {% /callout %}
 

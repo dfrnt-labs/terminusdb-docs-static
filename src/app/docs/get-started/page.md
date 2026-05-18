@@ -19,12 +19,7 @@ nextjs:
 
 TerminusDB is a database built for collaboration. In this quickstart you will clone a pre-populated dataset and immediately use the git-for-data workflow: branch, edit, diff, and merge. No schema to write, no data to invent.
 
-{% callout type="note" %}
-**Prerequisites**
-You need **Docker** installed and running. Nothing else — no npm, no pip, no SDK.
-
-**Prefer not to use Docker?** Try [DFRNT Hub](https://dfrnt.com/sign-up/) (cloud — no installation) or [build from source](/docs/install-terminusdb-from-source-code/) (Linux/macOS).
-{% /callout %}
+{% prerequisites /%}
 
 ## Step 1 — Start TerminusDB
 

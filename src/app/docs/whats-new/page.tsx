@@ -33,13 +33,15 @@ function RecentPageCard({
   page: RecentPage
   showNewBadge?: boolean
 }) {
-  const updatedShort = formatShortDate(page.updated)
-  const updatedRelative = formatRelative(page.updated)
+  // Use whatsNewDate for the primary display on this page
+  const displayDate = page.whatsNewDate
+  const displayShort = formatShortDate(displayDate)
+  const displayRelative = formatRelative(displayDate)
   const createdShort = formatShortDate(page.created)
   const sameDay =
     page.created &&
-    page.updated &&
-    page.created.slice(0, 10) === page.updated.slice(0, 10)
+    displayDate &&
+    page.created.slice(0, 10) === displayDate.slice(0, 10)
 
   return (
     <li className="py-4">
@@ -72,17 +74,17 @@ function RecentPageCard({
         {/* Date column — prominent, monospace-ish layout so the eye can scan
             down the column even when titles wrap. */}
         <div className="shrink-0 text-left text-sm sm:text-right">
-          {updatedShort ? (
+          {displayShort ? (
             <>
               <time
-                dateTime={page.updated!.slice(0, 10)}
+                dateTime={displayDate!.slice(0, 10)}
                 className="block font-medium text-slate-900 dark:text-white"
               >
-                {updatedShort}
+                {displayShort}
               </time>
-              {updatedRelative && (
+              {displayRelative && (
                 <span className="block text-xs text-slate-500 dark:text-slate-400">
-                  {page.isNew ? 'Added' : 'Updated'} {updatedRelative}
+                  {page.isNew ? 'Added' : 'Updated'} {displayRelative}
                 </span>
               )}
               {createdShort && !sameDay && !page.isNew && (
@@ -150,8 +152,8 @@ function MonthGroupedList({
 
 export default function WhatsNewPage() {
   const pages = getPagesByLastModified(DEFAULT_NEW_WINDOW_DAYS)
-  const dated = pages.filter((p) => p.updated)
-  const undated = pages.filter((p) => !p.updated)
+  const dated = pages.filter((p) => p.whatsNewDate)
+  const undated = pages.filter((p) => !p.whatsNewDate)
   const newCount = dated.filter((p) => p.isNew).length
 
   return (
