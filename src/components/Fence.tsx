@@ -399,7 +399,12 @@ function unwrapValue(v: unknown): unknown {
   if (v && typeof v === "object" && !Array.isArray(v)) {
     const obj = v as Record<string, unknown>
     if ("@value" in obj) return obj["@value"]
-    if ("@id" in obj) return obj["@id"]
+    // Only unwrap @id if the object is a pure reference (no diff operations inside)
+    if ("@id" in obj) {
+      const keys = Object.keys(obj)
+      const isReference = keys.every(k => k === "@id" || k === "@type")
+      if (isReference) return obj["@id"]
+    }
   }
   return v
 }

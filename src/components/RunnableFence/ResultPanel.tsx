@@ -195,9 +195,9 @@ function SuccessBody({
                 {columns.map((col) => (
                   <td
                     key={col}
-                    className="px-3 py-1.5 text-slate-600 dark:text-slate-400 font-mono text-xs whitespace-pre-wrap max-w-xs"
+                    className="px-3 py-1.5 text-slate-600 dark:text-slate-400 font-mono text-xs max-w-xs"
                   >
-                    {formatValue(row[col])}
+                    <CellValue value={row[col]} />
                   </td>
                 ))}
               </tr>
@@ -281,4 +281,108 @@ function formatValue(v: unknown): string {
     return JSON.stringify(v, null, 2)
   }
   return String(v)
+}
+
+// ---------------------------------------------------------------------------
+// CellValue — renders a table cell value with diff-aware formatting
+// ---------------------------------------------------------------------------
+
+function CellValue({ value }: { value: unknown }) {
+  if (value === null || value === undefined) return null
+
+  // Handle diff operations (objects with @op)
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    const obj = value as Record<string, unknown>
+
+    // TerminusDB typed value — just show the value
+    if ("@value" in obj) return <>{String(obj["@value"])}</>
+
+    // SwapValue operation — show "SwapValue: before → after"
+    if (obj["@op"] === "SwapValue") {
+      return (
+        <span className="inline-flex items-baseline gap-1 flex-wrap">
+          <span className="text-slate-400 text-[0.6rem] uppercase tracking-wide">Swap</span>
+          <DiffAtom value={obj["@before"]} className="text-red-700 dark:text-red-400 line-through" />
+          <span className="text-slate-400" aria-label="changed to">→</span>
+          <DiffAtom value={obj["@after"]} className="text-emerald-700 dark:text-emerald-400" />
+        </span>
+      )
+    }
+
+    // Insert operation — show "Insert: value"
+    if (obj["@op"] === "Insert") {
+      return (
+        <span className="inline-flex items-baseline gap-1 flex-wrap">
+          <span className="text-emerald-600 dark:text-emerald-400 text-[0.6rem] uppercase tracking-wide">Insert</span>
+          <DiffAtom value={obj["@insert"]} className="text-emerald-700 dark:text-emerald-400" />
+        </span>
+      )
+    }
+
+    // Any other @op (CopyList, SwapList, etc.) — show operation name + formatted JSON
+    if ("@op" in obj) {
+      return (
+        <div>
+          <span className="text-sky-600 dark:text-sky-400 text-[0.6rem] uppercase tracking-wide">{String(obj["@op"])}</span>
+          <pre className="text-[0.65rem] leading-tight whitespace-pre-wrap break-words max-w-xs">
+            {JSON.stringify(value, null, 2)}
+          </pre>
+        </div>
+      )
+    }
+
+    // Check if this is a diff object (an object whose values contain @op fields)
+    const entries = Object.entries(obj)
+    const hasDiffFields = entries.some(
+      ([, v]) => v && typeof v === "object" && !Array.isArray(v) && "@op" in (v as Record<string, unknown>)
+    )
+    if (hasDiffFields) {
+      // Filter out @id/@type metadata — they identify the document, not a change
+      const diffEntries = entries.filter(([key]) => key !== "@id" && key !== "@type")
+      return (
+        <div className="space-y-0.5">
+          {diffEntries.map(([key, val]) => (
+            <div key={key} className="flex items-baseline gap-1 flex-wrap">
+              <span className="text-slate-500 dark:text-slate-500 font-semibold">{key}:</span>
+              <CellValue value={val} />
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    // Generic object — formatted JSON
+    return (
+      <pre className="text-[0.65rem] leading-tight whitespace-pre-wrap break-words max-w-xs">
+        {JSON.stringify(value, null, 2)}
+      </pre>
+    )
+  }
+
+  // Arrays — formatted JSON
+  if (Array.isArray(value)) {
+    return (
+      <pre className="text-[0.65rem] leading-tight whitespace-pre-wrap break-words max-w-xs">
+        {JSON.stringify(value, null, 2)}
+      </pre>
+    )
+  }
+
+  // Primitives
+  return <>{String(value)}</>
+}
+
+// Renders a single diff value (the @before or @after of a SwapValue)
+function DiffAtom({ value, className }: { value: unknown; className?: string }) {
+  if (value === null || value === undefined) return <span className={className}>null</span>
+
+  if (typeof value === "object") {
+    return (
+      <pre className={`text-[0.65rem] leading-tight whitespace-pre-wrap break-words max-w-xs ${className ?? ""}`}>
+        {JSON.stringify(value, null, 2)}
+      </pre>
+    )
+  }
+
+  return <span className={className}>{String(value)}</span>
 }
