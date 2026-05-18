@@ -31,10 +31,10 @@ This tutorial walks through all of these operations with working curl examples a
 
 {% callout type="note" %}
 **Prerequisites**
-- **Docker** installed and running
+- **Docker** installed and running — see [Your First 10 Minutes](/docs/get-started/) for setup instructions
 - An HTTP client (curl examples throughout; any HTTP tool works)
 
-**Prefer not to use Docker?** Try [DFRNT Hub](https://dfrnt.com/sign-up/) (cloud — no installation) or [build from source](/docs/install-terminusdb-from-source-code/) (Linux/macOS).
+**Prefer not to use Docker?** Install via [snap](https://snapcraft.io/terminusdb) (Linux) or [build from source](/docs/install-terminusdb-from-source-code/) (Linux/macOS).
 {% /callout %}
 
 {% callout type="note" %}
