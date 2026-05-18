@@ -20,6 +20,8 @@ tags:
 
 This page covers errors that occur when inserting or updating documents that violate the database schema — type mismatches, missing required fields, references to non-existent classes, or invalid enum values.
 
+{% prerequisites-clone /%}
+
 ## Symptoms
 
 - `"api:ErrorMessage": "Schema check failure"` in the response
@@ -41,7 +43,7 @@ This page covers errors that occur when inserting or updating documents that vio
 1. Check your schema definition for the field's expected type:
    ```bash
    curl -u admin:root \
-     "http://localhost:6363/api/document/admin/mydb?graph_type=schema&type=MyClass"
+     "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&type=MyClass"
    ```
 2. Correct the value to match the declared type:
    ```json
@@ -67,7 +69,7 @@ This page covers errors that occur when inserting or updating documents that vio
 1. Include all mandatory fields in your document. Check which fields are required:
    ```bash
    curl -u admin:root \
-     "http://localhost:6363/api/document/admin/mydb?graph_type=schema&type=MyClass"
+     "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&type=MyClass"
    ```
 2. Fields declared as `"Optional"` can be omitted; all other fields are required.
 3. If you want a field to be optional, update the schema:
@@ -91,7 +93,7 @@ This page covers errors that occur when inserting or updating documents that vio
 1. List all classes in the schema:
    ```bash
    curl -u admin:root \
-     "http://localhost:6363/api/document/admin/mydb?graph_type=schema"
+     "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema"
    ```
 2. Ensure the `@type` matches exactly (case-sensitive):
    ```json
@@ -105,7 +107,7 @@ This page covers errors that occur when inserting or updating documents that vio
    curl -u admin:root -X POST \
      -H "Content-Type: application/json" \
      -d '{"@type": "Class", "@id": "Person", "name": "xsd:string"}' \
-     "http://localhost:6363/api/document/admin/mydb?graph_type=schema"
+     "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema"
    ```
 
 ### Invalid enum value
@@ -119,7 +121,7 @@ This page covers errors that occur when inserting or updating documents that vio
 1. Check the enum definition:
    ```bash
    curl -u admin:root \
-     "http://localhost:6363/api/document/admin/mydb?graph_type=schema&id=Status"
+     "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&id=Status"
    ```
 2. Use the full enum value (class name + `/` + value):
    ```json

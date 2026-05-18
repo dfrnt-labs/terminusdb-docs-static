@@ -19,8 +19,6 @@ nextjs:
 
 TerminusDB is a database built for collaboration. In this quickstart you will clone a pre-populated dataset and immediately use the git-for-data workflow: branch, edit, diff, and merge. No schema to write, no data to invent.
 
-{% prerequisites /%}
-
 ## Step 1 — Start TerminusDB
 
 Pull and run TerminusDB in one command:

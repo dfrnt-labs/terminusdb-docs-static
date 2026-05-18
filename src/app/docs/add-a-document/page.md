@@ -29,6 +29,8 @@ By the end of this guide, you will have inserted documents into your TerminusDB 
 
 After you have connected to a database and [added a schema](/docs/add-a-schema/), you can insert documents that conform to the schema.
 
+{% prerequisites-clone /%}
+
 ## Insert a single document
 
 {% code-tabs %}
@@ -55,7 +57,7 @@ result = client.insert_document(document)
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root -X POST \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/main?author=admin&message=Add+document" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/main?author=admin&message=Add+document" \
   -H "Content-Type: application/json" \
   -d '{"@type":"Player","name":"George","position":"Center Back"}'
 ```
@@ -106,7 +108,7 @@ results = client.insert_document(documents)
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root -X POST \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/main?author=admin&message=Add+documents" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/main?author=admin&message=Add+documents" \
   -H "Content-Type: application/json" \
   -d '[
     {"@type":"Player","name":"George","position":"Center Back"},
@@ -141,7 +143,7 @@ result = client.insert_document(schema, graph_type="schema")
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root -X POST \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/main?author=admin&message=Add+schema&graph_type=schema" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/main?author=admin&message=Add+schema&graph_type=schema" \
   -H "Content-Type: application/json" \
   -d '{"@type":"Class","@id":"Player","name":"xsd:string","position":"xsd:string"}'
 ```

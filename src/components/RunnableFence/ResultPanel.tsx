@@ -1,7 +1,12 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import type { RunnableState, ExecutionResult, ExecutionError } from "./types"
+
+interface SlotValue {
+  readonly value: string
+  readonly label?: string
+}
 
 interface ResultPanelProps {
   state: RunnableState
@@ -10,13 +15,22 @@ interface ResultPanelProps {
   serverUrl: string
   fixture?: string
   onClear: () => void
+  /** Producer: slot name to publish values to */
+  publishes?: string
+  /** Producer: column name to extract values from */
+  publishColumn?: string
+  /** Producer: column name for human-readable labels */
+  publishLabel?: string
+  /** Publish callback from SlotContext */
+  onPublish?: (name: string, values: ReadonlyArray<SlotValue>) => void
 }
 
 const MAX_VISIBLE_ROWS = 20
 
-export function ResultPanel({ state, result, error, serverUrl, fixture, onClear }: ResultPanelProps) {
+export function ResultPanel({ state, result, error, serverUrl, fixture, onClear, publishes, publishColumn, publishLabel, onPublish }: ResultPanelProps) {
   const [showAllRows, setShowAllRows] = useState(false)
   const headerRef = useRef<HTMLDivElement>(null)
+  const hasPublished = useRef(false)
 
   // Focus the result panel header after execution completes
   useEffect(() => {
@@ -24,6 +38,27 @@ export function ResultPanel({ state, result, error, serverUrl, fixture, onClear 
       headerRef.current?.focus()
     }
   }, [state])
+
+  // Publish slot values after successful execution (producer behaviour)
+  useEffect(() => {
+    if (
+      state === "SUCCESS" &&
+      result &&
+      publishes &&
+      publishColumn &&
+      onPublish &&
+      !hasPublished.current
+    ) {
+      const values = extractSlotValues(result, publishColumn, publishLabel)
+      if (values.length > 0) {
+        onPublish(publishes, values)
+        hasPublished.current = true
+      }
+    }
+    if (state === "IDLE") {
+      hasPublished.current = false
+    }
+  }, [state, result, publishes, publishColumn, publishLabel, onPublish])
 
   if (state === "IDLE" || state === "RUNNING") {
     return null
@@ -92,6 +127,61 @@ export function ResultPanel({ state, result, error, serverUrl, fixture, onClear 
   )
 }
 
+// ---------------------------------------------------------------------------
+// CellCopyButton — hover-revealed copy-to-clipboard for identifier cells
+// ---------------------------------------------------------------------------
+
+const COPYABLE_COLUMNS = new Set(["identifier", "id", "@id"])
+
+function CellCopyButton({ value }: { value: string }) {
+  const [copied, setCopied] = useState(false)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(value)
+      setCopied(true)
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      timeoutRef.current = setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // Fallback: no-op in environments without clipboard API
+    }
+  }, [value])
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
+  }, [])
+
+  const truncated = value.length > 8 ? `${value.substring(0, 8)}…` : value
+
+  return (
+    <span className="inline-flex items-center">
+      <button
+        onClick={handleCopy}
+        className="ml-1.5 inline-flex items-center rounded p-0.5 text-slate-400 opacity-0 transition-opacity group-hover/cell:opacity-100 focus:opacity-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:rounded dark:text-slate-500 dark:hover:text-slate-300"
+        aria-label={`Copy ${truncated}`}
+      >
+        {copied ? (
+          <svg className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path fillRule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.739a.75.75 0 0 1 1.04-.208Z" clipRule="evenodd" />
+          </svg>
+        ) : (
+          <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M10.5 1h-7A1.5 1.5 0 0 0 2 2.5v9a.5.5 0 0 0 1 0v-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 0 0-1Z" />
+            <path d="M12.5 3h-7A1.5 1.5 0 0 0 4 4.5v9A1.5 1.5 0 0 0 5.5 15h7a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 12.5 3Zm.5 10.5a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v9Z" />
+          </svg>
+        )}
+      </button>
+      {copied && (
+        <span className="sr-only" aria-live="polite">Copied to clipboard</span>
+      )}
+    </span>
+  )
+}
+
 function SuccessHeader({ result }: { result: ExecutionResult }) {
   const hasBindings = result.bindings && result.bindings.length > 0
   const hasWrites = (result.inserts !== undefined && result.inserts > 0) ||
@@ -137,6 +227,103 @@ function SuccessHeader({ result }: { result: ExecutionResult }) {
   )
 }
 
+/**
+ * Detects whether a raw response contains diff operations (@op fields).
+ * This includes:
+ * - A single object with @op (e.g. { "@op": "SwapValue", ... })
+ * - A single object whose fields contain @op values (e.g. { "stock": { "@op": "SwapValue", ... } })
+ * - An array of such objects
+ */
+function isDiffResult(raw: unknown): boolean {
+  if (raw === null || raw === undefined || typeof raw === "string") return false
+
+  function hasDiffOps(obj: unknown): boolean {
+    if (!obj || typeof obj !== "object") return false
+    const record = obj as Record<string, unknown>
+    // Direct @op on object
+    if ("@op" in record) return true
+    // Fields containing @op values (diff result for a document)
+    return Object.values(record).some(
+      (v) => v && typeof v === "object" && !Array.isArray(v) && "@op" in (v as Record<string, unknown>)
+    )
+  }
+
+  if (Array.isArray(raw)) {
+    return raw.length > 0 && raw.some(hasDiffOps)
+  }
+
+  return hasDiffOps(raw)
+}
+
+/**
+ * Detects whether a raw response is a history array: an array of objects
+ * where entries have an `identifier` field and optionally a `diff` field
+ * containing `@op` markers.
+ */
+function isHistoryArray(raw: unknown): raw is ReadonlyArray<HistoryEntry> {
+  if (!Array.isArray(raw)) return false
+  if (raw.length === 0) return false
+  // Conservative: check first entry has `identifier` and `diff`
+  const first = raw[0]
+  if (typeof first !== "object" || first === null) return false
+  const obj = first as Record<string, unknown>
+  return "identifier" in obj && "diff" in obj
+}
+
+interface HistoryEntry {
+  readonly identifier: string
+  readonly author?: string
+  readonly message?: string
+  readonly timestamp?: string
+  readonly diff?: unknown
+  readonly [key: string]: unknown
+}
+
+function HistoryBody({ entries }: { entries: ReadonlyArray<HistoryEntry> }) {
+  return (
+    <div className="space-y-4 max-h-96 overflow-y-auto">
+      {entries.map((entry, i) => (
+        <div key={entry.identifier ?? i} className="border-b border-slate-200 pb-3 last:border-b-0 dark:border-slate-700">
+          {/* Commit header */}
+          <div className="mb-2 flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
+            {entry.message && (
+              <span className="text-xs font-medium text-slate-800 dark:text-slate-200">
+                {String(entry.message)}
+              </span>
+            )}
+            {entry.author && (
+              <span className="text-[0.65rem] text-slate-500 dark:text-slate-400">
+                by {String(entry.author)}
+              </span>
+            )}
+            {entry.timestamp && (
+              <time
+                dateTime={String(entry.timestamp)}
+                className="text-[0.65rem] text-slate-400 dark:text-slate-500"
+                title={String(entry.timestamp)}
+              >
+                {String(entry.timestamp)}
+              </time>
+            )}
+            <span className="group/cell inline-flex items-center text-[0.6rem] font-mono text-slate-400 dark:text-slate-500" title={entry.identifier}>
+              <span className="truncate max-w-[12ch]">{entry.identifier.slice(0, 8)}</span>
+              <CellCopyButton value={entry.identifier} />
+            </span>
+          </div>
+          {/* Diff body rendered with CellValue */}
+          {entry.diff !== undefined && entry.diff !== null ? (
+            <div className="pl-2 border-l-2 border-slate-200 dark:border-slate-600">
+              <CellValue value={entry.diff} />
+            </div>
+          ) : (
+            <p className="text-[0.65rem] italic text-slate-400 dark:text-slate-500">No changes</p>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function SuccessBody({
   result,
   showAllRows,
@@ -148,13 +335,36 @@ function SuccessBody({
 }) {
   const hasBindings = result.bindings && result.bindings.length > 0
 
-  // If no bindings but raw data is present, render as pretty-printed JSON
-  // Also catches string arrays and primitive arrays that aren't WOQL bindings
+  // If no bindings but raw data is present, check for structured rendering
   if (!hasBindings && result.raw !== undefined) {
+    // History array — render with commit headers and CellValue diff rendering
+    if (isHistoryArray(result.raw)) {
+      return <HistoryBody entries={result.raw} />
+    }
+
+    // Diff object or array of diff objects — render with CellValue for rich formatting
+    if (isDiffResult(result.raw)) {
+      return (
+        <div className="overflow-x-auto max-h-96 overflow-y-auto space-y-2">
+          {Array.isArray(result.raw) ? (
+            (result.raw as ReadonlyArray<unknown>).map((item, i) => (
+              <div key={i} className="pl-2 border-l-2 border-slate-200 dark:border-slate-600">
+                <CellValue value={item} />
+              </div>
+            ))
+          ) : (
+            <div className="pl-2 border-l-2 border-slate-200 dark:border-slate-600">
+              <CellValue value={result.raw} />
+            </div>
+          )}
+        </div>
+      )
+    }
+
+    // Fallback: render as pretty-printed JSON
     const formatted = typeof result.raw === "string"
       ? result.raw
       : JSON.stringify(result.raw, null, 2)
-
 
     return (
       <div className="overflow-x-auto">
@@ -195,9 +405,12 @@ function SuccessBody({
                 {columns.map((col) => (
                   <td
                     key={col}
-                    className="px-3 py-1.5 text-slate-600 dark:text-slate-400 font-mono text-xs max-w-xs"
+                    className="group/cell px-3 py-1.5 text-slate-600 dark:text-slate-400 font-mono text-xs max-w-xs"
                   >
                     <CellValue value={row[col]} />
+                    {COPYABLE_COLUMNS.has(col) && typeof row[col] === "string" && (
+                      <CellCopyButton value={row[col] as string} />
+                    )}
                   </td>
                 ))}
               </tr>
@@ -281,6 +494,38 @@ function formatValue(v: unknown): string {
     return JSON.stringify(v, null, 2)
   }
   return String(v)
+}
+
+// ---------------------------------------------------------------------------
+// extractSlotValues — extract publishable values from execution results
+// ---------------------------------------------------------------------------
+
+function extractSlotValues(
+  result: ExecutionResult,
+  column: string,
+  labelColumn?: string
+): ReadonlyArray<SlotValue> {
+  // Try bindings table first
+  if (result.bindings && result.bindings.length > 0) {
+    return result.bindings
+      .filter((row) => row[column] !== undefined && row[column] !== null)
+      .map((row) => ({
+        value: String(row[column]),
+        label: labelColumn && row[labelColumn] ? String(row[labelColumn]) : undefined,
+      }))
+  }
+
+  // Try raw data (e.g., history array)
+  if (Array.isArray(result.raw)) {
+    return (result.raw as ReadonlyArray<Record<string, unknown>>)
+      .filter((entry) => entry && typeof entry === "object" && entry[column] !== undefined)
+      .map((entry) => ({
+        value: String(entry[column]),
+        label: labelColumn && entry[labelColumn] ? String(entry[labelColumn]) : undefined,
+      }))
+  }
+
+  return []
 }
 
 // ---------------------------------------------------------------------------

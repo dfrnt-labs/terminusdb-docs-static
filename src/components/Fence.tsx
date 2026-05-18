@@ -11,6 +11,7 @@ import { RunButton } from "./RunnableFence/RunButton"
 import { ResultPanel } from "./RunnableFence/ResultPanel"
 import { parseCurlToFetch, formatHttpMessage, extractUrlPath } from "./RunnableFence/parseCurl"
 import { useConnection } from "./ConnectionSettings/ConnectionContext"
+import { useSlot, useSlotPublish } from "./RunnableFence/SlotContext"
 import type { TabId } from "./RunnableFence/TabBar"
 import type { RunnableState, ExecutionResult, ExecutionError } from "./RunnableFence/types"
 
@@ -53,15 +54,32 @@ const languageLabels: Record<string, string> = {
   yml: "YAML",
 }
 
+interface FenceProps {
+  children: string
+  language?: string
+  title?: string
+  /** Consumer: name of the slot to consume values from */
+  slot?: string
+  /** Consumer: placeholder text to replace with slot value */
+  placeholder?: string
+  /** Producer: name of the slot to publish values to */
+  publishes?: string
+  /** Producer: column name to extract values from */
+  publishColumn?: string
+  /** Producer: column name for human-readable labels */
+  publishLabel?: string
+}
+
 export function Fence({
   children,
   language,
   title,
-}: {
-  children: string
-  language?: string
-  title?: string
-}) {
+  slot,
+  placeholder,
+  publishes,
+  publishColumn,
+  publishLabel,
+}: FenceProps) {
   const instanceId = useId()
   const [copied, setCopied] = useState(false)
   const [activeTab, setActiveTab] = useState<TabId>("curl")
@@ -70,9 +88,21 @@ export function Fence({
   const [runError, setRunError] = useState<ExecutionError | null>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
   const { settings, setConnectionStatus } = useConnection()
+  const slotValues = useSlot(slot)
+  const publishSlot = useSlotPublish()
+
+  // Consumer state: is this a slot consumer and is the slot populated?
+  const isConsumer = Boolean(slot && placeholder)
+  const slotPopulated = isConsumer && slotValues !== undefined && slotValues.length > 0
+  const selectedSlotValue = slotPopulated ? slotValues[0].value : undefined
 
   // Ensure children is a string
   const codeContent = typeof children === "string" ? children : String(children || "")
+
+  // For consumers: replace placeholder with the actual slot value in the display code
+  const displayCode = isConsumer && slotPopulated && selectedSlotValue
+    ? codeContent.replace(new RegExp(placeholder!, "g"), selectedSlotValue)
+    : codeContent
 
   // Check if this is a mermaid diagram
   const isMermaid = language?.toLowerCase() === "mermaid"
@@ -80,8 +110,11 @@ export function Fence({
   // Check if this is a parseable curl block (for passive tab support)
   const originalLang = language?.toLowerCase() || "text"
   const isBashLang = ["bash", "shell", "curl", "sh"].includes(originalLang)
-  const parsedCurl = isBashLang ? parseCurlToFetch(codeContent.trim()) : null
-  const hasTabs = parsedCurl !== null
+  // For consumers: parse the display code (with placeholder replaced) to determine runnability
+  const parsedCurl = isBashLang ? parseCurlToFetch(displayCode.trim()) : null
+  // Consumer with empty slot: no tabs, no run button — show placeholder state
+  const isConsumerBlocked = isConsumer && !slotPopulated
+  const hasTabs = parsedCurl !== null && !isConsumerBlocked
 
   // Reset copied state after 2 seconds
   useEffect(() => {
@@ -228,7 +261,7 @@ export function Fence({
 
   const copyToClipboard = async () => {
     if (activeTab === "curl" || !hasTabs) {
-      await navigator.clipboard.writeText(codeContent.trimEnd())
+      await navigator.clipboard.writeText(displayCode.trimEnd())
     } else {
       // HTTP tab: copy in standard HTTP/1.1 message format (auth unmasked)
       const httpText = formatHttpMessage(parsedCurl!)
@@ -315,7 +348,7 @@ export function Fence({
             {runState === "SERVER_OFFLINE" && (
               <span className="w-2 h-2 rounded-full bg-amber-500 dark:bg-amber-400" aria-hidden="true" />
             )}
-            {parsedCurl && <RunButton state={runState} onRun={executeRequest} />}
+            {parsedCurl && !isConsumerBlocked && <RunButton state={runState} onRun={executeRequest} />}
             <button
               onClick={copyToClipboard}
               className="flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
@@ -352,7 +385,7 @@ export function Fence({
             </div>
           ) : (
             <Highlight
-              code={codeContent.trimEnd()}
+              code={displayCode.trimEnd()}
               language={highlightLang}
               theme={themes.vsDark}
             >
@@ -377,14 +410,36 @@ export function Fence({
         </div>
       </div>
 
+      {/* Consumer hint — shown when slot is empty */}
+      {isConsumerBlocked && (
+        <div
+          className="mt-1 px-3 py-2 text-xs text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-md"
+          role="note"
+        >
+          <span className="mr-1" aria-hidden="true">⚠</span>
+          Run the example above first to populate this value.
+        </div>
+      )}
+
+      {/* Screen reader announcement when slot fills */}
+      {isConsumer && (
+        <div className="sr-only" aria-live="polite" aria-atomic="true">
+          {slotPopulated ? "Run button available — value populated from example above." : ""}
+        </div>
+      )}
+
       {/* Result panel — shown below the code block after execution */}
-      {parsedCurl && (
+      {parsedCurl && !isConsumerBlocked && (
         <ResultPanel
           state={runState}
           result={runResult}
           error={runError}
           serverUrl={settings.serverUrl}
           onClear={handleClearResult}
+          publishes={publishes}
+          publishColumn={publishColumn}
+          publishLabel={publishLabel}
+          onPublish={publishSlot}
         />
       )}
     </div>

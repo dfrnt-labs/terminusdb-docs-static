@@ -10,6 +10,7 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/json-diff-and-patch/
 media: []
+lastUpdated: "2026-05-18"
 tags:
   - typescript
   - diff-patch
@@ -550,6 +551,17 @@ We have the following patch resulting from the diff:
 
 ## Further Reading
 
-JavaScript client [diff](/docs/javascript/#getjsondiffbeforeafteroptions) and [patch](/docs/javascript/#patchbeforepatch).
+**Client libraries:**
 
-Python client [diff](/docs/python/#diff) and [patch](/docs/python/#patchbeforepatch).
+- JavaScript client [diff](/docs/javascript/#getjsondiffbeforeafteroptions) and [patch](/docs/javascript/#patchbeforepatch)
+- Python client [diff](/docs/python/#diff) and [patch](/docs/python/#patchbeforepatch)
+
+**Related guides:**
+
+- [Git-like Version Control for JSON](/docs/version-controlled-json/) — Tutorial using diff and patch in a branching workflow
+- [Patch Endpoint](/docs/patch-endpoint/) — Apply patches to documents via the HTTP API
+- [Diff and Patch Operations](/docs/diff-and-patch-operations/) — API reference for diff and patch endpoints
+- [How to Time-Travel](/docs/time-travel-howto/) — Query historical data and compare points in time
+- [How to Branch](/docs/branch-howto/) — Create branches and compare them with diff
+- [How to Merge](/docs/merge-howto/) — Merge branches with conflict handling
+- [Version Control Operations](/docs/version-control-operations/) — Complete reference for all versioning endpoints

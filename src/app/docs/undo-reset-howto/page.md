@@ -29,9 +29,12 @@ TerminusDB never deletes commits. Even after a reset, the "undone" commits still
 
 {% callout type="note" title="Prerequisites" %}
 - TerminusDB running on `localhost:6363`
-- A database with commit history. Examples use `admin/mydb`.
+- A database with commit history. Examples use `admin/tdb-example-mydb`.
 - Know the commit identifier you want to return to. Use `GET /api/log/...` to find it (see [Time-Travel How-To](/docs/time-travel-howto/)).
 {% /callout %}
+
+{% prerequisites-clone /%}
+
 
 ---
 
@@ -55,7 +58,7 @@ First, get the commit history to find the commit you want to reset to:
 
 ```bash
 # Get recent commits
-curl -u admin:root "http://localhost:6363/api/log/admin/mydb/local/branch/main?count=3"
+curl -u admin:root "http://localhost:6363/api/log/admin/tdb-example-mydb/local/branch/main?count=3"
 ```
 
 ```json
@@ -69,9 +72,9 @@ curl -u admin:root "http://localhost:6363/api/log/admin/mydb/local/branch/main?c
 Now reset to the commit *before* the unwanted change:
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/reset/admin/mydb/local/branch/main \
+curl -u admin:root -X POST http://localhost:6363/api/reset/admin/tdb-example-mydb/local/branch/main \
   -H "Content-Type: application/json" \
-  -d '{"commit_descriptor": "admin/mydb/local/branch/main/commit/def456"}'
+  -d '{"commit_descriptor": "admin/tdb-example-mydb/local/branch/main/commit/def456"}'
 ```
 
 **Expected response:**
@@ -91,11 +94,11 @@ const client = new TerminusClient.WOQLClient("http://localhost:6363", {
   user: "admin",
   key: "root",
   organization: "admin",
-  db: "mydb",
+  db: "tdb-example-mydb",
 });
 
 // Reset main to the previous commit
-await client.resetBranch("main", "admin/mydb/local/branch/main/commit/def456");
+await client.resetBranch("main", "admin/tdb-example-mydb/local/branch/main/commit/def456");
 ```
 
 ### Python
@@ -104,10 +107,10 @@ await client.resetBranch("main", "admin/mydb/local/branch/main/commit/def456");
 from terminusdb_client import Client
 
 client = Client("http://localhost:6363")
-client.connect(user="admin", key="root", db="mydb")
+client.connect(user="admin", key="root", db="tdb-example-mydb")
 
 # Reset main to the previous commit
-client.reset("admin/mydb/local/branch/main/commit/def456")
+client.reset("admin/tdb-example-mydb/local/branch/main/commit/def456")
 ```
 
 ---
@@ -120,9 +123,9 @@ You can reset to any commit — not just the previous one. This is useful for ro
 
 ```bash
 # Reset to a commit from 3 days ago
-curl -u admin:root -X POST http://localhost:6363/api/reset/admin/mydb/local/branch/main \
+curl -u admin:root -X POST http://localhost:6363/api/reset/admin/tdb-example-mydb/local/branch/main \
   -H "Content-Type: application/json" \
-  -d '{"commit_descriptor": "admin/mydb/local/branch/main/commit/ghi789"}'
+  -d '{"commit_descriptor": "admin/tdb-example-mydb/local/branch/main/commit/ghi789"}'
 ```
 
 **Expected response:**
@@ -145,12 +148,12 @@ If you want to undo a specific change without losing later commits, read the doc
 
 ```bash
 # 1. Get the document as it was before the unwanted change
-curl -u admin:root "http://localhost:6363/api/document/admin/mydb/local/commit/def456?id=terminusdb:///data/Product/Widget"
+curl -u admin:root "http://localhost:6363/api/document/admin/tdb-example-mydb/local/commit/def456?id=terminusdb:///data/Product/Widget"
 # Response: {"@id": "Product/Widget", "@type": "Product", "name": "Widget", "price": 9.99}
 
 # 2. Write it back to main — this creates a NEW commit (history preserved)
 curl -u admin:root -X PUT \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/main?author=alice&message=Revert:+restore+Widget+original+price" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/main?author=alice&message=Revert:+restore+Widget+original+price" \
   -H "Content-Type: application/json" \
   -d '{"@id": "Product/Widget", "@type": "Product", "name": "Widget", "price": 9.99}'
 ```
@@ -200,7 +203,7 @@ Collapse all commits on a branch into a single commit. Useful before merging a f
 ### HTTP API
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/squash/admin/mydb/local/branch/feature \
+curl -u admin:root -X POST http://localhost:6363/api/squash/admin/tdb-example-mydb/local/branch/feature \
   -H "Content-Type: application/json" \
   -d '{"commit_info": {"author": "alice@example.com", "message": "Feature: add product catalogue"}}'
 ```
@@ -208,7 +211,7 @@ curl -u admin:root -X POST http://localhost:6363/api/squash/admin/mydb/local/bra
 **Expected response:**
 
 ```json
-{"@type": "api:SquashResponse", "api:status": "api:success", "api:commit": "system:data/admin/mydb/local/branch/feature/commit/new123"}
+{"@type": "api:SquashResponse", "api:status": "api:success", "api:commit": "system:data/admin/tdb-example-mydb/local/branch/feature/commit/new123"}
 ```
 
 The branch now has a single commit containing all the cumulative changes. This branch no longer reaches the individual intermediate commits.
@@ -237,9 +240,9 @@ If you reset too far back and need to recover, you can reset *forward* to the co
 ```bash
 # You accidentally reset to ghi789 but wanted to keep abc123
 # If you noted abc123's identifier, simply reset forward:
-curl -u admin:root -X POST http://localhost:6363/api/reset/admin/mydb/local/branch/main \
+curl -u admin:root -X POST http://localhost:6363/api/reset/admin/tdb-example-mydb/local/branch/main \
   -H "Content-Type: application/json" \
-  -d '{"commit_descriptor": "admin/mydb/local/branch/main/commit/abc123"}'
+  -d '{"commit_descriptor": "admin/tdb-example-mydb/local/branch/main/commit/abc123"}'
 ```
 
 This is possible because commits are immutable — TerminusDB never deletes them, it only unreferences them.
@@ -250,22 +253,22 @@ This is possible because commits are immutable — TerminusDB never deletes them
 
 ```bash
 # 1. Get commit history to find the last good state
-curl -u admin:root "http://localhost:6363/api/log/admin/mydb/local/branch/main?count=5"
+curl -u admin:root "http://localhost:6363/api/log/admin/tdb-example-mydb/local/branch/main?count=5"
 
 # 2. Identify the last good commit (e.g., def456)
 
 # 3. Verify what the database looked like at that commit
-curl -u admin:root "http://localhost:6363/api/document/admin/mydb/local/commit/def456?type=Product&as_list=true"
+curl -u admin:root "http://localhost:6363/api/document/admin/tdb-example-mydb/local/commit/def456?type=Product&as_list=true"
 
 # 4. Diff current state vs the good state
-curl -u admin:root -X POST http://localhost:6363/api/diff/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/diff/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
-  -d '{"before_data_version": "admin/mydb/local/commit/def456", "after_data_version": "main"}'
+  -d '{"before_data_version": "admin/tdb-example-mydb/local/commit/def456", "after_data_version": "main"}'
 
 # 5. Reset to the good state
-curl -u admin:root -X POST http://localhost:6363/api/reset/admin/mydb/local/branch/main \
+curl -u admin:root -X POST http://localhost:6363/api/reset/admin/tdb-example-mydb/local/branch/main \
   -H "Content-Type: application/json" \
-  -d '{"commit_descriptor": "admin/mydb/local/branch/main/commit/def456"}'
+  -d '{"commit_descriptor": "admin/tdb-example-mydb/local/branch/main/commit/def456"}'
 
 # Done — main is back to the good state. The bad commits are unreachable but still exist.
 ```

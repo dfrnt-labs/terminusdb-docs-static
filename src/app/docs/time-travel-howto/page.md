@@ -14,7 +14,7 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/time-travel-howto/
 media: []
-lastUpdated: "2026-05-01"
+lastUpdated: "2026-05-18"
 ---
 
 {% callout type="note" title="What you'll achieve" %}
@@ -29,8 +29,11 @@ TerminusDB stores data as immutable delta layers. When you time-travel, you read
 
 {% callout type="note" title="Prerequisites" %}
 - TerminusDB running on `localhost:6363`
-- A database with some commit history. Examples use `admin/mydb`.
+- A database with some commit history. Examples use `admin/tdb-example-mydb`.
 {% /callout %}
+
+{% prerequisites-clone /%}
+
 
 ---
 
@@ -41,7 +44,7 @@ View the commit log to find the commit you want to travel to.
 ### HTTP API
 
 ```bash
-curl -u admin:root "http://localhost:6363/api/log/admin/mydb/local/branch/main?count=5"
+curl -u admin:root "http://localhost:6363/api/log/admin/tdb-example-mydb/local/branch/main?count=5"
 ```
 
 **Expected response:**
@@ -83,7 +86,7 @@ const client = new TerminusClient.WOQLClient("http://localhost:6363", {
   user: "admin",
   key: "root",
   organization: "admin",
-  db: "mydb",
+  db: "tdb-example-mydb",
 });
 
 const log = await client.getCommitHistory({ count: 5 });
@@ -98,7 +101,7 @@ for (const commit of log) {
 from terminusdb_client import Client
 
 client = Client("http://localhost:6363")
-client.connect(user="admin", key="root", db="mydb")
+client.connect(user="admin", key="root", db="tdb-example-mydb")
 
 log = client.get_commit_history(count=5)
 for commit in log:
@@ -109,13 +112,17 @@ for commit in log:
 
 ## 2. Query data at a specific commit
 
+{% callout type="note" title="Connected workflow" %}
+Pick a commit `identifier` from the history response above (e.g., `789xyz012345`) and use it in the URL below. This is the core time-travel operation: replace `local/branch/main` with `local/commit/{identifier}` to query the database as it was at that exact moment.
+{% /callout %}
+
 Replace the branch path with a commit path to see the database at that exact moment.
 
 ### HTTP API
 
 ```bash
 # Query all Product documents as they were at commit 789xyz012345
-curl -u admin:root "http://localhost:6363/api/document/admin/mydb/local/commit/789xyz012345?type=Product&as_list=true"
+curl -u admin:root "http://localhost:6363/api/document/admin/tdb-example-mydb/local/commit/789xyz012345?type=Product&as_list=true"
 ```
 
 **Expected response:**
@@ -160,11 +167,11 @@ Use diff to see exactly what changed between any two commits:
 ### HTTP API
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/diff/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/diff/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -d '{
-    "before_data_version": "admin/mydb/local/commit/789xyz012345",
-    "after_data_version": "admin/mydb/local/commit/abc123def456"
+    "before_data_version": "admin/tdb-example-mydb/local/commit/789xyz012345",
+    "after_data_version": "admin/tdb-example-mydb/local/commit/abc123def456"
   }'
 ```
 
@@ -191,10 +198,10 @@ To see how a single document evolved over time, query it at successive commits:
 
 ```bash
 # Get the document at the current state
-curl -u admin:root "http://localhost:6363/api/document/admin/mydb/local/branch/main?id=terminusdb:///data/Product/Widget"
+curl -u admin:root "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/main?id=terminusdb:///data/Product/Widget"
 
 # Get the same document at a previous commit
-curl -u admin:root "http://localhost:6363/api/document/admin/mydb/local/commit/789xyz012345?id=terminusdb:///data/Product/Widget"
+curl -u admin:root "http://localhost:6363/api/document/admin/tdb-example-mydb/local/commit/789xyz012345?id=terminusdb:///data/Product/Widget"
 ```
 
 Compare the responses to see how the document changed over time.
@@ -209,12 +216,12 @@ If you want to revert a document to its historical value, read it from the commi
 
 ```bash
 # 1. Read the document at the historical commit
-curl -u admin:root "http://localhost:6363/api/document/admin/mydb/local/commit/789xyz012345?id=terminusdb:///data/Product/Widget"
+curl -u admin:root "http://localhost:6363/api/document/admin/tdb-example-mydb/local/commit/789xyz012345?id=terminusdb:///data/Product/Widget"
 # Response: {"@id": "Product/Widget", "@type": "Product", "name": "Widget", "price": 9.99}
 
 # 2. Write it back to main (this creates a new commit — history is preserved)
 curl -u admin:root -X PUT \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/main?author=alice&message=Restore+Widget+to+original+price" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/main?author=alice&message=Restore+Widget+to+original+price" \
   -H "Content-Type: application/json" \
   -d '{"@id": "Product/Widget", "@type": "Product", "name": "Widget", "price": 9.99}'
 ```
@@ -261,17 +268,17 @@ client.update_document(historical, commit_msg="Restore Widget to original price"
 
 ```bash
 # 1. Get recent commit history
-curl -u admin:root "http://localhost:6363/api/log/admin/mydb/local/branch/main?count=10"
+curl -u admin:root "http://localhost:6363/api/log/admin/tdb-example-mydb/local/branch/main?count=10"
 
 # 2. Find the commit before the unwanted change (e.g., 789xyz012345)
 
 # 3. See what the database looked like at that commit
-curl -u admin:root "http://localhost:6363/api/document/admin/mydb/local/commit/789xyz012345?type=Product&as_list=true"
+curl -u admin:root "http://localhost:6363/api/document/admin/tdb-example-mydb/local/commit/789xyz012345?type=Product&as_list=true"
 
 # 4. Diff current state vs that historical commit
-curl -u admin:root -X POST http://localhost:6363/api/diff/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/diff/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
-  -d '{"before_data_version": "admin/mydb/local/commit/789xyz012345", "after_data_version": "main"}'
+  -d '{"before_data_version": "admin/tdb-example-mydb/local/commit/789xyz012345", "after_data_version": "main"}'
 
 # 5. If you want to restore to that state, use reset (see How to Undo Changes)
 #    or selectively restore individual documents as shown above

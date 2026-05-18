@@ -24,10 +24,10 @@ interface QuickstartCloneProps {
 const REMOTE_AUTH_HEADER = "Basic cHVibGljOnB1YmxpYw=="
 
 export function QuickstartClone({
-  remoteUrl = "https://data.terminusdb.org/public/star-wars",
-  localPath = "star-wars",
+  remoteUrl = "https://data.terminusdb.org/public/tdb-example-mydb",
+  localPath = "tdb-example-mydb",
   label = "Clone Quickstart Database",
-  description = "Get the Star Wars dataset on your local TerminusDB — ready to branch and diff.",
+  description = "Get the project tracker example on your local TerminusDB — ready to branch and diff.",
 }: QuickstartCloneProps) {
   const { settings } = useConnection()
   const [state, setState] = useState<CloneState>("idle")
@@ -50,8 +50,8 @@ export function QuickstartClone({
         },
         body: JSON.stringify({
           remote_url: remoteUrl,
-          label: "Star Wars",
-          comment: "Quickstart template database",
+          label: localPath,
+          comment: "Example project tracker database",
         }),
       })
 

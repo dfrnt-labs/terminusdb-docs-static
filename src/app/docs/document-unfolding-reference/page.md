@@ -18,7 +18,7 @@ tags:
 
 TerminusDB provides automatic document unfolding for linked documents through two mechanisms: class-level `@unfoldable` and field-level `@unfold` annotations. This reference guide explains how unfolding works, how cycle detection prevents infinite recursion, and performance characteristics of the implementation.
 
---> Valid as of the 11.2 release.
+--> Valid as of the v12 release.
 
 ## What is Document Unfolding?
 
@@ -505,7 +505,7 @@ Performance benchmarks show approx double speed of Vec across both small and lar
 
 ```bash
 # Retrieve with automatic unfolding (default)
-curl -X GET "http://localhost:6363/api/document/admin/mydb" \
+curl -X GET "http://localhost:6363/api/document/admin/tdb-example-mydb" \
   -H "Authorization: Basic YWRtaW46cm9vdA==" \
   -d '{"graph_type": "instance", "id": "Person/Alice", "as_list": true}'
 ```

@@ -29,6 +29,8 @@ By the end of this guide, you will have reset a branch to a previous commit — 
 
 Resetting a branch moves the HEAD pointer back to a specific commit, discarding all commits that came after it. This is like `git reset --hard` — use it when you want to undo recent changes.
 
+{% prerequisites-clone /%}
+
 ## Get the commit history
 
 First, find the commit ID you want to reset to:
@@ -65,7 +67,7 @@ Example output:
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root \
-  "http://localhost:6363/api/log/admin/mydb/local/branch/main?count=5"
+  "http://localhost:6363/api/log/admin/tdb-example-mydb/local/branch/main?count=5"
 ```
 {% /code-tab %}
 {% /code-tabs %}
@@ -93,9 +95,9 @@ client.reset(commit_id)
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root -X POST \
-  "http://localhost:6363/api/reset/admin/mydb/local/branch/main" \
+  "http://localhost:6363/api/reset/admin/tdb-example-mydb/local/branch/main" \
   -H "Content-Type: application/json" \
-  -d '{"commit_descriptor": "admin/mydb/local/commit/hpl18q42dbnab4vzq8me4bg1xn8p2a0"}'
+  -d '{"commit_descriptor": "admin/tdb-example-mydb/local/commit/hpl18q42dbnab4vzq8me4bg1xn8p2a0"}'
 ```
 {% /code-tab %}
 {% /code-tabs %}

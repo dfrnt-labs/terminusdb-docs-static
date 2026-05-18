@@ -27,6 +27,8 @@ tags:
 By the end of this guide, you will have retrieved documents from your TerminusDB database using the JavaScript client, the Python client, or the HTTP API.
 {% /callout %}
 
+{% prerequisites-clone /%}
+
 ## Get a single document
 
 Retrieve a document by its ID:
@@ -70,7 +72,7 @@ Returns:
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/main?id=Player/Doug"
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/main?id=Player/Doug"
 ```
 
 Returns:
@@ -157,7 +159,7 @@ documents = list(client.get_all_documents())
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/main?as_list=true"
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/main?as_list=true"
 ```
 
 Returns:

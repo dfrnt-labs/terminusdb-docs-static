@@ -253,7 +253,7 @@ export TERMINUSDB_LOG_LEVEL=debug
 
 ```bash
 # Using the CLI
-./terminusdb doc insert admin/mydb '{"@type": "Person", "name": "Alice"}'
+./terminusdb doc insert admin/tdb-example-mydb '{"@type": "Person", "name": "Alice"}'
 
 # Or using a client
 ```

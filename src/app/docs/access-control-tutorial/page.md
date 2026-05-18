@@ -18,8 +18,8 @@ nextjs:
 
 In this tutorial you will create a second user with read-only access to a database. By the end you will have:
 
-1. A database with data in it
-2. A new user (`alice`) who can read — but not write — that database
+1. Created a database and inserted a document
+2. Created a new user (`alice`) who can read — but not write — that database
 3. Verified that permission enforcement works
 
 **Time:** ~10 minutes  
@@ -29,21 +29,37 @@ In this tutorial you will create a second user with read-only access to a databa
 If you have trouble connecting, see [Troubleshooting Connection Failures](/docs/troubleshooting-connection) and [Authentication Errors](/docs/troubleshooting-auth).
 {% /callout %}
 
-## Step 1 — Create a database with data
+## Step 1 — Create a database
 
-First, create a database and insert a document so we have something to protect:
+First, create a database that we will protect with access control:
 
 ```bash
-# Create the database
 curl -s -u admin:root -X POST "http://localhost:6363/api/db/admin/MyDatabase" \
   -H "Content-Type: application/json" \
   -d '{"label": "MyDatabase", "comment": "Access control tutorial"}'
+```
 
-# Insert a document
+Expected response:
+
+```json
+{"@type":"api:DbCreateResponse","api:status":"api:success"}
+```
+
+## Step 2 — Insert a document
+
+Now insert a document into the database so we have something to protect:
+
+```bash
 curl -s -u admin:root -X POST \
   "http://localhost:6363/api/document/admin/MyDatabase?author=admin&message=Add+document&raw_json=true" \
   -H "Content-Type: application/json" \
   -d '{"@id": "terminusdb:///data/jane", "name": "Jane Smith", "email": "jane@example.com"}'
+```
+
+Expected response:
+
+```json
+["terminusdb:///data/jane"]
 ```
 
 Verify the document is accessible:
@@ -55,7 +71,7 @@ curl -s -u admin:root \
 
 You should see Jane's document returned as JSON.
 
-## Step 2 — Create a new user
+## Step 3 — Create a new user
 
 Create a user called `alice` with a password:
 
@@ -76,7 +92,7 @@ Verify the user exists:
 curl -s -u admin:root http://localhost:6363/api/users/alice
 ```
 
-## Step 3 — Grant read-only access
+## Step 4 — Grant read-only access
 
 Grant the built-in "Consumer Role" (read-only) to `alice` on `MyDatabase`:
 
@@ -94,7 +110,7 @@ curl -s -u admin:root -X POST http://localhost:6363/api/capabilities \
 
 The Consumer Role includes three actions: `class_frame`, `instance_read_access`, and `schema_read_access`. This means `alice` can read documents and schema but cannot insert, update, or delete anything.
 
-## Step 4 — Verify read access works
+## Step 5 — Verify read access works
 
 Authenticate as `alice` and read the document:
 
@@ -105,7 +121,7 @@ curl -s -u alice:alice-secret \
 
 You should see Jane's document — `alice` has read access.
 
-## Step 5 — Verify write access is denied
+## Step 6 — Verify write access is denied
 
 Now try to insert a document as `alice`:
 
@@ -127,7 +143,7 @@ You should receive a **403 Forbidden** error:
 
 This confirms that `alice` cannot write — the access control is working correctly.
 
-## Step 6 — Upgrade to write access (optional)
+## Step 7 — Upgrade to write access (optional)
 
 If you want to give `alice` write access, create a custom writer role and grant it:
 
@@ -167,7 +183,7 @@ curl -s -u alice:alice-secret -X POST \
   -d '{"@id": "terminusdb:///data/bob", "name": "Bob Jones", "email": "bob@example.com"}'
 ```
 
-## Step 7 — Clean up (optional)
+## Step 8 — Clean up (optional)
 
 Revoke access and delete the user:
 

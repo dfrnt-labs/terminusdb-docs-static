@@ -111,6 +111,16 @@ interface RunnableFenceProps {
   testExample?: boolean
   id?: string
   fixture?: string
+  /** Consumer: name of the slot to consume values from */
+  slot?: string
+  /** Consumer: placeholder text to replace with slot value */
+  placeholder?: string
+  /** Producer: name of the slot to publish values to */
+  publishes?: string
+  /** Producer: column name to extract values from */
+  publishColumn?: string
+  /** Producer: column name for human-readable labels */
+  publishLabel?: string
 }
 
 const TIMEOUT_MS = 15000
@@ -122,10 +132,27 @@ export function RunnableFence({
   testExample,
   id,
   fixture,
+  slot,
+  placeholder,
+  publishes,
+  publishColumn,
+  publishLabel,
 }: RunnableFenceProps) {
   // If not a runnable example, delegate to Fence (which handles passive tabs for curl blocks)
   if (!testExample) {
-    return <Fence language={language} title={title}>{children}</Fence>
+    return (
+      <Fence
+        language={language}
+        title={title}
+        slot={slot}
+        placeholder={placeholder}
+        publishes={publishes}
+        publishColumn={publishColumn}
+        publishLabel={publishLabel}
+      >
+        {children}
+      </Fence>
+    )
   }
 
   return (

@@ -29,6 +29,8 @@ By the end of this guide, you will have deleted documents from your TerminusDB d
 
 To delete a document you need its document ID (e.g. `Player/George`).
 
+{% prerequisites-clone /%}
+
 ## Delete a document
 
 {% code-tabs %}
@@ -50,7 +52,7 @@ client.delete_document(doc_id)
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root -X DELETE \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/main?author=admin&message=Delete+document" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/main?author=admin&message=Delete+document" \
   -H "Content-Type: application/json" \
   -d '["Player/George"]'
 ```

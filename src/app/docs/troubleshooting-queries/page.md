@@ -20,6 +20,8 @@ media: []
 
 This page covers errors that occur when executing WOQL or GraphQL queries — type mismatches between URI and string types, unbound variables, queries that return empty results unexpectedly, and path query syntax problems.
 
+{% prerequisites-clone /%}
+
 ## Symptoms
 
 - Query returns 0 bindings when you expect results
@@ -124,7 +126,7 @@ WOQL.and(
 
 3. **Verify data exists** — check that documents are in the instance graph:
    ```bash
-   curl -u admin:root "http://localhost:6363/api/document/admin/mydb?type=Person&count=1"
+   curl -u admin:root "http://localhost:6363/api/document/admin/tdb-example-mydb?type=Person&count=1"
    ```
 
 4. **Check the graph** — ensure you are querying the correct graph (instance vs schema):

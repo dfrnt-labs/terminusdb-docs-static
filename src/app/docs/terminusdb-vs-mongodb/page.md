@@ -42,7 +42,7 @@ The key architectural difference: MongoDB is a mutable database optimised for wr
 | **Scalability** | Single-node with delta compression | Horizontal sharding (native) |
 | **Schema migration** | Schema weakening (backward-compatible) | No built-in migration; application-managed |
 | **Audit trail** | Every commit: author, message, timestamp | Requires Change Streams + custom storage |
-| **Deployment** | Docker container, ~50 MB | mongod binary or Atlas (cloud) |
+| **Deployment** | Docker container, ~120 MB | mongod binary or Atlas (cloud) |
 | **Licence** | Apache 2.0 | SSPL (Server Side Public License) |
 | **Graph traversal** | Native WOQL `path()` and triple patterns | `$graphLookup` (limited recursive lookup) |
 | **Secondary indexes** | Schema-defined fields indexed automatically | Manual index creation required |

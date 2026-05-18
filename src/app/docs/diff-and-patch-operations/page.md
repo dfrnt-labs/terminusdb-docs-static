@@ -10,6 +10,7 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/diff-and-patch-operations/
 media: []
+lastUpdated: "2026-05-18"
 tags:
   - typescript
   - diff-patch

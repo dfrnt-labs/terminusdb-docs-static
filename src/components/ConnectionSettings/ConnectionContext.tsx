@@ -9,7 +9,7 @@ export interface ConnectionSettings {
   db: string
 }
 
-export type ConnectionStatus = "untested" | "connected" | "failed"
+export type ConnectionStatus = "untested" | "connecting" | "connected" | "failed"
 
 interface ConnectionContextValue {
   settings: ConnectionSettings
@@ -17,6 +17,8 @@ interface ConnectionContextValue {
   resetSettings: () => void
   connectionStatus: ConnectionStatus
   setConnectionStatus: (status: ConnectionStatus) => void
+  testConnection: () => Promise<boolean>
+  disconnect: () => void
 }
 
 const DEFAULT_SETTINGS: ConnectionSettings = {
@@ -32,7 +34,11 @@ function loadSettings(): ConnectionSettings {
   if (typeof window === "undefined") return DEFAULT_SETTINGS
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) return { ...DEFAULT_SETTINGS, ...JSON.parse(stored) }
+    if (stored) {
+      const parsed = JSON.parse(stored) as Partial<ConnectionSettings>
+      // Never restore password from storage — always use default
+      return { ...DEFAULT_SETTINGS, ...parsed, password: DEFAULT_SETTINGS.password }
+    }
   } catch {
     // Ignore parse errors
   }
@@ -42,7 +48,9 @@ function loadSettings(): ConnectionSettings {
 function saveSettings(settings: ConnectionSettings): void {
   if (typeof window === "undefined") return
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(settings))
+    // Never persist password to localStorage
+    const { password: _, ...persistable } = settings
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(persistable))
   } catch {
     // Ignore storage errors
   }
@@ -52,10 +60,14 @@ const ConnectionContext = createContext<ConnectionContextValue | null>(null)
 
 export function ConnectionProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<ConnectionSettings>(DEFAULT_SETTINGS)
-  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>("untested")
+  const [connectionStatus, setConnectionStatusState] = useState<ConnectionStatus>("untested")
 
   useEffect(() => {
     setSettings(loadSettings())
+  }, [])
+
+  const setConnectionStatus = useCallback((status: ConnectionStatus) => {
+    setConnectionStatusState(status)
   }, [])
 
   const updateSettings = useCallback((newSettings: ConnectionSettings) => {
@@ -67,11 +79,43 @@ export function ConnectionProvider({ children }: { children: ReactNode }) {
     setSettings(DEFAULT_SETTINGS)
     saveSettings(DEFAULT_SETTINGS)
     setConnectionStatus("untested")
-  }, [])
+  }, [setConnectionStatus])
+
+  const disconnect = useCallback(() => {
+    setConnectionStatus("untested")
+  }, [setConnectionStatus])
+
+  const testConnection = useCallback(async (): Promise<boolean> => {
+    setConnectionStatus("connecting")
+    try {
+      const response = await fetch(`${settings.serverUrl}/api/info`, {
+        method: "GET",
+        signal: AbortSignal.timeout(5000),
+      })
+      if (response.ok) {
+        setConnectionStatus("connected")
+        return true
+      }
+      // Fallback to /api/ if /api/info returns non-200
+      const fallback = await fetch(`${settings.serverUrl}/api/`, {
+        method: "GET",
+        signal: AbortSignal.timeout(5000),
+      })
+      if (fallback.ok) {
+        setConnectionStatus("connected")
+        return true
+      }
+      setConnectionStatus("failed")
+      return false
+    } catch {
+      setConnectionStatus("failed")
+      return false
+    }
+  }, [settings.serverUrl, setConnectionStatus])
 
   return (
     <ConnectionContext.Provider
-      value={{ settings, updateSettings, resetSettings, connectionStatus, setConnectionStatus }}
+      value={{ settings, updateSettings, resetSettings, connectionStatus, setConnectionStatus, testConnection, disconnect }}
     >
       {children}
     </ConnectionContext.Provider>

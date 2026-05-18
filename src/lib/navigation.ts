@@ -54,8 +54,12 @@ export const navigation: Navigation[] = [
             href: '/docs/first-15-minutes',
           },
           {
-            title: 'Version-Controlled JSON',
+            title: 'Git-like Version Control for JSON',
             href: '/docs/version-controlled-json',
+          },
+          {
+            title: 'Interactive Tutorials',
+            href: '/docs/topics/tutorial',
           },
           {
             title: 'Explore a Real Dataset',

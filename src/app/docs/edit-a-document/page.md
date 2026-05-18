@@ -29,6 +29,8 @@ By the end of this guide, you will have updated existing documents in your Termi
 
 To update a document, first [retrieve it](/docs/get-documents/), make your changes, then submit the update. The document must include its `@id` and `@type` so TerminusDB knows which record to replace.
 
+{% prerequisites-clone /%}
+
 ## Update a document
 
 {% code-tabs %}
@@ -64,7 +66,7 @@ client.update_document(doc)
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root -X PUT \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/main?author=admin&message=Update+document" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/main?author=admin&message=Update+document" \
   -H "Content-Type: application/json" \
   -d '{"@id":"Player/George","@type":"Player","name":"George","position":"Full Back"}'
 ```

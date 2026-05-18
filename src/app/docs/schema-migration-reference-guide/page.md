@@ -22,6 +22,8 @@ lastUpdated: "2026-05-01"
 By the end of this guide, you will know how to migrate your TerminusDB schema — add required fields with defaults, rename properties, change field types, and re-key documents — all with automatic instance data transformation.
 {% /callout %}
 
+{% prerequisites-clone /%}
+
 ## Worked example: evolve a Product schema
 
 This example demonstrates three common migration operations in a single API call. You have a `Product` class and need to:
@@ -54,7 +56,7 @@ This example demonstrates three common migration operations in a single API call
 ### Run the migration
 
 ```bash
-curl -u admin:root -X POST "http://localhost:6363/api/migration/admin/mydb" \
+curl -u admin:root -X POST "http://localhost:6363/api/migration/admin/tdb-example-mydb" \
   -H "Content-Type: application/json" \
   -d '{
     "author": "alice@example.com",
@@ -122,7 +124,7 @@ Every existing document was transformed automatically:
 Preview what a migration will do without applying it:
 
 ```bash
-curl -u admin:root -X POST "http://localhost:6363/api/migration/admin/mydb?dry_run=true&verbose=true" \
+curl -u admin:root -X POST "http://localhost:6363/api/migration/admin/tdb-example-mydb?dry_run=true&verbose=true" \
   -H "Content-Type: application/json" \
   -d '{
     "author": "alice@example.com",

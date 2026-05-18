@@ -30,8 +30,11 @@ TerminusDB never silently resolves conflicts. If two branches changed the same f
 {% callout type="note" title="Prerequisites" %}
 - TerminusDB running on `localhost:6363`
 - A database with at least two branches. See [How to Branch](/docs/branch-howto/) to create one.
-- Examples use `admin/mydb` with branches `main` and `feature`.
+- Examples use `admin/tdb-example-mydb` with branches `main` and `feature`.
 {% /callout %}
+
+{% prerequisites-clone /%}
+
 
 ---
 
@@ -42,11 +45,11 @@ Apply all changes from `feature` onto `main`. This is the most common merge oper
 ### HTTP API
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/apply/admin/mydb/local/branch/main \
+curl -u admin:root -X POST http://localhost:6363/api/apply/admin/tdb-example-mydb/local/branch/main \
   -H "Content-Type: application/json" \
   -d '{
-    "before_commit": "admin/mydb/local/branch/main",
-    "after_commit": "admin/mydb/local/branch/feature",
+    "before_commit": "admin/tdb-example-mydb/local/branch/main",
+    "after_commit": "admin/tdb-example-mydb/local/branch/feature",
     "commit_info": {
       "author": "alice@example.com",
       "message": "Merge feature into main"
@@ -69,13 +72,13 @@ const client = new TerminusClient.WOQLClient("http://localhost:6363", {
   user: "admin",
   key: "root",
   organization: "admin",
-  db: "mydb",
+  db: "tdb-example-mydb",
 });
 
 await client.apply(
-  "admin/mydb/local/branch/main",    // target branch
-  "admin/mydb/local/branch/main",    // before (common ancestor)
-  "admin/mydb/local/branch/feature", // after (source of changes)
+  "admin/tdb-example-mydb/local/branch/main",    // target branch
+  "admin/tdb-example-mydb/local/branch/main",    // before (common ancestor)
+  "admin/tdb-example-mydb/local/branch/feature", // after (source of changes)
   { author: "alice@example.com", message: "Merge feature into main" }
 );
 ```
@@ -86,11 +89,11 @@ await client.apply(
 from terminusdb_client import Client
 
 client = Client("http://localhost:6363")
-client.connect(user="admin", key="root", db="mydb")
+client.connect(user="admin", key="root", db="tdb-example-mydb")
 
 client.apply(
-    before_commit="admin/mydb/local/branch/main",
-    after_commit="admin/mydb/local/branch/feature",
+    before_commit="admin/tdb-example-mydb/local/branch/main",
+    after_commit="admin/tdb-example-mydb/local/branch/feature",
     commit_msg="Merge feature into main",
     author="alice@example.com"
 )
@@ -105,7 +108,7 @@ Always review what will change before merging. The diff shows exactly which docu
 ### HTTP API
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/diff/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/diff/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -d '{"before_data_version": "main", "after_data_version": "feature"}'
 ```
@@ -164,7 +167,7 @@ To resolve, you must decide which value wins and apply it manually:
 ```bash
 # Option A: Accept the feature branch value (14.99)
 curl -u admin:root -X PUT \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/main?author=alice&message=Resolve+conflict:+accept+feature+price" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/main?author=alice&message=Resolve+conflict:+accept+feature+price" \
   -H "Content-Type: application/json" \
   -d '{"@id": "Product/Widget", "@type": "Product", "name": "Widget", "price": 14.99}'
 
@@ -175,7 +178,7 @@ curl -u admin:root -X PUT \
 # Option B: Keep main's value (12.99) — no action needed on main
 # Just update the feature branch to match main before re-merging:
 curl -u admin:root -X PUT \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/feature?author=alice&message=Resolve+conflict:+accept+main+price" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/feature?author=alice&message=Resolve+conflict:+accept+main+price" \
   -H "Content-Type: application/json" \
   -d '{"@id": "Product/Widget", "@type": "Product", "name": "Widget", "price": 12.99}'
 ```
@@ -189,7 +192,7 @@ Collapse all commits on a branch into a single commit — useful for cleaning up
 ### HTTP API
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/squash/admin/mydb/local/branch/feature \
+curl -u admin:root -X POST http://localhost:6363/api/squash/admin/tdb-example-mydb/local/branch/feature \
   -H "Content-Type: application/json" \
   -d '{"commit_info": {"author": "alice@example.com", "message": "Squash feature branch"}}'
 ```
@@ -197,7 +200,7 @@ curl -u admin:root -X POST http://localhost:6363/api/squash/admin/mydb/local/bra
 **Expected response:**
 
 ```json
-{"@type": "api:SquashResponse", "api:status": "api:success", "api:commit": "system:data/admin/mydb/local/branch/feature/commit/abc123"}
+{"@type": "api:SquashResponse", "api:status": "api:success", "api:commit": "system:data/admin/tdb-example-mydb/local/branch/feature/commit/abc123"}
 ```
 
 After squashing, the feature branch has one clean commit that you can merge into main.
@@ -211,11 +214,11 @@ Keep your feature branch up-to-date with main by merging main's changes into you
 ### HTTP API
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/apply/admin/mydb/local/branch/feature \
+curl -u admin:root -X POST http://localhost:6363/api/apply/admin/tdb-example-mydb/local/branch/feature \
   -H "Content-Type: application/json" \
   -d '{
-    "before_commit": "admin/mydb/local/branch/feature",
-    "after_commit": "admin/mydb/local/branch/main",
+    "before_commit": "admin/tdb-example-mydb/local/branch/feature",
+    "after_commit": "admin/tdb-example-mydb/local/branch/main",
     "commit_info": {
       "author": "alice@example.com",
       "message": "Merge latest main into feature"
@@ -231,22 +234,22 @@ This brings your feature branch up-to-date with main's latest changes, reducing 
 
 ```bash
 # 1. Check what changed on feature vs main
-curl -u admin:root -X POST http://localhost:6363/api/diff/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/diff/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -d '{"before_data_version": "main", "after_data_version": "feature"}'
 
 # 2. Squash feature branch for clean history
-curl -u admin:root -X POST http://localhost:6363/api/squash/admin/mydb/local/branch/feature \
+curl -u admin:root -X POST http://localhost:6363/api/squash/admin/tdb-example-mydb/local/branch/feature \
   -H "Content-Type: application/json" \
   -d '{"commit_info": {"author": "alice", "message": "Feature: add Widget product"}}'
 
 # 3. Merge into main
-curl -u admin:root -X POST http://localhost:6363/api/apply/admin/mydb/local/branch/main \
+curl -u admin:root -X POST http://localhost:6363/api/apply/admin/tdb-example-mydb/local/branch/main \
   -H "Content-Type: application/json" \
-  -d '{"before_commit": "admin/mydb/local/branch/main", "after_commit": "admin/mydb/local/branch/feature", "commit_info": {"author": "alice", "message": "Merge feature: add Widget product"}}'
+  -d '{"before_commit": "admin/tdb-example-mydb/local/branch/main", "after_commit": "admin/tdb-example-mydb/local/branch/feature", "commit_info": {"author": "alice", "message": "Merge feature: add Widget product"}}'
 
 # 4. Clean up the branch
-curl -u admin:root -X DELETE http://localhost:6363/api/branch/admin/mydb/local/branch/feature
+curl -u admin:root -X DELETE http://localhost:6363/api/branch/admin/tdb-example-mydb/local/branch/feature
 ```
 
 ---

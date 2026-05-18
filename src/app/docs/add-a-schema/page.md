@@ -24,6 +24,9 @@ tags:
 - A connected client: [TypeScript](/docs/connect-with-the-javascript-client/) or [Python](/docs/connect-with-python-client/)
 {% /callout %}
 
+{% prerequisites-clone /%}
+
+
 {% callout type="note" title="What you'll achieve" %}
 By the end of this guide, you will have defined a schema (document types) in your TerminusDB database using the HTTP API, TypeScript, or Python.
 {% /callout %}
@@ -36,7 +39,7 @@ A schema in TerminusDB defines your document types — their fields, data types,
 
 ```bash
 curl -u admin:root -X POST \
-  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&author=admin&message=Add+schema" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&author=admin&message=Add+schema" \
   -H "Content-Type: application/json" \
   -d '[
     {"@type": "Class", "@id": "Country", "@key": {"@type": "Lexical", "@fields": ["name"]}, "name": "xsd:string"},

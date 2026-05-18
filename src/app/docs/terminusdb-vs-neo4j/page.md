@@ -40,7 +40,7 @@ The key architectural difference: Neo4j is a mutable database designed for high-
 | **ACID transactions** | Full ACID with snapshot isolation | Full ACID |
 | **Collaboration** | Clone, push, pull between instances | Clustering for HA, no data-level collaboration |
 | **Scalability model** | Single-node with delta compression | Clustering (Enterprise), sharding (Aura) |
-| **Deployment** | Docker container, ~50 MB | JVM-based, requires Java runtime |
+| **Deployment** | Docker container, ~120 MB | JVM-based, requires Java runtime |
 | **Licence** | Apache 2.0 | GPL (Community) / Commercial (Enterprise) |
 | **Primary interface** | HTTP REST API + client libraries | Bolt protocol + HTTP + client drivers |
 | **Graph traversal** | WOQL `path()` expressions | Cypher variable-length patterns |

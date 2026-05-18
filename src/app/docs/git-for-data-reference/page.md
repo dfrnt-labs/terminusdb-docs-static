@@ -26,8 +26,11 @@ By the end of this guide, you will know how to push, pull, fetch, and clone data
 {% callout title="Prerequisites" %}
 - Two TerminusDB instances running (examples use `localhost:6363` as local and `localhost:6364` as remote)
 - A database on the remote instance to clone from, or a local database with a remote configured
-- Examples use `admin/mydb` with basic authentication
+- Examples use `admin/tdb-example-mydb` with basic authentication
 {% /callout %}
+
+{% prerequisites-clone /%}
+
 
 ---
 
@@ -40,9 +43,9 @@ Git-for-data operations use **remotes** — stored references to remote database
 Register a remote TerminusDB instance for push/pull operations:
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/remote/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/remote/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
-  -d '{"remote_name": "origin", "remote_location": "http://localhost:6364/admin/mydb"}'
+  -d '{"remote_name": "origin", "remote_location": "http://localhost:6364/admin/tdb-example-mydb"}'
 ```
 
 **Expected response:**
@@ -60,10 +63,10 @@ const client = new TerminusClient.WOQLClient("http://localhost:6363", {
   user: "admin",
   key: "root",
   organization: "admin",
-  db: "mydb",
+  db: "tdb-example-mydb",
 });
 
-await client.addRemote("origin", "http://localhost:6364/admin/mydb");
+await client.addRemote("origin", "http://localhost:6364/admin/tdb-example-mydb");
 ```
 {% /code-tab %}
 {% code-tab label="Python" %}
@@ -71,9 +74,9 @@ await client.addRemote("origin", "http://localhost:6364/admin/mydb");
 from terminusdb_client import Client
 
 client = Client("http://localhost:6363")
-client.connect(user="admin", key="root", db="mydb")
+client.connect(user="admin", key="root", db="tdb-example-mydb")
 
-client.add_remote("origin", "http://localhost:6364/admin/mydb")
+client.add_remote("origin", "http://localhost:6364/admin/tdb-example-mydb")
 ```
 {% /code-tab %}
 {% /code-tabs %}
@@ -81,7 +84,7 @@ client.add_remote("origin", "http://localhost:6364/admin/mydb")
 ### List remotes
 
 ```bash
-curl -u admin:root "http://localhost:6363/api/remote/admin/mydb"
+curl -u admin:root "http://localhost:6363/api/remote/admin/tdb-example-mydb"
 ```
 
 **Expected response:**
@@ -93,21 +96,21 @@ curl -u admin:root "http://localhost:6363/api/remote/admin/mydb"
 ### Show remote details
 
 ```bash
-curl -u admin:root "http://localhost:6363/api/remote/admin/mydb?remote_name=origin"
+curl -u admin:root "http://localhost:6363/api/remote/admin/tdb-example-mydb?remote_name=origin"
 ```
 
 **Expected response:**
 
 ```json
-{"@type": "api:RemoteResponse", "api:remote_name": "origin", "api:remote_url": "http://localhost:6364/admin/mydb", "api:status": "api:success"}
+{"@type": "api:RemoteResponse", "api:remote_name": "origin", "api:remote_url": "http://localhost:6364/admin/tdb-example-mydb", "api:status": "api:success"}
 ```
 
 ### Update a remote URL
 
 ```bash
-curl -u admin:root -X PUT http://localhost:6363/api/remote/admin/mydb \
+curl -u admin:root -X PUT http://localhost:6363/api/remote/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
-  -d '{"remote_name": "origin", "remote_location": "http://newhost:6363/admin/mydb"}'
+  -d '{"remote_name": "origin", "remote_location": "http://newhost:6363/admin/tdb-example-mydb"}'
 ```
 
 **Expected response:**
@@ -119,7 +122,7 @@ curl -u admin:root -X PUT http://localhost:6363/api/remote/admin/mydb \
 ### Delete a remote
 
 ```bash
-curl -u admin:root -X DELETE "http://localhost:6363/api/remote/admin/mydb?remote_name=origin"
+curl -u admin:root -X DELETE "http://localhost:6363/api/remote/admin/tdb-example-mydb?remote_name=origin"
 ```
 
 **Expected response:**
@@ -135,13 +138,13 @@ curl -u admin:root -X DELETE "http://localhost:6363/api/remote/admin/mydb?remote
 Clone creates a full copy of a database (schema, all branches, all layers) from one TerminusDB instance to another. A remote named `origin` is automatically configured in the new database.
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/clone/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/clone/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
   -d '{
-    "comment": "Clone of remote mydb",
+    "comment": "Clone of remote tdb-example-mydb",
     "label": "My Database",
-    "remote_url": "http://localhost:6364/admin/mydb"
+    "remote_url": "http://localhost:6364/admin/tdb-example-mydb"
   }'
 ```
 
@@ -157,15 +160,15 @@ The `Authorization-Remote` header provides credentials for the **remote** instan
 {% code-tab label="TypeScript" %}
 ```typescript
 await client.clonedb({
-  comment: "Clone of remote mydb",
+  comment: "Clone of remote tdb-example-mydb",
   label: "My Database",
-  remote_url: "http://localhost:6364/admin/mydb",
-}, "admin", "mydb");
+  remote_url: "http://localhost:6364/admin/tdb-example-mydb",
+}, "admin", "tdb-example-mydb");
 ```
 {% /code-tab %}
 {% code-tab label="Python" %}
 ```python
-client.clonedb("http://localhost:6364/admin/mydb", label="My Database")
+client.clonedb("http://localhost:6364/admin/tdb-example-mydb", label="My Database")
 ```
 {% /code-tab %}
 {% /code-tabs %}
@@ -181,7 +184,7 @@ Clone pulls data **from** the `remote_url` **into** the local instance. If the r
 Fetch retrieves layer information from a remote and updates local references — without changing any local branch data. This tells your local instance what the remote looks like.
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/fetch/admin/mydb/origin/_commits \
+curl -u admin:root -X POST http://localhost:6363/api/fetch/admin/tdb-example-mydb/origin/_commits \
   -H "Authorization-Remote: Basic YWRtaW46cm9vdA=="
 ```
 
@@ -219,7 +222,7 @@ print(result)
 Pull fetches remote changes **and** applies them to a local branch. Missing layers from the remote branch are transported and appended to the local branch.
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/pull/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/pull/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
   -d '{"remote": "origin", "remote_branch": "main"}'
@@ -268,7 +271,7 @@ Pull succeeds only if the history has not diverged. If both local and remote hav
 Push sends local branch changes to a remote branch. Missing layers from the local branch are transported and appended to the remote.
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/push/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/push/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
   -d '{"remote": "origin", "remote_branch": "main"}'
@@ -315,7 +318,7 @@ Push succeeds only if the remote branch history is a strict ancestor of the loca
 To also push prefix/context mappings along with data:
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/push/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/push/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
   -d '{"remote": "origin", "remote_branch": "main", "push_prefixes": true}'
@@ -328,9 +331,9 @@ curl -u admin:root -X POST http://localhost:6363/api/push/admin/mydb \
 Rebase replays commits from one branch onto another. Both branches must share a common ancestor commit. Commit messages are retained.
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/rebase/admin/mydb/local/branch/main \
+curl -u admin:root -X POST http://localhost:6363/api/rebase/admin/tdb-example-mydb/local/branch/main \
   -H "Content-Type: application/json" \
-  -d '{"author": "alice@example.com", "rebase_from": "admin/mydb/local/branch/feature"}'
+  -d '{"author": "alice@example.com", "rebase_from": "admin/tdb-example-mydb/local/branch/feature"}'
 ```
 
 **Expected response:**
@@ -351,7 +354,7 @@ This replays all commits from `feature` onto `main`, starting from the common an
 {% code-tab label="TypeScript" %}
 ```typescript
 const result = await client.rebase({
-  rebase_from: "admin/mydb/local/branch/feature",
+  rebase_from: "admin/tdb-example-mydb/local/branch/feature",
   author: "alice@example.com",
 });
 console.log(result.forwarded_commits);
@@ -361,7 +364,7 @@ console.log(result.forwarded_commits);
 {% code-tab label="Python" %}
 ```python
 result = client.rebase(
-    "admin/mydb/local/branch/feature",
+    "admin/tdb-example-mydb/local/branch/feature",
     author="alice@example.com"
 )
 print(result["forwarded_commits"])
@@ -378,19 +381,19 @@ This workflow demonstrates a full collaboration cycle — clone a database, make
 
 ```bash
 # 1. Clone the remote database
-curl -u admin:root -X POST http://localhost:6363/api/clone/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/clone/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
-  -d '{"comment": "Working copy", "label": "My Database", "remote_url": "http://remote:6363/admin/mydb"}'
+  -d '{"comment": "Working copy", "label": "My Database", "remote_url": "http://remote:6363/admin/tdb-example-mydb"}'
 
 # 2. Add a document locally
 curl -u admin:root -X POST \
-  "http://localhost:6363/api/document/admin/mydb?author=alice&message=Add+new+product" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?author=alice&message=Add+new+product" \
   -H "Content-Type: application/json" \
   -d '{"@type": "Product", "name": "Widget", "price": 9.99}'
 
 # 3. Push changes to remote
-curl -u admin:root -X POST http://localhost:6363/api/push/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/push/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
   -d '{"remote": "origin", "remote_branch": "main"}'
@@ -400,17 +403,17 @@ curl -u admin:root -X POST http://localhost:6363/api/push/admin/mydb \
 
 ```bash
 # 1. Fetch to see if remote has changed
-curl -u admin:root -X POST http://localhost:6363/api/fetch/admin/mydb/origin/_commits \
+curl -u admin:root -X POST http://localhost:6363/api/fetch/admin/tdb-example-mydb/origin/_commits \
   -H "Authorization-Remote: Basic YWRtaW46cm9vdA=="
 
 # 2. Pull changes into local main
-curl -u admin:root -X POST http://localhost:6363/api/pull/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/pull/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -H "Authorization-Remote: Basic YWRtaW46cm9vdA==" \
   -d '{"remote": "origin", "remote_branch": "main"}'
 
 # 3. Verify the new data is present
-curl -u admin:root "http://localhost:6363/api/document/admin/mydb?type=Product&as_list=true"
+curl -u admin:root "http://localhost:6363/api/document/admin/tdb-example-mydb?type=Product&as_list=true"
 ```
 
 ---

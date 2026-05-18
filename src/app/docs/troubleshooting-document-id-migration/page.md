@@ -16,6 +16,8 @@ nextjs:
 
 When working with subdocuments in TerminusDB, you may encounter an error like:
 
+{% prerequisites-clone /%}
+
 ```
 submitted_document_id_does_not_have_expected_prefix
 ```
@@ -50,7 +52,7 @@ This is the safest approach because it minimizes the number of ID changes.
 ### Example: Fix Subdocument IDs via the API
 
 ```bash
-curl -X POST "http://localhost:6363/api/migration/admin/mydb" \
+curl -X POST "http://localhost:6363/api/migration/admin/tdb-example-mydb" \
   -H "Content-Type: application/json" \
   -u admin:root \
   -d '{
@@ -71,7 +73,7 @@ Replace `MyParentClass` with the class that contains the subdocuments with non-c
 You can also target the subdocument class itself. The migration will automatically find all root parent documents that contain instances of the targeted subdocument class and reprocess them:
 
 ```bash
-curl -X POST "http://localhost:6363/api/migration/admin/mydb" \
+curl -X POST "http://localhost:6363/api/migration/admin/tdb-example-mydb" \
   -H "Content-Type: application/json" \
   -u admin:root \
   -d '{
@@ -90,7 +92,7 @@ curl -X POST "http://localhost:6363/api/migration/admin/mydb" \
 If you want to change the key strategy entirely (e.g., from Random to Lexical), all IDs including the top-level document ID will be regenerated. References from other documents are updated automatically:
 
 ```bash
-curl -X POST "http://localhost:6363/api/migration/admin/mydb" \
+curl -X POST "http://localhost:6363/api/migration/admin/tdb-example-mydb" \
   -H "Content-Type: application/json" \
   -u admin:root \
   -d '{
@@ -111,11 +113,11 @@ After running the migration, verify that your documents can be retrieved and mod
 
 ```bash
 # Get documents of the migrated class
-curl "http://localhost:6363/api/document/admin/mydb?type=MyParentClass&as_list=true" \
+curl "http://localhost:6363/api/document/admin/tdb-example-mydb?type=MyParentClass&as_list=true" \
   -u admin:root
 
 # Try a replace operation to confirm IDs are valid
-curl -X PUT "http://localhost:6363/api/document/admin/mydb" \
+curl -X PUT "http://localhost:6363/api/document/admin/tdb-example-mydb" \
   -H "Content-Type: application/json" \
   -u admin:root \
   -d '{ ... your document ... }'

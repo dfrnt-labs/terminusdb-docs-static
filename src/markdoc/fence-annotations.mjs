@@ -17,10 +17,26 @@ import { createLoader } from 'simple-functional-loader'
  */
 const FENCE_TEST_EXAMPLE_RE = /^(```\w+)\s+test-example[^\S\n]*(.*?)$/gm
 
+/**
+ * Regex to match fence info strings with slot-related attributes (producer/consumer).
+ *
+ * Matches patterns like:
+ *   ```bash publishes="commit_identifiers" publishColumn="identifier" publishLabel="message"
+ *   ```bash slot="commit_identifiers" placeholder="DATA_VERSION"
+ *
+ * Transforms to markdoc-native annotation syntax:
+ *   ```bash {% publishes="commit_identifiers" publishColumn="identifier" publishLabel="message" %}
+ *   ```bash {% slot="commit_identifiers" placeholder="DATA_VERSION" %}
+ */
+const FENCE_SLOT_RE = /^(```\w+)[^\S\n]+((?:(?:publishes|publishColumn|publishLabel|slot|placeholder)="[^"]*"[^\S\n]*)+)$/gm
+
+/** Known slot-related attribute names that can appear in fence info strings */
+const SLOT_ATTR_NAMES = ['publishes', 'publishColumn', 'publishLabel', 'slot', 'placeholder']
+
 function transformFenceAnnotations(source) {
   // Reset regex lastIndex since it uses the global flag
   FENCE_TEST_EXAMPLE_RE.lastIndex = 0
-  return source.replace(FENCE_TEST_EXAMPLE_RE, (match, fenceStart, rest) => {
+  let result = source.replace(FENCE_TEST_EXAMPLE_RE, (match, fenceStart, rest) => {
     // Parse id="..." and fixture="..." from the rest
     const attrs = ['testExample=true']
 
@@ -36,6 +52,23 @@ function transformFenceAnnotations(source) {
 
     return `${fenceStart} {% ${attrs.join(' ')} %}`
   })
+
+  // Transform slot annotations (producer/consumer attributes)
+  FENCE_SLOT_RE.lastIndex = 0
+  result = result.replace(FENCE_SLOT_RE, (match, fenceStart, attrString) => {
+    const attrs = []
+    for (const name of SLOT_ATTR_NAMES) {
+      const re = new RegExp(`${name}="([^"]*)"`)
+      const m = attrString.match(re)
+      if (m) {
+        attrs.push(`${name}="${m[1]}"`)
+      }
+    }
+    if (attrs.length === 0) return match
+    return `${fenceStart} {% ${attrs.join(' ')} %}`
+  })
+
+  return result
 }
 
 /**

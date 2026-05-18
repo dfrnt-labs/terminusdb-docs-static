@@ -1,3 +1,5 @@
 export { ConnectionProvider, useConnection } from "./ConnectionContext"
+export { ConnectionIcon } from "./ConnectionIcon"
 export { ConnectionIndicator } from "./ConnectionIndicator"
 export { ConnectionPopover } from "./ConnectionPopover"
+export { PrerequisitesConnected } from "./PrerequisitesConnected"

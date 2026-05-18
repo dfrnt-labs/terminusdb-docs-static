@@ -18,7 +18,7 @@ export function Prerequisites({ variant = 'docker' }: { variant?: string }) {
             <ul className="mt-2 mb-0">
               <li>
                 TerminusDB running locally — see{' '}
-                <a href="/docs/get-started/">Docker setup</a> for instructions
+                <a href="/docs/install-terminusdb-as-a-docker-container/">Docker setup</a> for instructions
               </li>
             </ul>
           </div>
@@ -37,7 +37,7 @@ export function Prerequisites({ variant = 'docker' }: { variant?: string }) {
           <ul className="mt-2 mb-0">
             <li>
               <strong>Docker</strong> installed and running — see{' '}
-              <a href="/docs/get-started/">Your First 10 Minutes</a> for setup instructions
+              <a href="/docs/install-terminusdb-as-a-docker-container/">Install with Docker</a> for setup instructions
             </li>
             <li>An HTTP client (curl examples throughout; any HTTP tool works)</li>
           </ul>

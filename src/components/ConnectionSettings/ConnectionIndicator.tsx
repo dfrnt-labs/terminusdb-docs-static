@@ -1,8 +1,57 @@
 "use client"
 
-import { useState, useCallback } from "react"
-import { useConnection } from "./ConnectionContext"
+import { useState, useCallback, useEffect } from "react"
+import { useConnection, type ConnectionStatus } from "./ConnectionContext"
+import { ConnectionIcon } from "./ConnectionIcon"
 import { ConnectionPopover } from "./ConnectionPopover"
+
+function tooltipText(status: ConnectionStatus, serverUrl: string): string {
+  let host: string
+  try {
+    host = new URL(serverUrl).host
+  } catch {
+    host = serverUrl.replace(/^https?:\/\//, "")
+  }
+
+  switch (status) {
+    case "untested":
+      return "TerminusDB: not connected"
+    case "connected":
+      return `Connected to ${host}`
+    case "failed":
+      return "Connection failed"
+    case "connecting":
+      return "Connecting..."
+    default: {
+      const exhaustive: never = status
+      throw new Error(`Unknown connection status: ${exhaustive}`)
+    }
+  }
+}
+
+function ariaLabelText(status: ConnectionStatus, serverUrl: string): string {
+  let host: string
+  try {
+    host = new URL(serverUrl).host
+  } catch {
+    host = serverUrl.replace(/^https?:\/\//, "")
+  }
+
+  switch (status) {
+    case "untested":
+      return "TerminusDB connection status: not connected. Click to configure."
+    case "connected":
+      return `TerminusDB connection status: connected to ${host}. Click to configure.`
+    case "failed":
+      return "TerminusDB connection status: failed. Click to configure."
+    case "connecting":
+      return "TerminusDB connection status: connecting."
+    default: {
+      const exhaustive: never = status
+      throw new Error(`Unknown connection status: ${exhaustive}`)
+    }
+  }
+}
 
 export function ConnectionIndicator() {
   const { settings, connectionStatus } = useConnection()
@@ -16,39 +65,26 @@ export function ConnectionIndicator() {
     setIsOpen(false)
   }, [])
 
-  // Extract host from server URL for compact header display
-  let displayHost: string
-  try {
-    displayHost = new URL(settings.serverUrl).host
-  } catch {
-    displayHost = settings.serverUrl.replace(/^https?:\/\//, "")
-  }
+  // Listen for custom event from PrerequisitesConnected "Configure ›" link
+  useEffect(() => {
+    function handleOpenEvent() {
+      setIsOpen(true)
+    }
+    window.addEventListener("open-connection-popover", handleOpenEvent)
+    return () => window.removeEventListener("open-connection-popover", handleOpenEvent)
+  }, [])
 
   return (
-    <div className="relative hidden md:block">
+    <div className="relative">
       <button
         onClick={handleToggle}
-        className="inline-flex items-center gap-1.5 rounded text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
-        title="Click to configure TerminusDB connection"
-        aria-label={`TerminusDB connection: ${displayHost} — click to configure`}
+        className="inline-flex items-center justify-center w-7 h-7 rounded transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
+        title={tooltipText(connectionStatus, settings.serverUrl)}
+        aria-label={ariaLabelText(connectionStatus, settings.serverUrl)}
         aria-expanded={isOpen}
         aria-haspopup="dialog"
       >
-        {/* Status dot */}
-        {connectionStatus === "connected" && (
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" aria-hidden="true" />
-        )}
-        {connectionStatus === "failed" && (
-          <span className="w-1.5 h-1.5 rounded-full bg-red-500 dark:bg-red-400" aria-hidden="true" />
-        )}
-        {/* Accessible status text (visually hidden) */}
-        {connectionStatus === "connected" && (
-          <span className="sr-only">Connected</span>
-        )}
-        {connectionStatus === "failed" && (
-          <span className="sr-only">Connection failed</span>
-        )}
-        <span>{displayHost}</span>
+        <ConnectionIcon status={connectionStatus} />
       </button>
       <ConnectionPopover isOpen={isOpen} onClose={handleClose} />
     </div>

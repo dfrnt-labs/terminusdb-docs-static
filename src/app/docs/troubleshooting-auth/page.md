@@ -20,6 +20,8 @@ media: []
 
 This page covers errors that occur after your client reaches the server but fails to authenticate — wrong credentials, incorrect parameter names, malformed API keys, or insufficient permissions for the requested operation.
 
+{% prerequisites-clone /%}
+
 ## Symptoms
 
 - HTTP `401 Unauthorized` response
@@ -127,7 +129,7 @@ pip install --upgrade terminusdb-client
    ```bash
    curl -u admin:root -X POST \
      -H "Content-Type: application/json" \
-     -d '{"operation": "grant", "scope": "admin/mydb", "role": ["admin"], "user": "User/targetuser"}' \
+     -d '{"operation": "grant", "scope": "admin/tdb-example-mydb", "role": ["admin"], "user": "User/targetuser"}' \
      http://localhost:6363/api/capabilities
    ```
 3. See the [Access Control documentation](/docs/access-control-with-javascript) for full details on managing roles and capabilities.

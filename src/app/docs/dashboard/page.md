@@ -223,13 +223,13 @@ For users migrating away from the dashboard, here's a typical workflow transitio
 1. **Database Management** - Use CLI or client libraries:
    ```bash
    # CLI approach
-   terminusdb db create admin/mydb
+   terminusdb db create admin/tdb-example-mydb
    
    # Python approach
    from terminusdb_client import Client
    client = Client("http://localhost:6363")
    client.connect(user="admin", key="root")  # key= replaced password= in TerminusDB Python client v1.1+
-   client.create_database("mydb")
+   client.create_database("tdb-example-mydb")
    ```
 
 2. **Schema Definition** - Define schema in code:

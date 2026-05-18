@@ -26,8 +26,10 @@ Choose the path that matches where you are:
 
 | Goal | Page | Time | What you need |
 |------|------|------|---------------|
+| Quickest possible start | [JSON Version Control in 5 Minutes](/docs/version-controlled-json/) | 5 min | Docker |
 | See it work immediately | [Your First 10 Minutes](/docs/get-started/) **Recommended first →** | 10 min | Docker |
 | Build from scratch (no clone) | [Your First 15 Minutes](/docs/first-15-minutes/) | 15 min | Docker |
+| Learn the query language | [Learn WOQL: Interactive Tutorial](/docs/woql-tutorial/) | 20 min | Docker |
 | Explore & query a dataset | [Explore a Real Dataset](/docs/explore-a-real-dataset/) | 15 min | Docker |
 | Try a business scenario | [Explore an Ecommerce Dataset](/docs/explore-ecommerce-dataset/) | 15 min | Docker |
 

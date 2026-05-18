@@ -10,6 +10,7 @@ nextjs:
     alternates:
       canonical: https://terminusdb.org/docs/patch-endpoint/
 media: []
+lastUpdated: "2026-05-18"
 tags:
   - typescript
   - diff-patch
@@ -19,6 +20,8 @@ tags:
 {% callout type="warning" %}
 The endpoint at data.terminusdb.org is for non-production and exploratory use only. It is deployed with very limited memory to prevent abuse and is provided without any guarantees whatsoever. Do not rely on it for production applications. Availability is not guaranteed.
 {% /callout %}
+
+{% prerequisites-clone /%}
 
 TerminusDB provides two patch operations for applying structural changes to documents:
 
@@ -81,7 +84,7 @@ Supply an array of patch objects, each with `@id` set to the document to modify:
 ### Apply the patch
 
 ```javascript
-client.db("mydb")
+client.db("tdb-example-mydb")
 client.checkout("mybranch")
 
 const patch = [

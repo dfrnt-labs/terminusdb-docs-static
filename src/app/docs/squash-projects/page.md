@@ -29,6 +29,8 @@ By the end of this guide, you will have squashed multiple commits on a branch in
 
 Squashing combines multiple commits into a single commit. This is useful for cleaning up history after a series of incremental changes, before merging a feature branch back to main.
 
+{% prerequisites-clone /%}
+
 ## Squash a branch
 
 {% code-tabs %}
@@ -83,7 +85,7 @@ print("Commits after squash:", commits)
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root -X POST \
-  "http://localhost:6363/api/squash/admin/mydb/local/branch/mybranch" \
+  "http://localhost:6363/api/squash/admin/tdb-example-mydb/local/branch/mybranch" \
   -H "Content-Type: application/json" \
   -d '{"commit_info": {"author": "admin", "message": "Squash: combine all feature commits"}}'
 ```

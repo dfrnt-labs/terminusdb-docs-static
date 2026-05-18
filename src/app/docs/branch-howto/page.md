@@ -29,18 +29,21 @@ Branching in TerminusDB works exactly like `git branch` — create a lightweight
 
 {% callout type="note" title="Prerequisites" %}
 - TerminusDB running on `localhost:6363` — see [installation guide](/docs/install-terminusdb-as-a-docker-container/)
-- A database with a schema. Examples use `admin/mydb` with a `Product` class. Set up:
+- A database with a schema. Examples use `admin/tdb-example-mydb` with a `Product` class. Set up:
 {% /callout %}
+
+{% prerequisites-clone /%}
+
 
 ```bash
 # Create the database
-curl -u admin:root -X POST http://localhost:6363/api/db/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/db/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -d '{"label": "My Database"}'
 
 # Add a Product schema class
 curl -u admin:root -X POST \
-  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&author=setup&message=Add+schema" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&author=setup&message=Add+schema" \
   -H "Content-Type: application/json" \
   -d '{"@type": "Class", "@id": "Product", "name": "xsd:string", "price": "xsd:decimal", "category": "xsd:string"}'
 ```
@@ -54,9 +57,9 @@ Create a branch from the current head of main. The new branch shares all existin
 ### HTTP API
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/branch/admin/mydb/local/branch/feature \
+curl -u admin:root -X POST http://localhost:6363/api/branch/admin/tdb-example-mydb/local/branch/feature \
   -H "Content-Type: application/json" \
-  -d '{"origin": "admin/mydb/local/branch/main"}'
+  -d '{"origin": "admin/tdb-example-mydb/local/branch/main"}'
 ```
 
 **Expected response:**
@@ -74,7 +77,7 @@ const client = new TerminusClient.WOQLClient("http://localhost:6363", {
   user: "admin",
   key: "root",
   organization: "admin",
-  db: "mydb",
+  db: "tdb-example-mydb",
 });
 
 await client.branch("feature");
@@ -86,7 +89,7 @@ await client.branch("feature");
 from terminusdb_client import Client
 
 client = Client("http://localhost:6363")
-client.connect(user="admin", key="root", db="mydb")
+client.connect(user="admin", key="root", db="tdb-example-mydb")
 
 client.branch("feature")
 # Branch "feature" created from current head of main
@@ -103,20 +106,20 @@ See all branches in your database.
 ### HTTP API
 
 ```bash
-curl -u admin:root "http://localhost:6363/api/db/admin/mydb?branches=true"
+curl -u admin:root "http://localhost:6363/api/db/admin/tdb-example-mydb?branches=true"
 ```
 
 **Expected response:**
 
 ```json
-{"path": "admin/mydb", "branches": ["feature", "main"]}
+{"path": "admin/tdb-example-mydb", "branches": ["feature", "main"]}
 ```
 
 {% code-tabs %}
 {% code-tab label="TypeScript" %}
 ```typescript
 // List branches by fetching db info
-const info = await client.getDatabase("mydb");
+const info = await client.getDatabase("tdb-example-mydb");
 console.log(info.branches);
 // ["feature", "main"]
 ```
@@ -138,17 +141,17 @@ for branch in branches:
 
 There is no "checkout" command — you simply target a different branch path in your API calls. Every TerminusDB API path includes the branch:
 
-- **main:** `/api/document/admin/mydb/local/branch/main`
-- **feature:** `/api/document/admin/mydb/local/branch/feature`
+- **main:** `/api/document/admin/tdb-example-mydb/local/branch/main`
+- **feature:** `/api/document/admin/tdb-example-mydb/local/branch/feature`
 
 ### HTTP API
 
 ```bash
 # Read documents from main
-curl -u admin:root "http://localhost:6363/api/document/admin/mydb/local/branch/main?type=Product&as_list=true"
+curl -u admin:root "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/main?type=Product&as_list=true"
 
 # Read documents from feature branch — just change the path
-curl -u admin:root "http://localhost:6363/api/document/admin/mydb/local/branch/feature?type=Product&as_list=true"
+curl -u admin:root "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/feature?type=Product&as_list=true"
 ```
 
 {% code-tabs %}
@@ -183,7 +186,7 @@ Insert or update documents on your branch. Changes are isolated — main is unaf
 ```bash
 # Insert a new document on the feature branch
 curl -u admin:root -X POST \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/feature?author=alice&message=Add+Widget+product" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/feature?author=alice&message=Add+Widget+product" \
   -H "Content-Type: application/json" \
   -d '{"@id": "Product/Widget", "@type": "Product", "name": "Widget", "price": 9.99, "category": "tools"}'
 ```
@@ -197,7 +200,7 @@ curl -u admin:root -X POST \
 ```bash
 # Update an existing document on the feature branch
 curl -u admin:root -X PUT \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/feature?author=alice&message=Update+Widget+price" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/feature?author=alice&message=Update+Widget+price" \
   -H "Content-Type: application/json" \
   -d '{"@id": "Product/Widget", "@type": "Product", "name": "Widget", "price": 14.99, "category": "tools"}'
 ```
@@ -254,7 +257,7 @@ See exactly what changed on your branch compared to main — a structural, field
 ### HTTP API
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/diff/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/diff/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -d '{"before_data_version": "main", "after_data_version": "feature"}'
 ```
@@ -285,8 +288,8 @@ The diff shows typed operations:
 {% code-tab label="TypeScript" %}
 ```typescript
 const diff = await client.getVersionDiff(
-  "admin/mydb/local/branch/main",
-  "admin/mydb/local/branch/feature"
+  "admin/tdb-example-mydb/local/branch/main",
+  "admin/tdb-example-mydb/local/branch/feature"
 );
 console.log(JSON.stringify(diff, null, 2));
 // Shows field-level changes between branches
@@ -311,7 +314,7 @@ Apply all changes from your branch onto main. If both branches modified the same
 ### HTTP API
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/apply/admin/mydb/local/branch/main \
+curl -u admin:root -X POST http://localhost:6363/api/apply/admin/tdb-example-mydb/local/branch/main \
   -H "Content-Type: application/json" \
   -d '{
     "before_commit": "branch:main",
@@ -347,7 +350,7 @@ Conflicts must be resolved manually — TerminusDB never silently picks a winner
 {% code-tab label="TypeScript" %}
 ```typescript
 await client.apply(
-  "admin/mydb/local/branch/main",    // target
+  "admin/tdb-example-mydb/local/branch/main",    // target
   "branch:main",                     // before (common ancestor)
   "branch:feature",                  // after (source of changes)
   { author: "alice@example.com", message: "Merge feature branch" }
@@ -358,8 +361,8 @@ await client.apply(
 ```python
 client.checkout("main")
 client.apply(
-    before_commit="admin/mydb/local/branch/main",
-    after_commit="admin/mydb/local/branch/feature",
+    before_commit="admin/tdb-example-mydb/local/branch/main",
+    after_commit="admin/tdb-example-mydb/local/branch/feature",
     commit_msg="Merge feature branch: add Widget product",
     author="alice@example.com"
 )
@@ -376,7 +379,7 @@ Remove a branch after merging. The commits remain in the database history but th
 ### HTTP API
 
 ```bash
-curl -u admin:root -X DELETE http://localhost:6363/api/branch/admin/mydb/local/branch/feature
+curl -u admin:root -X DELETE http://localhost:6363/api/branch/admin/tdb-example-mydb/local/branch/feature
 ```
 
 **Expected response:**
@@ -406,28 +409,28 @@ Here is the full branch workflow end-to-end — create, change, review, merge, c
 
 ```bash
 # 1. Create a feature branch
-curl -u admin:root -X POST http://localhost:6363/api/branch/admin/mydb/local/branch/price-update \
+curl -u admin:root -X POST http://localhost:6363/api/branch/admin/tdb-example-mydb/local/branch/price-update \
   -H "Content-Type: application/json" \
-  -d '{"origin": "admin/mydb/local/branch/main"}'
+  -d '{"origin": "admin/tdb-example-mydb/local/branch/main"}'
 
 # 2. Make changes on the branch
 curl -u admin:root -X POST \
-  "http://localhost:6363/api/document/admin/mydb/local/branch/price-update?author=alice&message=Add+new+product" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/price-update?author=alice&message=Add+new+product" \
   -H "Content-Type: application/json" \
   -d '{"@id": "Product/Gadget", "@type": "Product", "name": "Gadget", "price": 24.99, "category": "electronics"}'
 
 # 3. Review what changed (diff against main)
-curl -u admin:root -X POST http://localhost:6363/api/diff/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/diff/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -d '{"before_data_version": "main", "after_data_version": "price-update"}'
 
 # 4. Merge into main
-curl -u admin:root -X POST http://localhost:6363/api/apply/admin/mydb/local/branch/main \
+curl -u admin:root -X POST http://localhost:6363/api/apply/admin/tdb-example-mydb/local/branch/main \
   -H "Content-Type: application/json" \
   -d '{"before_commit": "branch:main", "after_commit": "branch:price-update", "commit_info": {"author": "alice", "message": "Merge price-update into main"}}'
 
 # 5. Clean up the branch
-curl -u admin:root -X DELETE http://localhost:6363/api/branch/admin/mydb/local/branch/price-update
+curl -u admin:root -X DELETE http://localhost:6363/api/branch/admin/tdb-example-mydb/local/branch/price-update
 ```
 
 ---

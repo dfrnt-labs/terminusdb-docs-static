@@ -28,6 +28,8 @@ media: []
 By the end of this guide, you will know how to compare CSV data with database values using WOQL.
 {% /callout %}
 
+{% prerequisites-clone /%}
+
 This guide shows you how to compare a list of values against a CSV file using WOQL. This is useful for synchronization tasks where you need to determine what has been added, deleted, or remains unchanged between two data sources.
 
 ## The Problem
@@ -308,7 +310,7 @@ const client = new TerminusClient.WOQLClient('http://localhost:6363', {
 
 async function compareWithCSV() {
   await client.connect()
-  await client.db('mydb')
+  await client.db('tdb-example-mydb')
   
   const csvContent = `EmployeeId
 E001

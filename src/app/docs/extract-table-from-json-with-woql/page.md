@@ -27,6 +27,8 @@ media: []
 By the end of this guide, you will know how to extract tabular data from JSON documents using WOQL.
 {% /callout %}
 
+{% prerequisites-clone /%}
+
 This guide shows you how to extract tabular data from JSON structures using WOQL. This is useful when you have JSON data with arrays of objects and want to query it like a table with rows and columns.
 
 ## The Pattern
@@ -274,7 +276,7 @@ const client = new TerminusClient.WOQLClient('http://localhost:6363', {
 
 async function queryJsonTable() {
   await client.connect()
-  await client.db('mydb')
+  await client.db('tdb-example-mydb')
   
   let v = Vars("data", "items", "item", "id", "name")
   

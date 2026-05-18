@@ -1,12 +1,12 @@
 ---
-title: JSON Git-like version control with branches
+title: Git-like version control for JSON data
 nextjs:
   metadata:
-    title: JSON Git-like version control with branches — diff, patch, and branching for JSON documents
+    title: Git-like version control for JSON data — diff, patch, and branching for JSON documents
     description: TerminusDB gives JSON documents Git-like version control — structural diff, patch, branches, and full commit history. Store schemaless JSON with automatic deduplication. Tutorial with curl examples.
     keywords: json diff and patch, git-for-data, git-like version control, branches, version control, json store, document versioning, terminusdb, branching, historical diff, patch, data versioning, schemaless, deduplication, content-addressed storage, json version control, raw json, upsert, document history, json database, immutable data, audit trail, change tracking
     openGraph:
-      title: JSON git-like version control with branches — TerminusDB
+      title: Git-like version control for JSON data — TerminusDB
       description: Git-like version control for JSON documents. Structural diff, patch, branching, and full commit history with automatic content deduplication.
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -29,7 +29,7 @@ TerminusDB is a document database that provides Git-like version control for JSO
 
 This tutorial walks through all of these operations with working curl examples against a local TerminusDB instance. No schema is required — store any valid JSON and get versioning for free.
 
-{% prerequisites /%}
+{% prerequisites-connected /%}
 
 {% callout type="note" %}
 **What you will build**
@@ -101,17 +101,23 @@ Start TerminusDB and store a JSON document with no schema at all.
 
 ### Start TerminusDB
 
+You need [Docker](https://docs.docker.com/get-docker/) installed. Then start TerminusDB:
+
 ```bash
 docker run --pull always -d -p 127.0.0.1:6363:6363 \
   -v terminusdb_storage:/app/terminusdb/storage \
   --name terminusdb terminusdb/terminusdb-server:v12
 ```
 
-Confirm it is running:
+Confirm it is running (you should see a JSON response with version information):
 
 ```bash
 curl -s -u admin:root http://localhost:6363/api/info | head -c 100
 ```
+
+{% callout type="warning" title="Already have a container named terminusdb?" %}
+If you see `container name "terminusdb" is already in use`, stop and remove it first: `docker rm -f terminusdb`
+{% /callout %}
 
 ### Create a database
 
@@ -271,10 +277,9 @@ This creates a new commit on `main` — stock changed from 87 to 93. You now hav
 
 The `/api/history` endpoint returns every commit that touched a document, with an inline diff showing what changed in each commit. Add `diff=true` to include the diffs:
 
-```bash
+```bash publishes="commit_identifiers" publishColumn="identifier" publishLabel="message"
 curl -s -u admin:root \
-  "http://localhost:6363/api/history/admin/inventory/local/branch/main?id=product/SKU-001&diff=true" \
-  | python3 -m json.tool
+  "http://localhost:6363/api/history/admin/inventory/local/branch/main?id=product/SKU-001&diff=true"
 ```
 
 Expected output (timestamps and identifiers will differ; 5 entries shown, abbreviated):
@@ -361,16 +366,19 @@ With `diff=true`, a single GET request gives you the complete change history for
 
 You can also compare any two points in history manually. This is useful when you need to diff across branches or between arbitrary commits (not just sequential ones).
 
-First, get the commit log to find identifiers:
+Get the commit log to find identifiers:
 
-```bash
-curl -s -u admin:root \
-  "http://localhost:6363/api/log/admin/inventory/local/branch/main?count=3" | python3 -m json.tool
-```
+{% http-example method="GET" path="/api/log/admin/inventory/local/branch/main?count=3" /%}
 
-Then diff between any two data versions. Replace `DATA_VERSION` with the identifier from your log:
+{% callout type="note" title="Use an identifier from the response above" %}
+Each entry in the log has an `identifier` field — a short string like `dcbrirs75l6c...`. Copy the identifier of the **oldest** commit (the "Add first product" entry) and use it as `before_data_version` in the next example. This lets you diff the current state against the original.
 
-```bash
+**In the browser:** Click the identifier value in the result table above to copy it, then paste it into the curl command below in your terminal.
+{% /callout %}
+
+To diff between two data versions, use an identifier from the history above:
+
+```bash slot="commit_identifiers" placeholder="DATA_VERSION"
 curl -s -u admin:root -X POST \
   "http://localhost:6363/api/diff/admin/inventory" \
   -H "Content-Type: application/json" \
@@ -391,7 +399,6 @@ If you compare against the first commit (when stock was 42), you will see:
 The `before_data_version` and `after_data_version` fields accept:
 - **Branch names** — `"main"`, `"price-update"`
 - **Commit identifiers** — the `identifier` value from the log or history endpoints
-- **Data version strings** — prefixed identifiers like `"branch:abc123..."`
 
 Mix and match: compare a branch against a commit, a commit against another commit, or any combination.
 {% /callout %}

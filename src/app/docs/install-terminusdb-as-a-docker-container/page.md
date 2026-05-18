@@ -112,6 +112,14 @@ For a detailed Windows guide, see [Install TerminusDB with Docker on Windows](/d
 
 ## Next steps
 
+**Tutorials (pick one):**
+
+- [JSON Version Control in 5 Minutes](/docs/version-controlled-json/) — store schemaless JSON with branches, diffs, and patches
+- [Your First 10 Minutes](/docs/get-started/) — clone a dataset and explore it (recommended first tutorial)
+- [Your First 15 Minutes](/docs/first-15-minutes/) — build a schema, insert documents, branch and merge
+
+**Reference:**
+
 - [Create a Database](/docs/create-a-database/) — your first database in under a minute
 - [TypeScript Quickstart](/docs/connect-with-the-javascript-client/) — connect and start querying
 - [Python Quickstart](/docs/connect-with-python-client/) — connect with the Python client

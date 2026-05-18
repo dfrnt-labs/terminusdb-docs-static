@@ -24,6 +24,9 @@ tags:
 - A connected client: [TypeScript](/docs/connect-with-the-javascript-client/) or [Python](/docs/connect-with-python-client/)
 {% /callout %}
 
+{% prerequisites-clone /%}
+
+
 {% callout type="note" title="What you'll achieve" %}
 By the end of this guide, you will have executed a WOQL query against your TerminusDB database using the HTTP API, TypeScript, or Python.
 {% /callout %}
@@ -35,7 +38,7 @@ WOQL (Web Object Query Language) is TerminusDB's query language. It operates on 
 ### HTTP API
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/woql/admin/mydb/local/branch/main \
+curl -u admin:root -X POST http://localhost:6363/api/woql/admin/tdb-example-mydb/local/branch/main \
   -H "Content-Type: application/json" \
   -d '{"query": {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Subject"}, "predicate": {"@type": "NodeValue", "variable": "Predicate"}, "object": {"@type": "Value", "variable": "Object"}}}'
 ```
@@ -91,7 +94,7 @@ A more practical query: find all documents of a specific type and read a propert
 ### HTTP API
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/woql/admin/mydb/local/branch/main \
+curl -u admin:root -X POST http://localhost:6363/api/woql/admin/tdb-example-mydb/local/branch/main \
   -H "Content-Type: application/json" \
   -d '{"query": {"@type": "And", "and": [{"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Person"}, "predicate": {"@type": "NodeValue", "node": "rdf:type"}, "object": {"@type": "NodeValue", "node": "@schema:Person"}}, {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Person"}, "predicate": {"@type": "NodeValue", "node": "name"}, "object": {"@type": "DataValue", "variable": "Name"}}]}}'
 ```

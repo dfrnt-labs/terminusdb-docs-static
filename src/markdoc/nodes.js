@@ -71,6 +71,21 @@ const nodes = {
       fixture: {
         type: String,
       },
+      slot: {
+        type: String,
+      },
+      placeholder: {
+        type: String,
+      },
+      publishes: {
+        type: String,
+      },
+      publishColumn: {
+        type: String,
+      },
+      publishLabel: {
+        type: String,
+      },
     },
   },
 }

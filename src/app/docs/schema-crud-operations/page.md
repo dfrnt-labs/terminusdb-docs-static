@@ -33,6 +33,8 @@ Schema defines the structure of your documents — their types, properties, keys
 
 ---
 
+{% prerequisites-clone /%}
+
 ## Create schema classes
 
 Add new document types to your database. Each class is a JSON object with `@type: "Class"`.
@@ -93,7 +95,7 @@ print("Created:", results)
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root -X POST \
-  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&author=admin&message=Add+classes" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&author=admin&message=Add+classes" \
   -H "Content-Type: application/json" \
   -d '[
     {
@@ -192,7 +194,7 @@ Returns:
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root \
-  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&as_list=true"
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&as_list=true"
 ```
 
 **Expected response:**
@@ -249,7 +251,7 @@ Returns:
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root \
-  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&id=Person"
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&id=Person"
 ```
 
 **Expected response:**
@@ -293,7 +295,7 @@ print("Document classes:", classes)
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root \
-  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&type=Class&as_list=true"
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&type=Class&as_list=true"
 ```
 {% /code-tab %}
 {% /code-tabs %}
@@ -346,7 +348,7 @@ print("Added email field to Person")
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root -X PUT \
-  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&author=admin&message=Add+email+field" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&author=admin&message=Add+email+field" \
   -H "Content-Type: application/json" \
   -d '{
     "@type": "Class",
@@ -408,7 +410,7 @@ print("Made nationality optional")
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root -X PUT \
-  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&author=admin&message=Make+nationality+optional" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&author=admin&message=Make+nationality+optional" \
   -H "Content-Type: application/json" \
   -d '{
     "@type": "Class",
@@ -456,7 +458,7 @@ print("Deleted Country class")
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root -X DELETE \
-  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&author=admin&message=Delete+Country+class" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&author=admin&message=Delete+Country+class" \
   -H "Content-Type: application/json" \
   -d '["Country"]'
 ```
@@ -535,7 +537,7 @@ print("Country class safely deleted")
 ```bash
 # 1. Update Person to remove nationality field
 curl -u admin:root -X PUT \
-  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&author=admin&message=Remove+nationality" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&author=admin&message=Remove+nationality" \
   -H "Content-Type: application/json" \
   -d '{
     "@type": "Class",
@@ -548,11 +550,11 @@ curl -u admin:root -X PUT \
 
 # 2. Delete Country instance documents (if any)
 curl -u admin:root -X DELETE \
-  "http://localhost:6363/api/document/admin/mydb?author=admin&message=Delete+countries&type=Country"
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?author=admin&message=Delete+countries&type=Country"
 
 # 3. Delete the Country class
 curl -u admin:root -X DELETE \
-  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&author=admin&message=Delete+Country+class" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&author=admin&message=Delete+Country+class" \
   -H "Content-Type: application/json" \
   -d '["Country"]'
 ```
@@ -642,7 +644,7 @@ print("Full schema replaced")
 {% code-tab label="HTTP" %}
 ```bash
 curl -u admin:root -X PUT \
-  "http://localhost:6363/api/document/admin/mydb?graph_type=schema&author=admin&message=Replace+schema&create=true" \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&author=admin&message=Replace+schema&create=true" \
   -H "Content-Type: application/json" \
   -d '[
     {
@@ -707,7 +709,7 @@ When schema changes conflict with existing instance data, use the **Migration AP
 ### Example: add a required field with a default
 
 ```bash
-curl -u admin:root -X POST "http://localhost:6363/api/migration/admin/mydb" \
+curl -u admin:root -X POST "http://localhost:6363/api/migration/admin/tdb-example-mydb" \
   -H "Content-Type: application/json" \
   -d '{
     "author": "admin",
@@ -732,7 +734,7 @@ Test migrations without applying them:
 
 ```bash
 curl -u admin:root -X POST \
-  "http://localhost:6363/api/migration/admin/mydb?dry_run=true" \
+  "http://localhost:6363/api/migration/admin/tdb-example-mydb?dry_run=true" \
   -H "Content-Type: application/json" \
   -d '{
     "author": "admin",
@@ -772,7 +774,7 @@ Compare schema between branches to review changes before merging:
 
 ```bash
 curl -u admin:root \
-  "http://localhost:6363/api/diff/admin/mydb/local/branch/main/local/branch/feature?document_id=Person&graph_type=schema"
+  "http://localhost:6363/api/diff/admin/tdb-example-mydb/local/branch/main/local/branch/feature?document_id=Person&graph_type=schema"
 ```
 
 ### Branch-based schema development
@@ -798,7 +800,7 @@ const schemaOnBranch = async () => {
 
   // Test, then merge back to main
   client.checkout("main")
-  await client.rebase({ rebase_from: "admin/mydb/local/branch/schema-update" })
+  await client.rebase({ rebase_from: "admin/tdb-example-mydb/local/branch/schema-update" })
 }
 ```
 

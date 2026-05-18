@@ -35,7 +35,7 @@ A database is the top-level container for your data. It holds a schema, instance
 ### HTTP API
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/db/admin/mydb \
+curl -u admin:root -X POST http://localhost:6363/api/db/admin/tdb-example-mydb \
   -H "Content-Type: application/json" \
   -d '{"label": "My Database", "comment": "A new database for my project", "schema": true}'
 ```
@@ -57,13 +57,13 @@ const client = new TerminusClient.WOQLClient("http://localhost:6363", {
   organization: "admin",
 });
 
-await client.createDatabase("mydb", {
+await client.createDatabase("tdb-example-mydb", {
   label: "My Database",
   comment: "A new database for my project",
   schema: true,
 });
 
-// The client is now connected to "mydb"
+// The client is now connected to "tdb-example-mydb"
 ```
 {% /code-tab %}
 {% code-tab label="Python" %}
@@ -74,7 +74,7 @@ client = Client("http://localhost:6363")
 client.connect(user="admin", key="root")
 
 client.create_database(
-    "mydb",
+    "tdb-example-mydb",
     "admin",
     label="My Database",
     description="A new database for my project",

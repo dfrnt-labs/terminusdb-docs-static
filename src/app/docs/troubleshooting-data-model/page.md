@@ -20,6 +20,8 @@ tags:
 
 This page covers errors that arise from misunderstanding how TerminusDB generates document identifiers, handles collection types (Set, Array, List), treats optional fields, or applies keying strategies — issues where the data structure does not behave as expected.
 
+{% prerequisites-clone /%}
+
 ## Symptoms
 
 - `"Document not found"` when retrieving by `@id`
@@ -64,13 +66,13 @@ This page covers errors that arise from misunderstanding how TerminusDB generate
    curl -u admin:root -X POST \
      -H "Content-Type: application/json" \
      -d '{"@type": "Event", "title": "Meeting"}' \
-     "http://localhost:6363/api/document/admin/mydb"
+     "http://localhost:6363/api/document/admin/tdb-example-mydb"
    ```
 
 4. **Query by field values** instead of guessing the `@id`:
    ```bash
    curl -u admin:root \
-     "http://localhost:6363/api/document/admin/mydb?type=Person&query=%7B%22name%22%3A%22Alice%22%7D"
+     "http://localhost:6363/api/document/admin/tdb-example-mydb?type=Person&query=%7B%22name%22%3A%22Alice%22%7D"
    ```
 
 ### Set vs Array confusion
@@ -160,7 +162,7 @@ This page covers errors that arise from misunderstanding how TerminusDB generate
    curl -u admin:root -X PUT \
      -H "Content-Type: application/json" \
      -d '{"@type": "Person", "name": "Alice", "age": 31}' \
-     "http://localhost:6363/api/document/admin/mydb"
+     "http://localhost:6363/api/document/admin/tdb-example-mydb"
    ```
 
 2. **If duplicates appear** with `Hash` or `Random` keys — every insert creates a new document because the `@id` is always unique. If you want deduplication, switch to `Lexical` or `ValueHash`:

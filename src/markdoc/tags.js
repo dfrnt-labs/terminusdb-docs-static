@@ -17,6 +17,8 @@ import { HttpExample } from '@/components/HttpExample'
 import { HttpExpected } from '@/components/HttpExample/HttpExpected'
 import { HttpWoql } from '@/components/HttpExample/HttpWoql'
 import { Prerequisites } from '@/components/Prerequisites'
+import { PrerequisitesConnected } from '@/components/ConnectionSettings/PrerequisitesConnected'
+import { PrerequisitesClone } from '@/components/PrerequisitesClone'
 
 const tags = {
   callout: {
@@ -226,6 +228,24 @@ const tags = {
     render: Prerequisites,
     attributes: {
       variant: { type: String, default: 'docker' },
+    },
+  },
+  'prerequisites-connected': {
+    selfClosing: true,
+    render: PrerequisitesConnected,
+    attributes: {
+      fixture: { type: String },
+      dockerCommand: { type: String },
+      variant: { type: String, default: 'full', matches: ['full', 'compact'] },
+    },
+  },
+  'prerequisites-clone': {
+    selfClosing: true,
+    render: PrerequisitesClone,
+    attributes: {
+      command: { type: String },
+      database: { type: String, default: 'tdb-example-mydb' },
+      skipToAnchor: { type: String },
     },
   },
   'http-example': {
