@@ -578,12 +578,17 @@ function detectCreatedDatabases(steps) {
 }
 
 /**
- * Detect {% quickstart-clone %} tags in page content.
+ * Detect {% quickstart-clone %} and {% prerequisites-clone %} tags in page content.
  * Returns array of {localPath, remoteUrl, remoteAuth} objects.
  *
- * Defaults match the QuickstartClone React component:
+ * Defaults for quickstart-clone match the QuickstartClone React component:
  *   remoteUrl = "https://data.terminusdb.org/public/star-wars"
  *   localPath = "star-wars"
+ *   remoteAuth = "Basic cHVibGljOnB1YmxpYw==" (public:public)
+ *
+ * Defaults for prerequisites-clone match the PrerequisitesClone React component:
+ *   remoteUrl = "https://data.terminusdb.org/public/tdb-example-mydb"
+ *   localPath = "tdb-example-mydb"
  *   remoteAuth = "Basic cHVibGljOnB1YmxpYw==" (public:public)
  */
 function detectQuickstartClones(content) {
@@ -596,6 +601,17 @@ function detectQuickstartClones(content) {
     clones.push({
       localPath: attrs.localPath || "star-wars",
       remoteUrl: attrs.remoteUrl || "https://data.terminusdb.org/public/star-wars",
+      remoteAuth: "Basic cHVibGljOnB1YmxpYw==", // public:public
+    })
+  }
+
+  // Also detect {% prerequisites-clone %} tags (PrerequisitesClone component)
+  const prereqClonePattern = /\{%\s*prerequisites-clone\s*((?:[^%]|%(?!\}))*?)\/?%\}/g
+  while ((match = prereqClonePattern.exec(content)) !== null) {
+    const attrs = parseAttributes(match[1] || "")
+    clones.push({
+      localPath: attrs.database || "tdb-example-mydb",
+      remoteUrl: `https://data.terminusdb.org/public/${attrs.database || "tdb-example-mydb"}`,
       remoteAuth: "Basic cHVibGljOnB1YmxpYw==", // public:public
     })
   }
