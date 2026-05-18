@@ -57,7 +57,7 @@ The `author` and `message` values are URL-encoded query parameters. Use `+` for 
 
 ## TypeScript example (JS client)
 
-```typescript test-example id="commit-message-ts" fixture="docs-test" file="examples/commit-message-ts.example.ts"
+```typescript test-example file="examples/commit-message-ts.example.ts"
 ```
 
 The fourth parameter to `addDocument` is the commit message. The author is taken from the client's authenticated user.

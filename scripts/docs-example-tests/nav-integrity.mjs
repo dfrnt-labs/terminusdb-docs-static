@@ -153,6 +153,24 @@ function findBareFences() {
 // 5. Resolve href to expected file path
 // ──────────────────────────────────────────────────────────────────────────────
 
+/**
+ * Extract valid tag IDs from taxonomy.ts by parsing the source file.
+ * Returns a Set of all tag id strings.
+ */
+function getValidTagIds() {
+  const taxonomyPath = join(REPO_ROOT, "src/lib/taxonomy.ts")
+  const source = readFileSync(taxonomyPath, "utf-8")
+  const idPattern = /id:\s*['"]([^'"]+)['"]/g
+  const ids = new Set()
+  let match
+  while ((match = idPattern.exec(source)) !== null) {
+    ids.add(match[1])
+  }
+  return ids
+}
+
+const validTagIds = getValidTagIds()
+
 function hrefToFilePath(href) {
   // /docs/<slug> → src/app/docs/<slug>/page.md (or page.tsx)
   // /blog → skip (not under /docs/)
@@ -160,6 +178,18 @@ function hrefToFilePath(href) {
 
   const slug = href.replace("/docs/", "").replace(/\/$/, "")
   if (!slug) return null // /docs/ root itself
+
+  // Handle dynamic topic routes: /docs/topics/<tagId>
+  // These resolve via src/app/docs/topics/[tagId]/page.tsx at runtime
+  const topicMatch = slug.match(/^topics\/(.+)$/)
+  if (topicMatch) {
+    const tagId = topicMatch[1]
+    if (validTagIds.has(tagId)) {
+      // Valid dynamic route — return the dynamic route file as the resolved path
+      return join(DOCS_DIR, "topics/[tagId]/page.tsx")
+    }
+    return null
+  }
 
   const mdPath = join(DOCS_DIR, slug, "page.md")
   const tsxPath = join(DOCS_DIR, slug, "page.tsx")

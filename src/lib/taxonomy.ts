@@ -122,6 +122,12 @@ export const TAXONOMY: readonly TagEntry[] = [
     facet: 'feature',
   },
   {
+    id: 'knowledge-graph',
+    prefLabel: 'Knowledge Graph',
+    scopeNote: 'Knowledge graph concepts, graph database fundamentals, and linked data',
+    facet: 'feature',
+  },
+  {
     id: 'version-control',
     prefLabel: 'Version Control',
     scopeNote: 'Branch, clone, merge, diff, patch, time-travel, and collaboration',

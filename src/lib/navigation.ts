@@ -58,6 +58,10 @@ export const navigation: Navigation[] = [
             href: '/docs/version-controlled-json',
           },
           {
+            title: 'Clone a Demo Database',
+            href: '/docs/clone-a-demo-project',
+          },
+          {
             title: 'Interactive Tutorials',
             href: '/docs/topics/tutorial',
           },
@@ -167,6 +171,10 @@ export const navigation: Navigation[] = [
       {
         title: 'What is TerminusDB?',
         href: '/docs/terminusdb-explanation',
+      },
+      {
+        title: 'At a Glance',
+        href: '/docs/at-a-glance',
       },
       {
         title: 'Knowledge Graph Database',
@@ -409,6 +417,28 @@ export const navigation: Navigation[] = [
         ],
       },
       {
+        title: 'Using the Clients',
+        href: '/docs/use-the-clients',
+        links: [
+          {
+            title: 'JavaScript Client',
+            href: '/docs/use-the-javascript-client',
+          },
+          {
+            title: 'Python Client',
+            href: '/docs/use-the-python-client',
+          },
+          {
+            title: 'JS Collaboration',
+            href: '/docs/collaboration-with-javascript-client',
+          },
+          {
+            title: 'Python Collaboration',
+            href: '/docs/collaboration-with-python-client',
+          },
+        ],
+      },
+      {
         title: 'Python Ecosystem',
         links: [
           {
@@ -594,6 +624,45 @@ export const navigation: Navigation[] = [
               },
             ],
           },
+          {
+            title: 'Advanced Topics',
+            links: [
+              {
+                title: 'Control Flow & Performance',
+                href: '/docs/woql-control-flow',
+              },
+              {
+                title: 'Range Queries (triple_slice)',
+                href: '/docs/woql-triple-slice',
+              },
+              {
+                title: 'RDF List Operations',
+                href: '/docs/woql-rdflist-operations',
+                links: [
+                  {
+                    title: 'Creation',
+                    href: '/docs/woql-rdflist-creation',
+                  },
+                  {
+                    title: 'Access',
+                    href: '/docs/woql-rdflist-access',
+                  },
+                  {
+                    title: 'Modification',
+                    href: '/docs/woql-rdflist-modification',
+                  },
+                  {
+                    title: 'Transformation',
+                    href: '/docs/woql-rdflist-transformation',
+                  },
+                  {
+                    title: 'Queue Tutorial',
+                    href: '/docs/woql-rdflist-queue-tutorial',
+                  },
+                ],
+              },
+            ],
+          },
         ],
       },
       {
@@ -646,6 +715,10 @@ export const navigation: Navigation[] = [
           {
             title: 'Dashboard Import',
             href: '/docs/use-the-admin-ui-curate-and-import-data',
+          },
+          {
+            title: 'Curate & Import Data',
+            href: '/docs/curate-and-import-data',
           },
           {
             title: 'Extract Table from JSON',
@@ -877,6 +950,34 @@ export const navigation: Navigation[] = [
           {
             title: 'Model Schema',
             href: '/docs/model-schema',
+          },
+          {
+            title: 'Branch',
+            href: '/docs/branch',
+          },
+          {
+            title: 'Clone',
+            href: '/docs/clone',
+          },
+          {
+            title: 'Reset',
+            href: '/docs/reset',
+          },
+          {
+            title: 'Squash',
+            href: '/docs/squash',
+          },
+          {
+            title: 'Time Travel',
+            href: '/docs/time-travel',
+          },
+          {
+            title: 'Collaboration',
+            href: '/docs/collaboration-with-dashboard',
+          },
+          {
+            title: 'Change Requests',
+            href: '/docs/change-request-workflows',
           },
         ],
       },

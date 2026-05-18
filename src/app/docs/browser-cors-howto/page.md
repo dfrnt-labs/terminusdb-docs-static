@@ -46,7 +46,7 @@ If you see a JSON response with `"authority": "admin"`, CORS is working. No serv
 
 A minimal example using the Fetch API (works in any framework):
 
-```javascript test-example id="browser-fetch" fixture="docs-test" file="examples/browser-fetch.example.ts"
+```javascript test-example file="examples/browser-fetch.example.ts"
 ```
 
 ## Step 3 — Insert a document from the browser

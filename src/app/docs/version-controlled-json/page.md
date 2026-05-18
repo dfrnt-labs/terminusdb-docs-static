@@ -170,10 +170,7 @@ TerminusDB replaced the document and recorded the change. The previous version (
 
 ### Delete the document (DELETE)
 
-```bash
-curl -s -u admin:root -X DELETE \
-  "http://localhost:6363/api/document/admin/inventory?id=product/SKU-001&author=admin&message=Remove+SKU-001&raw_json=true"
-```
+{% http-example method="DELETE" path="/api/document/admin/inventory?id=product/SKU-001&author=admin&message=Remove+SKU-001&raw_json=true" /%}
 
 The document is gone from the current state, but its full history remains accessible. For the rest of this tutorial, re-insert it so we have data to work with:
 
