@@ -1,0 +1,10 @@
+{
+  "name": "tdb-example-mydb-seed",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Seed script for tdb-example-mydb — runs at Docker build time",
+  "dependencies": {
+    "terminusdb": "^12.0.5"
+  }
+}

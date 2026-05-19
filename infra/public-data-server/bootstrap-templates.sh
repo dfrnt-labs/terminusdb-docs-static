@@ -4,14 +4,18 @@ set -e
 TDB="/app/terminusdb/terminusdb"
 TEMPLATE_DIR="/app/terminusdb/templates"
 
+echo "=== Bootstrap: Setting up users and organisation ==="
+
 echo "Creating public user..."
-$TDB user create public --password public 2>/dev/null 
-$TDB user password admin --password `openssl rand -base64 32` 2>/dev/null
+$TDB user create public --password public
 
 echo "Creating public organization..."
-$TDB organization create public 2>/dev/null
+$TDB organization create public
 
 # --- Star Wars database ---
+echo ""
+echo "=== Bootstrap: public/star-wars ==="
+
 echo "Creating public/star-wars database..."
 $TDB db create public/star-wars \
   --label "Star Wars" \
@@ -41,17 +45,20 @@ $TDB branch create public/star-wars/local/branch/enriched
 
 if [ -f "$TEMPLATE_DIR/star-wars/enriched/schema.json" ] && [ -s "$TEMPLATE_DIR/star-wars/enriched/schema.json" ]; then
     echo "Replacing schema on enriched branch (adds Starship class + Person.starships field)..."
-    $TDB doc replace public/star-wars/local/branch/enriched --graph_type=schema --full_replace \
+    $TDB doc replace public/star-wars/local/branch/enriched --graph_type=schema --create \
       < "$TEMPLATE_DIR/star-wars/enriched/schema.json"
 fi
 
 if [ -f "$TEMPLATE_DIR/star-wars/enriched/data.json" ] && [ -s "$TEMPLATE_DIR/star-wars/enriched/data.json" ]; then
     echo "Loading enriched data (starships + updated Person documents with starship links)..."
-    $TDB doc replace public/star-wars/local/branch/enriched \
+    $TDB doc replace public/star-wars/local/branch/enriched --create \
       < "$TEMPLATE_DIR/star-wars/enriched/data.json"
 fi
 
 # --- E-Commerce database ---
+echo ""
+echo "=== Bootstrap: public/ecommerce ==="
+
 echo "Creating public/ecommerce database..."
 $TDB db create public/ecommerce \
   --label "E-Commerce Demo" \
@@ -72,6 +79,8 @@ if [ -f "$TEMPLATE_DIR/ecommerce/data.json" ] && [ -s "$TEMPLATE_DIR/ecommerce/d
 fi
 
 # --- Nuclear database (from bundle) ---
+echo ""
+echo "=== Bootstrap: public/nuclear ==="
 BUNDLE_DIR="/app/terminusdb/templates/bundles"
 
 if [ -f "$BUNDLE_DIR/admin%2fnuclear.bundle" ]; then
@@ -83,9 +92,15 @@ if [ -f "$BUNDLE_DIR/admin%2fnuclear.bundle" ]; then
       --schema
     echo "Loading nuclear data from bundle..."
     $TDB unbundle public/nuclear "$BUNDLE_DIR/admin%2fnuclear.bundle"
+else
+    echo "ERROR: Bundle not found: $BUNDLE_DIR/admin%2fnuclear.bundle" >&2
+    exit 1
 fi
 
 # --- Lego database (from bundle) ---
+echo ""
+echo "=== Bootstrap: public/lego ==="
+
 if [ -f "$BUNDLE_DIR/admin%2flego.bundle" ]; then
     echo "Creating public/lego database..."
     $TDB db create public/lego \
@@ -95,9 +110,15 @@ if [ -f "$BUNDLE_DIR/admin%2flego.bundle" ]; then
       --schema
     echo "Loading lego data from bundle..."
     $TDB unbundle public/lego "$BUNDLE_DIR/admin%2flego.bundle"
+else
+    echo "ERROR: Bundle not found: $BUNDLE_DIR/admin%2flego.bundle" >&2
+    exit 1
 fi
 
 # --- Sandbox database (docs examples target) ---
+echo ""
+echo "=== Bootstrap: public/sandbox ==="
+
 echo "Creating public/sandbox database..."
 $TDB db create public/sandbox \
   --label "Sandbox" \
@@ -131,10 +152,21 @@ printf '{"@id":"Product/Wireless%%20Noise-Cancelling%%20Headphones","@type":"Pro
 printf '{"@type":"Product","name":"Smart Home Hub","price":79.99,"category":"Electronics"}\n' | \
   $TDB doc insert public/sandbox/local/branch/feature
 
+# --- tdb-example-mydb database ---
+# Project tracker with 11 commits, branches, and merges — primary tutorial example.
+# tdb-example-mydb is provisioned separately by build-bootstrap.sh (Phase 2)
+# using the Node.js seed script. It creates 11 commits with branches and merges
+# that cannot be represented as static JSON templates.
+echo ""
+echo "=== Bootstrap: public/tdb-example-mydb ==="
+echo "  (provisioned separately via seed script in Phase 2)"
+
 # --- Capability grants (required for anonymous/public access) ---
 # The --public flag does not create Role/consumer in fresh TerminusDB 12.x instances.
 # We create a minimal cloner role (clone + commit_read_access) — tutorials only need
 # to clone from this server; all subsequent reads hit the user's localhost.
+echo ""
+echo "=== Bootstrap: Capability grants ==="
 
 echo "Creating cloner role..."
 $TDB role create cloner clone commit_read_access
@@ -155,13 +187,17 @@ $TDB capability grant anonymous public/lego cloner
 $TDB capability grant anonymous public/sandbox cloner
 $TDB capability grant anonymous public cloner --scope-type organization
 
-echo "---"
-echo "Template databases bootstrapped successfully."
-echo "  - public/star-wars (main + enriched branch, anonymous clone enabled)"
-echo "  - public/ecommerce (public, anonymous clone enabled)"
-echo "  - public/nuclear (public, anonymous clone enabled)"
-echo "  - public/lego (public, anonymous clone enabled)"
-echo "  - public/sandbox (public, anonymous clone enabled — docs examples target)"
+# tdb-example-mydb grants are applied separately after manual provisioning.
+# See setup instructions in the tdb-example-mydb section above.
+
+echo ""
+echo "=== Bootstrap complete ==="
+echo "  ✓ public/star-wars (main + enriched branch, anonymous clone enabled)"
+echo "  ✓ public/ecommerce (public, anonymous clone enabled)"
+echo "  ✓ public/nuclear (public, anonymous clone enabled)"
+echo "  ✓ public/lego (public, anonymous clone enabled)"
+echo "  ✓ public/sandbox (public, anonymous clone enabled — docs examples target)"
+echo "  … public/tdb-example-mydb (provisioned in Phase 2 via seed script)"
 echo ""
 echo "Clone with:"
 echo "  terminusdb clone https://data.terminusdb.org/public/star-wars --token=anonymous"
@@ -169,6 +205,7 @@ echo "  terminusdb clone https://data.terminusdb.org/public/ecommerce --token=an
 echo "  terminusdb clone https://data.terminusdb.org/public/nuclear --token=anonymous"
 echo "  terminusdb clone https://data.terminusdb.org/public/lego --token=anonymous"
 echo "  terminusdb clone https://data.terminusdb.org/public/sandbox --token=anonymous"
+echo "  terminusdb clone https://data.terminusdb.org/public/tdb-example-mydb --token=anonymous"
 echo ""
 echo "Pull enriched branch (after cloning star-wars):"
 echo "  terminusdb pull admin/star-wars -r origin --remote-branch enriched"

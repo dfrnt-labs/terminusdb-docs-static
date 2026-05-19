@@ -8,7 +8,7 @@ Public read-only TerminusDB instance at `https://data.terminusdb.org` for anonym
 - **App name:** `dfrnt-data-terminusdb`
 - **Auto-scaling:** Stops after idle, auto-starts on incoming request
 - **Storage:** 1 GB persistent Fly volume at `/app/terminusdb/storage`
-- **Databases:** `public/star-wars`, `public/ecommerce`, `public/nuclear`, `public/lego`, `public/sandbox` (all public, anonymous access)
+- **Databases:** `public/star-wars`, `public/ecommerce`, `public/nuclear`, `public/lego`, `public/sandbox`, `public/tdb-example-mydb` (all public, anonymous access)
 
 ## Clone Commands
 
@@ -27,6 +27,9 @@ terminusdb clone https://data.terminusdb.org/public/nuclear --token=anonymous
 
 # Lego sets dataset (~60 MB)
 terminusdb clone https://data.terminusdb.org/public/lego --token=anonymous
+
+# Project tracker (11 commits, branches, merges — primary tutorial example)
+terminusdb clone https://data.terminusdb.org/public/tdb-example-mydb --token=anonymous
 ```
 
 > The first clone after idle may take a few seconds while the server cold-starts. Subsequent operations are instant.
@@ -179,6 +182,7 @@ fly ssh console
 /app/terminusdb/terminusdb capability grant anonymous public/nuclear cloner
 /app/terminusdb/terminusdb capability grant anonymous public/lego cloner
 /app/terminusdb/terminusdb capability grant anonymous public/sandbox cloner
+/app/terminusdb/terminusdb capability grant anonymous public/tdb-example-mydb cloner
 ```
 
 ### Adding or Rebuilding the Sandbox Database
