@@ -209,6 +209,48 @@ An example of metadata for a branch, such as `main` of a data product:
 }
 ```
 
+#### TerminusDB data product options
+
+The `@metadata.terminusdb.options` field is an array of strings that controls data product branch behaviour in TerminusDB. No restart or environment variable is needed — the options are read from the schema at commit time.
+
+| Option | Description |
+|--------|-------------|
+| `"store_indices"` | Enables automatic indexing for the data product branch. When set, TerminusDB triggers indexing on every commit via the `post_commit_hook`. Without this option, or if no indexer is attached, indexing is skipped entirely. |
+| `"store_clustering"` | Enables clustering embeddings to be stored in addition to the primary document embeddings for supported asymmetric embeddings models. Each chunk is embedded with a secondary clustering embedding role, supporting projection, deduplication, and entity resolution with a tuned embedding. Requires `"store_indices"` to be in effect. |
+
+Example schema with both options enabled:
+
+```json
+[
+  {
+    "@type": "@context",
+    "@base": "terminusdb:///data/",
+    "@schema": "terminusdb:///schema#",
+    "@metadata": {
+      "terminusdb": {
+        "options": ["store_indices", "store_clustering"]
+      }
+    }
+  },
+  {
+    "@id": "Article",
+    "@type": "Class",
+    "@key": { "@type": "Lexical", "@fields": ["title"] },
+    "title": "xsd:string",
+    "body": "xsd:string",
+    "@metadata": {
+      "embedding": {
+        "query": "query($id: ID){ Article(id: $id) { title body } }"
+      }
+    }
+  }
+]
+```
+
+If `@metadata`, `terminusdb`, or `options` is missing — or a particular option string is not present — that option is off. The default is always `false`.
+
+> Valid since: 12.1 (release candidate)
+
 ### @language
 
 If you use the `@language` code, specific documentation results can appear in different circumstances depending on the users language preferences.
