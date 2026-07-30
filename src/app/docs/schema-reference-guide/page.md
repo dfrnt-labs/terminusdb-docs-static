@@ -240,7 +240,8 @@ Example schema with both options enabled:
     "body": "xsd:string",
     "@metadata": {
       "embedding": {
-        "query": "query($id: ID){ Article(id: $id) { title body } }"
+        "query": "query($id: ID){ Article(id: $id) { title body } }",
+        "template": "Title: {{title}}. Body: {{body}}."
       }
     }
   }
