@@ -23,6 +23,7 @@ function TopicTile({ tag, count }: { tag: TagEntry; count: number }) {
   return (
     <a
       href={`/docs/topics/${tag.id}`}
+      rel="nofollow"
       className="group block rounded-lg border border-slate-200 px-4 py-3 transition-colors hover:border-l-[3px] hover:border-l-blue-500 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-slate-700 dark:hover:bg-slate-800/50"
     >
       <span className="sr-only">

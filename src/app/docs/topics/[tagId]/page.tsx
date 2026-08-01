@@ -104,6 +104,7 @@ export default function TagPage({ params }: PageProps) {
           <li>
             <Link
               href="/docs/topics"
+              rel="nofollow"
               className="hover:text-blue-600 dark:hover:text-blue-400"
             >
               Topics
@@ -115,6 +116,7 @@ export default function TagPage({ params }: PageProps) {
               <li>
                 <Link
                   href={`/docs/topics/${broaderTag.id}`}
+                  rel="nofollow"
                   className="hover:text-blue-600 dark:hover:text-blue-400"
                 >
                   {broaderTag.prefLabel}
@@ -142,6 +144,7 @@ export default function TagPage({ params }: PageProps) {
             Part of:{" "}
             <Link
               href={`/docs/topics/${broaderTag.id}`}
+              rel="nofollow"
               className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
             >
               {broaderTag.prefLabel}
@@ -170,6 +173,7 @@ export default function TagPage({ params }: PageProps) {
           No pages are tagged with <strong>{tag.prefLabel}</strong> yet.{" "}
           <Link
             href="/docs/topics"
+            rel="nofollow"
             className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400"
           >
             Browse all topics
