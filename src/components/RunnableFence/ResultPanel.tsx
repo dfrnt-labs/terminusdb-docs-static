@@ -45,7 +45,6 @@ export function ResultPanel({ state, result, error, serverUrl, fixture, onClear,
       state === "SUCCESS" &&
       result &&
       publishes &&
-      publishColumn &&
       onPublish &&
       !hasPublished.current
     ) {
@@ -128,10 +127,15 @@ export function ResultPanel({ state, result, error, serverUrl, fixture, onClear,
 }
 
 // ---------------------------------------------------------------------------
-// CellCopyButton — hover-revealed copy-to-clipboard for identifier cells
+// CellCopyButton — hover-revealed copy-to-clipboard for table cells
 // ---------------------------------------------------------------------------
 
-const COPYABLE_COLUMNS = new Set(["identifier", "id", "@id"])
+function serializeCellValue(value: unknown): string {
+  if (value === null || value === undefined) return ""
+  if (typeof value === "string") return value
+  if (typeof value === "number" || typeof value === "boolean") return String(value)
+  return JSON.stringify(value, null, 2)
+}
 
 function CellCopyButton({ value }: { value: string }) {
   const [copied, setCopied] = useState(false)
@@ -158,10 +162,10 @@ function CellCopyButton({ value }: { value: string }) {
   const truncated = value.length > 8 ? `${value.substring(0, 8)}…` : value
 
   return (
-    <span className="inline-flex items-center">
+    <span className="absolute top-1 right-1 inline-flex items-center">
       <button
         onClick={handleCopy}
-        className="ml-1.5 inline-flex items-center rounded p-0.5 text-slate-400 opacity-0 transition-opacity group-hover/cell:opacity-100 focus:opacity-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:rounded dark:text-slate-500 dark:hover:text-slate-300"
+        className="inline-flex items-center rounded p-0.5 text-slate-400 opacity-0 transition-opacity group-hover/cell:opacity-100 focus:opacity-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:rounded dark:text-slate-500 dark:hover:text-slate-300"
         aria-label={`Copy ${truncated}`}
       >
         {copied ? (
@@ -256,18 +260,17 @@ function isDiffResult(raw: unknown): boolean {
 }
 
 /**
- * Detects whether a raw response is a history array: an array of objects
- * where entries have an `identifier` field and optionally a `diff` field
- * containing `@op` markers.
+ * Detects whether a raw response is a history/log array: an array of objects
+ * where entries have an `identifier` field. May optionally have `diff` or
+ * `message` fields.
  */
 function isHistoryArray(raw: unknown): raw is ReadonlyArray<HistoryEntry> {
   if (!Array.isArray(raw)) return false
   if (raw.length === 0) return false
-  // Conservative: check first entry has `identifier` and `diff`
   const first = raw[0]
   if (typeof first !== "object" || first === null) return false
   const obj = first as Record<string, unknown>
-  return "identifier" in obj && "diff" in obj
+  return "identifier" in obj
 }
 
 interface HistoryEntry {
@@ -281,7 +284,7 @@ interface HistoryEntry {
 
 function HistoryBody({ entries }: { entries: ReadonlyArray<HistoryEntry> }) {
   return (
-    <div className="space-y-4 max-h-96 overflow-y-auto">
+    <div className="space-y-4 max-h-64 overflow-y-auto">
       {entries.map((entry, i) => (
         <div key={entry.identifier ?? i} className="border-b border-slate-200 pb-3 last:border-b-0 dark:border-slate-700">
           {/* Commit header */}
@@ -345,7 +348,7 @@ function SuccessBody({
     // Diff object or array of diff objects — render with CellValue for rich formatting
     if (isDiffResult(result.raw)) {
       return (
-        <div className="overflow-x-auto max-h-96 overflow-y-auto space-y-2">
+        <div className="overflow-x-auto max-h-64 overflow-y-auto space-y-2">
           {Array.isArray(result.raw) ? (
             (result.raw as ReadonlyArray<unknown>).map((item, i) => (
               <div key={i} className="pl-2 border-l-2 border-slate-200 dark:border-slate-600">
@@ -367,8 +370,8 @@ function SuccessBody({
       : JSON.stringify(result.raw, null, 2)
 
     return (
-      <div className="overflow-x-auto">
-        <pre className="text-xs text-slate-700 dark:text-slate-300 font-mono whitespace-pre-wrap max-h-96 overflow-y-auto">
+      <div className="overflow-x-auto max-h-64 overflow-y-auto">
+        <pre className="text-xs text-slate-700 dark:text-slate-300 font-mono whitespace-pre-wrap">
           {formatted}
         </pre>
       </div>
@@ -405,11 +408,13 @@ function SuccessBody({
                 {columns.map((col) => (
                   <td
                     key={col}
-                    className="group/cell px-3 py-1.5 text-slate-600 dark:text-slate-400 font-mono text-xs max-w-xs"
+                    className="group/cell relative px-3 py-1.5 text-slate-600 dark:text-slate-400 font-mono text-xs max-w-xs align-top"
                   >
+                    <div className="max-h-64 overflow-y-auto">
                     <CellValue value={row[col]} />
-                    {COPYABLE_COLUMNS.has(col) && typeof row[col] === "string" && (
-                      <CellCopyButton value={row[col] as string} />
+                    </div>
+                    {row[col] !== undefined && row[col] !== null && (
+                      <CellCopyButton value={serializeCellValue(row[col])} />
                     )}
                   </td>
                 ))}
@@ -470,17 +475,23 @@ function ErrorBody({ error, fixture }: { error: ExecutionError; fixture?: string
 }
 
 function OfflineBody({ serverUrl }: { serverUrl: string }) {
+  const isTerminusDb = /6363/.test(serverUrl)
+  const host = serverUrl.replace(/^https?:\/\//, "")
   return (
     <div className="space-y-3">
       <p className="text-sm text-slate-700 dark:text-slate-300">
-        Could not connect to TerminusDB at {serverUrl.replace(/^https?:\/\//, "")}.
+        Could not connect to {isTerminusDb ? "TerminusDB" : "the server"} at {host}.
       </p>
-      <p className="text-sm text-slate-600 dark:text-slate-400">Start a local instance:</p>
-      <div className="rounded border border-slate-300 dark:border-slate-600 bg-slate-900 px-3 py-2">
-        <code className="text-xs text-emerald-300 font-mono">
-          docker run --rm -p 6363:6363 terminusdb/terminusdb
-        </code>
-      </div>
+      {isTerminusDb && (
+        <>
+          <p className="text-sm text-slate-600 dark:text-slate-400">Start a local instance:</p>
+          <div className="rounded border border-slate-300 dark:border-slate-600 bg-slate-900 px-3 py-2">
+            <code className="text-xs text-emerald-300 font-mono">
+              docker run --rm -p 6363:6363 terminusdb/terminusdb
+            </code>
+          </div>
+        </>
+      )}
       <p className="text-sm text-slate-600 dark:text-slate-400">Then click Run again.</p>
     </div>
   )
@@ -502,11 +513,11 @@ function formatValue(v: unknown): string {
 
 function extractSlotValues(
   result: ExecutionResult,
-  column: string,
+  column?: string,
   labelColumn?: string
 ): ReadonlyArray<SlotValue> {
-  // Try bindings table first
-  if (result.bindings && result.bindings.length > 0) {
+  // Try bindings table first (requires a target column)
+  if (column && result.bindings && result.bindings.length > 0) {
     return result.bindings
       .filter((row) => row[column] !== undefined && row[column] !== null)
       .map((row) => ({
@@ -516,13 +527,18 @@ function extractSlotValues(
   }
 
   // Try raw data (e.g., history array)
-  if (Array.isArray(result.raw)) {
+  if (column && Array.isArray(result.raw)) {
     return (result.raw as ReadonlyArray<Record<string, unknown>>)
       .filter((entry) => entry && typeof entry === "object" && entry[column] !== undefined)
       .map((entry) => ({
         value: String(entry[column]),
         label: labelColumn && entry[labelColumn] ? String(entry[labelColumn]) : undefined,
       }))
+  }
+
+  // Plain-text response (e.g., task ID from /push) — use the raw string as the value
+  if (typeof result.raw === "string" && result.raw.trim().length > 0) {
+    return [{ value: result.raw.trim() }]
   }
 
   return []

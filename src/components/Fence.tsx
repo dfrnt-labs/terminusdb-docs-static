@@ -9,7 +9,7 @@ import { TabBar } from "./RunnableFence/TabBar"
 import { HttpView } from "./RunnableFence/HttpView"
 import { RunButton } from "./RunnableFence/RunButton"
 import { ResultPanel } from "./RunnableFence/ResultPanel"
-import { parseCurlToFetch, formatHttpMessage, extractUrlPath } from "./RunnableFence/parseCurl"
+import { parseCurlToFetch, formatHttpMessage, extractUrlPath, generateAuthHeader } from "./RunnableFence/parseCurl"
 import { useConnection } from "./ConnectionSettings/ConnectionContext"
 import { useSlot, useSlotPublish } from "./RunnableFence/SlotContext"
 import type { TabId } from "./RunnableFence/TabBar"
@@ -68,6 +68,8 @@ interface FenceProps {
   publishColumn?: string
   /** Producer: column name for human-readable labels */
   publishLabel?: string
+  /** Caption for mermaid diagrams (rendered below the figure) */
+  caption?: string
 }
 
 export function Fence({
@@ -79,6 +81,7 @@ export function Fence({
   publishes,
   publishColumn,
   publishLabel,
+  caption,
 }: FenceProps) {
   const instanceId = useId()
   const [copied, setCopied] = useState(false)
@@ -151,14 +154,49 @@ export function Fence({
       const baseUrl = serverUrl.replace(/\/+$/, "")
       const authHeader = "Basic " + btoa(`${user}:${password}`)
 
-      // Build URL: replace the original hostname with the user's configured server
-      const path = extractUrlPath(parsedCurl.url)
-      const fetchUrl = `${baseUrl}${path}`
+      // Detect whether the curl targets the user's TerminusDB server or an
+      // external service (e.g. VectorLink on port 7372). Only rewrite the URL
+      // to the user's configured server for TerminusDB curls; external URLs
+      // are used as-is so they hit the correct service.
+      //
+      // TerminusDB curls are identified by:
+      // - The original port 6363 (default)
+      // - A ${TERMINUSDB_URL} placeholder
+      // - Matching the user's configured baseUrl
+      // - Any localhost/127.0.0.1 URL with an /api/ path (covers port 6365
+      //   used in quickstart docs, and any custom port)
+      const isTerminusDbUrl = /(?:localhost|127\.0\.0\.1):6363/.test(parsedCurl.url) ||
+        /\$\{?TERMINUSDB_URL\}?/.test(parsedCurl.url) ||
+        parsedCurl.url.startsWith(baseUrl) ||
+        /(?:localhost|127\.0\.0\.1):\d+\/api\//.test(parsedCurl.url)
+
+      // When the curl targets port 6363 or the configured baseUrl, rewrite
+      // to the user's configured server. When it targets a different port
+      // (e.g. 6365 in versioned search docs), use the URL as-is so it hits
+      // the correct port, but still inject the auth header.
+      const shouldRewriteUrl = isTerminusDbUrl &&
+        (/(?:localhost|127\.0\.0\.1):6363/.test(parsedCurl.url) ||
+         /\$\{?TERMINUSDB_URL\}?/.test(parsedCurl.url) ||
+         parsedCurl.url.startsWith(baseUrl))
+
+      let fetchUrl: string
+      if (shouldRewriteUrl) {
+        // Rewrite to user's configured server
+        const path = extractUrlPath(parsedCurl.url)
+        fetchUrl = `${baseUrl}${path}`
+      } else {
+        // Use URL as-is (external service or non-default TerminusDB port)
+        fetchUrl = parsedCurl.url
+      }
 
       // Build headers: use parsed headers + inject auth
       const fetchHeaders: Record<string, string> = {
         ...parsedCurl.headers,
-        Authorization: authHeader,
+      }
+      if (isTerminusDbUrl) {
+        fetchHeaders["Authorization"] = authHeader
+      } else if (parsedCurl.userCredentials && !fetchHeaders["Authorization"]) {
+        fetchHeaders["Authorization"] = generateAuthHeader(parsedCurl.userCredentials)
       }
 
       // Auto-inject Content-Type if body present and not already set
@@ -233,7 +271,7 @@ export function Fence({
       } else if (isCorsError || isNetworkError) {
         setRunError({
           message: isCorsError
-            ? "Connection blocked. Ensure your TerminusDB server has CORS enabled."
+            ? "Connection blocked. Ensure the server has CORS enabled."
             : err.message,
           isNetworkError: !isCorsError,
           isCorsError,
@@ -320,7 +358,7 @@ export function Fence({
 
   // Render mermaid diagrams with the Mermaid component
   if (isMermaid) {
-    return <Mermaid chart={codeContent} title={title} />
+    return <Mermaid chart={codeContent} title={title} caption={caption} />
   }
 
   const isRunning = runState === "RUNNING"
@@ -390,7 +428,7 @@ export function Fence({
               theme={themes.vsDark}
             >
               {({ className, style, tokens, getTokenProps }) => (
-                <pre className={`${className} !m-0 !rounded-none !bg-slate-900 !text-sm !py-3 !px-4 max-h-[calc(100vh-10rem)] overflow-x-auto overflow-y-auto`} style={style}>
+                <pre className={`${className} !m-0 !rounded-none !bg-slate-900 !text-sm !py-3 !px-4 max-h-64 overflow-x-auto overflow-y-auto`} style={style}>
                   <code>
                     {tokens.map((line, lineIndex) => (
                       <Fragment key={lineIndex}>

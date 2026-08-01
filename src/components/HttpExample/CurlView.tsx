@@ -31,7 +31,7 @@ export function CurlView({ method, path, headers, body, serverUrl, user, passwor
 
   if (!mounted) {
     return (
-      <pre className="!m-0 !rounded-none !bg-slate-900 max-h-[calc(100vh-10rem)] overflow-y-auto">
+      <pre className="!m-0 !rounded-none !bg-slate-900 max-h-64 overflow-y-auto">
         <code className="text-slate-400 text-xs p-4 block">Loading…</code>
       </pre>
     )
@@ -45,7 +45,7 @@ export function CurlView({ method, path, headers, body, serverUrl, user, passwor
     >
       {({ className, style, tokens, getTokenProps }) => (
         <pre
-          className={`${className} !m-0 !rounded-none !bg-slate-900 max-h-[calc(100vh-10rem)] overflow-y-auto`}
+          className={`${className} !m-0 !rounded-none !bg-slate-900 max-h-64 overflow-y-auto`}
           style={style}
         >
           <code>

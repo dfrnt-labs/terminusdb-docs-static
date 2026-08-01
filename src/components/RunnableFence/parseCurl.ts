@@ -21,8 +21,17 @@ export function parseCurlToFetch(code: string): ParsedCurl | null {
   const curlLineIdx = lines.findIndex((l) => l.trim().startsWith("curl"))
   if (curlLineIdx === -1) return null
 
-  // Join from the curl line onwards (multi-line bodies span subsequent lines)
-  const normalized = lines.slice(curlLineIdx).join(" ").trim()
+  // Join from the curl line onwards, preserving newlines for multi-line bodies
+  // (e.g. NDJSON with multiple JSON lines inside single quotes).
+  // Option regexes (-X, -H, -u, -d) all use \s+ which matches \n, so they still work.
+  const normalized = lines.slice(curlLineIdx).join("\n").trim()
+
+  // Reject commands that pipe to other shell commands — they can't run in the browser.
+  // Match | that is not inside quotes (simple heuristic: check the first line for a pipe
+  // outside of single/double quotes).
+  const firstLine = normalized.split("\n")[0]
+  const pipeOutsideQuotes = firstLine.replace(/'[^']*'/g, "").replace(/"[^"]*"/g, "").includes("|")
+  if (pipeOutsideQuotes) return null
 
   // Extract -X METHOD (default: GET, or POST if -d is present)
   const methodMatch = normalized.match(/-X\s+(\w+)/)
@@ -68,10 +77,10 @@ export function parseCurlToFetch(code: string): ParsedCurl | null {
   if (!urlMatch) return null
   const url = urlMatch[1]
 
-  // Reject when any part contains shell variables — they cannot be substituted in the browser
+  // Reject when URL or headers contain shell variables — they cannot be substituted in the browser.
+  // Note: body is NOT checked — $id in a GraphQL query or NDJSON is literal content, not a shell var.
   const hasShellVar = /\$[{(]?[A-Za-z_]/
   if (hasShellVar.test(url)) return null
-  if (body !== undefined && hasShellVar.test(body)) return null
   if (userCredentials !== undefined && hasShellVar.test(userCredentials)) return null
   for (const value of Object.values(headers)) {
     if (hasShellVar.test(value)) return null

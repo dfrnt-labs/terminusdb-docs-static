@@ -121,6 +121,8 @@ interface RunnableFenceProps {
   publishColumn?: string
   /** Producer: column name for human-readable labels */
   publishLabel?: string
+  /** Caption for mermaid diagrams (rendered below the figure) */
+  caption?: string
 }
 
 const TIMEOUT_MS = 15000
@@ -137,6 +139,7 @@ export function RunnableFence({
   publishes,
   publishColumn,
   publishLabel,
+  caption,
 }: RunnableFenceProps) {
   // If not a runnable example, delegate to Fence (which handles passive tabs for curl blocks)
   if (!testExample) {
@@ -149,6 +152,7 @@ export function RunnableFence({
         publishes={publishes}
         publishColumn={publishColumn}
         publishLabel={publishLabel}
+        caption={caption}
       >
         {children}
       </Fence>
@@ -726,7 +730,7 @@ function RunnableFenceInner({
                 theme={themes.vsDark}
               >
                 {({ className, style, tokens, getTokenProps }) => (
-                  <pre className={`${className} !m-0 !rounded-none !bg-slate-900 max-h-[calc(100vh-10rem)] overflow-y-auto`} style={style}>
+                  <pre className={`${className} !m-0 !rounded-none !bg-slate-900 max-h-64 overflow-y-auto`} style={style}>
                     <code>
                       {tokens.map((line, lineIndex) => (
                         <Fragment key={lineIndex}>

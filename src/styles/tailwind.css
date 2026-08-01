@@ -59,3 +59,30 @@
   }
 }
 
+/* Automatic figure numbering — Tailwind v4 utilities applied via className
+   on article, figure, and figcaption elements. Counter resets per article. */
+@utility figure-reset {
+  counter-reset: figure;
+}
+@utility figure-increment {
+  counter-increment: figure;
+}
+@utility figure-caption {
+  &::before {
+    content: "Figure " counter(figure) ": ";
+    font-weight: 600;
+  }
+}
+
+/* Prose table overrides — long identifiers in doc tables need break-all
+   and smaller font size to avoid overflow */
+.prose table {
+  font-size: 0.75rem;
+}
+.prose td {
+  word-break: break-all;
+}
+.prose th {
+  white-space: nowrap;
+}
+

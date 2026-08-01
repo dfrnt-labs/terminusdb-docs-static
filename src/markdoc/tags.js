@@ -41,10 +41,10 @@ const tags = {
       caption: { type: String },
     },
     render: ({ src, alt = '', caption }) => (
-      <figure>
+      <figure className="figure-increment">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="rounded-md shadow-md border border-gray-200" src={src} alt={alt} />
-        <figcaption className='text-center'> {caption}</figcaption>
+        {caption && <figcaption className='text-center figure-caption'> {caption}</figcaption>}
       </figure>
     ),
   },
@@ -56,12 +56,12 @@ const tags = {
       caption: { type: String },
     },
     render: ({ src, alt = '', caption }) => (
-      <figure className="my-6">
+      <figure className="my-6 figure-increment">
         <div className="bg-slate-900 px-8 py-4 rounded-xl shadow-md">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="rounded-lg w-full h-auto" src={src} alt={alt} />
         </div>
-        {caption && <figcaption className="text-center mt-3 text-sm italic text-gray-600 dark:text-gray-400">{caption}</figcaption>}
+        {caption && <figcaption className="text-center mt-3 text-sm italic text-gray-600 dark:text-gray-400 figure-caption">{caption}</figcaption>}
       </figure>
     ),
   },

@@ -14,6 +14,7 @@ import { GitHubEditButton } from '@/components/GitHubEditButton'
 import { OpenInAI } from '@/components/OpenInAI'
 import { GitHubIssueButton } from '@/components/GitHubIssueButton'
 import { PageFeedback } from '@/components/PageFeedback'
+import { TableCellCopy } from '@/components/TableCellCopy'
 import { collectSections } from '@/lib/sections'
 import { getPageDates } from '@/lib/gitDates'
 import { scrollToHashOnLoad } from '@/utils/scroll'
@@ -58,9 +59,10 @@ export function DocsLayout({
   return (
     <>
       <div className="max-w-2xl min-w-0 flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
-        <article>
+        <article className="figure-reset">
           <DocsHeader title={title} />
           <Prose>{children}</Prose>
+          <TableCellCopy />
         </article>
         <PageFooterMetadata
           tags={tags}

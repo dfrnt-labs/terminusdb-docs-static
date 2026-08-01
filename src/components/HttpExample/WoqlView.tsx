@@ -20,7 +20,7 @@ export function WoqlView({ code }: WoqlViewProps) {
     >
       {({ className, style, tokens, getTokenProps }) => (
         <pre
-          className={`${className} !m-0 !rounded-none !bg-slate-900 max-h-[calc(100vh-10rem)] overflow-y-auto`}
+          className={`${className} !m-0 !rounded-none !bg-slate-900 max-h-64 overflow-y-auto`}
           style={style}
         >
           <code>

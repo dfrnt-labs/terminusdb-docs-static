@@ -86,6 +86,9 @@ const nodes = {
       publishLabel: {
         type: String,
       },
+      caption: {
+        type: String,
+      },
     },
   },
 }

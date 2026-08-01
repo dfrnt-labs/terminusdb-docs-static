@@ -33,6 +33,17 @@ const FENCE_SLOT_RE = /^(```\w+)[^\S\n]+((?:(?:publishes|publishColumn|publishLa
 /** Known slot-related attribute names that can appear in fence info strings */
 const SLOT_ATTR_NAMES = ['publishes', 'publishColumn', 'publishLabel', 'slot', 'placeholder']
 
+/**
+ * Regex to match fence info strings with a caption attribute (e.g. mermaid diagrams).
+ *
+ * Matches patterns like:
+ *   ```mermaid caption="Some descriptive text."
+ *
+ * Transforms to markdoc-native annotation syntax:
+ *   ```mermaid {% caption="Some descriptive text." %}
+ */
+const FENCE_CAPTION_RE = /^(```\w+)[^\S\n]+caption="([^"]*)"[^\S\n]*$/gm
+
 function transformFenceAnnotations(source) {
   // Reset regex lastIndex since it uses the global flag
   FENCE_TEST_EXAMPLE_RE.lastIndex = 0
@@ -66,6 +77,12 @@ function transformFenceAnnotations(source) {
     }
     if (attrs.length === 0) return match
     return `${fenceStart} {% ${attrs.join(' ')} %}`
+  })
+
+  // Transform caption annotations (e.g. mermaid diagrams)
+  FENCE_CAPTION_RE.lastIndex = 0
+  result = result.replace(FENCE_CAPTION_RE, (match, fenceStart, captionText) => {
+    return `${fenceStart} {% caption="${captionText}" %}`
   })
 
   return result

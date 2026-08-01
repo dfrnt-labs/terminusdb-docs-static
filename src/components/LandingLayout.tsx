@@ -37,7 +37,7 @@ export function LandingLayout({
 
   return (
     <div className="max-w-7xl min-w-0 flex-auto px-4 py-16 lg:px-8 xl:px-16">
-      <article>
+      <article className="figure-reset">
         {title && <DocsHeader title={title} />}
         <div className="prose-custom max-w-none">{children}</div>
       </article>

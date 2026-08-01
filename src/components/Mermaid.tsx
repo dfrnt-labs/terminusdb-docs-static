@@ -44,9 +44,9 @@ const getBaseConfig = (isDark: boolean) => ({
   theme: 'base' as const,
   themeVariables: isDark ? darkThemeVariables : lightThemeVariables,
   fontFamily: 'ui-sans-serif, system-ui, sans-serif',
-  fontSize: 14,
+  fontSize: 10,
   flowchart: {
-    htmlLabels: false,
+    htmlLabels: true,
     curve: 'basis' as const,
     padding: 15,
     nodeSpacing: 50,
@@ -69,9 +69,10 @@ const getBaseConfig = (isDark: boolean) => ({
 interface MermaidProps {
   readonly chart: string
   readonly title?: string
+  readonly caption?: string
 }
 
-export function Mermaid({ chart, title }: MermaidProps) {
+export function Mermaid({ chart, title, caption }: MermaidProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [svg, setSvg] = useState<string>('')
   const [error, setError] = useState<string | null>(null)
@@ -91,19 +92,19 @@ export function Mermaid({ chart, title }: MermaidProps) {
       try {
         // Re-initialize mermaid with current theme
         mermaid.initialize(getBaseConfig(isDark))
-        
+
         // Validate the syntax first
         await mermaid.parse(chart)
-        
+
         // Generate unique ID for this render
         const renderId = `mermaid-${Math.random().toString(36).substring(2, 11)}`
-        
+
         // Render the diagram
         const { svg: renderedSvg } = await mermaid.render(renderId, chart)
-        
+
         // Post-process SVG to add rounded corners
         const processedSvg = renderedSvg.replaceAll('<rect ', '<rect rx="8" ry="8" ')
-        
+
         setSvg(processedSvg)
         setError(null)
       } catch (err) {
@@ -140,7 +141,7 @@ export function Mermaid({ chart, title }: MermaidProps) {
   }
 
   return (
-    <figure className="my-6 break-inside-avoid">
+    <figure className="my-6 break-inside-avoid figure-increment">
       <div className="rounded-lg bg-slate-50 dark:bg-slate-900 print:bg-white p-4 overflow-x-auto">
         {title && (
           <div className="mb-3 pb-2 border-b border-slate-200 dark:border-slate-700">
@@ -151,7 +152,7 @@ export function Mermaid({ chart, title }: MermaidProps) {
         )}
         <div
           ref={containerRef}
-          className="flex justify-center items-center min-h-[100px] [&_svg]:max-w-full"
+          className="flex justify-center items-center min-h-[100px] [&_svg]:max-w-full [&_foreignObject]:text-sm [&_foreignObject_div]:text-sm [&_foreignObject_span]:text-sm"
           dangerouslySetInnerHTML={svg ? { __html: svg } : undefined}
         />
         {!svg && !error && (
@@ -164,6 +165,11 @@ export function Mermaid({ chart, title }: MermaidProps) {
           </div>
         )}
       </div>
+      {caption && (
+        <figcaption className="mt-2 text-center text-sm text-slate-500 dark:text-slate-400 figure-caption">
+          {caption}
+        </figcaption>
+      )}
     </figure>
   )
 }

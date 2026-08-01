@@ -81,7 +81,7 @@ export function HttpView({ method, path, headers, body, authHeader }: HttpViewPr
   const hasBody = method.toUpperCase() !== "GET" && formattedBody !== null
 
   return (
-    <div className="p-4 font-mono text-sm max-h-[calc(100vh-10rem)] overflow-y-auto">
+    <div className="p-4 font-mono text-sm max-h-64 overflow-y-auto">
       {/* Method + URL line */}
       <div className="flex items-center gap-2 flex-wrap break-all">
         <MethodBadge method={method} />
