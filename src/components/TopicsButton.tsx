@@ -28,6 +28,7 @@ export function TopicsButton() {
   return (
     <Link
       href="/docs/topics"
+      rel="nofollow"
       aria-label="Browse documentation by topic"
       className={clsx(
         'group flex items-center gap-1.5 rounded focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none',

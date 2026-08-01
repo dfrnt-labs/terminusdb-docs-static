@@ -24,6 +24,7 @@ export function TagBadge({ tagId, size = 'sm' }: TagBadgeProps) {
   return (
     <Link
       href={`/docs/topics/${tagId}`}
+      rel="nofollow"
       className={`inline-flex items-center rounded-full border border-slate-200 bg-slate-50 font-medium text-slate-600 transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:border-blue-600 dark:hover:bg-blue-900/30 dark:hover:text-blue-300 ${sizeClasses}`}
       title={tag?.scopeNote}
     >

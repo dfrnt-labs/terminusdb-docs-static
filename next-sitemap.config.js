@@ -50,8 +50,20 @@ module.exports = {
    * we have one. Pages without a tracked git history fall back to
    * next-sitemap's default (build time), which is the previous behaviour.
    */
+  // Exclude /docs/topics/* from the sitemap to avoid content dilution.
+  // These are navigational aggregation pages (tag indexes, topic graph),
+  // not canonical content pages.
+  exclude: ['/docs/topics', '/docs/topics/*'],
+
   transform: async (config, loc) => {
     const slug = urlToSlug(loc)
+
+    // Defensive: also skip topics paths in case the exclude glob misses
+    // trailing-slash variants.
+    if (slug === 'docs/topics' || slug.startsWith('docs/topics/')) {
+      return null
+    }
+
     const entry = gitDates[slug]
     const gitUpdated = entry && entry.updated ? entry.updated : null
 

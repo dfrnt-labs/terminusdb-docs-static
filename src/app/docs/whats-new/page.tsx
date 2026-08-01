@@ -218,6 +218,7 @@ export default function WhatsNewPage() {
           No tracked git history yet.{' '}
           <Link
             href="/docs/topics"
+            rel="nofollow"
             className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400"
           >
             Browse all topics

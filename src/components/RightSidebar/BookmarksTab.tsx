@@ -51,6 +51,7 @@ export function BookmarksTab() {
         </p>
         <Link
           href="/docs/topics/graph"
+          rel="nofollow"
           className="mt-4 inline-block text-xs text-sky-500 hover:text-sky-600 dark:hover:text-sky-400"
         >
           Manage in Topic Graph →
@@ -65,6 +66,7 @@ export function BookmarksTab() {
       <div className="px-4 pt-2 pb-1">
         <Link
           href="/docs/topics/graph"
+          rel="nofollow"
           className="text-xs text-sky-500 hover:text-sky-600 dark:hover:text-sky-400"
         >
           Manage in Topic Graph →
