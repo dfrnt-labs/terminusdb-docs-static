@@ -3,14 +3,14 @@ tags:
   - reference
   - schema
   - woql
-title: TerminusDB Data Types
+title: XSD Data types
 nextjs:
   metadata:
-    title: TerminusDB Data Types
-    description: Comprehensive reference for all data types supported in TerminusDB, including XSD, RDF, XDD extensions, and System types.
-    keywords: terminusdb, data model, datalog, document type, rdf, schema, terminusdb data types, terminusdb query
+    title: XSD Data types
+    description: Comprehensive reference for all data types supported by TerminusDB, including XSD, RDF, XDD extensions, and System types.
+    keywords: xsd data types, datatype, data model, document type, schema, terminusdb data types, xml data types
     alternates:
-      canonical: https://terminusdb.org/docs/data-types/
+      canonical: https://terminusdb.org/docs/xsd-data-types/
 ---
 
 TerminusDB supports a comprehensive set of data types for schema definitions. This reference covers all supported types organized by namespace, including type hierarchy, storage details, and typecasting rules.
@@ -750,7 +750,11 @@ Range types store a pair of values representing a range.
 
 ### xdd:dateTimeInterval
 
-ISO 8601 time interval with half-open semantics `[start, end]`. Inherits from `xsd:duration` and supports all four ISO 8601 interval forms. Designed for temporal algebra (Allen's Interval Algebra) and clean interval partitioning.
+ISO 8601 time interval with half-open semantics `[start, end)`. Inherits from `xsd:duration` and supports all four ISO 8601 interval forms. Designed for temporal algebra (Allen's Interval Algebra) and clean interval partitioning.
+
+When an endpoint is supplied as a plain `xsd:date` without a time component, TerminusDB stores it as the start of the next calendar day at `00:00:00Z`. Fully qualified `xsd:dateTime` endpoints are stored exactly as given. All stored intervals are returned as fully qualified UTC datetime strings.
+
+> **Deconstruction returns `xsd:dateTime`.** The `interval(Start, End, Interval)` predicate always binds `Start` and `End` to `xsd:dateTime` values, even when the interval was built from `xsd:date` inputs. Use `typecast` to `xsd:date` (for a single endpoint) or to `xdd:dateRange` (for the whole interval) if you need the original inclusive date form.
 
 {% table %}
 * Property
@@ -763,13 +767,16 @@ ISO 8601 time interval with half-open semantics `[start, end]`. Inherits from `x
 * `xsd:duration`
 ---
 * **Semantics**
-* Half-open interval `[start, end]` — start is included, end is excluded
+* Half-open interval `[start, end)` — start is included, end is excluded
 ---
 * **Forms**
 * Start/end: `2025-01-01/2025-04-01`, Start/duration: `2025-01-01/P3M`, Duration/end: `P3M/2025-04-01`, Duration only: `P3M`
 ---
-* **Example**
+* **Example input**
 * `"2025-01-01/2025-04-01"`
+---
+* **Stored/retrieved form**
+* `"2025-01-01T00:00:00Z/2025-04-02T00:00:00Z"`
 {% /table %}
 
 **Typecasting:**
@@ -785,10 +792,10 @@ ISO 8601 time interval with half-open semantics `[start, end]`. Inherits from `x
 * Formats to ISO 8601 interval notation
 ---
 * `xdd:dateRange → xdd:dateTimeInterval`
-* Converts inclusive end to exclusive by adding one day: `[Jan 1, Mar 31]` → `Jan 1/Apr 1`
+* Converts inclusive end to exclusive by adding one day: `[Jan 1, Mar 31]` → `2025-01-01T00:00:00Z/2025-04-01T00:00:00Z`
 ---
 * `xdd:dateTimeInterval → xdd:dateRange`
-* Converts exclusive end to inclusive by subtracting one day: `Jan 1/Apr 1` → `[Jan 1, Mar 31]`
+* Converts exclusive end to inclusive by subtracting one day: `2025-01-01T00:00:00Z/2025-04-01T00:00:00Z` → `[Jan 1, Mar 31]`
 ---
 * `xsd:duration → xdd:dateTimeInterval`
 * Wraps duration as a form-4 (duration-only) interval
@@ -797,7 +804,7 @@ ISO 8601 time interval with half-open semantics `[start, end]`. Inherits from `x
 * Extracts the duration component from the interval
 {% /table %}
 
-For detailed usage, see the [Allen's Interval Algebra guide](/docs/woql-interval-algebra/).
+For detailed usage, see the [Allen's Interval Algebra guide](/docs/woql-interval-algebra/) and the [dateTimeInterval semantics reference](/docs/datetime-interval-semantics/).
 
 ---
 
