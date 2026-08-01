@@ -770,14 +770,16 @@ When an endpoint is supplied as a plain `xsd:date` without a time component, Ter
 * Half-open interval `[start, end)` — start is included, end is excluded
 ---
 * **Forms**
-* Start/end: `2025-01-01/2025-04-01`, Start/duration: `2025-01-01/P3M`, Duration/end: `P3M/2025-04-01`, Duration only: `P3M`
+* Start/end: `2025-01-01T00:00:00Z/2025-04-01T00:00:00Z`, Start/duration: `2025-01-01T00:00:00Z/P3M`, Duration/end: `P3M/2025-04-01T00:00:00Z`, Duration only: `P3M`
 ---
 * **Example input**
-* `"2025-01-01/2025-04-01"`
+* `"2025-01-01T00:00:00Z/2025-04-01T00:00:00Z"`
 ---
 * **Stored/retrieved form**
-* `"2025-01-01T00:00:00Z/2025-04-02T00:00:00Z"`
+* `"2025-01-01T00:00:00Z/2025-04-01T00:00:00Z"`
 {% /table %}
+
+Internally, ISO datetime intervals are stored retaining the specific duration format when specified in the interval. A duration is calculated if only start and end are specified. Having start, end and specific duration enables proper reasoning and having a specific window, i.e. as P90D and P3M can be both the same and not the same time depending on circumstances.
 
 **Typecasting:**
 
