@@ -578,7 +578,7 @@ The `@id` key of a class defines the class name and identifier. The name uniquel
 
 ### @key
 
-`@key` specifies the mechanism to define the `@id` of documents in the database, similar to a primary key in relational database terms. Valid key types are `Lexical`, `Hash`, `ValueHash`, `Random`.
+`@key` specifies the mechanism to define the `@id` of documents in the database, similar to a primary key in relational database terms. Valid key types are `Lexical`, `Hash`, `ValueHash`, `Random`, `UuidV7`.
 
 If the key `@base` is specified in the class, then this is pre-pended to the key. If this is a fully qualified URI then it is complete, otherwise, it is combined with the value of `@base` from the context.
 
@@ -703,6 +703,33 @@ Use `Random` as a convenient key type when an object has no important characteri
     "creation_date"         : "xsd:dateTime",
     "state"                 : "DatabaseState" 
 }
+```
+
+#### UuidV7
+
+`UuidV7` generates keys from RFC 9562 UUID version 7 identifiers. If `@id` is not supplied, the `@id` is formed from the class `@base` followed by a freshly generated UUID v7, for example `Person/01a120f0-47a7-7f20-9295-b3034d7fc5d3`. Because UUID v7 embeds a timestamp, generated identifiers are time-ordered.
+
+Unlike `Random`, a `UuidV7` class accepts **any** `@id` supplied by the user, with no `@base` prefix enforcement. This is useful when loading data that already carries identifiers, such as enterprise systems using UUIDs or GUIDs, or ontologies such as Linked Art with heterogeneous instance IRIs.
+
+#### Code: An example of a UuidV7 key
+
+```json
+{
+    "@id"                   : "Artwork",
+    "@type"                 : "Class",
+    "@key"                  : 
+    {
+        "@type"             : "UuidV7" 
+    },
+    "title"                 : "xsd:string" 
+}
+```
+
+Documents can then be inserted either with an arbitrary external `@id` or none at all:
+
+```json
+{ "@type" : "Artwork", "@id" : "https://linked.art/example/object/47", "title" : "External reference" }
+{ "@type" : "Artwork", "title" : "Generated id" }
 ```
 
 ### @documentation
@@ -854,7 +881,7 @@ or with properties pointing to JSON objects, as:
 
 The `@subdocument` key is present with the value `[]` or it is not present.
 
-A class designated as a sub-document is considered to be completely owned by its containing document. It is not possible to directly update or delete a subdocument, but it must be done through the containing document. Currently, subdocuments **must have a key** that is `Random` or `ValueHash` (this restriction may be relaxed in the future.)
+A class designated as a sub-document is considered to be completely owned by its containing document. It is not possible to directly update or delete a subdocument, but it must be done through the containing document. Currently, subdocuments **must have a key** that is `Random`, `UuidV7`, or `ValueHash` (this restriction may be relaxed in the future.)
 
 See below for examples of a subdocument declaration in a schema, and a corresponding subdocument.
 

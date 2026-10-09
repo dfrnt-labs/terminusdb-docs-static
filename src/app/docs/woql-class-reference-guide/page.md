@@ -1558,6 +1558,21 @@ Uppercase a string.
 
 * * *
 
+{% anchor id="UuidV7" /%}
+### UuidV7
+
+Generates a key identical to those generated automatically by 'UuidV7' specifications: the base followed by an RFC 9562 UUID v7. UUIDs are time-ordered, so generated keys sort lexicographically by creation time.
+
+**Inherits:** `Query`
+
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `base` | `DataValue` | The URI base to the left of the key. |
+| `uri` | `NodeValue` | The resulting URI. |
+
+* * *
+
 {% anchor id="Using" /%}
 ### Using
 

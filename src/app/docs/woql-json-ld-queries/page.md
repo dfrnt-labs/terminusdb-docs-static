@@ -159,6 +159,36 @@ const result = await client.query(
 );
 ```
 
+## Real-World Example: UuidV7
+
+`UuidV7` works the same way, but appends an RFC 9562 UUID v7 to the base. UUID v7 identifiers embed a timestamp, so generated keys sort lexicographically by creation time:
+
+```javascript
+const uuidV7Query = {
+  "@type": "UuidV7",
+  "base": {
+    "@type": "DataValue",
+    "data": { "@type": "xsd:string", "@value": "Person/" }
+  },
+  "uri": {
+    "@type": "NodeValue",
+    "variable": "person_id"
+  }
+};
+
+const result = await client.query(uuidV7Query);
+console.log(result.bindings[0].person_id);
+// Output: "Person/01a120f0-47a7-7f20-9295-b3034d7fc5d3"
+```
+
+Or with the client helper:
+
+```javascript
+const result = await client.query(
+  WOQL.idgen_uuid_v7('Person/', 'v:person_id')
+);
+```
+
 ## Mixing JSON-LD with WOQL Builder
 
 You can embed JSON-LD within WOQL builder queries for hybrid approaches:
