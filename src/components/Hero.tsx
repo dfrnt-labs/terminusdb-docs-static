@@ -53,12 +53,11 @@ export function Hero() {
             />
             <div className="relative">
               <p className="inline bg-linear-to-r from-indigo-200 via-sky-400 to-indigo-200 bg-clip-text font-display text-5xl tracking-tight text-transparent">
-                Document Graph Database with Git-for-Data on JSON
+                Knowledge Graph Database with Version Control
               </p>
               <p className="mt-3 text-2xl tracking-tight text-slate-400">
                 TerminusDB is the Open Source Knowledge Graph Database with
-                Git-like Version Control combining JSON and RDF with high
-                precision temporal reasoning.
+                Git-like Version Control (git-for-data).
               </p>
               <div className="mt-8 flex gap-4 md:justify-center lg:justify-start">
                 <Button
