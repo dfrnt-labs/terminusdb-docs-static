@@ -590,6 +590,10 @@ export const navigation: Navigation[] = [
                 href: '/docs/woql-interval-algebra',
               },
               {
+                title: 'DateTime Interval Semantics',
+                href: '/docs/datetime-interval-semantics',
+              },
+              {
                 title: 'EOM Preservation Rules',
                 href: '/docs/woql-eom-rules',
               },

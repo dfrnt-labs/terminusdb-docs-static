@@ -13,7 +13,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/manage-your-projects-add-a-new-user.png
     alternates:
-      canonical: https://terminusdb.org/docs/invite-users/
+      canonical: https://terminusdb.com/docs/invite-users/
 media:
   - alt: add a new user to your team
     caption: ""

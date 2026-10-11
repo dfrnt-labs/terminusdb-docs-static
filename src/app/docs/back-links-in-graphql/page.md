@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/graphql-backlink.png
     alternates:
-      canonical: https://terminusdb.org/docs/back-links-in-graphql/
+      canonical: https://terminusdb.com/docs/back-links-in-graphql/
 ---
 
 {% callout type="note" %}

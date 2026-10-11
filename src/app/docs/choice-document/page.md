@@ -8,7 +8,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/choice-document/
+      canonical: https://terminusdb.com/docs/choice-document/
 media: []
 tags:
   - typescript

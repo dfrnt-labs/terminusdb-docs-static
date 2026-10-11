@@ -11,7 +11,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/terminusdb-vs-neo4j/
+      canonical: https://terminusdb.com/docs/terminusdb-vs-neo4j/
 media: []
 lastUpdated: "2026-05-01"
 ---

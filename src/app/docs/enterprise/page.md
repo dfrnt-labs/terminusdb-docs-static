@@ -9,7 +9,7 @@ nextjs:
     description: DFRNT TwinfoxDB Enterprise extends TerminusDB with commercial support, multi-format document processing including JSON-LD @context support, RDF/XML, and Turtle, management tooling, and observability.
     keywords: enterprise, twinfoxdb, json-ld, rdf xml, turtle, ttl, backup, restore, prometheus, observability
     alternates:
-      canonical: https://terminusdb.org/docs/enterprise/
+      canonical: https://terminusdb.com/docs/enterprise/
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---

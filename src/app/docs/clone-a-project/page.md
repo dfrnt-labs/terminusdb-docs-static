@@ -6,7 +6,7 @@ nextjs:
     description: How to clone a TerminusDB database from a remote server using the TypeScript client, Python client, or HTTP API.
     keywords: terminusdb, clone, clone database, replicate, distributed, typescript client, python client, http api, curl
     alternates:
-      canonical: https://terminusdb.org/docs/clone-a-project/
+      canonical: https://terminusdb.com/docs/clone-a-project/
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-collaboration-clone.png?raw=true
 tags:

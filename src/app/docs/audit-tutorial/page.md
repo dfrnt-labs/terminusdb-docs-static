@@ -10,7 +10,7 @@ nextjs:
     description: Step-by-step tutorial to audit who changed what and when using TerminusDB's immutable commit log. Query history, diff commits, and trace field-level changes.
     keywords: audit, commit log, history, diff, compliance, traceability, author
     alternates:
-      canonical: https://terminusdb.org/docs/audit-tutorial/
+      canonical: https://terminusdb.com/docs/audit-tutorial/
 ---
 
 Every write in TerminusDB creates an immutable commit that records who made the change, when, and why. This makes the commit log a tamper-evident audit trail — useful for compliance, debugging, and accountability.

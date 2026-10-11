@@ -7,7 +7,7 @@ nextjs:
     description: "Exploring the future of version control with structured storage, AST-based diffs, and how syntactic awareness could revolutionize code collaboration."
     keywords: syntactic versioning, Git, AST, abstract syntax tree, version control, structured diff, code collaboration, Jupyter notebooks
     alternates:
-      canonical: https://terminusdb.org/blog/2022-02-14-syntactic-versioning/
+      canonical: https://terminusdb.com/blog/2022-02-14-syntactic-versioning/
     openGraph:
       type: article
       publishedTime: "2022-02-14T00:00:00Z"

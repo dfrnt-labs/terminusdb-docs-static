@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/what-is-dfrnt/
+      canonical: https://terminusdb.com/docs/what-is-dfrnt/
 ---
 
 DFRNT is the company that provides commercial hosting, enterprise support, and a comprehensive user interface for TerminusDB. In 2025, DFRNT assumed stewardship of the open source TerminusDB project, ensuring its continued development and maintenance in collaboration with the community.

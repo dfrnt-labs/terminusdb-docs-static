@@ -11,7 +11,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/at-a-glance
+      canonical: https://terminusdb.com/docs/at-a-glance
 ---
 
 This page gives you a high-level overview of TerminusDB's capabilities — what it does, how it differs from other databases, and where to go next depending on your use case.

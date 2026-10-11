@@ -11,7 +11,7 @@ nextjs:
     description: How to set author and message on document writes so the commit log records who made the change and why.
     keywords: commit message, author, audit trail, document API, insert, update, delete
     alternates:
-      canonical: https://terminusdb.org/docs/commit-message-howto/
+      canonical: https://terminusdb.com/docs/commit-message-howto/
 ---
 
 {% callout type="note" %}

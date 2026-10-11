@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/schema-as-code.png
     alternates:
-      canonical: https://terminusdb.org/docs/use-the-json-editor/
+      canonical: https://terminusdb.com/docs/use-the-json-editor/
 media:
   - alt: Create a new product with the TerminusDB dashboard
     caption: ""

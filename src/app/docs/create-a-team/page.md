@@ -13,7 +13,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.pn
     alternates:
-      canonical: https://terminusdb.org/docs/create-a-team/
+      canonical: https://terminusdb.com/docs/create-a-team/
 media:
   - alt: select profile from the top menu
     caption: ""

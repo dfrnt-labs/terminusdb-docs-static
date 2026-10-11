@@ -2,7 +2,7 @@ import { createLoader } from 'simple-functional-loader'
 import yaml from 'js-yaml'
 
 const DEFAULT_OG_IMAGE = 'https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png'
-const SITE_URL = 'https://terminusdb.org'
+const SITE_URL = 'https://terminusdb.com'
 const SITE_NAME = 'TerminusDB'
 
 function getDefaultImage() {

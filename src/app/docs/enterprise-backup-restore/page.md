@@ -11,7 +11,7 @@ nextjs:
     description: How to use the TwinfoxDB Enterprise bundle and unbundle API endpoints for database backup, restore, migration, and disaster recovery.
     keywords: backup, restore, bundle, unbundle, migration, disaster recovery, enterprise, api
     alternates:
-      canonical: https://terminusdb.org/docs/enterprise-backup-restore/
+      canonical: https://terminusdb.com/docs/enterprise-backup-restore/
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---

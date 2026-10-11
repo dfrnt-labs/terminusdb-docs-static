@@ -13,7 +13,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/branch-project.png
     alternates:
-      canonical: https://terminusdb.org/docs/branch/
+      canonical: https://terminusdb.com/docs/branch/
 media:
   - alt: Branch the project
     caption: ""

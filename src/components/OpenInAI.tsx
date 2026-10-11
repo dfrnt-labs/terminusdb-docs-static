@@ -7,7 +7,7 @@ export function OpenInAI() {
   
   // Get the full page URL
   const getPageUrl = () => {
-    return `https://terminusdb.org${pathname}`
+    return `https://terminusdb.com${pathname}`
   }
   
   // Get the raw markdown URL on GitHub

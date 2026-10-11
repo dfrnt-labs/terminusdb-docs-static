@@ -8,7 +8,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/json-diff-and-patch/
+      canonical: https://terminusdb.com/docs/json-diff-and-patch/
 media: []
 lastUpdated: "2026-05-18"
 tags:
@@ -212,7 +212,7 @@ Patch takes a POST with a _before_ document and a _patch_ and produces an _after
 
 ```json
 { "before" : { "@id" : "Person/Jane", "@type" : "Person", "name" : "Jane"}
-  "patch" : {"name" : { "@op" : "ValueSwap", "@before" : "Jane", "@after": "Janine" }}}
+  "patch" : {"name" : { "@op" : "SwapValue", "@before" : "Jane", "@after": "Janine" }}}
 ```
 
 Resulting in the following document:
@@ -414,6 +414,8 @@ Optional diffs also contain `@before`/`@after` designations, but potentially `nu
              '@before' : null,
              '@after' : "Jim" }}
 ```
+
+When using the [patch endpoint](/docs/patch-endpoint/), `SwapValue` operations also support `@ref` in `@before` and `@after` to reference captures from same-transaction inserts. See the [patch endpoint documentation](/docs/patch-endpoint/#ref-in-field-level-patches) for details.
 
 ### Set / Cardinality
 

@@ -25,9 +25,9 @@ const gitDates = loadGitDates()
 /**
  * Convert a sitemap absolute URL to a route slug compatible with the
  * gitDates index. Examples:
- *   https://terminusdb.org/                  → ""
- *   https://terminusdb.org/docs/foo/         → "docs/foo"
- *   https://terminusdb.org/blog/bar/         → "blog/bar"
+ *   https://terminusdb.com/                  → ""
+ *   https://terminusdb.com/docs/foo/         → "docs/foo"
+ *   https://terminusdb.com/blog/bar/         → "blog/bar"
  */
 function urlToSlug(loc) {
   try {
@@ -40,7 +40,7 @@ function urlToSlug(loc) {
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://terminusdb.org/',
+  siteUrl: process.env.SITE_URL || 'https://terminusdb.com/',
   generateRobotsTxt: true, // (optional)
   output: 'export',
   trailingSlash: true,

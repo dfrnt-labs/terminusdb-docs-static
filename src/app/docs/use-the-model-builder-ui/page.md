@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/schema-ui-doc-properties.png
     alternates:
-      canonical: https://terminusdb.org/docs/use-the-model-builder-ui/
+      canonical: https://terminusdb.com/docs/use-the-model-builder-ui/
 media:
   - alt: Create a new data product using the TerminusDB dashboard
     caption: ""

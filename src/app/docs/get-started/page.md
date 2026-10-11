@@ -14,7 +14,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/get-started/
+      canonical: https://terminusdb.com/docs/get-started/
 ---
 
 TerminusDB is a database built for collaboration. In this quickstart you will clone a pre-populated dataset and immediately use the git-for-data workflow: branch, edit, diff, and merge. No schema to write, no data to invent.

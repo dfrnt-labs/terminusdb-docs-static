@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/merge-howto/
+      canonical: https://terminusdb.com/docs/merge-howto/
 media: []
 lastUpdated: "2026-05-01"
 ---

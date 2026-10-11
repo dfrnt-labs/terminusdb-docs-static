@@ -347,7 +347,7 @@ function generatePage(context, classes) {
   lines.push("    openGraph:")
   lines.push("      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png")
   lines.push("    alternates:")
-  lines.push("      canonical: https://terminusdb.org/docs/woql-class-reference-guide/")
+  lines.push("      canonical: https://terminusdb.com/docs/woql-class-reference-guide/")
   lines.push("media: []")
   lines.push(`lastUpdated: "${new Date().toISOString().split("T")[0]}"`)
   lines.push("---")

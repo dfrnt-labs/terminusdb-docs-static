@@ -6,7 +6,7 @@ import OpenApiTerminusDB from './openapi'
 export const metadata: Metadata = {
   title: 'TerminusDB OpenAPI API reference',
   description: 'TerminusDB OpenAPI spec documentation with every API call and associated examples and information',
-  metadataBase: new URL('https://terminusdb.org'),
+  metadataBase: new URL('https://terminusdb.com'),
   alternates: {
     canonical: '/docs/openapi/',
   },

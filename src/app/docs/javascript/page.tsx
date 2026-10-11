@@ -4,7 +4,7 @@ import JavaScriptArticle from './javascript'
 export const metadata: Metadata = {
   title: 'TerminusDB Javascript Client API Reference',
   description: 'TerminusDB Javascript Client API Reference documentation with every function and example for AccessControl, WOQLQuery, WOQLLibrary, View and WOQL.',
-  metadataBase: new URL('https://terminusdb.org'),
+  metadataBase: new URL('https://terminusdb.com'),
   alternates: {
     canonical: '/docs/javascript/',
   },

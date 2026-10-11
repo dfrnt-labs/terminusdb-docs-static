@@ -13,7 +13,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/document-explorer-home.png
     alternates:
-      canonical: https://terminusdb.org/docs/use-the-admin-ui-curate-and-import-data/
+      canonical: https://terminusdb.com/docs/use-the-admin-ui-curate-and-import-data/
 media:
   - alt: TerminusDB document explorer to edit content via the UI
     caption: ""

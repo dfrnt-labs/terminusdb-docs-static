@@ -10,7 +10,7 @@ nextjs:
     description: Step-by-step tutorial to recover deleted or corrupted data using TerminusDB's immutable commit history. View the log, branch from a known-good commit, and reset.
     keywords: recovery, reset, commit, version history, rollback, undo
     alternates:
-      canonical: https://terminusdb.org/docs/recovery-tutorial/
+      canonical: https://terminusdb.com/docs/recovery-tutorial/
 ---
 
 Every write in TerminusDB creates an immutable commit. Data is never lost — only the branch HEAD moves forward. This tutorial shows how to use the commit log to identify a known-good state and reset your branch to recover from a bad change.

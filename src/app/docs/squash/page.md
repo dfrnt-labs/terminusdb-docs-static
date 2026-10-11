@@ -13,7 +13,7 @@ nextjs:
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/squashed-branch.png?raw=true
     alternates:
-      canonical: https://terminusdb.org/docs/squash/
+      canonical: https://terminusdb.com/docs/squash/
 media:
   - alt: Branch options with the ability to squash the branch of the database
     caption: ""

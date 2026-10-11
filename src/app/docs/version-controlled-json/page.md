@@ -10,7 +10,7 @@ nextjs:
       description: Git-like version control for JSON documents. Structural diff, patch, branching, and full commit history with automatic content deduplication.
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/version-controlled-json/
+      canonical: https://terminusdb.com/docs/version-controlled-json/
 tags:
   - tutorial
   - diff-patch

@@ -7,7 +7,7 @@ nextjs:
     description: "Announcing TerminusDB v10.1 with document diff, capture IDs, type inference, and unconstrained JSON for building distributed knowledge graphs."
     keywords: TerminusDB, release announcement, document diff, capture IDs, type inference, knowledge graph, distributed database
     alternates:
-      canonical: https://terminusdb.org/blog/2022-06-14-terminusdb-10.1.0-the-mule/
+      canonical: https://terminusdb.com/blog/2022-06-14-terminusdb-10.1.0-the-mule/
     openGraph:
       type: article
       publishedTime: "2022-06-14T00:00:00Z"

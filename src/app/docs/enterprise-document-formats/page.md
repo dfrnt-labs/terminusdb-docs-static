@@ -12,7 +12,7 @@ nextjs:
     description: How to read and write TerminusDB documents as JSON, JSON-LD, RDF/XML, or Turtle using query parameters or HTTP content negotiation.
     keywords: document api, json-ld, rdf xml, turtle, ttl, content negotiation, format, accept header, enterprise
     alternates:
-      canonical: https://terminusdb.org/docs/enterprise-document-formats/
+      canonical: https://terminusdb.com/docs/enterprise-document-formats/
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---

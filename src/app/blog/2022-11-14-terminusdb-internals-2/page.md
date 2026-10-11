@@ -7,7 +7,7 @@ nextjs:
     description: "Part 2 of TerminusDB Internals looks at how we deal with mutating data with succinct data structures and graph storage."
     keywords: TerminusDB, graph database, delta encoding, immutable updates, MVCC, rollup, succinct data structures
     alternates:
-      canonical: https://terminusdb.org/blog/2022-11-14-terminusdb-internals-2/
+      canonical: https://terminusdb.com/blog/2022-11-14-terminusdb-internals-2/
     openGraph:
       type: article
       publishedTime: "2022-11-14T00:00:00Z"

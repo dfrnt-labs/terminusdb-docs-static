@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/woql-tutorial/
+      canonical: https://terminusdb.com/docs/woql-tutorial/
 media: []
 ---
 

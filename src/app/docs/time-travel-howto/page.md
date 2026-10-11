@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/time-travel-howto/
+      canonical: https://terminusdb.com/docs/time-travel-howto/
 media: []
 lastUpdated: "2026-05-18"
 ---

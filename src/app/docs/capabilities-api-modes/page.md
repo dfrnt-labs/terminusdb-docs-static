@@ -13,7 +13,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/capabilities-api-modes/
+      canonical: https://terminusdb.com/docs/capabilities-api-modes/
 ---
 
 The TerminusDB `/api/capabilities` endpoint supports two distinct calling modes. Choosing the wrong mode — or mixing elements from both — yields errors. This guide explains when to use each mode and how to avoid the most common mistakes.

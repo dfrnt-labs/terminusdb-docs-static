@@ -12,7 +12,7 @@ nextjs:
     description: A hands-on tutorial for using the TerminusDB Document API with curl to work with JSON, JSON-LD, RDF/XML, and Turtle formats. Covers a full round-trip cycle for enterprise reference data management.
     keywords: document api, curl, json-ld, rdf xml, turtle, ttl, enterprise, reference data, multi-format
     alternates:
-      canonical: https://terminusdb.org/docs/document-format-api-curl-tutorial/
+      canonical: https://terminusdb.com/docs/document-format-api-curl-tutorial/
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---

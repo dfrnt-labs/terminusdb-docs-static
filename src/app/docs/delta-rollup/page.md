@@ -11,7 +11,7 @@ nextjs:
     description: How delta rollup works in TerminusDB. Automatic in standard deployments via the built-in rollup plugin — manual optimisation is available for custom deployments.
     keywords: delta rollup, optimize, performance, layers, compaction, maintenance
     alternates:
-      canonical: https://terminusdb.org/docs/delta-rollup/
+      canonical: https://terminusdb.com/docs/delta-rollup/
 ---
 
 {% callout type="note" %}

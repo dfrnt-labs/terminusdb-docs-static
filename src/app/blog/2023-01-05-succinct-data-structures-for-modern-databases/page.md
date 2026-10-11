@@ -7,7 +7,7 @@ nextjs:
     description: "A white paper written by Matthijs van Otterdijk, Gavin Mendel-Gleason, & Kevin Feeney detailing succinct data structures & delta encoding."
     keywords: succinct data structures, delta encoding, graph database, RDF, HDT, wavelet trees, MVCC, version control, CI/CD, TerminusDB
     alternates:
-      canonical: https://terminusdb.org/blog/2023-01-05-succinct-data-structures-for-modern-databases/
+      canonical: https://terminusdb.com/blog/2023-01-05-succinct-data-structures-for-modern-databases/
     openGraph:
       type: article
       publishedTime: "2023-01-05T00:00:00Z"

@@ -7,7 +7,7 @@ nextjs:
     description: "Part 1 of TerminusDB Internals, looks at the guts and how we've built an in-memory graph database to avoid thrashing and slow performance."
     keywords: TerminusDB, graph database, succinct data structures, in-memory database, indexing, bit index, adjacency list
     alternates:
-      canonical: https://terminusdb.org/blog/2022-11-07-terminusdb-internals/
+      canonical: https://terminusdb.com/blog/2022-11-07-terminusdb-internals/
     openGraph:
       type: article
       publishedTime: "2022-11-07T00:00:00Z"

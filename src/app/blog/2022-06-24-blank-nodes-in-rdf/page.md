@@ -7,7 +7,7 @@ nextjs:
     description: "Exploring blank nodes in RDF and why TerminusDB uses skolemization to avoid graph isomorphism challenges in linked data management."
     keywords: RDF, blank nodes, skolemization, graph isomorphism, linked data, semantic web, turtle
     alternates:
-      canonical: https://terminusdb.org/blog/2022-06-24-blank-nodes-in-rdf/
+      canonical: https://terminusdb.com/blog/2022-06-24-blank-nodes-in-rdf/
     openGraph:
       type: article
       publishedTime: "2022-06-24T00:00:00Z"

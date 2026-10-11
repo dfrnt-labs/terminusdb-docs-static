@@ -73,7 +73,7 @@
   },
   "docs/access-control-tutorial": {
     "created": "2025-12-09T22:10:41+01:00",
-    "updated": "2026-05-01T09:13:20+02:00"
+    "updated": "2026-05-18T20:32:58+02:00"
   },
   "docs/access-control-tutorial-source": {
     "created": "2025-12-09T22:10:41+01:00",
@@ -89,11 +89,11 @@
   },
   "docs/add-a-document": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:38:01+02:00"
+    "updated": "2026-05-18T20:32:58+02:00"
   },
   "docs/add-a-schema": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:38:01+02:00"
+    "updated": "2026-05-18T20:32:58+02:00"
   },
   "docs/add-documents-with-woql": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -125,11 +125,11 @@
   },
   "docs/branch-howto": {
     "created": "2026-05-01T15:20:59+02:00",
-    "updated": "2026-05-01T20:47:43+02:00"
+    "updated": "2026-05-18T20:32:58+02:00"
   },
   "docs/browser-cors-howto": {
     "created": "2026-04-30T10:51:49+02:00",
-    "updated": "2026-05-02T10:23:45+02:00"
+    "updated": "2026-05-18T20:47:54+02:00"
   },
   "docs/capabilities-api-modes": {
     "created": "2026-05-15T18:27:44+02:00",

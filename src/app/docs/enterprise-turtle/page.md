@@ -12,7 +12,7 @@ nextjs:
     description: How TwinfoxDB Enterprise serializes and parses Turtle (TTL) documents with prefix declarations, typed literals, subdocument nesting, and round-trip integrity.
     keywords: turtle, ttl, rdf, prefix, typed literals, subdocument, enterprise, serialization
     alternates:
-      canonical: https://terminusdb.org/docs/enterprise-turtle/
+      canonical: https://terminusdb.com/docs/enterprise-turtle/
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---

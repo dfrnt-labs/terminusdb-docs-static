@@ -7,7 +7,7 @@ nextjs:
     description: "A philosophical exploration of data collaboration using Kripke semantics, examining how Git, databases, CRDTs, and OTs handle distributed state."
     keywords: data collaboration, Kripke semantics, modal logic, CRDT, OT, Git, distributed systems, version control
     alternates:
-      canonical: https://terminusdb.org/blog/2022-02-14-many-worlds/
+      canonical: https://terminusdb.com/blog/2022-02-14-many-worlds/
     openGraph:
       type: article
       publishedTime: "2022-02-14T00:00:00Z"

@@ -4,7 +4,7 @@ import PythonArticle from './python'
 export const metadata: Metadata = {
   title: 'TerminusDB Python Client API Reference',
   description: 'TerminusDB Python Client API Reference documentation with every function and example for the Python Client library.',
-  metadataBase: new URL('https://terminusdb.org'),
+  metadataBase: new URL('https://terminusdb.com'),
   alternates: {
     canonical: '/docs/python/',
   },

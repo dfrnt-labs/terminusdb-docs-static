@@ -12,7 +12,7 @@ nextjs:
     description: How TwinfoxDB Enterprise serializes and parses RDF/XML documents with proper namespace declarations, typed literals, subdocument nesting, and round-trip integrity.
     keywords: rdf xml, rdf, xml, namespace, typed literals, subdocument, enterprise, serialization
     alternates:
-      canonical: https://terminusdb.org/docs/enterprise-rdfxml/
+      canonical: https://terminusdb.com/docs/enterprise-rdfxml/
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---

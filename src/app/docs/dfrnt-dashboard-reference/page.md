@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/document-explorer-home.png
     alternates:
-      canonical: https://terminusdb.org/docs/dfrnt-dashboard-reference/
+      canonical: https://terminusdb.com/docs/dfrnt-dashboard-reference/
 media:
   - alt: How teams, users and projects are structured.
     caption: ""

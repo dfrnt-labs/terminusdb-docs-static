@@ -7,7 +7,7 @@ nextjs:
     description: "How TerminusDB handles schema evolution with weakening and strengthening operations, enabling change management across branches and merges."
     keywords: schema migration, schema evolution, database migration, weakening operations, strengthening operations, change management, version control
     alternates:
-      canonical: https://terminusdb.org/blog/2023-04-24-schema-migration/
+      canonical: https://terminusdb.com/blog/2023-04-24-schema-migration/
     openGraph:
       type: article
       publishedTime: "2023-04-24T00:00:00Z"

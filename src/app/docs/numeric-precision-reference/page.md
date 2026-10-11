@@ -8,7 +8,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/numeric-precision-reference/
+      canonical: https://terminusdb.com/docs/numeric-precision-reference/
 media: []
 tags:
   - typescript

@@ -6,7 +6,7 @@ nextjs:
     description: A driver to manage access control with the JS Client
     keywords: access control, javascript client
     alternates:
-      canonical: https://terminusdb.org/docs/access-control-with-javascript/
+      canonical: https://terminusdb.com/docs/access-control-with-javascript/
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 tags:
@@ -27,7 +27,7 @@ For credentials, you can use a JWT token, an API token or basic authentication w
 
 ```javascript
 //connect with the API token
-//(to request a token create an account in  https://terminusdb.org/)
+//(to request a token create an account in  https://terminusdb.com/)
 const accessControl = new AccessControl("https://servername.com",
 {organization:"my_team_name",
 token:"dGVybWludXNkYjovLy9kYXRhL2tleXNfYXB........"})
@@ -119,7 +119,7 @@ The API token to use to connect with DFRNT TerminusDB cloud
 
 ### accessControl.setApiKey(atokenpi)
 
-Sets the API token for the object, to request a token create an account in https://terminusdb.org/
+Sets the API token for the object, to request a token create an account in https://terminusdb.com/
 
 Param
 

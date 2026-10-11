@@ -7,7 +7,7 @@ nextjs:
     description: "Learn how TerminusDB simplifies URI generation with lexical, hash, random, and value hash key strategies for RDF and linked data management."
     keywords: URI generation, RDF, linked data, semantic web, IRI, identifier strategies, lexical keys, hash keys, skolemization
     alternates:
-      canonical: https://terminusdb.org/blog/2022-02-28-whats-in-a-name/
+      canonical: https://terminusdb.com/blog/2022-02-28-whats-in-a-name/
     openGraph:
       type: article
       publishedTime: "2022-02-28T00:00:00Z"

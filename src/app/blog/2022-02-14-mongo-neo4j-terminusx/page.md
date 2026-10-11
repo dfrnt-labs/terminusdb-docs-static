@@ -7,7 +7,7 @@ nextjs:
     description: "Discover how TerminusDB combines MongoDB's JSON document paradigm with Neo4j's graph capabilities for a unified document graph database."
     keywords: document graph, MongoDB, Neo4j, JSON, graph database, NoSQL, RDF, JSON-LD, schema-first
     alternates:
-      canonical: https://terminusdb.org/blog/2022-02-14-mongo-neo4j-terminusx/
+      canonical: https://terminusdb.com/blog/2022-02-14-mongo-neo4j-terminusx/
     openGraph:
       type: article
       publishedTime: "2022-02-14T00:00:00Z"

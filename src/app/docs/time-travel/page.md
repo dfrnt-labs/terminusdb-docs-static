@@ -13,7 +13,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/time-travel.png
     alternates:
-      canonical: https://terminusdb.org/docs/time-travel/
+      canonical: https://terminusdb.com/docs/time-travel/
 media:
   - alt: Time travel to any previous commit using the DFRNT TerminusDB cloud dashboard
     caption: ""

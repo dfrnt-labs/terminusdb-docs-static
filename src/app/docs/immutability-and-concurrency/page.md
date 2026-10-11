@@ -10,7 +10,7 @@ nextjs:
     description: Why TerminusDB avoids locks and how its immutable delta architecture enables safe concurrent access.
     keywords: immutability, concurrency, locks, MVCC, delta layers, architecture
     alternates:
-      canonical: https://terminusdb.org/docs/immutability-and-concurrency/
+      canonical: https://terminusdb.com/docs/immutability-and-concurrency/
 ---
 
 Traditional databases use locks to prevent concurrent readers and writers from corrupting shared state. TerminusDB takes a fundamentally different approach: by making all committed data immutable, it eliminates the need for locks entirely.

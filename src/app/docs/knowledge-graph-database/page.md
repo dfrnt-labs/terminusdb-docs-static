@@ -13,7 +13,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/knowledge-graph-database/
+      canonical: https://terminusdb.com/docs/knowledge-graph-database/
 media: []
 ---
 

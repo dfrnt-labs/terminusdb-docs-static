@@ -8,7 +8,7 @@ nextjs:
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-collaboration-diff-patch.png?raw=true
     alternates:
-      canonical: https://terminusdb.org/docs/diff-and-patch-operations/
+      canonical: https://terminusdb.com/docs/diff-and-patch-operations/
 media: []
 lastUpdated: "2026-05-18"
 tags:

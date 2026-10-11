@@ -6,7 +6,7 @@ nextjs:
     description: How to retrieve documents from TerminusDB using the JavaScript client, Python client, or HTTP API.
     keywords: terminusdb, get document, fetch document, retrieve, javascript client, python client, http api, curl
     alternates:
-      canonical: https://terminusdb.org/docs/get-documents/
+      canonical: https://terminusdb.com/docs/get-documents/
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-use-get-documents.png?raw=true
 tags:

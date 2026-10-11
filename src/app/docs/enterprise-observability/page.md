@@ -11,7 +11,7 @@ nextjs:
     description: How to use the TwinfoxDB Enterprise Prometheus metrics endpoint for production monitoring, including available gauges for memory, cache, and request tracking.
     keywords: prometheus, metrics, observability, monitoring, memory, cache, lru, enterprise
     alternates:
-      canonical: https://terminusdb.org/docs/enterprise-observability/
+      canonical: https://terminusdb.com/docs/enterprise-observability/
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---

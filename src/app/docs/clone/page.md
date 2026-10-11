@@ -13,7 +13,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/project-admin.png
     alternates:
-      canonical: https://terminusdb.org/docs/clone/
+      canonical: https://terminusdb.com/docs/clone/
 media:
   - alt: Clone a project from the project home page
     caption: ""

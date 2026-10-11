@@ -8,7 +8,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/first-15-minutes/
+      canonical: https://terminusdb.com/docs/first-15-minutes/
 tags:
   - typescript
   - tutorial

@@ -14,7 +14,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/terminusdb-db-cli-querying/
+      canonical: https://terminusdb.com/docs/terminusdb-db-cli-querying/
 media: []
 ---
 

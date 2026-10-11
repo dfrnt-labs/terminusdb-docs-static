@@ -13,13 +13,13 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/datetime-interval-semantics/
+      canonical: https://terminusdb.com/docs/datetime-interval-semantics/
 media: []
 ---
 
 # `xdd:dateTimeInterval` Semantics
 
-TerminusDB stores time intervals as `xdd:dateTimeInterval` values. Every interval is a half-open range `[start, end]` — the start point is included, the end point is excluded — and every endpoint is stored as a fully qualified UTC datetime.
+TerminusDB stores time intervals as `xdd:dateTimeInterval` values. Every interval is a half-open range `[start, end)` — the start point is included, the end point is excluded — and every endpoint is stored as a fully qualified UTC datetime.
 
 This page explains the special rule for plain-date endpoints, shows the canonical stored form, and describes how it interacts with `xsd:dateTime` endpoints and typecasting.
 

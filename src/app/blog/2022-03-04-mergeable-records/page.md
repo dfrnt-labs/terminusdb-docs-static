@@ -7,7 +7,7 @@ nextjs:
     description: "Learn how to model data with provenance and time-scoping to merge duplicate records from multiple sources using paraconsistent logic."
     keywords: data modeling, duplicate detection, record merging, provenance, paraconsistent logic, data quality, entity resolution
     alternates:
-      canonical: https://terminusdb.org/blog/2022-03-04-mergeable-records/
+      canonical: https://terminusdb.com/blog/2022-03-04-mergeable-records/
     openGraph:
       type: article
       publishedTime: "2022-03-04T00:00:00Z"

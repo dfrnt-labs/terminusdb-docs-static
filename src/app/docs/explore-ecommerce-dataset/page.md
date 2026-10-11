@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/explore-ecommerce-dataset/
+      canonical: https://terminusdb.com/docs/explore-ecommerce-dataset/
 media: []
 lastUpdated: "2026-04-30"
 ---

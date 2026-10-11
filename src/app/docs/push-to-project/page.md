@@ -6,7 +6,7 @@ nextjs:
     description: How to push local commits to a remote TerminusDB database using the TypeScript client, Python client, or HTTP API.
     keywords: terminusdb, push, sync, publish, remote, distributed, typescript client, python client, http api
     alternates:
-      canonical: https://terminusdb.org/docs/push-to-project/
+      canonical: https://terminusdb.com/docs/push-to-project/
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/js-client-collaboration-clone.png?raw=true
 tags:

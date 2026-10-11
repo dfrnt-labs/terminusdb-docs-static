@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.org/docs/dfrnt-data-types/
+      canonical: https://terminusdb.com/docs/dfrnt-data-types/
 media: []
 ---
 

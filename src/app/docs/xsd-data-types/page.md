@@ -3,17 +3,17 @@ tags:
   - reference
   - schema
   - woql
-title: XSD Data types
+title: XSD Data Types
 nextjs:
   metadata:
-    title: XSD Data types
-    description: Comprehensive reference for all data types supported by TerminusDB, including XSD, RDF, XDD extensions, and System types.
+    title: XSD Data Types
+    description: Comprehensive reference for all data types for XSD and for use with RDF.
     keywords: xsd data types, datatype, data model, document type, schema, terminusdb data types, xml data types
     alternates:
-      canonical: https://terminusdb.org/docs/xsd-data-types/
+      canonical: https://terminusdb.com/docs/xsd-data-types/
 ---
 
-TerminusDB supports a comprehensive set of data types for schema definitions. This reference covers all supported types organized by namespace, including type hierarchy, storage details, and typecasting rules.
+TerminusDB supports a comprehensive set of data types for schema definitions. This reference covers all supported types organized by namespace, including type hierarchy, storage details, and typecasting rules. This reference also includes an extended set of types that are specific to TerminusDB.
 
 For schema definition syntax, see the [Schema Reference Guide](/docs/schema-reference-guide/).
 
@@ -678,7 +678,7 @@ Validated URL (subtype of `xsd:string`). Can also be cast from `xsd:anyURI`.
 * `xsd:string`
 ---
 * **Example**
-* `"https://terminusdb.org"`
+* `"https://terminusdb.com"`
 {% /table %}
 
 ### xdd:email

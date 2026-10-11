@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/vectorlink-semantic-cms.png
     alternates:
-      canonical: https://terminusdb.org/docs/set-up-vectorlink/
+      canonical: https://terminusdb.com/docs/set-up-vectorlink/
 media:
   - alt: Add your OpenAI key in the relevant section within your profile
     caption: ""

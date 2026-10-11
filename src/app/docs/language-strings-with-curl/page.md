@@ -12,7 +12,7 @@ nextjs:
     description: How to store and retrieve multilingual text in TerminusDB using rdf:langString and the HTTP API with curl.
     keywords: rdf:langString, language string, multilingual, curl, HTTP API, i18n, @language
     alternates:
-      canonical: https://terminusdb.org/docs/language-strings-with-curl/
+      canonical: https://terminusdb.com/docs/language-strings-with-curl/
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---

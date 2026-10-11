@@ -14,7 +14,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/woql-subdocuments.png
     alternates:
-      canonical: https://terminusdb.org/docs/woql-subdocument-handling/
+      canonical: https://terminusdb.com/docs/woql-subdocument-handling/
 ---
 
 {% callout type="note" %}

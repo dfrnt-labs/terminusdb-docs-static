@@ -10,7 +10,7 @@ nextjs:
     description: How to make HTTP requests to the TerminusDB API from browser JavaScript. No CORS configuration needed — TerminusDB allows all origins by default.
     keywords: CORS, browser, fetch, JavaScript, Angular, React, cross-origin
     alternates:
-      canonical: https://terminusdb.org/docs/browser-cors-howto/
+      canonical: https://terminusdb.com/docs/browser-cors-howto/
 ---
 
 {% callout type="note" %}

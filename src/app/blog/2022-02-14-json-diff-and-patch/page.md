@@ -7,7 +7,7 @@ nextjs:
     description: "How JSON diff and patch enable distributed data collaboration for Web3, offering multi-master updates without complex protocols or locks."
     keywords: JSON diff, JSON patch, distributed data, Web3, multi-master, version control, CRDT, data collaboration
     alternates:
-      canonical: https://terminusdb.org/blog/2022-02-14-json-diff-and-patch/
+      canonical: https://terminusdb.com/blog/2022-02-14-json-diff-and-patch/
     openGraph:
       type: article
       publishedTime: "2022-02-14T00:00:00Z"

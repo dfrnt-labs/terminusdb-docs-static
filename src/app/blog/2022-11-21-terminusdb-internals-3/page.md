@@ -7,7 +7,7 @@ nextjs:
     description: "Part 3 of TerminusDB Internals looks at how we sort data lexically and how we have overcome some of the issues that come with this approach."
     keywords: TerminusDB, graph database, lexical sorting, integers, floats, decimals, big integers, succinct data structures
     alternates:
-      canonical: https://terminusdb.org/blog/2022-11-21-terminusdb-internals-3/
+      canonical: https://terminusdb.com/blog/2022-11-21-terminusdb-internals-3/
     openGraph:
       type: article
       publishedTime: "2022-11-21T00:00:00Z"

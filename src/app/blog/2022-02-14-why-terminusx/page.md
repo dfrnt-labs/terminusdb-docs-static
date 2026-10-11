@@ -7,7 +7,7 @@ nextjs:
     description: "The journey from TerminusDB to TerminusX cloud service, simplifying versioned knowledge graphs with JSON-first document interface and improved developer experience."
     keywords: TerminusX, TerminusDB, knowledge graph, cloud database, document graph, developer experience, version control, JSON schema
     alternates:
-      canonical: https://terminusdb.org/blog/2022-02-14-why-terminusx/
+      canonical: https://terminusdb.com/blog/2022-02-14-why-terminusx/
     openGraph:
       type: article
       publishedTime: "2022-02-14T00:00:00Z"

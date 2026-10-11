@@ -12,7 +12,7 @@ nextjs:
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/graphql-filter.png?raw=true
     alternates:
-      canonical: https://terminusdb.org/docs/graphql-mutations/
+      canonical: https://terminusdb.com/docs/graphql-mutations/
 media: []
 ---
 
