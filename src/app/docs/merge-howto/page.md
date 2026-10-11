@@ -135,18 +135,19 @@ A conflict occurs when both branches changed the same field on the same document
 
 ### Conflict response
 
+The apply endpoint rejects a conflicting merge with **HTTP 409** and `api:status: "api:conflict"`:
+
 ```json
 {
-  "@type": "api:ApplyResponse",
+  "@type": "api:ApplyError",
   "api:status": "api:conflict",
   "api:witnesses": [
     {
-      "@id": "terminusdb:///data/Product/Widget",
+      "@id": "Product/Widget",
       "price": {
-        "@op": "SwapValue",
-        "@before": 9.99,
-        "@after_left": 12.99,
-        "@after_right": 14.99
+        "@op": "Conflict",
+        "@expected": 9.99,
+        "@found": 12.99
       }
     }
   ]
@@ -156,9 +157,10 @@ A conflict occurs when both branches changed the same field on the same document
 This tells you:
 - **Document:** `Product/Widget`
 - **Field:** `price`
-- **Original value:** 9.99
-- **main changed it to:** 12.99 (`@after_left`)
-- **feature changed it to:** 14.99 (`@after_right`)
+- **Expected value:** 9.99 (`@expected`) — the base value the patch expected to find
+- **Found value:** 12.99 (`@found`) — the value currently on the target branch
+
+The witness does not contain the source branch's value. Run a diff (step 2) against the common ancestor and `feature` to see what `feature` was trying to write.
 
 ### Resolving conflicts
 

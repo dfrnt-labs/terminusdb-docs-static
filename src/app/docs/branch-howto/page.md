@@ -332,19 +332,19 @@ curl -u admin:root -X POST http://localhost:6363/api/apply/admin/tdb-example-myd
 {"@type":"api:ApplyResponse","api:status":"api:success"}
 ```
 
-**If there are conflicts:**
+**If there are conflicts** (HTTP 409):
 
 ```json
 {
-  "@type": "api:ApplyResponse",
+  "@type": "api:ApplyError",
   "api:status": "api:conflict",
   "api:witnesses": [
-    {"@id": "Product/Widget", "price": {"@op": "SwapValue", "@before": 9.99, "@after_left": 12.99, "@after_right": 14.99}}
+    {"@id": "Product/Widget", "price": {"@op": "Conflict", "@expected": 9.99, "@found": 12.99}}
   ]
 }
 ```
 
-Conflicts must be resolved manually — TerminusDB never silently picks a winner.
+`@expected` is the base value the patch expected to find; `@found` is the current value on the target branch. Conflicts must be resolved manually — TerminusDB never silently picks a winner.
 
 {% code-tabs %}
 {% code-tab label="TypeScript" %}
