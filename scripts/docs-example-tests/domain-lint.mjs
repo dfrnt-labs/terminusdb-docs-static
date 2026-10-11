@@ -1,28 +1,29 @@
 #!/usr/bin/env node
 
 /**
- * domain-lint.mjs - CI check for deprecated terminusdb.com domain references.
+ * domain-lint.mjs - CI check for legacy terminusdb.org domain references.
  *
- * The project has migrated from terminusdb.com to terminusdb.org. Any remaining
- * reference to the .com domain in docs content or the public dashboard is a bug.
+ * The canonical domain is terminusdb.com (migrated back from terminusdb.org).
+ * Any remaining reference to the apex .org domain in docs content or the
+ * public dashboard is a bug.
  *
  * Scans:
  *   - src/ (all .md, .mdx, .ts, .tsx, .mjs, .js files recursively)
  *   - infra/public-data-server/dashboard/index.html
  *
  * Allowed exceptions (not flagged):
- *   - http://terminusdb.com/schema/   — RDF namespace URIs (protocol identifiers, not links)
- *   - assets.terminusdb.com           — CDN for images (separate infrastructure)
- *   - cdn.terminusdb.com              — JS CDN (separate infrastructure)
- *   - *@terminusdb.com                — email addresses
- *   - example.terminusdb.com          — placeholder in documentation examples
+ *   - *.terminusdb.org                — subdomains still on .org (data.terminusdb.org, etc.)
+ *   - http://terminusdb.org/schema/   — RDF namespace URIs (protocol identifiers, not links)
+ *   - http://terminusdb.org/db/       — RDF database path URIs
+ *   - *@terminusdb.org                — email addresses
+ *   - terminusdb.org/blog/            — links to legacy blog posts not yet migrated to .com
  *
  * Run:
  *   node scripts/docs-example-tests/domain-lint.mjs
  *
  * Exit codes:
  *   0 — no violations found
- *   1 — terminusdb.com references detected (lists offending files/lines)
+ *   1 — terminusdb.org references detected (lists offending files/lines)
  */
 
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs"
@@ -40,17 +41,16 @@ const SCAN_FILES = [
 
 const EXTENSIONS = new Set([".md", ".mdx", ".ts", ".tsx", ".mjs", ".js", ".html"])
 
-// Pattern to match any terminusdb.com reference
-const DOMAIN_PATTERN = /terminusdb\.com/g
+// Pattern to match any terminusdb.org reference
+const DOMAIN_PATTERN = /terminusdb\.org/g
 
 // Patterns that are allowed (not flagged)
 const ALLOWED_PATTERNS = [
-  /http:\/\/terminusdb\.com\/schema\//,       // RDF namespace URIs
-  /assets\.terminusdb\.com/,                   // CDN images
-  /cdn\.terminusdb\.com/,                      // JS CDN
-  /[a-zA-Z0-9._%+-]+@terminusdb\.com/,        // email addresses
-  /example\.terminusdb\.com/,                  // placeholder examples
-  /documents-ui-playground[^.]*\.terminusdb\.com/,  // discontinued UI playground (historical)
+  /[a-zA-Z0-9-]+\.terminusdb\.org/,            // subdomains still on .org (data., etc.)
+  /http:\/\/terminusdb\.org\/schema\//,        // RDF namespace URIs
+  /http:\/\/terminusdb\.org\/db\//,            // RDF database path URIs
+  /[a-zA-Z0-9._%+-]+@terminusdb\.org/,        // email addresses
+  /terminusdb\.org\/blog\//,                   // legacy blog links not yet migrated to .com
 ]
 
 // Paths excluded from scanning (old blog posts preserve original URLs)
@@ -96,7 +96,7 @@ function collectFiles(dir) {
 }
 
 /**
- * Check if a line's terminusdb.com reference is in the allowed list.
+ * Check if a line's terminusdb.org reference is in the allowed list.
  */
 function isAllowed(line) {
   return ALLOWED_PATTERNS.some((pattern) => pattern.test(line))
@@ -148,7 +148,7 @@ for (const filePath of filesToScan) {
     // Skip lines where ALL matches are in the allowed list
     if (isAllowed(line)) continue
 
-    // This line has a non-allowed terminusdb.com reference
+    // This line has a non-allowed terminusdb.org reference
     const trimmed = line.trim().slice(0, 120)
     violations.push({ file: relPath, line: i + 1, text: trimmed })
     violationCount++
@@ -160,11 +160,11 @@ for (const filePath of filesToScan) {
 // ──────────────────────────────────────────────────────────────────────────────
 
 if (violationCount === 0) {
-  console.log("✓ domain-lint: no terminusdb.com references found. PASSED.")
+  console.log("✓ domain-lint: no terminusdb.org references found. PASSED.")
   process.exit(0)
 } else {
-  console.log(`✗ domain-lint: ${violationCount} terminusdb.com reference(s) found.\n`)
-  console.log("The project has migrated to terminusdb.org. Update these references:\n")
+  console.log(`✗ domain-lint: ${violationCount} terminusdb.org reference(s) found.\n`)
+  console.log("The canonical domain is terminusdb.com. Update these references:\n")
 
   for (const v of violations) {
     console.log(`  ${v.file}:${v.line}`)
@@ -172,6 +172,6 @@ if (violationCount === 0) {
   }
 
   console.log("─".repeat(70))
-  console.log(`FAILED — ${violationCount} violation(s). Replace terminusdb.com with terminusdb.org.`)
+  console.log(`FAILED — ${violationCount} violation(s). Replace terminusdb.org with terminusdb.com.`)
   process.exit(1)
 }

@@ -18,6 +18,9 @@
  * - Uncommitted files (no git history) → { created: null, updated: null }
  * - Files only in staging → { created: null, updated: null }
  * - Renamed files → --follow handles rename tracking
+ * - Canonical-only commits (bulk domain sweeps touching only the
+ *   `canonical:` frontmatter line) are skipped when computing "updated",
+ *   so lastmod reflects real content changes, not metadata migrations
  * - git unavailable → writes empty object and exits cleanly
  *
  * Performance: Uses parallel git log calls (concurrency 20) to process ~238 pages
@@ -26,7 +29,8 @@
 
 import { exec, execSync } from "node:child_process"
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs"
-import { join, relative } from "node:path"
+import { join, relative, resolve } from "node:path"
+import { fileURLToPath } from "node:url"
 import { promisify } from "node:util"
 
 const execAsync = promisify(exec)
@@ -123,7 +127,25 @@ function findPageFiles(dir) {
 }
 
 /**
- * Extract first commit date (created) and most recent commit date (updated)
+ * Check whether a commit's diff for a file only touched the frontmatter
+ * `canonical:` line — e.g. a bulk domain migration across every page.
+ * Such commits carry no reader-visible content change, so they must not
+ * move a page's "updated" date.
+ */
+export function isCanonicalOnlyDiff(diffText) {
+  const changed = diffText
+    .split("\n")
+    .filter((l) => /^[+-]/.test(l) && !/^(\+\+\+|---)/.test(l))
+
+  if (changed.length === 0) {
+    return false
+  }
+
+  return changed.every((l) => /^[+-]\s*canonical:/.test(l))
+}
+
+/**
+ * Extract first commit date (created) and last content-change date (updated)
  * for a given file using git log --follow.
  *
  * Returns { created: string | null, updated: string | null }
@@ -131,33 +153,50 @@ function findPageFiles(dir) {
 async function getGitDates(filePath) {
   try {
     // --follow tracks renames
-    // --format="%aI" gives ISO 8601 author date
+    // --format="%H %aI" gives commit hash + ISO 8601 author date
     const { stdout } = await execAsync(
-      `git log --follow --format="%aI" -- "${filePath}"`,
+      `git log --follow --format="%H %aI" -- "${filePath}"`,
       {
         cwd: PROJECT_ROOT,
         timeout: 15000,
       }
     )
 
-    const output = stdout.trim()
+    const commits = stdout
+      .trim()
+      .split("\n")
+      .filter(Boolean)
+      .map((line) => {
+        const [sha, date] = line.split(" ")
+        return { sha, date }
+      })
 
-    if (!output) {
+    if (commits.length === 0) {
       // File has no git history (new/uncommitted)
       return { created: null, updated: null }
     }
 
-    const dates = output.split("\n").filter(Boolean)
+    // Last line = oldest commit
+    const created = commits[commits.length - 1].date
 
-    if (dates.length === 0) {
-      return { created: null, updated: null }
+    // Walk newest → oldest until a commit with a real content change is
+    // found. Canonical-only diffs (domain sweeps) are skipped.
+    for (const commit of commits) {
+      const { stdout: diff } = await execAsync(
+        `git show --format= "${commit.sha}" -- "${filePath}"`,
+        {
+          cwd: PROJECT_ROOT,
+          timeout: 15000,
+        }
+      )
+
+      if (!isCanonicalOnlyDiff(diff)) {
+        return { created, updated: commit.date }
+      }
     }
 
-    // First line = most recent commit, last line = oldest commit
-    const updated = dates[0]
-    const created = dates[dates.length - 1]
-
-    return { created, updated }
+    // Every commit was canonical-only — fall back to the newest date.
+    return { created, updated: commits[0].date }
   } catch {
     // git command failed for this file — treat as no history
     return { created: null, updated: null }
@@ -194,6 +233,8 @@ async function parallelMap(items, fn, concurrency) {
 }
 
 // --- Main ---
+
+const isMain = process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])
 
 async function main() {
   const startTime = Date.now()
@@ -262,4 +303,6 @@ async function main() {
   )
 }
 
-main()
+if (isMain) {
+  main()
+}

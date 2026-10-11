@@ -95,7 +95,7 @@ curl -sf https://dfrnt-data-terminusdb.fly.dev/api/ok && echo "OK"
 # 1. Request a TLS certificate for the custom domain
 fly certs add data.terminusdb.org
 
-# 2. At the terminusdb.org DNS provider, add:
+# 2. At the DNS provider for data.terminusdb.org, add:
 #    A      data  →  66.241.125.73
 #    AAAA   data  →  2a09:8280:1::10e:a4bb:0
 #

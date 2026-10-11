@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 /**
- * Linter: no-terminusdb-com
+ * Linter: no-terminusdb-org
  *
- * Ensures no file in src/, infra/, or scripts/ references "terminusdb.com"
- * except for allowlisted patterns (CDN assets, RDF namespaces, emails, etc.).
- * The correct domain for website links is terminusdb.org.
+ * Ensures no file in src/, infra/, or scripts/ references "terminusdb.com"'s
+ * old canonical domain "terminusdb.org" except for allowlisted patterns
+ * (subdomains still on .org, RDF namespaces, emails, legacy blog links).
+ * The correct domain for website links is terminusdb.com.
  *
  * This complements scripts/docs-example-tests/domain-lint.mjs by scanning
  * infra/ and scripts/ in addition to src/.
  *
  * Usage:
- *   node scripts/no-terminusdb-com-lint.mjs
+ *   node scripts/no-terminusdb-org-lint.mjs
  *
  * Exits 0 if clean, 1 if any matches found.
  */
@@ -24,45 +25,38 @@ const ROOT = join(__dirname, "..");
 
 const SEARCH_DIRS = ["src", "infra", "scripts"];
 const EXCLUDE_DIRS = new Set(["node_modules", ".next", "out"]);
-const SELF = "scripts/no-terminusdb-com-lint.mjs";
-const PATTERN = /terminusdb\.com/gi;
+const SELF = "scripts/no-terminusdb-org-lint.mjs";
+const PATTERN = /terminusdb\.org/gi;
 
-// Allowlisted patterns — these are legitimate uses of terminusdb.com:
-//  - assets.terminusdb.com: CDN hosting images (real resolvable URLs)
-//  - cdn.terminusdb.com: JS CDN (separate infrastructure)
-//  - http://terminusdb.com/schema/: RDF namespace URIs (semantic identifiers)
-//  - http://terminusdb.com/db/: RDF database path URIs
-//  - *@terminusdb.com: email addresses in examples
-//  - example.terminusdb.com: placeholder in documentation examples
-//  - lib.terminusdb.com: schema library URIs in examples
-//  - terminusdb.com/wp-content/: WordPress-era image assets (legacy og:image)
-//  - documents-ui-playground-geojson.terminusdb.com: external UI playground (third-party)
-//  - cloud.terminusdb.com: legacy cloud references in deprecation notices
+// Allowlisted patterns — these are legitimate uses of terminusdb.org:
+//  - *.terminusdb.org: subdomains still hosted on .org during the migration
+//    (data.terminusdb.org, etc.)
+//  - http://terminusdb.org/schema/: RDF namespace URIs (semantic identifiers)
+//  - http://terminusdb.org/db/: RDF database path URIs
+//  - *@terminusdb.org: email addresses in examples
+//  - terminusdb.org/blog/: links to legacy blog posts not yet migrated to .com
 const ALLOWLIST = [
-  /assets\.terminusdb\.com/i,
-  /cdn\.terminusdb\.com/i,
-  /http:\/\/terminusdb\.com\/schema\//i,
-  /http:\/\/terminusdb\.com\/db\//i,
-  /[a-zA-Z0-9._%+-]+@terminusdb\.com/i,
-  /example\.terminusdb\.com/i,
-  /lib\.terminusdb\.com/i,
-  /terminusdb\.com\/wp-content\//i,
-  /documents-ui-playground[^.]*\.terminusdb\.com/i,
-  /cloud\.terminusdb\.com/i,
+  /[a-zA-Z0-9-]+\.terminusdb\.org/i,
+  /http:\/\/terminusdb\.org\/schema\//i,
+  /http:\/\/terminusdb\.org\/db\//i,
+  /[a-zA-Z0-9._%+-]+@terminusdb\.org/i,
+  /terminusdb\.org\/blog\//i,
 ];
 
 // Paths excluded from scanning (old blog posts preserve original URLs)
 const EXCLUDED_PATH_PATTERNS = [
   /^src\/app\/blog\//,                          // All blog posts keep historical URLs
-  /^src\/data\//,                               // RDF schema data (woql.json) — namespace URIs use terminusdb.com
+  /^src\/data\//,                               // RDF schema data (woql.json) — namespace URIs
 ];
 
-// Files that are allowed to reference terminusdb.com because they are
-// linting scripts that need to describe the pattern they detect.
+// Files that are allowed to reference terminusdb.org because they are
+// linting scripts that need to describe the pattern they detect, or
+// tests whose fixtures embed it.
 const ALLOWLISTED_FILES = new Set([
   "scripts/docs-example-tests/domain-lint.mjs",
   "scripts/docs-example-tests/branding-lint.mjs",
   "scripts/docs-example-tests/README.md",
+  "scripts/generate-git-dates.test.mjs",
 ]);
 
 async function* walkFiles(dir) {
@@ -123,17 +117,17 @@ async function main() {
   }
 
   if (matches.length === 0) {
-    console.log("✓ no-terminusdb-com: no terminusdb.com references found. All clear.");
+    console.log("✓ no-terminusdb-org: no terminusdb.org references found. All clear.");
     process.exit(0);
   }
 
-  console.error(`✗ no-terminusdb-com: found ${matches.length} occurrence(s) of "terminusdb.com" (should be "terminusdb.org"):\n`);
+  console.error(`✗ no-terminusdb-org: found ${matches.length} occurrence(s) of "terminusdb.org" (should be "terminusdb.com"):\n`);
   for (const m of matches) {
     console.error(`  ${m.file}:${m.line}`);
     console.error(`    ${m.text}\n`);
   }
   console.error("─".repeat(70));
-  console.error(`FAILED — ${matches.length} violation(s). Replace terminusdb.com with terminusdb.org.`);
+  console.error(`FAILED — ${matches.length} violation(s). Replace terminusdb.org with terminusdb.com.`);
   process.exit(1);
 }
 
