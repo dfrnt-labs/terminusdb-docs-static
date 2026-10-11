@@ -110,16 +110,22 @@ The diff shows typed operations: `SwapValue` (field changed), `Insert` (added), 
 
 ## Merge a branch
 
-Apply changes from one branch onto another:
+Apply changes from one branch onto another. `before_commit` is the **common ancestor** — the commit where the two branches diverged. Find it with `/api/log`: the most recent commit ID that appears in both branches' history. If `feature` was just created and `main` has not moved since, main's head is the common ancestor.
 
-{% http-example method="POST" path="/api/apply/admin/tdb-example-mydb/local/branch/main" %}
-{"before_commit": "main", "after_commit": "feature", "commit_info": {"author": "alice@example.com", "message": "Merge feature into main"}}
+`before_commit` and `after_commit` accept a branch name (`"main"`), a commit ID, or a data-version string — `"commit:<id>"` or `"branch:<commit-id>"`, the same format as the `TerminusDB-Data-Version` response header.
+
+{% http-example method="POST" path="/api/apply/admin/tdb-example-mydb/local/branch/main" runnable=false %}
+{"before_commit": "commit:abc123def456", "after_commit": "feature", "commit_info": {"author": "alice@example.com", "message": "Merge feature into main"}}
 {% http-expected %}
 {"@type":"api:ApplyResponse","api:status":"api:success"}
 {% /http-expected %}
 {% /http-example %}
 
-If there are conflicts (both branches modified the same field), the merge fails with a conflict report — no silent overwrites.
+If there are conflicts (both branches modified the same field), the merge fails with HTTP 409 and a conflict report.
+
+{% callout type="warning" %}
+`before_commit` must be the common-ancestor commit, not the target branch's own tip. Passing a branch tip applies a plain two-way diff between the two heads: changes the target made since the divergence are silently discarded or overwritten with `api:status: "api:success"` — no conflict is raised.
+{% /callout %}
 
 ## Squash commits
 
