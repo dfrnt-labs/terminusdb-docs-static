@@ -3,9 +3,6 @@ tags:
   - graphql
   - reference
   - intermediate
-  - sse
-  - subscriptions
-  - realtime
 title: GraphQL Subscriptions Reference
 nextjs:
   metadata:
@@ -18,6 +15,10 @@ nextjs:
       canonical: https://terminusdb.com/docs/graphql-subscriptions/
 media: []
 ---
+
+{% callout type="note" title="Release Candidate — TerminusDB 12.1" %}
+This page documents functionality in the upcoming TerminusDB 12.1 release. Details may change before the final release.
+{% /callout %}
 
 GraphQL subscriptions let you stream real-time updates from TerminusDB over Server-Sent Events (SSE). When a document is inserted, updated, or deleted, the server pushes an event to every active subscriber matching that change. This page is the complete reference for the subscription protocol, event formats, error handling, and client integration.
 

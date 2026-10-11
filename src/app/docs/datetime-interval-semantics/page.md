@@ -2,8 +2,6 @@
 tags:
   - reference
   - time-processing
-  - intervals
-  - datetime
 title: xdd:dateTimeInterval Semantics
 nextjs:
   metadata:
@@ -23,7 +21,7 @@ TerminusDB stores time intervals as `xdd:dateTimeInterval` values. Every interva
 
 This page explains the special rule for plain-date endpoints, shows the canonical stored form, and describes how it interacts with `xsd:dateTime` endpoints and typecasting.
 
-> **See also:** [WOQL Time Handling](/docs/woql-time-handling/) | [Allen's Interval Algebra](/docs/woql-interval-algebra/) | [Data Types](/docs/data-types/#xdd-datetimeinterval)
+> **See also:** [WOQL Time Handling](/docs/woql-time-handling/) | [Allen's Interval Algebra](/docs/woql-interval-algebra/) | [Data Types](/docs/xsd-data-types/#xdd-datetimeinterval)
 
 ---
 

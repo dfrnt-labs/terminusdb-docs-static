@@ -190,6 +190,11 @@ async function getGitDates(filePath) {
         }
       )
 
+      // shortcut: for commits older than a rename, `git show <sha> -- <current
+      // path>` yields an empty diff, so isCanonicalOnlyDiff returns false and
+      // the walk stops — a canonical-only sweep predating a rename would still
+      // bump `updated`. Rare enough (needs both events) to accept until it
+      // actually skews a page's lastmod.
       if (!isCanonicalOnlyDiff(diff)) {
         return { created, updated: commit.date }
       }

@@ -16,6 +16,11 @@
       "statusCode": 301
     },
     {
+      "route": "/docs/data-types/",
+      "redirect": "/docs/xsd-data-types/",
+      "statusCode": 301
+    },
+    {
       "route": "/docs/datalog-explanation",
       "redirect": "/docs/what-is-datalog/",
       "statusCode": 301

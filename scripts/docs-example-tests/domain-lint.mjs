@@ -96,10 +96,16 @@ function collectFiles(dir) {
 }
 
 /**
- * Check if a line's terminusdb.org reference is in the allowed list.
+ * Check whether a line still references terminusdb.org after all allowed
+ * matches are stripped. Stripping first means a bare apex reference cannot
+ * hide behind an allowlisted subdomain on the same line.
  */
-function isAllowed(line) {
-  return ALLOWED_PATTERNS.some((pattern) => pattern.test(line))
+function hasViolation(line) {
+  const stripped = ALLOWED_PATTERNS.reduce(
+    (text, pattern) => text.replace(new RegExp(pattern.source, "gi"), ""),
+    line
+  )
+  return DOMAIN_PATTERN.test(stripped)
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -145,8 +151,8 @@ for (const filePath of filesToScan) {
     if (!DOMAIN_PATTERN.test(line)) continue
     DOMAIN_PATTERN.lastIndex = 0 // reset regex state
 
-    // Skip lines where ALL matches are in the allowed list
-    if (isAllowed(line)) continue
+    // Skip lines where all matches are allowlisted once stripped
+    if (!hasViolation(line)) continue
 
     // This line has a non-allowed terminusdb.org reference
     const trimmed = line.trim().slice(0, 120)

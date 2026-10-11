@@ -235,7 +235,7 @@ WOQL.and(
    WOQL.eq("v:Date", {"@type": "xsd:dateTime", "@value": "2024-01-15T00:00:00Z"})
    ```
 
-See [Data Types reference](/docs/data-types) for the full list of supported XSD types and their expected formats.
+See [Data Types reference](/docs/xsd-data-types) for the full list of supported XSD types and their expected formats.
 
 ## Still stuck?
 

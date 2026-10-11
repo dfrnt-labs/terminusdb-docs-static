@@ -819,7 +819,7 @@ export const navigation: Navigation[] = [
         links: [
           {
             title: 'Data Types',
-            href: '/docs/data-types',
+            href: '/docs/xsd-data-types',
           },
           {
             title: 'WOQL Reference',
@@ -1145,6 +1145,65 @@ export const navigation: Navigation[] = [
     ],
   },
 
+  // ============================================================
+  // SECTION: NEXT RELEASE 12.1
+  // Goal: Group the release-candidate documentation for 12.1
+  // ============================================================
+  {
+    title: 'Next Release: 12.1',
+    links: [
+      {
+        title: 'Versioned Search',
+        href: '/docs/versioned-search',
+        links: [
+          {
+            title: 'Concepts',
+            href: '/docs/versioned-search-concepts',
+          },
+          {
+            title: 'Quickstart',
+            href: '/docs/versioned-search-quickstart',
+          },
+          {
+            title: 'Indexing by Push',
+            href: '/docs/versioned-search-indexing',
+          },
+          {
+            title: 'Searching',
+            href: '/docs/versioned-search-querying',
+          },
+          {
+            title: 'Clustering Embeddings',
+            href: '/docs/versioned-search-clustering',
+          },
+          {
+            title: 'History & Branching',
+            href: '/docs/versioned-search-history',
+          },
+          {
+            title: 'Entity Resolution',
+            href: '/docs/versioned-search-entity-resolution',
+          },
+          {
+            title: 'API Reference',
+            href: '/docs/versioned-search-api-reference',
+          },
+        ],
+      },
+      {
+        title: 'GraphQL Subscriptions',
+        href: '/docs/graphql-subscriptions',
+      },
+      {
+        title: 'Admin Console',
+        href: '/docs/admin-console',
+      },
+      {
+        title: 'The Write Path',
+        href: '/docs/terminusdb-write-path',
+      },
+    ],
+  },
 
   // ============================================================
   // SECTION: ENTERPRISE

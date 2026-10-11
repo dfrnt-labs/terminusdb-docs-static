@@ -103,9 +103,14 @@ async function main() {
           if (PATTERN.test(lines[i])) {
             PATTERN.lastIndex = 0; // reset regex state after .test()
 
-            // Check if the match is allowlisted
-            const isAllowed = ALLOWLIST.some(re => re.test(lines[i]));
-            if (!isAllowed) {
+            // Strip allowlisted matches, then check what remains — a bare
+            // apex reference cannot hide behind an allowlisted subdomain on
+            // the same line.
+            const stripped = ALLOWLIST.reduce(
+              (text, re) => text.replace(new RegExp(re.source, "gi"), ""),
+              lines[i],
+            );
+            if (/terminusdb\.org/i.test(stripped)) {
               matches.push({ file: rel, line: i + 1, text: lines[i].trim().slice(0, 120) });
             }
           }

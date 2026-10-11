@@ -879,7 +879,7 @@ WOQL.typecast(
 // v.interval = "2025-01-01T00:00:00Z/2025-04-01T00:00:00Z"^^xdd:dateTimeInterval
 ```
 
-> For the full `xdd:dateTimeInterval` type reference, see [Data Types](/docs/data-types/#xdd-datetimeinterval). For the complete interval algebra guide, see [Allen's Interval Algebra](/docs/woql-interval-algebra/).
+> For the full `xdd:dateTimeInterval` type reference, see [Data Types](/docs/xsd-data-types/#xdd-datetimeinterval). For the complete interval algebra guide, see [Allen's Interval Algebra](/docs/woql-interval-algebra/).
 
 ## Date-Only Endpoints and the Next-Day Rule
 

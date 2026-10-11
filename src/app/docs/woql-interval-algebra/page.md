@@ -21,7 +21,7 @@ Every calendar has two stories to tell. One is the human story: "Q1 runs from Ja
 
 This page explains the difference, introduces TerminusDB's `xdd:dateTimeInterval` type for ISO 8601 intervals, and shows how to use Allen's Interval Algebra to reason about temporal relationships in WOQL. Unfortunately the XSD Data Types do not include an explicit interval type, so we include it in the xdd namespace instead.
 
-> **See also:** [WOQL Time Handling](/docs/woql-time-handling/) | [Data Types Reference](/docs/data-types/) | [WOQL Class Reference](/docs/woql-class-reference-guide/) | [dateTimeInterval semantics](/docs/datetime-interval-semantics/)
+> **See also:** [WOQL Time Handling](/docs/woql-time-handling/) | [Data Types Reference](/docs/xsd-data-types/) | [WOQL Class Reference](/docs/woql-class-reference-guide/) | [dateTimeInterval semantics](/docs/datetime-interval-semantics/)
 
 ---
 

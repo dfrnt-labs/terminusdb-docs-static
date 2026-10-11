@@ -58,7 +58,7 @@ Property names beginning with `@` (at-sign) are reserved for TerminusDB schema d
 
 ## Class definition
 
-The basic unit of specification is a **class**. A class definition is a schema object with the keyword `@type` with type value `Class`. The keyword `@id` specifies the name of the class. The example below define a class named `Person` with a property `name` of type `xsd:string`. See [Data Types](/docs/data-types/) for a complete reference of all supported types.
+The basic unit of specification is a **class**. A class definition is a schema object with the keyword `@type` with type value `Class`. The keyword `@id` specifies the name of the class. The example below define a class named `Person` with a property `name` of type `xsd:string`. See [Data Types](/docs/xsd-data-types/) for a complete reference of all supported types.
 
 ### Code: The basic unit of specification
 
@@ -1992,4 +1992,4 @@ We can then insert a point document which might be written as:
 - [**Schema migration**](/docs/schema-migration-reference-guide/) — evolve schemas with automatic data transformation
 - [**Schema weakening**](/docs/what-is-schema-weakening/) — understand backward-compatible schema changes
 - [**Document types compared**](/docs/document-types-comparison/) — choose between documents, subdocuments, and shared documents
-- [**Data types reference**](/docs/data-types/) — all supported XSD and extension types
+- [**Data types reference**](/docs/xsd-data-types/) — all supported XSD and extension types

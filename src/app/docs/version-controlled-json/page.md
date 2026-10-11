@@ -130,12 +130,12 @@ If you see `container name "terminusdb" is already in use`, stop and remove it f
 
 ### Create a document (POST)
 
-Insert a product document. The `raw_json=true` parameter tells TerminusDB to accept any valid JSON — no schema required. You must supply an `@id` field to give the document a stable identity:
+Insert a product document. The `raw_json=true` parameter tells TerminusDB to accept any valid JSON — no schema required. Supplying an `@id` field gives the document a stable identity; if you omit it, the server mints a random `JSONDocument/` ID for you:
 
 {% http-example method="POST" path="/api/document/admin/inventory?author=admin&message=Add+first+product&raw_json=true" %}
 {"@id": "product/SKU-001", "name": "Mechanical Keyboard", "price": 149.99, "stock": 42, "tags": ["peripherals", "input"]}
 {% http-expected %}
-["terminusdb:///data/product/SKU-001"]
+["product/SKU-001"]
 {% /http-expected %}
 {% /http-example %}
 
@@ -177,7 +177,7 @@ The document is gone from the current state, but its full history remains access
 {% http-example method="POST" path="/api/document/admin/inventory?author=admin&message=Re-add+product&raw_json=true" %}
 {"@id": "product/SKU-001", "name": "Mechanical Keyboard", "price": 149.99, "stock": 87, "tags": ["peripherals", "input"]}
 {% http-expected %}
-["terminusdb:///data/product/SKU-001"]
+["product/SKU-001"]
 {% /http-expected %}
 {% /http-example %}
 
@@ -224,7 +224,7 @@ Compare `main` and `price-update` to see exactly what diverged:
 {% http-example method="POST" path="/api/diff/admin/inventory" %}
 {"before_data_version": "main", "after_data_version": "price-update"}
 {% http-expected %}
-[{"@id":"terminusdb:///data/product/SKU-001","price":{"@op":"SwapValue","@before":149.99,"@after":179.99},"tags":{"@op":"CopyList","@to":2,"@rest":{"@op":"SwapList","@before":[],"@after":["premium"],"@rest":{"@op":"KeepList"}}}}]
+[{"@id":"product/SKU-001","price":{"@op":"SwapValue","@before":149.99,"@after":179.99},"tags":{"@op":"CopyList","@to":2,"@rest":{"@op":"SwapList","@before":[],"@after":["premium"],"@rest":{"@op":"KeepList"}}}}]
 {% /http-expected %}
 {% /http-example %}
 
