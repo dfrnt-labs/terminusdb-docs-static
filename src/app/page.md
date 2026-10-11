@@ -1,36 +1,32 @@
 ---
 nextjs:
   metadata:
-    title: TerminusDB, Document Graph Database with Git-for-data
-    description: TerminusDB is a Semantic Document Graph Database; model-based, in-memory and distributed RDF+JSON knowledge graph database with git-for-data collaboration
+    title: TerminusDB Knowledge Graph Database with Version Control
+    description: TerminusDB is a Knowledge Graph Database with version control, vector search, distributed git-for-data collaboration, datalog, and RDF semantics.
     alternates:
       canonical: https://terminusdb.com
-    keywords: git-for-data, graph, RDF, JSON, document, database
+    keywords: knowledge graph, database, version control, git-for-data, graph, RDF, JSON, document
     openGraph:
-      title: TerminusDB, Document Graph Database with Git-for-data
-      description: TerminusDB is a Semantic Document Graph Database; model-based, in-memory and distributed RDF+JSON knowledge graph database with git-for-data collaboration
+      title: TerminusDB Knowledge Graph Database with Version Control
+      description: TerminusDB is a Knowledge Graph Database with version control, vector search, distributed git-for-data collaboration, datalog, and RDF semantics.
       url: https://terminusdb.com
       siteName: TerminusDB
       images:
         - url: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
           width: 1200
           height: 630
-          alt: TerminusDB - Git-for-Data Graph Database
+          alt: TerminusDB Knowledge Graph Database with Version Control
       locale: en_US
       type: website
     twitter:
       card: summary_large_image
-      title: TerminusDB, Document Graph Database with Git-for-data
-      description: TerminusDB is a Semantic Document Graph Database; model-based, in-memory and distributed RDF+JSON knowledge graph database with git-for-data collaboration
+      title: TerminusDB Knowledge Graph Database with Version Control
+      description: TerminusDB is a Knowledge Graph Database with version control, vector search, distributed git-for-data collaboration, datalog, and RDF semantics.
       images:
         - https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
 
-TerminusDB is a modern open source knowledge graph database for data-centric semantic content infrastructures. Learn how to get started with TerminusDB in under thirty minutes. {% .lead %}
-
-{% callout type="note" title="TerminusDB version 12 released 2025-12-08" %}
-TerminusDB version 12 is out. It includes a number of new features and improvements. See [/blog/terminusdb-12-release](/blog/2025-12-08-terminusdb-12-release/) for more information.
-{% /callout %}
+TerminusDB is a modern open source knowledge graph database with version control, used for data-centric semantic infrastructures. Learn how to get started with TerminusDB in under thirty minutes. {% .lead %}
 
 {% quick-links %}
 
@@ -54,15 +50,10 @@ The [product tour](/docs/product-tour/) aims to provide you with an understandin
 
 ## Community
 
-Join the TerminusDB Community [Discord](https://discord.gg/yTJKAma) to get help and support from the community and see what others are building.
+Join the TerminusDB Community on [Discord](https://discord.gg/yTJKAma).
 
-More ways to connect is on [GitHub](https://github.com/terminusdb/terminusdb), or explore the [DFRNT Studio](https://dfrnt.com/hypergraph-content-studio/) modeller product by the new maintainers of TerminusDB since 2025.
-
-## Quick start
-
-The easiest way to get started with TerminusDB knowledge graphs is with a cloud instance from the official TerminusDB hosting provider, [DFRNT.com](https://dfrnt.com/hypergraph-content-studio/). It provides a complete enhanced entity relations knowledge graph data modeller, git-for-data synchronization, graph visualisations, GraphQL, APIs and a complete datalog studio with and an easy-to-use model-driven form-based record editor.
+More ways to connect: [GitHub](https://github.com/terminusdb/terminusdb).
 
 TerminusDB is open source and free to use under the Apache 2.0 license. Get started with the open source community version on your own computer, by [getting started with Docker](/docs/install-terminusdb-as-a-docker-container/).
 
-The cloud modeller, visualisations and records management tool works with both localhost open source TerminusDB (connecting to your localhost:6363 port) and TerminusDB hosted in the cloud environments. Your can use git-for-data synchronizations of content repositories between cloud and localhost as a backup and for collaboration with peers.
-
+TerminusDB is maintained and offered by [Gettier](https://gettier.ai/) since 2025. We provide the simplest way for subject matter experts to build AI-ready, defensible data foundations. Gettier is a proof layer powered by TerminusDB. We offer Enterprises what they need to run TerminusDB data foundations in production, with or without the Gettier proof layer.
