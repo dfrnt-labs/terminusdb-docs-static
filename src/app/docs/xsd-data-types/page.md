@@ -6,16 +6,18 @@ tags:
 title: XSD Data Types
 nextjs:
   metadata:
-    title: XSD Data Types
-    description: Comprehensive reference for all data types for XSD and for use with RDF.
-    keywords: xsd data types, datatype, data model, document type, schema, terminusdb data types, xml data types
+    title: XSD Datatypes
+    description: Comprehensive reference for using XSD data types with RDF and schema.
+    keywords: xsd data types, datatypes, data model, document type, schema, information interoperability, xml datatypes, xml xsd datatypes
     alternates:
       canonical: https://terminusdb.com/docs/xsd-data-types/
 ---
 
-TerminusDB supports a comprehensive set of data types for schema definitions. This reference covers all supported types organized by namespace, including type hierarchy, storage details, and typecasting rules. This reference also includes an extended set of types that are specific to TerminusDB.
+TerminusDB leverages XML schema definition data types (XSD Datatypes) in schema definitions. This enables information interoperability with other systems that use XSD data types. This reference covers all supported types organized by namespace, including type hierarchy, storage details, and typecasting rules. This reference also includes an extended set of types that are specific to TerminusDB.
 
-For schema definition syntax, see the [Schema Reference Guide](/docs/schema-reference-guide/).
+For schema definition syntax, see the [Schema Reference Guide](/docs/schema-reference-guide/). For more information on XML data types, see [XML Schema Part 2: Datatypes Second Edition]([/docs/data-types/](https://www.w3.org/TR/xmlschema-2/)) page.
+
+Extensions such as for iso 8601 intervals exist with the xdd prefix in terminusdb as they are not defined in the XML XSD Datatypes specification.
 
 ---
 
@@ -56,7 +58,7 @@ For schema definition syntax, see the [Schema Reference Guide](/docs/schema-refe
 ---
 * **System**
 * `sys:JSON`, `sys:JSONDocument`, `sys:Dictionary`
-* System types for JSON and document handling
+* Used for JSON as literals and for document storage
 {% /table %}
 
 ---
