@@ -320,14 +320,18 @@ function detectPageContext(mdContent, intentData) {
     context.requiresClone = true
   }
 
-  // quickstart-clone component detection
+  // quickstart-clone component detection — attrs carry the actual dataset
   if (mdContent.includes("quickstart-clone")) {
     context.hasQuickstartClone = true
     context.requiresClone = true
+    const localPathMatch = mdContent.match(/quickstart-clone[^\n]*?localPath="([^"]+)"/)
+    if (localPathMatch) context.dbName = context.dbName || localPathMatch[1]
+    const remoteUrlMatch = mdContent.match(/quickstart-clone[^\n]*?remoteUrl="([^"]+)"/)
+    if (remoteUrlMatch) context.cloneSource = context.cloneSource || remoteUrlMatch[1]
   }
 
-  // Star Wars dataset detection
-  if (mdContent.includes("star-wars") || mdContent.includes("Star Wars")) {
+  // Star Wars dataset detection — match API paths, not prose mentions
+  if (mdContent.includes("admin/star-wars") || mdContent.includes("public/star-wars")) {
     context.dbName = context.dbName || "star-wars"
     context.requiresClone = true
     context.cloneSource = context.cloneSource || "https://data.terminusdb.org/public/star-wars"

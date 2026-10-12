@@ -235,20 +235,11 @@ When building an application that manages capabilities programmatically:
 
 3. **Never default to one mode unconditionally.** If your code always omits `scope_type` but sends bare names, it will break. If it always sends `scope_type` but the user lacks global admin, it will get 403.
 
-```text
-┌─────────────────────────────┐
-│ Is caller a global admin?   │
-└──────────────┬──────────────┘
-               │
-       ┌───────┴───────┐
-       │ Yes           │ No
-       ▼               ▼
-┌──────────────┐ ┌──────────────────┐
-│ Name Mode    │ │ ID Mode          │
-│              │ │                  │
-│ scope_type ✓ │ │ scope_type ✗    │
-│ bare names   │ │ full doc IDs     │
-└──────────────┘ └──────────────────┘
+```mermaid
+flowchart TD
+    Q{Is caller a global admin?}
+    Q -->|Yes| NM["Name Mode<br/>scope_type ✓<br/>bare names"]
+    Q -->|No| IM["ID Mode<br/>scope_type ✗<br/>full doc IDs"]
 ```
 
 ## Summary

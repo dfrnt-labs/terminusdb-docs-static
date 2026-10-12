@@ -30,7 +30,7 @@ import assert from "node:assert/strict"
 const SERVER_URL = process.env.TERMINUSDB_URL || "http://localhost:6363"
 const AUTH_USER = process.env.TERMINUSDB_USER || "admin"
 const AUTH_KEY = process.env.TERMINUSDB_KEY || "root"
-const DB_NAME = "star-wars"
+const DB_NAME = "ecommerce"
 const DB_PATH = `${AUTH_USER}/${DB_NAME}`
 const AUTH_HEADER = "Basic " + Buffer.from(`${AUTH_USER}:${AUTH_KEY}`).toString("base64")
 const REMOTE_AUTH = "Basic " + Buffer.from("public:public").toString("base64")
@@ -118,7 +118,7 @@ async function ensureDbExists() {
 
   await deleteDb(DB_NAME)
   const cloneRes = await apiCall("POST", `/api/clone/${DB_PATH}`,
-    { "remote_url": "https://data.terminusdb.org/public/star-wars", "label": "star-wars", "comment": "Cloned for test" },
+    { "remote_url": "https://data.terminusdb.org/public/ecommerce", "label": "ecommerce", "comment": "Cloned for test" },
     { "Authorization-Remote": REMOTE_AUTH }
   )
   if (cloneRes.status < 200 || cloneRes.status >= 300) return false

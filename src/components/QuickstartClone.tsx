@@ -51,7 +51,7 @@ export function QuickstartClone({
         body: JSON.stringify({
           remote_url: remoteUrl,
           label: localPath,
-          comment: "Example project tracker database",
+          comment: `Cloned ${localPath} from data.terminusdb.org`,
         }),
       })
 

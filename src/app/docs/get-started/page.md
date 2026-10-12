@@ -43,7 +43,7 @@ If the command hangs or returns a connection error: Docker may not be running, p
 
 Skip the manual database creation and start with real data immediately by cloning a data product to your local terminusdb running in docker:
 
-{% quickstart-clone /%}
+{% quickstart-clone remoteUrl="https://data.terminusdb.org/public/star-wars" localPath="star-wars" description="Get the Star Wars dataset on your local TerminusDB — ready to branch and diff." /%}
 
 You now have a fully populated Star Wars database ready to explore — characters, films, planets, starships, and species. Use it to try the full git-for-data workflow: what would have changed if Anakin Skywalker had turned to the Dark Side?
 

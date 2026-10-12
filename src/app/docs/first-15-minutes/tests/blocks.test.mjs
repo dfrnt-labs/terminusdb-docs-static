@@ -30,7 +30,6 @@
  *
  * Requirements:
  *   - TerminusDB running on localhost:6363
- *   - Internet access to data.terminusdb.org (for clone)
  */
 
 import assert from "node:assert/strict"
@@ -38,10 +37,7 @@ import assert from "node:assert/strict"
 const SERVER_URL = process.env.TERMINUSDB_URL || "http://localhost:6363"
 const AUTH_USER = process.env.TERMINUSDB_USER || "admin"
 const AUTH_KEY = process.env.TERMINUSDB_KEY || "root"
-const DB_NAME = "star-wars"
-const DB_PATH = `${AUTH_USER}/${DB_NAME}`
 const AUTH_HEADER = "Basic " + Buffer.from(`${AUTH_USER}:${AUTH_KEY}`).toString("base64")
-const REMOTE_AUTH = "Basic " + Buffer.from("public:public").toString("base64")
 
 // ============================================================================
 // Helpers
@@ -74,65 +70,6 @@ async function isServerReachable() {
   }
 }
 
-async function isRemoteReachable() {
-  try {
-    const res = await fetch("https://data.terminusdb.org/api/info", { signal: AbortSignal.timeout(5000) })
-    return res.status === 200
-  } catch {
-    return false
-  }
-}
-
-async function deleteDb(name) {
-  for (let attempt = 0; attempt < 5; attempt++) {
-    try {
-      const res = await apiCall("DELETE", `/api/db/${AUTH_USER}/${name}`)
-      if (res.status === 200 || res.status === 404) return
-      if (res.text && res.text.includes("NotFinalized")) {
-        await new Promise(r => setTimeout(r, 2000))
-        continue
-      }
-      return
-    } catch {
-      await new Promise(r => setTimeout(r, 1000))
-    }
-  }
-}
-
-async function waitForDb(name, maxWait = 15000) {
-  const start = Date.now()
-  while (Date.now() - start < maxWait) {
-    try {
-      const res = await apiCall("GET", `/api/document/${AUTH_USER}/${name}/local/branch/main?count=1&as_list=true`)
-      if (res.status === 200) return true
-      if (res.text && res.text.includes("NotFinalized")) {
-        await new Promise(r => setTimeout(r, 1000))
-        continue
-      }
-      return res.status !== 404
-    } catch {
-      await new Promise(r => setTimeout(r, 1000))
-    }
-  }
-  return false
-}
-
-async function ensureDbExists() {
-  const check = await apiCall("GET", `/api/document/${DB_PATH}/local/branch/main?count=1&as_list=true`)
-  if (check.status === 200) return true
-
-  const remoteOk = await isRemoteReachable()
-  if (!remoteOk) return false
-
-  await deleteDb(DB_NAME)
-  const cloneRes = await apiCall("POST", `/api/clone/${DB_PATH}`,
-    { "remote_url": "https://data.terminusdb.org/public/star-wars", "label": "star-wars", "comment": "Cloned for test" },
-    { "Authorization-Remote": REMOTE_AUTH }
-  )
-  if (cloneRes.status < 200 || cloneRes.status >= 300) return false
-  return await waitForDb(DB_NAME, 60000)
-}
-
 // ============================================================================
 // Tests — Exact code blocks from page.md
 // ============================================================================
@@ -144,9 +81,6 @@ describe("first-15-minutes — page code blocks", function () {
     this.timeout(90000)
     serverOk = await isServerReachable()
     if (!serverOk) return this.skip()
-
-    const dbReady = await ensureDbExists()
-    if (!dbReady) return this.skip()
   })
 
   // -------------------------------------------------------------------------
