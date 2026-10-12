@@ -64,9 +64,10 @@ export function Hero() {
                   href="/docs/start-here"
                   variant="primary-inverted"
                   size="lg"
-                >
+                  >
                   Get Started
                 </Button>
+                  {/* 
                 <Button
                   href="https://dfrnt.com/sign-up"
                   variant="secondary-outline"
@@ -74,6 +75,7 @@ export function Hero() {
                 >
                   Try Cloud Experience
                 </Button>
+                */}
               </div>
               <FreshnessIndicator
                 count={freshnessCount}

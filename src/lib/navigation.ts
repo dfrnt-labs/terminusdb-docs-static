@@ -1165,6 +1165,10 @@ export const navigation: Navigation[] = [
             href: '/docs/versioned-search-quickstart',
           },
           {
+            title: 'Embedded Engine',
+            href: '/docs/versioned-search-embedded',
+          },
+          {
             title: 'Indexing by Push',
             href: '/docs/versioned-search-indexing',
           },

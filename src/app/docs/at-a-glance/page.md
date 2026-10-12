@@ -16,7 +16,7 @@ nextjs:
 
 This page gives you a high-level overview of TerminusDB's capabilities — what it does, how it differs from other databases, and where to go next depending on your use case.
 
-**TerminusDB** is an open-source document graph database with built-in version control. It combines a [schema-enforced JSON document store](/docs/documents-explanation/) with a [knowledge graph](/docs/graphs-explanation/) engine, [git-like collaboration](/docs/git-for-data-reference/) (branch, diff, merge, clone), and [ACID transactions](/docs/acid-transactions-explanation/) backed by an [immutable storage layer](/docs/immutability-explanation/).
+**TerminusDB** is an open-source knowledge graph database with built-in version control. It combines a [schema-enforced JSON document store](/docs/documents-explanation/) with a [knowledge graph](/docs/graphs-explanation/) engine, [git-like collaboration](/docs/git-for-data-reference/) (branch, diff, merge, clone), and [ACID transactions](/docs/acid-transactions-explanation/) backed by an [immutable storage layer](/docs/immutability-explanation/).
 
 Three things make it distinctive:
 
@@ -30,7 +30,7 @@ TerminusDB is maintained by [DFRNT®](https://dfrnt.com?utm_source=terminusdb&ut
 
 ## Overview of the system
 
-* [A versatile document graph database](/docs/terminusdb-explanation/)
+* [A versatile knowledge graph database](/docs/terminusdb-explanation/)
 * [flexible headless content management system](/docs/document-graph-api/)
 
 ### Document graph paradigm

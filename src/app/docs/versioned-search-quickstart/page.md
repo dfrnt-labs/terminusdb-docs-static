@@ -32,6 +32,10 @@ By the end of this guide, you will have the search engine running, one commit in
 
 Bring up the stack, index one commit, and run a search. The whole thing takes about five minutes once the embedding model is pulled.
 
+{% callout type="note" %}
+**Running the engine embedded?** TerminusDB 12.1 can host VectorLink in-process — set `TERMINUSDB_INDEXER_BACKEND=vectorlink` and skip the `vectorlink` service entirely. You still need an embedding provider (the `embeddings` service in this quickstart works). See [Embedded VectorLink Engine](/docs/versioned-search-embedded/).
+{% /callout %}
+
 ## 1. Start the stack
 
 One command — no clone, no build. All three services use pre-built images:

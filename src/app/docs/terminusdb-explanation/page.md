@@ -7,7 +7,7 @@ nextjs:
   metadata:
     title: What is TerminusDB?
     keywords: terminusdb, what is terminusdb, git for data, document database version control, immutable database, graph database, branch merge data, terminusdb vs postgresql
-    description: TerminusDB is an open-source document graph database with built-in version control. Branch, diff, merge, and time-travel your data like Git — with ACID transactions.
+    description: TerminusDB is an open-source knowledge graph database with built-in version control. Branch, diff, merge, and time-travel your data like Git — with ACID transactions.
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -15,7 +15,7 @@ nextjs:
 media: []
 ---
 
-TerminusDB is an open-source document graph database with built-in version control. It stores JSON documents in a schema-enforced graph, tracks every change as an immutable delta layer, and supports branch, diff, merge, clone, and time-travel operations — like Git, but for structured data rather than files.
+TerminusDB is an open-source knowledge graph database with built-in version control. It stores JSON documents in a schema-enforced graph, tracks every change as an immutable delta layer, and supports branch, diff, merge, clone, and time-travel operations — like Git, but for structured data rather than files.
 
 TerminusDB is maintained by the team at [DFRNT](https://dfrnt.com) in collaboration with the open-source community. DFRNT assumed stewardship of the project in 2025.
 

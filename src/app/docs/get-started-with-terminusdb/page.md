@@ -15,7 +15,7 @@ nextjs:
 media: []
 ---
 
-TerminusDB is an open-source document graph database with a collaboration model providing Git-like features. It stores documents as [JSON documents](/docs/documents-explanation/) and the schema language connects these into a [graph](/docs/graphs-explanation/). It comes with [GraphQL](/docs/graphql-query-reference/), User Interface, [CLI](/docs/terminusdb-cli-commands/), [JavaScript](/docs/use-the-javascript-client/), and [Python Clients](/docs/use-the-python-client/).
+TerminusDB is an open-source knowledge graph database with a collaboration model providing Git-like features. It stores documents as [JSON documents](/docs/documents-explanation/) and the schema language connects these into a [graph](/docs/graphs-explanation/). It comes with [GraphQL](/docs/graphql-query-reference/), User Interface, [CLI](/docs/terminusdb-cli-commands/), [JavaScript](/docs/use-the-javascript-client/), and [Python Clients](/docs/use-the-python-client/).
 
 ## Starting overview
 

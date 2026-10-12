@@ -47,6 +47,8 @@ TerminusDB owns the data, the schema, and the commit history. Versioned Search o
 - The search engine embeds the text, stores vectors versioned per commit, and answers search queries.
 - TerminusDB fronts search requests — it authorises the caller, then proxies to the engine. The engine itself is a trusted component behind a shared admin secret, not directly exposed to end users.
 
+The engine can run **in-process inside TerminusDB** as a builtin plugin — set `TERMINUSDB_INDEXER_BACKEND=vectorlink` and no separate service is needed — or as a remote service reached over HTTP. Both modes share the same routes and indexing protocol; see [Embedded VectorLink Engine](/docs/versioned-search-embedded/) for the trade-offs.
+
 In production, TerminusDB drives indexing automatically. You can also drive the engine directly via API/`curl` for testing, debugging, or standalone use.
 
 ## What you can do with it
@@ -75,6 +77,7 @@ Results are ranked by **distance** in `[0, 1]`: `0` is identical, `0.5` is unrel
 
 - **[Concepts](/docs/versioned-search-concepts/)** — the vocabulary: domains, commits, branches, chunks, distance.
 - **[Quickstart](/docs/versioned-search-quickstart/)** — bring up the stack, index a commit, run a search in five minutes.
+- **[Embedded Engine](/docs/versioned-search-embedded/)** — run VectorLink inside TerminusDB as a builtin plugin; configuration, storage, and choosing embedded vs remote.
 - **[TerminusDB Push Indexing](/docs/versioned-search-indexing/)** — how TerminusDB automatically indexes documents via `store_indices`, with a worked example across three commits.
 - **[Searching](/docs/versioned-search-querying/)** — GET vs POST, modes, filters, pagination, and reading the response.
 - **[Clustering Embeddings](/docs/versioned-search-clustering/)** — a second embedding role for near-duplicate grouping and entity resolution.

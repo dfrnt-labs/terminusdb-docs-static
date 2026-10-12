@@ -1556,7 +1556,7 @@ Two special JSON types exist in TerminusDB. One is for use as field type, essent
 
 IDs for subdocuments of type `"sys:JSON"` are formed from a hash of the content internally, meaning that subdocuments share reference-counted storage if their content is the same; via deduplication and reference counting, for efficient triple-based storage.
 
-However, documents of type `"sys:JSONDocument"` are assigned a random id, such that they can be retrieved, modified etc. Alternatively they can be assigned an id by passing in an id of the form `{ "@id" : "JSONDocument/my_id_here", ...}`, where the `JSONDocument/` prefix makes JSON documents easy to recognize in the document graph database.
+However, documents of type `"sys:JSONDocument"` are assigned a random id, such that they can be retrieved, modified etc. Alternatively they can be assigned an id by passing in an id of the form `{ "@id" : "JSONDocument/my_id_here", ...}`, where the `JSONDocument/` prefix makes JSON documents easy to recognize in the knowledge graph database.
 
 `@id`, `@type`, and some other JSON-LD control properties (such as `@context`, `@value`) in `sys:JSON` and `sys:JSONDocument` documents receive special treatment to not interfere with JSON-LD processing. They are escaped by prefixing with an additional `@` sign (e.g., `@id` → `@@id`, `@type` → `@@type`) within the triple store. This escaping is transparent in the document interfaces and happens automatically during storage and retrieval. It enables any JSON to be stored as a document, even if it contains JSON-LD control properties, and to be processed as triples.
 

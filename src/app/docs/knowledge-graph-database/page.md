@@ -9,7 +9,7 @@ nextjs:
   metadata:
     title: The Open Source Knowledge Graph Database
     description: An instructional overview of TerminusDB as an open source knowledge graph database — a NoSQL graph database built on the closed world assumption of RDF, with an immutable history, ACID transactions, and a document-shaped class system that keeps related triples on a shared lifecycle.
-    keywords: open source knowledge graph database, knowledge graph database, NoSQL graph database, RDF database, closed world assumption, open world assumption, immutable database, ACID transactions, triple store, document graph database, subdocument, shared document, cascading delete, schema-enforced graph, JSON-LD database, terminusdb
+    keywords: open source knowledge graph database, knowledge graph database, NoSQL graph database, RDF database, closed world assumption, open world assumption, immutable database, ACID transactions, triple store, knowledge graph database, subdocument, shared document, cascading delete, schema-enforced graph, JSON-LD database, terminusdb
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

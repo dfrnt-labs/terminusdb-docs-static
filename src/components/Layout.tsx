@@ -61,7 +61,7 @@ export function Header() {
       <div className="relative flex basis-0 justify-end gap-6 sm:gap-8 md:grow">
         <TopicsButton />
         <ThemeSelector className="relative z-10" />
-        
+        {/* 
         <ScrollLink
           href="https://dfrnt.com/sign-up/"
           className="group"
@@ -69,7 +69,7 @@ export function Header() {
         >
           <span className="px-2 py-1 rounded-lg ring-1 dark:text-sky-200 dark:hover:text-sky-50  shadow-md hover:shadow-black/15 shadow-black/5 ring-black/5 dark:hover:ring-white/20 dark:bg-slate-700 dark:ring-white/5 dark:ring-inset text-sm font-semibold whitespace-nowrap uppercase">Sign up</span>
         </ScrollLink>
-        
+        */}
         <ScrollLink
           href="https://github.com/terminusdb/terminusdb"
           className="group"

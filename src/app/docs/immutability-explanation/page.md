@@ -8,7 +8,7 @@ nextjs:
   metadata:
     title: Immutable Database Explanation
     description: An explanation of how the TerminusDB immutable database with Git-like version control implements immutability, and handles deleted and new data.
-    keywords: db, document graph database, documents, immutable database, layers, json-ld
+    keywords: db, knowledge graph database, documents, immutable database, layers, json-ld
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:

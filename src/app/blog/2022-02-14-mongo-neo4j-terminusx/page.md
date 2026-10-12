@@ -4,7 +4,7 @@ date: 2022-02-14
 nextjs:
   metadata:
     title: What if MongoDB and Neo4j had a baby
-    description: "Discover how TerminusDB combines MongoDB's JSON document paradigm with Neo4j's graph capabilities for a unified document graph database."
+    description: "Discover how TerminusDB combines MongoDB's JSON document paradigm with Neo4j's graph capabilities for a unified knowledge graph database."
     keywords: document graph, MongoDB, Neo4j, JSON, graph database, NoSQL, RDF, JSON-LD, schema-first
     alternates:
       canonical: https://terminusdb.com/blog/2022-02-14-mongo-neo4j-terminusx/
