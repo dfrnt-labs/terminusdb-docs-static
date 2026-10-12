@@ -128,7 +128,7 @@ The server parses the body according to the declared Content-Type, resolves IRIs
 
 Blank nodes are used to ensure the correct shapes of documents to be imported. Note that the blank nodes are not stored in the graph, and are only used to facilitate transportation of the document structure. The schema holds the shape of the documents. 
 
-TwinfoxDB uses explicit id:s for subdocument structures that share their lifecycle with the "parent" document.
+TerminusDB Enterprise Edition uses explicit id:s for subdocument structures that share their lifecycle with the "parent" document.
 
 ## JSON-LD output modes
 

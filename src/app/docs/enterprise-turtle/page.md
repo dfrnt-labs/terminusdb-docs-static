@@ -9,7 +9,7 @@ title: Turtle Support
 nextjs:
   metadata:
     title: Turtle Support
-    description: How TwinfoxDB Enterprise serializes and parses Turtle (TTL) documents with prefix declarations, typed literals, subdocument nesting, and round-trip integrity.
+    description: How TerminusDB Enterprise Edition serializes and parses Turtle (TTL) documents with prefix declarations, typed literals, subdocument nesting, and round-trip integrity.
     keywords: turtle, ttl, rdf, prefix, typed literals, subdocument, enterprise, serialization
     alternates:
       canonical: https://terminusdb.com/docs/enterprise-turtle/

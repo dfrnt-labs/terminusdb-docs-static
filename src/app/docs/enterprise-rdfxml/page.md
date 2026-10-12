@@ -9,7 +9,7 @@ title: RDF/XML Support
 nextjs:
   metadata:
     title: RDF/XML Support
-    description: How TwinfoxDB Enterprise serializes and parses RDF/XML documents with proper namespace declarations, typed literals, subdocument nesting, and round-trip integrity.
+    description: How TerminusDB Enterprise Edition serializes and parses RDF/XML documents with proper namespace declarations, typed literals, subdocument nesting, and round-trip integrity.
     keywords: rdf xml, rdf, xml, namespace, typed literals, subdocument, enterprise, serialization
     alternates:
       canonical: https://terminusdb.com/docs/enterprise-rdfxml/

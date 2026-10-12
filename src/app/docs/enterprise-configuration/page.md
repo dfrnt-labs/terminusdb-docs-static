@@ -8,7 +8,7 @@ title: Enterprise Configuration Reference
 nextjs:
   metadata:
     title: Enterprise Configuration Reference
-    description: Complete reference for all TwinfoxDB Enterprise environment variables covering context caching, remote context processing, LRU cache tuning, and feature activation.
+    description: Complete reference for all TerminusDB Enterprise Edition environment variables covering context caching, remote context processing, LRU cache tuning, and feature activation.
     keywords: configuration, environment variables, enterprise, context cache, lru cache, tuning, reference
     alternates:
       canonical: https://terminusdb.com/docs/enterprise-configuration/

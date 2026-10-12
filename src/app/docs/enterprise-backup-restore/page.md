@@ -8,7 +8,7 @@ title: Backup & Restore
 nextjs:
   metadata:
     title: Backup & Restore
-    description: How to use the TwinfoxDB Enterprise bundle and unbundle API endpoints for database backup, restore, migration, and disaster recovery.
+    description: How to use the TerminusDB Enterprise Edition bundle and unbundle API endpoints for database backup, restore, migration, and disaster recovery.
     keywords: backup, restore, bundle, unbundle, migration, disaster recovery, enterprise, api
     alternates:
       canonical: https://terminusdb.com/docs/enterprise-backup-restore/
