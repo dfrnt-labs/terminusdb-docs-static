@@ -4,7 +4,7 @@ import { useRef, useEffect, useCallback } from "react"
 import { useConnection } from "./ConnectionContext"
 import { ConnectionIcon } from "./ConnectionIcon"
 
-const DEFAULT_DOCKER_COMMAND = "docker run --rm -p 6363:6363 terminusdb/terminusdb"
+const DEFAULT_DOCKER_COMMAND = "docker run --rm -p 6363:6363 terminusdb/terminusdb-server"
 
 interface PrerequisitesConnectedProps {
   /** Example database required by this page (placeholder for future Task #30) */

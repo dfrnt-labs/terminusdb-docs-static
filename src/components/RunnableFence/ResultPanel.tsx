@@ -487,7 +487,7 @@ function OfflineBody({ serverUrl }: { serverUrl: string }) {
           <p className="text-sm text-slate-600 dark:text-slate-400">Start a local instance:</p>
           <div className="rounded border border-slate-300 dark:border-slate-600 bg-slate-900 px-3 py-2">
             <code className="text-xs text-emerald-300 font-mono">
-              docker run --rm -p 6363:6363 terminusdb/terminusdb
+              docker run --rm -p 6363:6363 terminusdb/terminusdb-server
             </code>
           </div>
         </>

@@ -106,7 +106,7 @@ You need [Docker](https://docs.docker.com/get-docker/) installed. Then start Ter
 ```bash
 docker run --pull always -d -p 127.0.0.1:6363:6363 \
   -v terminusdb_storage:/app/terminusdb/storage \
-  --name terminusdb terminusdb/terminusdb-server:v12
+  --name terminusdb terminusdb/terminusdb-server
 ```
 
 Confirm it is running (you should see a JSON response with version information):

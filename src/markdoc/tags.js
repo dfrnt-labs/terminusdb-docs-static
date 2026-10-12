@@ -19,6 +19,7 @@ import { HttpWoql } from '@/components/HttpExample/HttpWoql'
 import { Prerequisites } from '@/components/Prerequisites'
 import { PrerequisitesConnected } from '@/components/ConnectionSettings/PrerequisitesConnected'
 import { PrerequisitesClone } from '@/components/PrerequisitesClone'
+import { ResourceSetup } from '@/components/ResourceSetup'
 
 const tags = {
   callout: {
@@ -246,6 +247,19 @@ const tags = {
       command: { type: String },
       database: { type: String, default: 'tdb-example-mydb' },
       skipToAnchor: { type: String },
+    },
+  },
+  'resource-setup': {
+    selfClosing: true,
+    render: ResourceSetup,
+    attributes: {
+      users: { type: String },
+      organization: { type: String },
+      database: { type: String },
+      role: { type: String },
+      roleActions: { type: String },
+      password: { type: String },
+      label: { type: String },
     },
   },
   'http-example': {
