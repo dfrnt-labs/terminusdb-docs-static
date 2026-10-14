@@ -78,7 +78,7 @@ When a result's content is literally identical to the query text, the reported d
 
 ## Embedding
 
-The engine **owns its embedding model** and runs it locally. By default, it uses a CPU model (`nomic-ai/nomic-embed-text-v2-moe`, 768 dimensions, multilingual) served by a local Ollama sidecar. The whole stack works offline after a one-time model pull.
+The engine **owns its embedding model** and runs it locally. By default, it uses a CPU model (`multilingual-e5-base`, 768 dimensions, multilingual) served by a local Ollama sidecar. The whole stack works offline after a one-time model pull.
 
 You never pass an embedding key on a search request — the model is the engine's own configuration. The only per-request credential is the admin secret.
 
@@ -88,7 +88,7 @@ The default model uses task prefixes (`search_document:` for indexed text, `sear
 
 The embedding provider is configurable:
 
-- **Local CPU (default)** — Ollama sidecar serving `nomic-embed-text-v2-moe` (GGUF, Q8_0). ARM64-native, runs on CPU, no external network after the one-time model pull.
+- **Local CPU (default)** — Ollama sidecar serving `multilingual-e5-base` (GGUF, Q8_0). Native, runs on local CPU, no external network after the one-time model pull.
 - **Direct OpenAI** — `api.openai.com` for parity with the original VectorLink.
 - **Generic / OpenAI-compatible HTTP** — any embeddings endpoint with configurable base URL, model, and dimension (e.g. TEI or vLLM).
 

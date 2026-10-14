@@ -89,7 +89,7 @@ curl -u admin:root -X POST \
 # task-7f3a9c
 ```
 
-A push already in progress for the same `(domain, branch)` is rejected with `409`.
+A commit can only be indexed once: pushing a `target_commit` that is already in-flight or already indexed is rejected with `409` — the first push wins. A failed push releases the reservation, so retrying a failed commit is fine.
 
 ### `GET /check`
 
@@ -297,23 +297,23 @@ An empty result array always means "genuinely nothing matched" — never a hidde
 
 ## Configuration
 
-Resolution order per setting: **command-line flag > environment variable > built-in default**. Invalid or missing-required values fail at startup.
+All settings are environment variables; there are no command-line flags. Invalid or missing-required values fail at startup.
 
-| Setting | Flag | Env | Default |
-|---------|------|-----|---------|
-| storage directory | `--directory` | `VECTORLINK_DATA_DIR` | `/data` |
-| listen port | `--port` | `VECTORLINK_PORT` | `7372` |
-| embedding provider | `--provider` | `VECTORLINK_EMBED_PROVIDER` | `openai_compatible` |
-| provider URL | `--embed-url` | `VECTORLINK_EMBED_URL` | `http://localhost:11434` |
-| embedding model | `--model` | `VECTORLINK_MODEL` | `nomic-embed-text-v2-moe` |
-| embedding dimension | `--dim` | `VECTORLINK_DIM` | `768` (Matryoshka — 256/512/128/64 also valid; fixed per index once created) |
-| provider key | `--embed-key` | `VECTORLINK_EMBED_KEY` / `OPENAI_API_KEY` | — |
-| admin user | `--admin-user` | `VECTORLINK_ADMIN_USER` | `admin` |
-| admin secret | `--admin-secret` | `VECTORLINK_ADMIN_SECRET` | `root` |
+| Setting | Env | Default |
+|---------|-----|---------|
+| storage directory | `VECTORLINK_DATA_DIR` | `/data` |
+| listen port | `VECTORLINK_PORT` | `7372` |
+| embedding provider | `VECTORLINK_EMBED_PROVIDER` | `openai_compatible` |
+| provider URL | `VECTORLINK_EMBED_URL` | `http://localhost:11434` |
+| embedding model | `VECTORLINK_MODEL` | `multilingual-e5-base` |
+| embedding dimension | `VECTORLINK_DIM` | `768` (fixed per index once created) |
+| provider key | `VECTORLINK_EMBED_API_KEY` | — |
+| admin user | `VECTORLINK_ADMIN_USER` | `admin` |
+| admin secret | `VECTORLINK_ADMIN_SECRET` | _required — no default_ |
 
 The embedding dimension is fixed when an index is first created and is immutable. A query whose embedding dimension doesn't match the index fails loudly (`409`) — it is never silently padded.
 
-> `nomic-embed-text-v2-moe` is Matryoshka-trained, so you can set `--dim 256` (or 512, 128, 64) at first index for smaller vectors with minimal quality loss — useful at scale when storage and latency matter. The default 768 is the right choice unless you have a reason to change it, but if you do, set it once before the first push: changing it later requires a full reindex.
+> The default `multilingual-e5-base` is fixed at 768 dimensions. If you switch to a Matryoshka-trained model such as `nomic-embed-text-v2-moe`, a smaller `VECTORLINK_DIM` (256/512/128/64) is valid at first index and saves storage and latency at scale. Whatever you choose, the dimension is set once before the first push — changing it later requires a full reindex.
 
 ## Local and cloud deployment
 
@@ -321,27 +321,26 @@ The engine runs the same binary locally and in the cloud for the **embedding** s
 
 ## Asymmetric model prefix handling
 
-The default model — `nomic-embed-text-v2-moe` — is an **asymmetric** embedding model. It expects a task prefix prepended to the input text, and the correct prefix depends on whether the text is being indexed (corpus side) or queried (retrieval side). Getting this wrong silently degrades retrieval quality — you still get results, they are just worse, and nothing tells you why.
+The default model — `multilingual-e5-base` — is an **asymmetric** embedding model. It expects a task prefix prepended to the input text, and the correct prefix depends on whether the text is being indexed (corpus side) or queried (retrieval side). Getting this wrong silently degrades retrieval quality — you still get results, they are just worse, and nothing tells you why.
 
-The engine applies the correct prefix automatically based on the endpoint and operation context. You never write `search_query:` or `search_document:` yourself — the engine applies the correct prefix based on which endpoint you call.
+The engine applies the correct prefix automatically based on the endpoint and operation context. You never write `query:` or `passage:` (or a nomic `search_query:`) yourself — the engine maps each endpoint to a role, then applies the model's prefix for that role.
 
-| Endpoint | Role | Prefix applied | Why |
-|----------|------|-----------------|-----|
-| `POST /push` | Document | `search_document: ` | Text is being indexed into the corpus. |
-| `GET /search`, `POST /search` | Query | `search_query: ` | Text is a retrieval query against the corpus. |
-| `POST /similar` (by text) | Document | `search_document: ` | Text is treated as a document probe for document-to-document similarity. |
-| `GET /similar` (by id) | — | none | No embedding needed — reuses the stored vector. |
-| `GET /duplicates` | Clustering | `clustering: ` | Symmetric comparison for near-duplicate grouping. |
-| `POST /candidates` | Clustering | `clustering: ` | Symmetric KNN gather for entity resolution. |
-| `POST /compare` | Configurable | default: `search_query:` → `search_document:` | Asymmetric by default. Pass `role=clustering`, `role=classification`, or `role=document` for symmetric comparison. |
+| Endpoint | Role | e5 prefix | nomic prefix | Why |
+|----------|------|-----------|--------------|-----|
+| `POST /push` | Document | `passage: ` | `search_document: ` | Text is being indexed into the corpus. |
+| `GET /search`, `POST /search` | Query | `query: ` | `search_query: ` | Text is a retrieval query against the corpus. |
+| `POST /similar` (by text) | Document | `passage: ` | `search_document: ` | Text is treated as a document probe for document-to-document similarity. |
+| `GET /similar` (by id) | — | none | none | No embedding needed — reuses the stored vector. |
+| `GET /duplicates` | Clustering | `query: ` | `clustering: ` | Symmetric comparison for near-duplicate grouping. |
+| `POST /candidates` | Clustering | `query: ` | `clustering: ` | Symmetric KNN gather for entity resolution. |
+| `POST /compare` | Configurable | `query:` → `passage:` | `search_query:` → `search_document:` | Asymmetric by default. Pass `role=clustering`, `role=classification`, or `role=document` for symmetric comparison. |
 
 Models without known prefixes (any model not in the table below) are embedded as-is — no prefix is applied.
 
 | Model | Prefixes recognised |
 |-------|---------------------|
-| `nomic-ai/nomic-embed-text-v2-moe` | `search_document:`, `search_query:`, `clustering:`, `classification:` |
-| `nomic-embed-text-v2-moe` | same as above |
-| `nomic-embed-v2` | same as above |
-| `nomic-ai/nomic-embed-text-v1.5` | same as above |
+| `intfloat/multilingual-e5-base`, `multilingual-e5-base` | `passage:` (document), `query:` (query, clustering, classification) |
+| `nomic-ai/nomic-embed-text-v2-moe`, `nomic-embed-text-v2-moe` | `search_document:`, `search_query:`, `clustering:`, `classification:` |
+| `nomic-embed-v2`, `nomic-ai/nomic-embed-text-v1.5` | same as above |
 
 The full machine-readable contract is the OpenAPI document in the `vectorlink` repository (`openapi.yaml`).

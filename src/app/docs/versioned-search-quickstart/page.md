@@ -49,7 +49,7 @@ This starts three services on CPU, with no external network after the one-time m
 
 - `terminusdb` — a TerminusDB server on `:6365` (with the indexer plugin that auto-pushes to VectorLink)
 - `vectorlink` — the search engine (HTTP API on `:7372`)
-- `embeddings` — a local embedding model server (Ollama serving `nomic-embed-text-v2-moe`)
+- `embeddings` — a local embedding model server (Ollama serving `multilingual-e5-base`)
 
 Stop everything with `docker compose -p vectorlink-quickstart down`.
 
@@ -144,13 +144,13 @@ In production, TerminusDB performs steps 1–2 automatically after each commit. 
 
 ## Asymmetric model prefixes (automatic)
 
-The default embedding model — `nomic-embed-text-v2-moe` — is an **asymmetric** model. It expects different text prefixes depending on whether you are indexing a document or running a query:
+The default embedding model — `multilingual-e5-base` — is an **asymmetric** model. It expects different text prefixes depending on whether you are indexing a document or running a query:
 
 - Documents being indexed get `search_document: ` prepended automatically.
 - Search queries get `search_query: ` prepended automatically.
 - Duplicate detection and entity resolution use `clustering: ` automatically.
 
-You never write `search_query:` or `search_document:` yourself — the engine applies the correct prefix based on which endpoint you call. Getting this wrong is the most common silent quality killer with asymmetric models (e5, bge, and nomic all share this failure mode), so the engine handles it for you.
+You never write `query:` or `passage:` yourself — the engine applies the correct prefix based on which endpoint you call. Getting this wrong is the most common silent quality killer with asymmetric models (e5, bge, and nomic all share this failure mode), so the engine handles it for you.
 
 ## Cleanup
 

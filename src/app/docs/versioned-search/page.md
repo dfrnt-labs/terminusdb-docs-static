@@ -61,7 +61,7 @@ In production, TerminusDB drives indexing automatically. You can also drive the 
 - **Typeahead suggestions** — fast full-text-only autocomplete for UI search boxes.
 - **Per-commit snapshots** — search any commit in history and get reproducible results.
 - **Branch-aware indexing** — branches share parent vectors; each branch sees only its own lineage.
-- **Automatic asymmetric model support** — the default model (TBD, `nomic-embed-text-v2-moe` for now) uses different text prefixes for indexing versus querying. The engine applies the correct prefix automatically based on the operation context, so you never have to manage `search_document:` / `search_query:` prefixes by hand. Getting this wrong is the most common silent retrieval quality killer with asymmetric models, so the engine eliminates the footgun entirely.
+- **Automatic asymmetric model support** — the default model (`multilingual-e5-base`) uses different text prefixes for indexing versus querying. The engine applies the correct prefix automatically based on the operation context, so you never have to manage `passage:` / `query:` prefixes by hand. Getting this wrong is the most common silent retrieval quality killer with asymmetric models, so the engine eliminates the footgun entirely.
 
 ## Search modes at a glance
 

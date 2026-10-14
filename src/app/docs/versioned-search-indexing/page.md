@@ -286,6 +286,10 @@ The hook is optimised for the common case — document-only commits skip all sch
 
 Without `store_indices`, indexing is skipped entirely — the hook is a cheap no-op (two config checks and a fail).
 
+{% callout type="warning" %}
+**A commit can only be indexed once.** The first `/push` for a commit wins: VectorLink reserves it while indexing and marks it indexed when done. A second push for the same commit is rejected with `409` (`commit already pushed (in-flight or indexed)`). With `store_indices` on, the auto-indexer claims every commit as it lands — including schema-only commits, which push with zero documents — so a manual `/push` for a commit the indexer already claimed always fails. Push directly only for databases where `store_indices` is off, and only for commits the indexer has never seen.
+{% endcallout %}
+
 ## The NDJSON protocol
 
 When TerminusDB pushes to VectorLink, each line in the NDJSON body is one tagged operation:
