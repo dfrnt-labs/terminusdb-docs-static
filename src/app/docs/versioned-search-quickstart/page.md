@@ -146,8 +146,8 @@ In production, TerminusDB performs steps 1–2 automatically after each commit. 
 
 The default embedding model — `multilingual-e5-base` — is an **asymmetric** model. It expects different text prefixes depending on whether you are indexing a document or running a query:
 
-- Documents being indexed get `search_document: ` prepended automatically.
-- Search queries get `search_query: ` prepended automatically.
+- Documents being indexed get `passage: ` prepended automatically.
+- Search queries get `query: ` prepended automatically.
 - Duplicate detection and entity resolution use `clustering: ` automatically.
 
 You never write `query:` or `passage:` yourself — the engine applies the correct prefix based on which endpoint you call. Getting this wrong is the most common silent quality killer with asymmetric models (e5, bge, and nomic all share this failure mode), so the engine handles it for you.

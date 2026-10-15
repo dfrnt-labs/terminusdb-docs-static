@@ -40,7 +40,7 @@ Plugins in TerminusDB:
 - Run in the context of the compiled TerminusDB binary
 
 {% callout type="note" %}
-Builtin does not mean always active — a shipped plugin may still be gated behind an environment variable. For example `auto-optimize` loads but stays inert unless `TERMINUSDB_ENABLE_OPTIMIZER=1`, and the vectorlink plugin only serves search when `TERMINUSDB_INDEXER_BACKEND=vectorlink` selects the embedded engine.
+Builtin does not mean always active — a shipped plugin may still be gated behind an environment variable. For example `auto-optimize` runs by default but can be disabled with `TERMINUSDB_ENABLE_OPTIMIZER=0` (test harnesses do this for deterministic data versions), and the vectorlink plugin only serves search when `TERMINUSDB_INDEXER_BACKEND=vectorlink` selects the embedded engine.
 {% /callout %}
 
 ### Important: Module Loading for Plugins

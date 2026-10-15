@@ -1173,6 +1173,10 @@ export const navigation: Navigation[] = [
             href: '/docs/versioned-search-indexing',
           },
           {
+            title: 'Embeddings Field Guide',
+            href: '/docs/versioned-search-embeddings',
+          },
+          {
             title: 'Searching',
             href: '/docs/versioned-search-querying',
           },

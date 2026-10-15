@@ -75,8 +75,15 @@ If indexing is enabled (`store_indices` in the schema — see [TerminusDB Push I
 | `VECTORLINK_DIM` | Embedding dimensionality | `768` |
 | `VECTORLINK_EMBED_API_KEY` | Bearer token for providers that require one (e.g. OpenAI). Optional and never persisted | unset |
 | `VECTORLINK_TOKENIZER_PATH` | Tokenizer file for chunking — must match the embedding model. Ships at `builtin_plugins/assets/tokenizer.json.bz2` and is found automatically | shipped asset for the default model |
+| `VECTORLINK_EMBED_CACHE_SIZE` | Max entries in the disk-backed embedding cache; `none` disables it | `20000` |
 
 Any endpoint that answers `POST /v1/embeddings` with an OpenAI-shaped response works. For a local Ollama sidecar use `VECTORLINK_EMBED_URL=http://<ollama-host>:11434` with `VECTORLINK_MODEL=multilingual-e5-base` and `VECTORLINK_DIM=768`. For OpenAI use `VECTORLINK_EMBED_PROVIDER=openai`, `VECTORLINK_EMBED_URL=https://api.openai.com`, `VECTORLINK_MODEL=text-embedding-3-small`, `VECTORLINK_DIM=1536`, and set `VECTORLINK_EMBED_API_KEY` to your key.
+
+### Embedding cache
+
+Every embedded text is cached on disk (zstd-compressed vectors in a sled store, keyed by the SHA-256 of model name + prefixed text). A text that was embedded before — including in an earlier commit or after a reindex — returns from cache without hitting the provider.
+
+With a local model on CPU, embedding is the slowest part of ingestion by far. For a bulk load, set `VECTORLINK_EMBED_CACHE_SIZE` to cover the number of distinct texts you expect to embed — repeated templates, unchanged fields across reindex runs, and retried pushes then cost nothing. Each entry holds one compressed 768-dim vector, so a few million entries cost a few GB: size the cache to the corpus, and leave room for it on the same disk as `TERMINUSDB_VECTORLINK_DATA_DIR` (or `VECTORLINK_DATA_DIR` standalone). Set it to `none` to disable caching entirely.
 
 ### Embedding parameters are locked
 
@@ -103,7 +110,7 @@ The embedded engine arrives through a structural change: TerminusDB now loads pl
 - `builtin_plugins/` — shipped with the server, always loaded, versioned with the release. This is where the vectorlink fronting plugin (`vectorlink.pl`), `search_resolve.pl`, the webserver plugins, and `auto-optimize.pl` live. Path override: `TERMINUSDB_BUILTIN_PLUGINS_PATH`.
 - `plugins/` — operator-installed extensions under the storage path. Path override: `TERMINUSDB_PLUGINS_PATH`.
 
-Being builtin does not mean always active. `auto-optimize` is loaded but stays inert unless `TERMINUSDB_ENABLE_OPTIMIZER=1` is set, because it optimises probabilistically after commits and can perturb timing-sensitive tests. VectorLink follows the same pattern: the plugin is always present, but it only registers its search behaviour when the `vectorlink` backend is selected.
+Being builtin does not mean always active. `auto-optimize` runs by default — optimisation should happen in production — but test harnesses set `TERMINUSDB_ENABLE_OPTIMIZER=0` because it optimises probabilistically after commits and can perturb timing-sensitive tests. VectorLink follows a different pattern: the plugin is always present, but it only registers its search behaviour when the `vectorlink` backend is selected.
 
 ## Embedded vs remote: choosing
 

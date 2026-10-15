@@ -82,7 +82,7 @@ The engine **owns its embedding model** and runs it locally. By default, it uses
 
 You never pass an embedding key on a search request — the model is the engine's own configuration. The only per-request credential is the admin secret.
 
-The default model uses task prefixes (`search_document:` for indexed text, `search_query:` for queries). The engine injects these automatically from a hard-coded, model-keyed table, so they cannot be misconfigured per deployment.
+The default model uses task prefixes (`passage:` for indexed text, `query:` for queries). The engine injects these automatically from a hard-coded, model-keyed table, so they cannot be misconfigured per deployment.
 
 ### Configurable providers
 
