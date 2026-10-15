@@ -12,7 +12,7 @@ nextjs:
     description: TerminusDB is an open-source graph document database with Git-style commits, branches, diffs, merges and clone/push/pull built into the storage engine — version control for production JSON data, not just source code.
     keywords: database version control, git-like database, database with version control, git-like version control database, git for data, versioned database, graph database, branching database, production data versioning, immutable database, data provenance, terminusdb, document graph database
     openGraph:
-      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/terminusdb-knowledge-graph-database-og.png
     alternates:
       canonical: https://terminusdb.com/docs/graph-database-with-git-like-version-control/
 media: []
