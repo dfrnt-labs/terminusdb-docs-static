@@ -134,7 +134,7 @@ WOQL.typecast(
 
 ```javascript
 WOQL.typecast(v.interval, "xsd:string", v.str)
-// v.str = "2025-01-01T00:00:00Z/2025-04-02T00:00:00Z"
+// v.str = "2025-01-01T00:00:00Z/2025-04-01T00:00:00Z"
 ```
 
 ---

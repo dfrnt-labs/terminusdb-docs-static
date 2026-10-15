@@ -1,13 +1,13 @@
 ---
 nextjs:
   metadata:
-    title: TerminusDB Knowledge Graph Database with Version Control
+    title: Knowledge Graph Database with Version Control
     description: TerminusDB is a Knowledge Graph Database with version control, vector search, distributed git-for-data collaboration, datalog, and RDF semantics.
     alternates:
       canonical: https://terminusdb.com
     keywords: knowledge graph, database, version control, git-for-data, graph, RDF, JSON, document
     openGraph:
-      title: TerminusDB Knowledge Graph Database with Version Control
+      title: Knowledge Graph Database with Version Control
       description: TerminusDB is a Knowledge Graph Database with version control, vector search, distributed git-for-data collaboration, datalog, and RDF semantics.
       url: https://terminusdb.com
       siteName: TerminusDB
@@ -15,12 +15,12 @@ nextjs:
         - url: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
           width: 1200
           height: 630
-          alt: TerminusDB Knowledge Graph Database with Version Control
+          alt: Knowledge Graph Database with Version Control
       locale: en_US
       type: website
     twitter:
       card: summary_large_image
-      title: TerminusDB Knowledge Graph Database with Version Control
+      title: Knowledge Graph Database with Version Control
       description: TerminusDB is a Knowledge Graph Database with version control, vector search, distributed git-for-data collaboration, datalog, and RDF semantics.
       images:
         - https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
