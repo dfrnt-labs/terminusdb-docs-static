@@ -434,7 +434,7 @@ Contact [Gettier](https://gettier.ai?utm_source=terminusdb) for enterprise suppo
 ## Join the Community
 
 - [GitHub](https://github.com/terminusdb/terminusdb) — Star the repo, report issues, contribute
-- [Discord](https://discord.gg/terminusdb) — Real-time discussion with maintainers and users
+- [Discord](https://discord.gg/GZ5gaCmBHc) — Real-time discussion with maintainers and users
 - [Stack Overflow](https://stackoverflow.com/questions/tagged/terminusdb) — Technical Q&A
 
 We welcome feedback on version 12. Whether you're upgrading an existing deployment or evaluating TerminusDB for a new project, we'd like to hear about your experience.
