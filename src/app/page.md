@@ -2,13 +2,13 @@
 nextjs:
   metadata:
     title: Knowledge Graph Database with Version Control
-    description: TerminusDB is a Knowledge Graph Database with version control, vector search, distributed git-for-data collaboration, datalog, and RDF semantics.
+    description: TerminusDB is the open source knowledge graph database with git-like version control. Branch, merge and diff your data, with datalog, vector search and RDF.
     alternates:
       canonical: https://terminusdb.com
     keywords: knowledge graph, database, version control, git-for-data, graph, RDF, JSON, document
     openGraph:
-      title: Knowledge Graph Database with Version Control
-      description: TerminusDB is a Knowledge Graph Database with version control, vector search, distributed git-for-data collaboration, datalog, and RDF semantics.
+      title: Open Source Knowledge Graph Database with Version Control
+      description: TerminusDB is the open source knowledge graph database with git-like version control. Branch, merge and diff your data, with datalog, vector search and RDF.
       url: https://terminusdb.com
       siteName: TerminusDB
       images:
@@ -20,8 +20,8 @@ nextjs:
       type: website
     twitter:
       card: summary_large_image
-      title: Knowledge Graph Database with Version Control
-      description: TerminusDB is a Knowledge Graph Database with version control, vector search, distributed git-for-data collaboration, datalog, and RDF semantics.
+      title: Open Source Knowledge Graph Database with Version Control
+      description: TerminusDB is the open source knowledge graph database with git-like version control. Branch, merge and diff your data, with datalog, vector search and RDF.
       images:
         - https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
 ---
