@@ -5,6 +5,7 @@ import yaml from 'js-yaml'
 import { DocsLayout } from '@/components/DocsLayout'
 import { RunnableFence } from '@/components/RunnableFence'
 import { TableWrapper } from '@/components/TableWrapper'
+import { TrackedLink } from '@/components/TrackedLink'
 
 let documentSlugifyMap = new Map()
 
@@ -40,6 +41,10 @@ const nodes = {
         children,
       )
     },
+  },
+  link: {
+    ...defaultNodes.link,
+    render: TrackedLink,
   },
   table: {
     ...defaultNodes.table,
