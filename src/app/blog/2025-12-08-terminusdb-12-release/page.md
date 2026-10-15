@@ -15,9 +15,9 @@ nextjs:
 media: []
 ---
 
-> Author: Philippe Höij, DFRNT, 2025-12-08
+> Author: Philippe Höij, Gettier, 2025-12-08
 
-The release of TerminusDB 12 marks both a technical milestone and an organizational shift. [DFRNT](https://dfrnt.com?utm_source=terminusdb) assumed maintainership of TerminusDB during 2025, and this major release reflects our commitment to precision, reliability, and developer experience. The on-disk storage format remains unchanged since version 11, ensuring a smooth upgrade path, but the improvements to interfaces, numerical handling, and query capabilities are substantial.
+The release of TerminusDB 12 marks both a technical milestone and an organizational shift. [Gettier](https://gettier.ai?utm_source=terminusdb) assumed maintainership of TerminusDB during 2025, and this major release reflects our commitment to precision, reliability, and developer experience. The on-disk storage format remains unchanged since version 11, ensuring a smooth upgrade path, but the improvements to interfaces, numerical handling, and query capabilities are substantial.
 
 This release addresses real problems that practitioners face: financial applications demanding exact decimal arithmetic, teams needing to version unstructured JSON alongside structured data, and developers wanting more expressive query capabilities. If you work with data where precision matters, where schema evolution is a fact of life, or where you need git-style versioning for your knowledge graphs, version 12 deserves your attention.
 
@@ -422,14 +422,14 @@ TerminusDB 12 establishes a foundation for upcoming work:
 
 ## Commercial Support
 
-DFRNT provides commercial support for TerminusDB, including:
+Gettier provides commercial support for TerminusDB, including:
 
 - Production deployment assistance, including private cloud deployments on Azure and AWS
 - Custom development and integration, adding features required by customers
 - Training and consulting in collaboration with our partners
 - Priority issue resolution, maintenance and support.
 
-Contact [DFRNT](https://dfrnt.com?utm_source=terminusdb) for enterprise support options.
+Contact [Gettier](https://gettier.ai?utm_source=terminusdb) for enterprise support options.
 
 ## Join the Community
 
