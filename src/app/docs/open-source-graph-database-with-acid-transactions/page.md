@@ -12,7 +12,7 @@ nextjs:
     description: TerminusDB is an Apache 2.0 open-source graph document database where every write is a fully ACID commit — atomic, schema-validated, isolated and durable by construction. Runnable proof included.
     keywords: open source graph database, acid transactions, graph database acid, acid compliant database, document graph database, apache 2.0 database, atomic transactions, schema validation, immutable database, terminusdb
     openGraph:
-      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/terminusdb-knowledge-graph-database-og.png
     alternates:
       canonical: https://terminusdb.com/docs/open-source-graph-database-with-acid-transactions/
 media: []

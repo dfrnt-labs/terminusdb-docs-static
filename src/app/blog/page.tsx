@@ -1,6 +1,16 @@
 import { getAllBlogPosts, formatBlogDate } from '@/lib/blog'
 import { RecentBlogPosts } from '@/components/RecentBlogPosts'
 import { ScrollLink } from '@/components/ScrollLink'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'TerminusDB Blog: Releases, Graph Databases and Git for Data',
+  description:
+    'Release notes, technical articles and design notes from the TerminusDB team: knowledge graphs, version control for data, Datalog and more.',
+  alternates: {
+    canonical: 'https://terminusdb.com/blog/',
+  },
+}
 
 export default async function BlogIndex() {
   // Automatically read blog posts from markdown files in /blog directory

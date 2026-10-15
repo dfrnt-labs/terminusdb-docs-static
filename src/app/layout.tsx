@@ -32,9 +32,6 @@ export const metadata: Metadata = {
   description:
     'TerminusDB is a Semantic Document Graph Database; model-based, in-memory and distributed RDF+JSON knowledge graph database with git-for-data collaboration',
   metadataBase: new URL('https://terminusdb.com'),
-  alternates: {
-    canonical: '/',
-  },
 }
 
 export default function RootLayout({

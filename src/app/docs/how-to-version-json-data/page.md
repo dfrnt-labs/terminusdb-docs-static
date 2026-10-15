@@ -12,7 +12,7 @@ nextjs:
     description: Version JSON documents with Git-style commits, branches, diffs and full history. Step-by-step guide with runnable curl and TypeScript examples against TerminusDB.
     keywords: version json data, json versioning, json version control, document versioning, database history, data versioning, git for data, versioned database, json diff, immutable database, audit trail, terminusdb
     openGraph:
-      images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+      images: https://assets.terminusdb.com/docs/terminusdb-knowledge-graph-database-og.png
     alternates:
       canonical: https://terminusdb.com/docs/how-to-version-json-data/
 media: []
