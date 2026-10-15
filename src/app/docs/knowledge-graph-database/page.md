@@ -31,7 +31,7 @@ A **knowledge graph database** is a graph database that does three things at the
 
 That third property is what separates a knowledge graph database from a pure triple store, and what makes it usable as a system of record rather than only a search index.
 
-Traditionally, a Knowledge Graph was distinct from a Graph Database. With TerminusDB, you get both an RDF Knowledge Graph, and a Graph Database, all in one. With [ACID transactions](/docs/architecture/acid-transactions) and [full version control](/docs/architecture/version-control).
+Traditionally, a Knowledge Graph was distinct from a Graph Database. With TerminusDB, you get both an RDF Knowledge Graph, and a Graph Database, all in one. With [ACID transactions](/docs/acid-transactions-explanation/) and [full version control](/docs/knowledge-graph-database-version-control/).
 
 ## The two ends of the spectrum it sits between
 

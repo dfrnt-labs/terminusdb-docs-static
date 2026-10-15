@@ -7,7 +7,7 @@ nextjs:
     description: "TerminusDB 12 introduces high-precision decimals for financial applications, unstructured JSON support with git-for-data versioning, and significant WOQL language improvements."
     keywords: TerminusDB 12, release, high precision decimals, WOQL, graph database, git for data, financial precision, xsd:decimal, rationals
     alternates:
-      canonical: https://terminusdb.com/blog/terminusdb-12-release/
+      canonical: https://terminusdb.com/blog/2025-12-08-terminusdb-12-release/
     openGraph:
       type: article
       publishedTime: "2025-12-08T00:00:00Z"
@@ -388,7 +388,7 @@ docker run -d -p 6363:6363 \
 
 ### Documentation
 
-- [Installation Guide](/docs/install-terminusdb/)
+- [Installation Guide](/docs/terminusdb-install-options/)
 - [WOQL Getting Started](/docs/woql-getting-started/)
 - [WOQL How to query](/docs/how-to-query-with-woql/)
 - [sys:JSON Internals](/docs/terminusdb-internals-sysjson/)
