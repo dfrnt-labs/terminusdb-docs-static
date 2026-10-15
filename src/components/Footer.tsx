@@ -180,7 +180,7 @@ export function Footer() {
                 </svg>
               </a>
               <TrackedLink
-                href="https://discord.gg/yTJKAma"
+                href="https://discord.gg/GZ5gaCmBHc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"

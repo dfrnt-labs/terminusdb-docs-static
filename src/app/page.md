@@ -50,7 +50,7 @@ The [product tour](/docs/product-tour/) aims to provide you with an understandin
 
 ## Community
 
-Join the TerminusDB Community on [Discord](https://discord.gg/yTJKAma).
+Join the TerminusDB Community on [Discord](https://discord.gg/GZ5gaCmBHc).
 
 More ways to connect: [GitHub](https://github.com/terminusdb/terminusdb).
 
