@@ -12,7 +12,7 @@ nextjs:
       url: https://terminusdb.com
       siteName: TerminusDB
       images:
-        - url: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+        - url: https://assets.terminusdb.com/docs/terminusdb-knowledge-graph-database-og.png
           width: 1200
           height: 630
           alt: Knowledge Graph Database with Version Control
@@ -23,7 +23,7 @@ nextjs:
       title: Open Source Knowledge Graph Database with Version Control
       description: TerminusDB is the open source knowledge graph database with git-like version control. Branch, merge and diff your data, with datalog, vector search and RDF.
       images:
-        - https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
+        - https://assets.terminusdb.com/docs/terminusdb-knowledge-graph-database-og.png
 ---
 
 TerminusDB is a modern open source knowledge graph database with version control, used for data-centric semantic infrastructures. Learn how to get started with TerminusDB in under thirty minutes. {% .lead %}
