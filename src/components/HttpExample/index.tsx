@@ -374,7 +374,18 @@ export function HttpExample({
       await navigator.clipboard.writeText(lines.join("\n"))
     }
     setCopied(true)
-  }, [activeTab, method, resolvedPath, extraHeaders, body, settings, authHeader, woqlContent])
+
+    // Track code copy event (same event as Fence/CodeTabs: Plausible + PageSense goal "code_copy")
+    const eventProps = { language: activeTab, heading: `${method.toUpperCase()} ${path}` }
+    trackEvent("code_copy", eventProps)
+    if (typeof window !== "undefined") {
+      const pagesense = (window as unknown as Record<string, unknown>).pagesense as unknown[] | undefined
+      if (Array.isArray(pagesense)) {
+        pagesense.push(["trackActivity", "code_copy", eventProps])
+        pagesense.push(["trackEvent", "code_copy"])
+      }
+    }
+  }, [activeTab, method, path, resolvedPath, extraHeaders, body, settings, authHeader, woqlContent, trackEvent])
 
   // Keyboard handler
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
