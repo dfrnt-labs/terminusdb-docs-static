@@ -149,7 +149,7 @@ curl -X POST "http://localhost:6363/api/document/admin/shop/local/branch/main?au
   -d '{"@type": "Order", "customer": "Customer/alice", "total": 19.98, "status": "pending"}'
 ```
 
-You get branch, diff, merge, time-travel, and clone — built into the database. See [Version Control Operations](/docs/version-control-operations/) for the full API reference.
+You get branch, diff, merge, time-travel, and clone — built into the database. See [A Graph Database with Git-like Version Control](/docs/graph-database-with-git-like-version-control/) for the full model and [Version Control Operations](/docs/version-control-operations/) for the API reference.
 
 ### MongoDB: no built-in version control
 

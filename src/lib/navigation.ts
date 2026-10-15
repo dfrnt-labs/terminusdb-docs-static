@@ -202,7 +202,11 @@ export const navigation: Navigation[] = [
         links: [
           {
             title: 'Overview',
-            href: '/docs/knowledge-graph-version-control',
+            href: '/docs/knowledge-graph-database-version-control',
+          },
+          {
+            title: 'Versioned Graph Database',
+            href: '/docs/graph-database-with-git-like-version-control',
           },
           {
             title: 'Clone, Push, Pull',
@@ -219,6 +223,10 @@ export const navigation: Navigation[] = [
           {
             title: 'Undo & Reset How-To',
             href: '/docs/undo-reset-howto',
+          },
+          {
+            title: 'Version JSON Data',
+            href: '/docs/how-to-version-json-data',
           },
           {
             title: 'Diff & Patch',
@@ -273,6 +281,10 @@ export const navigation: Navigation[] = [
           {
             title: 'ACID Transactions',
             href: '/docs/acid-transactions-explanation',
+          },
+          {
+            title: 'Open-Source ACID Graph DB',
+            href: '/docs/open-source-graph-database-with-acid-transactions',
           },
           {
             title: 'Immutability',
