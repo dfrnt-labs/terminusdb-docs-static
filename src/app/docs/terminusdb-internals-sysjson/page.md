@@ -629,5 +629,5 @@ If migrating from TerminusDB versions before v11.1.x:
 For issues or questions about `sys:JSON`:
 
 - [GitHub Issues](https://github.com/terminusdb/terminusdb/issues)
-- [Discord Community](https://discord.gg/terminusdb)
+- [Discord Community](https://discord.gg/yTJKAma)
 - [Stack Overflow](https://stackoverflow.com/questions/tagged/terminusdb) - Tag: `terminusdb`

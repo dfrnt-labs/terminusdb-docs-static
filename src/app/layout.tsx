@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import { Providers } from '@/app/providers'
 import { Layout } from '@/components/Layout'
 import { PlausibleAnalytics } from '@/components/PlausibleAnalytics'
+import { DiscordJoinTracking } from '@/components/DiscordJoinTracking'
 
 // import '@/styles/globals.css'
 import '@/styles/tailwind.css'
@@ -54,6 +55,7 @@ export default function RootLayout({
           <Layout>{children}</Layout>
         </Providers>
         <PlausibleAnalytics />
+        <DiscordJoinTracking />
         <Script
           id="pagesenseCode"
           strategy="beforeInteractive"

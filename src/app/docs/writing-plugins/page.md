@@ -331,4 +331,4 @@ Submit your plugins to the community repository at [terminusdb-labs/terminusdb-p
 
 ---
 
-**Need help?** Join the [TerminusDB Discord community](https://discord.gg/terminusdb) or [open an issue on GitHub](https://github.com/terminusdb/terminusdb/issues).
+**Need help?** Join the [TerminusDB Discord community](https://discord.gg/yTJKAma) or [open an issue on GitHub](https://github.com/terminusdb/terminusdb/issues).

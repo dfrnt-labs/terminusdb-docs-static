@@ -275,7 +275,7 @@ For users migrating away from the dashboard, here's a typical workflow transitio
 - [Document API Reference](/docs/document-graph-api/)
 
 For questions or support, join our community:
-- [Discord Community](https://discord.gg/terminusdb)
+- [Discord Community](https://discord.gg/yTJKAma)
 - [GitHub Discussions](https://github.com/terminusdb/terminusdb/discussions)
 
 ---

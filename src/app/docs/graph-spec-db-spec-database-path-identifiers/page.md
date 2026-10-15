@@ -303,4 +303,4 @@ If you're struggling to construct the right DB_SPEC or GRAPH_SPEC:
 3. **View commit history:** `terminusdb log <org>/<db>`
 4. **Test with simple queries:** Start with `_system` to verify syntax
 
-For community support, visit the [TerminusDB Discord](https://discord.gg/terminusdb) or [GitHub Discussions](https://github.com/terminusdb/terminusdb/discussions).
+For community support, visit the [TerminusDB Discord](https://discord.gg/yTJKAma) or [GitHub Discussions](https://github.com/terminusdb/terminusdb/discussions).
