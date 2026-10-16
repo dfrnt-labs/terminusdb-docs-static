@@ -2,7 +2,7 @@
 
 > TerminusDB is an open-source knowledge graph database with git-like version control. Branch, merge, diff and time-travel query your data with Datalog.
 
-> **Key differentiators**: branch, diff and merge your data — audit trail built in — small and fast (succinct, auto-indexed in-memory structures).
+> **Key differentiators**: knowledge graph version control with branch, diff and merge your data — audit trail built in — small and fast (succinct, auto-indexed immutable database structures).
 
 > **Load [llms-full.txt](https://terminusdb.com/llms-full.txt) when:** writing non-trivial WOQL, building document schemas, using the version-control API (clone/push/pull/rebase), configuring TerminusDB Enterprise document formats (Turtle, RDF/XML, JSON-LD), or working with VectorLink semantic search.
 
@@ -30,17 +30,18 @@ docker run --pull always -d -p 127.0.0.1:6363:6363 \
   --name terminusdb terminusdb/terminusdb-server:v12
 ```
 
-Default credentials for local development: user `admin`, password `root`. Server listens on `http://localhost:6363`. Hosting options (Azure Marketplace, self-hosted, early-access managed): [TerminusDB Cloud](https://terminusdb.com/docs/cloud/).
+Default credentials for local development: user `admin`, password `root`. Server listens on `http://localhost:6363`. Hosting options (self-hosted, early-access managed; Azure Marketplace coming autumn 2026): [TerminusDB Cloud](https://terminusdb.com/docs/cloud/).
 
 Docs: [Install with Docker](https://terminusdb.com/docs/install-terminusdb-as-a-docker-container/) - [Kubernetes](https://terminusdb.com/docs/install-on-kubernetes/) - [Self-hosted production](https://terminusdb.com/docs/self-hosted-installation/)
 
 ## Connect with a client
 
-**JavaScript/TypeScript** — `npm install @terminusdb/terminusdb-client`
+**JavaScript/TypeScript** — `npm install terminusdb`
 
 ```javascript
-const client = new TerminusDB.WOQLClient('http://localhost:6363/', {
-  user: 'admin', organization: 'admin', key: 'root', db: 'MyDatabase',
+import TerminusClient from 'terminusdb'
+const client = new TerminusClient.WOQLClient('http://localhost:6363', {
+  user: 'admin', organization: 'admin', key: 'root',
 })
 await client.createDatabase('MyDatabase')
 ```
@@ -52,7 +53,7 @@ await client.createDatabase('MyDatabase')
 ```python
 from terminusdb_client import Client
 client = Client("http://localhost:6363")
-client.connect(user="admin", key="root")
+client.connect(team="admin", key="root")
 client.create_database("MyDatabase")
 ```
 
@@ -63,9 +64,10 @@ client.create_database("MyDatabase")
 ## HTTP API (no client required)
 
 ```bash
-curl -u admin:root -X POST http://localhost:6363/api/document/admin/MyDatabase \
+curl -u admin:root -X POST \
+  "http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin&message=Add+document&raw_json=true" \
   -H 'Content-Type: application/json' \
-  -d '{"@type": "Person", "name": "Jane Smith", "age": 30}'
+  -d '{"@type": "Person", "@id": "terminusdb:///data/jane", "name": "Jane Smith", "age": 30}'
 ```
 
 [HTTP Documents API](https://terminusdb.com/docs/http-documents-api/) - [OpenAPI reference](https://terminusdb.com/docs/openapi/)
@@ -75,7 +77,7 @@ curl -u admin:root -X POST http://localhost:6363/api/document/admin/MyDatabase \
 WOQL is TerminusDB's datalog query language — triples, unification, path queries, aggregations. Available in the JS/Python clients and as JSON over `/api/woql`.
 
 ```javascript
-// triple: subject, predicate, object — v('x') declares a variable
+// triple: subject, predicate, object — 'v:name' declares a variable
 WOQL.triple('v:person', 'name', 'v:name')
 // read a document by id
 WOQL.read_document('Person/Jane', 'v:doc')
@@ -85,7 +87,7 @@ WOQL.read_document('Person/Jane', 'v:doc')
 
 - DO NOT USE string concatenation in queries — use WOQL variables (`v:name`) and unification
 - DO NOT assume floats — numbers are precise rationals in TerminusDB 12; `xsd:decimal` is exact
-- The `path()` operator traverses predicates: `path('Person', 'friend+', 'v:f')`
+- The `path()` operator traverses predicates: `path('v:a', '(<pilot,pilot>)+', 'v:b')`
 - Document IDs are IRIs: `'Person/Jane'`, not bare strings or numeric keys
 
 [WOQL overview](https://terminusdb.com/docs/woql-explanation/) - [WOQL how-to](https://terminusdb.com/docs/how-to-query-with-woql/) - [Path queries](https://terminusdb.com/docs/path-queries-in-woql/)
@@ -111,7 +113,6 @@ Auto-generated schema and endpoint per database: `/api/graphql/<org>/<db>`. Quer
 
 ## More
 
-- **MCP server**: a TerminusDB MCP interface for AI agents is available — see the [TerminusDB org on GitHub](https://github.com/terminusdb)
 - **VectorLink**: semantic/vector search layer over versioned data — [docs](https://terminusdb.com/docs/versioned-search-quickstart/)
 - **Enterprise**: document format endpoints (Turtle, RDF/XML, JSON-LD), observability, backup — [docs](https://terminusdb.com/docs/enterprise/)
 - **All docs**: https://terminusdb.com/docs/ - **Releases**: https://terminusdb.com/docs/releases/

@@ -26,13 +26,13 @@ nextjs:
         - https://assets.terminusdb.com/docs/terminusdb-knowledge-graph-database-og.png
 ---
 
-TerminusDB is an open-source document graph database — JSON documents, datalog queries, and git-style version control in one store. {% .lead %}
+TerminusDB is an open-source knowledge graph database with git-like version control. Branch, merge, diff and time-travel query your data with Datalog. {% .lead %}
 
 ## What makes it different
 
-- **Branch, diff, and merge your data.** Work on a branch, review the structural diff, merge it back — the git workflow, applied to documents.
+- **Knowledge graph version control — branch, diff and merge your data.** Work on a branch, review the structural diff, merge it back — the git workflow, applied to graph documents.
 - **Audit trail built in.** Every write is an immutable commit. Time-travel to any point; nothing is ever overwritten.
-- **Small and fast.** Succinct, auto-indexed in-memory data structures keep the footprint tiny and queries quick — the whole database runs in a single Docker container.
+- **Small and fast.** Succinct, auto-indexed immutable database structures keep the footprint tiny and queries quick — the whole database runs in a single Docker container.
 
 ## Quickstart in 5 minutes
 

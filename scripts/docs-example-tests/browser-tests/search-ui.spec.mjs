@@ -10,7 +10,7 @@
  *   3. "Load more" appends results when more than one page exists
  *   4. A docs page shows the Similar documents panel populated from /api/similar
  *   5. Slow responses surface the scale-to-zero wake hint
- *   6. "Powered by TerminusDB" is visible on the search surfaces
+ *   6. "Powered by TerminusDB hybrid search" badge is visible on the search surfaces
  */
 
 import { test, expect } from "playwright/test";
@@ -35,7 +35,7 @@ test.describe("vector search", () => {
 
     // Powered-by attribution in the dialog footer
     await expect(
-      page.getByRole("link", { name: "Powered by TerminusDB" }).first(),
+      page.getByRole("link", { name: /Powered by.*hybrid search/i }).first(),
     ).toBeVisible();
   });
 
@@ -67,10 +67,10 @@ test.describe("vector search", () => {
     const panel = page.getByRole("region", { name: "Similar documents" });
     await expect(panel).toBeVisible({ timeout: 20000 });
     // 5 similar cards, each linking to a docs page
-    const cards = panel.locator('a[href^="/docs/"]');
+    const cards = panel.locator('ul a[href^="/docs/"]');
     await expect(cards).toHaveCount(5, { timeout: 20000 });
     await expect(
-      panel.getByRole("link", { name: "Powered by TerminusDB" }),
+      panel.getByRole("link", { name: /Powered by.*hybrid search/i }),
     ).toBeVisible();
   });
 

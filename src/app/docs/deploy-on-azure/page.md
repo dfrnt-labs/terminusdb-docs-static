@@ -7,7 +7,7 @@ title: Deploy TerminusDB on Azure
 nextjs:
   metadata:
     title: Deploy TerminusDB on Azure — TerminusDB Enterprise
-    description: Deploy TerminusDB on Azure through the Azure Marketplace, or get early access to managed TerminusDB Enterprise on Azure, AWS, and Google Cloud via the team at Gettier.
+    description: TerminusDB on Azure — Azure Marketplace coming autumn 2026, plus early access to managed TerminusDB Enterprise on Azure, AWS, and Google Cloud via the team at Gettier.
     keywords: terminusdb azure, azure marketplace, terminusdb enterprise, deploy terminusdb, cloud deployment
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
@@ -15,9 +15,9 @@ nextjs:
       canonical: https://terminusdb.com/docs/deploy-on-azure/
 ---
 
-TerminusDB is available on Azure through the Azure Marketplace: a VM image that deploys into your own subscription and bills through Azure.
+TerminusDB is coming to the Azure Marketplace in **autumn 2026** — a VM image that will deploy into your own subscription and bill through Azure.
 
-{% cta-link href="https://azuremarketplace.microsoft.com/en/marketplace/apps/terminusdb1606769310168.terminusdb_vm" event="azure_marketplace" %}Open the TerminusDB listing on Azure Marketplace{% /cta-link %}
+{% cta-link href="https://azuremarketplace.microsoft.com/en/marketplace/apps/terminusdb1606769310168.terminusdb_vm" event="azure_marketplace" %}Preview the TerminusDB listing on Azure Marketplace{% /cta-link %}
 
 ## Early access to managed deployments
 

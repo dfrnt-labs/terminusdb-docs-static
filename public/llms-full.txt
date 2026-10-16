@@ -3526,6 +3526,12 @@ TerminusDB is maintained by [Gettier](https://gettier.ai) in collaboration with 
 
 * [git-for-data (including push, pull clone and branching)](/docs/git-for-data-reference/)
 
+### Storage engine
+
+* [In-memory succinct data structures](/docs/terminusdb-explanation/) — documents decompose into content-addressed, immutable delta layers; all data persists to disk with ACID guarantees, while queries execute in-memory against the succinct representation (roughly 13 bytes per triple on large datasets)
+* [Delta rollup](/docs/delta-rollup/) — periodic compaction that keeps the in-memory footprint bounded
+* [Immutable storage layer](/docs/immutability-explanation/)
+
 ### Interoperability
 
 * [REST (OpenAPI Reference)](/docs/openapi/)
@@ -5565,7 +5571,7 @@ TerminusDB runs where you want it: on a cloud marketplace, on your own infrastru
 
 ### Azure Marketplace
 
-Deploy [TerminusDB on the Azure Marketplace](https://azuremarketplace.microsoft.com/en/marketplace/apps/terminusdb1606769310168.terminusdb_vm) — a VM image that runs in your own Azure subscription and bills through Azure. See [Deploy on Azure](/docs/deploy-on-azure/) for details.
+Coming autumn 2026: TerminusDB on the Azure Marketplace — a VM image that will run in your own Azure subscription and bill through Azure. See [Deploy on Azure](/docs/deploy-on-azure/) for details and the listing preview.
 
 ### Self-hosted
 
@@ -8525,9 +8531,9 @@ For most users, the `optimize` endpoint handles this automatically. The auto-opt
 
 URL: https://terminusdb.com/docs/deploy-on-azure/
 
-TerminusDB is available on Azure through the Azure Marketplace: a VM image that deploys into your own subscription and bills through Azure.
+TerminusDB is coming to the Azure Marketplace in **autumn 2026** — a VM image that will deploy into your own subscription and bill through Azure.
 
-Open the TerminusDB listing on Azure Marketplace
+Preview the TerminusDB listing on Azure Marketplace
 
 ## Early access to managed deployments
 
@@ -45159,9 +45165,9 @@ URL: https://terminusdb.com/docs/versioned-search/
 
 This page documents functionality in the upcoming TerminusDB 12.1 release. Details may change before the final release.
 
-Versioned Search is a semantic search engine that treats your data the same way TerminusDB does: as a versioned, branchable history of commits. Every commit you index becomes an independent, reproducible snapshot. You search a specific commit and always get the same results, regardless of what was indexed afterwards. Branches share their parent's vectors instead of recomputing them.
+VectorLink is the name of the embedded semantic search engine that treats your data the same way TerminusDB does: as a versioned, branchable history of commits. Every commit can be indexed automatically and becomes an independent, reproducible snapshot. You search a specific commit and always get the same results, regardless of what was indexed afterwards. Branches share their parent's vectors instead of recomputing them. Every version with complete hybrid search.
 
-The engine — **VectorLink 2.0** — is built in Rust on [LanceDB](https://lancedb.com). It is the successor to the earlier VectorLink indexer, with a maintained, columnar vector store that adds full-text search and hybrid retrieval out of the box. Embeddings come from a configurable provider, defaulting to a local CPU model so the whole stack runs offline.
+The engine — **VectorLink 2.0** — is built in Rust based on portions of [LanceDB](https://lancedb.com). It is the successor to the earlier VectorLink indexer, with a maintained, columnar vector store that adds full-text search and hybrid retrieval out of the box. Embeddings come from a configurable provider, defaulting to a local CPU model so the whole stack runs offline.
 
 **What you'll achieve**
 By the end of this section, you will understand what Versioned Search does, how it mirrors TerminusDB's commit history, and how to index and search your data products.

@@ -10,6 +10,7 @@ import { PrevNextLinks } from '@/components/PrevNextLinks'
 import { Prose } from '@/components/Prose'
 import { RecentBlogPosts } from '@/components/RecentBlogPosts'
 import { RightSidebar } from '@/components/RightSidebar'
+import { SimilarDocs } from '@/components/SimilarDocs'
 import { GitHubEditButton } from '@/components/GitHubEditButton'
 import { OpenInAI } from '@/components/OpenInAI'
 import { GitHubIssueButton } from '@/components/GitHubIssueButton'
@@ -78,6 +79,7 @@ export function DocsLayout({
           <PageFeedback />
         </div>
         <PrevNextLinks />
+        <SimilarDocs />
       </div>
       <RightSidebar
         tableOfContents={tableOfContents}

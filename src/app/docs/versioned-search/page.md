@@ -19,9 +19,9 @@ media: []
 This page documents functionality in the upcoming TerminusDB 12.1 release. Details may change before the final release.
 {% /callout %}
 
-Versioned Search is a semantic search engine that treats your data the same way TerminusDB does: as a versioned, branchable history of commits. Every commit you index becomes an independent, reproducible snapshot. You search a specific commit and always get the same results, regardless of what was indexed afterwards. Branches share their parent's vectors instead of recomputing them.
+VectorLink is the name of the embedded semantic search engine that treats your data the same way TerminusDB does: as a versioned, branchable history of commits. Every commit can be indexed automatically and becomes an independent, reproducible snapshot. You search a specific commit and always get the same results, regardless of what was indexed afterwards. Branches share their parent's vectors instead of recomputing them. Every version with complete hybrid search.
 
-The engine — **VectorLink 2.0** — is built in Rust on [LanceDB](https://lancedb.com). It is the successor to the earlier VectorLink indexer, with a maintained, columnar vector store that adds full-text search and hybrid retrieval out of the box. Embeddings come from a configurable provider, defaulting to a local CPU model so the whole stack runs offline.
+The engine — **VectorLink 2.0** — is built in Rust based on portions of [LanceDB](https://lancedb.com). It is the successor to the earlier VectorLink indexer, with a maintained, columnar vector store that adds full-text search and hybrid retrieval out of the box. Embeddings come from a configurable provider, defaulting to a local CPU model so the whole stack runs offline.
 
 {% callout type="note" %}
 **What you'll achieve**

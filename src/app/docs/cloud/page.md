@@ -7,7 +7,7 @@ title: TerminusDB Cloud
 nextjs:
   metadata:
     title: TerminusDB Cloud — Hosting Options
-    description: Hosting options for TerminusDB — Azure Marketplace, self-hosted Docker and Kubernetes, and early-access managed TerminusDB Cloud from the team at Gettier.
+    description: Hosting options for TerminusDB — Azure Marketplace (coming autumn 2026), self-hosted Docker and Kubernetes, and early-access managed TerminusDB Cloud from the team at Gettier.
     keywords: terminusdb cloud, terminusdb hosting, azure marketplace, managed terminusdb, early access
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
@@ -21,7 +21,7 @@ TerminusDB runs where you want it: on a cloud marketplace, on your own infrastru
 
 ### Azure Marketplace
 
-Deploy [TerminusDB on the Azure Marketplace](https://azuremarketplace.microsoft.com/en/marketplace/apps/terminusdb1606769310168.terminusdb_vm) — a VM image that runs in your own Azure subscription and bills through Azure. See [Deploy on Azure](/docs/deploy-on-azure/) for details.
+Coming autumn 2026: TerminusDB on the Azure Marketplace — a VM image that will run in your own Azure subscription and bill through Azure. See [Deploy on Azure](/docs/deploy-on-azure/) for details and the listing preview.
 
 ### Self-hosted
 

@@ -72,6 +72,12 @@ TerminusDB is maintained by [Gettier](https://gettier.ai) in collaboration with 
 
 * [git-for-data (including push, pull clone and branching)](/docs/git-for-data-reference/)
 
+### Storage engine
+
+* [In-memory succinct data structures](/docs/terminusdb-explanation/) — documents decompose into content-addressed, immutable delta layers; all data persists to disk with ACID guarantees, while queries execute in-memory against the succinct representation (roughly 13 bytes per triple on large datasets)
+* [Delta rollup](/docs/delta-rollup/) — periodic compaction that keeps the in-memory footprint bounded
+* [Immutable storage layer](/docs/immutability-explanation/)
+
 ### Interoperability
 
 * [REST (OpenAPI Reference)](/docs/openapi/)
