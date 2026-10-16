@@ -67,8 +67,10 @@ const draftSlugs = loadDraftSlugs()
  */
 function urlToSlug(loc) {
   try {
-    const url = new URL(loc)
-    return url.pathname.replace(/^\/+/, '').replace(/\/+$/, '')
+    // next-sitemap passes transform() a relative path (/docs/foo/), but be
+    // tolerant of absolute URLs too.
+    const pathname = loc.startsWith('http') ? new URL(loc).pathname : loc
+    return pathname.replace(/^\/+/, '').replace(/\/+$/, '')
   } catch {
     return ''
   }

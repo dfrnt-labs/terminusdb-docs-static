@@ -20,8 +20,21 @@ import { Prerequisites } from '@/components/Prerequisites'
 import { PrerequisitesConnected } from '@/components/ConnectionSettings/PrerequisitesConnected'
 import { PrerequisitesClone } from '@/components/PrerequisitesClone'
 import { ResourceSetup } from '@/components/ResourceSetup'
+import { GhMark, Tnum } from '@/components/InlineMarks'
 
 const tags = {
+  gh: {
+    selfClosing: true,
+    inline: true,
+    render: GhMark,
+    attributes: {
+      href: { type: String },
+    },
+  },
+  tnum: {
+    inline: true,
+    render: Tnum,
+  },
   callout: {
     attributes: {
       title: { type: String },

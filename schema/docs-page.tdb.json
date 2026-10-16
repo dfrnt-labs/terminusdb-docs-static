@@ -1,0 +1,29 @@
+[
+  {
+    "@type": "@context",
+    "@base": "terminusdb:///data/",
+    "@schema": "terminusdb:///schema#",
+    "@metadata": {
+      "terminusdb": {
+        "options": ["store_indices", "store_clustering"]
+      }
+    }
+  },
+  {
+    "@type": "Class",
+    "@id": "Page",
+    "@key": {
+      "@type": "Lexical",
+      "@fields": ["slug"]
+    },
+    "slug": "xsd:string",
+    "title": "xsd:string",
+    "description": { "@type": "Optional", "@class": "xsd:string" },
+    "keywords": { "@type": "Optional", "@class": "xsd:string" },
+    "tags": { "@type": "Set", "@class": "xsd:string" },
+    "url": { "@type": "Optional", "@class": "xsd:string" },
+    "links": { "@type": "Set", "@class": "Page" },
+    "frontmatter": "sys:JSON",
+    "content": { "@type": "Optional", "@class": "xsd:string" }
+  }
+]

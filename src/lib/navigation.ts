@@ -114,6 +114,10 @@ export const navigation: Navigation[] = [
             title: 'Self-Hosted (Production)',
             href: '/docs/self-hosted-installation',
           },
+          {
+            title: 'Running in Production',
+            href: '/docs/run-terminusdb-in-production',
+          },
           // TODO: Add "DFRNT Cloud (No Install)" page
         ],
       },
@@ -163,7 +167,7 @@ export const navigation: Navigation[] = [
         links: [
           {
             title: '12.0 Changelog',
-            href: '/docs/releases/terminusdb-12-0',
+            href: '/docs/releases/12-0-changelog',
           },
         ],
       },
