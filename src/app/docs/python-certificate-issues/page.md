@@ -97,7 +97,7 @@ This is not a certificate error — the server is unreachable. Check that Termin
 | Self-signed cert in development | `verify=False` is acceptable |
 | Internal CA in staging/production | Point `verify` to your CA bundle |
 | CI/CD pipeline with internal CA | Set `REQUESTS_CA_BUNDLE` env var |
-| Public DFRNT Cloud | No action needed — certificates are valid |
+| Public TerminusDB Cloud | No action needed — certificates are valid |
 
 ## See also
 

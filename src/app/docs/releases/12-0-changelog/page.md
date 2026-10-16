@@ -245,10 +245,10 @@ Released 2 December 2025 · [GitHub release](https://github.com/terminusdb/termi
 
 This major release of TerminusDB forges a new path forward. The on-disk storage format remains unchanged since version 11 and the changes are performed for improved stringency, precision and clarity of the graph database interfaces.
 
-TerminusDB is maintained by our friends over at [dfrnt.com](https://dfrnt.com?utm_source=terminusdb) since 2025. They build the DFRNT Platform for Justified Trust.
+TerminusDB is maintained by the team at [Gettier](https://gettier.ai) since 2025.
 
 Major changes overall in v12.0.0 since v11.1.17:
-* New refreshed project website: https://terminusdb.org
+* New refreshed project website: https://terminusdb.com
 * High precision decimals capped at 20 decimal places, using rationals
 * Auto-optimizer for continuous roll-ups now enabled by default
 * JSON numbers are now used across interfaces, with high precision
@@ -323,7 +323,7 @@ Release Candidate 3 brings improved error handling and observability, makes it p
   - Stack traces no longer exposed in HTTP responses (security improvement)
   - Error messages now include helpful Prolog error terms without exposing internal stack traces
   - New error type: `api:IncompatibleNumericComparison` for clearer numeric type mismatch errors
-- Dashboard component is possible to enable manually, see [dashboard docs](https://terminusdb.org/docs/dashboard)
+- Dashboard component is possible to enable manually, see [dashboard docs](https://terminusdb.com/docs/dashboard)
 
 ### Maintenance and bug fixes
 
@@ -354,5 +354,5 @@ This marks a substantial release of TerminusDB with support for high precision c
 - Rationals are now used by default for all calculations (#128)
 - JSON output is now consistent between WOQL, Document API and GraphQL:
   - Numbers are outputed as number, arbitrary size, capped at 20 decimals
-- Dashboard component has been discontinued. A deprecation notice is shown at `/dashboard` with instructions for legacy usage. See [dashboard docs](https://terminusdb.org/docs/dashboard) for full documentation (#2238)
+- Dashboard component has been discontinued. A deprecation notice is shown at `/dashboard` with instructions for legacy usage. See [dashboard docs](https://terminusdb.com/docs/dashboard) for full documentation (#2238)
 

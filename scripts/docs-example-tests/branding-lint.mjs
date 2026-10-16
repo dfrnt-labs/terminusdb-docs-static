@@ -28,6 +28,17 @@ const FORBIDDEN_PATTERNS = [
 const EXCEPTIONS = [
   "assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png",
   "There is no TERMINUSDB_CORS",
+  // Historical lineage references required by the rename documentation
+  "formerly TerminusCMS, later DFRNT Hub",
+  "formerly DFRNT Hub and TerminusCMS",
+  "it launched as **TerminusCMS**, was renamed **DFRNT Hub**",
+  "previously called **DFRNT Hub** and, before that, **TerminusCMS**",
+  "formerly DFRNT Hub / TerminusCMS",
+  "formerly known as DFRNT Hub and TerminusCMS",
+  // Verbatim upstream changelog entry (release notes quote)
+  "Removed TerminusCMS from README.md",
+  // External image asset filename inside an embedded sample article
+  "terminuscms-demos.png",
 ]
 
 // Quickstart tutorial pages where DFRNT mentions are scope violations.

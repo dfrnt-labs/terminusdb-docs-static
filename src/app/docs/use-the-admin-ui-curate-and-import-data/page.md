@@ -3,13 +3,13 @@ tags:
   - how-to
   - documents
   - dashboard
-  - dfrnt-cloud
-title: Use the DFRNT TerminusDB cloud Dashboard to Curate Data & Content
+  - terminusdb-cloud
+title: Use TerminusDB Cloud Dashboard to Curate Data & Content
 nextjs:
   metadata:
-    title: Use the DFRNT TerminusDB cloud Dashboard to Curate Data & Content
-    description: A how-to guide describing how to use the DFRNT TerminusDB cloud dashboard to add, edit, and delete content and data
-    keywords: terminusdb, csv, dashboard, data loading, dfrnt hub, document database, documents, import
+    title: Use TerminusDB Cloud Dashboard to Curate Data & Content
+    description: A how-to guide describing how to use TerminusDB Cloud dashboard to add, edit, and delete content and data
+    keywords: terminusdb, csv, dashboard, data loading, terminusdb cloud, document database, documents, import
     openGraph:
       images: https://assets.terminusdb.com/docs/document-explorer-home.png
     alternates:
@@ -69,7 +69,7 @@ media:
 
 {% callout type="note" %}
 **Prerequisites**
-- A DFRNT Hub account
+- A TerminusDB Cloud account
 - A data product with a schema defined
 {% /callout %}
 
@@ -78,9 +78,9 @@ media:
 By the end of this guide, you will have imported and curated data using the admin UI.
 {% /callout %}
 
-{% callout type="note" %}
-**TerminusCMS is now DFRNT Hub**
-TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
+{% callout type="warning" %}
+**TerminusDB CMS is decommissioned**
+This page documents **TerminusDB CMS** (formerly TerminusCMS, later DFRNT Hub), which is retired and kept for historical reference. For hosted TerminusDB, see [TerminusDB Cloud](/docs/cloud/). A new modeller ships with TerminusDB 12.1. The open source database is unchanged.
 {% /callout %}
 
 

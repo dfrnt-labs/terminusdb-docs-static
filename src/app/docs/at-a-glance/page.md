@@ -26,7 +26,7 @@ Three things make it distinctive:
 
 3. **Datalog query engine (WOQL)** — A declarative query language based on Prolog foundations. Pattern-match across documents and relationships without JOINs, with built-in support for aggregation, path queries, and schema-aware traversal. See [WOQL Explained](/docs/woql-explanation/).
 
-TerminusDB is maintained by [DFRNT®](https://dfrnt.com?utm_source=terminusdb&utm_medium=referral&utm_campaign=terminusdb_docs_at_a_glance) in collaboration with the open-source community.
+TerminusDB is maintained by [Gettier](https://gettier.ai) in collaboration with the open-source community.
 
 ## Overview of the system
 
@@ -65,7 +65,7 @@ TerminusDB is maintained by [DFRNT®](https://dfrnt.com?utm_source=terminusdb&ut
 ### Data model and schema management
 
 * [schema migration](/docs/schema-migration-reference-guide/)
-* [XML Datatypes for its data structures](/docs/dfrnt-data-types/)
+* [XML Datatypes for its data structures](/docs/terminusdb-data-types/)
 * [schema reference](/docs/schema-reference-guide/)
 
 ### Git-for-data
@@ -82,4 +82,4 @@ TerminusDB is maintained by [DFRNT®](https://dfrnt.com?utm_source=terminusdb&ut
 
 ### Complete User Interface
 
-The [DFRNT Studio for TerminusDB](https://dfrnt.com/hypergraph-content-studio/) offers a commercially packaged solution, with hosting API tokens and collaborative environments, modelling environment and document UI that help you go from idea to prototype and production in a few hours or a few days.
+The [TerminusDB Cloud](/docs/cloud/) offers a commercially packaged solution, with hosting API tokens and collaborative environments, modelling environment and document UI that help you go from idea to prototype and production in a few hours or a few days.

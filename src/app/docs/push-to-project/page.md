@@ -77,7 +77,7 @@ curl -u admin:root -X POST \
 {% /code-tabs %}
 
 {% callout type="warning" %}
-Push requires **write access** to the remote database. For public data servers (like `data.terminusdb.org`), you can only pull — not push. Push works with your own DFRNT Hub databases or self-hosted remotes where you have credentials.
+Push requires **write access** to the remote database. For public data servers (like `data.terminusdb.org`), you can only pull — not push. Push works with your own TerminusDB Cloud databases or self-hosted remotes where you have credentials.
 {% /callout %}
 
 ## Push a specific branch

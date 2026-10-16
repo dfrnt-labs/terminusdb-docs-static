@@ -118,7 +118,10 @@ export const navigation: Navigation[] = [
             title: 'Running in Production',
             href: '/docs/run-terminusdb-in-production',
           },
-          // TODO: Add "DFRNT Cloud (No Install)" page
+          {
+            title: 'Deploy on Azure',
+            href: '/docs/deploy-on-azure',
+          },
         ],
       },
       // {
@@ -128,8 +131,14 @@ export const navigation: Navigation[] = [
       // TODO: Add "Your First Query" tutorial
       // TODO: Add "Your First Schema" tutorial
       {
-        title: 'DFRNT Cloud Service',
-        href: '/docs/how-to-connect-dfrnt-hub',
+        title: 'TerminusDB Cloud',
+        href: '/docs/cloud',
+        links: [
+          {
+            title: 'Connect a Client',
+            href: '/docs/how-to-connect-terminusdb-cloud',
+          },
+        ],
         // links: [
         //   {
         //     title: 'Get Your API Key',
@@ -344,10 +353,7 @@ export const navigation: Navigation[] = [
           },
         ],
       },
-      {
-        title: 'What is DFRNT Hub?',
-        href: '/docs/what-is-dfrnt',
-      },
+
     ],
   },
 
@@ -966,8 +972,8 @@ export const navigation: Navigation[] = [
       },
 
       {
-        title: 'Dashboard Reference',
-        href: '/docs/dfrnt-dashboard-reference',
+        title: 'Cloud Dashboard Reference',
+        href: '/docs/terminusdb-cms-dashboard-reference',
         links: [
           {
             title: 'Model Builder UI',
@@ -1066,7 +1072,7 @@ export const navigation: Navigation[] = [
           },
           {
             title: 'Data Types',
-            href: '/docs/dfrnt-data-types',
+            href: '/docs/terminusdb-data-types',
             links: [
               {
                 title: 'Array',

@@ -159,13 +159,13 @@ The `raw_json` flag is ideal for getting started quickly or for data that does n
 
 ## Cloud TerminusDB
 
-To connect to a cloud TerminusDB instance, such as with [DFRNT](https://dfrnt.com/hypergraph-content-studio), you need to mint an API token to your instance to get access to your data products, and documents stored in the branches of the data product.
+To connect to a cloud TerminusDB instance, such as with [TerminusDB Cloud](/docs/cloud/), you need to mint an API token to your instance to get access to your data products, and documents stored in the branches of the data product.
 
-To connect to a cloud environment, we will assume you are connecting to the DFRNT TerminusDB cloud.
+To connect to a cloud environment, we will assume you are connecting to TerminusDB Cloud.
 
 ### How to connect to cloud
 
-Below is how to use an API token to connect to a cloud TerminusDB instance at DFRNT. Note that there is a two-part to the api endpoints:
+Below is how to use an API token to connect to a cloud TerminusDB instance on TerminusDB Cloud. Note that there is a two-part to the api endpoints:
 
 1. api/hosted (can also be /api/dfrnt for instances connected via other API tokens)
 2. 000000000000-0000-0000-0000-00000001 (instance name)

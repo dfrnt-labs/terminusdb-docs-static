@@ -9,7 +9,7 @@ title: Getting Started
 nextjs:
   metadata:
     title: Getting Started
-    description: Technical documentation for TerminusDB and the DFRNT TerminusDB cloud.
+    description: Technical documentation for TerminusDB and TerminusDB Cloud.
     keywords: terminusdb, document, document database, documents, getting started, json-ld
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
@@ -22,7 +22,7 @@ media: []
 
 TerminusDB is a database with version history. It stores a graph of documents as database records. Documents can either have an enforced structure or be unstructured JSON.
 
-If you are not familiar with the command line, we recommend to get started with the [DFRNT](https://dfrnt.com/hypergraph-content-studio/) cloud environment instead. It provides a complete web based user interface for TerminusDB, that you can even use the cloud solution with your local Docker TerminusDB instance!
+If you are not familiar with the command line, we recommend to get started with the [TerminusDB Cloud](/docs/cloud/) cloud environment instead. It provides a complete web based user interface for TerminusDB, that you can even use the cloud solution with your local Docker TerminusDB instance!
 
 ### Let's get started!
 

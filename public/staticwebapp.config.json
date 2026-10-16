@@ -11,6 +11,36 @@
       "statusCode": 301
     },
     {
+      "route": "/docs/terminusdb-cloud",
+      "redirect": "/docs/cloud/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/what-is-dfrnt",
+      "redirect": "/docs/cloud/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/how-to-connect-dfrnt-hub",
+      "redirect": "/docs/how-to-connect-terminusdb-cloud/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/dfrnt-dashboard-reference",
+      "redirect": "/docs/terminusdb-cms-dashboard-reference/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/dfrnt-data-types",
+      "redirect": "/docs/terminusdb-data-types/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/topics/dfrnt-cloud",
+      "redirect": "/docs/topics/terminusdb-cloud/",
+      "statusCode": 301
+    },
+    {
       "route": "/docs/knowledge-graph-version-control",
       "redirect": "/docs/knowledge-graph-database-version-control/",
       "statusCode": 301

@@ -2,7 +2,7 @@
 tags:
   - how-to
   - vectorlink
-  - dfrnt-cloud
+  - terminusdb-cloud
 title: OpenAI and Handlebars Configuration
 nextjs:
   metadata:

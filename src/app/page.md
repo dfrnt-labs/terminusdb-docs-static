@@ -26,27 +26,35 @@ nextjs:
         - https://assets.terminusdb.com/docs/terminusdb-knowledge-graph-database-og.png
 ---
 
-TerminusDB is a modern open source knowledge graph database with version control, used for data-centric semantic infrastructures. Learn how to get started with TerminusDB in under thirty minutes. {% .lead %}
+TerminusDB is an open-source document graph database — JSON documents, datalog queries, and git-style version control in one store. {% .lead %}
+
+## What makes it different
+
+- **Branch, diff, and merge your data.** Work on a branch, review the structural diff, merge it back — the git workflow, applied to documents.
+- **Audit trail built in.** Every write is an immutable commit. Time-travel to any point; nothing is ever overwritten.
+- **Small and fast.** Succinct, auto-indexed in-memory data structures keep the footprint tiny and queries quick — the whole database runs in a single Docker container.
+
+## Quickstart in 5 minutes
+
+```bash
+docker run --pull always -d -p 127.0.0.1:6363:6363 \
+  -v terminusdb_storage:/app/terminusdb/storage \
+  --name terminusdb terminusdb/terminusdb-server:v12
+```
+
+Then clone a ready-made dataset and diff your first branch: [First 10 minutes →](/docs/get-started/)
 
 {% quick-links %}
 
 {% quick-link title="Installation" icon="installation" href="/docs/get-started/" description="Step-by-step guides to setting up your system and installing the library." /%}
 
-{% quick-link title="Query unification" icon="presets" href="/docs/unification-of-variables-in-datalog/" description="Learn about the core differentiator of the query engine: query variable unification." /%}
+{% quick-link title="Query unification" icon="presets" href="/docs/what-is-unification/" description="Learn about the core differentiator of the query engine: query variable unification." /%}
 
 {% quick-link title="TerminusDB Open Source" icon="plugins" href="/docs/terminusdb-explanation/" description="Learn more about the Apache 2.0 licensed TerminusDB database." /%}
 
 {% quick-link title="Documents and Git-for-Data" icon="theming" href="/docs/documents-explanation/" description="Learn about the RDF Graph Documents API and Git-for-Data features." /%}
 
 {% /quick-links %}
-
-TerminusDB provides a special-purpose closed world assumption RDF knowledge graph implementation with high performance in-memory performance leveraging succinct auto-indexing datastructures.
-
-It offers controlled document API interfaces with a terse JSON-LD-like syntax, GraphQL for precise data query needs and a datalog logical engine with variables bindings for complex queries across the graph.
-
-It includes features that are important when building semantic content infrastructures for complex environments: with immutable history and git-for-data/git-for-graphs branching, merging and synchronization. In effect, it provides a foundation for building a graph data mesh with RDF closed world data products.
-
-The [product tour](/docs/product-tour/) aims to provide you with an understanding of how to navigate the product and get started on your projects.
 
 ## Community
 

@@ -2,7 +2,7 @@
 tags:
   - explanation
   - collaboration
-  - dfrnt-cloud
+  - terminusdb-cloud
 title: Change Request Workflows - TerminusDB Tour
 nextjs:
   metadata:

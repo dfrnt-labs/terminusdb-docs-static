@@ -1,7 +1,7 @@
 ---
 tags:
   - how-to
-  - dfrnt-cloud
+  - terminusdb-cloud
   - beginner
 title: How to create a project with TerminusDB
 nextjs:
@@ -23,23 +23,23 @@ media:
 
 {% callout type="note" %}
 **Prerequisites**
-- A DFRNT Hub account ([sign up](https://dfrnt.com))
+- A TerminusDB Cloud account ([sign up](/docs/cloud/))
 {% /callout %}
 
 {% callout type="note" %}
 **What you'll achieve**
-By the end of this guide, you will have created a new data product in DFRNT Hub.
+By the end of this guide, you will have created a new data product in TerminusDB Cloud.
 {% /callout %}
 
-{% callout type="note" %}
-**TerminusCMS is now DFRNT Hub**
-TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
+{% callout type="warning" %}
+**TerminusDB CMS is decommissioned**
+This page documents **TerminusDB CMS** (formerly TerminusCMS, later DFRNT Hub), which is retired and kept for historical reference. For hosted TerminusDB, see [TerminusDB Cloud](/docs/cloud/). A new modeller ships with TerminusDB 12.1. The open source database is unchanged.
 {% /callout %}
 
 
-Follow this instructions to create a project/data product in DFRNT TerminusDB cloud -
+Follow this instructions to create a project/data product in TerminusDB Cloud -
 
-1.  Login to the dashboard at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/).
+1.  Login to the dashboard at [TerminusDB Cloud](/docs/cloud/).
 2.  Select the team that you want the project to live.
 3.  Choose 'New Data Product' from the top menu.
 4.  Provide your project ID - this can only contain alphanumeric characters and underscores.

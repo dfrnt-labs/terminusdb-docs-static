@@ -66,7 +66,7 @@ Authorization: Basic YWRtaW46cm9vdA==
 
 ## Authentication
 
-Subscriptions use the same authentication as regular GraphQL requests. See [Connecting to GraphQL](/docs/connecting-to-graphql-reference/) for details on Basic Auth and DFRNT Cloud token authentication.
+Subscriptions use the same authentication as regular GraphQL requests. See [Connecting to GraphQL](/docs/connecting-to-graphql-reference/) for details on Basic Auth and TerminusDB Cloud token authentication.
 
 ## Subscription queries
 
@@ -451,7 +451,7 @@ Apollo Client supports subscriptions via WebSocket by default. To use SSE instea
 | URL | `/api/graphql/ORG/DATAPRODUCT` |
 | `Content-Type` | `application/json` |
 | `Accept` | `text/event-stream` or `application/x-ndjson` |
-| `Authorization` | Basic Auth or DFRNT Cloud token |
+| `Authorization` | Basic Auth or TerminusDB Cloud token |
 | Body | `{"query": "subscription { ... }"}` |
 
 ### Response headers

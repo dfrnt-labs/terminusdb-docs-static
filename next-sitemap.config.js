@@ -77,11 +77,43 @@ function urlToSlug(loc) {
 }
 
 /** @type {import('next-sitemap').IConfig} */
+// Main AI crawlers explicitly allowed — GEO/AEO visibility is a goal.
+const AI_CRAWLERS = [
+  'GPTBot',
+  'OAI-SearchBot',
+  'ChatGPT-User',
+  'ClaudeBot',
+  'Claude-User',
+  'Claude-SearchBot',
+  'anthropic-ai',
+  'PerplexityBot',
+  'Perplexity-User',
+  'Google-Extended',
+  'Applebot-Extended',
+  'meta-ExternalAgent',
+  'Meta-ExternalFetcher',
+  'Amazonbot',
+  'CCBot',
+  'Bytespider',
+  'cohere-ai',
+  'MistralAI-User',
+  'DuckAssistBot',
+  'AI2Bot',
+]
+
+/** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: process.env.SITE_URL || 'https://terminusdb.com/',
   generateRobotsTxt: true, // (optional)
   output: 'export',
   trailingSlash: true,
+
+  robotsTxtOptions: {
+    policies: [
+      { userAgent: '*', allow: '/' },
+      ...AI_CRAWLERS.map((userAgent) => ({ userAgent, allow: '/' })),
+    ],
+  },
 
   /**
    * Override <lastmod> with the git "last modified" date for the page when

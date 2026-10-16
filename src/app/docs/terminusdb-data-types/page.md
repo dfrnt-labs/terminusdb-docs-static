@@ -2,7 +2,7 @@
 tags:
   - reference
   - schema
-  - dfrnt-cloud
+  - terminusdb-cloud
 title: TerminusDB Data Types
 nextjs:
   metadata:
@@ -12,13 +12,13 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.com/docs/dfrnt-data-types/
+      canonical: https://terminusdb.com/docs/terminusdb-data-types/
 media: []
 ---
 
-{% callout type="note" %}
-**TerminusCMS is now DFRNT Hub**
-TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
+{% callout type="warning" %}
+**TerminusDB CMS is decommissioned**
+This page documents **TerminusDB CMS** (formerly TerminusCMS, later DFRNT Hub), which is retired and kept for historical reference. For hosted TerminusDB, see [TerminusDB Cloud](/docs/cloud/). A new modeller ships with TerminusDB 12.1. The open source database is unchanged.
 {% /callout %}
 
 

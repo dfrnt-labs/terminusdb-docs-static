@@ -2,17 +2,17 @@
 tags:
   - reference
   - dashboard
-  - dfrnt-cloud
+  - terminusdb-cloud
 title: TerminusDB Dashboard Reference Guide
 nextjs:
   metadata:
     title: TerminusDB Dashboard Reference Guide
     description: A conceptual overview of the TerminusDB dashboard describing its features and their purpose.
-    keywords: terminusdb, dashboard, dfrnt hub, terminuscms, terminusdb dashboard reference guide
+    keywords: terminusdb, dashboard, terminusdb cloud, terminusdb cms, terminusdb dashboard reference guide
     openGraph:
       images: https://assets.terminusdb.com/docs/document-explorer-home.png
     alternates:
-      canonical: https://terminusdb.com/docs/dfrnt-dashboard-reference/
+      canonical: https://terminusdb.com/docs/terminusdb-cms-dashboard-reference/
 media:
   - alt: How teams, users and projects are structured.
     caption: ""
@@ -21,7 +21,7 @@ media:
     value: https://assets.terminusdb.com/docs/teams-users-and-projects2.png
 ---
 
-This page documents the DFRNT Hub cloud dashboard — the web interface for managing teams, projects, schemas, and data. Use it to model schemas visually, curate content, and administer access without writing code.
+This page documents the TerminusDB Cloud cloud dashboard — the web interface for managing teams, projects, schemas, and data. Use it to model schemas visually, curate content, and administer access without writing code.
 
 {% callout type="warning" title="Built-in Dashboard Discontinued" %}
 As of TerminusDB v11.2, the built-in dashboard component has been discontinued. This page documents the cloud dashboard interface. For information about the discontinued built-in dashboard, see the [Dashboard Status page](/docs/dashboard/).
@@ -29,7 +29,7 @@ As of TerminusDB v11.2, the built-in dashboard component has been discontinued. 
 
 ## Overview
 
-The DFRNT Hub cloud dashboard provides:
+The TerminusDB Cloud cloud dashboard provides:
 
 *   Manage your teams and collaborators
 *   Manage your data products/projects
@@ -45,7 +45,7 @@ TerminusDB is structured in such a way -
 
 ![How teams, users and projects are structured.](https://assets.terminusdb.com/docs/teams-users-and-projects2.png)
 
-When you sign up for DFRNT TerminusDB cloud, it automatically generates a team for you based on your login credentials. You will be an admin user for any of your teams.
+When you sign up for TerminusDB Cloud, it automatically generates a team for you based on your login credentials. You will be an admin user for any of your teams.
 
 You can then invite collaborators to your team. The permissions you grant them for the team will be applied to all projects within that team.
 

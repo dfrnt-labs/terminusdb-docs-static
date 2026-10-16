@@ -271,4 +271,4 @@ Now that you have TerminusDB running on Windows:
 
 - [General Docker Installation Guide](/docs/install-terminusdb-as-a-docker-container)
 - [TerminusDB GitHub Repository](https://github.com/terminusdb/terminusdb)
-- [DFRNT Cloud Service](https://dfrnt.com/sign-up)
+- [TerminusDB Cloud Service](/docs/cloud/)

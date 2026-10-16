@@ -82,7 +82,7 @@ That is what `@subdocument` and `@shared` are for. They tell the database which 
 
 ## The class system
 
-Every entity in TerminusDB is an instance of a [class](/docs/schema-reference-guide/). A class declares its properties, each with a type — a primitive like `xsd:string`, a [collection](/docs/dfrnt-data-types/) like `Set` or `List`, an [optional](/docs/optional/) or [mandatory](/docs/mandatory/) field, a [`@oneof`](/docs/oneof/) choice, or a link to another class.
+Every entity in TerminusDB is an instance of a [class](/docs/schema-reference-guide/). A class declares its properties, each with a type — a primitive like `xsd:string`, a [collection](/docs/terminusdb-data-types/) like `Set` or `List`, an [optional](/docs/optional/) or [mandatory](/docs/mandatory/) field, a [`@oneof`](/docs/oneof/) choice, or a link to another class.
 
 Inheritance is supported, so common properties can live on a parent class. Because the schema is itself a graph, you can [query the schema with WOQL](/docs/schema-queries-with-woql/) the same way you query the data.
 

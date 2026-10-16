@@ -199,9 +199,9 @@ export const TAXONOMY: readonly TagEntry[] = [
 
   // ── Facet: platform ──────────────────────────────────────────────
   {
-    id: 'dfrnt-cloud',
-    prefLabel: 'DFRNT Cloud',
-    scopeNote: 'DFRNT-hosted TerminusDB cloud service (formerly TerminusCMS)',
+    id: 'terminusdb-cloud',
+    prefLabel: 'TerminusDB Cloud',
+    scopeNote: 'TerminusDB hosting options — managed cloud, Azure Marketplace, self-managed',
     facet: 'platform',
   },
   {
@@ -219,7 +219,7 @@ export const TAXONOMY: readonly TagEntry[] = [
   {
     id: 'dashboard',
     prefLabel: 'Dashboard',
-    scopeNote: 'DFRNT Hub / TerminusDB dashboard UI',
+    scopeNote: 'TerminusDB CMS (legacy) and cloud dashboard UI',
     facet: 'platform',
   },
 

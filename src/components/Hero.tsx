@@ -3,7 +3,8 @@ import Image from 'next/image'
 import clsx from 'clsx'
 import { Highlight } from 'prism-react-renderer'
 
-import { Button } from '@/components/Button'
+import { Button, buttonClass } from '@/components/Button'
+import { CtaLink } from '@/components/CtaLink'
 import { FreshnessIndicator } from '@/components/FreshnessIndicator'
 import { HeroBackground } from '@/components/HeroBackground'
 import { countPagesUpdatedThisMonth } from '@/lib/freshnessCount'
@@ -56,8 +57,9 @@ export function Hero() {
                 Knowledge Graph Database with Version Control
               </p>
               <p className="mt-3 text-2xl tracking-tight text-slate-400">
-                TerminusDB is the Open Source Knowledge Graph Database with
-                Git-like Version Control (git-for-data).
+                TerminusDB is an open-source document graph database — JSON
+                documents, datalog queries, and git-style version control in
+                one store.
               </p>
               <div className="mt-8 flex gap-4 md:justify-center lg:justify-start">
                 <Button
@@ -67,15 +69,12 @@ export function Hero() {
                   >
                   Get Started
                 </Button>
-                  {/* 
-                <Button
-                  href="https://dfrnt.com/sign-up"
-                  variant="secondary-outline"
-                  size="lg"
+                <CtaLink
+                  href="/docs/cloud"
+                  className={buttonClass('secondary-outline', 'lg', 'inline-flex items-center')}
                 >
-                  Try Cloud Experience
-                </Button>
-                */}
+                  Try TerminusDB Cloud
+                </CtaLink>
               </div>
               <FreshnessIndicator
                 count={freshnessCount}

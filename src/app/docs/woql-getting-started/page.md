@@ -22,7 +22,7 @@ WOQL is a formal language for querying and updating TerminusDB databases. It is 
 
 ## Prerequisites
 
-All examples use the TypeScript/JavaScript dialect of WOQL (the Python syntax follows traditional Python patterns but the logic is identical). Examples have been tested in the TerminusDB Logical Studio provided by [DFRNT](https://dfrnt.com/hypergraph-content-studio/). You should have a database with some schema and documents before working through these examples.
+All examples use the TypeScript/JavaScript dialect of WOQL (the Python syntax follows traditional Python patterns but the logic is identical). Examples have been tested in the TerminusDB Logical Studio provided by [TerminusDB Cloud](/docs/cloud/). You should have a database with some schema and documents before working through these examples.
 
 ## Predicates, literals and variables in WOQL
 

@@ -9,7 +9,7 @@ nextjs:
   metadata:
     title: Reset a Project with the TerminusDB Dashboard
     description: A guide to show how to reset to a particular commit of a branch or main using the TerminusDB dashboard.
-    keywords: terminusdb, branch, commit, dashboard, dfrnt hub, git for data, reset, reset a project with the terminusdb dashboard
+    keywords: terminusdb, branch, commit, dashboard, terminusdb cloud, git for data, reset, reset a project with the terminusdb dashboard
     openGraph:
       images: https://github.com/terminusdb/terminusdb-web-assets/blob/master/docs/reset-a-branch.png?raw=true
     alternates:
