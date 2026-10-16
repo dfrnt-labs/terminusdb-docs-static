@@ -51,6 +51,10 @@ export function getAllTaggedPages(): PageMeta[] {
 
     try {
       const frontmatter = yaml.load(match[1]) as Record<string, unknown>
+
+      // Draft pages are never listed (topics index, tag pages, What's New).
+      if (frontmatter.draft === true || frontmatter.status === 'draft') continue
+
       const tags = Array.isArray(frontmatter.tags)
         ? (frontmatter.tags as string[]).filter((t) => typeof t === 'string')
         : []

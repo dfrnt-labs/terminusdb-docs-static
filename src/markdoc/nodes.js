@@ -32,7 +32,13 @@ const nodes = {
       let slugify = documentSlugifyMap.get(config)
       let attributes = node.transformAttributes(config)
       let children = node.transformChildren(config)
-      let text = children.filter((child) => typeof child === 'string').join(' ')
+      // Children may be Tags (e.g. a heading containing a link) — extract
+      // text recursively so the slug reflects the visible heading text.
+      let collectText = (child) =>
+        typeof child === 'string'
+          ? child
+          : (child?.children ?? []).map(collectText).join('')
+      let text = children.map(collectText).join(' ')
       let id = attributes.id ?? slugify(text)
 
       return new Tag(

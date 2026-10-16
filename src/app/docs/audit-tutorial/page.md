@@ -15,6 +15,8 @@ nextjs:
 
 Every write in TerminusDB creates an immutable commit that records who made the change, when, and why. This makes the commit log a tamper-evident audit trail — useful for compliance, debugging, and accountability.
 
+*The history API was added in [TerminusDB 11.0.4](/docs/releases/11-0-4-document-history-api/), and gained diffs and streaming in [12.0.5](/docs/releases/12-0-5-streaming-history-diffs/).*
+
 **Time:** ~10 minutes
 **Prerequisites:** TerminusDB running on `localhost:6363` ([Install guide →](/docs/install-terminusdb-as-a-docker-container))
 

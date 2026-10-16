@@ -71,6 +71,12 @@ function enhanceFrontmatter(content, filePath) {
   }
 
   const metadata = frontmatter.nextjs.metadata
+
+  // Draft pages must never be indexed, even if reachable.
+  const isDraft = frontmatter.draft === true || frontmatter.status === 'draft'
+  const robotsModified = isDraft && !metadata.robots
+  if (robotsModified) metadata.robots = 'noindex, nofollow'
+
   const title = metadata.title || 'TerminusDB, Document Graph Database with Git-for-data'
   const description = metadata.description || 'TerminusDB is the Semantic Document Graph Database; a model-based, in-memory, and distributed RDF and JSON graph database with git-for-data collaboration'
   const canonical = metadata.alternates?.canonical || SITE_URL
@@ -78,7 +84,7 @@ function enhanceFrontmatter(content, filePath) {
   const ogModified = enhanceOpenGraph(metadata, title, description, canonical)
   const twitterModified = enhanceTwitterCard(metadata, title, description)
 
-  if (!ogModified && !twitterModified) {
+  if (!ogModified && !twitterModified && !robotsModified) {
     return content
   }
 

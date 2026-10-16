@@ -18,6 +18,8 @@ tags:
 
 TerminusDB provides automatic document unfolding for linked documents through two mechanisms: class-level `@unfoldable` and field-level `@unfold` annotations. This reference guide explains how unfolding works, how cycle detection prevents infinite recursion, and performance characteristics of the implementation.
 
+*`@unfoldable` was added in [TerminusDB 10.1.2](/docs/releases/10-1-2-dashboard-users-history-api/), made safe for cyclical types in [11.1.3](/docs/releases/11-1-3-unfold-cyclical-types/), and field-level `@unfold` came in [12.0.1](/docs/releases/12-0-1-graphql-count-woql-set-operators/).*
+
 --> Valid as of the v12 release.
 
 ## What is Document Unfolding?

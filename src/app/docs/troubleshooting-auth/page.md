@@ -47,16 +47,17 @@ This page covers errors that occur after your client reaches the server but fail
    ```bash
    curl -u admin:root http://localhost:6363/api/info
    ```
-3. If you set a custom password via `TERMINUSDB_ADMIN_PASS`, use that value instead.
-4. If you have forgotten the password, recreate the container with a new password:
+3. If you set a custom password via `TERMINUSDB_ADMIN_PASS` or `TERMINUSDB_ADMIN_SET_PASS`, use that value instead.
+4. If you have forgotten the password, restart the container with `TERMINUSDB_ADMIN_SET_PASS` — it is applied on every start, unlike `TERMINUSDB_ADMIN_PASS` which only takes effect at first store init:
    ```bash
    docker rm -f terminusdb
    docker run -d --name terminusdb \
      -p 6363:6363 \
      -v terminusdb_storage:/app/terminusdb/storage \
-     -e TERMINUSDB_ADMIN_PASS=mynewpassword \
+     -e TERMINUSDB_ADMIN_SET_PASS=mynewpassword \
      terminusdb/terminusdb-server
    ```
+   You can remove the variable again once you are back in — the password persists in the store.
 
 ### Python client: `password` vs `key` parameter
 

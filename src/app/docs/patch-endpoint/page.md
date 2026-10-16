@@ -30,6 +30,8 @@ TerminusDB provides two patch operations for applying structural changes to docu
 
 Both use the same [patch format](/docs/json-diff-and-patch/) produced by TerminusDB's diff operations.
 
+*The patch endpoint was added in [TerminusDB 11.0.3](/docs/releases/11-0-3-patch-endpoint/).*
+
 ## Patch a single document
 
 Use `client.patch(before, patch)` when you have the original document and a patch object. TerminusDB applies the patch and returns the result — no database write occurs.
@@ -54,7 +56,13 @@ This is useful for previewing what a patch would produce before committing it to
 
 ## Patch documents in a branch
 
-Use `client.patchResource(patch, message)` to apply patches directly to documents stored in the current branch. The `patch` array accepts three types of operations:
+Use `client.patchResource(patch, message)` to apply patches directly to documents stored in the current branch.
+
+{% callout type="note" %}
+Insert and Delete operations were added in [TerminusDB 12.0.7](/docs/releases/12-0-7-insert-delete-patches-folded-diffs/) — they are what make resolving merge conflicts through the patch endpoint possible.
+{% /callout %}
+
+The `patch` array accepts three types of operations:
 
 - **Field-level patch**: `{"@id":"...","field":{"@op":"SwapValue","@before":"...","@after":"..."}}`
 - **Insert**: `{"@op":"Insert","@insert":{"@id":"...","@type":"...","field":"value"}}`

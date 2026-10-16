@@ -18,7 +18,7 @@ media: []
 
 > Author: Gavin Mendel Gleason
 >
-> Note: TerminusX has since been replaced by [the DFRNT Studio](https://studio.dfrnt.com/).
+> Note: TerminusX has since been discontinued.
 
 I feel some relief and a lot of trepidation that I'm finally seeing
 the launch of the TerminusX cloud service. Some very long nights and

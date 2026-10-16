@@ -20,6 +20,8 @@ When you send a WOQL query to TerminusDB, something fundamentally different from
 
 This page explains how that search works, why it matters for how you design queries, and how TerminusDB lets you choose between collecting all solutions into a single response or streaming them progressively as they are found.
 
+*Query result streaming was added in [TerminusDB 11.1.12](/docs/releases/11-1-12-streaming-woql-queries/).*
+
 > **Prerequisites:** Familiarity with [What is Datalog?](/docs/what-is-datalog/) and [What is Unification?](/docs/what-is-unification/) will help, but isn't required.
 
 ---
