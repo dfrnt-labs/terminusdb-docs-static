@@ -59,6 +59,14 @@
     "created": "2025-12-09T18:04:54+01:00",
     "updated": "2026-03-03T20:29:14+01:00"
   },
+  "blog/2026-01-20-live-commit-streams": {
+    "created": null,
+    "updated": null
+  },
+  "blog/2026-02-03-terminusdb-12.1-release": {
+    "created": null,
+    "updated": null
+  },
   "docs": {
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-05-01T20:38:01+02:00"
@@ -99,6 +107,10 @@
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-05-01T16:42:29+02:00"
   },
+  "docs/admin-console": {
+    "created": "2026-10-11T14:15:32+02:00",
+    "updated": "2026-10-11T14:15:32+02:00"
+  },
   "docs/advanced-filtering-with-graphql": {
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-05-01T20:38:01+02:00"
@@ -125,7 +137,7 @@
   },
   "docs/branch-howto": {
     "created": "2026-05-01T15:20:59+02:00",
-    "updated": "2026-05-18T20:32:58+02:00"
+    "updated": "2026-10-11T15:06:45+02:00"
   },
   "docs/browser-cors-howto": {
     "created": "2026-04-30T10:51:49+02:00",
@@ -233,7 +245,7 @@
   },
   "docs/datetime-interval-semantics": {
     "created": "2026-08-04T10:04:20+02:00",
-    "updated": "2026-10-11T13:38:35+02:00"
+    "updated": "2026-10-11T14:15:32+02:00"
   },
   "docs/delete-a-document": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -261,7 +273,7 @@
   },
   "docs/docker-advanced-configuration": {
     "created": "2026-05-01T20:50:08+02:00",
-    "updated": "2026-05-01T20:50:08+02:00"
+    "updated": "2026-10-11T14:15:32+02:00"
   },
   "docs/document-format-api-curl-tutorial": {
     "created": "2026-03-03T09:20:36+01:00",
@@ -329,7 +341,7 @@
   },
   "docs/enterprise-configuration": {
     "created": "2026-03-03T09:20:36+01:00",
-    "updated": "2026-05-01T09:13:20+02:00"
+    "updated": "2026-10-11T14:15:32+02:00"
   },
   "docs/enterprise-context-cache": {
     "created": "2026-03-03T09:20:36+01:00",
@@ -425,7 +437,7 @@
   },
   "docs/graphql-subscriptions": {
     "created": "2026-08-04T09:59:17+02:00",
-    "updated": "2026-08-04T09:59:17+02:00"
+    "updated": "2026-10-11T14:15:32+02:00"
   },
   "docs/graphql-with-rdf-iri": {
     "created": "2025-09-03T11:26:16+02:00",
@@ -517,7 +529,7 @@
   },
   "docs/language-strings-with-curl": {
     "created": "2026-04-06T21:13:20+02:00",
-    "updated": "2026-05-01T16:47:30+02:00"
+    "updated": "2026-10-11T14:15:32+02:00"
   },
   "docs/limit-results-in-graphql": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -553,7 +565,7 @@
   },
   "docs/merge-howto": {
     "created": "2026-05-01T15:20:59+02:00",
-    "updated": "2026-05-18T20:32:58+02:00"
+    "updated": "2026-10-11T15:06:45+02:00"
   },
   "docs/model-schema": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -701,7 +713,7 @@
   },
   "docs/schema-reference-guide": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-10-09T16:42:21+02:00"
+    "updated": "2026-10-11T14:15:32+02:00"
   },
   "docs/self-hosted-installation": {
     "created": "2026-04-30T11:06:02+02:00",
@@ -775,9 +787,13 @@
     "created": "2026-05-01T15:13:29+02:00",
     "updated": "2026-05-18T20:32:58+02:00"
   },
+  "docs/terminusdb-write-path": {
+    "created": "2026-10-11T14:15:32+02:00",
+    "updated": "2026-10-11T14:15:32+02:00"
+  },
   "docs/time-processing": {
     "created": "2026-03-03T06:57:51+01:00",
-    "updated": "2026-05-01T09:18:53+02:00"
+    "updated": "2026-10-11T14:15:32+02:00"
   },
   "docs/time-travel": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -797,7 +813,7 @@
   },
   "docs/time-tutorial-intervals": {
     "created": "2026-03-03T06:57:51+01:00",
-    "updated": "2026-05-01T09:18:53+02:00"
+    "updated": "2026-10-11T14:15:32+02:00"
   },
   "docs/time-tutorial-patterns": {
     "created": "2026-03-03T06:57:51+01:00",
@@ -821,11 +837,11 @@
   },
   "docs/troubleshooting-queries": {
     "created": "2026-04-30T10:51:49+02:00",
-    "updated": "2026-05-18T20:32:58+02:00"
+    "updated": "2026-10-11T14:15:32+02:00"
   },
   "docs/troubleshooting-schema": {
     "created": "2026-04-30T10:51:49+02:00",
-    "updated": "2026-05-18T20:32:58+02:00"
+    "updated": "2026-10-11T14:15:32+02:00"
   },
   "docs/ui-components": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -881,11 +897,47 @@
   },
   "docs/version-control-operations": {
     "created": "2026-05-01T15:13:29+02:00",
-    "updated": "2026-05-18T20:32:58+02:00"
+    "updated": "2026-10-11T15:06:45+02:00"
   },
   "docs/version-controlled-json": {
     "created": "2026-05-18T13:40:08+02:00",
-    "updated": "2026-05-18T20:47:54+02:00"
+    "updated": "2026-10-11T14:15:32+02:00"
+  },
+  "docs/versioned-search": {
+    "created": "2026-10-11T14:15:32+02:00",
+    "updated": "2026-10-11T14:15:32+02:00"
+  },
+  "docs/versioned-search-api-reference": {
+    "created": "2026-10-11T14:15:32+02:00",
+    "updated": "2026-10-11T14:15:32+02:00"
+  },
+  "docs/versioned-search-clustering": {
+    "created": "2026-10-11T14:15:32+02:00",
+    "updated": "2026-10-11T14:15:32+02:00"
+  },
+  "docs/versioned-search-concepts": {
+    "created": "2026-10-11T14:15:32+02:00",
+    "updated": "2026-10-11T14:15:32+02:00"
+  },
+  "docs/versioned-search-entity-resolution": {
+    "created": "2026-10-11T14:15:32+02:00",
+    "updated": "2026-10-11T14:15:32+02:00"
+  },
+  "docs/versioned-search-history": {
+    "created": "2026-10-11T14:15:32+02:00",
+    "updated": "2026-10-11T14:15:32+02:00"
+  },
+  "docs/versioned-search-indexing": {
+    "created": "2026-10-11T14:15:32+02:00",
+    "updated": "2026-10-11T14:15:32+02:00"
+  },
+  "docs/versioned-search-querying": {
+    "created": "2026-10-11T14:15:32+02:00",
+    "updated": "2026-10-11T14:15:32+02:00"
+  },
+  "docs/versioned-search-quickstart": {
+    "created": "2026-10-11T14:15:32+02:00",
+    "updated": "2026-10-11T14:15:32+02:00"
   },
   "docs/viewdocumentcomponent": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -945,7 +997,7 @@
   },
   "docs/woql-interval-algebra": {
     "created": "2026-03-03T06:57:51+01:00",
-    "updated": "2026-08-04T11:50:28+02:00"
+    "updated": "2026-10-11T14:15:32+02:00"
   },
   "docs/woql-json-ld-queries": {
     "created": "2025-11-13T22:23:24+01:00",
@@ -989,7 +1041,7 @@
   },
   "docs/woql-time-handling": {
     "created": "2026-03-03T06:57:51+01:00",
-    "updated": "2026-08-04T11:50:28+02:00"
+    "updated": "2026-10-11T14:15:32+02:00"
   },
   "docs/woql-tips-and-tricks-1": {
     "created": "2025-12-17T14:35:08+01:00",
@@ -1017,6 +1069,6 @@
   },
   "page.md": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-10-11T13:38:35+02:00"
+    "updated": "2026-10-11T14:39:01+02:00"
   }
 }

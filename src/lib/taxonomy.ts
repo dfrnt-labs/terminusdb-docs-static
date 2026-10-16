@@ -87,6 +87,12 @@ export const TAXONOMY: readonly TagEntry[] = [
     broader: 'how-to',
     facet: 'content-type',
   },
+  {
+    id: 'release-notes',
+    prefLabel: 'Release Notes',
+    scopeNote: 'Release notes, changelogs, and feature announcements per TerminusDB version',
+    facet: 'content-type',
+  },
 
   // ── Facet: feature ───────────────────────────────────────────────
   {

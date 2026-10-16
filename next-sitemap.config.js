@@ -23,6 +23,42 @@ function loadGitDates() {
 const gitDates = loadGitDates()
 
 /**
+ * Collect route slugs of draft pages (frontmatter `draft: true` or
+ * `status: draft`). Drafts are excluded from the sitemap — they are
+ * placeholders, not publishable content.
+ */
+function loadDraftSlugs() {
+  const docsDir = path.join(__dirname, 'src', 'app', 'docs')
+  const drafts = new Set()
+  try {
+    const walk = (dir) => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name)
+        if (entry.isDirectory()) {
+          if (!entry.name.startsWith('.')) walk(full)
+        } else if (entry.name === 'page.md') {
+          const content = fs.readFileSync(full, 'utf8')
+          const fm = content.match(/^---\n([\s\S]*?)\n---/)
+          if (
+            fm &&
+            (/^draft:\s*true\s*$/m.test(fm[1]) ||
+              /^status:\s*draft\s*$/m.test(fm[1]))
+          ) {
+            drafts.add(path.relative(docsDir, dir).split(path.sep).join('/'))
+          }
+        }
+      }
+    }
+    walk(docsDir)
+  } catch {
+    // Missing docs dir — nothing to exclude.
+  }
+  return drafts
+}
+
+const draftSlugs = loadDraftSlugs()
+
+/**
  * Convert a sitemap absolute URL to a route slug compatible with the
  * gitDates index. Examples:
  *   https://terminusdb.com/                  → ""
@@ -61,6 +97,11 @@ module.exports = {
     // Defensive: also skip topics paths in case the exclude glob misses
     // trailing-slash variants.
     if (slug === 'docs/topics' || slug.startsWith('docs/topics/')) {
+      return null
+    }
+
+    // Draft pages never appear in the sitemap.
+    if (slug.startsWith('docs/') && draftSlugs.has(slug.slice(5))) {
       return null
     }
 

@@ -106,10 +106,11 @@ The payload is structured as a JSON document with one of the following forms:
 *   With `"before_data_version"`, `"after_data_version"` and `"document_id"` specifying the data version or commit ID with which to compare the document given by `"document_id"`
 *   With `"before_data_version"`, `"after_data_version"`, meaning that we would like to get a diff for _all_ documents between the two specified data versions.
 
-There are also two options:
+There are also these options:
 
 *   `keep`: A dictionary which has keys which need to be copied
 *   `copy_value`: Which specifies that we should make _explicit_ which values existed during a list copy.
+*   `unfold`: Whether to expand subdocuments inline before comparing. Defaults to `true`. See [Folded diffs](#folded-diffs-unfold) below. _Added in [TerminusDB 12.0.7](/docs/releases/terminusdb-12-0-7/)._
 
 An example of the payload:
 
@@ -138,6 +139,37 @@ An example of a payload comparing only dataversions:
 { "before_data_version" : "branch:s7dde27gyj8ezat3itw5nr3peu1lymh",
   "after_data_version" : "branch:jb81rgx9lzow35r3pkrsvdf5l75kaq",
   "document_id" : "terminusdb:///data/test/665df8a9c3a58be6db622be4b37a76bea46c3e5e3cd2db923e708e574d1566be"}
+```
+
+#### Folded diffs (`unfold`)
+
+{% callout type="note" %}
+Added in [TerminusDB 12.0.7](/docs/releases/terminusdb-12-0-7/). The CLI has a matching `--unfold` flag (default `true`).
+{% /callout %}
+
+By default, diffs between commits expand subdocuments inline — a change inside a subdocument shows up as a field-level patch on the parent. Set `"unfold": false` to compare documents as they are stored: a changed subdocument then appears as a swap of the subdocument ID, not of its contents.
+
+Given `House/Villa` whose `address` subdocument changed `city` from `Paris` to `Lyon`:
+
+```json
+{ "before_data_version" : "commit:dxfebts1uq4xilqmxywr3gk6dznqkut",
+  "after_data_version"  : "commit:leonn5n090wxwk8qf9nmknefr8iyulk",
+  "document_id"         : "terminusdb:///data/House/Villa",
+  "unfold"              : true }
+```
+
+```json
+{ "@id" : "House/Villa",
+  "address" : { "city" : { "@op" : "SwapValue", "@before" : "Paris", "@after" : "Lyon" } } }
+```
+
+With `"unfold": false`, the same diff is reported as a swap of the whole subdocument:
+
+```json
+{ "@id" : "House/Villa",
+  "address" : { "@op" : "SwapValue",
+                "@before" : "House/Villa/address/Address/5cDEiMhi_iSFy5tV",
+                "@after"  : "House/Villa/address/Address/OI3KNPsYVskjBKy5" } }
 ```
 
 #### Diff examples using curl
@@ -497,6 +529,39 @@ A **force** patch (`ForceValue`) sets the value of a location regardless of the 
   'name' : { '@op' : 'ForceValue',
              '@after' : "Jake" }}
 ```
+
+### Insert and Delete
+
+{% callout type="note" %}
+Added in [TerminusDB 12.0.7](/docs/releases/terminusdb-12-0-7/).
+{% /callout %}
+
+Besides field-level operations, the `patch` array accepted by the [patch endpoint](/docs/patch-endpoint/) can insert and delete whole documents. These two operations use the same format the diff endpoint produces, which enables a diff → pick → apply workflow for resolving merge conflicts:
+
+```typescript
+{ '@op' : 'Insert', '@insert' : { ...document... } }
+{ '@op' : 'Delete', '@delete' : { '@id' : 'Document/id' } }
+```
+
+A patch that inserts `Person/Bob`, deletes `Person/Old`, and links `Person/Jane` to the new document in one commit:
+
+```json
+{ "author" : "admin",
+  "message" : "insert, delete and link",
+  "patch" : [
+    { "@op" : "Insert",
+      "@insert" : { "@type" : "Person", "@id" : "Person/Bob",
+                    "@capture" : "B", "name" : "Bob" } },
+    { "@op" : "Delete",
+      "@delete" : { "@id" : "Person/Old" } },
+    { "@id" : "Person/Jane",
+      "friend" : { "@op" : "SwapValue", "@before" : null, "@after" : { "@ref" : "B" } } }
+  ] }
+```
+
+`@capture` names an inserted document so other entries in the same patch can reference it with `{"@ref" : "B"}` — including `SwapValue` `@after` values, as above. The patch is atomic: if any entry conflicts with the stored state (for example a `@before` that does not match), the whole call fails and nothing is written.
+
+**Read more:** [Insert, Delete, `@capture` and `@ref` on the patch endpoint](/docs/patch-endpoint/)
 
 ### Table
 

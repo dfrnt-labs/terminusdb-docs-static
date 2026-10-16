@@ -146,6 +146,17 @@ export default function withSearch(nextConfig = {}) {
             this.addContextDependency(pagesDir)
 
             let files = glob.sync('**/page.md', { cwd: pagesDir })
+            // Draft pages are excluded from the search index.
+            files = files.filter((file) => {
+              const fm = fs
+                .readFileSync(path.join(pagesDir, file), 'utf8')
+                .match(/^---\n([\s\S]*?)\n---/)
+              return !(
+                fm &&
+                (/^draft:\s*true\s*$/m.test(fm[1]) ||
+                  /^status:\s*draft\s*$/m.test(fm[1]))
+              )
+            })
             let data = files.map((file) => {
               let url =
                 file === 'page.md' ? '/' : `/${file.replace(/\/page\.md$/, '')}`

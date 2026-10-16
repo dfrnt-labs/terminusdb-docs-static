@@ -157,6 +157,16 @@ export const navigation: Navigation[] = [
         title: "What's New",
         href: '/docs/whats-new',
       },
+      {
+        title: 'Releases',
+        href: '/docs/releases',
+        links: [
+          {
+            title: '12.0 Changelog',
+            href: '/docs/releases/terminusdb-12-0',
+          },
+        ],
+      },
       // {
     ],
   },
