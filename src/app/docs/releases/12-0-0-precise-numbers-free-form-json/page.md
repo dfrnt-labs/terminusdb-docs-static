@@ -74,7 +74,7 @@ The rational numbers support means that TerminusDB has practically unlimited pre
 
 ### Why it matters
 
-TODO(human): why it matters
+Production deployments get a smaller attack surface: stack traces no longer leak internals, and every error carries a request ID you can follow through logs and traces. The container drops its root requirement, and the auto-optimizer being on by default means databases stay fast without scheduled maintenance.
 
 ## Fixes
 

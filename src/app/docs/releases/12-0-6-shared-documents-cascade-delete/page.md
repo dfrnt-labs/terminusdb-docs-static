@@ -97,9 +97,7 @@ For `Animal/Plato` this returns `The animal is named Plato.` — a flat text ren
 
 ### Why it matters
 
-TODO(human): why it matters
-
-**Read more:** [VectorLink setup](/docs/set-up-vectorlink/) · [OpenAI & Handlebars config](/docs/openai-handlebars-config/)
+Templates turn any document into embedding-ready text in a single API call, removing the transformation step from your indexing pipeline. The same template keeps rendered text consistent as documents change, so vector indexes stay in sync with the data.
 
 ## Fixes
 

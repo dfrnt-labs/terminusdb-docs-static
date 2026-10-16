@@ -14,7 +14,7 @@ release:
 nextjs:
   metadata:
     title: 'UUID v7 Keys and Faster JSON Loading | TerminusDB 12.0.8'
-    description: 'TerminusDB 12.0.8 lets you use UUID v7 document keys, so you can keep IDs issued by other systems. Raw JSON loads about 4.6× faster than 12.0.7.'
+    description: 'TerminusDB 12.0.8 lets you use UUID v7 document keys, so you can keep IDs issued by other systems. Raw JSON loads about 4.6× faster than before.'
     keywords: terminusdb 12.0.8, uuid v7 keys, uuidv7 database id, import external IRIs, knowledge graph database release, terminusdb release notes
     alternates:
       canonical: https://terminusdb.com/docs/releases/12-0-8-uuid-v7-faster-json-loading/

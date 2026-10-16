@@ -8,8 +8,8 @@
  * src/data/releases.json, and generates:
  *
  *   - src/app/docs/releases/page.md                  (index, fully generated)
- *   - src/app/docs/releases/terminusdb-<line>/page.md (one changelog per minor line, fully generated)
- *   - src/app/docs/releases/terminusdb-<version>/page.md (draft stubs for releases
+ *   - src/app/docs/releases/<line>-changelog/page.md (one changelog per minor line, fully generated)
+ *   - src/app/docs/releases/<version>/page.md (draft stubs for releases
  *     with new functionality and no feature page yet — created once, never overwritten)
  *
  * Run: npm run sync:releases
@@ -406,7 +406,7 @@ function renderStub(release, prevNext, pages) {
   const body = []
   body.push(
     'TODO(human): write a 1-sentence intro naming the headline capability of this release, ' +
-      'then a 3-bullet summary. Model: [TerminusDB 12.0.8](/docs/releases/terminusdb-12-0-8/).\n',
+      'then a 3-bullet summary. Model: [TerminusDB 12.0.8](/docs/releases/12-0-8-uuid-v7-faster-json-loading/).\n',
   )
   body.push('## What shipped\n')
   body.push(featureBullets || '- (see GitHub release notes)')

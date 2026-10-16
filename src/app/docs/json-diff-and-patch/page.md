@@ -110,7 +110,7 @@ There are also these options:
 
 *   `keep`: A dictionary which has keys which need to be copied
 *   `copy_value`: Which specifies that we should make _explicit_ which values existed during a list copy.
-*   `unfold`: Whether to expand subdocuments inline before comparing. Defaults to `true`. See [Folded diffs](#folded-diffs-unfold) below. _Added in [TerminusDB 12.0.7](/docs/releases/terminusdb-12-0-7/)._
+*   `unfold`: Whether to expand subdocuments inline before comparing. Defaults to `true`. See [Folded diffs](#folded-diffs-unfold) below. _Added in [TerminusDB 12.0.7](/docs/releases/12-0-7-insert-delete-patches-folded-diffs/)._
 
 An example of the payload:
 
@@ -144,7 +144,7 @@ An example of a payload comparing only dataversions:
 #### Folded diffs (`unfold`)
 
 {% callout type="note" %}
-Added in [TerminusDB 12.0.7](/docs/releases/terminusdb-12-0-7/). The CLI has a matching `--unfold` flag (default `true`).
+Added in [TerminusDB 12.0.7](/docs/releases/12-0-7-insert-delete-patches-folded-diffs/). The CLI has a matching `--unfold` flag (default `true`).
 {% /callout %}
 
 By default, diffs between commits expand subdocuments inline — a change inside a subdocument shows up as a field-level patch on the parent. Set `"unfold": false` to compare documents as they are stored: a changed subdocument then appears as a swap of the subdocument ID, not of its contents.
@@ -533,7 +533,7 @@ A **force** patch (`ForceValue`) sets the value of a location regardless of the 
 ### Insert and Delete
 
 {% callout type="note" %}
-Added in [TerminusDB 12.0.7](/docs/releases/terminusdb-12-0-7/).
+Added in [TerminusDB 12.0.7](/docs/releases/12-0-7-insert-delete-patches-folded-diffs/).
 {% /callout %}
 
 Besides field-level operations, the `patch` array accepted by the [patch endpoint](/docs/patch-endpoint/) can insert and delete whole documents. These two operations use the same format the diff endpoint produces, which enables a diff → pick → apply workflow for resolving merge conflicts:

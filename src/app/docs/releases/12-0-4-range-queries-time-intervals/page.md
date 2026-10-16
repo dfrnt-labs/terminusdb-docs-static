@@ -85,9 +85,7 @@ Schema context elements — `@context` and `@metadata` — are now managed atomi
 
 ### Why it matters
 
-TODO(human): why it matters
-
-**Read more:** [Prefix management API](/docs/prefix-management/) · [Context prefixes in the schema guide](/docs/schema-reference-guide/#context-prefixes)
+Prefixes and data now commit together, so a schema change can never leave documents pointing at prefixes that were only half-written. Idempotent re-adds make prefix automation safe to retry.
 
 ## Also in 12.0.4
 

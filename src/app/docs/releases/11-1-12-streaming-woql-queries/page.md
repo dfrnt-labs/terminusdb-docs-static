@@ -34,7 +34,7 @@ The WOQL endpoint can now return streaming data — results are sent as they are
 
 ### Why it matters
 
-TODO(human): why it matters
+Large result sets no longer need to be buffered in full before the first byte is sent. Clients see results sooner and can process rows incrementally, which keeps memory use flat and latency low for big queries.
 
 **Read more:** [WOQL query streaming](/docs/woql-query-streaming/) · [Run a WOQL query](/docs/run-woql-query/)
 

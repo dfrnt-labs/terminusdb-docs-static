@@ -104,7 +104,7 @@ Here is the example result
 ## The `unfold` option
 
 {% callout type="note" %}
-Added in [TerminusDB 12.0.7](/docs/releases/terminusdb-12-0-7/).
+Added in [TerminusDB 12.0.7](/docs/releases/12-0-7-insert-delete-patches-folded-diffs/).
 {% /callout %}
 
 Diffs between commits expand subdocuments inline by default — a change inside a subdocument is reported as a field-level patch on its parent. Pass `unfold: false` in the options to compare documents as stored: a changed subdocument is then reported as a swap of the subdocument ID rather than of its contents.

@@ -61,7 +61,7 @@ Reading an `Order` returns `customer` unfolded inline and `product` as an ID ref
 
 ### Why it matters
 
-TODO(human): why it matters
+You can shape each read to the client that consumes it — expand the fields a UI needs inline and keep the rest as references. Responses get smaller, extra round trips disappear, and cyclic graphs stay safe because recursion stops at the first repeat.
 
 **Read more:** [`@unfold` in the schema guide](/docs/schema-reference-guide/#unfold-field-level)
 
