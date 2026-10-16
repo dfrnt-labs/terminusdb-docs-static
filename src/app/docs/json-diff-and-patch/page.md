@@ -93,7 +93,7 @@ http://localhost:6363/api/diff
 http://localhost:6363/api/patch
 ```
 
-> **Note:** The former cloud endpoints (`cloud.terminusdb.org/jsondiff` and `cloud.terminusdb.org/jsonpatch`) are no longer available. Use your own TerminusDB instance or [create a DFRNT account](https://dfrnt.com/create-account) for hosted access.
+> **Note:** The former cloud endpoints (`cloud.terminusdb.org/jsondiff` and `cloud.terminusdb.org/jsonpatch`) are no longer available. Use your own TerminusDB instance or [request early access](/docs/cloud/) for hosted access.
 
 ### Diff
 
@@ -275,9 +275,9 @@ Expected output:
 [0, 1, 2, 3]
 ```
 
-## Use the DFRNT hosted endpoint
+## Use the hosted endpoint
 
-The diff and patch endpoints can be used directly as an API without running your own TerminusDB instance, using the [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/) cloud hosting.
+The diff and patch endpoints can be used directly as an API without running your own TerminusDB instance, using the [TerminusDB Cloud](/docs/cloud/) cloud hosting.
 
 Use the hosted endpoint for each operation. Have your API token ready to run the commands below.
 

@@ -1,7 +1,7 @@
 ---
 tags:
   - how-to
-  - dfrnt-cloud
+  - terminusdb-cloud
   - collaboration
   - beginner
 title: Create teams using TerminusDB
@@ -29,17 +29,17 @@ media:
 
 {% callout type="note" %}
 **Prerequisites**
-- A DFRNT Hub account ([sign up](https://dfrnt.com))
+- A TerminusDB Cloud account ([sign up](/docs/cloud/))
 {% /callout %}
 
 {% callout type="note" %}
 **What you'll achieve**
-By the end of this guide, you will have created a team in DFRNT Hub.
+By the end of this guide, you will have created a team in TerminusDB Cloud.
 {% /callout %}
 
-{% callout type="note" %}
-**TerminusCMS is now DFRNT Hub**
-TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
+{% callout type="warning" %}
+**TerminusDB CMS is decommissioned**
+This page documents **TerminusDB CMS** (formerly TerminusCMS, later DFRNT Hub), which is retired and kept for historical reference. For hosted TerminusDB, see [TerminusDB Cloud](/docs/cloud/). A new modeller ships with TerminusDB 12.1. The open source database is unchanged.
 {% /callout %}
 
 

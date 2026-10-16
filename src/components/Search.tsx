@@ -11,6 +11,7 @@ import {
   useState,
 } from 'react'
 import Highlighter from 'react-highlight-words'
+import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
   type AutocompleteApi,
@@ -22,7 +23,13 @@ import { Dialog, DialogPanel } from '@headlessui/react'
 import clsx from 'clsx'
 
 import { navigation } from '@/lib/navigation'
-import { type Result } from '@/markdoc/search.mjs'
+import { PoweredByTerminusDB } from '@/components/PoweredByTerminusDB'
+import { SearchAccuracy } from '@/components/SearchAccuracy'
+import {
+  hitToResult,
+  searchDocs,
+  type SearchResult as Result,
+} from '@/lib/terminusdb-search'
 
 type EmptyObject = Record<string, never>
 
@@ -32,6 +39,8 @@ type Autocomplete = AutocompleteApi<
   React.MouseEvent,
   React.KeyboardEvent
 >
+
+const DEBOUNCE_MS = 250
 
 function SearchIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -48,6 +57,10 @@ function useAutocomplete({
 }) {
   let id = useId()
   let router = useRouter()
+  let searchRef = useRef<{
+    timer?: ReturnType<typeof setTimeout>
+    controller?: AbortController
+  }>({})
   let [autocompleteState, setAutocompleteState] = useState<
     AutocompleteState<Result> | EmptyObject
   >({})
@@ -87,20 +100,29 @@ function useAutocomplete({
         navigate,
       },
       getSources({ query }) {
-        return import('@/markdoc/search.mjs').then(({ search }) => {
-          return [
-            {
-              sourceId: 'documentation',
-              getItems() {
-                return search(query, { limit: 5 })
-              },
-              getItemUrl({ item }) {
-                return item.url
-              },
-              onSelect: navigate,
+        return [
+          {
+            sourceId: 'documentation',
+            getItems() {
+              return new Promise<Result[]>((resolve) => {
+                searchRef.current.timer &&
+                  clearTimeout(searchRef.current.timer)
+                searchRef.current.controller?.abort()
+                searchRef.current.timer = setTimeout(() => {
+                  let controller = new AbortController()
+                  searchRef.current.controller = controller
+                  searchDocs({ q: query, count: 8, signal: controller.signal })
+                    .then((hits) => resolve(hits.map(hitToResult)))
+                    .catch(() => resolve([]))
+                }, DEBOUNCE_MS)
+              })
             },
-          ]
-        })
+            getItemUrl({ item }) {
+              return item.url
+            },
+            onSelect: navigate,
+          },
+        ]
       },
     }),
   )
@@ -153,18 +175,20 @@ function SearchResult({
   autocomplete,
   collection,
   query,
+  maxScore,
 }: {
   result: Result
   autocomplete: Autocomplete
   collection: AutocompleteCollection<Result>
   query: string
+  maxScore: number
 }) {
   let id = useId()
 
   let sectionTitle = navigation.find((section) =>
     section.links.find((link) => link.href === result.url.split('#')[0]),
   )?.title
-  let hierarchy = [sectionTitle, result.pageTitle].filter(
+  let hierarchy = [sectionTitle].filter(
     (x): x is string => typeof x === 'string',
   )
 
@@ -177,35 +201,40 @@ function SearchResult({
         source: collection.source,
       })}
     >
-      <div
-        id={`${id}-title`}
-        aria-hidden="true"
-        className="text-sm text-slate-700 group-aria-selected:text-sky-600 dark:text-slate-300 dark:group-aria-selected:text-sky-400"
-      >
-        <HighlightQuery text={result.title} query={query} />
-      </div>
-      {hierarchy.length > 0 && (
-        <div
-          id={`${id}-hierarchy`}
-          aria-hidden="true"
-          className="mt-0.5 truncate text-xs whitespace-nowrap text-slate-500 dark:text-slate-400"
-        >
-          {hierarchy.map((item, itemIndex, items) => (
-            <Fragment key={itemIndex}>
-              <HighlightQuery text={item} query={query} />
-              <span
-                className={
-                  itemIndex === items.length - 1
-                    ? 'sr-only'
-                    : 'mx-2 text-slate-300 dark:text-slate-700'
-                }
-              >
-                /
-              </span>
-            </Fragment>
-          ))}
+      <div className="flex items-baseline gap-3">
+        <div className="min-w-0 flex-1">
+          <div
+            id={`${id}-title`}
+            aria-hidden="true"
+            className="text-sm text-slate-700 group-aria-selected:text-sky-600 dark:text-slate-300 dark:group-aria-selected:text-sky-400"
+          >
+            <HighlightQuery text={result.title} query={query} />
+          </div>
+          {hierarchy.length > 0 && (
+            <div
+              id={`${id}-hierarchy`}
+              aria-hidden="true"
+              className="mt-0.5 truncate text-xs whitespace-nowrap text-slate-500 dark:text-slate-400"
+            >
+              {hierarchy.map((item, itemIndex, items) => (
+                <Fragment key={itemIndex}>
+                  <HighlightQuery text={item} query={query} />
+                  <span
+                    className={
+                      itemIndex === items.length - 1
+                        ? 'sr-only'
+                        : 'mx-2 text-slate-300 dark:text-slate-700'
+                    }
+                  >
+                    /
+                  </span>
+                </Fragment>
+              ))}
+            </div>
+          )}
         </div>
-      )}
+        <SearchAccuracy score={result.score} maxScore={maxScore} />
+      </div>
     </li>
   )
 }
@@ -219,6 +248,14 @@ function SearchResults({
   query: string
   collection: AutocompleteCollection<Result>
 }) {
+  let listRef = useRef<HTMLUListElement>(null)
+
+  useEffect(() => {
+    listRef.current
+      ?.querySelector('[aria-selected="true"]')
+      ?.scrollIntoView({ block: 'nearest' })
+  })
+
   if (collection.items.length === 0) {
     return (
       <p className="px-4 py-8 text-center text-sm text-slate-700 dark:text-slate-400">
@@ -231,8 +268,17 @@ function SearchResults({
     )
   }
 
+  const maxScore = Math.max(
+    ...collection.items.map((item) => item.score ?? 0),
+    0,
+  )
+
   return (
-    <ul {...autocomplete.getListProps()}>
+    <ul
+      ref={listRef}
+      {...autocomplete.getListProps()}
+      className="max-h-[60vh] overflow-y-auto"
+    >
       {collection.items.map((result) => (
         <SearchResult
           key={result.url}
@@ -240,6 +286,7 @@ function SearchResults({
           autocomplete={autocomplete}
           collection={collection}
           query={query}
+          maxScore={maxScore}
         />
       ))}
     </ul>
@@ -396,6 +443,25 @@ function SearchDialog({
                       collection={autocompleteState.collections[0]}
                     />
                   )}
+                  {'query' in autocompleteState &&
+                    autocompleteState.query !== '' && (
+                      <div className="mt-2 flex items-center justify-between gap-4 border-t border-slate-200 px-3 pt-2 dark:border-slate-400/10">
+                        <Link
+                          href={`/search?q=${encodeURIComponent(autocompleteState.query)}`}
+                          onClick={() => close(autocomplete)}
+                          className="text-xs font-medium text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
+                        >
+                          See all results &rarr;
+                        </Link>
+                        <div className="flex flex-col items-end gap-1 text-right text-[10px] leading-tight text-slate-400 dark:text-slate-500">
+                          <PoweredByTerminusDB />
+                          <div>
+                            Search engine scales to zero — first query after
+                            idle may take a few seconds.
+                          </div>
+                        </div>
+                      </div>
+                    )}
                 </div>
               </form>
             </div>

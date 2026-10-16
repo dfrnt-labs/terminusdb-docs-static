@@ -18,9 +18,20 @@ const sizeStyles = {
   lg: 'py-4 px-8 text-lg',
 }
 
+export type ButtonVariant = keyof typeof variantStyles
+export type ButtonSize = keyof typeof sizeStyles
+
+export function buttonClass(
+  variant: ButtonVariant,
+  size: ButtonSize,
+  className?: string,
+) {
+  return clsx(variantStyles[variant], sizeStyles[size], className)
+}
+
 type ButtonProps = {
-  variant?: keyof typeof variantStyles
-  size?: keyof typeof sizeStyles
+  variant?: ButtonVariant
+  size?: ButtonSize
 } & (
   | React.ComponentPropsWithoutRef<typeof ScrollLink>
   | (React.ComponentPropsWithoutRef<'button'> & { href?: undefined })
@@ -32,7 +43,7 @@ export function Button({
   className,
   ...props
 }: ButtonProps) {
-  className = clsx(variantStyles[variant], sizeStyles[size], className)
+  className = buttonClass(variant, size, className)
 
   return typeof props.href === 'undefined' ? (
     <button className={className} {...props} />

@@ -1,6 +1,5 @@
 import withMarkdoc from '@markdoc/next.js'
 
-import withSearch from './src/markdoc/search.mjs'
 import withMetadataEnhancer from './src/markdoc/metadata-enhancer.mjs'
 import withFenceAnnotations from './src/markdoc/fence-annotations.mjs'
 import withCodeExamples from './src/markdoc/code-examples.mjs'
@@ -59,9 +58,9 @@ const nextConfig = {
       { source: '/docs/time-travel-to-previous-commits/', destination: '/docs/time-travel-howto/', permanent: true },
       { source: '/docs/time-travel-with-python/', destination: '/docs/time-travel-howto/', permanent: true },
       // Brand rename: TerminusCMS → DFRNT Hub (slug cleanup)
-      { source: '/docs/how-to-connect-terminuscms/', destination: '/docs/how-to-connect-dfrnt-hub/', permanent: true },
-      { source: '/docs/terminuscms-dashboard-reference/', destination: '/docs/dfrnt-dashboard-reference/', permanent: true },
-      { source: '/docs/terminuscms-data-types/', destination: '/docs/dfrnt-data-types/', permanent: true },
+      { source: '/docs/how-to-connect-terminuscms/', destination: '/docs/how-to-connect-terminusdb-cloud/', permanent: true },
+      { source: '/docs/terminuscms-dashboard-reference/', destination: '/docs/terminusdb-cms-dashboard-reference/', permanent: true },
+      { source: '/docs/terminuscms-data-types/', destination: '/docs/terminusdb-data-types/', permanent: true },
       { source: '/docs/clone-a-demo-terminuscms-project/', destination: '/docs/clone-a-demo-project/', permanent: true },
       { source: '/docs/create-a-project-with-terminuscms/', destination: '/docs/create-a-project/', permanent: true },
       { source: '/docs/create-a-team-with-terminuscms/', destination: '/docs/create-a-team/', permanent: true },
@@ -69,6 +68,14 @@ const nextConfig = {
       { source: '/docs/invite-users-using-terminuscms/', destination: '/docs/invite-users/', permanent: true },
       { source: '/docs/manage-projects-with-terminuscms/', destination: '/docs/manage-projects/', permanent: true },
       { source: '/docs/collaboration-with-terminuscms-dashboard/', destination: '/docs/collaboration-with-dashboard/', permanent: true },
+      // Brand rename: consolidated cloud landing (cloud.terminusdb.com points at /docs/cloud)
+      { source: '/docs/terminusdb-cloud/', destination: '/docs/cloud/', permanent: true },
+      { source: '/docs/what-is-dfrnt/', destination: '/docs/cloud/', permanent: true },
+      // Brand rename: dfrnt-* slugs → terminusdb-*
+      { source: '/docs/how-to-connect-dfrnt-hub/', destination: '/docs/how-to-connect-terminusdb-cloud/', permanent: true },
+      { source: '/docs/dfrnt-dashboard-reference/', destination: '/docs/terminusdb-cms-dashboard-reference/', permanent: true },
+      { source: '/docs/dfrnt-data-types/', destination: '/docs/terminusdb-data-types/', permanent: true },
+      { source: '/docs/topics/dfrnt-cloud/', destination: '/docs/topics/terminusdb-cloud/', permanent: true },
     ]
   },
 }
@@ -76,9 +83,7 @@ const nextConfig = {
 export default withCodeExamples(
   withFenceAnnotations(
     withMetadataEnhancer(
-      withSearch(
-        withMarkdoc({ schemaPath: './src/markdoc' })(nextConfig),
-      ),
+      withMarkdoc({ schemaPath: './src/markdoc' })(nextConfig),
     ),
   ),
 )

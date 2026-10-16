@@ -21,6 +21,7 @@ import { PrerequisitesConnected } from '@/components/ConnectionSettings/Prerequi
 import { PrerequisitesClone } from '@/components/PrerequisitesClone'
 import { ResourceSetup } from '@/components/ResourceSetup'
 import { GhMark, Tnum } from '@/components/InlineMarks'
+import { CtaLink } from '@/components/CtaLink'
 
 const tags = {
   gh: {
@@ -179,6 +180,14 @@ const tags = {
       title: { type: String },
       description: { type: String },
       href: { type: String },
+    },
+  },
+  'cta-link': {
+    inline: true,
+    render: CtaLink,
+    attributes: {
+      href: { type: String, required: true },
+      event: { type: String },
     },
   },
   'cta-buttons': {

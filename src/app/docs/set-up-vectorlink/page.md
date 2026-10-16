@@ -2,7 +2,7 @@
 tags:
   - how-to
   - vectorlink
-  - dfrnt-cloud
+  - terminusdb-cloud
 title: Set up VectorLink
 nextjs:
   metadata:
@@ -40,7 +40,7 @@ To use VectorLink you need an OpenAI API key. The OpenAI key applies to the team
 
 To set your OpenAI Key -
 
-1.  Log in to the user interface dashboard - dfrnt.com
+1.  Log in to the user interface dashboard — TerminusDB Cloud
 2.  Select a Team
 3.  Select your Profile by clicking on ▼ at the top-right corner of the screen.
 4.  Paste your OpenAI API key and press save.

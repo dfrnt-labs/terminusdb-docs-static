@@ -36,11 +36,16 @@ module.exports = {
           '0%': { backgroundPosition: '0% 0%' },
           '100%': { backgroundPosition: '400% 0%' },
         },
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(8px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         shimmer: 'shimmer 3s ease-in-out infinite',
         'gradient-rotate': 'gradient-rotate 4s linear infinite',
         'border-beam': 'border-beam 3s linear infinite',
+        'fade-up': 'fade-up 0.4s ease-out',
       },
     }
   },

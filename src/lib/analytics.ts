@@ -1,6 +1,7 @@
 /**
  * One place to send analytics events.
- * Goes to Plausible and to PageSense (activity + goal event).
+ * Goes to Plausible, to PageSense (activity + goal event), and to PostHog
+ * when a PostHog client is on the page.
  */
 export type EventProps = Record<string, string | number | boolean>
 
@@ -18,6 +19,11 @@ export function trackEvent(name: string, props: EventProps = {}) {
     pagesense.push(['trackActivity', name, props])
     pagesense.push(['trackEvent', name])
   }
+
+  const posthog = w.posthog as
+    | { capture?: (event: string, properties?: EventProps) => void }
+    | undefined
+  posthog?.capture?.(name, props)
 }
 
 /**

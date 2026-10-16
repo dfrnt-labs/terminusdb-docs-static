@@ -46,9 +46,9 @@ Every tutorial uses the **WOQL Playground** — an interactive editor embedded i
    - User: `admin`
    - Password: `root`
 
-**Option 2: DFRNT Cloud**
+**Option 2: TerminusDB Cloud**
 
-1. **Get your API key** from [dfrnt.com](https://dfrnt.com) after selecting your team
+1. **Get your API key** from [TerminusDB Cloud](/docs/cloud/) after selecting your team
 
 2. **Configure the playground**: Click **Settings** and enter:
    - Server URL: `https://dfrnt.com/api/hosted/YOUR_TEAM`

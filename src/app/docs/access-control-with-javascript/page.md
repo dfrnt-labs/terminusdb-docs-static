@@ -19,7 +19,7 @@ tags:
 
 ## new AccessControl()
 
-AccessControl is a driver to work with the TerminusDB and DFRNT TerminusDB cloud access control API once launched.
+AccessControl is a driver to work with the TerminusDB and TerminusDB Cloud access control API once launched.
 
 For credentials, you can use a JWT token, an API token or basic authentication with username and password.
 
@@ -101,7 +101,7 @@ The jwt api token to use
 
 ### accessControl.setApiToken(atokenpi)
 
-Sets the API token for the object. Create a DFRNT TerminusDB cloud account to [get your API token](/docs/how-to-connect-dfrnt-hub/).
+Sets the API token for the object. Create a TerminusDB Cloud account to [get your API token](/docs/how-to-connect-terminusdb-cloud/).
 
 Param
 
@@ -113,7 +113,7 @@ atokenpi
 
 `string`
 
-The API token to use to connect with DFRNT TerminusDB cloud
+The API token to use to connect with TerminusDB Cloud
 
 ## setApiKey
 

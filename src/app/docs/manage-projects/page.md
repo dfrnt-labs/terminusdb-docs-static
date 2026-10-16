@@ -1,14 +1,14 @@
 ---
 tags:
   - reference
-  - dfrnt-cloud
+  - terminusdb-cloud
   - dashboard
 title: How to Manage Projects with TerminusDB
 nextjs:
   metadata:
     title: How to Manage Projects with TerminusDB
     description: Bit sized how to guides to get to know the TerminusDB dashboard to manage your projects
-    keywords: terminusdb, dashboard, dfrnt hub, manage projects with terminusdb, terminuscms
+    keywords: terminusdb, dashboard, terminusdb cloud, manage projects with terminusdb, terminusdb cms
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -16,12 +16,12 @@ nextjs:
 media: []
 ---
 
-{% callout type="note" %}
-**TerminusCMS is now DFRNT Hub**
-TerminusCMS has been renamed to **DFRNT Hub**. All features described on this page are available at [dfrnt.com](https://dfrnt.com/hypergraph-content-studio/). The TerminusDB open source database remains unchanged.
+{% callout type="warning" %}
+**TerminusDB CMS is decommissioned**
+This page documents **TerminusDB CMS** (formerly TerminusCMS, later DFRNT Hub), which is retired and kept for historical reference. For hosted TerminusDB, see [TerminusDB Cloud](/docs/cloud/). A new modeller ships with TerminusDB 12.1. The open source database is unchanged.
 {% /callout %}
 
-The DFRNT Hub dashboard lets you manage the administrative side of your TerminusDB projects — create teams, set up new projects, invite collaborators, and generate API keys for programmatic access.
+The TerminusDB Cloud dashboard lets you manage the administrative side of your TerminusDB projects — create teams, set up new projects, invite collaborators, and generate API keys for programmatic access.
 
 * [Create Teams with UI](/docs/create-a-team/)
 * [Create Projects with UI](/docs/create-a-project/)

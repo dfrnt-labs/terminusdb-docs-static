@@ -1,6 +1,7 @@
 'use client'
 
-import { Button } from './Button'
+import { Button, buttonClass } from './Button'
+import { CtaLink } from './CtaLink'
 
 interface CTAButtonsProps {
   primaryText?: string
@@ -10,19 +11,18 @@ interface CTAButtonsProps {
 }
 
 export function CTAButtons({
-  primaryText = "Sign Up for DFRNT Cloud",
-  primaryHref = "https://dfrnt.com/sign-up",
+  primaryText = "Try TerminusDB Cloud",
+  primaryHref = "/docs/cloud",
   secondaryText = "Run Docker Locally",
   secondaryHref = "/docs/install-terminusdb-as-a-docker-container",
 }: CTAButtonsProps) {
   return (
     <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-      {/* Primary CTA - Inverted, high contrast, prominent */}
-      <Button
+      {/* Primary CTA - Inverted, high contrast, prominent. Internal cloud page
+          first, so the click can carry a tracking reference onward. */}
+      <CtaLink
         href={primaryHref}
-        variant="primary-inverted"
-        size="lg"
-        className="inline-flex items-center gap-2"
+        className={buttonClass('primary-inverted', 'lg', 'inline-flex items-center gap-2')}
       >
         {primaryText}
         <svg 
@@ -38,7 +38,7 @@ export function CTAButtons({
             d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" 
           />
         </svg>
-      </Button>
+      </CtaLink>
 
       {/* Secondary CTA - Border variant, subtle */}
       <Button

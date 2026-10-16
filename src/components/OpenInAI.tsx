@@ -10,11 +10,9 @@ export function OpenInAI() {
     return `https://terminusdb.com${pathname}`
   }
   
-  // Get the raw markdown URL on GitHub
+  // Raw Markdown is served statically next to each page (postbuild export)
   const getRawMarkdownUrl = () => {
-    const baseUrl = 'https://raw.githubusercontent.com/dfrnt-labs/terminusdb-docs-static/main/src/app'
-    const filePath = `${pathname}/page.md`
-    return `${baseUrl}${filePath}`
+    return `https://terminusdb.com${pathname.replace(/\/$/, '')}/page.md`
   }
   
   // Create AI prompt URL

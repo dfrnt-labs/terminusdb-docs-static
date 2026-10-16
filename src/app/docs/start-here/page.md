@@ -43,7 +43,7 @@ All quickstarts teach the same git-for-data workflow (branch, diff, merge). Choo
 | **TypeScript / JavaScript** | [TypeScript Quickstart](/docs/connect-with-the-javascript-client/) |
 | **Python** | [Python Quickstart](/docs/connect-with-python-client/) |
 | **Rust** | [Rust Quickstart](/docs/rust-client-quickstart/) |
-| **Cloud (no install)** | [Connect to DFRNT Hub](/docs/how-to-connect-dfrnt-hub/) |
+| **Cloud (no install)** | [Connect to TerminusDB Cloud](/docs/how-to-connect-terminusdb-cloud/) |
 
 Not sure which query language to use after connecting? See [Choosing a Query Interface](/docs/querying-terminusdb/) — WOQL, GraphQL, or HTTP API.
 

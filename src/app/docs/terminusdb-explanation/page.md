@@ -17,7 +17,7 @@ media: []
 
 TerminusDB is an open-source knowledge graph database with built-in version control. It stores JSON documents in a schema-enforced graph, tracks every change as an immutable delta layer, and supports branch, diff, merge, clone, and time-travel operations — like Git, but for structured data rather than files.
 
-TerminusDB is maintained by the team at [DFRNT](https://dfrnt.com) in collaboration with the open-source community. DFRNT assumed stewardship of the project in 2025.
+TerminusDB is maintained by the team at [Gettier](https://gettier.ai) in collaboration with the open-source community. Gettier assumed stewardship of the project in 2025.
 
 ## What makes TerminusDB different
 
@@ -122,7 +122,7 @@ Yes. Every commit is atomic (all-or-nothing), consistent (schema-validated), iso
 
 ### Can I use TerminusDB in production?
 
-Yes. TerminusDB is used in production by organisations for financial reporting, content management, and data collaboration. DFRNT offers a managed cloud service ([DFRNT Hub](https://dfrnt.com)) for teams that prefer not to self-host.
+Yes. TerminusDB is used in production by organisations for financial reporting, content management, and data collaboration. [TerminusDB Cloud](/docs/cloud/) lists the hosting options — Azure Marketplace, self-managed, and early-access managed — for teams that prefer not to self-host
 
 ### What is the difference between TerminusDB and Git?
 

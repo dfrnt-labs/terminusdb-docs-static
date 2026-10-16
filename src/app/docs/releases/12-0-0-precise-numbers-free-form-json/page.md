@@ -20,7 +20,7 @@ nextjs:
       canonical: https://terminusdb.com/docs/releases/12-0-0-precise-numbers-free-form-json/
 ---
 
-TerminusDB 12.0.0 adds precise rational numbers, free-form JSON storage with deduplication, and stricter interfaces. Released on **2 December 2025**, it is the first stable release of the 12 line, maintained by [dfrnt.com](https://dfrnt.com). The on-disk storage format is unchanged since version 11. **This release has breaking changes** — read the list below before upgrading.
+TerminusDB 12.0.0 adds precise rational numbers, free-form JSON storage with deduplication, and stricter interfaces. Released on **2 December 2025**, it is the first stable release of the 12 line, maintained by [Gettier](https://gettier.ai). The on-disk storage format is unchanged since version 11. **This release has breaking changes** — read the list below before upgrading.
 
 - [**Precise JSON numbers**](#precise-json-numbers) — rationals instead of floats, decimals up to 20 places.
 - [**Free-form JSON and `sys:Dictionary`**](#free-form-json-and-sysdictionary) — schemaless JSON fields with deduplication.
@@ -70,7 +70,7 @@ The rational numbers support means that TerminusDB has practically unlimited pre
 - Every error response carries a unique request ID (UUID v4) for debugging, with W3C Trace Context headers for distributed tracing.
 - Stack traces are no longer exposed in HTTP responses; errors share one general format with helpful Prolog error terms.
 - The Docker image no longer needs root, and the auto-optimizer for continuous roll-ups is enabled by default.
-- The dashboard component is deprecated but can still be enabled manually — see [dashboard docs](https://terminusdb.org/docs/dashboard).
+- The dashboard component is deprecated but can still be enabled manually — see [dashboard docs](https://terminusdb.com/docs/dashboard).
 
 ### Why it matters
 
