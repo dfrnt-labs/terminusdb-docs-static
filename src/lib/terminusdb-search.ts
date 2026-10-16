@@ -195,8 +195,28 @@ function parseSnippet(snippet: string | undefined): {
     .split("\n")
     .filter((line) => !META_LINE.test(line))
     .join("\n")
+  return { title, body: cleanSnippet(body) }
+}
+
+/**
+ * Renders a chunk snippet as readable prose: drops fenced code blocks and
+ * markdoc tags, unwraps inline formatting, collapses whitespace. Falls back
+ * to the raw text when the chunk is nothing but code.
+ */
+function cleanSnippet(text: string): string {
+  const cleaned = text
+    .replace(/```[\s\S]*?(?:```|$)/g, " ")
+    .replace(/\{%[^%]*%\}/g, " ")
+    .replace(/`([^`]*)`/g, "$1")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/^\s{0,3}#{1,6}\s+/gm, "")
+    .replace(/^\s*[-*+]\s+/gm, "")
+    .replace(/^\s*>\s?/gm, "")
+    .replace(/[*_]{1,3}([^*_]+)[*_]{1,3}/g, "$1")
+    .replace(/\s+/g, " ")
     .trim()
-  return { title, body }
+  return cleaned || text.trim()
 }
 
 function titleizeSlug(slug: string): string {

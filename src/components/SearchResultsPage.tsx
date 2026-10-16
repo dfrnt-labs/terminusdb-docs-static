@@ -230,7 +230,7 @@ export function SearchResultsPage() {
 
         {preview && (
           <aside className="mt-8 hidden lg:mt-0 lg:block">
-            <div className="sticky top-16 rounded-lg border border-slate-200 p-5 dark:border-slate-700">
+            <div className="sticky top-[4.75rem] max-h-[calc(100vh-5.75rem)] overflow-y-auto rounded-lg border border-slate-200 p-5 dark:border-slate-700">
               <div className="flex items-baseline justify-between gap-3">
                 <Link
                   href={preview.url}

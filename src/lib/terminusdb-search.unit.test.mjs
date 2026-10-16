@@ -10,8 +10,10 @@ import { describe, it } from "node:test"
 
 import {
   SearchError,
+  accuracyPercent,
   hitToResult,
   isDocsPagePath,
+  pageDocs,
   searchDocs,
   similarDocs,
 } from "./terminusdb-search.ts"
@@ -74,6 +76,50 @@ describe("hitToResult", () => {
     assert.equal(result.url, "/docs/branch-howto/")
     assert.equal(result.title, "Branch howto")
     assert.equal(result.snippet, "some text")
+  })
+
+  it("keeps the content that follows a leading metadata block", () => {
+    const hit = {
+      id: "Page/terminusdb-vs-mongodb",
+      chunk: {
+        snippet:
+          "Documentation page: TerminusDB vs MongoDB\nPath: /docs/terminusdb-vs-mongodb/\nSummary: A factual comparison.\nKeywords: mongodb\nTags: beginner.\n\nA factual comparison of TerminusDB and MongoDB.",
+      },
+    }
+    const result = hitToResult(hit)
+    assert.equal(result.title, "TerminusDB vs MongoDB")
+    assert.equal(
+      result.snippet,
+      "A factual comparison of TerminusDB and MongoDB.",
+    )
+  })
+
+  it("strips fenced code and markdown formatting from the snippet", () => {
+    const hit = {
+      id: "Page/json-ld-support",
+      chunk: {
+        snippet:
+          'RDF formats work like this:\n\n```shell\ncurl -s -X GET -H "$AUTH" "$SERVER/api/document/$DB?id=Product/SKU-4001&format=jsonld"\n```\n\nUse **JSON-LD** for [linked data](/docs/jsonld/) output.',
+      },
+    }
+    const result = hitToResult(hit)
+    assert.equal(
+      result.snippet,
+      "RDF formats work like this: Use JSON-LD for linked data output.",
+    )
+  })
+
+  it("falls back to the raw text when cleaning removes everything", () => {
+    const hit = {
+      id: "Page/oneof",
+      chunk: { snippet: '```jsx\n<OneOf mode={"Create"} />\n```' },
+    }
+    assert.equal(hitToResult(hit).snippet.length > 0, true)
+  })
+
+  it("carries the rrf_score through as the result score", () => {
+    const result = hitToResult({ ...BRANCH_HIT, rrf_score: 0.031 })
+    assert.equal(result.score, 0.031)
   })
 
   it("handles a missing chunk or snippet gracefully", () => {
@@ -177,6 +223,59 @@ describe("searchDocs", () => {
   })
 })
 
+describe("pageDocs", () => {
+  it("fetches Page metadata for a list of ids in one request", async () => {
+    let requested
+    const fetchImpl = async (url) => {
+      requested = new URL(url)
+      return Promise.resolve(
+        new Response(
+          JSON.stringify([
+            { "@id": "Page/branch", slug: "branch", title: "Branch a Project", description: "A guide." },
+          ]),
+          { status: 200 },
+        ),
+      )
+    }
+    const docs = await pageDocs({
+      ids: ["Page/branch", "Page/clone"],
+      fetchImpl,
+      baseUrl: BASE,
+    })
+    assert.equal(
+      requested.origin + requested.pathname,
+      `${BASE}/api/document/public/docs`,
+    )
+    assert.equal(
+      requested.searchParams.get("ids"),
+      '["Page/branch","Page/clone"]',
+    )
+    assert.equal(requested.searchParams.get("as_list"), "true")
+    assert.equal(docs.length, 1)
+    assert.equal(docs[0].title, "Branch a Project")
+    assert.equal(docs[0].description, "A guide.")
+  })
+
+  it("returns an empty array for an empty id list without calling fetch", async () => {
+    let called = false
+    const docs = await pageDocs({
+      ids: [],
+      fetchImpl: async () => ((called = true), hitsResponse([])),
+      baseUrl: BASE,
+    })
+    assert.deepEqual(docs, [])
+    assert.equal(called, false)
+  })
+
+  it("throws a typed error on non-2xx", async () => {
+    const fetchImpl = async () => new Response("{}", { status: 403 })
+    await assert.rejects(
+      pageDocs({ ids: ["Page/x"], fetchImpl, baseUrl: BASE }),
+      (err) => err instanceof SearchError && err.kind === "http",
+    )
+  })
+})
+
 describe("similarDocs", () => {
   it("builds the expected request URL", async () => {
     let requested
@@ -193,5 +292,21 @@ describe("similarDocs", () => {
     assert.equal(requested.searchParams.get("count"), "6")
     assert.equal(requested.searchParams.get("doc_type"), "Page")
     assert.equal(requested.searchParams.get("snippet"), "true")
+  })
+})
+
+describe("accuracyPercent", () => {
+  it("normalizes the top score to 100", () => {
+    assert.equal(accuracyPercent(0.032, 0.032), 100)
+  })
+
+  it("scales lower scores proportionally", () => {
+    assert.equal(accuracyPercent(0.016, 0.032), 50)
+    assert.equal(accuracyPercent(0.031, 0.032), 97)
+  })
+
+  it("returns null for missing or degenerate input", () => {
+    assert.equal(accuracyPercent(undefined, 0.032), null)
+    assert.equal(accuracyPercent(0.032, 0), null)
   })
 })

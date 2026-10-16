@@ -39,6 +39,37 @@ test.describe("vector search", () => {
     ).toBeVisible();
   });
 
+  test("keyboard navigation scrolls inside the list without moving the page", async ({
+    page,
+  }) => {
+    await page.goto("/docs/branch/");
+    await page.evaluate(() => window.scrollTo(0, 300));
+    await page.keyboard.press(
+      process.platform === "darwin" ? "Meta+k" : "Control+k",
+    );
+    const input = page.locator("input").first();
+    await input.fill("database");
+
+    const list = page.locator('[role="dialog"] ul');
+    const items = list.locator("li");
+    await expect(items.first()).toBeVisible({ timeout: 20000 });
+
+    const pageScroll = await page.evaluate(() => window.scrollY);
+    for (let i = 0; i < 12; i++) await page.keyboard.press("ArrowDown");
+
+    // The page behind the dialog must not move
+    expect(await page.evaluate(() => window.scrollY)).toBe(pageScroll);
+
+    // The highlighted item sits fully inside the list's visible box
+    const selected = list.locator('li[aria-selected="true"]').first();
+    const itemBox = await selected.boundingBox();
+    const listBox = await list.boundingBox();
+    expect(itemBox.y).toBeGreaterThanOrEqual(listBox.y - 1);
+    expect(itemBox.y + itemBox.height).toBeLessThanOrEqual(
+      listBox.y + listBox.height + 1,
+    );
+  });
+
   test("results page renders hits for a query", async ({ page }) => {
     await page.goto("/search?q=branch");
     const card = page.locator('a[href^="/docs/"]').filter({ hasText: /branch/i });
@@ -46,6 +77,22 @@ test.describe("vector search", () => {
     await expect(
       page.getByText(/Results for/),
     ).toBeVisible();
+  });
+
+  test("preview panel stays below the header when scrolled", async ({
+    page,
+  }) => {
+    await page.goto("/search?q=database");
+    const preview = page.locator("aside .sticky");
+    await expect(preview).toBeVisible({ timeout: 20000 });
+
+    // Mid-scroll: the panel sticks just below the header
+    await page.evaluate(() => window.scrollTo(0, 600));
+    const header = await page.locator("header").first().boundingBox();
+    const panel = await preview.boundingBox();
+    const viewport = page.viewportSize();
+    expect(panel.y).toBeGreaterThanOrEqual(header.y + header.height - 1);
+    expect(panel.y + panel.height).toBeLessThanOrEqual(viewport.height + 1);
   });
 
   test("load more appends results", async ({ page }) => {
