@@ -50,6 +50,7 @@ export type SearchResult = {
   url: string
   title: string
   snippet: string
+  slug?: string
   distance?: number
   score?: number
   anchor?: string
@@ -87,6 +88,7 @@ export interface PageDoc {
   title: string
   description?: string
   content?: string
+  url?: string
 }
 
 async function apiGet<T>(
@@ -181,28 +183,39 @@ export async function pageDocs(options: PageDocsOptions): Promise<PageDoc[]> {
 
 /**
  * Maps a URL pathname to the Page slug used in public/docs, or null when the
- * path is not a docs content page. The docs tree is flat: /docs/<slug>/.
+ * path is not a docs page. Page ids are flat (`Page/<slug>`) even when the
+ * site nests pages — /docs/releases/x/ maps to slug `x`.
  */
 export function isDocsPagePath(pathname: string): string | null {
-  const match = /^\/docs(?:\/([^/]+))?\/?$/.exec(pathname)
+  const match = /^\/docs(?:\/(.+?))?\/?$/.exec(pathname)
   if (!match) return null
-  return match[1] ?? "index"
+  return match[1]?.split("/").pop() ?? "index"
 }
 
 const META_LINE = /^\s*(?:Documentation page|Path|URL|Summary|Keywords|Tags):/
 
 function parseSnippet(snippet: string | undefined): {
   title: string | null
+  path: string | null
   body: string
 } {
-  if (!snippet) return { title: null, body: "" }
+  if (!snippet) return { title: null, path: null, body: "" }
   const title =
     /^Documentation page:\s*(.+)$/m.exec(snippet)?.[1]?.trim() ?? null
+  // URL is the page's canonical link — the Path line can be flat-slugged
+  // for nested pages, so prefer the absolute URL's pathname.
+  let path: string | null = null
+  const canonical = /^URL:\s*(\S+)$/m.exec(snippet)?.[1]?.trim()
+  if (canonical) {
+    try {
+      path = new URL(canonical).pathname
+    } catch {}
+  }
   const body = snippet
     .split("\n")
     .filter((line) => !META_LINE.test(line))
     .join("\n")
-  return { title, body: cleanSnippet(body) }
+  return { title, path, body: cleanSnippet(body) }
 }
 
 /**
@@ -376,10 +389,13 @@ function hitScore(hit: SearchHit): number | undefined {
 export function hitToResult(hit: SearchHit): SearchResult {
   const rawId = hit.id ?? ""
   const slug = rawId.startsWith("Page/") ? rawId.slice("Page/".length) : rawId
-  const { title, body } = parseSnippet(hit.chunk?.snippet)
+  const { title, path, body } = parseSnippet(hit.chunk?.snippet)
   return {
-    url: slug === "index" ? "/docs/" : `/docs/${slug}/`,
+    // Page ids are flat; nested pages (e.g. /docs/releases/x/) carry their
+    // real path in the snippet's canonical URL metadata.
+    url: path ?? (slug === "index" ? "/docs/" : `/docs/${slug}/`),
     title: title ?? titleizeSlug(slug || "page"),
+    slug,
     snippet: body,
     distance: hit.distance,
     score: hitScore(hit),

@@ -26,12 +26,11 @@ type Status = 'idle' | 'pending' | 'error'
 
 function docDescriptionEntries(docs: PageDoc[]): Record<string, string> {
   return Object.fromEntries(
-    docs.map((doc) => [
-      doc.slug === 'index' ? '/docs/' : `/docs/${doc.slug}/`,
-      doc.description ?? '',
-    ]),
+    docs.map((doc) => [doc.slug, doc.description ?? '']),
   )
 }
+
+
 
 export function SearchResultsPage() {
   const router = useRouter()
@@ -302,9 +301,9 @@ export function SearchResultsPage() {
                       />
                     </span>
                   </span>
-                  {descriptions[result.url] && (
+                  {result.slug && descriptions[result.slug] && (
                     <span className="mt-0.5 line-clamp-2 block text-xs text-slate-500 dark:text-slate-400">
-                      {descriptions[result.url]}
+                      {descriptions[result.slug]}
                     </span>
                   )}
                 </Link>
@@ -353,9 +352,9 @@ export function SearchResultsPage() {
                       />
                     </Link>
                   </div>
-                  {descriptions[preview.url] && (
+                  {preview.slug && descriptions[preview.slug] && (
                     <p className="mt-2 text-xs text-slate-600 dark:text-slate-400">
-                      {descriptions[preview.url]}
+                      {descriptions[preview.slug]}
                     </p>
                   )}
                   {preview.snippet && (

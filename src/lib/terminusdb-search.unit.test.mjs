@@ -49,10 +49,21 @@ describe("isDocsPagePath", () => {
     assert.equal(isDocsPagePath("/docs"), "index")
   })
 
-  it("returns null outside docs and for nested paths", () => {
+  it("returns the last segment of nested docs paths", () => {
+    assert.equal(
+      isDocsPagePath("/docs/releases/10-1-8-graphql-endpoint/"),
+      "10-1-8-graphql-endpoint",
+    )
+    assert.equal(
+      isDocsPagePath("/docs/releases/11-0-0"),
+      "11-0-0",
+    )
+  })
+
+  it("returns null outside docs and for non-page subpaths", () => {
     assert.equal(isDocsPagePath("/"), null)
     assert.equal(isDocsPagePath("/search"), null)
-    assert.equal(isDocsPagePath("/docs/topics/beginner/"), null)
+    assert.equal(isDocsPagePath("/docs/topics/beginner/"), "beginner")
     assert.equal(isDocsPagePath("/blog/post/"), null)
   })
 })
@@ -70,6 +81,23 @@ describe("hitToResult", () => {
   it("maps Page/index to /docs/", () => {
     const hit = { id: "Page/index", chunk: { snippet: "Welcome" } }
     assert.equal(hitToResult(hit).url, "/docs/")
+  })
+
+  it("links nested pages via the canonical URL in snippet metadata", () => {
+    const hit = {
+      id: "Page/10-1-8-graphql-endpoint",
+      chunk: {
+        snippet:
+          "Release body.\n\nDocumentation page: GraphQL Endpoint\nPath: /docs/10-1-8-graphql-endpoint/\nURL: https://terminusdb.com/docs/releases/10-1-8-graphql-endpoint/\nSummary: Release notes.\nTags: release-notes.",
+      },
+    }
+    const result = hitToResult(hit)
+    assert.equal(result.url, "/docs/releases/10-1-8-graphql-endpoint/")
+  })
+
+  it("falls back to the flat slug path when URL metadata is absent", () => {
+    const hit = { id: "Page/branch", chunk: { snippet: "just text" } }
+    assert.equal(hitToResult(hit).url, "/docs/branch/")
   })
 
   it("falls back to a de-slugified title when metadata is absent", () => {

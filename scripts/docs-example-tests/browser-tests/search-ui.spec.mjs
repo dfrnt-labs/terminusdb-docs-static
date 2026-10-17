@@ -121,6 +121,17 @@ test.describe("vector search", () => {
     ).toBeVisible({ timeout: 20000 });
   });
 
+  test("nested pages link to their real path, not the flat slug", async ({
+    page,
+  }) => {
+    await page.goto("/search?q=graphql%20endpoint");
+    // Release notes live under /docs/releases/; the hit id is flat, so
+    // the real path arrives with the Page-doc enrichment request.
+    await expect(
+      page.locator('ul a[href^="/docs/releases/"]').first(),
+    ).toBeVisible({ timeout: 20000 });
+  });
+
   test("results page search bar drives the query", async ({ page }) => {
     await page.goto("/search");
     const box = page.getByRole("searchbox", {

@@ -16,6 +16,18 @@ import { PoweredByTerminusDB } from '@/components/PoweredByTerminusDB'
 
 const WAKE_HINT_DELAY_MS = 1400
 
+// Page ids are flat, but nested pages (e.g. /docs/releases/x/) carry the
+// real path in the document's canonical url.
+function docHref(doc: PageDoc, anchor: string | undefined): string {
+  let path = doc.slug === 'index' ? '/docs/' : `/docs/${doc.slug}/`
+  if (doc.url) {
+    try {
+      path = new URL(doc.url).pathname
+    } catch {}
+  }
+  return anchor ? `${path}#${anchor}` : path
+}
+
 // pageDocs returns documents in storage order — restore the
 // similarity ranking by reordering against the hit id list, keeping
 // the hit alongside its doc so the card can deep-link to the chunk's
@@ -111,7 +123,7 @@ export function SimilarDocs() {
               style={{ animationDelay: `${index * 90}ms`, animationFillMode: 'backwards' }}
             >
               <Link
-                href={`${doc.slug === 'index' ? '/docs/' : `/docs/${doc.slug}/`}${anchor ? `#${anchor}` : ''}`}
+                href={docHref(doc, anchor)}
                 className="block rounded-lg border border-slate-200 px-4 py-3 transition-colors hover:border-sky-400 hover:bg-slate-50 dark:border-slate-700 dark:hover:border-sky-500 dark:hover:bg-slate-800/50"
               >
                 <span className="block text-sm font-medium text-slate-900 dark:text-white">
