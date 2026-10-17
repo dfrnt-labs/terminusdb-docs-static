@@ -19,7 +19,7 @@ media: []
 
 ## TerminusDB Documentation
 
-TerminusDB is a knowledge graph database with built-in version control. It stores JSON documents as graph structures, tracks every change as an immutable commit, and supports branching, merging, and time-travel queries over your data history.
+TerminusDB is a knowledge graph database with built-in version control. It stores JSON documents as graph structures, tracks every change as an immutable commit, and supports branching, merging, and [time travel queries](/docs/graph-database-with-time-travel-queries/) over your data history.
 
 TerminusDB is open source and free to use, maintained by the team at [Gettier](https://gettier.ai) in collaboration with the community.
 
