@@ -232,6 +232,10 @@ export const navigation: Navigation[] = [
             href: '/docs/graph-database-with-git-like-version-control',
           },
           {
+            title: 'Time Travel Queries',
+            href: '/docs/graph-database-with-time-travel-queries',
+          },
+          {
             title: 'Clone, Push, Pull',
             href: '/docs/use-the-collaboration-features',
           },
