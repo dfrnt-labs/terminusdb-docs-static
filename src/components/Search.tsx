@@ -74,6 +74,9 @@ function useAutocomplete({
   let [autocompleteState, setAutocompleteState] = useState<
     AutocompleteState<Result> | EmptyObject
   >({})
+  // Item enrichment mutates the resolved results (url, anchor) — bump so
+  // the item links re-render with their corrected hrefs.
+  let [, setEnrichNonce] = useState(0)
 
   function navigate({ itemUrl }: { itemUrl?: string }) {
     if (!itemUrl) {
@@ -146,6 +149,7 @@ function useAutocomplete({
                             )
                             if (anchor) item.anchor = anchor
                           })
+                          setEnrichNonce((n) => n + 1)
                         })
                         .catch(() => {})
                     })
@@ -262,7 +266,15 @@ function SearchResult({
         source: collection.source,
       })}
     >
-      <div className="flex items-baseline gap-3">
+      <Link
+        href={result.anchor ? `${result.url}#${result.anchor}` : result.url}
+        // The item's onSelect drives SPA navigation; this anchor exists for
+        // the href affordance (status bar, middle-click, copy link) — the
+        // li is the control, so it stays out of the tab order.
+        tabIndex={-1}
+        onClick={(event) => event.preventDefault()}
+        className="flex items-baseline gap-3"
+      >
         <div className="min-w-0 flex-1">
           <div
             id={`${id}-title`}
@@ -294,7 +306,7 @@ function SearchResult({
             </div>
           )}
         </div>
-      </div>
+      </Link>
     </li>
   )
 }
