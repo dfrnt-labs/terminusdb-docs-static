@@ -5,28 +5,40 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import {
+  hitAnchor,
   isDocsPagePath,
   pageDocs,
   similarDocs,
   type PageDoc,
+  type SearchHit,
 } from '@/lib/terminusdb-search'
 import { PoweredByTerminusDB } from '@/components/PoweredByTerminusDB'
 
 const WAKE_HINT_DELAY_MS = 1400
 
 // pageDocs returns documents in storage order — restore the
-// similarity ranking by reordering against the hit id list.
-function rankByIds(ids: string[], docs: PageDoc[]): PageDoc[] {
+// similarity ranking by reordering against the hit id list, keeping
+// the hit alongside its doc so the card can deep-link to the chunk's
+// section.
+function rankByIds(
+  hits: SearchHit[],
+  docs: PageDoc[],
+): { doc: PageDoc; anchor: string | undefined }[] {
   const bySlug = new Map(docs.map((d) => [d.slug, d]))
-  return ids
-    .map((id) => bySlug.get(id.replace(/^Page\//, '')))
-    .filter((d): d is PageDoc => d !== undefined)
+  return hits
+    .map((hit) => {
+      const doc = bySlug.get(hit.id.replace(/^Page\//, ''))
+      return doc ? { doc, anchor: hitAnchor(hit, doc.content) } : null
+    })
+    .filter((r): r is { doc: PageDoc; anchor: string | undefined } => r !== null)
 }
 
 export function SimilarDocs() {
   const pathname = usePathname()
   const slug = pathname ? isDocsPagePath(pathname) : null
-  const [results, setResults] = useState<PageDoc[] | null>(null)
+  const [results, setResults] = useState<
+    { doc: PageDoc; anchor: string | undefined }[] | null
+  >(null)
   const [showWakeHint, setShowWakeHint] = useState(false)
   const [failed, setFailed] = useState(false)
 
@@ -41,11 +53,12 @@ export function SimilarDocs() {
     const { signal } = controller
     similarDocs({ id: `Page/${slug}`, count: 6, signal })
       .then((hits) => {
-        const ids = hits
-          .map((hit) => hit.id)
-          .filter((id) => id !== `Page/${slug}`)
+        const kept = hits
+          .filter((hit) => hit.id !== `Page/${slug}`)
           .slice(0, 5)
-        return pageDocs({ ids, signal }).then((docs) => rankByIds(ids, docs))
+        return pageDocs({ ids: kept.map((h) => h.id), signal }).then((docs) =>
+          rankByIds(kept, docs),
+        )
       })
       .then(setResults)
       .catch((err) => {
@@ -91,14 +104,14 @@ export function SimilarDocs() {
         </div>
       ) : (
         <ul className="space-y-2">
-          {results.map((doc, index) => (
+          {results.map(({ doc, anchor }, index) => (
             <li
               key={doc.slug}
               className="animate-fade-up"
               style={{ animationDelay: `${index * 90}ms`, animationFillMode: 'backwards' }}
             >
               <Link
-                href={doc.slug === 'index' ? '/docs/' : `/docs/${doc.slug}/`}
+                href={`${doc.slug === 'index' ? '/docs/' : `/docs/${doc.slug}/`}${anchor ? `#${anchor}` : ''}`}
                 className="block rounded-lg border border-slate-200 px-4 py-3 transition-colors hover:border-sky-400 hover:bg-slate-50 dark:border-slate-700 dark:hover:border-sky-500 dark:hover:bg-slate-800/50"
               >
                 <span className="block text-sm font-medium text-slate-900 dark:text-white">

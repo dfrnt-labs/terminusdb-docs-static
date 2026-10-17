@@ -5,6 +5,8 @@
  * here runs in the browser — never add credentials.
  */
 
+import { slugifyWithCounter } from "@sindresorhus/slugify"
+
 export const TERMINUSDB_BASE_URL =
   process.env.NEXT_PUBLIC_TERMINUSDB_URL || "https://data.terminusdb.org"
 
@@ -50,6 +52,8 @@ export type SearchResult = {
   snippet: string
   distance?: number
   score?: number
+  anchor?: string
+  anchorKey?: string
 }
 
 type FetchImpl = (url: string, init?: RequestInit) => Promise<Response>
@@ -82,6 +86,7 @@ export interface PageDoc {
   slug: string
   title: string
   description?: string
+  content?: string
 }
 
 async function apiGet<T>(
@@ -221,6 +226,99 @@ function cleanSnippet(text: string): string {
   return cleaned || text.trim()
 }
 
+export interface HeadingAnchor {
+  offset: number
+  id: string
+}
+
+const HEADING_LINE = /^ {0,3}#{1,6}[ \t]+(.+?)\s*$/
+const EXPLICIT_ID = /\{#([\w-]+)\}\s*$/
+const FENCE_LINE = /^ {0,3}(```|~~~)/
+
+function headingTextSource(text: string): string {
+  return text
+    .replace(/`([^`]*)`/g, "$1")
+    .replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/[*_~]{1,3}([^*_~]+)[*_~]{1,3}/g, "$1")
+    .trim()
+}
+
+/**
+ * Reproduces the heading ids the site renders: every h1–h6 gets
+ * `slugify(text)` from a per-document slugifyWithCounter, with a `{#id}`
+ * attribute in the source winning over the generated slug.
+ */
+export function anchorsFromContent(content: string): HeadingAnchor[] {
+  const slugify = slugifyWithCounter()
+  const anchors: HeadingAnchor[] = []
+  let inFence = false
+  let offset = 0
+  for (const line of content.split("\n")) {
+    if (FENCE_LINE.test(line)) inFence = !inFence
+    else if (!inFence) {
+      const match = HEADING_LINE.exec(line)
+      if (match) {
+        const explicit = EXPLICIT_ID.exec(match[1])
+        const text = explicit ? match[1].slice(0, explicit.index) : match[1]
+        anchors.push({
+          offset,
+          id: explicit?.[1] ?? slugify(headingTextSource(text)),
+        })
+      }
+    }
+    offset += line.length + 1
+  }
+  return anchors
+}
+
+/**
+ * The anchor of the section a hit's winning chunk sits in, or undefined when
+ * the position can't be established. The chunk's `location` is its normalized
+ * start offset in the document; without it, the snippet text locates the
+ * chunk inside the stored markdown instead.
+ */
+/**
+ * Identifies which chunk of which document a hit came from, so an anchor
+ * computed later (once the Page doc's content is fetched) can be matched
+ * back to its result.
+ */
+export function anchorKey(hit: SearchHit): string {
+  return `${hit.id}:${hit.chunk?.index ?? ""}`
+}
+
+export function hitAnchor(
+  hit: SearchHit,
+  content: string | undefined,
+): string | undefined {
+  if (!content) return undefined
+  const anchors = anchorsFromContent(content)
+  if (anchors.length === 0) return undefined
+
+  let position: number | undefined
+  const location = hit.chunk?.location
+  if (typeof location === "number" && !Number.isNaN(location)) {
+    position = location * content.length
+  } else if (hit.chunk?.snippet) {
+    const body = hit.chunk.snippet
+      .split("\n")
+      .filter((line) => !META_LINE.test(line))
+      .join("\n")
+      .trim()
+    const probe = body.slice(0, 80)
+    const index = probe ? content.indexOf(probe) : -1
+    if (index >= 0) position = index
+  }
+  if (position === undefined) return undefined
+
+  let found: string | undefined
+  for (const anchor of anchors) {
+    if (anchor.offset <= position + 1) found = anchor.id
+    else break
+  }
+  return found
+}
+
 function titleizeSlug(slug: string): string {
   const spaced = slug.replaceAll("-", " ")
   return spaced.charAt(0).toUpperCase() + spaced.slice(1)
@@ -285,6 +383,7 @@ export function hitToResult(hit: SearchHit): SearchResult {
     snippet: body,
     distance: hit.distance,
     score: hitScore(hit),
+    anchorKey: anchorKey(hit),
   }
 }
 

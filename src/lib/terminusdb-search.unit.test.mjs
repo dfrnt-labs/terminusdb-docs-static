@@ -11,6 +11,8 @@ import { describe, it } from "node:test"
 import {
   SearchError,
   accuracyPercent,
+  anchorsFromContent,
+  hitAnchor,
   hitToResult,
   isDocsPagePath,
   pageDocs,
@@ -358,6 +360,86 @@ describe("similarDocs", () => {
     assert.equal(requested.searchParams.get("count"), "6")
     assert.equal(requested.searchParams.get("doc_type"), "Page")
     assert.equal(requested.searchParams.get("snippet"), "true")
+  })
+})
+
+describe("anchorsFromContent", () => {
+  it("slugifies markdown headings in document order", () => {
+    const content = "Intro text.\n\n## Create a New Branch\n\nBody.\n\n### Swap Between Branches\n"
+    const anchors = anchorsFromContent(content)
+    assert.deepEqual(
+      anchors.map((a) => a.id),
+      ["create-a-new-branch", "swap-between-branches"],
+    )
+    assert.equal(anchors[0].offset, content.indexOf("## Create"))
+    assert.equal(anchors[1].offset, content.indexOf("### Swap"))
+  })
+
+  it("honours an explicit {#custom-id} attribute", () => {
+    const anchors = anchorsFromContent('## Part 4: "As Of" Queries {#as-of}\n')
+    assert.equal(anchors[0].id, "as-of")
+  })
+
+  it("suffixes duplicate heading titles like the site slugifier", () => {
+    const content = "## Install\n\nA.\n\n## Install\n"
+    assert.deepEqual(
+      anchorsFromContent(content).map((a) => a.id),
+      ["install", "install-2"],
+    )
+  })
+
+  it("strips inline code and links from the heading text", () => {
+    const anchors = anchorsFromContent(
+      "### The `vector` field\n\n## See [the reference](/docs/x/) now\n",
+    )
+    assert.equal(anchors[0].id, "the-vector-field")
+    assert.equal(anchors[1].id, "see-the-reference-now")
+  })
+
+  it("ignores #-lines inside fenced code blocks", () => {
+    const content = "## Real\n\n```python\n# not a heading\n```\n\n## Also real\n"
+    assert.deepEqual(
+      anchorsFromContent(content).map((a) => a.id),
+      ["real", "also-real"],
+    )
+  })
+})
+
+describe("hitAnchor", () => {
+  const CONTENT =
+    "Intro.\n\n## Alpha Section\n\nAlpha body.\n\n## Beta Section\n\nBeta body."
+
+  function hitAt(location, snippet) {
+    return {
+      id: "Page/x",
+      chunk: { index: 0, location, snippet },
+    }
+  }
+
+  it("returns the heading that precedes the chunk location", () => {
+    // Beta Section starts at 0.62 of the content; a chunk at 0.7 lands inside it.
+    assert.equal(hitAnchor(hitAt(0.7), CONTENT), "beta-section")
+  })
+
+  it("picks the earlier heading when the chunk sits between them", () => {
+    assert.equal(hitAnchor(hitAt(0.4), CONTENT), "alpha-section")
+  })
+
+  it("returns undefined above the first heading", () => {
+    assert.equal(hitAnchor(hitAt(0.01), CONTENT), undefined)
+  })
+
+  it("locates the chunk by its snippet text when location is missing", () => {
+    const hit = { id: "Page/x", chunk: { index: 0, snippet: "Beta body." } }
+    assert.equal(hitAnchor(hit, CONTENT), "beta-section")
+  })
+
+  it("returns undefined without content or a way to locate the chunk", () => {
+    assert.equal(hitAnchor(hitAt(0.5), undefined), undefined)
+    assert.equal(
+      hitAnchor({ id: "Page/x", chunk: { index: 0 } }, CONTENT),
+      undefined,
+    )
   })
 })
 

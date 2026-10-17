@@ -25,7 +25,9 @@ import clsx from 'clsx'
 import { navigation } from '@/lib/navigation'
 import { PoweredByTerminusDB } from '@/components/PoweredByTerminusDB'
 import {
+  hitAnchor,
   hitToResult,
+  pageDocs,
   searchDocs,
   type SearchResult as Result,
 } from '@/lib/terminusdb-search'
@@ -121,9 +123,31 @@ function useAutocomplete({
                   searchRef.current.controller = controller
                   searchDocs({ q: query, count: 8, signal: controller.signal })
                     .then((hits) => {
-                      let done = () => resolve(hits.map(hitToResult))
+                      let items = hits.map(hitToResult)
+                      let done = () => resolve(items)
                       if (wakeDebug()) setTimeout(done, WAKE_DEBUG_MS)
                       else done()
+                      // Deep-link items to the section of their winning
+                      // chunk once the Page docs arrive — clicks before
+                      // then navigate to the page top, which is fine.
+                      pageDocs({
+                        ids: hits.map((hit) => hit.id).filter(Boolean),
+                        signal: controller.signal,
+                      })
+                        .then((docs) => {
+                          let contentBySlug = new Map(
+                            docs.map((doc) => [doc.slug, doc.content]),
+                          )
+                          items.forEach((item, index) => {
+                            let slug = hits[index].id.replace(/^Page\//, '')
+                            let anchor = hitAnchor(
+                              hits[index],
+                              contentBySlug.get(slug),
+                            )
+                            if (anchor) item.anchor = anchor
+                          })
+                        })
+                        .catch(() => {})
                     })
                     .catch(() => {
                       // A superseded request must not resolve [] — that would
@@ -134,7 +158,7 @@ function useAutocomplete({
               })
             },
             getItemUrl({ item }) {
-              return item.url
+              return item.anchor ? `${item.url}#${item.anchor}` : item.url
             },
             onSelect: navigate,
           },
