@@ -6,6 +6,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import Highlighter from 'react-highlight-words'
 
 import {
+  anchorKey,
+  hitAnchor,
   hitToResult,
   pageDocs,
   searchDocs,
@@ -38,16 +40,22 @@ export function SearchResultsPage() {
 
   const [draft, setDraft] = useState(query)
   const draftTimer = useRef<ReturnType<typeof setTimeout>>()
+  // The last query this field committed itself — a ?q= change matching it
+  // is our own debounce landing and must not reset the in-flight draft.
+  const committed = useRef(query)
 
   // The URL is the source of truth; keep the draft in sync when
   // navigation (back/forward, ⌘K links) changes it.
-  useEffect(() => setDraft(query), [query])
+  useEffect(() => {
+    if (query !== committed.current) setDraft(query)
+  }, [query])
 
   function onDraftChange(value: string) {
     setDraft(value)
     clearTimeout(draftTimer.current)
     draftTimer.current = setTimeout(() => {
       const trimmed = value.trim()
+      committed.current = trimmed
       router.replace(
         trimmed ? `/search?q=${encodeURIComponent(trimmed)}` : '/search',
       )
@@ -58,11 +66,13 @@ export function SearchResultsPage() {
     event.preventDefault()
     clearTimeout(draftTimer.current)
     const trimmed = draft.trim()
+    committed.current = trimmed
     router.push(trimmed ? `/search?q=${encodeURIComponent(trimmed)}` : '/search')
   }
 
   const [results, setResults] = useState<SearchResult[]>([])
   const [descriptions, setDescriptions] = useState<Record<string, string>>({})
+  const [anchors, setAnchors] = useState<Record<string, string>>({})
   const [preview, setPreview] = useState<SearchResult | null>(null)
   const [status, setStatus] = useState<Status>('idle')
   const [exhausted, setExhausted] = useState(false)
@@ -106,14 +116,27 @@ export function SearchResultsPage() {
             pageDocs({
               ids: hits.map((hit) => hit.id).filter(Boolean),
               signal: controller.signal,
-            }).catch(() => [] as PageDoc[]),
+            })
+              .catch(() => [] as PageDoc[])
+              .then((docs) => ({ hits, docs })),
           )
-          .then((docs) =>
+          .then(({ hits, docs }) => {
             setDescriptions((prev) => ({
               ...prev,
               ...docDescriptionEntries(docs),
-            })),
-          )
+            }))
+            // Deep-link each result to the section its winning chunk sits in.
+            const contentBySlug = new Map(
+              docs.map((doc) => [doc.slug, doc.content]),
+            )
+            const found: Record<string, string> = {}
+            for (const hit of hits) {
+              const slug = hit.id?.replace(/^Page\//, '') ?? ''
+              const anchor = hitAnchor(hit, contentBySlug.get(slug))
+              if (anchor) found[anchorKey(hit)] = anchor
+            }
+            setAnchors((prev) => ({ ...prev, ...found }))
+          })
           .catch((err) => {
             if (!(err instanceof SearchError) || err.kind === 'aborted') return
             // A cold machine can legitimately outlive the first timeout —
@@ -136,6 +159,7 @@ export function SearchResultsPage() {
     retriedOnce.current = false
     setResults([])
     setDescriptions({})
+    setAnchors({})
     setPreview(null)
     setExhausted(false)
     if (!query) {
@@ -148,6 +172,11 @@ export function SearchResultsPage() {
 
   function loadMore() {
     runSearch(query, results.length, true)
+  }
+
+  function resultHref(result: SearchResult) {
+    const anchor = result.anchorKey ? anchors[result.anchorKey] : undefined
+    return anchor ? `${result.url}#${anchor}` : result.url
   }
 
   return (
@@ -256,9 +285,9 @@ export function SearchResultsPage() {
         {results.length > 0 && (
           <ul className="mt-8 space-y-3">
             {results.map((result) => (
-              <li key={result.url}>
+              <li key={`${result.url}${result.anchorKey ?? ''}`}>
                 <Link
-                  href={result.url}
+                  href={resultHref(result)}
                   onMouseEnter={() => setPreview(result)}
                   onFocus={() => setPreview(result)}
                   className="block rounded-lg border border-slate-200 px-4 py-3 transition-colors hover:border-sky-400 hover:bg-slate-50 dark:border-slate-700 dark:hover:border-sky-500 dark:hover:bg-slate-800/50"
@@ -313,7 +342,7 @@ export function SearchResultsPage() {
                 <>
                   <div className="flex items-baseline justify-between gap-3">
                     <Link
-                      href={preview.url}
+                      href={resultHref(preview)}
                       className="min-w-0 text-sm font-medium text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
                     >
                       <Highlighter

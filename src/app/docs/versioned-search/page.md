@@ -21,6 +21,10 @@ This page documents functionality in the upcoming TerminusDB 12.1 release. Detai
 
 VectorLink is the name of the embedded semantic search engine that treats your data the same way TerminusDB does: as a versioned, branchable history of commits. Every commit can be indexed automatically and becomes an independent, reproducible snapshot. You search a specific commit and always get the same results, regardless of what was indexed afterwards. Branches share their parent's vectors instead of recomputing them. Every version with complete hybrid search.
 
+TerminusDB standardized on a small 8-bit quantized multilingual model (`vectorlink/multilingual-e5-base`) which is the TerminusDB default model for data products. Standardization enables interoperability, at the cost of perfect embeddings, a hard tradeoff. It can of course be changed to any other model, but we instead recommend to use slot 2 of VectorLink for your custom model. This enables both low fidelity and high fidelity search in the same data product. Use what makes most sense for the use case, but find vector similarity across different data products. This means every chunk fits in exactly 768 bytes of vectors, making each vector reasonably small.
+
+This website uses VectorLink to provide semantic search across all documentation pages and naturally uses the default model, with fully self-sovereign vector production on the same dynamically scaling TerminusDB infrastructure. Leveraging the historic search capabilities we have is of course a next step also for the site.
+
 The engine — **VectorLink 2.0** — is built in Rust based on portions of [LanceDB](https://lancedb.com). It is the successor to the earlier VectorLink indexer, with a maintained, columnar vector store that adds full-text search and hybrid retrieval out of the box. Embeddings come from a configurable provider, defaulting to a local CPU model so the whole stack runs offline.
 
 {% callout type="note" %}

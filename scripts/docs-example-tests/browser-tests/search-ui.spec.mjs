@@ -112,6 +112,15 @@ test.describe("vector search", () => {
     ).toBeVisible();
   });
 
+  test("result links deep-link into the matched section", async ({ page }) => {
+    await page.goto("/search?q=branch");
+    // Anchors arrive with the Page-doc enrichment request, just after
+    // the results themselves render.
+    await expect(
+      page.locator('ul a[href^="/docs/"][href*="#"]').first(),
+    ).toBeVisible({ timeout: 20000 });
+  });
+
   test("results page search bar drives the query", async ({ page }) => {
     await page.goto("/search");
     const box = page.getByRole("searchbox", {
@@ -122,6 +131,21 @@ test.describe("vector search", () => {
     await expect(page).toHaveURL(/[?&]q=clone/, { timeout: 5000 });
     const card = page.locator('a[href^="/docs/"]').filter({ hasText: /clone/i });
     await expect(card.first()).toBeVisible({ timeout: 20000 });
+  });
+
+  test("search bar keeps every keystroke while the debounce commits", async ({
+    page,
+  }) => {
+    await page.goto("/search");
+    const box = page.getByRole("searchbox", {
+      name: /Search the documentation/i,
+    });
+    // Slower than the 300 ms debounce — the URL updates mid-word, which
+    // must not reset the input to the committed (shorter) query.
+    await box.pressSequentially("database", { delay: 120 });
+    await expect(box).toHaveValue("database");
+    await expect(page).toHaveURL(/[?&]q=database/, { timeout: 5000 });
+    await expect(box).toHaveValue("database");
   });
 
   test("preview panel stays below the header when scrolled", async ({
