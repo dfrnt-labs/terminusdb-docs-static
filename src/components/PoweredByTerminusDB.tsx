@@ -2,7 +2,7 @@ function TerminusDBMark() {
   return (
     <svg
       viewBox="0 0 45 50"
-      className="h-4 w-4"
+      className="h-5 w-5"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
@@ -36,7 +36,7 @@ export function PoweredByTerminusDB() {
       <TerminusDBMark />
       <span className="font-semibold text-[#3d55a2] dark:text-white">
         TerminusDB
-      </span>
+      </span>{' '}
       hybrid search
     </a>
   )

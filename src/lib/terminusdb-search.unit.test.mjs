@@ -117,9 +117,75 @@ describe("hitToResult", () => {
     assert.equal(hitToResult(hit).snippet.length > 0, true)
   })
 
-  it("carries the rrf_score through as the result score", () => {
-    const result = hitToResult({ ...BRANCH_HIT, rrf_score: 0.031 })
-    assert.equal(result.score, 0.031)
+  it("renormalizes vector distance against the corpus anchors", () => {
+    // anchors: 0.06 strong, 0.095 no-correlation floor, 0.13 opposite tail
+    const cases = [
+      [0.06, 1],
+      [0.0775, 0.75],
+      [0.095, 0.5],
+      [0.1125, 0.25],
+      [0.13, 0],
+      [0.2, 0],
+    ]
+    for (const [d, expected] of cases) {
+      const result = hitToResult({
+        ...BRANCH_HIT,
+        vector: { distance: d, rank: 0 },
+      })
+      const score = (expected + 0.5) / 2 // absent fts stays neutral
+      assert.ok(
+        Math.abs(result.score - score) < 1e-9,
+        `d=${d}: got ${result.score}, want ${score}`,
+      )
+    }
+  })
+
+  it("scores a hybrid hit as the average of its component scores", () => {
+    const hit = {
+      ...BRANCH_HIT,
+      rrf_score: 0.031,
+      fts: { distance: 0.2348, rank: 1 },
+      vector: { distance: 0.0909, rank: 4 },
+    }
+    const result = hitToResult(hit)
+    // vec 0.0909 → between floor 0.095 and strong 0.06: ~0.559
+    const v = 0.5 + 0.5 * ((0.095 - 0.0909) / (0.095 - 0.06))
+    const expected = ((1 - 0.2348 / 2) + v) / 2
+    assert.ok(Math.abs(result.score - expected) < 1e-9)
+  })
+
+  it("keeps a keyword hit at or above 50% when vector has no opinion", () => {
+    const weak = hitToResult({
+      ...BRANCH_HIT,
+      fts: { distance: 0.9, rank: 40 },
+    })
+    assert.ok(weak.score >= 0.5, `expected >= 0.5, got ${weak.score}`)
+    assert.ok(weak.score < 0.6, `expected near 0.5, got ${weak.score}`)
+  })
+
+  it("lets an opposed vector vote pull a keyword hit below 50%", () => {
+    const hit = {
+      ...BRANCH_HIT,
+      fts: { distance: 0.24, rank: 1 },
+      vector: { distance: 0.98, rank: 200 },
+    }
+    const result = hitToResult(hit)
+    assert.ok(result.score < 0.5, `expected < 0.5, got ${result.score}`)
+  })
+
+  it("scores a single-mode hit from its top-level distance", () => {
+    const result = hitToResult({ ...BRANCH_HIT, distance: 0.23 })
+    assert.ok(Math.abs(result.score - 0.77) < 1e-9)
+  })
+
+  it("clamps scores to zero when a distance exceeds one", () => {
+    const result = hitToResult({ ...BRANCH_HIT, distance: 1.4 })
+    assert.equal(result.score, 0)
+  })
+
+  it("leaves the score undefined when the hit has none", () => {
+    const result = hitToResult({ id: "Page/x", chunk: { snippet: "t" } })
+    assert.equal(result.score, undefined)
   })
 
   it("handles a missing chunk or snippet gracefully", () => {
@@ -296,17 +362,22 @@ describe("similarDocs", () => {
 })
 
 describe("accuracyPercent", () => {
-  it("normalizes the top score to 100", () => {
-    assert.equal(accuracyPercent(0.032, 0.032), 100)
+  it("renders the score as a percentage of a perfect match", () => {
+    assert.equal(accuracyPercent(1), 100)
+    assert.equal(accuracyPercent(0.837), 84)
   })
 
-  it("scales lower scores proportionally", () => {
-    assert.equal(accuracyPercent(0.016, 0.032), 50)
-    assert.equal(accuracyPercent(0.031, 0.032), 97)
+  it("does not inflate weak results to 100", () => {
+    assert.equal(accuracyPercent(0.4), 40)
+    assert.equal(accuracyPercent(0), 0)
   })
 
-  it("returns null for missing or degenerate input", () => {
-    assert.equal(accuracyPercent(undefined, 0.032), null)
-    assert.equal(accuracyPercent(0.032, 0), null)
+  it("clamps out-of-range scores", () => {
+    assert.equal(accuracyPercent(1.2), 100)
+  })
+
+  it("returns null for missing input", () => {
+    assert.equal(accuracyPercent(undefined), null)
+    assert.equal(accuracyPercent(Number.NaN), null)
   })
 })

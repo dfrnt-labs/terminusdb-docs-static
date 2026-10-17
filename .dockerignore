@@ -1,0 +1,12 @@
+# Keep the Fly.io build context small — infra/public-data-server/Dockerfile
+# builds from the repo root but only COPYs a handful of paths.
+.git
+node_modules
+.next
+out
+dist
+coverage
+scripts/tmp
+**/*.log
+**/.DS_Store
+.github

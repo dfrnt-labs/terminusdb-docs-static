@@ -70,6 +70,39 @@ test.describe("vector search", () => {
     );
   });
 
+  test("Tab moves focus from input to active item to see-all-results", async ({
+    page,
+  }) => {
+    await page.goto("/docs/branch/");
+    await page.keyboard.press(
+      process.platform === "darwin" ? "Meta+k" : "Control+k",
+    );
+    const input = page.locator("input").first();
+    await input.fill("database");
+
+    const list = page.locator('[role="dialog"] ul');
+    const active = list.locator('li[aria-selected="true"]').first();
+    await expect(active).toBeVisible({ timeout: 20000 });
+
+    // Tab lands on the highlighted item, list stays visible while blurred
+    await page.keyboard.press("Tab");
+    await expect(active).toBeFocused();
+    await expect(list.locator("li").first()).toBeVisible();
+
+    // Arrow keys still move the highlight while the item is focused
+    const firstUrl = await active.getAttribute("aria-labelledby");
+    await page.keyboard.press("ArrowDown");
+    const moved = list.locator('li[aria-selected="true"]').first();
+    await expect(moved).toBeFocused();
+    expect(await moved.getAttribute("aria-labelledby")).not.toBe(firstUrl);
+
+    // Next Tab lands on the "See all results" link
+    await page.keyboard.press("Tab");
+    await expect(
+      page.getByRole("link", { name: /See all results/i }),
+    ).toBeFocused();
+  });
+
   test("results page renders hits for a query", async ({ page }) => {
     await page.goto("/search?q=branch");
     const card = page.locator('a[href^="/docs/"]').filter({ hasText: /branch/i });
@@ -77,6 +110,18 @@ test.describe("vector search", () => {
     await expect(
       page.getByText(/Results for/),
     ).toBeVisible();
+  });
+
+  test("results page search bar drives the query", async ({ page }) => {
+    await page.goto("/search");
+    const box = page.getByRole("searchbox", {
+      name: /Search the documentation/i,
+    });
+    await box.fill("clone");
+    // Debounced: the URL picks up the typed query, results follow
+    await expect(page).toHaveURL(/[?&]q=clone/, { timeout: 5000 });
+    const card = page.locator('a[href^="/docs/"]').filter({ hasText: /clone/i });
+    await expect(card.first()).toBeVisible({ timeout: 20000 });
   });
 
   test("preview panel stays below the header when scrolled", async ({
@@ -123,13 +168,17 @@ test.describe("vector search", () => {
 
   test("slow search shows the scale-to-zero hint", async ({ page }) => {
     await page.route("**/api/search/**", async (route) => {
-      await new Promise((r) => setTimeout(r, 4000));
+      await new Promise((r) => setTimeout(r, 2500));
       await route.continue();
     });
     await page.goto("/search?q=branch");
+    await expect(page.getByText(/Searching…/)).toBeVisible({
+      timeout: 10000,
+    });
+    // The wake hint appears while still waiting (500ms into a 2.5s request)
     await expect(
-      page.getByText(/scales to zero/i),
-    ).toBeVisible({ timeout: 10000 });
+      page.getByText(/scaling up from zero/i),
+    ).toBeVisible({ timeout: 2000 });
     // Results still arrive once the delayed response lands
     await expect(
       page.locator('a[href^="/docs/"]').first(),

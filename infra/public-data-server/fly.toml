@@ -9,6 +9,17 @@ primary_region = "lhr"
   TERMINUSDB_AUTOLOGIN = "false"
   TERMINUSDB_JWT_ENABLED = "false"
   TERMINUSDB_ENABLE_DASHBOARD = "true"
+  # Embedded vectorlink engine, embedding via the co-located Ollama
+  TERMINUSDB_INDEXER_BACKEND = "vectorlink"
+  VECTORLINK_EMBED_PROVIDER = "openai_compatible"
+  VECTORLINK_EMBED_URL = "http://localhost:11434"
+  VECTORLINK_MODEL = "multilingual-e5-base"
+  VECTORLINK_DIM = "768"
+  VECTORLINK_TOKENIZER_PATH = "/app/terminusdb/e5-tokenizer.json"
+  VECTORLINK_DATA_DIR = "/app/terminusdb/storage/vectorlink"
+  # CPU-only embedding is slow (~5s/segment); large pages exceed the 60s
+  # default watchdog and abort the server. 10min covers the biggest page.
+  TERMINUSDB_INDEXER_WATCHDOG_DEADLINE = "600"
 
 [http_service]
   internal_port = 6363
@@ -30,8 +41,8 @@ primary_region = "lhr"
     timeout = "5s"
 
 [[vm]]
-  size = "shared-cpu-1x"
-  memory = "512mb"
+  size = "performance-1x"
+  memory = "2048mb"
 
 [mounts]
   source = "terminusdb_data"

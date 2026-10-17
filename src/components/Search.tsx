@@ -24,7 +24,6 @@ import clsx from 'clsx'
 
 import { navigation } from '@/lib/navigation'
 import { PoweredByTerminusDB } from '@/components/PoweredByTerminusDB'
-import { SearchAccuracy } from '@/components/SearchAccuracy'
 import {
   hitToResult,
   searchDocs,
@@ -41,6 +40,15 @@ type Autocomplete = AutocompleteApi<
 >
 
 const DEBOUNCE_MS = 250
+const WAKE_DEBUG_MS = 3000
+
+// ?debug-wake pauses result rendering so the scale-to-zero hint is visible
+export function wakeDebug(): boolean {
+  return (
+    typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).has('debug-wake')
+  )
+}
 
 function SearchIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -112,8 +120,16 @@ function useAutocomplete({
                   let controller = new AbortController()
                   searchRef.current.controller = controller
                   searchDocs({ q: query, count: 8, signal: controller.signal })
-                    .then((hits) => resolve(hits.map(hitToResult)))
-                    .catch(() => resolve([]))
+                    .then((hits) => {
+                      let done = () => resolve(hits.map(hitToResult))
+                      if (wakeDebug()) setTimeout(done, WAKE_DEBUG_MS)
+                      else done()
+                    })
+                    .catch(() => {
+                      // A superseded request must not resolve [] — that would
+                      // flash "No results" while the newer request flies.
+                      if (!controller.signal.aborted) resolve([])
+                    })
                 }, DEBOUNCE_MS)
               })
             },
@@ -175,18 +191,17 @@ function SearchResult({
   autocomplete,
   collection,
   query,
-  maxScore,
 }: {
   result: Result
   autocomplete: Autocomplete
   collection: AutocompleteCollection<Result>
   query: string
-  maxScore: number
 }) {
   let id = useId()
 
+  let path = result.url.split('#')[0].replace(/\/$/, '')
   let sectionTitle = navigation.find((section) =>
-    section.links.find((link) => link.href === result.url.split('#')[0]),
+    section.links.find((link) => link.href === path),
   )?.title
   let hierarchy = [sectionTitle].filter(
     (x): x is string => typeof x === 'string',
@@ -194,7 +209,29 @@ function SearchResult({
 
   return (
     <li
-      className="group block cursor-default rounded-lg px-3 py-2 aria-selected:bg-slate-100 dark:aria-selected:bg-slate-700/30"
+      tabIndex={-1}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') {
+          event.currentTarget.click()
+        } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          const form = (event.currentTarget as HTMLElement).closest('form')
+          form
+            ?.querySelector('input')
+            ?.dispatchEvent(
+              new KeyboardEvent('keydown', {
+                key: event.key,
+                bubbles: true,
+                cancelable: true,
+              }),
+            )
+          requestAnimationFrame(() => {
+            form
+              ?.querySelector<HTMLElement>('li[aria-selected="true"]')
+              ?.focus()
+          })
+        }
+      }}
+      className="group block cursor-pointer rounded-lg px-3 py-2 ring-inset aria-selected:bg-sky-50 focus:ring-2 focus:ring-sky-500/70 focus:outline-hidden dark:aria-selected:bg-sky-500/10"
       aria-labelledby={`${id}-hierarchy ${id}-title`}
       {...autocomplete.getItemProps({
         item: result,
@@ -233,7 +270,6 @@ function SearchResult({
             </div>
           )}
         </div>
-        <SearchAccuracy score={result.score} maxScore={maxScore} />
       </div>
     </li>
   )
@@ -243,12 +279,16 @@ function SearchResults({
   autocomplete,
   query,
   collection,
+  status,
 }: {
   autocomplete: Autocomplete
   query: string
   collection: AutocompleteCollection<Result>
+  status?: string
 }) {
   let listRef = useRef<HTMLUListElement>(null)
+  let [showWakeHint, setShowWakeHint] = useState(false)
+  let loading = status === 'loading' || status === 'stalled'
 
   useEffect(() => {
     listRef.current
@@ -256,22 +296,42 @@ function SearchResults({
       ?.scrollIntoView({ block: 'nearest' })
   })
 
-  if (collection.items.length === 0) {
+  useEffect(() => {
+    if (!loading) {
+      setShowWakeHint(false)
+      return
+    }
+    let timer = setTimeout(() => setShowWakeHint(true), 1400)
+    return () => clearTimeout(timer)
+  }, [loading])
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center px-4 py-8 text-sm text-slate-500 dark:text-slate-400">
+        {showWakeHint ? (
+          <span className="flex flex-col items-center gap-0.5 text-center">
+            <span>🌿 Dynamically scaling up from zero 🌿</span>
+            <span>
+              to save resources — first query may take a few seconds.
+            </span>
+          </span>
+        ) : (
+          <span>Searching…</span>
+        )}
+      </div>
+    )
+  }
+  if (!collection || collection.items.length === 0) {
+    if (!collection) return null
     return (
       <p className="px-4 py-8 text-center text-sm text-slate-700 dark:text-slate-400">
-        No results for &ldquo;
+        No results for{' '}
         <span className="break-words text-slate-900 dark:text-white">
-          {query}
+          &ldquo;{query}&rdquo;
         </span>
-        &rdquo;
       </p>
     )
   }
-
-  const maxScore = Math.max(
-    ...collection.items.map((item) => item.score ?? 0),
-    0,
-  )
 
   return (
     <ul
@@ -286,7 +346,6 @@ function SearchResults({
           autocomplete={autocomplete}
           collection={collection}
           query={query}
-          maxScore={maxScore}
         />
       ))}
     </ul>
@@ -315,6 +374,16 @@ const SearchInput = forwardRef<
         )}
         {...inputProps}
         onKeyDown={(event) => {
+          if (event.key === 'Tab' && !event.shiftKey) {
+            const active = (event.currentTarget as HTMLElement)
+              .closest('form')
+              ?.querySelector<HTMLElement>('li[aria-selected="true"]')
+            if (active) {
+              event.preventDefault()
+              active.focus()
+              return
+            }
+          }
           if (
             event.key === 'Escape' &&
             !autocompleteState.isOpen &&
@@ -370,6 +439,7 @@ function SearchDialog({
   let formRef = useRef<React.ElementRef<'form'>>(null)
   let panelRef = useRef<React.ElementRef<'div'>>(null)
   let inputRef = useRef<React.ElementRef<typeof SearchInput>>(null)
+
 
   let close = useCallback(
     (autocomplete: Autocomplete) => {
@@ -436,32 +506,36 @@ function SearchDialog({
                   className="border-t border-slate-200 bg-white px-2 py-3 empty:hidden dark:border-slate-400/10 dark:bg-slate-800"
                   {...autocomplete.getPanelProps({})}
                 >
-                  {autocompleteState.isOpen && (
-                    <SearchResults
-                      autocomplete={autocomplete}
-                      query={autocompleteState.query}
-                      collection={autocompleteState.collections[0]}
-                    />
-                  )}
                   {'query' in autocompleteState &&
                     autocompleteState.query !== '' && (
-                      <div className="mt-2 flex items-center justify-between gap-4 border-t border-slate-200 px-3 pt-2 dark:border-slate-400/10">
+                      <SearchResults
+                        autocomplete={autocomplete}
+                        query={autocompleteState.query}
+                        collection={autocompleteState.collections[0]}
+                        status={autocompleteState.status}
+                      />
+                    )}
+                  <div className="mt-2 border-t border-slate-200 px-3 pt-2 dark:border-slate-400/10">
+                    <div className="flex items-center justify-between gap-4">
+                      {'query' in autocompleteState &&
+                      autocompleteState.query !== '' ? (
                         <Link
                           href={`/search?q=${encodeURIComponent(autocompleteState.query)}`}
                           onClick={() => close(autocomplete)}
-                          className="text-xs font-medium text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
+                          className="inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-medium whitespace-nowrap text-sky-600 transition-colors hover:border-sky-400 hover:text-sky-700 dark:border-slate-600 dark:bg-slate-800 dark:text-sky-400 dark:hover:border-sky-500 dark:hover:text-sky-300"
                         >
-                          See all results &rarr;
+                          See all results
                         </Link>
-                        <div className="flex flex-col items-end gap-1 text-right text-[10px] leading-tight text-slate-400 dark:text-slate-500">
-                          <PoweredByTerminusDB />
-                          <div>
-                            Search engine scales to zero — first query after
-                            idle may take a few seconds.
-                          </div>
-                        </div>
-                      </div>
-                    )}
+                      ) : (
+                        <span />
+                      )}
+                      <PoweredByTerminusDB />
+                    </div>
+                    <div className="mt-1.5 text-center text-[10px] leading-tight text-slate-400 dark:text-slate-500">
+                      Dynamically scales up from zero to save resources —
+                      first query after idle may take a few seconds.
+                    </div>
+                  </div>
                 </div>
               </form>
             </div>
