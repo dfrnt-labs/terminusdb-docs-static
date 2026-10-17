@@ -34,6 +34,8 @@ export interface SearchHit {
   id: string
   distance?: number
   rrf_score?: number
+  fts?: { distance?: number; rank?: number }
+  vector?: { distance?: number; rank?: number }
   chunk?: {
     index?: number
     snippet?: string
@@ -224,6 +226,55 @@ function titleizeSlug(slug: string): string {
   return spaced.charAt(0).toUpperCase() + spaced.slice(1)
 }
 
+function clamp01(n: number): number {
+  return Math.min(1, Math.max(0, n))
+}
+
+/**
+ * Vector distance anchors measured on multilingual-e5-base over the docs
+ * corpus: <=0.06 is a strong semantic match, ~0.095 is the no-correlation
+ * floor (where a garbage query's nearest doc sits), >=0.13 is the far tail
+ * ("opposite"). Piecewise-linear between them. Replace with the engine's
+ * renormalized score when vectorlink exposes one.
+ */
+const VEC_STRONG = 0.06
+const VEC_FLOOR = 0.095
+const VEC_OPPOSITE = 0.13
+
+function vectorScore(distance: number | undefined): number | undefined {
+  if (distance === undefined || Number.isNaN(distance)) return undefined
+  if (distance <= VEC_FLOOR) {
+    const t = clamp01((VEC_FLOOR - distance) / (VEC_FLOOR - VEC_STRONG))
+    return 0.5 + 0.5 * t
+  }
+  return 0.5 * clamp01((VEC_OPPOSITE - distance) / (VEC_OPPOSITE - VEC_FLOOR))
+}
+
+/**
+ * A keyword match is a real signal even at low confidence, so the FTS
+ * component floors at 0.5 for any hit the full-text index returned.
+ */
+function ftsScore(distance: number | undefined): number | undefined {
+  if (distance === undefined || Number.isNaN(distance)) return undefined
+  return clamp01(1 - distance / 2)
+}
+
+/**
+ * A hit's displayed score is the average of its full-text and vector
+ * component scores — never the RRF fusion score, which would inflate the
+ * top result to 100% regardless of match quality. A component absent from
+ * the ranked lists carries no opinion and counts as orthogonal (0.5).
+ */
+function hitScore(hit: SearchHit): number | undefined {
+  if (hit.fts || hit.vector) {
+    const fts = ftsScore(hit.fts?.distance) ?? 0.5
+    const vector = vectorScore(hit.vector?.distance) ?? 0.5
+    return (fts + vector) / 2
+  }
+  if (hit.distance === undefined || Number.isNaN(hit.distance)) return undefined
+  return clamp01(1 - hit.distance)
+}
+
 export function hitToResult(hit: SearchHit): SearchResult {
   const rawId = hit.id ?? ""
   const slug = rawId.startsWith("Page/") ? rawId.slice("Page/".length) : rawId
@@ -233,18 +284,15 @@ export function hitToResult(hit: SearchHit): SearchResult {
     title: title ?? titleizeSlug(slug || "page"),
     snippet: body,
     distance: hit.distance,
-    score: hit.rrf_score,
+    score: hitScore(hit),
   }
 }
 
 /**
- * Expresses a hit's score as a percentage of the best score in the same
- * result set — RRF values are tiny, so the top hit anchors at 100%.
+ * Expresses a hit's score (already in [0, 1]) as a whole percentage of a
+ * perfect match. Absolute scale: a mediocre top hit stays below 100%.
  */
-export function accuracyPercent(
-  score: number | undefined,
-  maxScore: number,
-): number | null {
-  if (score === undefined || maxScore <= 0) return null
-  return Math.round((score / maxScore) * 100)
+export function accuracyPercent(score: number | undefined): number | null {
+  if (score === undefined || Number.isNaN(score)) return null
+  return Math.round(Math.min(1, Math.max(0, score)) * 100)
 }

@@ -12,7 +12,7 @@ import {
 } from '@/lib/terminusdb-search'
 import { PoweredByTerminusDB } from '@/components/PoweredByTerminusDB'
 
-const WAKE_HINT_DELAY_MS = 3000
+const WAKE_HINT_DELAY_MS = 1400
 
 // pageDocs returns documents in storage order — restore the
 // similarity ranking by reordering against the hit id list.
@@ -84,8 +84,8 @@ export function SimilarDocs() {
           ))}
           {showWakeHint && (
             <p className="pt-1 text-xs text-slate-400 dark:text-slate-500">
-              The search engine scales to zero — first request after idle can
-              take a few seconds.
+              Dynamically scaling up from zero to save resources — first
+              request after idle can take a few seconds.
             </p>
           )}
         </div>
