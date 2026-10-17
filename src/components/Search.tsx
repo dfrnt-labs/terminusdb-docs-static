@@ -569,7 +569,7 @@ function SearchDialog({
                     </div>
                     <div className="mt-1.5 text-center text-[10px] leading-tight text-slate-400 dark:text-slate-500">
                       Dynamically scales up from zero to save resources —
-                      first query after idle may take a few seconds.
+                      first query can take up to 10 seconds.
                     </div>
                   </div>
                 </div>
