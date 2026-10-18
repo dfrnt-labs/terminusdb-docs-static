@@ -76,9 +76,10 @@ We try to keep this fair. Other tools solve parts of this problem well.
 Time travel is not free, and it is good to know the costs:
 
 - **History uses storage.** Old layers are kept, so storage grows as you commit more changes.
-- **Deep history can slow reads.** Many small layers mean more work per read. TerminusDB runs [delta rollup](/docs/delta-rollup/) automatically in standard setups to compact layers.
 - **You can shorten history.** If you do not need every step on a branch, you can [squash](/docs/undo-reset-howto/) its commits into one. Then the steps in between are no longer there to query on that branch.
 - **It is not a time-series database.** If you need high-rate metrics, a time-series tool is a better fit.
+
+Read speed is not one of the costs. Changes are stored as delta layers, and [delta rollup](/docs/delta-rollup/) runs automatically in standard setups to compact them. Together with the layer cache, this keeps reads at near-constant time as history grows. The effect of deep history on read speed is negligible.
 
 ## See also
 
