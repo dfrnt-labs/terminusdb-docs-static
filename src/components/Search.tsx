@@ -29,8 +29,11 @@ import {
   hitToResult,
   pageDocs,
   searchDocs,
+  SearchError,
+  type SearchErrorKind,
   type SearchResult as Result,
 } from '@/lib/terminusdb-search'
+import { useSearchTracking } from '@/lib/useSearchTracking'
 
 type EmptyObject = Record<string, never>
 
@@ -42,6 +45,8 @@ type Autocomplete = AutocompleteApi<
 >
 
 const DEBOUNCE_MS = 250
+// A query counts for analytics once the input is still this long and results are in
+const SETTLE_MS = 1000
 const WAKE_DEBUG_MS = 3000
 
 // ?debug-wake pauses result rendering so the scale-to-zero hint is visible
@@ -62,15 +67,25 @@ function SearchIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 function useAutocomplete({
   close,
+  tracking,
 }: {
   close: (autocomplete: Autocomplete) => void
+  tracking: ReturnType<typeof useSearchTracking>
 }) {
   let id = useId()
   let router = useRouter()
   let searchRef = useRef<{
     timer?: ReturnType<typeof setTimeout>
     controller?: AbortController
+    // getItems resolves [] on failure; this tells an error apart from no hits
+    failed?: { query: string; kind: SearchErrorKind }
   }>({})
+  let settleRef = useRef<{
+    query: string
+    done: boolean
+    timer?: ReturnType<typeof setTimeout>
+    state?: AutocompleteState<Result>
+  }>({ query: '', done: false })
   let [autocompleteState, setAutocompleteState] = useState<
     AutocompleteState<Result> | EmptyObject
   >({})
@@ -93,6 +108,34 @@ function useAutocomplete({
     }
   }
 
+  function settleIfReady() {
+    let { state, done } = settleRef.current
+    let collection = state?.collections[0]
+    if (!done || !state || state.query === '' || state.status !== 'idle') return
+    if (!collection) return
+    let failed = searchRef.current.failed
+    tracking.settle(
+      state.query,
+      collection.items.length,
+      failed?.query === state.query ? failed.kind : undefined,
+    )
+  }
+
+  function settleNow() {
+    settleRef.current.done = true
+    settleIfReady()
+  }
+
+  function trackState(state: AutocompleteState<Result>) {
+    let settle = settleRef.current
+    settle.state = state
+    if (state.query === settle.query) return settleIfReady()
+    clearTimeout(settle.timer)
+    settle.query = state.query
+    settle.done = false
+    if (state.query) settle.timer = setTimeout(settleNow, SETTLE_MS)
+  }
+
   let [autocomplete] = useState<Autocomplete>(() =>
     createAutocomplete<
       Result,
@@ -105,7 +148,9 @@ function useAutocomplete({
       defaultActiveItemId: 0,
       onStateChange({ state }) {
         setAutocompleteState(state)
+        trackState(state)
       },
+      onSubmit: settleNow,
       shouldPanelOpen({ state }) {
         return state.query !== ''
       },
@@ -126,6 +171,7 @@ function useAutocomplete({
                   searchRef.current.controller = controller
                   searchDocs({ q: query, count: 8, signal: controller.signal })
                     .then((hits) => {
+                      searchRef.current.failed = undefined
                       let items = hits.map(hitToResult)
                       let done = () => resolve(items)
                       if (wakeDebug()) setTimeout(done, WAKE_DEBUG_MS)
@@ -153,10 +199,16 @@ function useAutocomplete({
                         })
                         .catch(() => {})
                     })
-                    .catch(() => {
+                    .catch((err) => {
                       // A superseded request must not resolve [] — that would
                       // flash "No results" while the newer request flies.
-                      if (!controller.signal.aborted) resolve([])
+                      if (controller.signal.aborted) return
+                      searchRef.current.failed = {
+                        query,
+                        // Anything else threw while reading the response
+                        kind: err instanceof SearchError ? err.kind : 'parse',
+                      }
+                      resolve([])
                     })
                 }, DEBOUNCE_MS)
               })
@@ -164,14 +216,23 @@ function useAutocomplete({
             getItemUrl({ item }) {
               return item.anchor ? `${item.url}#${item.anchor}` : item.url
             },
-            onSelect: navigate,
+            onSelect(params) {
+              settleRef.current.state = params.state
+              settleNow()
+              let index =
+                params.state.collections[0]?.items.indexOf(params.item) ?? -1
+              if (index >= 0 && params.itemUrl) {
+                tracking.click(index + 1, params.itemUrl)
+              }
+              navigate(params)
+            },
           },
         ]
       },
     }),
   )
 
-  return { autocomplete, autocompleteState }
+  return { autocomplete, autocompleteState, settleNow }
 }
 
 function LoadingIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -475,20 +536,22 @@ function SearchDialog({
   let formRef = useRef<React.ElementRef<'form'>>(null)
   let panelRef = useRef<React.ElementRef<'div'>>(null)
   let inputRef = useRef<React.ElementRef<typeof SearchInput>>(null)
-
+  let tracking = useSearchTracking('dialog')
 
   let close = useCallback(
     (autocomplete: Autocomplete) => {
+      tracking.reset()
       setOpen(false)
       autocomplete.setQuery('')
     },
-    [setOpen],
+    [setOpen, tracking],
   )
 
-  let { autocomplete, autocompleteState } = useAutocomplete({
+  let { autocomplete, autocompleteState, settleNow } = useAutocomplete({
     close() {
       close(autocomplete)
     },
+    tracking,
   })
 
   useEffect(() => {
@@ -557,7 +620,11 @@ function SearchDialog({
                       autocompleteState.query !== '' ? (
                         <Link
                           href={`/search?q=${encodeURIComponent(autocompleteState.query)}`}
-                          onClick={() => close(autocomplete)}
+                          onClick={() => {
+                            // Not a result click: ends the query as no_click
+                            settleNow()
+                            close(autocomplete)
+                          }}
                           className="inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-medium whitespace-nowrap text-sky-600 transition-colors hover:border-sky-400 hover:text-sky-700 dark:border-slate-600 dark:bg-slate-800 dark:text-sky-400 dark:hover:border-sky-500 dark:hover:text-sky-300"
                         >
                           See all results

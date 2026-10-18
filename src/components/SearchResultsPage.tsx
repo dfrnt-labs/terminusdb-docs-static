@@ -17,6 +17,7 @@ import {
 } from '@/lib/terminusdb-search'
 import { PoweredByTerminusDB } from '@/components/PoweredByTerminusDB'
 import { wakeDebug } from '@/components/Search'
+import { useSearchTracking } from '@/lib/useSearchTracking'
 
 const PAGE_SIZE = 20
 const WAKE_HINT_DELAY_MS = 1400
@@ -78,6 +79,7 @@ export function SearchResultsPage() {
   const [showWakeHint, setShowWakeHint] = useState(false)
   const [retryNonce, setRetryNonce] = useState(0)
   const retriedOnce = useRef(false)
+  const tracking = useSearchTracking('results_page')
 
   const runSearch = useCallback(
     (q: string, start: number, append: boolean) => {
@@ -109,6 +111,7 @@ export function SearchResultsPage() {
             if (!append) setPreview(mapped[0] ?? null)
             setExhausted(mapped.length < PAGE_SIZE)
             setStatus('idle')
+            tracking.settle(q, start + mapped.length)
             return hits
           })
           .then((hits) =>
@@ -145,13 +148,15 @@ export function SearchResultsPage() {
               return attempt()
             }
             setStatus('error')
+            // A failed "load more" keeps the results already shown
+            if (!append) tracking.settle(q, 0, err.kind)
           })
       }
 
       void attempt().finally(() => clearTimeout(wakeTimer))
       return controller
     },
-    [],
+    [tracking],
   )
 
   useEffect(() => {
@@ -162,12 +167,13 @@ export function SearchResultsPage() {
     setPreview(null)
     setExhausted(false)
     if (!query) {
+      tracking.reset()
       setStatus('idle')
       return
     }
     const controller = runSearch(query, 0, false)
     return () => controller?.abort()
-  }, [query, retryNonce, runSearch])
+  }, [query, retryNonce, runSearch, tracking])
 
   function loadMore() {
     runSearch(query, results.length, true)
@@ -283,10 +289,11 @@ export function SearchResultsPage() {
 
         {results.length > 0 && (
           <ul className="mt-8 space-y-3">
-            {results.map((result) => (
+            {results.map((result, index) => (
               <li key={`${result.url}${result.anchorKey ?? ''}`}>
                 <Link
                   href={resultHref(result)}
+                  onClick={() => tracking.click(index + 1, resultHref(result))}
                   onMouseEnter={() => setPreview(result)}
                   onFocus={() => setPreview(result)}
                   className="block rounded-lg border border-slate-200 px-4 py-3 transition-colors hover:border-sky-400 hover:bg-slate-50 dark:border-slate-700 dark:hover:border-sky-500 dark:hover:bg-slate-800/50"
@@ -342,6 +349,12 @@ export function SearchResultsPage() {
                   <div className="flex items-baseline justify-between gap-3">
                     <Link
                       href={resultHref(preview)}
+                      onClick={() =>
+                        tracking.click(
+                          results.indexOf(preview) + 1,
+                          resultHref(preview),
+                        )
+                      }
                       className="min-w-0 text-sm font-medium text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
                     >
                       <Highlighter
