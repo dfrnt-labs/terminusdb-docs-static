@@ -76,6 +76,29 @@ function urlToSlug(loc) {
   }
 }
 
+/**
+ * next-sitemap 4.x (static export) builds each URL from the HTML file path
+ * with `.replace('index', '')`. That removes the FIRST "index" in the path,
+ * not the file name. So /docs/index-your-data/index.html becomes
+ * /docs/-your-data/index, which is a 404. Put "index" back where the real
+ * exported page exists. Returns null if no real page matches.
+ */
+function repairIndexLoc(loc) {
+  const isAbsolute = loc.startsWith('http')
+  const pathname = isAbsolute ? new URL(loc).pathname : loc
+  const m = pathname.match(/^(.*)\/index\/?$/)
+  if (!m) return loc
+  const broken = m[1]
+  for (let i = 0; i <= broken.length; i++) {
+    const candidate = broken.slice(0, i) + 'index' + broken.slice(i)
+    if (fs.existsSync(path.join(__dirname, 'out', candidate, 'index.html'))) {
+      const fixed = candidate.replace(/\/+$/, '') + '/'
+      return isAbsolute ? new URL(fixed, loc).toString() : fixed
+    }
+  }
+  return null
+}
+
 /** @type {import('next-sitemap').IConfig} */
 // Main AI crawlers explicitly allowed — GEO/AEO visibility is a goal.
 const AI_CRAWLERS = [
@@ -125,7 +148,9 @@ module.exports = {
   // not canonical content pages.
   exclude: ['/docs/topics', '/docs/topics/*'],
 
-  transform: async (config, loc) => {
+  transform: async (config, rawLoc) => {
+    const loc = repairIndexLoc(rawLoc)
+    if (loc === null) return null
     const slug = urlToSlug(loc)
 
     // Defensive: also skip topics paths in case the exclude glob misses

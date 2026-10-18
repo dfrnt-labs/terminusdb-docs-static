@@ -11,7 +11,7 @@ nextjs:
     description: A how-to guide for creating teams using the TerminusDB dashboard.
     keywords: terminusdb, create, create teams using terminusdb, new
     openGraph:
-      images: https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.pn
+      images: https://assets.terminusdb.com/docs/manage-your-projects-create-a-new-team-2.png
     alternates:
       canonical: https://terminusdb.com/docs/create-a-team/
 media:
