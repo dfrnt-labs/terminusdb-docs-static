@@ -44,5 +44,6 @@ Historical commit information is also required for TerminusDB collaboration func
 
 - [**ACID transactions**](/docs/acid-transactions-explanation/) — how immutability enables atomic, consistent operations
 - [**Time travel**](/docs/time-travel-howto/) — query your database at any historical point
+- [**Time travel queries**](/docs/graph-database-with-time-travel-queries/) — an overview, with a comparison to temporal tables and Neo4j
 - [**Graphs explained**](/docs/graphs-explanation/) — the layer hierarchy that makes immutability efficient
 - [**Delta rollup**](/docs/delta-rollup/) — compact accumulated layers for performance
