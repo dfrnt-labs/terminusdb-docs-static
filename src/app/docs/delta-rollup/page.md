@@ -38,7 +38,7 @@ Every commit in TerminusDB creates a new **delta layer** — an immutable record
 
 Delta rollup removes that cost. The auto-optimizer is standard, and in recent releases performance does not degrade as history grows. Rollup layers, together with the layer cache, let TerminusDB load combined layers in one go, so read and write performance stays consistent despite the delta encoding. Every version stays easy to access, and every version is available to hybrid search (vector and full-text). Vector search uses the same storage: documents are referenced efficiently and each document vector is stored only once.
 
-The cost is disk storage. TerminusDB keeps some intermediate rollup layers on disk so that combined layers load quickly and storage stays efficient.
+The cost is disk storage. TerminusDB keeps some intermediate rollup layers on disk so that combined layers load quickly and storage stays efficient. For a deeper look at how rollup works, see [TerminusDB Internals Part 2 - Change is Gonna Come](/blog/2022-11-14-terminusdb-internals-2/).
 
 ## When to perform a rollup
 
@@ -138,11 +138,12 @@ For most users, the `optimize` endpoint handles this automatically. The auto-opt
 - **Duration** — Rollup time is proportional to the total data size, not the number of layers. Large databases (millions of triples) may take seconds to minutes.
 - **Concurrent access** — Rollups create parallel files alongside existing layers. Readers are never blocked; they continue using the existing layer chain until the rollup completes. There is no lock contention.
 - **Idempotency** — Running optimize on an already-optimized database is a no-op and completes immediately.
-- **Disk space** — Rollup layers are stored on disk alongside the layers they cover. This is the main cost of the approach, and the reason combined layers can be loaded in one go. Unreferenced layers are garbage-collected over time.
+- **Disk space** — Rollup layers are stored on disk alongside the layers they cover. This is the main cost of the approach, and the reason combined layers can be loaded in one go. Every layer is kept, because each one backs a historic view of the data.
 - **Permissions** — The caller requires `meta_write_access` on the target resource (or must be a super-user for `_system`).
 
 ## Further reading
 
+- [TerminusDB Internals Part 2 - Change is Gonna Come](/blog/2022-11-14-terminusdb-internals-2/) — how delta encoding and rollup work inside TerminusDB
 - [Immutability and Concurrency](/docs/immutability-and-concurrency/) — why the layer architecture avoids locks
 - [ACID Transactions](/docs/acid-transactions-explanation/) — how immutability enables atomic, isolated transactions
 - [Graphs](/docs/graphs-explanation/) — the full layer and graph hierarchy
