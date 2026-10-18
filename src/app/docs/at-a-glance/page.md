@@ -5,8 +5,8 @@ tags:
 title: "TerminusDB: At a glance"
 nextjs:
   metadata:
-    title: "TerminusDB: At a glance"
-    description: "Description of the key technical features and capabilities of TerminusDB at a glance with links to the documentation"
+    title: "TerminusDB at a Glance: Knowledge Graph + Git for Data"
+    description: "One page on what TerminusDB is: JSON documents stored as a typed graph, Git-like branch, diff and merge, and a Datalog query engine. Links to every topic."
     keywords: terminusdb, document database, features overview, graph database, immutable database
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
