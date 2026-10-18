@@ -38,3 +38,10 @@ export function eventForHref(href: string | undefined): string | undefined {
   if (!href) return undefined
   return linkEvents.find((rule) => rule.match.test(href))?.event
 }
+
+/** Name-only PageSense event, for outcomes Plausible gets as props instead. */
+export function trackPageSenseEvent(name: string) {
+  if (typeof window === 'undefined') return
+  const pagesense = (window as unknown as Record<string, unknown>).pagesense
+  if (Array.isArray(pagesense)) pagesense.push(['trackEvent', name])
+}
