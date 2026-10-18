@@ -8,8 +8,8 @@ tags:
 title: Your First 10 Minutes with TerminusDB
 nextjs:
   metadata:
-    title: Your First 10 Minutes with TerminusDB
-    description: Get started with TerminusDB in 10 minutes. Clone a ready-made dataset, then branch, diff, and merge — the full git-for-data workflow with zero setup.
+    title: Get Started with TerminusDB in 10 Minutes
+    description: Run TerminusDB with one Docker command, clone a sample dataset, then branch, diff and merge it. The full git-for-data workflow in 10 minutes, no sign-up.
     keywords: terminusdb, branch, clone, commit, diff, fetch, get, git for data
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png

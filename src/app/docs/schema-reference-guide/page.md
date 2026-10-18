@@ -2,8 +2,8 @@
 title: Schema Reference Guide
 nextjs:
   metadata:
-    title: Schema Reference Guide
-    description: Complete reference for the TerminusDB schema language — document classes, properties, key strategies, enums, and type inference rules.
+    title: "TerminusDB Schema Reference: Classes, Keys, Types"
+    description: "Reference for the TerminusDB schema language: document classes, subdocuments, key strategies (Lexical, Hash, Random, UuidV7), enums and type rules, with JSON."
     keywords: terminusdb, schema, data model, document type, json schema, graph database schema, document database
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
