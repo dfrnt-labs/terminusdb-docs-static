@@ -2,13 +2,13 @@
 nextjs:
   metadata:
     title: Knowledge Graph Database with Version Control
-    description: TerminusDB is the open source knowledge graph database with git-like version control. Branch, merge and diff your data, with datalog, vector search and RDF.
+    description: TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit.
     alternates:
       canonical: https://terminusdb.com
     keywords: knowledge graph, database, version control, git-for-data, graph, RDF, JSON, document
     openGraph:
       title: Open Source Knowledge Graph Database with Version Control
-      description: TerminusDB is the open source knowledge graph database with git-like version control. Branch, merge and diff your data, with datalog, vector search and RDF.
+      description: TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit.
       url: https://terminusdb.com
       siteName: TerminusDB
       images:
@@ -21,12 +21,12 @@ nextjs:
     twitter:
       card: summary_large_image
       title: Open Source Knowledge Graph Database with Version Control
-      description: TerminusDB is the open source knowledge graph database with git-like version control. Branch, merge and diff your data, with datalog, vector search and RDF.
+      description: TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit.
       images:
         - https://assets.terminusdb.com/docs/terminusdb-knowledge-graph-database-og.png
 ---
 
-TerminusDB is an open-source knowledge graph database with git-like version control. Branch, merge, diff and time-travel query your data with Datalog. {% .lead %}
+TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit. {% .lead %}
 
 ## What makes it different
 

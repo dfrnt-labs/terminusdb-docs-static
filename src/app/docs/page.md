@@ -7,7 +7,7 @@ nextjs:
   metadata:
     title: Getting Started
     description: >-
-      TerminusDB Technical Documentation
+      TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit.
     keywords: terminusdb, documentation, getting started, collaboration
     alternates:
       canonical: https://terminusdb.com/docs/
