@@ -30,9 +30,11 @@ TerminusDB is the open-source knowledge graph database with git-like version con
 
 ## What makes it different
 
-- **Knowledge graph version control — branch, diff and merge your data.** Work on a branch, review the structural diff, merge it back — the git workflow, applied to graph documents.
+- **Knowledge graph version control — branch, diff and merge your data.** Work on a branch, review the structural diff, merge it back — the git workflow, applied to graph documents. [How knowledge graph version control works →](/docs/knowledge-graph-database-version-control/)
 - **Audit trail built in.** Every write is an immutable commit. Time-travel to any point; nothing is ever overwritten.
 - **Small and fast.** Succinct, auto-indexed immutable database structures keep the footprint tiny and queries quick — the whole database runs in a single Docker container.
+
+New to graph databases? Read [what a knowledge graph database is, and how TerminusDB does it](/docs/knowledge-graph-database/).
 
 ## Quickstart in 5 minutes
 
