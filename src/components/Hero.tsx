@@ -57,9 +57,9 @@ export function Hero() {
                 Knowledge Graph Database with Version Control
               </p>
               <p className="mt-3 text-2xl tracking-tight text-slate-400">
-                TerminusDB is an open-source knowledge graph database with
-                git-like version control. Branch, merge, diff and time-travel
-                query your data with Datalog.
+                TerminusDB is the open-source knowledge graph database with
+                git-like version control for graphs and vectors. Branch, merge,
+                diff and hybrid search any commit.
               </p>
               <div className="mt-8 flex gap-4 md:justify-center lg:justify-start">
                 <Button
