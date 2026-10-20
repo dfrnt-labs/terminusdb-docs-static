@@ -8,7 +8,7 @@ title: The Open Source Knowledge Graph Database
 nextjs:
   metadata:
     title: The Open Source Knowledge Graph Database
-    description: An instructional overview of TerminusDB as the open source knowledge graph database — a NoSQL graph database built on the closed world assumption of RDF, with an immutable history, ACID transactions, and a document-shaped class system that keeps related triples on a shared lifecycle.
+    description: What a knowledge graph database is, and how TerminusDB does it as open source - RDF triples, a closed world schema, immutable history and ACID.
     keywords: open source knowledge graph database, knowledge graph database, NoSQL graph database, RDF database, closed world assumption, open world assumption, immutable database, ACID transactions, triple store, knowledge graph database, subdocument, shared document, cascading delete, schema-enforced graph, JSON-LD database, terminusdb
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
@@ -17,9 +17,13 @@ nextjs:
 media: []
 ---
 
-TerminusDB is the **open source knowledge graph database**: a NoSQL graph database that stores JSON and JSON-LD documents as [RDF triples](/docs/graphs-explanation/), enforces a schema over those triples, and gives every change an [immutable](/docs/immutability-explanation/), [ACID-transactional](/docs/acid-transactions-explanation/) history. It is designed for the case that traditional triple stores and traditional databases each leave open — storing **complex, consistent, version-controlled information records** at graph scale.
+A knowledge graph database stores facts as a connected graph and keeps them consistent with a schema. This page explains the idea in general, and how TerminusDB does it.
+
+TerminusDB is an **open source knowledge graph database**: a NoSQL graph database that stores JSON and JSON-LD documents as [RDF triples](/docs/graphs-explanation/), enforces a schema over those triples, and gives every change an [immutable](/docs/immutability-explanation/), [ACID-transactional](/docs/acid-transactions-explanation/) history. It is designed for the case that traditional triple stores and traditional databases each leave open — storing **complex, consistent, version-controlled information records** at graph scale.
 
 This page introduces the foundations: what a knowledge graph database is, how the closed world assumption changes how data behaves, and how the TerminusDB class system — including `@subdocument` and `@shared` — lets you model rich documents on top of a triple-level store without losing referential integrity. You partition your data into data products (databases) in the data mesh processing style.
+
+Looking for the product overview? See [What is TerminusDB?](/docs/terminusdb-explanation/). Quick facts: [TerminusDB features at a glance](/docs/at-a-glance/).
 
 ## What is a knowledge graph database?
 
@@ -133,6 +137,7 @@ Putting the pieces together, TerminusDB is an **open source, immutable, ACID-tra
 ## Where to go next
 
 - [**What is TerminusDB?**](/docs/terminusdb-explanation/) — the product-level introduction
+- [**TerminusDB features at a glance**](/docs/at-a-glance/) — a quick fact sheet
 - [**The Document Model**](/docs/documents-explanation/) — how json documents map onto triples
 - [**Schema Reference**](/docs/schema-reference-guide/) — the full class system
 - [**Document Types Compared**](/docs/document-types-comparison/) — when to use subdocument, shared, and ordinary documents

@@ -5,9 +5,9 @@ tags:
 title: What is TerminusDB?
 nextjs:
   metadata:
-    title: What is TerminusDB?
+    title: "What is TerminusDB? How It Works and Who It Is For"
     keywords: terminusdb, what is terminusdb, git for data, document database version control, immutable database, graph database, branch merge data, terminusdb vs postgresql
-    description: TerminusDB is an open-source knowledge graph database with built-in version control. Branch, diff, merge, and time-travel your data like Git — with ACID transactions.
+    description: TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit.
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -15,9 +15,13 @@ nextjs:
 media: []
 ---
 
-TerminusDB is an open-source knowledge graph database with built-in version control. It stores JSON documents in a schema-enforced graph, tracks every change as an immutable delta layer, and supports branch, diff, merge, clone, and time-travel operations — like Git, but for structured data rather than files.
+TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit.
+
+This page explains the product: how it works, what makes it different, and who it is for. It stores JSON documents in a schema-enforced graph, tracks every change as an immutable delta layer, and supports branch, diff, merge, clone, and time-travel operations — like Git, but for structured data rather than files.
 
 TerminusDB is maintained by the team at [Gettier](https://gettier.ai) in collaboration with the open-source community. Gettier assumed stewardship of the project in 2025.
+
+New to knowledge graphs? Read [What is a knowledge graph database?](/docs/knowledge-graph-database/) first. Want the short feature list? See [TerminusDB features at a glance](/docs/at-a-glance/). For how versioning works, see [knowledge graph version control](/docs/knowledge-graph-database-version-control/).
 
 ## What makes TerminusDB different
 
@@ -50,7 +54,7 @@ You interact with TerminusDB through:
 - **HTTP API** — RESTful document and query endpoints
 - **WOQL** — a Datalog-based query language for complex graph traversal and pattern matching
 - **GraphQL** — standard GraphQL queries auto-generated from your schema
-- **Client libraries** — official TypeScript/JavaScript, Python, and Rust SDKs
+- **Client libraries** — official TypeScript/JavaScript and Python clients, plus community-contributed Rust and Elixir clients
 
 ## How TerminusDB compares to alternatives
 
