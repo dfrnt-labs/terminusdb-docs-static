@@ -25,7 +25,7 @@ A short, scannable list of what TerminusDB does, with a link to the docs for eac
 | **Transactions** | [ACID](/docs/acid-transactions-explanation/), on an [immutable storage layer](/docs/immutability-explanation/) |
 | **Query languages** | [WOQL](/docs/woql-explanation/) (Datalog), [GraphQL](/docs/graphql-query-reference/), and the [HTTP document API](/docs/http-documents-api/) |
 | **Search** | [Versioned semantic and hybrid search](/docs/versioned-search/) with the VectorLink indexer |
-| **Clients** | [JavaScript](/docs/use-the-javascript-client/) and [Python](/docs/use-the-python-client/) |
+| **Clients** | Official: [JavaScript](/docs/use-the-javascript-client/) and [Python](/docs/use-the-python-client/). Community: [Rust](/docs/rust-client-quickstart/) and [Elixir](https://hex.pm/packages/terminusdb_client) |
 | **License** | Open source, Apache License 2.0 ([GitHub](https://github.com/terminusdb/terminusdb)) |
 
 Three things make it distinctive:
@@ -95,6 +95,8 @@ TerminusDB is maintained by [Gettier](https://gettier.ai) in collaboration with 
 * [Rust-based high performance GraphQL Engine](/docs/graphql-query-reference/) 
 * [Javascript Client](/docs/use-the-javascript-client/)
 * [Python Client](/docs/use-the-python-client/)
+* [Rust Client](/docs/rust-client-quickstart/) (community)
+* [Elixir Client](https://hex.pm/packages/terminusdb_client) (community)
 
 ### Complete User Interface
 

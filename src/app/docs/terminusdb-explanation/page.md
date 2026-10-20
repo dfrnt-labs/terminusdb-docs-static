@@ -54,7 +54,7 @@ You interact with TerminusDB through:
 - **HTTP API** — RESTful document and query endpoints
 - **WOQL** — a Datalog-based query language for complex graph traversal and pattern matching
 - **GraphQL** — standard GraphQL queries auto-generated from your schema
-- **Client libraries** — official TypeScript/JavaScript, Python, and Rust SDKs
+- **Client libraries** — official TypeScript/JavaScript and Python clients, plus community-contributed Rust and Elixir clients
 
 ## How TerminusDB compares to alternatives
 
