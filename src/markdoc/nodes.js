@@ -100,6 +100,9 @@ const nodes = {
       caption: {
         type: String,
       },
+      copyEvent: {
+        type: String,
+      },
     },
   },
 }

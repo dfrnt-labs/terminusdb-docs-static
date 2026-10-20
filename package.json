@@ -10,7 +10,7 @@
     "build": "next build",
     "cmsdev": "next dev",
     "cmsbuild": "next build",
-    "postbuild": "npm run sitemap && node scripts/export-page-markdown.mjs",
+    "postbuild": "npm run sitemap && node scripts/export-page-markdown.mjs && node scripts/copy-llms-txt.mjs",
     "start": "next start",
     "lint": "next lint",
     "test:examples": "npx mocha scripts/docs-example-tests/run-colocated-examples.test.mjs scripts/docs-example-tests/run-http-examples.test.mjs scripts/docs-example-tests/run-vectorlink-examples.test.mjs --timeout 120000",
