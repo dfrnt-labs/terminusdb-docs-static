@@ -2,21 +2,31 @@
 tags:
   - explanation
   - beginner
-title: "TerminusDB: At a glance"
+title: "TerminusDB features at a glance"
 nextjs:
   metadata:
-    title: "TerminusDB at a Glance: Knowledge Graph + Git for Data"
-    description: "One page on what TerminusDB is: JSON documents stored as a typed graph, Git-like branch, diff and merge, and a Datalog query engine. Links to every topic."
-    keywords: terminusdb, document database, features overview, graph database, immutable database
+    title: "TerminusDB Features at a Glance: Graph + Git for Data"
+    description: "A quick fact sheet of TerminusDB features: JSON documents in a typed graph, Git-like branch, diff and merge, WOQL and GraphQL. Links to every topic."
+    keywords: terminusdb, terminusdb features, features overview, fact sheet, document database, graph database, immutable database
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.com/docs/at-a-glance
 ---
 
-This page gives you a high-level overview of TerminusDB's capabilities — what it does, how it differs from other databases, and where to go next depending on your use case.
+A short, scannable list of what TerminusDB does, with a link to the docs for each feature. Want the full explanation? Read [What is TerminusDB?](/docs/terminusdb-explanation/). New to knowledge graphs? Start with [What is a knowledge graph database?](/docs/knowledge-graph-database/).
 
-**TerminusDB** is an open-source knowledge graph database with built-in version control. It combines a [schema-enforced JSON document store](/docs/documents-explanation/) with a [knowledge graph](/docs/graphs-explanation/) engine, [git-like collaboration](/docs/git-for-data-reference/) (branch, diff, merge, clone), and [ACID transactions](/docs/acid-transactions-explanation/) backed by an [immutable storage layer](/docs/immutability-explanation/).
+## Quick facts
+
+| | |
+|---|---|
+| **Data model** | [Schema-enforced JSON documents](/docs/documents-explanation/), stored as a [typed graph of RDF triples](/docs/graphs-explanation/) |
+| **Version control** | [Git-like](/docs/git-for-data-reference/) branch, diff, merge, clone, push and pull, plus [time-travel queries](/docs/knowledge-graph-database-version-control/) |
+| **Transactions** | [ACID](/docs/acid-transactions-explanation/), on an [immutable storage layer](/docs/immutability-explanation/) |
+| **Query languages** | [WOQL](/docs/woql-explanation/) (Datalog), [GraphQL](/docs/graphql-query-reference/), and the [HTTP document API](/docs/http-documents-api/) |
+| **Search** | [Versioned semantic and hybrid search](/docs/versioned-search/) with the VectorLink indexer |
+| **Clients** | [JavaScript](/docs/use-the-javascript-client/) and [Python](/docs/use-the-python-client/) |
+| **License** | Open source, Apache License 2.0 ([GitHub](https://github.com/terminusdb/terminusdb)) |
 
 Three things make it distinctive:
 
