@@ -28,7 +28,6 @@ const TAG_MAP = {
   'explore-ecommerce-dataset': ['beginner', 'tutorial'],
   'quickstart-example': ['beginner', 'tutorial'],
   'at-a-glance': ['beginner', 'explanation'],
-  'get-started-with-terminusdb': ['beginner', 'tutorial'],
 
   // ── Installation ───────────────────────────────────────────────
   'install-terminusdb-as-a-docker-container': ['installation', 'how-to', 'self-hosted'],
