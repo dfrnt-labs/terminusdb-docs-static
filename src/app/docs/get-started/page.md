@@ -195,6 +195,15 @@ Your data persists in the `terminusdb_storage` Docker volume. To remove it entir
 - [JSON Diff and Patch](/docs/json-diff-and-patch/) — Deep dive into structural diff operations
 - [What is TerminusDB?](/docs/terminusdb-explanation/) — Understand the architecture behind what you just did
 
+### Other ways to run and use TerminusDB
+
+- [Install from source code](/docs/install-terminusdb-from-source-code/) — build the server yourself from [GitHub](https://github.com/terminusdb/terminusdb)
+- [Docker container install](/docs/install-terminusdb-as-a-docker-container/) — more options for the Docker setup you used above
+- [GraphQL reference](/docs/graphql-query-reference/) — query your data with the GraphQL schema that TerminusDB makes for you
+- [CLI commands](/docs/terminusdb-cli-commands/) — work with databases from the command line
+- [WOQL](/docs/woql-explanation/) — the datalog query language of TerminusDB
+- [TerminusDB Cloud](/docs/cloud/) — a hosted server with a visual dashboard
+
 ## Troubleshooting
 
 ### Error: Connection refused
