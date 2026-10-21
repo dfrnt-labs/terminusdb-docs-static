@@ -36,8 +36,11 @@ jobs:
       - uses: superfly/flyctl-actions/setup-flyctl@master
 
       # Build context is the repo root — the Dockerfile COPYs docs sources
-      - run: flyctl deploy --app dfrnt-data-terminusdb \
-               --config infra/public-data-server/fly.toml \
-               --dockerfile infra/public-data-server/Dockerfile
+      # Use a block scalar (|) so the line breaks stay. Without it, YAML joins
+      # the lines and flyctl gets the backslashes as extra arguments.
+      - run: |
+          flyctl deploy --app dfrnt-data-terminusdb \
+            --config infra/public-data-server/fly.toml \
+            --dockerfile infra/public-data-server/Dockerfile
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
