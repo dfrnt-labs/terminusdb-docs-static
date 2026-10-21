@@ -36,6 +36,8 @@ TerminusDB is the open-source knowledge graph database with git-like version con
 
 New to graph databases? Read [what a knowledge graph database is, and how TerminusDB does it](/docs/knowledge-graph-database/).
 
+Looking for database version control for production data? See [how TerminusDB does git-like version control](/docs/graph-database-with-git-like-version-control/).
+
 ## Quickstart in 5 minutes
 
 ```bash
