@@ -69,3 +69,5 @@ More ways to connect: [GitHub](https://github.com/terminusdb/terminusdb).
 TerminusDB is open source and free to use under the Apache 2.0 license. Get started with the open source community version on your own computer, by [getting started with Docker](/docs/install-terminusdb-as-a-docker-container/).
 
 TerminusDB is maintained and offered by [Gettier](https://gettier.ai/) since 2025. We provide the simplest way for subject matter experts to build AI-ready, defensible data foundations. Gettier is a proof layer powered by TerminusDB. We offer Enterprises what they need to run TerminusDB data foundations in production, with or without the Gettier proof layer.
+
+Want to talk to the people behind TerminusDB? [Contact us](https://gettier.ai/connect).

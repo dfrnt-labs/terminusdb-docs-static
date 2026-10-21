@@ -12,7 +12,7 @@ URL: https://terminusdb.com/docs//
 
 ## TerminusDB Documentation
 
-TerminusDB is a knowledge graph database with built-in version control. It stores JSON documents as graph structures, tracks every change as an immutable commit, and supports branching, merging, and time-travel queries over your data history.
+TerminusDB is a knowledge graph database with built-in version control. It stores JSON documents as graph structures, tracks every change as an immutable commit, and supports branching, merging, and [time travel queries](/docs/graph-database-with-time-travel-queries/) over your data history.
 
 TerminusDB is open source and free to use, maintained by the team at [Gettier](https://gettier.ai) in collaboration with the community.
 
@@ -3464,13 +3464,23 @@ return <FrameViewer
 
 ---
 
-# TerminusDB: At a glance
+# TerminusDB features at a glance
 
 URL: https://terminusdb.com/docs/at-a-glance/
 
-This page gives you a high-level overview of TerminusDB's capabilities — what it does, how it differs from other databases, and where to go next depending on your use case.
+A short, scannable list of what TerminusDB does, with a link to the docs for each feature. Want the full explanation? Read [What is TerminusDB?](/docs/terminusdb-explanation/). New to knowledge graphs? Start with [What is a knowledge graph database?](/docs/knowledge-graph-database/).
 
-**TerminusDB** is an open-source knowledge graph database with built-in version control. It combines a [schema-enforced JSON document store](/docs/documents-explanation/) with a [knowledge graph](/docs/graphs-explanation/) engine, [git-like collaboration](/docs/git-for-data-reference/) (branch, diff, merge, clone), and [ACID transactions](/docs/acid-transactions-explanation/) backed by an [immutable storage layer](/docs/immutability-explanation/).
+## Quick facts
+
+| | |
+|---|---|
+| **Data model** | [Schema-enforced JSON documents](/docs/documents-explanation/), stored as a [typed graph of RDF triples](/docs/graphs-explanation/) |
+| **Version control** | [Git-like](/docs/git-for-data-reference/) branch, diff, merge, clone, push and pull, plus [time-travel queries](/docs/knowledge-graph-database-version-control/) |
+| **Transactions** | [ACID](/docs/acid-transactions-explanation/), on an [immutable storage layer](/docs/immutability-explanation/) |
+| **Query languages** | [WOQL](/docs/woql-explanation/) (Datalog), [GraphQL](/docs/graphql-query-reference/), and the [HTTP document API](/docs/http-documents-api/) |
+| **Search** | [Versioned semantic and hybrid search](/docs/versioned-search/) with the VectorLink indexer |
+| **Clients** | Official: [JavaScript](/docs/use-the-javascript-client/) and [Python](/docs/use-the-python-client/). Community: [Rust](/docs/rust-client-quickstart/) and [Elixir](https://hex.pm/packages/terminusdb_client) |
+| **License** | Open source, Apache License 2.0 ([GitHub](https://github.com/terminusdb/terminusdb)) |
 
 Three things make it distinctive:
 
@@ -3539,6 +3549,8 @@ TerminusDB is maintained by [Gettier](https://gettier.ai) in collaboration with 
 * [Rust-based high performance GraphQL Engine](/docs/graphql-query-reference/) 
 * [Javascript Client](/docs/use-the-javascript-client/)
 * [Python Client](/docs/use-the-python-client/)
+* [Rust Client](/docs/rust-client-quickstart/) (community)
+* [Elixir Client](https://hex.pm/packages/terminusdb_client) (community)
 
 ### Complete User Interface
 
@@ -8415,7 +8427,11 @@ TerminusDB includes a rollup plugin that is enabled by default. It probabilistic
 
 ## Why layers accumulate
 
-Every commit in TerminusDB creates a new **delta layer** — an immutable record of additions and deletions relative to the layer beneath it. Over hundreds or thousands of commits, the layer stack grows deep. When TerminusDB resolves a triple, it must traverse the entire parent chain from newest to oldest layer, checking each for the presence or absence of that triple. A deep stack means slower reads.
+Every commit in TerminusDB creates a new **delta layer** — an immutable record of additions and deletions relative to the layer beneath it. Over hundreds or thousands of commits, the layer stack grows deep. Without compaction, TerminusDB would have to traverse the parent chain from newest to oldest layer to resolve a triple, checking each layer for the presence or absence of that triple.
+
+Delta rollup removes that cost. The auto-optimizer is standard, and in recent releases performance does not degrade as history grows. Rollup layers, together with the layer cache, let TerminusDB load combined layers in one go, so read and write performance stays consistent despite the delta encoding. Every version stays easy to access, and every version is available to hybrid search (vector and full-text). Vector search uses the same storage: documents are referenced efficiently and each document vector is stored only once.
+
+The cost is disk storage. TerminusDB keeps some intermediate rollup layers on disk so that combined layers load quickly and storage stays efficient. For a deeper look at how rollup works, see [TerminusDB Internals Part 2 - Change is Gonna Come](/blog/2022-11-14-terminusdb-internals-2/).
 
 ## When to perform a rollup
 
@@ -8423,12 +8439,12 @@ Every commit in TerminusDB creates a new **delta layer** — an immutable record
 
 Run a rollup when:
 
-- Read queries have become noticeably slower after many commits
+- The auto-optimize plugin is disabled and you have made many commits
 - You have completed a bulk import (hundreds or thousands of documents)
 - You observe the layer stack depth exceeding ~50–100 layers
 - Routine maintenance — for example, nightly or weekly on active databases
 
-TerminusDB also ships an optional **auto-optimize plugin** that probabilistically triggers optimization after commits, removing the need for manual scheduling in most deployments.
+The standard **auto-optimize plugin** probabilistically triggers optimization after commits, removing the need for manual scheduling in most deployments.
 
 ## How to trigger a rollup
 
@@ -8515,11 +8531,12 @@ For most users, the `optimize` endpoint handles this automatically. The auto-opt
 - **Duration** — Rollup time is proportional to the total data size, not the number of layers. Large databases (millions of triples) may take seconds to minutes.
 - **Concurrent access** — Rollups create parallel files alongside existing layers. Readers are never blocked; they continue using the existing layer chain until the rollup completes. There is no lock contention.
 - **Idempotency** — Running optimize on an already-optimized database is a no-op and completes immediately.
-- **Disk space** — Rolled-up layers coexist with their source layers temporarily. TerminusDB garbage-collects unreferenced layers over time.
+- **Disk space** — Rollup layers are stored on disk alongside the layers they cover. This is the main cost of the approach, and the reason combined layers can be loaded in one go. Every layer is kept, because each one backs a historic view of the data.
 - **Permissions** — The caller requires `meta_write_access` on the target resource (or must be a super-user for `_system`).
 
 ## Further reading
 
+- [TerminusDB Internals Part 2 - Change is Gonna Come](/blog/2022-11-14-terminusdb-internals-2/) — how delta encoding and rollup work inside TerminusDB
 - [Immutability and Concurrency](/docs/immutability-and-concurrency/) — why the layer architecture avoids locks
 - [ACID Transactions](/docs/acid-transactions-explanation/) — how immutability enables atomic, isolated transactions
 - [Graphs](/docs/graphs-explanation/) — the full layer and graph hierarchy
@@ -15403,6 +15420,51 @@ URL: https://terminusdb.com/docs/get-started/
 
 TerminusDB is a database built for collaboration. In this quickstart you will clone a pre-populated dataset and immediately use the git-for-data workflow: branch, edit, diff, and merge. No schema to write, no data to invent.
 
+## Set it up with an AI agent
+
+TerminusDB is local-first: the database runs on your own machine, and with [Versioned Search](/docs/versioned-search-quickstart/) (12.1 release candidate) the embeddings can run on your own hardware too, with no API key.
+
+If you use an AI coding agent such as Claude Code, Codex or Cursor, you can paste this prompt and let it do the setup for you. It uses the `docker-compose.yml` from the TerminusDB repository and sets up the database only. Read the steps before you run them, as the agent will run commands on your machine.
+
+```text copyEvent="agent_prompt_copy"
+Set up a local TerminusDB for me and check that it works. Use Docker Compose.
+
+1. Make a new empty folder called terminusdb-local and work in it.
+2. Download these two files from the terminusdb/terminusdb repository, main branch:
+   https://raw.githubusercontent.com/terminusdb/terminusdb/main/docker-compose.yml
+   https://raw.githubusercontent.com/terminusdb/terminusdb/main/.env.example
+3. Copy .env.example to .env. Set TERMINUSDB_ADMIN_PASS to a new random password.
+   Leave OPENAI_KEY empty. Do not print the password in your answer.
+4. Run: docker compose up -d
+   Then run: docker compose ps
+5. Wait until http://localhost:6363/api/info answers with HTTP 200 when you use
+   basic auth admin:<password>. Try for up to 60 seconds.
+   (In this compose file, port 6363 goes through the change request API and
+   port 6364 goes straight to the TerminusDB server. If a call fails on 6363,
+   try the same call on 6364 and tell me.)
+6. Create a database:
+   POST /api/db/admin/agent_demo
+   body: {"label": "Agent demo", "comment": "Made by my AI agent"}
+7. Add a tiny schema:
+   POST /api/document/admin/agent_demo?graph_type=schema&author=agent&message=Add+schema
+   body: {"@type": "Class", "@id": "Person", "name": "xsd:string",
+          "friends": {"@type": "Set", "@class": "Person"}}
+8. Insert two documents:
+   POST /api/document/admin/agent_demo?author=agent&message=Add+people
+   body: [{"@type": "Person", "@id": "Person/ada", "name": "Ada", "friends": []},
+          {"@type": "Person", "@id": "Person/alan", "name": "Alan", "friends": ["Person/ada"]}]
+9. Run one query with GraphQL:
+   POST /api/graphql/admin/agent_demo
+   body: {"query": "{ Person { name friends { name } } }"}
+10. Report back to me: which commands you ran, the HTTP status of each call,
+    the query result, and how to stop everything (docker compose down).
+    If a step failed, show the error and stop. Do not guess.
+
+Docs: https://terminusdb.com/docs/get-started/ and https://terminusdb.com/llms.txt
+```
+
+The rest of this page does the same kind of thing by hand, with a single `docker run` command.
+
 ## Step 1 — Start TerminusDB
 
 Pull and run TerminusDB in one command:
@@ -15704,6 +15766,8 @@ URL: https://terminusdb.com/docs/git-for-data-reference/
 By the end of this guide, you will know how to push, pull, fetch, and clone data between TerminusDB instances — and how to manage remotes, rebase branches, and resolve diverged histories.
 
 **Git-for-Data** lets you transport data between TerminusDB instances using operations that mirror git: `clone`, `push`, `pull`, and `fetch`. You can collaborate on structured data by synchronising content repositories across cloud-hosted and local TerminusDB instances.
+
+For the bigger picture of database version control in TerminusDB, read [a graph database with git-like version control](/docs/graph-database-with-git-like-version-control/).
 
 - Two TerminusDB instances running (examples use `localhost:6363` as local and `localhost:6364` as remote)
 - A database on the remote instance to clone from, or a local database with a remote configured
@@ -16413,6 +16477,84 @@ Version control for data pays off when your JSON documents are connected, change
 - [Merge How-To](/docs/merge-howto/) — merge strategies, rebase and conflict handling
 - [Clone, Push, Pull](/docs/use-the-collaboration-features/) — distributing databases between instances
 - [ACID Transactions](/docs/acid-transactions-explanation/) — the transactional guarantees behind each commit
+
+
+---
+
+# A Graph Database with Time Travel Queries
+
+URL: https://terminusdb.com/docs/graph-database-with-time-travel-queries/
+
+In TerminusDB, every write is an immutable commit. So you can query the database as it was at any commit or on any branch, with the same API you use for live data.
+
+That is what we mean by "time travel queries". You do not need backups, log replay or extra history tables. The past is just another path you can read.
+
+## How commits make it work
+
+TerminusDB does not change data in place. Each write adds a new layer on top of the old ones:
+
+- **Immutable layers.** A commit adds a layer with the triples it added and removed. Older layers stay as they were. See [Immutability](/docs/immutability-explanation/) for more detail.
+- **Commit IDs.** Each commit has an `identifier`, plus an author, a timestamp and a message. You get these from the commit log.
+- **Branches.** A branch is a name that points to the newest commit in a line of history. Reading a branch gives you the current state. Reading a commit gives you the state at that moment.
+
+Because old layers never change, a read at an old commit is a normal read. TerminusDB does not rebuild the past from a log.
+
+## A short example
+
+These calls use a database `admin/tdb-example-mydb` on `localhost:6363`. First, get the recent commits on `main`:
+
+```bash
+curl -u admin:root "http://localhost:6363/api/log/admin/tdb-example-mydb/local/branch/main?count=5"
+```
+
+Each entry in the response has an `identifier`. Then, to read the data as it was at one of those commits, replace `local/branch/main` with `local/commit/<identifier>` in the path:
+
+```bash
+curl -u admin:root "http://localhost:6363/api/document/admin/tdb-example-mydb/local/commit/789xyz012345?type=Product&as_list=true"
+```
+
+You get the `Product` documents exactly as they were at that commit. This is read-only, so the current branch does not change. The [time travel how-to](/docs/time-travel-howto/) shows the same steps in TypeScript and Python, and how to diff and restore.
+
+## When it helps
+
+Some common reasons to query the past:
+
+- **Debugging.** See what the data looked like just before a bad import or a bug.
+- **Audits.** Show what a record said on a given day, and who changed it.
+- **Reports you can repeat.** Run a report against a fixed commit, so the numbers do not move.
+- **Machine learning.** Train or test on the exact data snapshot you used before.
+- **Safe restore.** Read an old version of a document and write it back as a new commit.
+
+## How it compares
+
+We try to keep this fair. Other tools solve parts of this problem well.
+
+| | TerminusDB | SQL temporal tables | Neo4j |
+|---|---|---|---|
+| Where history lives | The whole database, per commit | Per table that you turn it on for | Not built in |
+| How you ask for the past | Use a commit or branch in the path | `FOR SYSTEM_TIME AS OF` on each table | Model it yourself, for example with timestamps on nodes |
+| Branches | Yes | No | No |
+| Who changed what | Author and message on each commit | Not by default | Not by default |
+
+- **SQL temporal tables** (system-versioned tables) are good at "what did this row look like at time T". You turn them on per table, and each table keeps its own history. TerminusDB versions the whole graph at once, so one commit is one consistent state of all your data.
+- **Neo4j** is a strong graph database for traversal. As far as we know, it does not keep a version history of the graph out of the box. Teams often add timestamps or history nodes in their own model.
+
+## Limits
+
+Time travel is not free, and it is good to know the costs:
+
+- **History uses storage.** Old layers are kept, so storage grows as you commit more changes.
+- **You can shorten history.** If you do not need every step on a branch, you can [squash](/docs/undo-reset-howto/) its commits into one. Then the steps in between are no longer there to query on that branch.
+- **It is not a time-series database.** If you need high-rate metrics, a time-series tool is a better fit.
+
+Read speed is not one of the costs. Changes are stored as delta layers, and [delta rollup](/docs/delta-rollup/) runs automatically in standard setups to compact them. Together with the layer cache, this keeps reads at near-constant time as history grows. The effect of deep history on read speed is negligible.
+
+## See also
+
+- [How to Time-Travel](/docs/time-travel-howto/) — query, compare and restore past states, step by step
+- [Time Travel in the Dashboard](/docs/time-travel/) — do the same thing in TerminusDB Cloud
+- [Immutability](/docs/immutability-explanation/) — why TerminusDB never changes data in place
+- [A Graph Database with Git-like Version Control](/docs/graph-database-with-git-like-version-control/) — commits, branches, diffs and merges
 
 
 ---
@@ -20838,11 +20980,11 @@ For application developers, the practical implications are:
 - **Predictable latency** — because reads require no coordination, their latency is determined only by the layer traversal depth (bounded by rollup) and I/O speed, not by how many writers are active.
 - **Simplified error handling** — the only failure mode for writes is an optimistic concurrency conflict, which the server retries automatically (up to a configurable limit). Applications never need to implement retry-on-deadlock logic.
 
-## The trade-off: layer accumulation
+## Layers and rollup
 
-The cost of immutability is that layers accumulate. After hundreds of commits, reading a single triple may require traversing a deep parent chain. This is where [delta rollup](/docs/delta-rollup/) comes in: a maintenance operation that compresses layers into fewer, flatter layers without changing semantics or commit history.
+Every commit adds a layer, so layers accumulate. Reads do not slow down because of this. [Delta rollup](/docs/delta-rollup/) compacts layers into fewer, flatter layers without changing semantics or commit history, and the auto-optimizer that runs it is standard. Together with the layer cache, rollup keeps read and write performance consistent as history grows. The exponential strategy (base 3) means that even workloads with thousands of commits only have a logarithmic number of layers to combine.
 
-TerminusDB includes an auto-optimize plugin that triggers compaction probabilistically after commits, keeping layer depth manageable without manual intervention. The exponential strategy (base 3) means that even high-throughput workloads producing thousands of commits will only accumulate a logarithmic number of layers between rollups.
+The real cost is disk storage. TerminusDB keeps every layer, because each one backs a historic view, plus some intermediate rollup layers so combined layers load in one go. For how this works inside, see [TerminusDB Internals Part 2 - Change is Gonna Come](/blog/2022-11-14-terminusdb-internals-2/).
 
 ## Comparison with PostgreSQL MVCC
 
@@ -20852,7 +20994,7 @@ Additionally, PostgreSQL's MVCC still requires locks for DDL operations (schema 
 
 ## Summary
 
-TerminusDB's immutable delta architecture eliminates the fundamental tension between readers and writers. Readers always see a consistent snapshot. Writers append new layers without disturbing existing data. No locks means no contention, no deadlocks, and predictable performance under concurrent load — at the cost of periodic compaction to manage layer depth.
+TerminusDB's immutable delta architecture eliminates the fundamental tension between readers and writers. Readers always see a consistent snapshot. Writers append new layers without disturbing existing data. No locks means no contention, no deadlocks, and predictable performance under concurrent load. The cost is disk storage for the layers that keep every version available.
 
 The net result is an architecture where concurrency is not a problem to be managed — it is a natural consequence of the storage model.
 
@@ -20897,6 +21039,7 @@ Historical commit information is also required for TerminusDB collaboration func
 
 - [**ACID transactions**](/docs/acid-transactions-explanation/) — how immutability enables atomic, consistent operations
 - [**Time travel**](/docs/time-travel-howto/) — query your database at any historical point
+- [**Time travel queries**](/docs/graph-database-with-time-travel-queries/) — an overview, with a comparison to temporal tables and Neo4j
 - [**Graphs explained**](/docs/graphs-explanation/) — the layer hierarchy that makes immutability efficient
 - [**Delta rollup**](/docs/delta-rollup/) — compact accumulated layers for performance
 
@@ -23558,9 +23701,13 @@ We have the following patch resulting from the diff:
 
 URL: https://terminusdb.com/docs/knowledge-graph-database/
 
-TerminusDB is the **open source knowledge graph database**: a NoSQL graph database that stores JSON and JSON-LD documents as [RDF triples](/docs/graphs-explanation/), enforces a schema over those triples, and gives every change an [immutable](/docs/immutability-explanation/), [ACID-transactional](/docs/acid-transactions-explanation/) history. It is designed for the case that traditional triple stores and traditional databases each leave open — storing **complex, consistent, version-controlled information records** at graph scale.
+A knowledge graph database stores facts as a connected graph and keeps them consistent with a schema. This page explains the idea in general, and how TerminusDB does it.
+
+TerminusDB is an **open source knowledge graph database**: a NoSQL graph database that stores JSON and JSON-LD documents as [RDF triples](/docs/graphs-explanation/), enforces a schema over those triples, and gives every change an [immutable](/docs/immutability-explanation/), [ACID-transactional](/docs/acid-transactions-explanation/) history. It is designed for the case that traditional triple stores and traditional databases each leave open — storing **complex, consistent, version-controlled information records** at graph scale.
 
 This page introduces the foundations: what a knowledge graph database is, how the closed world assumption changes how data behaves, and how the TerminusDB class system — including `@subdocument` and `@shared` — lets you model rich documents on top of a triple-level store without losing referential integrity. You partition your data into data products (databases) in the data mesh processing style.
+
+Looking for the product overview? See [What is TerminusDB?](/docs/terminusdb-explanation/). Quick facts: [TerminusDB features at a glance](/docs/at-a-glance/).
 
 ## What is a knowledge graph database?
 
@@ -23674,6 +23821,7 @@ Putting the pieces together, TerminusDB is an **open source, immutable, ACID-tra
 ## Where to go next
 
 - [**What is TerminusDB?**](/docs/terminusdb-explanation/) — the product-level introduction
+- [**TerminusDB features at a glance**](/docs/at-a-glance/) — a quick fact sheet
 - [**The Document Model**](/docs/documents-explanation/) — how json documents map onto triples
 - [**Schema Reference**](/docs/schema-reference-guide/) — the full class system
 - [**Document Types Compared**](/docs/document-types-comparison/) — when to use subdocument, shared, and ordinary documents
@@ -39588,9 +39736,13 @@ The command line is in essence a datalog prolog operating on the graph provided 
 
 URL: https://terminusdb.com/docs/terminusdb-explanation/
 
-TerminusDB is an open-source knowledge graph database with built-in version control. It stores JSON documents in a schema-enforced graph, tracks every change as an immutable delta layer, and supports branch, diff, merge, clone, and time-travel operations — like Git, but for structured data rather than files.
+TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit.
+
+This page explains the product: how it works, what makes it different, and who it is for. It stores JSON documents in a schema-enforced graph, tracks every change as an immutable delta layer, and supports branch, diff, merge, clone, and time-travel operations — like Git, but for structured data rather than files.
 
 TerminusDB is maintained by the team at [Gettier](https://gettier.ai) in collaboration with the open-source community. Gettier assumed stewardship of the project in 2025.
+
+New to knowledge graphs? Read [What is a knowledge graph database?](/docs/knowledge-graph-database/) first. Want the short feature list? See [TerminusDB features at a glance](/docs/at-a-glance/). For how versioning works, see [knowledge graph version control](/docs/knowledge-graph-database-version-control/).
 
 ## What makes TerminusDB different
 
@@ -39623,7 +39775,7 @@ You interact with TerminusDB through:
 - **HTTP API** — RESTful document and query endpoints
 - **WOQL** — a Datalog-based query language for complex graph traversal and pattern matching
 - **GraphQL** — standard GraphQL queries auto-generated from your schema
-- **Client libraries** — official TypeScript/JavaScript, Python, and Rust SDKs
+- **Client libraries** — official TypeScript/JavaScript and Python clients, plus community-contributed Rust and Elixir clients
 
 ## How TerminusDB compares to alternatives
 
@@ -41279,6 +41431,8 @@ By the end of this guide, you will know how to query your database at any histor
 
 **Time-travel** in TerminusDB lets you query the database as it was at any point in history — without modifying anything. Because every write creates an immutable commit, you can "go back in time" to see the exact state of your data at any previous commit. No backups, no log replay, no special configuration.
 
+New to the idea? Read [Graph Database with Time Travel Queries](/docs/graph-database-with-time-travel-queries/) for a short overview and how it compares to other tools.
+
 TerminusDB stores data as immutable delta layers. When you time-travel, you read a snapshot frozen at that commit — the current database stays unchanged. This is read-only; you cannot accidentally modify history.
 
 - TerminusDB running on `localhost:6363`
@@ -41539,6 +41693,7 @@ curl -u admin:root -X POST http://localhost:6363/api/diff/admin/tdb-example-mydb
 - [How to Branch](/docs/branch-howto/) — create and manage branches
 - [How to Merge](/docs/merge-howto/) — merge branches with conflict handling
 - [Version Control Operations Reference](/docs/version-control-operations/) — complete API reference
+- [Graph Database with Time Travel Queries](/docs/graph-database-with-time-travel-queries/) — what time travel queries are and how they compare
 
 
 ---
@@ -45167,6 +45322,10 @@ This page documents functionality in the upcoming TerminusDB 12.1 release. Detai
 
 VectorLink is the name of the embedded semantic search engine that treats your data the same way TerminusDB does: as a versioned, branchable history of commits. Every commit can be indexed automatically and becomes an independent, reproducible snapshot. You search a specific commit and always get the same results, regardless of what was indexed afterwards. Branches share their parent's vectors instead of recomputing them. Every version with complete hybrid search.
 
+TerminusDB standardized on a small 8-bit quantized multilingual model (`vectorlink/multilingual-e5-base`) which is the TerminusDB default model for data products. Standardization enables interoperability, at the cost of perfect embeddings, a hard tradeoff. It can of course be changed to any other model, but we instead recommend to use slot 2 of VectorLink for your custom model. This enables both low fidelity and high fidelity search in the same data product. Use what makes most sense for the use case, but find vector similarity across different data products. This means every chunk fits in exactly 768 bytes of vectors, making each vector reasonably small.
+
+This website uses VectorLink to provide semantic search across all documentation pages and naturally uses the default model, with fully self-sovereign vector production on the same dynamically scaling TerminusDB infrastructure. Leveraging the historic search capabilities we have is of course a next step also for the site.
+
 The engine — **VectorLink 2.0** — is built in Rust based on portions of [LanceDB](https://lancedb.com). It is the successor to the earlier VectorLink indexer, with a maintained, columnar vector store that adds full-text search and hybrid retrieval out of the box. Embeddings come from a configurable provider, defaulting to a local CPU model so the whole stack runs offline.
 
 **What you'll achieve**
@@ -47231,7 +47390,9 @@ View the ViewDocumentComponent integrated inside a dashboard here
 
 URL: https://terminusdb.com/docs/what-is-datalog/
 
-**Datalog** is a declarative query language derived from **Prolog** that excels at querying complex relationships in graph databases. Understanding what Datalog is starts with its foundation in **first-order logic** — specifically a subset called **Horn clauses** — which provides a flexible and powerful approach to handling multi-hop relationships that traditional query languages struggle with.
+**Datalog** is a declarative logic language. You write facts and rules, and the engine finds every answer that follows from them. It is a small, safe subset of **Prolog**, and it is good at questions SQL finds hard, like "find all ancestors" or "who can reach whom" across any number of links.
+
+Its foundation is **first-order logic**, more exactly a subset called **Horn clauses**. This gives a clear and flexible way to handle multi-hop relationships that traditional query languages struggle with.
 
 The Datalog query language offers a logical framework with clarity and simplicity that makes it ideal for:
 - **Graph querying** — traversing relationships of arbitrary depth
@@ -47239,6 +47400,8 @@ The Datalog query language offers a logical framework with clarity and simplicit
 - **Relational databases** — expressing complex joins elegantly
 
 Unlike imperative query approaches, Datalog's foundation in declarative logical **predicates** and **variables** provides a more elegant and expressive way to query data. You define *what* constitutes a valid result, not *how* to compute it.
+
+TerminusDB is an open-source graph database with a Datalog engine built in. You can run the queries on this page in a few minutes. [Get started](/docs/get-started/) with one Docker command.
 
 ## Why Datalog?
 
@@ -47385,7 +47548,7 @@ graph LR
 
 The diagram shows how the query pattern (top) matches against the data (bottom). Only Alice matches because Paris connects to France — Bob doesn't match because London connects to UK, not France.
 
-## Datalog vs SQL: A Concrete Comparison
+## Datalog vs SQL
 
 When comparing **Datalog vs SQL**, the difference becomes clear with recursive queries. Consider finding all ancestors of a person.
 

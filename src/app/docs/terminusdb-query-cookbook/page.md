@@ -11,7 +11,7 @@ nextjs:
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
-      canonical: https://terminusdb.com/docs/how-to-query/
+      canonical: https://terminusdb.com/docs/terminusdb-query-cookbook/
 media: []
 ---
 ## Getting Started
