@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { ScrollLink } from './ScrollLink'
+import recentPostsData from '@/data/recentPosts.json'
 
 export interface RecentPost {
   title: string
@@ -15,16 +16,9 @@ interface RecentBlogPostsProps {
   posts?: RecentPost[]
 }
 
-// Default posts used when not provided (will be overridden by server-fetched data)
-const defaultPosts: RecentPost[] = [
-  { title: 'TerminusDB 12.1: A Plugin Foundation for Live, Collaborative Graphs', href: '/blog/2026-02-03-terminusdb-12.1-release', date: '2026-02-03' },
-  { title: 'Live Commit Streams: Watching a Graph Change in Real Time', href: '/blog/2026-01-20-live-commit-streams', date: '2026-01-20' },
-  { title: 'TerminusDB 12: Precision, JSON Freedom, and a New Chapter', href: '/blog/2025-12-08-terminusdb-12-release', date: '2025-12-08' },
-  { title: 'We wrote a vector database in a week', href: '/blog/2023-05-19-writing-a-vector-database-in-rust', date: '2023-05-19' },
-  { title: 'Schema Migration', href: '/blog/2023-04-24-schema-migration', date: '2023-04-24' },
-  { title: 'The Issue of Blank Nodes in RDF', href: '/blog/2022-06-24-blank-nodes-in-rdf', date: '2022-06-24' },
-  { title: 'TerminusDB v10.1.0: The Mule', href: '/blog/2022-06-14-terminusdb-10.1.0-the-mule', date: '2022-06-14' },
-]
+// Default posts: the newest published posts, made at build time by
+// scripts/generate-recent-posts.mjs (so we never link to a post that is not published)
+const defaultPosts: RecentPost[] = recentPostsData
 
 export function RecentBlogPosts({ className, posts }: RecentBlogPostsProps) {
   const pathname = usePathname()

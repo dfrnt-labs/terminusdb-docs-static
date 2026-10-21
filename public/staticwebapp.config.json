@@ -64,6 +64,201 @@
       "route": "/docs/datalog-explanation",
       "redirect": "/docs/what-is-datalog/",
       "statusCode": 301
+    },
+    {
+      "route": "/docs/product-tour",
+      "redirect": "/docs/at-a-glance/",
+      "statusCode": 301
+    },
+    {
+      "route": "/about",
+      "redirect": "/#community",
+      "statusCode": 301
+    },
+    {
+      "route": "/hub",
+      "redirect": "/docs/cloud/",
+      "statusCode": 301
+    },
+    {
+      "route": "/cloud",
+      "redirect": "/docs/cloud/",
+      "statusCode": 301
+    },
+    {
+      "route": "/pricing",
+      "redirect": "/docs/cloud/",
+      "statusCode": 301
+    },
+    {
+      "route": "/faq",
+      "redirect": "/docs/start-here/",
+      "statusCode": 301
+    },
+    {
+      "route": "/llm.txt",
+      "redirect": "/docs/llms.txt",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/install-terminusdb",
+      "redirect": "/docs/self-hosted-installation/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/terminusdb-enterprise",
+      "redirect": "/docs/enterprise/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/index/json-diff-and-patch",
+      "redirect": "/docs/json-diff-and-patch/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/index/terminusx-db/how-to-guides/generate-document-user-interfaces/get-started-with-the-documents-user-interface",
+      "redirect": "/docs/document-ui-sdk/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/terminusx/time-travel",
+      "redirect": "/docs/time-travel-howto/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/time-travel-how-to",
+      "redirect": "/docs/time-travel-howto/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/commit-history",
+      "redirect": "/docs/time-travel-howto/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/how-to-use-the-history-api",
+      "redirect": "/docs/version-controlled-json/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/branching-and-merging",
+      "redirect": "/docs/branch-howto/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/how-to-merge-branches",
+      "redirect": "/docs/merge-howto/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/terminusdb/security",
+      "redirect": "/docs/access-control/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/graphql-query",
+      "redirect": "/docs/graphql-query-reference/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/rest-api",
+      "redirect": "/docs/openapi/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/technical-documentation-terminuscms-og.png",
+      "redirect": "https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png",
+      "statusCode": 301
+    },
+    {
+      "route": "/the-semantic-data-practitioner/datalog-with-knowledge-graphs-as-data-products-in-terminusdb-3239c800bb98",
+      "redirect": "/docs/datalog-queries-between-data-products/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/2026-02-03-terminusdb-12.1-release",
+      "redirect": "/docs/releases/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/2026-01-20-live-commit-streams",
+      "redirect": "/docs/graphql-subscriptions/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/live-commit-streams",
+      "redirect": "/docs/graphql-subscriptions/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/2023-05-19-writing-a-vector-database-in-rust",
+      "redirect": "/docs/set-up-vectorlink/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/succinct-data-structures-for-modern-databases",
+      "redirect": "/blog/2023-01-05-succinct-data-structures-for-modern-databases/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/json-diff-and-patch-module",
+      "redirect": "/blog/2022-02-14-json-diff-and-patch/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/graph-fundamentals-part-2-labeled-property-graphs",
+      "redirect": "/docs/graphs-explanation/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/organisation-wide-knowledge-graph",
+      "redirect": "/docs/knowledge-graph-database/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/knowledge-graph-schema-design",
+      "redirect": "/docs/schema-reference-guide/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/2022-application-development-trends",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/entity-resolution-with-ai-dblp-and-acm-publication-benchmark",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/archive",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/all-posts",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/category/*",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/c/*",
+      "redirect": "https://discord.gg/GZ5gaCmBHc",
+      "statusCode": 301
+    },
+    {
+      "route": "/t/*",
+      "redirect": "https://discord.gg/GZ5gaCmBHc",
+      "statusCode": 301
+    },
+    {
+      "route": "/u/*",
+      "redirect": "https://discord.gg/GZ5gaCmBHc",
+      "statusCode": 301
     }
   ],
   "responseOverrides": {
