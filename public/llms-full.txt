@@ -18,7 +18,7 @@ TerminusDB is open source and free to use, maintained by the team at [Gettier](h
 
 ### Start here
 
-- **New to TerminusDB?** — [Get Started tutorial](/docs/get-started-with-terminusdb/) walks you through installation and your first database.
+- **New to TerminusDB?** — [Get Started tutorial](/docs/get-started/) walks you through installation and your first database.
 - **Evaluating TerminusDB?** — Read [What is TerminusDB?](/docs/terminusdb-explanation/) for capabilities and architecture, or see [how it compares to MongoDB](/docs/terminusdb-vs-mongodb/).
 - **Looking for a specific feature?** — [Browse by Topic](/docs/topics/list) to navigate the documentation by subject area.
 
@@ -15577,6 +15577,15 @@ Your data persists in the `terminusdb_storage` Docker volume. To remove it entir
 - [JSON Diff and Patch](/docs/json-diff-and-patch/) — Deep dive into structural diff operations
 - [What is TerminusDB?](/docs/terminusdb-explanation/) — Understand the architecture behind what you just did
 
+### Other ways to run and use TerminusDB
+
+- [Install from source code](/docs/install-terminusdb-from-source-code/) — build the server yourself from [GitHub](https://github.com/terminusdb/terminusdb)
+- [Docker container install](/docs/install-terminusdb-as-a-docker-container/) — more options for the Docker setup you used above
+- [GraphQL reference](/docs/graphql-query-reference/) — query your data with the GraphQL schema that TerminusDB makes for you
+- [CLI commands](/docs/terminusdb-cli-commands/) — work with databases from the command line
+- [WOQL](/docs/woql-explanation/) — the datalog query language of TerminusDB
+- [TerminusDB Cloud](/docs/cloud/) — a hosted server with a visual dashboard
+
 ## Troubleshooting
 
 ### Error: Connection refused
@@ -15636,83 +15645,6 @@ If you set a custom password via `TERMINUSDB_ADMIN_PASS` when creating the conta
 ### Q: How do I reset and start fresh?
 
 **A:** Stop and remove the container (`docker stop terminusdb && docker rm terminusdb`), then remove the storage volume (`docker volume rm terminusdb_storage`). Restart with the original `docker run` command. This gives you a clean instance with no databases.
-
-
----
-
-# Next steps with TerminusDB
-
-URL: https://terminusdb.com/docs/get-started-with-terminusdb/
-
-TerminusDB is an open-source knowledge graph database with a collaboration model providing Git-like features. It stores documents as [JSON documents](/docs/documents-explanation/) and the schema language connects these into a [graph](/docs/graphs-explanation/). It comes with [GraphQL](/docs/graphql-query-reference/), User Interface, [CLI](/docs/terminusdb-cli-commands/), [JavaScript](/docs/use-the-javascript-client/), and [Python Clients](/docs/use-the-python-client/).
-
-## Starting overview
-
-Get started in minutes on Windows, macOS, or Linux with the steps below.
-
-### Install
-
-Install a TerminusDB server.
-
-### Run
-
-Start a TerminusDB server.
-
-### Go
-
-Create, query, and maintain your databases using several [programmatic interfaces](#interfacesoverview).
-
-## Installation Overview
-
-Interaction with TerminusDB databases is through the TerminusBD Server. The server provides a **RESTful** API using the **JSON-LD** exchange format. This enables you to develop applications with your toolchain to utilize the powerful features of graph search and storage.
-
-To install a TerminusDB server and use TerminusDB databases programmatically in your applications, the installation options below are available. Click on an option for detailed install instructions.
-
-### Source code
-
-Install from the [source code](/docs/install-terminusdb-from-source-code/) in [GitHub](https://github.com/terminusdb/terminusdb).
-
-### Docker container
-
-Install as a [Docker container](/docs/install-terminusdb-as-a-docker-container/) also referred to as the **TerminusDB bootstrap**.
-
-## GraphQL
-
-TerminusDB comes with GraphQL for more information visit the [GraphQL reference guide](/docs/graphql-query-reference/).
-
-## Javascript client
-
-Install as a [Node.js](https://nodejs.org/en/download/)\-based [JavaScript Client](/docs/install-terminusdb-js-client/).
-
-## Python client
-
-Install as a [Python Client](/docs/install-terminusdb-js-client/). Also requires a [Docker container](/docs/install-terminusdb-as-a-docker-container/) installation.
-
-## Interfaces Overview
-
-TerminusDB provides several interfaces for creating, querying, and maintaining your databases. Depending on the component/s you choose to install, you can interact with TerminusDB using one or more of the available interfaces listed below.
-
-Use one or a combination of several TerminusDB interfaces.
-
-### GraphQL
-
-TerminusDB automatically generates GraphQL schema to query data. Read the [GraphQL reference](/docs/graphql-query-reference/) guide for more information.
-
-### Command Line Interface
-
-The TerminusDB [Command Line Interface](/docs/terminusdb-cli-commands/) (CLI.)
-
-### Dashboard
-
-The TerminusDB [dashboard](/docs/cloud/) provides a visual interface.
-
-### APIs
-
-The TerminusDB [Javascript](/docs/use-the-javascript-client/) and [Python Client](/docs/use-the-python-client/) APIs.
-
-### Query
-
-The TerminusDB [Web Object Query Language](/docs/woql-explanation/) (WOQL.)
 
 
 ---
@@ -39607,7 +39539,7 @@ This is a tutorial to learn the command line CLI interface to start exploring th
 
 The local TerminusDB database CLI has a WOQL query interface built in, with a distinct syntax to other flavours. When working with a local TerminusDB instance, it is often handy to perform offline commands against it, or extract information in a data pipeline for ML/Ops.
 
-This syntax is for advanced users who have significant experience with TerminusDB and WOQL. If you are new to TerminusDB, we recommend starting with the [TerminusDB Quickstart](/docs/get-started-with-terminusdb/).
+This syntax is for advanced users who have significant experience with TerminusDB and WOQL. If you are new to TerminusDB, we recommend starting with the [TerminusDB Quickstart](/docs/get-started/).
 
 ## Addressing TerminusDB data products with GRAPH_SPEC and DB_SPEC
 
