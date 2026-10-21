@@ -9,7 +9,7 @@ title: A Graph Database with Git-like Version Control for Production Data
 nextjs:
   metadata:
     title: Database Version Control with Git-like Branches — TerminusDB
-    description: Database version control for production data: Git-style commits, branches, diffs, merges and clone/push/pull, built into the TerminusDB graph database engine.
+    description: Database version control for production data — Git-style commits, branches, diffs, merges and clone/push/pull, built into the TerminusDB graph database engine.
     keywords: database version control, git-like database, database with version control, git-like version control database, git for data, versioned database, graph database, branching database, production data versioning, immutable database, data provenance, terminusdb, document graph database
     openGraph:
       images: https://assets.terminusdb.com/docs/terminusdb-knowledge-graph-database-og.png
