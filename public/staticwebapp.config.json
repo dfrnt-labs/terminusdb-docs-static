@@ -192,7 +192,7 @@
     },
     {
       "route": "/blog/2023-05-19-writing-a-vector-database-in-rust",
-      "redirect": "/docs/set-up-vectorlink/",
+      "redirect": "/blog/vector-database-and-vector-embeddings/",
       "statusCode": 301
     },
     {
@@ -216,18 +216,68 @@
       "statusCode": 301
     },
     {
-      "route": "/blog/knowledge-graph-schema-design",
-      "redirect": "/docs/schema-reference-guide/",
-      "statusCode": 301
-    },
-    {
       "route": "/blog/2022-application-development-trends",
       "redirect": "/blog/",
       "statusCode": 301
     },
     {
-      "route": "/blog/entity-resolution-with-ai-dblp-and-acm-publication-benchmark",
-      "redirect": "/blog/",
+      "route": "/blog/json-diff-and-patch-the-future",
+      "redirect": "/blog/2022-02-14-json-diff-and-patch/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/many-worlds-a-philosophy-of-data-collaboration",
+      "redirect": "/blog/2022-02-14-many-worlds/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/what-if-mongodb-and-neo4j-had-a-baby",
+      "redirect": "/blog/2022-02-14-mongo-neo4j-terminusx/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/uri-generation",
+      "redirect": "/blog/2022-02-28-whats-in-a-name/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/mergeable-records-a-data-modeling-approach",
+      "redirect": "/blog/2022-03-04-mergeable-records/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/terminusdb-v10-1-0",
+      "redirect": "/blog/2022-06-14-terminusdb-10.1.0-the-mule/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/the-mule-release",
+      "redirect": "/blog/2022-06-14-terminusdb-10.1.0-the-mule/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/blank-nodes-in-rdf",
+      "redirect": "/blog/2022-06-24-blank-nodes-in-rdf/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/terminusdb-internals",
+      "redirect": "/blog/2022-11-07-terminusdb-internals/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/terminusdb-internals-2",
+      "redirect": "/blog/2022-11-14-terminusdb-internals-2/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/terminusdb-internals-3",
+      "redirect": "/blog/2022-11-21-terminusdb-internals-3/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/schema-migration",
+      "redirect": "/blog/2023-04-24-schema-migration/",
       "statusCode": 301
     },
     {

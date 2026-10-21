@@ -5,33 +5,33 @@
     "date": "2025-12-08"
   },
   {
-    "title": "Schema Migration",
-    "href": "/blog/2023-04-24-schema-migration",
-    "date": "2023-04-24"
+    "title": "TerminusDB from the Command Line: introducing tdb-cli",
+    "href": "/blog/terminusdb-from-the-command-line-introducing-tdb-cli",
+    "date": "2023-11-27"
   },
   {
-    "title": "Succinct Data Structures and Delta Encoding for Modern Databases",
-    "href": "/blog/2023-01-05-succinct-data-structures-for-modern-databases",
-    "date": "2023-01-05"
+    "title": "AI Entity Resolution: Bridging Records Across Human Languages",
+    "href": "/blog/ai-entity-resolution",
+    "date": "2023-11-03"
   },
   {
-    "title": "TerminusDB Internals Part 3 - Sorting Every Sort of Thing",
-    "href": "/blog/2022-11-21-terminusdb-internals-3",
-    "date": "2022-11-21"
+    "title": "Entity Resolution with AI: DBLP and ACM publication benchmark",
+    "href": "/blog/entity-resolution-with-ai-dblp-and-acm-publication-benchmark",
+    "date": "2023-11-03"
   },
   {
-    "title": "TerminusDB Internals Part 2 - Change is Gonna Come",
-    "href": "/blog/2022-11-14-terminusdb-internals-2",
-    "date": "2022-11-14"
+    "title": "Syntax Directed Query: Using TypeScript with GraphQL and TerminusDB",
+    "href": "/blog/syntax-directed-query-using-typescript-with-graphql-and-terminusdb",
+    "date": "2023-10-27"
   },
   {
-    "title": "TerminusDB Internals Part 1 - Smaller, Faster, Stronger",
-    "href": "/blog/2022-11-07-terminusdb-internals",
-    "date": "2022-11-07"
+    "title": "Type-tagging strings in Rust",
+    "href": "/blog/type-tagging-strings-in-rust",
+    "date": "2023-10-27"
   },
   {
-    "title": "The Issue of Blank Nodes in RDF",
-    "href": "/blog/2022-06-24-blank-nodes-in-rdf",
-    "date": "2022-06-24"
+    "title": "Smaller Is Better: Ultra-Compact Graph Representations for a Big Graph",
+    "href": "/blog/big-graph",
+    "date": "2023-07-10"
   }
 ]

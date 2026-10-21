@@ -181,11 +181,14 @@ export function getAllBlogSlugs(): string[] {
   
   try {
     const entries = fs.readdirSync(blogDir, { withFileTypes: true })
+    // Posts live in src/app/blog/<slug>/page.md. Newer posts use a dated slug
+    // (YYYY-MM-DD-title). Older posts restored at their original URLs use the
+    // plain slug and set `date` in the front matter instead.
     return entries
-      .filter(entry => entry.isDirectory() && entry.name.match(/^\d{4}-\d{2}-\d{2}/))
+      .filter(entry => entry.isDirectory() && fs.existsSync(path.join(blogDir, entry.name, 'page.md')))
       .map(entry => entry.name)
       .sort()
-      .reverse() // Most recent first
+      .reverse()
   } catch (error) {
     console.error('Error reading blog directory:', error)
     return []
@@ -198,7 +201,9 @@ export function getAllBlogSlugs(): string[] {
 export async function getAllBlogPosts(): Promise<BlogPostMeta[]> {
   const slugs = getAllBlogSlugs()
   const posts = await Promise.all(slugs.map(slug => readBlogPostMeta(slug)))
-  return posts.filter((post): post is BlogPostMeta => post !== null)
+  return posts
+    .filter((post): post is BlogPostMeta => post !== null)
+    .sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug))
 }
 
 /**
