@@ -21,6 +21,8 @@ This page documents functionality in the upcoming TerminusDB 12.1 release. Detai
 
 TerminusDB stores your data and indexes it automatically. When a schema enables `store_indices`, every commit triggers an asynchronous push to VectorLink — no manual curl, no external orchestration. The engine receives an NDJSON delta of inserted, changed, and deleted documents, embeds them, and stores the result as a versioned snapshot tagged with the commit ID.
 
+If search returns nothing, or you want to know what must be in place first, read [How automatic indexing works](/docs/versioned-search-automatic-indexing/).
+
 This page walks through a complete example: create a database, define a schema with embedding metadata, insert documents across three commits, and verify that each commit is indexed and searchable.
 
 {% callout type="note" %}

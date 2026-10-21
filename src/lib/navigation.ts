@@ -1205,6 +1205,10 @@ export const navigation: Navigation[] = [
             href: '/docs/versioned-search-embedded',
           },
           {
+            title: 'How Automatic Indexing Works',
+            href: '/docs/versioned-search-automatic-indexing',
+          },
+          {
             title: 'Indexing by Push',
             href: '/docs/versioned-search-indexing',
           },
