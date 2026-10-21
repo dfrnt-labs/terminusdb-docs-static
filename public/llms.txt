@@ -1,28 +1,20 @@
 # TerminusDB
 
-> TerminusDB is an open-source knowledge graph database with git-like version control. Branch, merge, diff and time-travel query your data with Datalog.
+> TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit.
 
-> **Key differentiators**: knowledge graph version control with branch, diff and merge your data — audit trail built in — small and fast (succinct, auto-indexed immutable database structures).
+TerminusDB stores JSON documents as a typed graph with a schema. Every write is an immutable commit, so you can branch, diff, merge, push, pull, clone and query any earlier commit. You query with WOQL (a Datalog), with GraphQL, or with the HTTP Documents API. The server listens on `http://localhost:6363`. Source: https://github.com/terminusdb/terminusdb (Apache 2.0).
 
-> **Load [llms-full.txt](https://terminusdb.com/llms-full.txt) when:** writing non-trivial WOQL, building document schemas, using the version-control API (clone/push/pull/rebase), configuring TerminusDB Enterprise document formats (Turtle, RDF/XML, JSON-LD), or working with VectorLink semantic search.
+Notes for agents:
 
-> **Markdown source:** every docs page is served as raw Markdown at `<page-url>/page.md` — e.g. `https://terminusdb.com/docs/glossary/page.md`.
+- Load [llms-full.txt](https://terminusdb.com/llms-full.txt) (all docs pages in one file) when you write non-trivial WOQL, build document schemas, use the version-control API (clone/push/pull/rebase), configure TerminusDB Enterprise document formats (Turtle, RDF/XML, JSON-LD), or work with VectorLink search.
+- Every docs page is also served as raw Markdown at `<page-url>/page.md`, for example `https://terminusdb.com/docs/glossary/page.md`.
 
----
+## Get started
 
-## Build with TerminusDB — start here
-
-The essential resources for building on TerminusDB, in priority order:
-
-1. **[Schema reference guide](https://terminusdb.com/docs/schema-reference-guide/)** — the most important resource on the site: classes, properties, `@unfoldable`, documents-as-graphs.
-2. **[Get started](https://terminusdb.com/docs/get-started/)** — 5-minute quickstart: Docker, clone a dataset, branch, diff, merge. Also [Get started with TerminusDB](https://terminusdb.com/docs/get-started-with-terminusdb/).
-3. **Clone data products** — [clone a database](https://terminusdb.com/docs/clone/) or start from a [demo dataset](https://terminusdb.com/docs/clone-a-demo-project/) (Star Wars, Ecommerce).
-4. **[HTTP Documents API](https://terminusdb.com/docs/http-documents-api/)** — schema + document CRUD over REST; no client library required. See also the [OpenAPI reference](https://terminusdb.com/docs/openapi/).
-5. **[Access control](https://terminusdb.com/docs/access-control/)** — users, roles, and capabilities for multi-user deployments.
-6. **[JSON diff and patch](https://terminusdb.com/docs/json-diff-and-patch/)** — the engine behind version control; compute and apply document diffs directly.
-7. **[Query with GraphQL](https://terminusdb.com/docs/how-to-query-with-graphql/)** — auto-generated schema and endpoint per database.
-
-## Run TerminusDB
+- [Get started in 10 minutes](https://terminusdb.com/docs/get-started/): run TerminusDB with Docker, clone a sample dataset, then branch, diff and merge it. Includes a paste-in prompt to set it up with an AI coding agent.
+- [Clone a demo dataset](https://terminusdb.com/docs/clone-a-demo-project/): start from Star Wars or Ecommerce data.
+- [Documentation home](https://terminusdb.com/docs/start-here/): pick a quickstart by language and role.
+- [What is TerminusDB?](https://terminusdb.com/docs/terminusdb-explanation/): how it works and who it is for.
 
 ```bash
 docker run --pull always -d -p 127.0.0.1:6363:6363 \
@@ -30,13 +22,61 @@ docker run --pull always -d -p 127.0.0.1:6363:6363 \
   --name terminusdb terminusdb/terminusdb-server:v12
 ```
 
-Default credentials for local development: user `admin`, password `root`. Server listens on `http://localhost:6363`. Hosting options (self-hosted, early-access managed; Azure Marketplace coming autumn 2026): [TerminusDB Cloud](https://terminusdb.com/docs/cloud/).
+Default credentials for local development: user `admin`, password `root`.
 
-Docs: [Install with Docker](https://terminusdb.com/docs/install-terminusdb-as-a-docker-container/) - [Kubernetes](https://terminusdb.com/docs/install-on-kubernetes/) - [Self-hosted production](https://terminusdb.com/docs/self-hosted-installation/)
+## Schema
 
-## Connect with a client
+- [Schema reference](https://terminusdb.com/docs/schema-reference-guide/): the most important page for building on TerminusDB. Classes, properties, subdocuments, key strategies, enums and type rules.
+- [Document model](https://terminusdb.com/docs/documents-explanation/): documents, subdocuments and graph relationships.
 
-**JavaScript/TypeScript** — `npm install terminusdb`
+## Documents API
+
+- [HTTP Documents API](https://terminusdb.com/docs/http-documents-api/): create, read, update and delete schema and documents over REST, no client needed.
+- [Document API reference](https://terminusdb.com/docs/document-insertion/): all parameters for the document endpoint.
+- [OpenAPI reference](https://terminusdb.com/docs/openapi/): every HTTP endpoint.
+
+```bash
+curl -u admin:root -X POST \
+  "http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin&message=Add+document&raw_json=true" \
+  -H 'Content-Type: application/json' \
+  -d '{"@type": "Person", "@id": "terminusdb:///data/jane", "name": "Jane Smith", "age": 30}'
+```
+
+## WOQL
+
+- [WOQL basics](https://terminusdb.com/docs/woql-basics/): pattern matching and graph traversal with the Datalog query language.
+- [WOQL overview](https://terminusdb.com/docs/woql-explanation/): how WOQL works. Available in the JS and Python clients and as JSON over `/api/woql`.
+- [Learn WOQL](https://terminusdb.com/docs/woql-tutorial/): interactive tutorial with runnable examples.
+- [WOQL how-to](https://terminusdb.com/docs/how-to-query-with-woql/): common query tasks.
+- [Path queries](https://terminusdb.com/docs/path-queries-in-woql/): follow chains of relationships across the graph.
+
+```javascript
+// triple: subject, predicate, object — 'v:name' declares a variable
+WOQL.triple('v:person', 'name', 'v:name')
+// read a document by id
+WOQL.read_document('Person/Jane', 'v:doc')
+```
+
+Common pitfalls (stale training data):
+
+- Do not use string concatenation in queries. Use WOQL variables (`v:name`) and unification.
+- Do not assume floats. Numbers are precise rationals in TerminusDB 12; `xsd:decimal` is exact.
+- The `path()` operator traverses predicates: `path('v:a', '(<pilot,pilot>)+', 'v:b')`.
+- Document IDs are IRIs such as `'Person/Jane'`, not bare strings or numeric keys.
+
+## GraphQL
+
+- [GraphQL basics](https://terminusdb.com/docs/graphql-basics/): every database gets a GraphQL schema and endpoint at `/api/graphql/<org>/<db>`.
+- [Query with GraphQL](https://terminusdb.com/docs/how-to-query-with-graphql/): filter, order and page through documents.
+- [GraphQL query reference](https://terminusdb.com/docs/graphql-query-reference/): all query arguments and back links.
+- [GraphQL mutations](https://terminusdb.com/docs/graphql-mutations/): write documents with GraphQL.
+
+## Clients
+
+- [JavaScript/TypeScript client](https://terminusdb.com/docs/use-the-javascript-client/) (official): `npm install terminusdb`. [Quickstart](https://terminusdb.com/docs/connect-with-the-javascript-client/).
+- [Python client](https://terminusdb.com/docs/use-the-python-client/) (official): `pip install terminusdb-client`. [Quickstart](https://terminusdb.com/docs/connect-with-python-client/).
+- [Rust client](https://terminusdb.com/docs/rust-client-quickstart/) (community): `cargo add terminusdb-client`.
+- [Elixir client](https://hex.pm/packages/terminusdb_client) (community): the `terminusdb_client` package on Hex.
 
 ```javascript
 import TerminusClient from 'terminusdb'
@@ -46,10 +86,6 @@ const client = new TerminusClient.WOQLClient('http://localhost:6363', {
 await client.createDatabase('MyDatabase')
 ```
 
-[JS quickstart](https://terminusdb.com/docs/connect-with-the-javascript-client/) - [JS client docs](https://terminusdb.com/docs/use-the-javascript-client/)
-
-**Python** — `pip install terminusdb-client`
-
 ```python
 from terminusdb_client import Client
 client = Client("http://localhost:6363")
@@ -57,44 +93,22 @@ client.connect(team="admin", key="root")
 client.create_database("MyDatabase")
 ```
 
-[Python quickstart](https://terminusdb.com/docs/connect-with-python-client/) - [Python client docs](https://terminusdb.com/docs/use-the-python-client/)
+## Vector and hybrid search
 
-**Rust** — `cargo add terminusdb-client` - [Rust quickstart](https://terminusdb.com/docs/rust-client-quickstart/)
+- [Versioned Search](https://terminusdb.com/docs/versioned-search/): VectorLink semantic, full-text and hybrid search, with one snapshot per commit. TerminusDB 12.1 release candidate.
+- [Versioned Search quickstart](https://terminusdb.com/docs/versioned-search-quickstart/): start the stack, index a commit and search. The default embedding model runs locally on CPU, no API key.
+- [Push indexing](https://terminusdb.com/docs/versioned-search-indexing/): TerminusDB builds the text to embed from your schema and pushes each commit to VectorLink automatically.
+- [Search concepts](https://terminusdb.com/docs/versioned-search-concepts/): domains, commits, chunks, search modes and embedding providers.
+- [Embedded engine](https://terminusdb.com/docs/versioned-search-embedded/): run VectorLink inside the TerminusDB process.
 
-## HTTP API (no client required)
+## Versioning
 
-```bash
-curl -u admin:root -X POST \
-  "http://localhost:6363/api/document/admin/MyDatabase/local/branch/main?author=admin&message=Add+document&raw_json=true" \
-  -H 'Content-Type: application/json' \
-  -d '{"@type": "Person", "@id": "terminusdb:///data/jane", "name": "Jane Smith", "age": 30}'
-```
-
-[HTTP Documents API](https://terminusdb.com/docs/http-documents-api/) - [OpenAPI reference](https://terminusdb.com/docs/openapi/)
-
-## WOQL essentials
-
-WOQL is TerminusDB's datalog query language — triples, unification, path queries, aggregations. Available in the JS/Python clients and as JSON over `/api/woql`.
-
-```javascript
-// triple: subject, predicate, object — 'v:name' declares a variable
-WOQL.triple('v:person', 'name', 'v:name')
-// read a document by id
-WOQL.read_document('Person/Jane', 'v:doc')
-```
-
-**Common pitfalls (stale training data):**
-
-- DO NOT USE string concatenation in queries — use WOQL variables (`v:name`) and unification
-- DO NOT assume floats — numbers are precise rationals in TerminusDB 12; `xsd:decimal` is exact
-- The `path()` operator traverses predicates: `path('v:a', '(<pilot,pilot>)+', 'v:b')`
-- Document IDs are IRIs: `'Person/Jane'`, not bare strings or numeric keys
-
-[WOQL overview](https://terminusdb.com/docs/woql-explanation/) - [WOQL how-to](https://terminusdb.com/docs/how-to-query-with-woql/) - [Path queries](https://terminusdb.com/docs/path-queries-in-woql/)
-
-## Version control (git-for-data)
-
-Clone, branch, diff, merge, rebase — as REST endpoints and client methods. Every commit is immutable and addressable.
+- [Version control operations](https://terminusdb.com/docs/version-control-operations/): branch, commit, diff, merge, squash and reset, with HTTP examples.
+- [Merge branches](https://terminusdb.com/docs/merge-howto/): apply changes, find conflicts and resolve them.
+- [JSON diff and patch](https://terminusdb.com/docs/json-diff-and-patch/): the engine behind version control. Compute and apply structural diffs between documents or commits.
+- [Time travel queries](https://terminusdb.com/docs/time-travel-howto/): read commit history and query the data at any earlier commit.
+- [Git-for-data reference](https://terminusdb.com/docs/git-for-data-reference/): push, pull, fetch, clone, rebase and remotes.
+- [Clone a database](https://terminusdb.com/docs/clone/), [push](https://terminusdb.com/docs/push-to-project/) and [pull](https://terminusdb.com/docs/pull-from-project/): sync commits with a remote database.
 
 ```bash
 # create a branch
@@ -103,17 +117,19 @@ curl -u admin:root -X POST http://localhost:6363/api/branch/admin/MyDatabase/loc
   -d '{"origin": "admin/MyDatabase/local/branch/main"}'
 ```
 
-[Git-for-data reference](https://terminusdb.com/docs/git-for-data-reference/) - [Diff & patch](https://terminusdb.com/docs/json-diff-and-patch/) - [Version control operations](https://terminusdb.com/docs/version-control-operations/)
+## Install
 
-## GraphQL
+- [Install with Docker Compose](https://terminusdb.com/docs/install-terminusdb-as-a-docker-container/): the `docker-compose.yml` in the main repo starts TerminusDB on port 6363.
+- [Snap package](https://snapcraft.io/terminusdb): TerminusDB on the command line, as a git-for-data client and server for push and pull.
+- [Installation options](https://terminusdb.com/docs/terminusdb-install-options/): Docker, Kubernetes and source.
+- [Kubernetes](https://terminusdb.com/docs/install-on-kubernetes/): run TerminusDB on a cluster.
+- [Self-hosted in production](https://terminusdb.com/docs/self-hosted-installation/): production configuration for Docker, Compose and bare metal.
+- [TerminusDB Cloud](https://terminusdb.com/docs/cloud/): hosting options.
 
-Auto-generated schema and endpoint per database: `/api/graphql/<org>/<db>`. Query documents, filter, paginate, mutate.
+## Optional
 
-[GraphQL basics](https://terminusdb.com/docs/graphql-basics/) - [Query reference](https://terminusdb.com/docs/graphql-query-reference/) - [Mutations](https://terminusdb.com/docs/graphql-mutations/)
-
-## More
-
-- **VectorLink**: semantic/vector search layer over versioned data — [docs](https://terminusdb.com/docs/versioned-search-quickstart/)
-- **Enterprise**: document format endpoints (Turtle, RDF/XML, JSON-LD), observability, backup — [docs](https://terminusdb.com/docs/enterprise/)
-- **All docs**: https://terminusdb.com/docs/ - **Releases**: https://terminusdb.com/docs/releases/
-- **Source**: https://github.com/terminusdb/terminusdb (Apache 2.0)
+- [Access control](https://terminusdb.com/docs/access-control/): users, roles and capabilities for multi-user deployments.
+- [Enterprise](https://terminusdb.com/docs/enterprise/): document format endpoints (Turtle, RDF/XML, JSON-LD), observability and backup.
+- [Install from source](https://terminusdb.com/docs/install-terminusdb-from-source-code/): build with SWI-Prolog and Rust.
+- [Releases](https://terminusdb.com/docs/releases/): release notes for each version.
+- [Full docs corpus](https://terminusdb.com/llms-full.txt): every docs page in one Markdown file.

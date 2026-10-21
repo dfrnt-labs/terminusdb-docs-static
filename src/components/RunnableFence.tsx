@@ -123,6 +123,8 @@ interface RunnableFenceProps {
   publishLabel?: string
   /** Caption for mermaid diagrams (rendered below the figure) */
   caption?: string
+  /** Analytics event to send on copy instead of the default code_copy */
+  copyEvent?: string
 }
 
 const TIMEOUT_MS = 15000
@@ -140,6 +142,7 @@ export function RunnableFence({
   publishColumn,
   publishLabel,
   caption,
+  copyEvent,
 }: RunnableFenceProps) {
   // If not a runnable example, delegate to Fence (which handles passive tabs for curl blocks)
   if (!testExample) {
@@ -153,6 +156,7 @@ export function RunnableFence({
         publishColumn={publishColumn}
         publishLabel={publishLabel}
         caption={caption}
+        copyEvent={copyEvent}
       >
         {children}
       </Fence>

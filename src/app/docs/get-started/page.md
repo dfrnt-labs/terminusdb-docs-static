@@ -19,6 +19,51 @@ nextjs:
 
 TerminusDB is a database built for collaboration. In this quickstart you will clone a pre-populated dataset and immediately use the git-for-data workflow: branch, edit, diff, and merge. No schema to write, no data to invent.
 
+## Set it up with an AI agent
+
+TerminusDB is local-first: the database runs on your own machine, and with [Versioned Search](/docs/versioned-search-quickstart/) (12.1 release candidate) the embeddings can run on your own hardware too, with no API key.
+
+If you use an AI coding agent such as Claude Code, Codex or Cursor, you can paste this prompt and let it do the setup for you. It uses the `docker-compose.yml` from the TerminusDB repository and sets up the database only. Read the steps before you run them, as the agent will run commands on your machine.
+
+```text copyEvent="agent_prompt_copy"
+Set up a local TerminusDB for me and check that it works. Use Docker Compose.
+
+1. Make a new empty folder called terminusdb-local and work in it.
+2. Download these two files from the terminusdb/terminusdb repository, main branch:
+   https://raw.githubusercontent.com/terminusdb/terminusdb/main/docker-compose.yml
+   https://raw.githubusercontent.com/terminusdb/terminusdb/main/.env.example
+3. Copy .env.example to .env. Set TERMINUSDB_ADMIN_PASS to a new random password.
+   Leave OPENAI_KEY empty. Do not print the password in your answer.
+4. Run: docker compose up -d
+   Then run: docker compose ps
+5. Wait until http://localhost:6363/api/info answers with HTTP 200 when you use
+   basic auth admin:<password>. Try for up to 60 seconds.
+   (In this compose file, port 6363 goes through the change request API and
+   port 6364 goes straight to the TerminusDB server. If a call fails on 6363,
+   try the same call on 6364 and tell me.)
+6. Create a database:
+   POST /api/db/admin/agent_demo
+   body: {"label": "Agent demo", "comment": "Made by my AI agent"}
+7. Add a tiny schema:
+   POST /api/document/admin/agent_demo?graph_type=schema&author=agent&message=Add+schema
+   body: {"@type": "Class", "@id": "Person", "name": "xsd:string",
+          "friends": {"@type": "Set", "@class": "Person"}}
+8. Insert two documents:
+   POST /api/document/admin/agent_demo?author=agent&message=Add+people
+   body: [{"@type": "Person", "@id": "Person/ada", "name": "Ada", "friends": []},
+          {"@type": "Person", "@id": "Person/alan", "name": "Alan", "friends": ["Person/ada"]}]
+9. Run one query with GraphQL:
+   POST /api/graphql/admin/agent_demo
+   body: {"query": "{ Person { name friends { name } } }"}
+10. Report back to me: which commands you ran, the HTTP status of each call,
+    the query result, and how to stop everything (docker compose down).
+    If a step failed, show the error and stop. Do not guess.
+
+Docs: https://terminusdb.com/docs/get-started/ and https://terminusdb.com/llms.txt
+```
+
+The rest of this page does the same kind of thing by hand, with a single `docker run` command.
+
 ## Step 1 — Start TerminusDB
 
 Pull and run TerminusDB in one command:

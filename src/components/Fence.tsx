@@ -70,6 +70,11 @@ interface FenceProps {
   publishLabel?: string
   /** Caption for mermaid diagrams (rendered below the figure) */
   caption?: string
+  /**
+   * Analytics event to send on copy instead of the default code_copy.
+   * Sent to Plausible (with props) and to PageSense (name only).
+   */
+  copyEvent?: string
 }
 
 export function Fence({
@@ -82,6 +87,7 @@ export function Fence({
   publishColumn,
   publishLabel,
   caption,
+  copyEvent,
 }: FenceProps) {
   const instanceId = useId()
   const [copied, setCopied] = useState(false)
@@ -336,12 +342,16 @@ export function Fence({
       heading: nearestHeading || "unknown"
     }
 
+    // A block with its own copyEvent sends only that event, so the copy
+    // is not counted twice (once as code_copy and once as copyEvent).
+    const eventName = copyEvent || "code_copy"
+
     // Track code copy event with Plausible
     if (typeof window !== "undefined") {
       const w = window as unknown as Record<string, unknown>
       const plausible = w.plausible as ((...args: unknown[]) => void) | undefined
       if (typeof plausible === "function") {
-        plausible("code_copy", { props: eventProps })
+        plausible(eventName, { props: eventProps })
       }
     }
 
@@ -350,8 +360,13 @@ export function Fence({
       const w = window as unknown as Record<string, unknown>
       const pagesense = w.pagesense as unknown[] | undefined
       if (Array.isArray(pagesense)) {
-        pagesense.push(["trackActivity", "code_copy", eventProps])
-        pagesense.push(["trackEvent", "code_copy"])
+        if (copyEvent) {
+          // Custom copy events are PageSense goals by name only
+          pagesense.push(["trackEvent", copyEvent])
+        } else {
+          pagesense.push(["trackActivity", "code_copy", eventProps])
+          pagesense.push(["trackEvent", "code_copy"])
+        }
       }
     }
   }

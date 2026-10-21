@@ -44,6 +44,19 @@ const SLOT_ATTR_NAMES = ['publishes', 'publishColumn', 'publishLabel', 'slot', '
  */
 const FENCE_CAPTION_RE = /^(```\w+)[^\S\n]+caption="([^"]*)"[^\S\n]*$/gm
 
+/**
+ * Regex to match fence info strings with a copyEvent attribute.
+ *
+ * Matches patterns like:
+ *   ```text copyEvent="agent_prompt_copy"
+ *
+ * Transforms to markdoc-native annotation syntax:
+ *   ```text {% copyEvent="agent_prompt_copy" %}
+ *
+ * The copy button then sends this event instead of code_copy.
+ */
+const FENCE_COPY_EVENT_RE = /^(```\w+)[^\S\n]+copyEvent="([a-z0-9_]+)"[^\S\n]*$/gm
+
 function transformFenceAnnotations(source) {
   // Reset regex lastIndex since it uses the global flag
   FENCE_TEST_EXAMPLE_RE.lastIndex = 0
@@ -83,6 +96,12 @@ function transformFenceAnnotations(source) {
   FENCE_CAPTION_RE.lastIndex = 0
   result = result.replace(FENCE_CAPTION_RE, (match, fenceStart, captionText) => {
     return `${fenceStart} {% caption="${captionText}" %}`
+  })
+
+  // Transform copyEvent annotations (custom analytics event on copy)
+  FENCE_COPY_EVENT_RE.lastIndex = 0
+  result = result.replace(FENCE_COPY_EVENT_RE, (match, fenceStart, eventName) => {
+    return `${fenceStart} {% copyEvent="${eventName}" %}`
   })
 
   return result
