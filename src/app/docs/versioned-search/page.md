@@ -82,7 +82,7 @@ Results are ranked by **distance** in `[0, 1]`: `0` is identical, `0.5` is unrel
 - **[Concepts](/docs/versioned-search-concepts/)** — the vocabulary: domains, commits, branches, chunks, distance.
 - **[Quickstart](/docs/versioned-search-quickstart/)** — bring up the stack, index a commit, run a search in five minutes.
 - **[Embedded Engine](/docs/versioned-search-embedded/)** — run VectorLink inside TerminusDB as a builtin plugin; configuration, storage, and choosing embedded vs remote.
-- **[How automatic indexing works](/docs/versioned-search-automatic-indexing/)** — the three things TerminusDB needs before it indexes by itself, what is not automatic yet, and a troubleshooting list.
+- **[How automatic indexing works](/docs/versioned-search-automatic-indexing/)** — the three things TerminusDB needs before it indexes by itself, what to expect from the first search, and a troubleshooting list.
 - **[TerminusDB Push Indexing](/docs/versioned-search-indexing/)** — how TerminusDB automatically indexes documents via `store_indices`, with a worked example across three commits.
 - **[Searching](/docs/versioned-search-querying/)** — GET vs POST, modes, filters, pagination, and reading the response.
 - **[Clustering Embeddings](/docs/versioned-search-clustering/)** — a second embedding role for near-duplicate grouping and entity resolution.

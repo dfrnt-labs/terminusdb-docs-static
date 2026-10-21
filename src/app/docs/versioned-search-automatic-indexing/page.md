@@ -111,7 +111,7 @@ For help with good templates, see the [Embeddings Field Guide](/docs/versioned-s
 When all three things are in place:
 
 - **Every new commit is queued for indexing.** The work runs in the background, so your commit returns at once. The index catches up a moment later.
-- **A search that misses gives a nudge.** If you search a commit that is not indexed yet, TerminusDB asks the indexer to catch up. Try the search again after a short wait.
+- **The first search catches up the index.** If the index is behind the head commit, the search asks the indexer to catch up. This also indexes documents that you committed before the setup was complete. The first search may return no results, or only some. Wait a short time and search again.
 
 You can see the state of the index at any time:
 
@@ -121,11 +121,13 @@ curl -u admin:$PASS http://localhost:6363/api/index/admin/agent_demo
 
 Look at `searchable_documents`. It should match the number of documents you expect to find.
 
-## What is not automatic yet
+## What to know about the first search
 
-We want to be honest about the gaps in the release candidate:
+There is one small gap in the release candidate:
 
-- **Old documents are not indexed by themselves.** Documents that you committed *before* the backend, `store_indices` or `@metadata.embedding` were in place are not indexed. To backfill them, run a reindex:
+- **The first search can be early.** Existing documents are indexed automatically on the first search. Until the catch-up is done, that search can return no results, or only some. Wait a short time and search again.
+
+- **You can index ahead of time.** A manual reindex is optional. Use it if you do not want to wait for the first search, for example before a demo:
 
   ```bash
   curl -u admin:$PASS -X POST http://localhost:6363/api/index/admin/agent_demo
@@ -133,11 +135,9 @@ We want to be honest about the gaps in the release candidate:
 
   The general form is `POST /api/index/{org}/{db}`, with an empty body.
 
-- **Short-lived processes can lose index work.** Indexing runs in the background. If the process stops before the work is done, that work is lost. This can happen with short CLI sessions, for example an MCP server that runs over stdio and exits after each session. Run a reindex when you start again.
+- **Short-lived processes can lose index work.** Indexing runs in the background. If the process stops before the work is done, that work is lost. This can happen with short CLI sessions, for example an MCP server that runs over stdio and exits after each session. The next search after a restart starts the catch-up again. A reindex only does it sooner.
 
-- **Commits during indexing may be missed.** In the release candidate, a commit that lands while an indexing task runs may not get indexed. If the counts look wrong, run a reindex.
-
-We plan to close these gaps in a later release.
+A later release may start the catch-up when the indexer starts, so that the first search is ready at once.
 
 ## Troubleshooting: search returns nothing
 
@@ -146,7 +146,7 @@ Go through this list in order:
 1. **Backend.** Does the server run with `TERMINUSDB_INDEXER_BACKEND=vectorlink`? With Docker Compose, check with `docker compose exec terminusdb env | grep INDEXER`.
 2. **Database option.** Does the schema `@context` have `"options": ["store_indices"]` under `@metadata.terminusdb`? Get the schema with `GET /api/document/{org}/{db}?graph_type=schema` and look.
 3. **Class metadata.** Does each class you search have an `@metadata.embedding` block with `query` and `template`?
-4. **Reindex.** Run `POST /api/index/{org}/{db}`, then check `GET /api/index/{org}/{db}`. `searchable_documents` should not be `0`.
+4. **Reindex.** If search still returns nothing after a retry, run `POST /api/index/{org}/{db}`, then check `GET /api/index/{org}/{db}`. `searchable_documents` should not be `0`.
 5. **Embeddings model.** On first start, the local model can take a few minutes to load. While it loads, search returns `503`. Wait and try again.
 
 ## See also

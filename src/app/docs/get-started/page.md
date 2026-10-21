@@ -71,14 +71,14 @@ Set up a local TerminusDB for me and check that it works. Use Docker Compose.
 Docs: https://terminusdb.com/docs/get-started/ and https://terminusdb.com/llms.txt
 ```
 
-The 12.1 release candidate image reports `"version": "12.0.8"` in `/api/info`. That is expected. Step 10 (the manual index call) is needed for now in the release candidate, because some commits are not sent to the indexer by themselves.
+The 12.1 release candidate image reports `"version": "12.0.8"` in `/api/info`. That is expected. Step 10 (the manual index call) is optional. It makes the index ready before the first search. Without it, the first search starts the catch-up and may return no results at first.
 
 {% callout type="note" title="Automatic embeddings need three things" %}
 Automatic embeddings only work when:
 
 - the server runs with `TERMINUSDB_INDEXER_BACKEND=vectorlink` (the vectorsearch `docker-compose.yml` sets this for you),
 - the class has an `@metadata.embedding` block with a `query` and a `template`, as in step 7,
-- and the documents were committed after both were in place. For documents that already exist, run `POST /api/index/{org}/{db}` once to index them.
+- and the documents were committed after both were in place. Documents that already exist are indexed on the first search. This can take a moment, so retry if the first search is empty. To do it in advance, run `POST /api/index/{org}/{db}` once.
 
 See [How automatic indexing works](/docs/versioned-search-automatic-indexing/) for the details and a troubleshooting list.
 {% /callout %}
