@@ -18,7 +18,7 @@ TerminusDB is open source and free to use, maintained by the team at [Gettier](h
 
 ### Start here
 
-- **New to TerminusDB?** — [Get Started tutorial](/docs/get-started-with-terminusdb/) walks you through installation and your first database.
+- **New to TerminusDB?** — [Get Started tutorial](/docs/get-started/) walks you through installation and your first database.
 - **Evaluating TerminusDB?** — Read [What is TerminusDB?](/docs/terminusdb-explanation/) for capabilities and architecture, or see [how it compares to MongoDB](/docs/terminusdb-vs-mongodb/).
 - **Looking for a specific feature?** — [Browse by Topic](/docs/topics/list) to navigate the documentation by subject area.
 
@@ -15430,26 +15430,29 @@ If you use an AI coding agent such as Claude Code, Codex or Cursor, you can past
 Set up a local TerminusDB for me and check that it works. Use Docker Compose.
 
 1. Make a new empty folder called terminusdb-local and work in it.
-2. Download these two files from the terminusdb/terminusdb repository, main branch,
-   vectorsearch folder:
+2. Download these three files from the terminusdb/terminusdb repository, main branch, folder vectorsearch:
    https://raw.githubusercontent.com/terminusdb/terminusdb/main/vectorsearch/docker-compose.yml
    https://raw.githubusercontent.com/terminusdb/terminusdb/main/vectorsearch/.env.example
+   https://raw.githubusercontent.com/terminusdb/terminusdb/main/vectorsearch/README.md
 3. Copy .env.example to .env. Set TERMINUSDB_ADMIN_PASS to a new random password.
    Leave OPENAI_KEY empty. Do not print the password in your answer.
 4. Run: docker compose up -d
    Then run: docker compose ps
-   On the first start, the embeddings-init service downloads the embedding
-   model. This can take a few minutes. It is OK if embeddings-init has exited.
-5. Wait until http://localhost:6363/api/info answers with HTTP 200 when you use
-   basic auth admin:<password>. Try for up to 3 minutes. If it does not answer,
-   run docker compose logs terminusdb-server and show me the last lines.
+5. Wait until http://localhost:6363/api/info answers with HTTP 200 using basic auth
+   admin:<password>. Try for up to 60 seconds.
+   Then wait until the embeddings model is ready — docker compose logs embeddings-init
+   should end with "Model ready." This can take a few minutes on first start.
 6. Create a database:
    POST /api/db/admin/agent_demo
    body: {"label": "Agent demo", "comment": "Made by my AI agent"}
-7. Add a tiny schema:
+7. Add a tiny schema. The @metadata.embedding block is what makes documents
+   searchable — the query fetches the fields, the template renders them into text:
    POST /api/document/admin/agent_demo?graph_type=schema&author=agent&message=Add+schema
    body: {"@type": "Class", "@id": "Person", "name": "xsd:string",
-          "friends": {"@type": "Set", "@class": "Person"}}
+          "friends": {"@type": "Set", "@class": "Person"},
+          "@metadata": {"embedding": {
+            "query": "query($id: ID){ Person(id: $id) { name } }",
+            "template": "{{name}}"}}}
 8. Insert two documents:
    POST /api/document/admin/agent_demo?author=agent&message=Add+people
    body: [{"@type": "Person", "@id": "Person/ada", "name": "Ada", "friends": []},
@@ -15457,12 +15460,19 @@ Set up a local TerminusDB for me and check that it works. Use Docker Compose.
 9. Run one query with GraphQL:
    POST /api/graphql/admin/agent_demo
    body: {"query": "{ Person { name friends { name } } }"}
-10. Report back to me: which commands you ran, the HTTP status of each call,
-    the query result, and how to stop everything (docker compose down).
+10. Index and run one vector search:
+    POST /api/index/admin/agent_demo   (empty body)
+    then GET /api/search/admin/agent_demo?q=person+named+Ada&count=2
+    Check the index status with GET /api/index/admin/agent_demo:
+    searchable_documents should be 2, not 0.
+11. Report back to me: which commands you ran, the HTTP status of each call,
+    the GraphQL result, the search hits, and how to stop everything (docker compose down).
     If a step failed, show the error and stop. Do not guess.
 
 Docs: https://terminusdb.com/docs/get-started/ and https://terminusdb.com/llms.txt
 ```
+
+The 12.1 release candidate image reports `"version": "12.0.8"` in `/api/info`. That is expected. Step 10 (the manual index call) is needed for now in the release candidate, because some commits are not sent to the indexer by themselves.
 
 The rest of this page does the same kind of thing by hand, with a single `docker run` command.
 
@@ -15567,6 +15577,15 @@ Your data persists in the `terminusdb_storage` Docker volume. To remove it entir
 - [JSON Diff and Patch](/docs/json-diff-and-patch/) — Deep dive into structural diff operations
 - [What is TerminusDB?](/docs/terminusdb-explanation/) — Understand the architecture behind what you just did
 
+### Other ways to run and use TerminusDB
+
+- [Install from source code](/docs/install-terminusdb-from-source-code/) — build the server yourself from [GitHub](https://github.com/terminusdb/terminusdb)
+- [Docker container install](/docs/install-terminusdb-as-a-docker-container/) — more options for the Docker setup you used above
+- [GraphQL reference](/docs/graphql-query-reference/) — query your data with the GraphQL schema that TerminusDB makes for you
+- [CLI commands](/docs/terminusdb-cli-commands/) — work with databases from the command line
+- [WOQL](/docs/woql-explanation/) — the datalog query language of TerminusDB
+- [TerminusDB Cloud](/docs/cloud/) — a hosted server with a visual dashboard
+
 ## Troubleshooting
 
 ### Error: Connection refused
@@ -15626,83 +15645,6 @@ If you set a custom password via `TERMINUSDB_ADMIN_PASS` when creating the conta
 ### Q: How do I reset and start fresh?
 
 **A:** Stop and remove the container (`docker stop terminusdb && docker rm terminusdb`), then remove the storage volume (`docker volume rm terminusdb_storage`). Restart with the original `docker run` command. This gives you a clean instance with no databases.
-
-
----
-
-# Next steps with TerminusDB
-
-URL: https://terminusdb.com/docs/get-started-with-terminusdb/
-
-TerminusDB is an open-source knowledge graph database with a collaboration model providing Git-like features. It stores documents as [JSON documents](/docs/documents-explanation/) and the schema language connects these into a [graph](/docs/graphs-explanation/). It comes with [GraphQL](/docs/graphql-query-reference/), User Interface, [CLI](/docs/terminusdb-cli-commands/), [JavaScript](/docs/use-the-javascript-client/), and [Python Clients](/docs/use-the-python-client/).
-
-## Starting overview
-
-Get started in minutes on Windows, macOS, or Linux with the steps below.
-
-### Install
-
-Install a TerminusDB server.
-
-### Run
-
-Start a TerminusDB server.
-
-### Go
-
-Create, query, and maintain your databases using several [programmatic interfaces](#interfacesoverview).
-
-## Installation Overview
-
-Interaction with TerminusDB databases is through the TerminusBD Server. The server provides a **RESTful** API using the **JSON-LD** exchange format. This enables you to develop applications with your toolchain to utilize the powerful features of graph search and storage.
-
-To install a TerminusDB server and use TerminusDB databases programmatically in your applications, the installation options below are available. Click on an option for detailed install instructions.
-
-### Source code
-
-Install from the [source code](/docs/install-terminusdb-from-source-code/) in [GitHub](https://github.com/terminusdb/terminusdb).
-
-### Docker container
-
-Install as a [Docker container](/docs/install-terminusdb-as-a-docker-container/) also referred to as the **TerminusDB bootstrap**.
-
-## GraphQL
-
-TerminusDB comes with GraphQL for more information visit the [GraphQL reference guide](/docs/graphql-query-reference/).
-
-## Javascript client
-
-Install as a [Node.js](https://nodejs.org/en/download/)\-based [JavaScript Client](/docs/install-terminusdb-js-client/).
-
-## Python client
-
-Install as a [Python Client](/docs/install-terminusdb-js-client/). Also requires a [Docker container](/docs/install-terminusdb-as-a-docker-container/) installation.
-
-## Interfaces Overview
-
-TerminusDB provides several interfaces for creating, querying, and maintaining your databases. Depending on the component/s you choose to install, you can interact with TerminusDB using one or more of the available interfaces listed below.
-
-Use one or a combination of several TerminusDB interfaces.
-
-### GraphQL
-
-TerminusDB automatically generates GraphQL schema to query data. Read the [GraphQL reference](/docs/graphql-query-reference/) guide for more information.
-
-### Command Line Interface
-
-The TerminusDB [Command Line Interface](/docs/terminusdb-cli-commands/) (CLI.)
-
-### Dashboard
-
-The TerminusDB [dashboard](/docs/cloud/) provides a visual interface.
-
-### APIs
-
-The TerminusDB [Javascript](/docs/use-the-javascript-client/) and [Python Client](/docs/use-the-python-client/) APIs.
-
-### Query
-
-The TerminusDB [Web Object Query Language](/docs/woql-explanation/) (WOQL.)
 
 
 ---
@@ -39597,7 +39539,7 @@ This is a tutorial to learn the command line CLI interface to start exploring th
 
 The local TerminusDB database CLI has a WOQL query interface built in, with a distinct syntax to other flavours. When working with a local TerminusDB instance, it is often handy to perform offline commands against it, or extract information in a data pipeline for ML/Ops.
 
-This syntax is for advanced users who have significant experience with TerminusDB and WOQL. If you are new to TerminusDB, we recommend starting with the [TerminusDB Quickstart](/docs/get-started-with-terminusdb/).
+This syntax is for advanced users who have significant experience with TerminusDB and WOQL. If you are new to TerminusDB, we recommend starting with the [TerminusDB Quickstart](/docs/get-started/).
 
 ## Addressing TerminusDB data products with GRAPH_SPEC and DB_SPEC
 

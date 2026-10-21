@@ -57,6 +57,8 @@ const nextConfig = {
       // Phase 5: Time-travel unification
       { source: '/docs/time-travel-to-previous-commits/', destination: '/docs/time-travel-howto/', permanent: true },
       { source: '/docs/time-travel-with-python/', destination: '/docs/time-travel-howto/', permanent: true },
+      // Merged into the main quickstart
+      { source: '/docs/get-started-with-terminusdb/', destination: '/docs/get-started/', permanent: true },
       // Brand rename: TerminusCMS → DFRNT Hub (slug cleanup)
       { source: '/docs/how-to-connect-terminuscms/', destination: '/docs/how-to-connect-terminusdb-cloud/', permanent: true },
       { source: '/docs/terminuscms-dashboard-reference/', destination: '/docs/terminusdb-cms-dashboard-reference/', permanent: true },

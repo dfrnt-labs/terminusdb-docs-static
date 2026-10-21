@@ -25,7 +25,7 @@ TerminusDB is open source and free to use, maintained by the team at [Gettier](h
 
 ### Start here
 
-- **New to TerminusDB?** — [Get Started tutorial](/docs/get-started-with-terminusdb/) walks you through installation and your first database.
+- **New to TerminusDB?** — [Get Started tutorial](/docs/get-started/) walks you through installation and your first database.
 - **Evaluating TerminusDB?** — Read [What is TerminusDB?](/docs/terminusdb-explanation/) for capabilities and architecture, or see [how it compares to MongoDB](/docs/terminusdb-vs-mongodb/).
 - **Looking for a specific feature?** — [Browse by Topic](/docs/topics/list) to navigate the documentation by subject area.
 

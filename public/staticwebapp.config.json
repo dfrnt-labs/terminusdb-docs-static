@@ -16,6 +16,11 @@
       "statusCode": 301
     },
     {
+      "route": "/docs/get-started-with-terminusdb",
+      "redirect": "/docs/get-started/",
+      "statusCode": 301
+    },
+    {
       "route": "/docs/what-is-dfrnt",
       "redirect": "/docs/cloud/",
       "statusCode": 301
