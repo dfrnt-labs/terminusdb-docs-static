@@ -15430,26 +15430,29 @@ If you use an AI coding agent such as Claude Code, Codex or Cursor, you can past
 Set up a local TerminusDB for me and check that it works. Use Docker Compose.
 
 1. Make a new empty folder called terminusdb-local and work in it.
-2. Download these two files from the terminusdb/terminusdb repository, main branch,
-   vectorsearch folder:
+2. Download these three files from the terminusdb/terminusdb repository, main branch, folder vectorsearch:
    https://raw.githubusercontent.com/terminusdb/terminusdb/main/vectorsearch/docker-compose.yml
    https://raw.githubusercontent.com/terminusdb/terminusdb/main/vectorsearch/.env.example
+   https://raw.githubusercontent.com/terminusdb/terminusdb/main/vectorsearch/README.md
 3. Copy .env.example to .env. Set TERMINUSDB_ADMIN_PASS to a new random password.
    Leave OPENAI_KEY empty. Do not print the password in your answer.
 4. Run: docker compose up -d
    Then run: docker compose ps
-   On the first start, the embeddings-init service downloads the embedding
-   model. This can take a few minutes. It is OK if embeddings-init has exited.
-5. Wait until http://localhost:6363/api/info answers with HTTP 200 when you use
-   basic auth admin:<password>. Try for up to 3 minutes. If it does not answer,
-   run docker compose logs terminusdb-server and show me the last lines.
+5. Wait until http://localhost:6363/api/info answers with HTTP 200 using basic auth
+   admin:<password>. Try for up to 60 seconds.
+   Then wait until the embeddings model is ready — docker compose logs embeddings-init
+   should end with "Model ready." This can take a few minutes on first start.
 6. Create a database:
    POST /api/db/admin/agent_demo
    body: {"label": "Agent demo", "comment": "Made by my AI agent"}
-7. Add a tiny schema:
+7. Add a tiny schema. The @metadata.embedding block is what makes documents
+   searchable — the query fetches the fields, the template renders them into text:
    POST /api/document/admin/agent_demo?graph_type=schema&author=agent&message=Add+schema
    body: {"@type": "Class", "@id": "Person", "name": "xsd:string",
-          "friends": {"@type": "Set", "@class": "Person"}}
+          "friends": {"@type": "Set", "@class": "Person"},
+          "@metadata": {"embedding": {
+            "query": "query($id: ID){ Person(id: $id) { name } }",
+            "template": "{{name}}"}}}
 8. Insert two documents:
    POST /api/document/admin/agent_demo?author=agent&message=Add+people
    body: [{"@type": "Person", "@id": "Person/ada", "name": "Ada", "friends": []},
@@ -15457,12 +15460,19 @@ Set up a local TerminusDB for me and check that it works. Use Docker Compose.
 9. Run one query with GraphQL:
    POST /api/graphql/admin/agent_demo
    body: {"query": "{ Person { name friends { name } } }"}
-10. Report back to me: which commands you ran, the HTTP status of each call,
-    the query result, and how to stop everything (docker compose down).
+10. Index and run one vector search:
+    POST /api/index/admin/agent_demo   (empty body)
+    then GET /api/search/admin/agent_demo?q=person+named+Ada&count=2
+    Check the index status with GET /api/index/admin/agent_demo:
+    searchable_documents should be 2, not 0.
+11. Report back to me: which commands you ran, the HTTP status of each call,
+    the GraphQL result, the search hits, and how to stop everything (docker compose down).
     If a step failed, show the error and stop. Do not guess.
 
 Docs: https://terminusdb.com/docs/get-started/ and https://terminusdb.com/llms.txt
 ```
+
+The 12.1 release candidate image reports `"version": "12.0.8"` in `/api/info`. That is expected. Step 10 (the manual index call) is needed for now in the release candidate, because some commits are not sent to the indexer by themselves.
 
 The rest of this page does the same kind of thing by hand, with a single `docker run` command.
 
