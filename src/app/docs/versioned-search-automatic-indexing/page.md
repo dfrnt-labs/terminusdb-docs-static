@@ -21,7 +21,7 @@ This page documents functionality in the upcoming TerminusDB 12.1 release. Detai
 
 TerminusDB 12.1 can embed and index your documents by itself, so you can search them with [VectorLink](/docs/versioned-search/). But it only does this when three things are in place. If one of them is missing, nothing is indexed, and search returns no hits. TerminusDB does not tell you why.
 
-This page explains the three things, what happens automatically after that, and what you still have to do by hand in the release candidate.
+This page explains the three things, what happens automatically after that, and what to expect from the first search in the release candidate.
 
 ## The three things you need
 
@@ -135,7 +135,7 @@ There is one small gap in the release candidate:
 
   The general form is `POST /api/index/{org}/{db}`, with an empty body.
 
-- **Short-lived processes can lose index work.** Indexing runs in the background. If the process stops before the work is done, that work is lost. This can happen with short CLI sessions, for example an MCP server that runs over stdio and exits after each session. The next search after a restart starts the catch-up again. A reindex only does it sooner.
+- **Indexing catches up by itself.** The indexer works through commits one at a time. If a commit is not indexed yet, for example because the process stopped, indexing picks it up again at the next search (when auto-indexing is on) or the next time indexing is triggered. Nothing needs to be redone by hand.
 
 A later release may start the catch-up when the indexer starts, so that the first search is ready at once.
 
