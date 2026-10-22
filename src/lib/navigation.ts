@@ -204,6 +204,10 @@ export const navigation: Navigation[] = [
         href: '/docs/knowledge-graph-database',
       },
       {
+        title: 'Knowledge Graph for AI Agents',
+        href: '/docs/knowledge-graph-for-ai-agents',
+      },
+      {
         title: 'Documents & Schema',
         links: [
           {
