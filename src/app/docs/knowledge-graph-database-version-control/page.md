@@ -119,5 +119,6 @@ The differences are mostly upgrades for a database setting: changes are tracked 
 - [**Audit changes**](/docs/audit-tutorial/) — turn commit metadata into compliance evidence
 - [**Operations reference**](/docs/version-control-operations/) — every version-control API call
 - [**Git-for-data reference**](/docs/git-for-data-reference/) — the canonical reference for the model
+- [**Knowledge graph versioning**](/docs/knowledge-graph-versioning/) — the general approaches (snapshots, deltas, timestamps, commit graphs) and their trade-offs
 
 If you are new to TerminusDB, the fastest way to feel the Git-like version-control model in practice is the [**first 15 minutes quickstart**](/docs/first-15-minutes/), which walks you through commits, branches, and a merge on a fresh database.
