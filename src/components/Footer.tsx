@@ -27,6 +27,7 @@ const footerLinks = {
     { title: 'Python API', href: '/docs/python/' },
     { title: 'Schema Reference', href: '/docs/schema-reference-guide' },
     { title: 'CLI Reference', href: '/docs/terminusdb-cli-commands' },
+    { title: 'Search', href: '/search/' },
   ],
   dfrnt: [
     { title: 'Contact Us', href: 'https://gettier.ai/connect' },
