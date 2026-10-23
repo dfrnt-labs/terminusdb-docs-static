@@ -8,7 +8,7 @@ export function GitHubEditButton() {
   // Convert pathname to GitHub file path
   const getGitHubEditUrl = () => {
     const baseUrl = 'https://github.com/dfrnt-labs/terminusdb-docs-static/edit/main/src/app'
-    const filePath = `${pathname}/page.md`
+    const filePath = `${pathname.replace(/\/$/, '')}/page.md`
     return `${baseUrl}${filePath}`
   }
 

@@ -22,17 +22,20 @@ import { scrollToHashOnLoad } from '@/utils/scroll'
 
 export function DocsLayout({
   children,
-  frontmatter: { title, tags },
+  frontmatter: { title, tags, draft, status },
   nodes,
 }: {
   children: React.ReactNode
-  frontmatter: { title?: string; tags?: string[] }
+  frontmatter: { title?: string; tags?: string[]; draft?: boolean; status?: string }
   nodes: Array<Node>
 }) {
   const pathname = usePathname()
   const isBlogPage = pathname?.startsWith('/blog/')
   const isHomePage = pathname === '/' || pathname === ''
   const showRecentPosts = isBlogPage || isHomePage
+  // Draft pages are not copied to out/ as raw page.md (see
+  // scripts/export-page-markdown.mjs), so do not link to it.
+  const hasRawMarkdown = !(draft === true || status === 'draft')
   let tableOfContents = collectSections(nodes)
 
   // Derive page slug for git dates lookup (e.g. "/docs/woql-basics/" → "docs/woql-basics")
@@ -61,7 +64,7 @@ export function DocsLayout({
     <>
       <div className="max-w-2xl min-w-0 flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
         <article className="figure-reset">
-          <DocsHeader title={title} />
+          <DocsHeader title={title} hasRawMarkdown={hasRawMarkdown} />
           <Prose>{children}</Prose>
           <TableCellCopy />
         </article>
@@ -72,7 +75,7 @@ export function DocsLayout({
         />
         <div className="mt-12 flex flex-col gap-8 border-t border-slate-200 pt-8 dark:border-slate-800">
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <OpenInAI />
+            <OpenInAI hasRawMarkdown={hasRawMarkdown} />
             <GitHubEditButton />
             <GitHubIssueButton />
           </div>

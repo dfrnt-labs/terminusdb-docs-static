@@ -7,7 +7,13 @@ import { OpenInAI } from '@/components/OpenInAI'
 import { BookmarkButton } from '@/components/BookmarkButton'
 import { ConnectionIndicator } from '@/components/ConnectionSettings/ConnectionIndicator'
 
-export function DocsHeader({ title }: { title?: string }) {
+export function DocsHeader({
+  title,
+  hasRawMarkdown = true,
+}: {
+  title?: string
+  hasRawMarkdown?: boolean
+}) {
   let pathname = usePathname()
   let section = navigation.find((section) =>
     section.links.find((link) => link.href === pathname),
@@ -35,7 +41,7 @@ export function DocsHeader({ title }: { title?: string }) {
         <div className="flex items-center gap-3 flex-shrink-0 pt-1">
           <BookmarkButton />
           <ConnectionIndicator />
-          <OpenInAI />
+          <OpenInAI hasRawMarkdown={hasRawMarkdown} />
         </div>
       </div>
     </header>
