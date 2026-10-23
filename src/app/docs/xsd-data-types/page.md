@@ -15,7 +15,7 @@ nextjs:
 
 TerminusDB leverages XML schema definition data types (XSD Datatypes) in schema definitions. This enables information interoperability with other systems that use XSD data types. This reference covers all supported types organized by namespace, including type hierarchy, storage details, and typecasting rules. This reference also includes an extended set of types that are specific to TerminusDB.
 
-For schema definition syntax, see the [Schema Reference Guide](/docs/schema-reference-guide/). For more information on XML data types, see [XML Schema Part 2: Datatypes Second Edition]([/docs/data-types/](https://www.w3.org/TR/xmlschema-2/)) page.
+For schema definition syntax, see the [Schema Reference Guide](/docs/schema-reference-guide/). For more information on XML data types, see [XML Schema Part 2: Datatypes Second Edition](https://www.w3.org/TR/xmlschema-2/).
 
 Extensions such as for iso 8601 intervals exist with the xdd prefix in terminusdb as they are not defined in the XML XSD Datatypes specification.
 
