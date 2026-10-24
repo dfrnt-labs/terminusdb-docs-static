@@ -52,13 +52,13 @@ For an agent, this is a simple kind of temporal memory: "what did we believe at 
 
 ### Replace outdated facts without losing them
 
-When a fact is no longer true, the agent writes the new value. That creates a new commit. Queries on the branch now return the new value. The old value is not deleted from history. It stays readable at the earlier commit.
+When a fact is no longer true, the agent writes the new value. That creates a new commit. Queries on the branch now return the new value. The old value is not deleted from history. It stays readable at the earlier commit. When something becomes invalid you delete it, history keeps it.
 
 So you do not need extra "valid until" fields to keep old facts. The commit history keeps them for you. If a fact was wrong, you can [restore the earlier state](/docs/time-travel-howto/) or [reset a branch](/docs/undo-reset-howto/).
 
-One note: commit history records when a fact was *written*. It does not record when something was true in the real world. If you need that, model it in your schema, for example with [date and interval fields](/docs/time-tutorial-intervals/).
+One note: commit history records when a fact was *written*. It does not record when something was true in the real world. If you need that, model it in your schema, for example with [date and interval fields](/docs/time-tutorial-intervals/), into a bi-temporal knowledge graph.
 
-### Search that follows the branch
+### Search that follows the branch, for every commit
 
 In TerminusDB 12.1 (release candidate), [Versioned Search](/docs/versioned-search/) adds semantic, full-text and hybrid search inside the database. When the server and the database have [automatic indexing turned on](/docs/versioned-search-automatic-indexing/), new commits are indexed by themselves.
 
@@ -67,6 +67,8 @@ The search index follows your branches. A branch [shares its parent's vectors](/
 ## A short example
 
 This example uses the HTTP API on a local server at `localhost:6363` with the default `admin:root` login. The calls are the same as in [How to Branch](/docs/branch-howto/), [How to Merge](/docs/merge-howto/) and [How to Time-Travel](/docs/time-travel-howto/).
+
+Using schema you get all the benefit of both data governance, graphql capabilities, automated embeddings management and more. You can also use TerminusDB with raw JSON, with natural limitations on how well agents can understand your data, rules and semantics. 
 
 ### 1. Create a database and a simple schema
 
@@ -156,10 +158,10 @@ You can do the same steps with the [TypeScript and Python clients](/docs/use-the
 
 ## When this is a good fit
 
-- Several agents, or several runs, write to the same knowledge graph.
-- You want a person or a test to check agent changes before they go live.
-- You need to see what an agent knew at a given time, for debugging or audit.
-- You want structured facts with a schema, not only text chunks.
+- Several AI agents, or several runs, write transactionally to the same knowledge graph database.
+- You want a person or a test to check the AI agent changes before they go live.
+- You need to see what an AI agent knew at a given time, for debugging or audit.
+- You want structured facts with a schema, not only text chunks, and automatic high quality embeddings.
 
 It is a weaker fit if you only need a short-lived chat buffer, or high-rate event logs. History also uses storage, as described in the [time travel limits](/docs/graph-database-with-time-travel-queries/#limits).
 
