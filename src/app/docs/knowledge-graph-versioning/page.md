@@ -26,14 +26,14 @@ faq:
   - question: Can I version only the schema or ontology?
     answer: You can, but it is often not enough. When the schema changes, the data usually has to change with it. If both are in the same version, you can read old data with the schema that was valid at that time.
   - question: Does versioning make queries slower?
-    answer: It depends on how the history is stored. In TerminusDB, a read at an old commit is a normal read, and delta rollup runs automatically in standard setups to keep the layer stack small. The main cost is disk storage.
+    answer: It depends on how the history is stored. In TerminusDB, a read at an old commit is a normal read, and delta rollup runs automatically in standard setups to keep the layer stack small. The main cost is disk storage for any later granular data or structural changes.
   - question: How do I see what changed between two versions?
     answer: You compare them with a diff. A good graph diff tells you which facts were added, removed or changed. In TerminusDB, the diff endpoint compares two branches or commits and returns the change for each document, down to the field.
 ---
 
 **Knowledge graph versioning** is a way to keep the earlier states of a knowledge graph when its facts change. With it, you can read the graph as it was, see what changed between two versions, and undo a bad change.
 
-This page explains the common ways to do it and what each one costs. At the end, it shows how TerminusDB does it, with a short example you can run.
+This page explains the common ways to do graph versioning and what each one costs. At the end, it shows how TerminusDB does it, with a short example you can run.
 
 {% callout type="note" title="Try it in TerminusDB" %}
 TerminusDB is a knowledge graph database with versioning built in. For a tour of the git-like commands, see [Knowledge Graph Version Control](/docs/knowledge-graph-database-version-control/).
@@ -48,7 +48,7 @@ In most databases, a change overwrites the old value. After that, nobody can say
 This matters for some common jobs:
 
 - **Audit.** Show what a fact said on a given day, and who changed it.
-- **Reproducible results.** Run a report or train a model on a fixed version, so the numbers do not move.
+- **Reproducible results.** Run a report or train a model on a fixed version, where the numbers do not move.
 - **Safe changes.** Try a large change away from the live graph, check it, then make it live.
 - **Recovery.** Go back to a known good version after a bad import.
 
@@ -96,16 +96,18 @@ The main choice is between storing whole copies and storing changes.
 
 Most real systems mix the two. They store deltas, and from time to time they also store a combined copy. Then a read only needs to go back to the nearest combined copy, not to the start.
 
-TerminusDB works this way. Each commit adds a [delta layer](/docs/immutability-explanation/) with the triples it added and removed. A [delta rollup](/docs/delta-rollup/) combines many layers into fewer. In standard setups the rollup runs automatically, so reads stay fast as history grows. The cost is disk storage.
+TerminusDB works this way. Each commit adds a [delta layer](/docs/immutability-explanation/) with the triples it added and removed. A [delta rollup](/docs/delta-rollup/) combines many layers into fewer cached layers. In standard setups the rollup runs automatically, so reads stay fast as history grows. The cost is a bit of disk storage.
 
 ## What a versioned knowledge graph should let you do
 
 Keeping old versions is only the first step. To be useful, versioning should let you:
 
 - **Query a past version** with the same query language you use for live data.
-- **Diff** two versions, and see each fact that changed.
+- **Versioned hybrid search** with both full text search (FTS) and vector search.
+- **Diff** two versions, and see each fact and value that changed.
 - **Branch**, so you can make changes away from the live graph.
 - **Merge** a branch back, and get a clear report if two changes conflict.
+- **Clone, push and pull** data products between networks across unidirectional links.
 - **Roll back** to an earlier version when a change was wrong.
 - **See who changed what**, with an author and a message on each change.
 
@@ -213,13 +215,13 @@ Versioning is not always worth it. You may not need it if:
 
 - The data is a cache or a copy that you can rebuild from the source at any time.
 - You only append new events and never change old ones. A log or time-series database may fit better.
-- Nobody needs to know what the data said in the past, and nobody reviews changes.
+- Nobody needs to know what the data said in the past, and nobody reviews changes anyway.
 
 Also keep in mind that history uses disk storage. And if a branch has many small steps that nobody needs to see, you can [squash](/docs/squash-projects/) them into one commit before you merge.
 
 ## Next steps
 
-- [Knowledge Graph Version Control](/docs/knowledge-graph-database-version-control/) — clone, commits, branch, merge, diff and time travel, one by one
+- [Knowledge Graph Version Control](/docs/knowledge-graph-database-version-control/) — clone, commits, branch, merge, diff, push, pull and time travel, one by one
 - [Time Travel Queries](/docs/graph-database-with-time-travel-queries/) — read the graph at any commit
 - [Immutability](/docs/immutability-explanation/) — why TerminusDB never changes data in place
 - [JSON Diff and Patch](/docs/json-diff-and-patch/) — how structural diffs work
