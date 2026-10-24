@@ -144,5 +144,6 @@ Putting the pieces together, TerminusDB is an **open source, immutable, ACID-tra
 - [**Immutability**](/docs/immutability-explanation/) and [**ACID Transactions**](/docs/acid-transactions-explanation/) — the transactional guarantees
 - [**Knowledge Graph Database with Git-like Version Control**](/docs/knowledge-graph-database-version-control/) — the version-control model on top
 - [**Graphs explained**](/docs/graphs-explanation/) — the underlying triple architecture
+- [**A Knowledge Graph for AI Agents**](/docs/knowledge-graph-for-ai-agents/) — a branch per agent run, diff and merge, and past facts at any commit
 
 If you want to see all of this in action on a real dataset, the [**explore a real dataset quickstart**](/docs/explore-a-real-dataset/) walks through a schema-enforced knowledge graph end to end.
