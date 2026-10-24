@@ -16,17 +16,34 @@ import { OpenInAI } from '@/components/OpenInAI'
 import { GitHubIssueButton } from '@/components/GitHubIssueButton'
 import { PageFeedback } from '@/components/PageFeedback'
 import { TableCellCopy } from '@/components/TableCellCopy'
+import {
+  FAQ_HEADING,
+  FAQ_ID,
+  FaqSection,
+  JsonLd,
+  buildJsonLd,
+  faqIds,
+  normalizeFaq,
+} from '@/components/PageStructuredData'
 import { collectSections } from '@/lib/sections'
 import { getPageDates } from '@/lib/gitDates'
 import { scrollToHashOnLoad } from '@/utils/scroll'
 
 export function DocsLayout({
   children,
-  frontmatter: { title, tags, draft, status },
+  frontmatter: { title, tags, faq: rawFaq, techArticle, nextjs, draft, status },
   nodes,
 }: {
   children: React.ReactNode
-  frontmatter: { title?: string; tags?: string[]; draft?: boolean; status?: string }
+  frontmatter: {
+    title?: string
+    tags?: string[]
+    faq?: unknown
+    techArticle?: boolean
+    nextjs?: { metadata?: Record<string, any> }
+    draft?: boolean
+    status?: string
+  }
   nodes: Array<Node>
 }) {
   const pathname = usePathname()
@@ -42,6 +59,33 @@ export function DocsLayout({
   const rawSlug = pathname?.startsWith('/') ? pathname.slice(1) : pathname ?? ''
   const pageSlug = rawSlug.endsWith('/') ? rawSlug.slice(0, -1) : rawSlug
   const pageDates = getPageDates(pageSlug)
+
+  // Optional FAQ and JSON-LD from front matter (see PageStructuredData.tsx)
+  const faq = normalizeFaq(rawFaq)
+  if (faq.length > 0) {
+    const ids = faqIds(faq)
+    tableOfContents = [
+      ...tableOfContents,
+      {
+        level: 2,
+        id: FAQ_ID,
+        title: FAQ_HEADING,
+        children: faq.map((item, i) => ({
+          level: 3,
+          id: ids[i],
+          title: item.question,
+        })),
+      },
+    ]
+  }
+  const jsonLd = buildJsonLd({
+    title,
+    metadata: nextjs?.metadata,
+    faq,
+    techArticle: techArticle === true,
+    created: pageDates.created,
+    updated: pageDates.updated,
+  })
 
   // Handle hash scroll on page load and hashchange events
   useEffect(() => {
@@ -65,7 +109,11 @@ export function DocsLayout({
       <div className="max-w-2xl min-w-0 flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
         <article className="figure-reset">
           <DocsHeader title={title} hasRawMarkdown={hasRawMarkdown} />
-          <Prose>{children}</Prose>
+          <Prose>
+            {children}
+            <FaqSection faq={faq} />
+          </Prose>
+          <JsonLd data={jsonLd} />
           <TableCellCopy />
         </article>
         <PageFooterMetadata
