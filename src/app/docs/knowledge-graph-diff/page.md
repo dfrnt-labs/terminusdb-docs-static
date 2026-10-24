@@ -66,7 +66,7 @@ A **document diff** groups the triples by the thing they describe, such as one p
 | A value change shows as | One removal and one addition | One swap, with old and new value |
 | Can be applied as a patch | Yes | Yes, with a patch tool |
 | Easy for people to review | For small changes | Yes |
-| Needs a schema | No | Usually |
+| Needs a schema | No | Usually (not for raw JSON) |
 
 TerminusDB uses both levels. It stores each commit as a [delta layer](/docs/immutability-explanation/) of added and removed triples. The diff endpoint returns the change as a document diff: one entry per changed document, with an operation such as `SwapValue` for each changed field. See [Diff and Patch Operations](/docs/diff-and-patch-operations/) for the client options.
 
