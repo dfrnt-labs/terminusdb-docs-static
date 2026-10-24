@@ -89,3 +89,5 @@ Results are ranked by **distance** in `[0, 1]`: `0` is identical, `0.5` is unrel
 - **[History & Branching](/docs/versioned-search-history/)** — per-commit snapshots, branch-out with block reuse, and staleness handling.
 - **[Entity Resolution](/docs/versioned-search-entity-resolution/)** — tuning duplicates and cross-set matching for record linkage.
 - **[API Reference](/docs/versioned-search-api-reference/)** — the full HTTP endpoint reference.
+
+Using search as memory for AI agents? See [A Knowledge Graph for AI Agents](/docs/knowledge-graph-for-ai-agents/) for a branch-per-run workflow.

@@ -87,3 +87,4 @@ Read speed is not one of the costs. Changes are stored as delta layers, and [del
 - [Time Travel in the Dashboard](/docs/time-travel/) — do the same thing in TerminusDB Cloud
 - [Immutability](/docs/immutability-explanation/) — why TerminusDB never changes data in place
 - [A Graph Database with Git-like Version Control](/docs/graph-database-with-git-like-version-control/) — commits, branches, diffs and merges
+- [A Knowledge Graph for AI Agents](/docs/knowledge-graph-for-ai-agents/) — use commit history as temporal memory for agents
