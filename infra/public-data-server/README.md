@@ -34,6 +34,45 @@ terminusdb clone https://data.terminusdb.org/public/tdb-example-mydb --token=ano
 
 > The first clone after idle may take a few seconds while the server cold-starts. Subsequent operations are instant.
 
+## Semantic Search on Cloned Databases
+
+Every data product ships embedding templates in its schema — a per-class
+GraphQL query plus a Handlebars template under `@metadata.embedding`, and
+`store_indices` / `store_clustering` in the `@context` metadata. The metadata
+travels inside the schema graph, so it comes along with the clone for free.
+
+When you clone a product into a TerminusDB instance that has vector search
+enabled, the clone automatically notifies the indexer once the database is
+ready — no manual indexing step is needed. The same happens on `pull` when
+new commits arrive.
+
+What you need locally:
+
+- TerminusDB with the vectorlink indexer enabled
+  (`TERMINUSDB_INDEXER_BACKEND=vectorlink` — the default in the
+  vectorsearch docker compose), and
+- an embedding endpoint the engine can reach: an Ollama instance serving an
+  embedding model on port 11434, or any OpenAI-compatible embeddings API.
+  The `vectorsearch` docker compose stack
+  (`terminusdb-enterprise/docker/vectorsearch`) bundles both.
+
+Then it is just:
+
+```bash
+terminusdb clone https://data.terminusdb.org/public/star-wars --token=anonymous
+# wait a few seconds for the indexer to embed the documents
+curl "http://localhost:6363/api/search/admin/star-wars?q=jedi+knight" \
+  -u admin:root
+```
+
+Note that `data.terminusdb.org` itself does not index these products — it is
+a clone-only server. Embedding always happens on your local instance, using
+your own embedding service.
+
+For `nuclear` and `lego`, which ship as pre-built bundles, the embedding
+metadata is applied as one extra schema commit during bootstrap
+(`seed/apply-embedding-templates.mjs` + `templates/<product>/embedding.json`).
+
 ## Organisation Choice
 
 We use a `public` organisation to match the original data.terminusdb.org conventions and maintain backward compatibility with existing documentation and clone URLs. The URLs are clear and self-documenting: `data.terminusdb.org/public/star-wars`.

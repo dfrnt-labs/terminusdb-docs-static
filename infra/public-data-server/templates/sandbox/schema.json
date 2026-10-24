@@ -1,5 +1,15 @@
 [
   {
+    "@type": "@context",
+    "@base": "terminusdb:///data/",
+    "@schema": "terminusdb:///schema#",
+    "@metadata": {
+      "terminusdb": {
+        "options": ["store_indices", "store_clustering"]
+      }
+    }
+  },
+  {
     "@type": "Class",
     "@id": "Product",
     "@key": {
@@ -8,6 +18,12 @@
     },
     "name": "xsd:string",
     "price": "xsd:decimal",
-    "category": "xsd:string"
+    "category": "xsd:string",
+    "@metadata": {
+      "embedding": {
+        "query": "query ($id: ID) {\n  Product(id: $id) {\n    name\n    category\n    price\n  }\n}",
+        "template": "{{name}} — a {{category}} product priced at {{price}}."
+      }
+    }
   }
 ]

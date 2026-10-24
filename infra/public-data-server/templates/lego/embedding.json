@@ -1,0 +1,25 @@
+{
+  "context": {
+    "terminusdb": {
+      "options": ["store_indices", "store_clustering"]
+    }
+  },
+  "classes": {
+    "LegoSet": {
+      "query": "query ($id: ID) {\n  LegoSet(id: $id) {\n    name\n    description\n    year\n    theme {\n      name\n      parent {\n        name\n      }\n    }\n  }\n}",
+      "template": "{{name}} — a LEGO set{{#if year}} from {{year}}{{/if}}{{#if theme}} in the {{theme.name}} theme{{/if}}{{#if theme.parent}} (part of {{theme.parent.name}}){{/if}}.\n{{#if description}}{{description}}{{/if}}"
+    },
+    "Minifig": {
+      "query": "query ($id: ID) {\n  Minifig(id: $id) {\n    name\n    figure_number\n    num_parts\n  }\n}",
+      "template": "{{name}} — LEGO minifigure {{figure_number}}{{#if num_parts}} made of {{num_parts}} parts{{/if}}."
+    },
+    "Part": {
+      "query": "query ($id: ID) {\n  Part(id: $id) {\n    name\n    part_number\n    category\n    material\n  }\n}",
+      "template": "{{name}} — a LEGO part{{#if category}} in the {{category}} category{{/if}}{{#if material}} made of {{material}}{{/if}} (part number {{part_number}})."
+    },
+    "Theme": {
+      "query": "query ($id: ID) {\n  Theme(id: $id) {\n    name\n    parent {\n      name\n    }\n  }\n}",
+      "template": "LEGO theme: {{name}}{{#if parent}}, a subtheme of {{parent.name}}{{/if}}."
+    }
+  }
+}

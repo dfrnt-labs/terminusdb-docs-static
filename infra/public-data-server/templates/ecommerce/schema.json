@@ -1,5 +1,15 @@
 [
   {
+    "@type": "@context",
+    "@base": "terminusdb:///data/",
+    "@schema": "terminusdb:///schema#",
+    "@metadata": {
+      "terminusdb": {
+        "options": ["store_indices", "store_clustering"]
+      }
+    }
+  },
+  {
     "@type": "Class",
     "@id": "Category",
     "@key": {
@@ -12,6 +22,12 @@
     "parent_category": {
       "@type": "Optional",
       "@class": "Category"
+    },
+    "@metadata": {
+      "embedding": {
+        "query": "query ($id: ID) {\n  Category(id: $id) {\n    name\n    parent_category {\n      name\n    }\n  }\n}",
+        "template": "Category: {{name}}{{#if parent_category}}, a subcategory of {{parent_category.name}}{{/if}}."
+      }
     }
   },
   {
@@ -30,7 +46,13 @@
     },
     "price": "xsd:decimal",
     "category": "Category",
-    "in_stock": "xsd:boolean"
+    "in_stock": "xsd:boolean",
+    "@metadata": {
+      "embedding": {
+        "query": "query ($id: ID) {\n  Product(id: $id) {\n    name\n    description\n    price\n    in_stock\n    category {\n      name\n    }\n  }\n}",
+        "template": "{{name}}{{#if category}} — {{category.name}}{{/if}}, priced at {{price}}. {{#if in_stock}}In stock.{{else}}Currently out of stock.{{/if}}\n{{#if description}}{{description}}{{/if}}"
+      }
+    }
   },
   {
     "@type": "Class",

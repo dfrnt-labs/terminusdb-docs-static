@@ -1,0 +1,29 @@
+{
+  "context": {
+    "terminusdb": {
+      "options": ["store_indices", "store_clustering"]
+    }
+  },
+  "classes": {
+    "NuclearPowerPlant": {
+      "query": "query ($id: ID) {\n  NuclearPowerPlant(id: $id) {\n    name\n    owner\n    commissioning_year\n    url\n    country {\n      name\n    }\n    reactors {\n      name\n      type\n    }\n    capacity {\n      quantity\n      unit {\n        symbol\n        name\n      }\n    }\n  }\n}",
+      "template": "{{name}} is a nuclear power plant{{#if country}} in {{country.name}}{{/if}}{{#if owner}} owned by {{owner}}{{/if}}{{#if commissioning_year}}, commissioned {{commissioning_year}}{{/if}}.\n{{#if capacity}}Capacity: {{capacity.quantity}} {{capacity.unit.symbol}}.{{/if}}\n{{#each reactors}}Reactor {{this.name}}{{#if this.type}} ({{this.type}}){{/if}}. {{/each}}\n{{#if url}}More: {{url}}{{/if}}"
+    },
+    "Reactor": {
+      "query": "query ($id: ID) {\n  Reactor(id: $id) {\n    name\n    type\n    coolant {\n      name\n    }\n    moderator {\n      name\n    }\n    capacity {\n      quantity\n      unit {\n        symbol\n      }\n    }\n  }\n}",
+      "template": "{{#if name}}Reactor {{name}}{{else}}A reactor{{/if}}{{#if type}} of type {{type}}{{/if}}{{#if coolant}} cooled by {{coolant.name}}{{/if}}{{#if moderator}} moderated by {{moderator.name}}{{/if}}{{#if capacity}} with a capacity of {{capacity.quantity}} {{capacity.unit.symbol}}{{/if}}."
+    },
+    "Country": {
+      "query": "query ($id: ID) {\n  Country(id: $id) {\n    name\n  }\n}",
+      "template": "Country: {{name}}."
+    },
+    "Element": {
+      "query": "query ($id: ID) {\n  Element(id: $id) {\n    element_name\n    element_symbol\n    atomic_number\n    isotopes {\n      isotope_name\n      mass {\n        quantity\n        unit {\n          symbol\n        }\n      }\n      abundance {\n        quantity\n        unit {\n          symbol\n        }\n      }\n    }\n  }\n}",
+      "template": "{{element_name}} ({{element_symbol}}) — chemical element with atomic number {{atomic_number}}.\n{{#each isotopes}}Isotope {{this.isotope_name}} (mass {{this.mass.quantity}} {{this.mass.unit.symbol}}{{#if this.abundance}}, abundance {{this.abundance.quantity}} {{this.abundance.unit.symbol}}{{/if}}). {{/each}}"
+    },
+    "Substance": {
+      "query": "query ($id: ID) {\n  Substance(id: $id) {\n    name\n  }\n}",
+      "template": "Substance: {{name}}."
+    }
+  }
+}

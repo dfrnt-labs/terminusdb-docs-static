@@ -303,9 +303,51 @@ function convertSpecies(species, lookup) {
 
 // --- Schema definition ---
 
+// Embedding metadata is part of the shipped schema — regenerating data must
+// keep it, or clones lose semantic search. The @context options turn on
+// index storage; each class carries a GraphQL query + Handlebars template.
+const CONTEXT_DOC = {
+  "@type": "@context",
+  "@base": "terminusdb:///data/",
+  "@schema": "terminusdb:///schema#",
+  "@metadata": {
+    terminusdb: {
+      options: ["store_indices", "store_clustering"],
+    },
+  },
+};
+
+const EMBEDDING = {
+  Person: {
+    query: "query ($id: ID) {\n  Person(id: $id) {\n    name\n    gender\n    birth_year\n    side\n    faction\n    quote\n    height\n    mass\n    hair_color\n    eye_color\n    homeworld {\n      name\n    }\n    species {\n      name\n    }\n    films {\n      title\n    }\n    died_in_film {\n      title\n    }\n  }\n}",
+    template: "{{name}} — {{#each species}}{{this.name}} {{/each}}{{gender}} character{{#if homeworld}} from {{homeworld.name}}{{/if}}{{#if side}}, {{side}} side{{/if}}{{#if faction}} of the {{faction}}{{/if}}. Born {{birth_year}}.\n{{#if height}}Height {{height}} m, mass {{mass}} kg, hair {{hair_color}}, eyes {{eye_color}}.{{/if}}\n{{#if quote}}Known for saying: \"{{quote}}\"{{/if}}\n{{#each films}}Appears in \"{{this.title}}\". {{/each}}{{#if died_in_film}}Died in \"{{died_in_film.title}}\".{{/if}}",
+  },
+  Planet: {
+    query: "query ($id: ID) {\n  Planet(id: $id) {\n    name\n    climate\n    terrain\n    gravity\n    population\n    diameter\n    rotation_period\n    orbital_period\n  }\n}",
+    template: "{{name}} is a planet{{#if climate}} with a {{climate}} climate{{/if}}{{#if terrain}} and {{terrain}} terrain{{/if}}.\n{{#if diameter}}Diameter {{diameter}} km.{{/if}}{{#if gravity}} Gravity: {{gravity}}.{{/if}}{{#if population}} Population: {{population}}.{{/if}}{{#if rotation_period}} Rotation period {{rotation_period}} h, orbital period {{orbital_period}} days.{{/if}}",
+  },
+  Film: {
+    query: "query ($id: ID) {\n  Film(id: $id) {\n    title\n    episode_id\n    opening_crawl\n    director\n    producer\n    release_date\n    characters {\n      name\n    }\n    planets {\n      name\n    }\n  }\n}",
+    template: "\"{{title}}\" — episode {{episode_id}} of Star Wars{{#if director}}, directed by {{director}}{{/if}}{{#if release_date}}, released {{release_date}}{{/if}}.\n{{opening_crawl}}\nFeaturing: {{#each characters}}{{this.name}}{{#unless @last}}, {{/unless}}{{/each}}.\nSettings: {{#each planets}}{{this.name}}{{#unless @last}}, {{/unless}}{{/each}}.",
+  },
+  Species: {
+    query: "query ($id: ID) {\n  Species(id: $id) {\n    name\n    classification\n    designation\n    language\n    average_height\n    average_lifespan\n    skin_colors\n    hair_colors\n    eye_colors\n    homeworld {\n      name\n    }\n  }\n}",
+    template: "{{name}} — a {{classification}} species{{#if designation}} ({{designation}}){{/if}}{{#if homeworld}} native to {{homeworld.name}}{{/if}}{{#if language}} speaking {{language}}{{/if}}.\n{{#if average_height}}Average height {{average_height}} m.{{/if}}{{#if average_lifespan}} Average lifespan: {{average_lifespan}}.{{/if}}{{#if skin_colors}} Skin: {{skin_colors}}.{{/if}}{{#if hair_colors}} Hair: {{hair_colors}}.{{/if}}{{#if eye_colors}} Eyes: {{eye_colors}}.{{/if}}",
+  },
+};
+
+function withEmbedding(classDoc) {
+  const embedding = EMBEDDING[classDoc["@id"]];
+  if (embedding) {
+    classDoc["@metadata"] = { embedding };
+  }
+  return classDoc;
+}
+
 function generateSchema() {
   return [
-    {
+    CONTEXT_DOC,
+    withEmbedding({
       "@type": "Class",
       "@id": "Person",
       "@key": { "@type": "Lexical", "@fields": ["name"] },
@@ -323,8 +365,8 @@ function generateSchema() {
       "faction": { "@type": "Optional", "@class": "xsd:string" },
       "quote": { "@type": "Optional", "@class": "xsd:string" },
       "died_in_film": { "@type": "Optional", "@class": "Film" }
-    },
-    {
+    }),
+    withEmbedding({
       "@type": "Class",
       "@id": "Planet",
       "@key": { "@type": "Lexical", "@fields": ["name"] },
@@ -336,8 +378,8 @@ function generateSchema() {
       "gravity": { "@type": "Optional", "@class": "xsd:string" },
       "terrain": { "@type": "Optional", "@class": "xsd:string" },
       "population": { "@type": "Optional", "@class": "xsd:decimal" }
-    },
-    {
+    }),
+    withEmbedding({
       "@type": "Class",
       "@id": "Film",
       "@key": { "@type": "Lexical", "@fields": ["title"] },
@@ -350,8 +392,8 @@ function generateSchema() {
       "characters": { "@type": "Set", "@class": "Person" },
       "planets": { "@type": "Set", "@class": "Planet" },
       "species": { "@type": "Set", "@class": "Species" }
-    },
-    {
+    }),
+    withEmbedding({
       "@type": "Class",
       "@id": "Species",
       "@key": { "@type": "Lexical", "@fields": ["name"] },
@@ -365,7 +407,7 @@ function generateSchema() {
       "average_lifespan": { "@type": "Optional", "@class": "xsd:string" },
       "homeworld": { "@type": "Optional", "@class": "Planet" },
       "language": { "@type": "Optional", "@class": "xsd:string" }
-    }
+    })
   ];
 }
 

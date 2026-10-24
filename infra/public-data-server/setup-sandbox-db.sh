@@ -65,10 +65,11 @@ $TDB db create public/sandbox \
   --public \
   --schema 2>/dev/null || echo "  (database already exists — skipping create)"
 
-# Load schema
+# Load schema (doc replace --create: the file carries a @context document
+# with embedding index options, which only a full schema replace accepts)
 echo "[3/7] Loading Product schema..."
 if [ -f "$TEMPLATE_DIR/sandbox/schema.json" ] && [ -s "$TEMPLATE_DIR/sandbox/schema.json" ]; then
-    $TDB doc insert public/sandbox --graph_type=schema \
+    $TDB doc replace public/sandbox --graph_type=schema --create \
       < "$TEMPLATE_DIR/sandbox/schema.json"
     echo "  Schema loaded from $TEMPLATE_DIR/sandbox/schema.json"
 else

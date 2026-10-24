@@ -28,6 +28,10 @@ The public templates server at `data.terminusdb.org` hosts curated datasets you 
 |----------|-----------|----------|
 | **Star Wars** | ~85 (People, Films, Planets, Species, Starships, Vehicles) | Learning WOQL queries and GraphQL, following tutorials |
 | **Ecommerce** | ~155 (Customers, Orders, OrderLines, Products, Categories) | Business scenario tutorials (branch, diff, merge) |
+| **Nuclear** | Power plants, reactors, elements, countries | Graph data with nested structure and enums |
+| **Lego** | Sets, parts, minifigures, themes, colours | A larger dataset (~60 MB) for real-world scale |
+| **Sandbox** | A handful of products | The live target for branch/diff/merge docs examples |
+| **MyDB** (tdb-example-mydb) | Project tracker | Rich commit history — 11 commits, branches, merges |
 
 ## Clone Star Wars
 
@@ -60,6 +64,32 @@ The clone operation uses TerminusDB's git-for-data architecture:
 3. The clone is now yours: query it, branch it, modify it. Changes stay local.
 
 Cloning is efficient even for large datasets because TerminusDB uses content-addressed storage — only unique data layers are transferred.
+
+## Semantic search on a clone
+
+Every template ships with embedding templates baked into its schema. If your
+local TerminusDB has vector search enabled, the clone indexes itself — the
+search indexer is notified automatically once the clone finishes, and again
+after every `pull` that brings in new commits. No manual indexing step.
+
+You need two things locally:
+
+- TerminusDB with the vectorlink indexer enabled
+  (`TERMINUSDB_INDEXER_BACKEND=vectorlink`)
+- an embedding endpoint — a local [Ollama](https://ollama.com) instance on
+  port 11434, or any OpenAI-compatible embeddings API. The vectorsearch
+  docker compose stack ships both; see
+  [VectorLink Quickstart](/docs/versioned-search-quickstart/).
+
+Once the indexer has worked through the documents, search the clone:
+
+```bash
+curl -u admin:root 'http://localhost:6363/api/search/admin/star-wars?q=jedi+knight'
+```
+
+The public server itself is clone-only — it does not index the products.
+Embedding always happens on your own instance, with your own embedding
+service.
 
 ## Next steps
 

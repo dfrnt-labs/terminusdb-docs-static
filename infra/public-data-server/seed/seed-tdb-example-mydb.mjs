@@ -70,12 +70,28 @@ async function confirm(message) {
 
 const SCHEMA = [
   {
+    "@type": "@context",
+    "@base": "terminusdb:///data/",
+    "@schema": "terminusdb:///schema#",
+    "@metadata": {
+      terminusdb: {
+        options: ["store_indices", "store_clustering"],
+      },
+    },
+  },
+  {
     "@type": "Class",
     "@id": "Person",
     "@key": { "@type": "Lexical", "@fields": ["handle"] },
     "handle": "xsd:string",
     "name": "xsd:string",
     "role": "xsd:string",
+    "@metadata": {
+      embedding: {
+        query: "query ($id: ID) {\n  Person(id: $id) {\n    name\n    handle\n    role\n  }\n}",
+        template: "{{name}} (@{{handle}}) — {{role}}.",
+      },
+    },
   },
   {
     "@type": "Class",
@@ -86,6 +102,12 @@ const SCHEMA = [
     "description": { "@type": "Optional", "@class": "xsd:string" },
     "status": "xsd:string",
     "lead": "Person",
+    "@metadata": {
+      embedding: {
+        query: "query ($id: ID) {\n  Project(id: $id) {\n    name\n    slug\n    status\n    description\n    lead {\n      name\n    }\n  }\n}",
+        template: "{{name}} ({{slug}}) — {{status}} project{{#if lead}} led by {{lead.name}}{{/if}}.\n{{#if description}}{{description}}{{/if}}",
+      },
+    },
   },
   {
     "@type": "Class",
@@ -99,6 +121,12 @@ const SCHEMA = [
     "project": "Project",
     "assignee": { "@type": "Optional", "@class": "Person" },
     "comments": { "@type": "Set", "@class": "Comment" },
+    "@metadata": {
+      embedding: {
+        query: "query ($id: ID) {\n  Task(id: $id) {\n    task_id\n    title\n    description\n    status\n    priority\n    project {\n      name\n    }\n    assignee {\n      name\n    }\n    comments {\n      text\n      author {\n        name\n      }\n    }\n  }\n}",
+        template: "Task {{task_id}}: {{title}} — {{status}}, {{priority}} priority, in project {{project.name}}{{#if assignee}}, assigned to {{assignee.name}}{{/if}}.\n{{#if description}}{{description}}\n{{/if}}{{#each comments}}Comment by {{this.author.name}}: \"{{this.text}}\"\n{{/each}}",
+      },
+    },
   },
   {
     "@type": "Class",
@@ -194,8 +222,10 @@ async function main() {
 
   header("Commit 1/11 — Initialise project tracker with team members");
 
-  step("Inserting schema (4 types)...");
-  await client.addDocument(SCHEMA, { graph_type: "schema" }, undefined, "Add project tracker schema");
+  step("Inserting schema (4 types + embedding metadata)...");
+  // full_replace: the @context document (with index options) can only be
+  // applied through a full schema replace, not a plain insert.
+  await client.addDocument(SCHEMA, { graph_type: "schema", full_replace: true }, undefined, "Add project tracker schema");
   step("✓ Schema inserted");
 
   step("Inserting 3 team members...");

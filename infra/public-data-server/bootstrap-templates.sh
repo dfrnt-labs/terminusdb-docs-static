@@ -23,9 +23,13 @@ $TDB db create public/star-wars \
   --public \
   --schema
 
+# Schema files carry a @context document with embedding options
+# (store_indices, store_clustering); context documents can only be applied
+# through a full schema replace, so doc replace --create is used instead of
+# doc insert.
 if [ -f "$TEMPLATE_DIR/star-wars/schema.json" ] && [ -s "$TEMPLATE_DIR/star-wars/schema.json" ]; then
     echo "Loading star-wars schema..."
-    $TDB doc insert public/star-wars --graph_type=schema \
+    $TDB doc replace public/star-wars --graph_type=schema --create \
       < "$TEMPLATE_DIR/star-wars/schema.json"
 fi
 
@@ -68,7 +72,7 @@ $TDB db create public/ecommerce \
 
 if [ -f "$TEMPLATE_DIR/ecommerce/schema.json" ] && [ -s "$TEMPLATE_DIR/ecommerce/schema.json" ]; then
     echo "Loading ecommerce schema..."
-    $TDB doc insert public/ecommerce --graph_type=schema \
+    $TDB doc replace public/ecommerce --graph_type=schema --create \
       < "$TEMPLATE_DIR/ecommerce/schema.json"
 fi
 
@@ -92,6 +96,14 @@ if [ -f "$BUNDLE_DIR/admin%2fnuclear.bundle" ]; then
       --schema
     echo "Loading nuclear data from bundle..."
     $TDB unbundle public/nuclear "$BUNDLE_DIR/admin%2fnuclear.bundle"
+    # Bundles carry no embedding metadata — patch the schema post-unbundle so
+    # clones of this database get store_indices + per-class templates. One
+    # extra schema commit on top of the bundle history.
+    echo "Applying embedding templates to public/nuclear schema..."
+    TDB_ADMIN_PASS="${TERMINUSDB_ADMIN_PASS:-root}" \
+      node /app/terminusdb/seed/apply-embedding-templates.mjs \
+      --db public/nuclear \
+      --config "$TEMPLATE_DIR/nuclear/embedding.json"
 else
     echo "ERROR: Bundle not found: $BUNDLE_DIR/admin%2fnuclear.bundle" >&2
     exit 1
@@ -110,6 +122,11 @@ if [ -f "$BUNDLE_DIR/admin%2flego.bundle" ]; then
       --schema
     echo "Loading lego data from bundle..."
     $TDB unbundle public/lego "$BUNDLE_DIR/admin%2flego.bundle"
+    echo "Applying embedding templates to public/lego schema..."
+    TDB_ADMIN_PASS="${TERMINUSDB_ADMIN_PASS:-root}" \
+      node /app/terminusdb/seed/apply-embedding-templates.mjs \
+      --db public/lego \
+      --config "$TEMPLATE_DIR/lego/embedding.json"
 else
     echo "ERROR: Bundle not found: $BUNDLE_DIR/admin%2flego.bundle" >&2
     exit 1
@@ -128,7 +145,7 @@ $TDB db create public/sandbox \
 
 if [ -f "$TEMPLATE_DIR/sandbox/schema.json" ] && [ -s "$TEMPLATE_DIR/sandbox/schema.json" ]; then
     echo "Loading sandbox schema..."
-    $TDB doc insert public/sandbox --graph_type=schema \
+    $TDB doc replace public/sandbox --graph_type=schema --create \
       < "$TEMPLATE_DIR/sandbox/schema.json"
 fi
 
