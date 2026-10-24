@@ -232,6 +232,14 @@ export const navigation: Navigation[] = [
             href: '/docs/knowledge-graph-database-version-control',
           },
           {
+            title: 'Knowledge Graph Versioning',
+            href: '/docs/knowledge-graph-versioning',
+          },
+          {
+            title: 'Knowledge Graph Diff',
+            href: '/docs/knowledge-graph-diff',
+          },
+          {
             title: 'Versioned Graph Database',
             href: '/docs/graph-database-with-git-like-version-control',
           },
