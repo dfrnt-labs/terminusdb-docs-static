@@ -224,5 +224,6 @@ Also keep in mind that history uses disk storage. And if a branch has many small
 - [Knowledge Graph Version Control](/docs/knowledge-graph-database-version-control/) — clone, commits, branch, merge, diff, push, pull and time travel, one by one
 - [Time Travel Queries](/docs/graph-database-with-time-travel-queries/) — read the graph at any commit
 - [Immutability](/docs/immutability-explanation/) — why TerminusDB never changes data in place
+- [Knowledge Graph Diff](/docs/knowledge-graph-diff/) — compare two versions of a graph, and apply the change as a patch
 - [JSON Diff and Patch](/docs/json-diff-and-patch/) — how structural diffs work
 - [Delta Rollup](/docs/delta-rollup/) — how layers are compacted
