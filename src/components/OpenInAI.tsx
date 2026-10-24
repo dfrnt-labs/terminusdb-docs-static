@@ -2,7 +2,12 @@
 
 import { usePathname } from 'next/navigation'
 
-export function OpenInAI() {
+export function OpenInAI({
+  hasRawMarkdown = true,
+}: {
+  // False for pages whose page.md is not exported (drafts)
+  hasRawMarkdown?: boolean
+}) {
   const pathname = usePathname()
   
   // Get the full page URL
@@ -65,27 +70,29 @@ export function OpenInAI() {
           <path d="M13.827 3.52h3.603L24 20h-3.603l-6.57-16.48zm-7.258 0h3.767L16.906 20h-3.674l-1.343-3.461H5.017l-1.344 3.46H0L6.57 3.522zm4.132 9.959L8.453 7.687 6.205 13.48H10.7z" />
         </svg>
       </a>
-      <a
-        href={getRawMarkdownUrl()}
-        target="_blank"
-        rel="noopener noreferrer"
-        title="View raw Markdown"
-        className="rounded opacity-60 hover:opacity-100 transition-opacity focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
-      >
-        <svg
-          className="h-5 w-5"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+      {hasRawMarkdown && (
+        <a
+          href={getRawMarkdownUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="View raw Markdown"
+          className="rounded opacity-60 hover:opacity-100 transition-opacity focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
         >
-          <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
-          <path d="M14 2v5a1 1 0 0 0 1 1h5" />
-        </svg>
-      </a>
+          <svg
+            className="h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+            <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+          </svg>
+        </a>
+      )}
     </div>
   )
 }
