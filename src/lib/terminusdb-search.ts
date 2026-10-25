@@ -43,6 +43,8 @@ export interface SearchHit {
     snippet?: string
     location?: number
   }
+  /** Suggest hits only: corpus words following the matched phrase. */
+  next_words?: string[]
 }
 
 // type alias (not interface) so it satisfies Algolia's BaseItem = Record<string, unknown>
@@ -91,11 +93,11 @@ export interface PageDoc {
   url?: string
 }
 
-async function apiGet<T>(
+async function apiGetJson(
   path: string,
   params: Record<string, string>,
   options: RequestOptions,
-): Promise<T[]> {
+): Promise<unknown> {
   const fetchImpl: FetchImpl = options.fetchImpl ?? fetch
   const base = (options.baseUrl ?? TERMINUSDB_BASE_URL).replace(/\/$/, "")
   const url = new URL(`${base}/api/${path}/${DB_PATH}`)
@@ -124,12 +126,19 @@ async function apiGet<T>(
     throw new SearchError("http", `Search request failed (${response.status})`, response.status)
   }
 
-  let body: unknown
   try {
-    body = await response.json()
+    return await response.json()
   } catch {
     throw new SearchError("parse", "Search returned malformed JSON")
   }
+}
+
+async function apiGet<T>(
+  path: string,
+  params: Record<string, string>,
+  options: RequestOptions,
+): Promise<T[]> {
+  const body = await apiGetJson(path, params, options)
   if (!Array.isArray(body)) {
     throw new SearchError("parse", "Search returned an unexpected shape")
   }
@@ -149,6 +158,39 @@ export function searchDocs(options: SearchDocsOptions): Promise<SearchHit[]> {
     },
     options,
   )
+}
+
+/**
+ * Phrase lookahead from the full-text index: `completions` are corpus
+ * phrases starting with the query prefix, `hits` carry match offsets.
+ * Powers type-ahead suggestions in the search box.
+ */
+export interface SuggestResponse {
+  completions: string[]
+  hits: SearchHit[]
+  total_approx?: number
+}
+
+export interface SuggestDocsOptions extends RequestOptions {
+  q: string
+  count?: number
+}
+
+export async function suggestDocs(
+  options: SuggestDocsOptions,
+): Promise<SuggestResponse> {
+  const body = await apiGetJson(
+    "suggest",
+    {
+      q: options.q,
+      count: String(options.count ?? 10),
+    },
+    options,
+  )
+  if (typeof body !== "object" || body === null || !Array.isArray((body as SuggestResponse).completions)) {
+    throw new SearchError("parse", "Suggest returned an unexpected shape")
+  }
+  return body as SuggestResponse
 }
 
 export function similarDocs(options: SimilarDocsOptions): Promise<SearchHit[]> {

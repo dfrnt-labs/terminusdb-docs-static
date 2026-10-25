@@ -484,6 +484,10 @@ export const navigation: Navigation[] = [
             title: 'Python Collaboration',
             href: '/docs/collaboration-with-python-client',
           },
+          {
+            title: 'MCP (AI Agents)',
+            href: '/docs/use-terminusdb-mcp',
+          },
         ],
       },
       {
@@ -1247,6 +1251,16 @@ export const navigation: Navigation[] = [
           {
             title: 'API Reference',
             href: '/docs/versioned-search-api-reference',
+          },
+        ],
+      },
+      {
+        title: 'MCP Server',
+        href: '/docs/terminusdb-mcp',
+        links: [
+          {
+            title: 'Tool Reference',
+            href: '/docs/terminusdb-mcp-reference',
           },
         ],
       },

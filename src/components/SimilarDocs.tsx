@@ -13,8 +13,7 @@ import {
   type SearchHit,
 } from '@/lib/terminusdb-search'
 import { PoweredByTerminusDB } from '@/components/PoweredByTerminusDB'
-
-const WAKE_HINT_DELAY_MS = 1400
+import { useWakeHint } from '@/lib/useWakeHint'
 
 // Page ids are flat, but nested pages (e.g. /docs/releases/x/) carry the
 // real path in the document's canonical url.
@@ -48,19 +47,26 @@ function rankByIds(
 export function SimilarDocs() {
   const pathname = usePathname()
   const slug = pathname ? isDocsPagePath(pathname) : null
+  // The homepage fires the similar-docs request silently — it wakes the
+  // scale-to-zero engine so the first real search is already warm.
+  const warmupId = slug ?? (pathname === '/' ? 'index' : null)
   const [results, setResults] = useState<
     { doc: PageDoc; anchor: string | undefined }[] | null
   >(null)
-  const [showWakeHint, setShowWakeHint] = useState(false)
   const [failed, setFailed] = useState(false)
+  const wake = useWakeHint(slug !== null && results === null && !failed)
 
   useEffect(() => {
-    if (!slug) return
+    if (!warmupId) return
     const controller = new AbortController()
-    const wakeTimer = setTimeout(() => setShowWakeHint(true), WAKE_HINT_DELAY_MS)
+    if (!slug) {
+      similarDocs({ id: `Page/${warmupId}`, count: 6, signal: controller.signal }).catch(
+        () => {},
+      )
+      return () => controller.abort()
+    }
     setResults(null)
     setFailed(false)
-    setShowWakeHint(false)
 
     const { signal } = controller
     similarDocs({ id: `Page/${slug}`, count: 6, signal })
@@ -76,13 +82,11 @@ export function SimilarDocs() {
       .catch((err) => {
         if (err?.kind !== 'aborted') setFailed(true)
       })
-      .finally(() => clearTimeout(wakeTimer))
 
     return () => {
       controller.abort()
-      clearTimeout(wakeTimer)
     }
-  }, [slug])
+  }, [slug, warmupId])
 
   if (!slug || failed || results?.length === 0) return null
 
@@ -107,9 +111,14 @@ export function SimilarDocs() {
               className="h-14 animate-pulse rounded-lg bg-slate-100 dark:bg-slate-800/50"
             />
           ))}
-          {showWakeHint && (
+          {wake === 1 && (
             <p className="pt-1 text-xs text-slate-400 dark:text-slate-500">
-              Dynamically scaling up from zero to save resources — first
+              Thinking…
+            </p>
+          )}
+          {wake === 2 && (
+            <p className="pt-1 text-xs text-slate-400 dark:text-slate-500">
+              Thinking... scaling up from zero to save resources — first
               request after idle can take a few seconds.
             </p>
           )}
@@ -124,7 +133,7 @@ export function SimilarDocs() {
             >
               <Link
                 href={docHref(doc, anchor)}
-                className="block rounded-lg border border-slate-200 px-4 py-3 transition-colors hover:border-sky-400 hover:bg-slate-50 dark:border-slate-700 dark:hover:border-sky-500 dark:hover:bg-slate-800/50"
+                className="block rounded-lg border border-slate-200 px-4 py-3 transition-colors outline-hidden hover:border-sky-400 hover:bg-slate-50 focus-visible:border-sky-400 focus-visible:bg-slate-50 dark:border-slate-700 dark:hover:border-sky-500 dark:hover:bg-slate-800/50 dark:focus-visible:border-sky-500 dark:focus-visible:bg-slate-800/50"
               >
                 <span className="block text-sm font-medium text-slate-900 dark:text-white">
                   {doc.title}

@@ -32,8 +32,10 @@ import {
   SearchError,
   type SearchErrorKind,
   type SearchResult as Result,
+  suggestDocs,
 } from '@/lib/terminusdb-search'
 import { useSearchTracking } from '@/lib/useSearchTracking'
+import { useWakeHint } from '@/lib/useWakeHint'
 
 type EmptyObject = Record<string, never>
 
@@ -45,6 +47,8 @@ type Autocomplete = AutocompleteApi<
 >
 
 const DEBOUNCE_MS = 250
+// Phrase lookahead gets a faster loop — it is a lighter full-text query
+const SUGGEST_DEBOUNCE_MS = 100
 // A query counts for analytics once the input is still this long and results are in
 const SETTLE_MS = 1000
 const WAKE_DEBUG_MS = 3000
@@ -80,6 +84,9 @@ function useAutocomplete({
     // getItems resolves [] on failure; this tells an error apart from no hits
     failed?: { query: string; kind: SearchErrorKind }
   }>({})
+  // Ghost-text next-word suggestion: the most common word following the
+  // query across the corpus (suggest hits' next_words). Tab accepts it.
+  let [suggestion, setSuggestion] = useState('')
   let settleRef = useRef<{
     query: string
     done: boolean
@@ -110,7 +117,9 @@ function useAutocomplete({
 
   function settleIfReady() {
     let { state, done } = settleRef.current
-    let collection = state?.collections[0]
+    let collection = state?.collections.find(
+      (c) => c.source.sourceId === 'documentation',
+    )
     if (!done || !state || state.query === '' || state.status !== 'idle') return
     if (!collection) return
     let failed = searchRef.current.failed
@@ -220,7 +229,9 @@ function useAutocomplete({
               settleRef.current.state = params.state
               settleNow()
               let index =
-                params.state.collections[0]?.items.indexOf(params.item) ?? -1
+                params.state.collections
+                  .find((c) => c.source.sourceId === 'documentation')
+                  ?.items.indexOf(params.item) ?? -1
               if (index >= 0 && params.itemUrl) {
                 tracking.click(index + 1, params.itemUrl)
               }
@@ -232,7 +243,93 @@ function useAutocomplete({
     }),
   )
 
-  return { autocomplete, autocompleteState, settleNow }
+  // The suggest query runs on its own, faster debounce — it is a light
+  // full-text lookup, not a hybrid search.
+  let currentQuery: string =
+    'query' in autocompleteState ? autocompleteState.query : ''
+  useEffect(() => {
+    setSuggestion('')
+    if (currentQuery.trim().length < 2) return
+    let controller = new AbortController()
+    let timer = setTimeout(() => {
+      suggestDocs({ q: currentQuery, count: 10, signal: controller.signal })
+        .then(async (res) => {
+          let next = nextWordSuggestion(currentQuery, res.completions)
+          if (next === null) {
+            // Completions need an exact n-gram prefix — a trailing partial
+            // word finds none. Re-suggest the complete-word prefix and take
+            // the most common following word that starts with the partial.
+            let m = /^(.*\S)\s+(\S*)$/.exec(currentQuery)
+            if (m) {
+              let prev = await suggestDocs({
+                q: m[1],
+                count: 50,
+                signal: controller.signal,
+              })
+              let word = mostCommonNextWord(prev.hits, m[2])
+              if (word) next = m[2] === '' ? ` ${word}` : word.slice(m[2].length)
+            }
+          }
+          if (!controller.signal.aborted) setSuggestion(next ?? '')
+        })
+        .catch(() => {})
+    }, SUGGEST_DEBOUNCE_MS)
+    return () => {
+      clearTimeout(timer)
+      controller.abort()
+    }
+  }, [currentQuery])
+
+  return { autocomplete, autocompleteState, settleNow, suggestion }
+}
+
+// Ghost text after the caret: the first completion extending the query,
+// truncated to one word — a mid-word query completes the word, a completed
+// word suggests the next one.
+function nextWordSuggestion(
+  query: string,
+  completions: string[],
+): string | null {
+  let lower = query.toLowerCase()
+  for (let completion of completions) {
+    if (!completion.toLowerCase().startsWith(lower)) continue
+    // Stop at the first non-alphanumeric — completions can carry markdown
+    // link cruft (](...), /, ...) that must not enter the query.
+    let rest = /^\s*[\p{L}\p{N}]+/u.exec(completion.slice(query.length))
+    if (rest) return rest[0]
+  }
+  return null
+}
+
+// The most common word following the query across suggest hits that starts
+// with `prefix` — case-insensitive, ties resolved by first seen.
+function mostCommonNextWord(
+  hits: { next_words?: string[] }[],
+  prefix: string,
+): string | null {
+  let lower = prefix.toLowerCase()
+  let counts = new Map<string, { word: string; n: number }>()
+  for (let hit of hits) {
+    let raw = hit.next_words?.[0]
+    if (!raw) continue
+    // Words can carry markdown link cruft — cut at the first
+    // non-alphanumeric rather than suggesting it into the query.
+    let word = /^[\p{L}\p{N}]+/u.exec(raw)?.[0]
+    if (!word || !word.toLowerCase().startsWith(lower)) continue
+    let key = word.toLowerCase()
+    let entry = counts.get(key)
+    if (entry) entry.n++
+    else counts.set(key, { word, n: 1 })
+  }
+  let best: string | null = null
+  let bestN = 0
+  for (let { word, n } of counts.values()) {
+    if (n > bestN) {
+      best = word
+      bestN = n
+    }
+  }
+  return best
 }
 
 function LoadingIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -288,6 +385,35 @@ function SearchResult({
 }) {
   let id = useId()
 
+  function onKeyDown(event: React.KeyboardEvent<HTMLLIElement>) {
+    if (event.key === 'Enter') {
+      event.currentTarget.click()
+    } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      const form = event.currentTarget.closest('form')
+      form
+        ?.querySelector('input')
+        ?.dispatchEvent(
+          new KeyboardEvent('keydown', {
+            key: event.key,
+            bubbles: true,
+            cancelable: true,
+          }),
+        )
+      requestAnimationFrame(() => {
+        form
+          ?.querySelector<HTMLElement>('li[aria-selected="true"]')
+          ?.focus()
+      })
+    }
+  }
+
+  let itemProps = autocomplete.getItemProps({
+    item: result,
+    source: collection.source,
+  })
+  let itemClassName =
+    'group block cursor-pointer rounded-lg px-3 py-2 ring-inset aria-selected:bg-sky-50 focus:ring-2 focus:ring-sky-500/70 focus:outline-hidden dark:aria-selected:bg-sky-500/10'
+
   let path = result.url.split('#')[0].replace(/\/$/, '')
   let sectionTitle = navigation.find((section) =>
     section.links.find((link) => link.href === path),
@@ -299,33 +425,10 @@ function SearchResult({
   return (
     <li
       tabIndex={-1}
-      onKeyDown={(event) => {
-        if (event.key === 'Enter') {
-          event.currentTarget.click()
-        } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-          const form = (event.currentTarget as HTMLElement).closest('form')
-          form
-            ?.querySelector('input')
-            ?.dispatchEvent(
-              new KeyboardEvent('keydown', {
-                key: event.key,
-                bubbles: true,
-                cancelable: true,
-              }),
-            )
-          requestAnimationFrame(() => {
-            form
-              ?.querySelector<HTMLElement>('li[aria-selected="true"]')
-              ?.focus()
-          })
-        }
-      }}
-      className="group block cursor-pointer rounded-lg px-3 py-2 ring-inset aria-selected:bg-sky-50 focus:ring-2 focus:ring-sky-500/70 focus:outline-hidden dark:aria-selected:bg-sky-500/10"
+      onKeyDown={onKeyDown}
+      className={itemClassName}
       aria-labelledby={`${id}-hierarchy ${id}-title`}
-      {...autocomplete.getItemProps({
-        item: result,
-        source: collection.source,
-      })}
+      {...itemProps}
     >
       <Link
         href={result.anchor ? `${result.url}#${result.anchor}` : result.url}
@@ -384,8 +487,8 @@ function SearchResults({
   status?: string
 }) {
   let listRef = useRef<HTMLUListElement>(null)
-  let [showWakeHint, setShowWakeHint] = useState(false)
   let loading = status === 'loading' || status === 'stalled'
+  let wake = useWakeHint(loading)
 
   useEffect(() => {
     listRef.current
@@ -393,28 +496,25 @@ function SearchResults({
       ?.scrollIntoView({ block: 'nearest' })
   })
 
-  useEffect(() => {
-    if (!loading) {
-      setShowWakeHint(false)
-      return
+  // While a new query flies, stale results stay on screen — the pending
+  // label only appears when there is nothing to show.
+  if (loading && (!collection || collection.items.length === 0)) {
+    let pendingLabel = <span>Searching…</span>
+    if (wake === 1) {
+      pendingLabel = <span>Thinking…</span>
+    } else if (wake === 2) {
+      pendingLabel = (
+        <span className="flex flex-col items-center gap-0.5 text-center">
+          <span>🌿 Thinking... scaling up from zero 🌿</span>
+          <span>
+            to save resources — first query may take at least a few seconds.
+          </span>
+        </span>
+      )
     }
-    let timer = setTimeout(() => setShowWakeHint(true), 1400)
-    return () => clearTimeout(timer)
-  }, [loading])
-
-  if (loading) {
     return (
       <div className="flex items-center justify-center px-4 py-8 text-sm text-slate-500 dark:text-slate-400">
-        {showWakeHint ? (
-          <span className="flex flex-col items-center gap-0.5 text-center">
-            <span>🌿 Dynamically scaling up from zero 🌿</span>
-            <span>
-              to save resources — first query may take a few seconds.
-            </span>
-          </span>
-        ) : (
-          <span>Searching…</span>
-        )}
+        {pendingLabel}
       </div>
     )
   }
@@ -455,13 +555,30 @@ const SearchInput = forwardRef<
     autocomplete: Autocomplete
     autocompleteState: AutocompleteState<Result> | EmptyObject
     onClose: () => void
+    suggestion: string
   }
->(function SearchInput({ autocomplete, autocompleteState, onClose }, inputRef) {
+>(function SearchInput(
+  { autocomplete, autocompleteState, onClose, suggestion },
+  inputRef,
+) {
   let inputProps = autocomplete.getInputProps({ inputElement: null })
+  let query: string =
+    'query' in autocompleteState ? autocompleteState.query : ''
 
   return (
     <div className="group relative flex h-12">
       <SearchIcon className="pointer-events-none absolute top-0 left-4 h-full w-5 fill-slate-400 dark:fill-slate-500" />
+      {suggestion !== '' && query !== '' && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-3 left-12 flex items-center overflow-hidden whitespace-pre sm:text-sm"
+        >
+          <span className="invisible">{query}</span>
+          <span className="text-slate-400 dark:text-slate-500">
+            {suggestion}
+          </span>
+        </div>
+      )}
       <input
         ref={inputRef}
         data-autofocus
@@ -471,7 +588,24 @@ const SearchInput = forwardRef<
         )}
         {...inputProps}
         onKeyDown={(event) => {
+          // Enter mid-flight would submit/select against the stale
+          // collection and clear the query — wait for results instead.
+          if (
+            event.key === 'Enter' &&
+            (autocompleteState.status === 'loading' ||
+              autocompleteState.status === 'stalled')
+          ) {
+            event.preventDefault()
+            return
+          }
           if (event.key === 'Tab' && !event.shiftKey) {
+            if (suggestion !== '') {
+              // Tab accepts the ghost-text next word
+              event.preventDefault()
+              autocomplete.setQuery(query + suggestion)
+              autocomplete.refresh()
+              return
+            }
             const active = (event.currentTarget as HTMLElement)
               .closest('form')
               ?.querySelector<HTMLElement>('li[aria-selected="true"]')
@@ -542,12 +676,14 @@ function SearchDialog({
     (autocomplete: Autocomplete) => {
       tracking.reset()
       setOpen(false)
-      autocomplete.setQuery('')
+      // The query survives closes — reopening the dialog resumes the last
+      // search, and it only changes when the user types again.
     },
     [setOpen, tracking],
   )
 
-  let { autocomplete, autocompleteState, settleNow } = useAutocomplete({
+  let { autocomplete, autocompleteState, settleNow, suggestion } =
+    useAutocomplete({
     close() {
       close(autocomplete)
     },
@@ -599,6 +735,7 @@ function SearchDialog({
                   autocomplete={autocomplete}
                   autocompleteState={autocompleteState}
                   onClose={() => setOpen(false)}
+                  suggestion={suggestion}
                 />
                 <div
                   ref={panelRef}

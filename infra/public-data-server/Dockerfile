@@ -5,7 +5,7 @@
 # scripts/ and schema/). Deploy with:
 #   fly deploy -c infra/public-data-server/fly.toml \
 #              --dockerfile infra/public-data-server/Dockerfile
-FROM terminusdb/terminusdb-server:12.1-rc AS builder
+FROM terminusdb/terminusdb-server:v12.1.0-rc1 AS builder
 
 # Install Node.js for the seed script (tdb-example-mydb requires complex commit history)
 RUN apt-get update && \
@@ -34,7 +34,7 @@ RUN /app/terminusdb/build-bootstrap.sh
 ##############################################################################
 FROM ollama/ollama:latest AS ollama-src
 
-FROM terminusdb/terminusdb-server:12.1-rc
+FROM terminusdb/terminusdb-server:v12.1.0-rc1
 
 # Copy the fully provisioned storage from the builder stage
 COPY --from=builder /app/terminusdb/storage/ /app/terminusdb/storage/

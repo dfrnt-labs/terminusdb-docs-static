@@ -18,9 +18,9 @@ import {
 import { PoweredByTerminusDB } from '@/components/PoweredByTerminusDB'
 import { wakeDebug } from '@/components/Search'
 import { useSearchTracking } from '@/lib/useSearchTracking'
+import { useWakeHint } from '@/lib/useWakeHint'
 
 const PAGE_SIZE = 20
-const WAKE_HINT_DELAY_MS = 1400
 const QUERY_DEBOUNCE_MS = 300
 
 type Status = 'idle' | 'pending' | 'error'
@@ -76,23 +76,15 @@ export function SearchResultsPage() {
   const [preview, setPreview] = useState<SearchResult | null>(null)
   const [status, setStatus] = useState<Status>('idle')
   const [exhausted, setExhausted] = useState(false)
-  const [showWakeHint, setShowWakeHint] = useState(false)
   const [retryNonce, setRetryNonce] = useState(0)
   const retriedOnce = useRef(false)
   const tracking = useSearchTracking('results_page')
+  const wake = useWakeHint(status === 'pending' && results.length === 0)
 
   const runSearch = useCallback(
     (q: string, start: number, append: boolean) => {
       const controller = new AbortController()
-      const wakeTimer = setTimeout(
-        () => setShowWakeHint(true),
-        WAKE_HINT_DELAY_MS,
-      )
       setStatus('pending')
-      if (!append) {
-        setShowWakeHint(false)
-        setResults([])
-      }
 
       function attempt(): Promise<void> {
         return searchDocs({
@@ -153,7 +145,7 @@ export function SearchResultsPage() {
           })
       }
 
-      void attempt().finally(() => clearTimeout(wakeTimer))
+      void attempt()
       return controller
     },
     [tracking],
@@ -161,12 +153,14 @@ export function SearchResultsPage() {
 
   useEffect(() => {
     retriedOnce.current = false
-    setResults([])
-    setDescriptions({})
-    setAnchors({})
-    setPreview(null)
-    setExhausted(false)
+    // Stale results stay on screen until the new page lands — clearing
+    // here would blank the list on every keystroke's commit.
     if (!query) {
+      setResults([])
+      setDescriptions({})
+      setAnchors({})
+      setPreview(null)
+      setExhausted(false)
       tracking.reset()
       setStatus('idle')
       return
@@ -177,6 +171,18 @@ export function SearchResultsPage() {
 
   function loadMore() {
     runSearch(query, results.length, true)
+  }
+
+  let pendingLabel: React.ReactNode = <span>Searching…</span>
+  if (wake === 1) {
+    pendingLabel = <span>Thinking…</span>
+  } else if (wake === 2) {
+    pendingLabel = (
+      <span>
+        Thinking... scaling up from zero to save resources when not in use —
+        the first request can take a few seconds.
+      </span>
+    )
   }
 
   function resultHref(result: SearchResult) {
@@ -246,14 +252,7 @@ export function SearchResultsPage() {
                   d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
                 />
               </svg>
-              {showWakeHint ? (
-                <span>
-                  Dynamically scaling up from zero to save resources when not
-                  in use — the first request can take a few seconds.
-                </span>
-              ) : (
-                <span>Searching…</span>
-              )}
+              {pendingLabel}
             </div>
             {[0, 1, 2, 3].map((i) => (
               <div
@@ -296,7 +295,7 @@ export function SearchResultsPage() {
                   onClick={() => tracking.click(index + 1, resultHref(result))}
                   onMouseEnter={() => setPreview(result)}
                   onFocus={() => setPreview(result)}
-                  className="block rounded-lg border border-slate-200 px-4 py-3 transition-colors hover:border-sky-400 hover:bg-slate-50 dark:border-slate-700 dark:hover:border-sky-500 dark:hover:bg-slate-800/50"
+                  className="block rounded-lg border border-slate-200 px-4 py-3 transition-colors outline-hidden hover:border-sky-400 hover:bg-slate-50 focus-visible:border-sky-400 focus-visible:bg-slate-50 dark:border-slate-700 dark:hover:border-sky-500 dark:hover:bg-slate-800/50 dark:focus-visible:border-sky-500 dark:focus-visible:bg-slate-800/50"
                 >
                   <span className="flex items-baseline gap-3">
                     <span className="min-w-0 flex-1 text-sm font-medium text-sky-600 dark:text-sky-400">

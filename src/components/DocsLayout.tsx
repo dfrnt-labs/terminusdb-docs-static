@@ -89,8 +89,10 @@ export function DocsLayout({
 
   // Handle hash scroll on page load and hashchange events
   useEffect(() => {
-    // Handle hash scroll for initial load or direct navigation with hash
-    scrollToHashOnLoad()
+    // Hash links scroll to their section; plain navigations start at the
+    // top like a fresh page load.
+    if (window.location.hash) scrollToHashOnLoad()
+    else window.scrollTo(0, 0)
     
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1)
