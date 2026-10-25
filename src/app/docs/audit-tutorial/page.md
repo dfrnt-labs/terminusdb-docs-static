@@ -181,7 +181,7 @@ curl -s -u $AUTH -X POST "$SERVER/api/diff/admin/MyDatabase" \
 }
 ```
 
-This tells you the exact field that changed (`credit_limit`), what it was before (`50000`), and what it became (`100000`). The diff is structural — not a line-by-line text comparison.
+This tells you the exact field that changed (`credit_limit`), what it was before (`50000`), and what it became (`100000`). The diff is structural — not a line-by-line text comparison. To learn more about graph diffs, and how to apply a diff as a patch, see [Knowledge Graph Diff](/docs/knowledge-graph-diff/).
 
 ## Step 8 — Diff the tier upgrade
 

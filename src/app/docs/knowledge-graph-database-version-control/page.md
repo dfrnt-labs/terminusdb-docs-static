@@ -77,7 +77,7 @@ When two branches diverge, you reconcile them with a [merge](/docs/merge-howto/)
 
 ### Diff and patch
 
-A [diff](/docs/diff-and-patch-operations/) between two commits, branches, or documents produces a structured patch — a JSON description of which triples or document fields were inserted, deleted, or modified. You can apply that patch to another branch, send it over the wire, or store it as a record of intent. The full grammar is documented in the [**JSON diff and patch reference**](/docs/json-diff-and-patch/). You can even use the powerful json diff and patch engine on two submitted documents without storing the data in TerminusDB first.
+A [diff](/docs/diff-and-patch-operations/) between two commits, branches, or documents produces a structured patch — a JSON description of which triples or document fields were inserted, deleted, or modified. You can apply that patch to another branch, send it over the wire, or store it as a record of intent. The full grammar is documented in the [**JSON diff and patch reference**](/docs/json-diff-and-patch/). You can even use the powerful json diff and patch engine on two submitted documents without storing the data in TerminusDB first. For why graph diffs differ from text diffs, with a short example, see [**Knowledge graph diff**](/docs/knowledge-graph-diff/).
 
 **Like Git:** patches can be inspected, transported, and replayed.
 **Unlike Git:** patches are semantic JSON, not textual hunks, so they survive reformatting, renaming, and reordering without spurious conflicts.
