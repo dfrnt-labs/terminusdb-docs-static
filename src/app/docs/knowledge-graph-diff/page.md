@@ -179,7 +179,7 @@ A document diff may not be what you need if:
 
 - Your data is plain RDF files with no schema, and you only want to compare two files. A triple-level tool, such as `rdfdiff` in [Apache Jena](https://jena.apache.org/documentation/tools/), may fit better.
 - You only need to know *that* something changed, not *what*. Compare commit IDs instead.
-- You want to diff the results of SPARQL queries. TerminusDB does not support SPARQL. It uses WOQL and GraphQL.
+- You want the imperative RFC 6902 JavaScript Object Notation (JSON) file patch diff format
 
 ## Next steps
 
