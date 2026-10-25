@@ -121,7 +121,7 @@ Update order ORD-0002 to "shipped" on the branch:
 {% http-example method="PUT" path="/api/document/admin/ecommerce/local/branch/fulfillment?author=warehouse@example.com&message=Ship+order+ORD-0002" %}
 {"@id": "Order/ORD-0002", "@type": "Order", "order_id": "ORD-0002", "customer": "Customer/hana.tanaka@example.com", "order_date": "2024-03-19T03:10:07.294Z", "status": "shipped", "total": 5235.93}
 {% http-expected %}
-["terminusdb:///data/Order/ORD-0002"]
+["Order/ORD-0002"]
 {% /http-expected %}
 {% /http-example %}
 

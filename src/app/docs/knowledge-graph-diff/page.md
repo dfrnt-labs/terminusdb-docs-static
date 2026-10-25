@@ -97,7 +97,7 @@ Create a database, a schema and the first facts. Each write is a commit.
 [{"@id": "Organization/acme", "@type": "Organization", "name": "Acme"},
  {"@id": "Person/alice", "@type": "Person", "name": "Alice", "role": "Engineer", "worksFor": "Organization/acme"}]
 {% http-expected %}
-["terminusdb:///data/Organization/acme", "terminusdb:///data/Person/alice"]
+["Organization/acme", "Person/alice"]
 {% /http-expected %}
 {% /http-example %}
 
@@ -113,7 +113,7 @@ Create a database, a schema and the first facts. Each write is a commit.
 {% http-example method="PUT" path="/api/document/admin/MyDatabase/local/branch/update?author=alice@example.com&message=New+role+for+Alice" %}
 {"@id": "Person/alice", "@type": "Person", "name": "Alice", "role": "CTO", "worksFor": "Organization/acme"}
 {% http-expected %}
-["terminusdb:///data/Person/alice"]
+["Person/alice"]
 {% /http-expected %}
 {% /http-example %}
 
@@ -154,9 +154,12 @@ The diff output is also a patch. You can send it to the patch endpoint to make t
 {"patch": [{"@id":"Person/alice","role":{"@after":"CTO","@before":"Engineer","@op":"SwapValue"}}],
  "author": "alice@example.com",
  "message": "Apply role change from update"}
+{% http-expected %}
+["Person/alice"]
+{% /http-expected %}
 {% /http-example %}
 
-The call returns the IDs of the documents it changed. If the `@before` value does not match the document on the branch, the call fails with HTTP 409 and nothing is written. You can also remove entries from the patch before you send it, or add `Insert` and `Delete` operations. See the [Patch Endpoint](/docs/patch-endpoint/) page for the formats.
+The call returns the compressed IDs of the documents it changed. If the `@before` value does not match the document on the branch, the call fails with HTTP 409 and nothing is written. You can also remove entries from the patch before you send it, or add `Insert` and `Delete` operations. See the [Patch Endpoint](/docs/patch-endpoint/) page for the formats.
 
 To take all the changes from a branch at once, use a merge instead. The [merge how-to](/docs/merge-howto/) shows how, and how to handle conflicts.
 

@@ -119,7 +119,7 @@ Now change four fields to tell the Dark Side story and PUT the modified document
 {% http-example method="PUT" path="/api/document/admin/star-wars/local/branch/what-if?author=admin&message=What+if+Anakin+turned+to+the+Dark+Side" %}
 {"@id": "Person/Anakin%20Skywalker", "@type": "Person", "birth_year": "41.9BBY", "eye_color": "yellow", "faction": "Sith Order", "films": ["Film/Attack%20of%20the%20Clones", "Film/Revenge%20of%20the%20Sith", "Film/The%20Phantom%20Menace"], "gender": "male", "hair_color": "blond", "height": 188, "homeworld": "Planet/Tatooine", "mass": 120, "name": "Anakin Skywalker", "quote": "You underestimate my power!", "side": "Dark Side", "species": ["Species/Human"]}
 {% http-expected %}
-["terminusdb:///data/Person/Anakin%20Skywalker"]
+["Person/Anakin%20Skywalker"]
 {% /http-expected %}
 {% /http-example %}
 

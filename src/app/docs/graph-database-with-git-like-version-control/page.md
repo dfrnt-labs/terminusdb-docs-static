@@ -80,7 +80,7 @@ Three-way merge (`apply`, step 7) schema-checks the result. On a schemaless `raw
 {% http-example method="POST" path="/api/document/admin/MyDatabase?author=ops@example.com&message=Add+product" %}
 {"@id": "Product/SKU-001", "@type": "Product", "name": "Mechanical Keyboard", "price": 149.99, "stock": 42}
 {% http-expected %}
-["terminusdb:///data/Product/SKU-001"]
+["Product/SKU-001"]
 {% /http-expected %}
 {% /http-example %}
 
@@ -100,7 +100,7 @@ Each response carries a `TerminusDB-Data-Version` header with the resulting comm
 {% http-example method="PUT" path="/api/document/admin/MyDatabase/local/branch/reprice?author=ops@example.com&message=Reprice+SKU-001" %}
 {"@id": "Product/SKU-001", "@type": "Product", "name": "Mechanical Keyboard", "price": 179.99, "stock": 42}
 {% http-expected %}
-["terminusdb:///data/Product/SKU-001"]
+["Product/SKU-001"]
 {% /http-expected %}
 {% /http-example %}
 

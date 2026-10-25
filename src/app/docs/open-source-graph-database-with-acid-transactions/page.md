@@ -116,7 +116,7 @@ HTTP 404 — the database is exactly as it was before the batch. No partial stat
   {"@id": "Product/B", "@type": "Product", "name": "Gadget B", "price": 20, "stock": 2}
 ]
 {% http-expected %}
-["terminusdb:///data/Product/A","terminusdb:///data/Product/B"]
+["Product/A","Product/B"]
 {% /http-expected %}
 {% /http-example %}
 

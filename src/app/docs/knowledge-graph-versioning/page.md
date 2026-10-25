@@ -142,7 +142,7 @@ Create a database, add a schema with two linked classes, and add the first facts
 [{"@id": "Organization/acme", "@type": "Organization", "name": "Acme"},
  {"@id": "Person/alice", "@type": "Person", "name": "Alice", "role": "Engineer", "worksFor": "Organization/acme"}]
 {% http-expected %}
-["terminusdb:///data/Organization/acme", "terminusdb:///data/Person/alice"]
+["Organization/acme", "Person/alice"]
 {% /http-expected %}
 {% /http-example %}
 
@@ -164,7 +164,7 @@ Alice gets a new role. Only the `update` branch changes. `main` still says "Engi
 {% http-example method="PUT" path="/api/document/admin/MyDatabase/local/branch/update?author=alice@example.com&message=New+role+for+Alice" %}
 {"@id": "Person/alice", "@type": "Person", "name": "Alice", "role": "CTO", "worksFor": "Organization/acme"}
 {% http-expected %}
-["terminusdb:///data/Person/alice"]
+["Person/alice"]
 {% /http-expected %}
 {% /http-example %}
 

@@ -83,7 +83,7 @@ Every write is a commit. Add `author` and `message` query parameters to record w
 {% http-example method="POST" path="/api/document/admin/tdb-example-mydb/local/branch/main?author=alice@example.com&message=Add+initial+product+data" runnable=false %}
 {"@type": "Product", "name": "Widget", "price": 9.99}
 {% http-expected %}
-["terminusdb:///data/Product/Widget"]
+["Product/Widget"]
 {% /http-expected %}
 {% /http-example %}
 
@@ -102,7 +102,7 @@ Compare two branches to see exactly what changed — field-level structural diff
 {% http-example method="POST" path="/api/diff/admin/tdb-example-mydb" runnable=false %}
 {"before_data_version": "main", "after_data_version": "feature"}
 {% http-expected %}
-[{"@id": "terminusdb:///data/Product/Widget", "price": {"@op": "SwapValue", "@before": 9.99, "@after": 12.50}}]
+[{"@id": "Product/Widget", "price": {"@op": "SwapValue", "@before": 9.99, "@after": 12.50}}]
 {% /http-expected %}
 {% /http-example %}
 
@@ -176,9 +176,9 @@ Remove a branch. The commits remain in the database graph but this branch name n
 Apply a previously obtained diff to a document. Useful for conflict resolution or programmatic updates:
 
 {% http-example method="POST" path="/api/patch/admin/tdb-example-mydb/local/branch/main" runnable=false %}
-{"before": {"@id": "terminusdb:///data/Product/Widget", "@type": "Product", "name": "Widget", "price": 9.99}, "patch": {"price": {"@op": "SwapValue", "@before": 9.99, "@after": 14.99}}}
+{"patch": [{"@id": "Product/Widget", "price": {"@op": "SwapValue", "@before": 9.99, "@after": 14.99}}], "author": "alice@example.com", "message": "Apply price change"}
 {% http-expected %}
-{"@type":"api:PatchResponse","api:status":"api:success"}
+["Product/Widget"]
 {% /http-expected %}
 {% /http-example %}
 

@@ -76,7 +76,7 @@ Now insert a person:
 
 Expected output:
 ```json
-["terminusdb:///data/Person/jane"]
+["Person/jane"]
 ```
 
 ## Step 4 — Create a branch
@@ -102,7 +102,7 @@ Update Jane's email on the `feature` branch only:
 
 Expected output:
 ```json
-["terminusdb:///data/Person/jane"]
+["Person/jane"]
 ```
 
 The edit lives only on `feature`. The `main` branch still has the original email.
