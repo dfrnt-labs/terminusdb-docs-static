@@ -63,3 +63,5 @@ Which is really really nice and straightforward.
 My inner purist says that UUIDs are the go-to solution, but the content-aware stuff is a nice touch (if you absolutely know that you’re not gonna expand on an entity in the future).
 
 I personally avoid anything human-readable for entity/subject and attribute/property identifiers, as it only encourages bike shedding amongst ontologists/developers, about the naming of stuff (much better to have an arbitrary constant that everybody can name whatever they want in their codebase), and makes schema migrations harder (can’t reuse a human-readable name, while creating a new random ID is dirt cheap). But that’s just my personal taste and opinion.
+
+Stable IDs also make it much easier to compare and version a graph over time. See [RDF Versioning](/docs/rdf-versioning/) for the common approaches.

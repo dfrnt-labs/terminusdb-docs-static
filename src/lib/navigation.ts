@@ -240,6 +240,10 @@ export const navigation: Navigation[] = [
             href: '/docs/knowledge-graph-diff',
           },
           {
+            title: 'RDF Versioning',
+            href: '/docs/rdf-versioning',
+          },
+          {
             title: 'Versioned Graph Database',
             href: '/docs/graph-database-with-git-like-version-control',
           },

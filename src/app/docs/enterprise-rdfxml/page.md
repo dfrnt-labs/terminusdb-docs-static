@@ -184,4 +184,5 @@ RDF/XML is the right format choice when integrating with:
 - [Document Formats & Content Negotiation](/docs/enterprise-document-formats/) — how to select formats
 - [Turtle Support](/docs/enterprise-turtle/) — the compact, human-readable RDF counterpart
 - [JSON-LD Context Processing](/docs/enterprise-jsonld-context/) — the JSON-LD counterpart
+- [RDF Versioning](/docs/rdf-versioning/) — how to keep past versions of RDF data, and how TerminusDB does it with commits
 - [Multi-Format Document API Tutorial](/docs/document-format-api-curl-tutorial/) — hands-on round-trip walkthrough
