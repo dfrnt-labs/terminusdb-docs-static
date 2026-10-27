@@ -18,7 +18,7 @@ nextjs:
 media: []
 faq:
   - question: What is ontology versioning?
-    answer: It is a way to keep track of how an ontology or schema changes over time. Each version has a clear identity, and you can see what changed between two versions and which data was valid under which version.
+    answer: It is a way to keep track of how an ontology or schema changes over time. Each version has a clear identity, and you can see what changed between two versions and which data was valid under which version. Sometimes called slowly moving dimensions.
   - question: What is the difference between a breaking and a non-breaking schema change?
     answer: A non-breaking change (a weakening) cannot make existing data invalid, for example a new class or a new optional property. A breaking change (a strengthening) can make existing data invalid, for example a new required property or a narrower type, so the data must change too.
   - question: Should the ontology and the data be versioned together?
@@ -53,8 +53,8 @@ Early in a project the ontology changes fast, and there is often little data. La
 
 The most useful question about a schema change is: **can it make data that is valid today invalid?**
 
-- A **non-breaking** change, also called a **weakening**, cannot make existing data invalid. All the data stays valid, so it does not need to change.
-- A **breaking** change, also called a **strengthening**, can make existing data invalid. The data must change with it, or the change must be refused.
+- A **non-breaking** change, also called a **weakening**, cannot make existing data invalid. All the data stays valid, so it does not need to change. An example it to make a mandatory property optional.
+- A **breaking** change, also called a **strengthening**, can make existing data invalid. The data must change with it, or the change must be refused. An example is to make an optional property mandatory, or add a mandatory property. 
 
 | Change | Kind | What happens to existing data |
 |---|---|---|
@@ -70,6 +70,8 @@ The most useful question about a schema change is: **can it make data that is va
 Non-breaking changes are the easy path. If you can, add new terms and relax old rules instead of tightening them. Clients also help here: they should check that a field exists before they read it, and not depend on the exact shape of a record.
 
 Breaking changes are sometimes the right choice. Then you need a **migration**: a description of the change that also says what to do with the data, for example which default to use for a new required property.
+
+What can be done for breaking changes (strengthening) is to add a weakening operation first that enables the change first, then once all instances conform to the breaking change, apply the strengthened schema.
 
 ## Version the schema and the data together
 
@@ -92,7 +94,7 @@ You can change the schema in two ways:
 - **Update the schema documents directly.** This works well for non-breaking changes. TerminusDB can infer some changes when they do not affect the instance data.
 - **Use the migration endpoint**, `POST /api/migration/{path}`. You send an ordered list of operations, such as `CreateClass`, `MoveClass`, `ExpandEnum`, `CreateClassProperty`, `MoveClassProperty`, `UpcastClassProperty`, `CastClassProperty` or `DeleteClassProperty`. TerminusDB changes the schema and the data together in one commit, and stores the migration with that commit.
 
-Because the migration is stored with the commit, it can be replayed. You can make a change on one branch, then ask another branch to **target** that branch's schema. TerminusDB then runs the same operations on the other branch's data.
+Because the migration is stored with the commit, it can be replayed. You can make a change on one branch, then ask your branch to migrate to the **target** branch's schema (using the `/api/migration` API). TerminusDB then runs the same operations on your branch's data, as for the target's branch schema using the migrations.
 
 ## Change a class on a branch, migrate, check, merge
 
