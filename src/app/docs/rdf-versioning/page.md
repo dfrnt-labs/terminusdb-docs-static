@@ -26,8 +26,8 @@ faq:
     answer: Named graphs keep a full copy of the data for each version, so it is easy to query one version but it uses a lot of space. Changesets keep only the triples that were added and removed, so they are small, but you must apply them in order to see an old version.
   - question: Does TerminusDB support SPARQL?
     answer: No. TerminusDB stores RDF triples, but you query them with WOQL, a Datalog query language, or with GraphQL. If your tools need a SPARQL endpoint, TerminusDB is not a direct replacement.
-  - question: Can I import Turtle files into TerminusDB?
-    answer: Turtle and RDF/XML import and export are features of TerminusDB Enterprise. The open source edition reads and writes the same triples through the JSON document API and WOQL.
+  - question: Can I import and export Turtle files into TerminusDB?
+    answer: Turtle is an export format. Both Turtle document import and export, and RDF/XML import and export are features of TerminusDB Enterprise. The open source edition reads and writes the same triples through the JSON document API and WOQL.
 ---
 
 **RDF versioning** means that you keep the past versions of an RDF graph, so you can see what the data was at a point in time and what changed between two points. RDF itself has no built-in way to do this. Teams add versioning with modelling patterns, with change logs, or with a store that versions the triples for them.
@@ -200,13 +200,13 @@ When you are done, delete the demo database:
 
 ## Where TerminusDB differs from a SPARQL triple store
 
-TerminusDB stores RDF triples and uses IRIs, but it is not a SPARQL triple store. Some differences matter if you come from the semantic web:
+TerminusDB stores RDF triples and uses IRIs in its triple store, but it has no SPARQL endpoint (yet). Some differences matter if you come from the semantic web:
 
-- **No SPARQL.** TerminusDB does not support SPARQL. You query with [WOQL](/docs/woql-basics/), a Datalog query language, or with GraphQL. If your tools need a SPARQL endpoint, TerminusDB is not a direct replacement.
+- **No SPARQL.** TerminusDB does not support SPARQL yet. You query with GraphQL, [WOQL](/docs/woql-basics/), a Datalog query language, or with the document interface. If your tools need a SPARQL endpoint, TerminusDB is not a direct replacement (yet).
 - **Schema first, closed world.** Writes are checked against a schema, and a write that does not match the schema fails. Most SPARQL stores accept any triple and use open-world semantics.
-- **Documents on top of triples.** You usually write JSON documents, and TerminusDB stores them as triples. You can also read and write single triples with WOQL.
+- **Documents on top of triples.** You usually write JSON or JSON-LD documents, and TerminusDB stores them as triples. You can also read and write single triples with WOQL.
 - **Versioning is built in.** You do not need a named graph per version or timestamps on each statement. Each branch has its own history of commits.
-- **RDF formats.** Turtle and RDF/XML import and export, and JSON-LD `@context` processing, are in TerminusDB Enterprise. The open source edition uses its own JSON document format.
+- **RDF formats.** Turtle and RDF/XML import and export, and JSON-LD `@context` processing, are in TerminusDB Enterprise. The open source edition uses a JSON-LD-like document format.
 
 For a longer comparison, see [TerminusDB Explanation](/docs/terminusdb-explanation/).
 
