@@ -4,20 +4,31 @@ tags:
   - knowledge-graph
   - schema
   - beginner
-title: The Open Source Knowledge Graph Database
+title: What is a Knowledge Graph Database?
 nextjs:
   metadata:
-    title: The Open Source Knowledge Graph Database
-    description: What a knowledge graph database is, and how TerminusDB does it as open source - RDF triples, a closed world schema, immutable history and ACID.
-    keywords: open source knowledge graph database, knowledge graph database, NoSQL graph database, RDF database, closed world assumption, open world assumption, immutable database, ACID transactions, triple store, knowledge graph database, subdocument, shared document, cascading delete, schema-enforced graph, JSON-LD database, terminusdb
+    title: What is a Knowledge Graph Database? Open Source, Version Controlled
+    description: What is a knowledge graph database? A plain answer, how it differs from a graph database, and how TerminusDB adds a schema, ACID and version control.
+    keywords: what is a knowledge graph database, knowledge graph vs graph database, open source knowledge graph database, knowledge graph database, NoSQL graph database, RDF database, closed world assumption, open world assumption, immutable database, ACID transactions, triple store, knowledge graph database, subdocument, shared document, cascading delete, schema-enforced graph, JSON-LD database, terminusdb
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
       canonical: https://terminusdb.com/docs/knowledge-graph-database/
 media: []
+faq:
+  - question: What is a knowledge graph database?
+    answer: It is a database that stores facts as a graph of entities and relationships, and uses a schema to keep those facts consistent. The graph holds the data. The schema holds the meaning.
+  - question: What is the difference between a knowledge graph and a graph database?
+    answer: A knowledge graph is the model, the meaning of your data and how things relate. A graph database is the engine that stores nodes and edges. A knowledge graph database gives you both in one system.
+  - question: Is TerminusDB a knowledge graph database?
+    answer: Yes. TerminusDB is an open source knowledge graph database. It stores documents as RDF triples, checks every write against a closed world schema, and keeps an immutable commit history with git-like version control.
+  - question: How is a knowledge graph database different from a relational database?
+    answer: A relational database splits a record over tables and joins them back together at query time. A knowledge graph database stores the links themselves, so you follow relationships directly instead of writing joins.
 ---
 
-A knowledge graph database stores facts as a connected graph and keeps them consistent with a schema. This page explains the idea in general, and how TerminusDB does it.
+A **knowledge graph database** stores facts as a connected graph of entities and relationships, and uses a schema to keep those facts consistent. The graph holds the data; the schema holds the meaning. TerminusDB is an open source knowledge graph database that adds ACID transactions and git-like version control, so you can branch, diff and roll back a graph.
+
+This page explains the idea in general, and how TerminusDB does it.
 
 TerminusDB is an **open source knowledge graph database**: a NoSQL graph database that stores JSON and JSON-LD documents as [RDF triples](/docs/graphs-explanation/), enforces a schema over those triples, and gives every change an [immutable](/docs/immutability-explanation/), [ACID-transactional](/docs/acid-transactions-explanation/) history. It is designed for the case that traditional triple stores and traditional databases each leave open — storing **complex, consistent, version-controlled information records** at graph scale.
 
@@ -35,7 +46,27 @@ A **knowledge graph database** is a graph database that does three things at the
 
 That third property is what separates a knowledge graph database from a pure triple store, and what makes it usable as a system of record rather than only a search index.
 
-Traditionally, a Knowledge Graph was distinct from a Graph Database. With TerminusDB, you get both an RDF Knowledge Graph, and a Graph Database, all in one. With [ACID transactions](/docs/acid-transactions-explanation/) and [full version control](/docs/knowledge-graph-database-version-control/).
+### Nodes, edges and properties in TerminusDB
+
+Most explanations of knowledge graphs talk about nodes, edges and properties. In TerminusDB they map like this:
+
+- **Nodes** are documents. Each document has an ID and belongs to a class in the schema.
+- **Edges** are triples that link one document to another, for example `Order --shipsTo--> Address`.
+- **Properties** are triples that link a document to a value, such as a string, a number or a date.
+- **The ontology** is the schema. It says which classes exist, which properties each class has, and what type each property must be.
+
+You read and write whole documents as JSON, and TerminusDB stores them as triples. See [The Document Model](/docs/documents-explanation/) for how the mapping works.
+
+## Knowledge graph vs graph database
+
+The two terms are often used as if they mean the same thing. They do not:
+
+- A **knowledge graph** is the *model*: the meaning of your data, the kinds of things that exist, and how they relate. It is usually described with an ontology or a schema.
+- A **graph database** is the *engine*: software that stores nodes, edges and properties, and lets you traverse them quickly.
+
+Traditionally you had to pick one side. RDF triple stores are built around the model: they speak the language of meaning and ontologies, but many of them work under the open world assumption and give weaker guarantees about whether the data is complete and consistent. Property graph databases, such as Neo4j and TigerGraph, are built around the engine: they store and traverse nodes and edges well. Some of them let you declare node and edge types, but they do not usually hold an ontology-level model of what the data means, so that model often lives in the application.
+
+TerminusDB tries to give you both in one system: a **closed world schema over RDF triples**, inside a database with [ACID transactions](/docs/acid-transactions-explanation/) and [full version control](/docs/knowledge-graph-database-version-control/). For a side-by-side comparison with a property graph database, see [TerminusDB vs Neo4j](/docs/terminusdb-vs-neo4j/).
 
 ## The two ends of the spectrum it sits between
 
@@ -82,6 +113,12 @@ In a knowledge graph database, a **document is not confined to one frame**. A do
 
 The frame describes the *shape* of one slice; the document is the *whole structure* that spans many frames.
 
+### Relational JOINs vs graph traversal
+
+In a relational database, the link between two records is a foreign key, and the query rebuilds the relationship with a JOIN every time it runs. Questions that cross many tables, or that follow a chain of links of unknown length, need many JOINs or recursive queries.
+
+In a knowledge graph database, the link is stored as an edge. A query follows edges from one entity to the next, so a question like "which suppliers are two or three steps away from this product" is a traversal, not a stack of JOINs. In TerminusDB you can write these as [path queries in WOQL](/docs/path-queries-in-woql/) or [path queries in GraphQL](/docs/path-queries-in-graphql/).
+
 That is what `@subdocument` and `@shared` are for. They tell the database which of those cross-frame links are part of a single document's lifecycle and which point out to independently-living entities. The frames stay clean and reusable, the documents stay whole, and the joins that you would have written in SQL are already implicit in the graph.
 
 ## The class system
@@ -123,6 +160,24 @@ The triples that compose one record share that record's fate (`@subdocument`); t
 Either way, the database — not your application code — is the thing that keeps the graph free of orphans. That is what we mean by a knowledge graph database where **triples share a lifecycle**.
 
 For a deeper comparison of the document shapes available, see [**Document Types Compared**](/docs/document-types-comparison/).
+
+## How to build a knowledge graph database well
+
+If you are choosing or designing a knowledge graph database, these are the parts that make it work as a system of record and not only as a search index. Each one links to the page that explains how TerminusDB does it.
+
+1. **Store facts as RDF triples.** Triples are a simple, standard way to express any fact as subject, predicate and object. See [Graphs explained](/docs/graphs-explanation/).
+2. **Enforce a schema over the triples.** Every write is checked against the schema, and a write that does not match the schema is rejected. See the [Schema Reference](/docs/schema-reference-guide/).
+3. **Use ACID transactions.** Each commit is atomic, consistent, isolated and durable, so a change is either fully applied or not applied at all. See [ACID Transactions](/docs/acid-transactions-explanation/).
+4. **Keep an immutable commit history.** Each commit adds new data and keeps the old state, so you can audit who changed what, [diff two versions](/docs/knowledge-graph-diff/), and [query or return to an earlier state](/docs/time-travel/). See [Immutability](/docs/immutability-explanation/).
+5. **Put documents on top.** People and applications work with JSON and [JSON-LD](/docs/enterprise-jsonld-context/) documents, not with single triples. See the [Documents API](/docs/http-documents-api/).
+
+## Common use cases
+
+A knowledge graph database is a good fit when the links between things matter as much as the things, and when you need to trust and trace the data. Some examples:
+
+- **Memory for AI agents and GraphRAG-style retrieval.** Give each agent run its own branch, review the changes as a diff, and merge what is correct. See [A Knowledge Graph for AI Agents](/docs/knowledge-graph-for-ai-agents/).
+- **Compliance and audit.** Use the commit log to see who changed what and when, and to compare any two versions. See the [Audit Data Changes tutorial](/docs/audit-tutorial/).
+- **Complex, linked records.** Contracts, orders, products and other records with many parts and cross-references, modelled with `@subdocument` and `@shared` as described above.
 
 ## What this combination gives you
 
