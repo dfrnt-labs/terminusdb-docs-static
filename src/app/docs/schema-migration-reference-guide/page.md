@@ -160,6 +160,8 @@ TerminusDB can _infer_ some migrations silently when they do not impact instance
 
 The worked example above demonstrates both: `CreateClassProperty` with a default is a strengthening (it modifies instance data), while adding an `Optional` property would be a weakening.
 
+For a step-by-step example of changing a class on a branch and then targeting that schema from `main`, plus a pattern for deprecating classes and properties, see [Ontology Versioning](/docs/ontology-versioning/).
+
 ---
 
 ## Schema migration operations
