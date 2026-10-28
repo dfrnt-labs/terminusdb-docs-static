@@ -189,6 +189,21 @@ Returns:
 {% /code-tab %}
 {% /code-tabs %}
 
+## Counting documents
+
+*Available as of the 12.1 release candidates.* Pass `counted=true` on the document listing endpoint to get the number of documents the listing would yield, without streaming them. The count includes subclasses when restricted by `type`, and follows the listing rules for subdocuments.
+
+```bash
+curl -u admin:root \
+  "http://localhost:6363/api/document/admin/tdb-example-mydb/local/branch/main?type=Player&counted=true"
+```
+
+```json
+{ "@type": "api:DocumentCountResponse", "api:count": 2 }
+```
+
+`counted` cannot be combined with `id`, `ids` or `query`; the server answers `api:CountedNotSupportedForSelector`.
+
 ## Next steps
 
 You've retrieved documents from TerminusDB. Next, you might want to:
