@@ -107,4 +107,4 @@ No data migration is needed. [Docker install guide](/docs/install-terminusdb-as-
 
 ---
 
-**Previous:** [TerminusDB 12.0.7: Resolve Merge Conflicts with Insert and Delete Patches](/docs/releases/12-0-7-insert-delete-patches-folded-diffs/) · **All 12.0 releases:** [TerminusDB 12.0 changelog](/docs/releases/12-0-changelog/) · [Release index](/docs/releases/)
+**Previous:** [TerminusDB 12.0.7: Resolve Merge Conflicts with Insert and Delete Patches](/docs/releases/12-0-7-insert-delete-patches-folded-diffs/) · **Next:** [TerminusDB 12.0.9: Security Fixes and Patch for Raw JSON Documents](/docs/releases/12-0-9-security-fixes-raw-json-patch/) · [TerminusDB 12.0 changelog](/docs/releases/12-0-changelog/) · [Release index](/docs/releases/)
