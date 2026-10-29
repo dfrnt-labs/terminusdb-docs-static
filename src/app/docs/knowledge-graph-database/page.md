@@ -170,6 +170,7 @@ If you are choosing or designing a knowledge graph database, these are the parts
 3. **Use ACID transactions.** Each commit is atomic, consistent, isolated and durable, so a change is either fully applied or not applied at all. See [ACID Transactions](/docs/acid-transactions-explanation/).
 4. **Keep an immutable commit history.** Each commit adds new data and keeps the old state, so you can audit who changed what, [diff two versions](/docs/knowledge-graph-diff/), and [query or return to an earlier state](/docs/time-travel/). See [Immutability](/docs/immutability-explanation/).
 5. **Put documents on top.** People and applications work with JSON and [JSON-LD](/docs/enterprise-jsonld-context/) documents, not with single triples. See the [Documents API](/docs/http-documents-api/).
+6. **No object-relational mapper (ORM) needed.** With a model-based document database, you do not need an ORM. You store the data in the shape of the work, not in the shape that tables need. See [How to Model Schema](/docs/model-schema/).
 
 ## Common use cases
 
