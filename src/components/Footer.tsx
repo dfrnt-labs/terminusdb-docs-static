@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { TrackedLink } from '@/components/TrackedLink'
 import { CtaLink } from '@/components/CtaLink'
+import { CookieSettingsButton } from '@/components/ConsentBanner'
 
 // Footer link configuration - easily maintainable
 const footerLinks = {
@@ -137,6 +138,9 @@ export function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <CookieSettingsButton className="cursor-pointer text-sm text-slate-600 transition-colors hover:text-sky-600 dark:text-slate-400 dark:hover:text-sky-400" />
+              </li>
             </ul>
           </div>
         </div>

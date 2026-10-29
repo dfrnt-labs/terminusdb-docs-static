@@ -34,7 +34,7 @@
     "lint:no-org": "node scripts/no-terminusdb-org-lint.mjs",
     "test:coverage": "node scripts/docs-example-tests/coverage-audit.mjs",
     "test:browser": "npx playwright test --config scripts/docs-example-tests/playwright.config.mjs",
-    "test:all": "npm run test:headings && npm run test:nav && npm run test:inline-annotations && npm run test:links && npm run test:branding && npm run test:stubs && npm run test:tags && npm run test:orphan-examples && npm run test:domain && npm run lint:no-org && npm run test:git-dates && npm run test:search-analytics && npm run test:http-examples",
+    "test:all": "npm run test:headings && npm run test:nav && npm run test:inline-annotations && npm run test:links && npm run test:branding && npm run test:stubs && npm run test:tags && npm run test:orphan-examples && npm run test:domain && npm run lint:no-org && npm run test:git-dates && npm run test:search-analytics && npm run test:consent && npm run test:http-examples",
     "test:integration": "npm run test:http-examples && npm run test:vectorlink-examples && npm run test:intent-assertions && npm run test:browser && node scripts/docs-example-tests/coverage-audit.mjs --ci",
     "sync:releases": "node scripts/sync-releases.mjs",
     "test:releases": "node scripts/check-release-pages.mjs",
@@ -43,6 +43,7 @@
     "test:load-docs": "node --test scripts/load-docs-to-terminusdb.test.mjs",
     "test:search": "node --test src/lib/terminusdb-search.unit.test.mjs",
     "test:search-analytics": "node --test src/lib/search-analytics.unit.test.mjs",
+    "test:consent": "node --test src/lib/consent.unit.test.mjs",
     "pr": "npm run lint && npx tsc --noEmit && npm run test:all"
   },
   "browser": {
