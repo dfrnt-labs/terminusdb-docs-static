@@ -9,7 +9,7 @@ export function PlausibleAnalytics() {
         id="plausible"
         strategy="lazyOnload"
         async
-        src="https://plausible.io/js/pa-ojoww3OWgX-RglSr-rKxC.js"
+        src="/tdbx/s.js"
       ></Script>
       <Script 
         id="plausible-init"
@@ -18,7 +18,7 @@ export function PlausibleAnalytics() {
             window.plausible=window.plausible||function()
             {((plausible).q = plausible.q || []).push(arguments)}
             ,plausible.init=plausible.init||function(i){(plausible.o = i || {})};
-            plausible.init()
+            plausible.init({ endpoint: "/tdbx/e" })
           `
         }}
       />
