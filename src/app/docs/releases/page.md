@@ -19,6 +19,7 @@ Release notes for every open-source TerminusDB release, newest first. Releases w
 
 ## [TerminusDB 12.0](/docs/releases/12-0-changelog/)
 
+- {% gh href="https://github.com/terminusdb/terminusdb/releases/tag/v12.0.9" /%} {% tnum %}2026-10-28{% /tnum %} ([v12.0.9](https://github.com/terminusdb/terminusdb/releases/tag/v12.0.9)): [Security Fixes and Patch for Raw JSON Documents](/docs/releases/12-0-9-security-fixes-raw-json-patch/)
 - {% gh href="https://github.com/terminusdb/terminusdb/releases/tag/v12.0.8" /%} {% tnum %}2026-10-12{% /tnum %} ([v12.0.8](https://github.com/terminusdb/terminusdb/releases/tag/v12.0.8)): [UUID v7 Keys and 4.6× Faster Raw JSON Loading](/docs/releases/12-0-8-uuid-v7-faster-json-loading/)
 - {% gh href="https://github.com/terminusdb/terminusdb/releases/tag/v12.0.7" /%} {% tnum %}2026-08-10{% /tnum %} ([v12.0.7](https://github.com/terminusdb/terminusdb/releases/tag/v12.0.7)): [Resolve Merge Conflicts with Insert and Delete Patches](/docs/releases/12-0-7-insert-delete-patches-folded-diffs/)
 - {% gh href="https://github.com/terminusdb/terminusdb/releases/tag/v12.0.6" /%} {% tnum %}2026-06-24{% /tnum %} ([v12.0.6](https://github.com/terminusdb/terminusdb/releases/tag/v12.0.6)): [Shared Documents and Handlebars Text Rendering](/docs/releases/12-0-6-shared-documents-cascade-delete/)
