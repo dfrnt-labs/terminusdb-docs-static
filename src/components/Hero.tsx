@@ -73,7 +73,7 @@ export function Hero() {
                   href="https://bookings.gettier.ai/discovery"
                   event="contact_cta"
                   eventProps={{ placement: 'hero', intent: 'enterprise' }}
-                  className={buttonClass('secondary-outline', 'lg', 'inline-flex items-center')}
+                  className={buttonClass('outline-on-dark', 'lg', 'inline-flex items-center')}
                 >
                   Talk to sales
                 </TrackedLink>

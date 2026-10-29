@@ -10,6 +10,8 @@ const variantStyles = {
     'cursor-pointer rounded-lg bg-white text-black font-bold shadow-sm ring-1 ring-slate-900/10 hover:bg-slate-50 hover:shadow-md active:bg-slate-100 focus:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 transition-all dark:bg-white dark:text-black dark:hover:bg-slate-100',
   'secondary-outline':
     'cursor-pointer rounded-lg border border-slate-700/20 bg-transparent text-slate-700 font-semibold hover:border-slate-900/30 hover:bg-slate-900/5 active:bg-slate-900/10 focus:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700 transition-all dark:border-slate-400/30 dark:text-slate-300 dark:hover:border-slate-300/50 dark:hover:bg-white/5',
+  'outline-on-dark':
+    'cursor-pointer rounded-lg border border-white/50 bg-transparent text-white font-semibold hover:border-white/80 hover:bg-white/10 active:bg-white/15 focus:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-all',
 }
 
 const sizeStyles = {
