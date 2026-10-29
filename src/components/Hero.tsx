@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { Highlight } from 'prism-react-renderer'
 
 import { Button, buttonClass } from '@/components/Button'
-import { CtaLink } from '@/components/CtaLink'
+import { TrackedLink } from '@/components/TrackedLink'
 import { FreshnessIndicator } from '@/components/FreshnessIndicator'
 import { HeroBackground } from '@/components/HeroBackground'
 import { countPagesUpdatedThisMonth } from '@/lib/freshnessCount'
@@ -69,12 +69,14 @@ export function Hero() {
                   >
                   Get Started
                 </Button>
-                <CtaLink
-                  href="/docs/cloud"
-                  className={buttonClass('secondary-outline', 'lg', 'inline-flex items-center')}
+                <TrackedLink
+                  href="https://bookings.gettier.ai/discovery"
+                  event="contact_cta"
+                  eventProps={{ placement: 'hero', intent: 'enterprise' }}
+                  className={buttonClass('outline-on-dark', 'lg', 'inline-flex items-center')}
                 >
-                  Try TerminusDB Cloud
-                </CtaLink>
+                  Talk to sales
+                </TrackedLink>
               </div>
               <FreshnessIndicator
                 count={freshnessCount}
