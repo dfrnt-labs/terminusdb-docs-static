@@ -222,6 +222,10 @@ export const navigation: Navigation[] = [
             title: 'Schema Weakening',
             href: '/docs/what-is-schema-weakening',
           },
+          {
+            title: 'IRIs, Prefixes & Minting',
+            href: '/docs/iris-prefixes-and-minting',
+          },
         ],
       },
       {
