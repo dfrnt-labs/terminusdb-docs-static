@@ -50,7 +50,7 @@ Migrations follow the same rule. A migration that moved data in compressed space
 
 Once an IRI is minted it is immutable — even across class changes, property moves, or context swaps. A document minted as `terminusdb:///data/F/1` stays there forever; it does not chase its class through renames, and it does not rebase when `@base` changes.
 
-This is deliberate. Links point at IRIs, not at names — a document referenced from three other documents, a branch history, and an external system cannot be renamed without breaking all of them. Since several classes may share one `@base`, an IRI under a base does not even prove which class minted it. The only safe rewrite is no rewrite: new identifiers go to the new place, old identifiers stay valid.
+This is deliberate. Links point at IRIs, not at names — a document referenced from three other documents, a branch history, and an external system cannot be renamed without breaking all of them. Since several classes may share one `@base`, an IRI under a base does not even prove which class minted it. The only safe rewrite is no rewrite: new identifiers go to the new place, old identifiers stay valid. The one explicit exception is `RebaseIRIPrefix`, covered below.
 
 ## How new IRIs are minted (created)
 
@@ -66,6 +66,26 @@ A class can also carry its own `@base`, which replaces the context `@base` for t
 Given the model above, `ReplaceContext` is a small, precise operation: it swaps the context document's `@base`/`@schema` values. That changes where *future* identifiers mint and how IRIs compress on output — and nothing else. No class IRI moves, no document IRI moves, no stored reference breaks.
 
 The tempting alternative — "rewrite everything to the new prefix" — is the compressed-space mistake at database scale: it assumes every stored IRI under a prefix *means* that prefix, which is exactly backwards. A real prefix rebase, when one is truly wanted, is an explicit operation of its own — destructive, deliberate, and never implied by a context change.
+
+## RebaseIRIPrefix: the opt-in escape hatch (since 12.1.0-rc2)
+
+Sometimes a namespace genuinely has to move — a project outgrows `terminusdb:///schema#`, an organization adopts its own canonical prefix, or data arrives minted under a prefix that conflicts with yours. Since **12.1.0-rc2**, that is what `RebaseIRIPrefix` is for:
+
+```typescript
+{ "@type" : "RebaseIRIPrefix",
+  "from" : "terminusdb:///schema#",
+  "to" : "http://example.com/schema#" }
+```
+
+The operation rewrites every stored IRI that starts with `from` so it starts with `to` — subjects, predicates and objects across the instance, schema and inference graphs, in one atomic transaction. Class identifiers, `@inherits` and `@oneOf` references, enum member nodes, `rdf:type` assertions, property predicates and links all move together, so nothing is left pointing at the old namespace. `from` and `to` may be full IRI prefixes or names of prefixes declared in the context.
+
+Three properties make it safe to have at all:
+
+- **It is opt-in.** The request fails with `api:DestructiveMigrationRequiresOptIn` unless `allow_destructive_migration` is set to `true` — there is no accidental rebase. `from` equal to `to` is rejected up front as `api:RebasePrefixUnchanged`.
+- **It operates on expanded IRIs.** Matching happens on the stored form, never on compressed names, so the current context cannot skew what gets rewritten.
+- **It leaves literals alone.** A stored string or saved query mentioning the old prefix is data, not vocabulary — only IRI positions move. Document IRIs under `@base` likewise stay put unless the data prefix itself is the one being rebased.
+
+Pair it with `ReplaceContext` when the minting prefixes should change to match: the rebase already carries the context's own `@schema`/`@base` declarations and each class's `@base`, so new identifiers mint under the new namespace and compress again.
 
 ## A worked example
 
@@ -90,6 +110,6 @@ expand them and the behavior falls out of the model.
 | `@base` | Minting + compression prefix for instance IRIs (per-class overridable) |
 | Compressed name | Presentation — valid only relative to the current context |
 | `ReplaceContext` | Swaps the context; steers future mints; touches nothing stored |
-| Prefix rebase | Explicit destructive op — never a side-effect of context change |
+| `RebaseIRIPrefix` | Explicit opt-in prefix rebase (12.1.0-rc2+) — never a side-effect of context change |
 
 Keep the two layers separate in your head and most migration questions answer themselves: identities live in the graph and never move, prefixes live in the context and are free to change. When in doubt: expand, operate, contract.
