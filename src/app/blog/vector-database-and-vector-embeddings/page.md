@@ -5,7 +5,7 @@ nextjs:
   metadata:
     title: "Building a Vector Database to Make Use of Vector Embeddings"
     description: "An article describing how we built a vector database to make use of vector embeddings for semantic indexing & entity resolution using OpenAI."
-    keywords: vector database, vector embeddings, Rust, HNSW, semantic indexing, entity resolution, VectorLink
+    keywords: vector database, open source vector database, vector embeddings, Rust, HNSW, semantic indexing, entity resolution, VectorLink
     alternates:
       canonical: https://terminusdb.com/blog/vector-database-and-vector-embeddings/
     openGraph:
@@ -18,6 +18,12 @@ media: []
 > Author: Gavin Mendel-Gleason
 
 ![vectors](/images/blog/vector-database-and-vector-embeddings/vectors.png)
+
+{% callout type="note" title="This post is from 2023" %}
+VectorLink has grown since we wrote this post. Today it gives you versioned, hybrid search over your TerminusDB data, with an index snapshot for each commit. To try it, see [Versioned Search](/docs/versioned-search/), the [Versioned Search quickstart](/docs/versioned-search-quickstart/) or [Set up VectorLink](/docs/set-up-vectorlink/). The current code is at [terminusdb-org/vectorlink](https://github.com/terminusdb-org/vectorlink).
+
+Using Python? The quickstart uses plain HTTP endpoints, so you can send the same requests from Python with any HTTP library. For the database side, see the [Python client docs](/docs/python/).
+{% /callout %}
 
 Vector databases are currently all the rage these days in the tech
 world, and it isn't just hype. Vector search has become ever more
@@ -274,5 +280,5 @@ forgive us a bit for the relatively sparse error handling. We're
 working furiously on it!
 
 {% callout title="Ready to try it?" %}
-**[Start the quickstart →](/docs/get-started/)** — branch, diff, and merge a database in 10 minutes. Requires only Docker. Or browse [more posts on the blog](/blog/).
+**[Start the quickstart →](/docs/get-started/)** — branch, diff, and merge a database in 10 minutes. Requires only Docker. For vector search, try the [Versioned Search quickstart](/docs/versioned-search-quickstart/). Or browse [more posts on the blog](/blog/).
 {% /callout %}
