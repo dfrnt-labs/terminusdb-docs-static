@@ -1,0 +1,222 @@
+# Weekly docs quality checks.
+#
+# Runs the repo's own quality scripts (the ones in `npm run test:all`),
+# checks external links in the docs with lychee, and checks that every
+# URL in the live sitemap answers with HTTP 200.
+#
+# All checks run, even if one fails. The last step keeps ONE open issue
+# called "Weekly docs quality report" up to date: it opens or updates the
+# issue when something fails, and closes it when everything passes.
+name: Weekly docs quality
+
+on:
+  schedule:
+    # Mondays at 05:00 UTC
+    - cron: '0 5 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: weekly-quality
+  cancel-in-progress: false
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Same as build.yml: full history for the git-date scripts.
+          fetch-depth: 0
+
+      - name: Install dependencies
+        id: install
+        continue-on-error: true
+        # Same install as build.yml (runner default Node, bun via npx).
+        run: |
+          mkdir -p reports
+          npx bun install
+
+      - name: Repo quality scripts (each script from test:all)
+        id: scripts
+        continue-on-error: true
+        run: |
+          mkdir -p reports/logs
+          # Read the list from package.json so this stays in sync with test:all.
+          scripts=$(node -e "console.log(require('./package.json').scripts['test:all'].split('&&').map(s => s.trim().replace(/^npm run /, '')).join(' '))")
+          failed=0
+          {
+            echo "## Repo quality scripts (test:all)"
+            echo
+          } > reports/scripts.md
+          for s in $scripts; do
+            log="reports/logs/${s//:/-}.log"
+            if npm run -s "$s" > "$log" 2>&1; then
+              echo "- ✅ \`$s\`" >> reports/scripts.md
+            else
+              failed=1
+              echo "- ❌ \`$s\` (exit $?)" >> reports/scripts.md
+            fi
+          done
+          # Add the last lines of each failing log.
+          for s in $scripts; do
+            log="reports/logs/${s//:/-}.log"
+            if grep -q "❌ \`$s\`" reports/scripts.md; then
+              {
+                echo
+                echo "<details><summary>$s output (last 60 lines)</summary>"
+                echo
+                echo '```'
+                tail -n 60 "$log"
+                echo '```'
+                echo "</details>"
+              } >> reports/scripts.md
+            fi
+          done
+          cat reports/scripts.md
+          exit $failed
+
+      - name: Restore lychee cache
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: lychee-${{ github.run_id }}
+          restore-keys: lychee-
+
+      - name: External link check (lychee)
+        id: lychee
+        continue-on-error: true
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # Only http(s) links. Internal /docs/ links are covered by test:links.
+          args: >-
+            --no-progress
+            --cache --max-cache-age 1d
+            --scheme https --scheme http
+            --accept '200..=299,429'
+            --exclude 'localhost'
+            --exclude '127\.0\.0\.1'
+            --exclude 'example\.com'
+            --exclude 'linkedin\.com'
+            --max-concurrency 8
+            --timeout 30
+            --max-retries 2
+            './src/app/**/*.md'
+          format: markdown
+          output: reports/lychee.md
+          fail: true
+          jobSummary: false
+
+      - name: Live sitemap check
+        id: sitemap
+        continue-on-error: true
+        env:
+          SITEMAP_URL: https://terminusdb.com/sitemap.xml
+          REPORT: reports/sitemap.md
+          PARALLEL: '4'
+          DELAY: '0.2'
+        run: bash scripts/check-live-sitemap.sh
+
+      - name: Update the weekly report issue
+        if: always()
+        uses: actions/github-script@v7
+        env:
+          INSTALL: ${{ steps.install.outcome }}
+          SCRIPTS: ${{ steps.scripts.outcome }}
+          LYCHEE: ${{ steps.lychee.outcome }}
+          SITEMAP: ${{ steps.sitemap.outcome }}
+        with:
+          script: |
+            const fs = require('fs');
+            const TITLE = 'Weekly docs quality report';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const checks = [
+              { name: 'Install dependencies', outcome: process.env.INSTALL, file: null },
+              { name: 'Repo quality scripts (test:all)', outcome: process.env.SCRIPTS, file: 'reports/scripts.md' },
+              { name: 'External links (lychee)', outcome: process.env.LYCHEE, file: 'reports/lychee.md' },
+              { name: 'Live sitemap URLs', outcome: process.env.SITEMAP, file: 'reports/sitemap.md' },
+            ];
+            const icon = (o) => (o === 'success' ? '✅' : o === 'skipped' ? '⏭️' : '❌');
+            const failed = checks.filter((c) => c.outcome !== 'success');
+
+            const read = (f, max) => {
+              try {
+                let t = fs.readFileSync(f, 'utf8');
+                if (t.length > max) t = t.slice(0, max) + '\n\n… (cut, see the run log for the rest)';
+                return t;
+              } catch {
+                return '_No report file._';
+              }
+            };
+
+            // GitHub allows 65536 characters in an issue body. Keep a margin.
+            const LIMIT = 60000;
+            const header = [
+              `Last run: ${new Date().toISOString().slice(0, 10)} · [workflow run](${runUrl})`,
+              '',
+              ...checks.map((c) => `- ${icon(c.outcome)} ${c.name}: ${c.outcome}`),
+              '',
+            ].join('\n');
+            const withFile = failed.filter((c) => c.file);
+            const perSection = withFile.length
+              ? Math.floor((LIMIT - header.length - 500) / withFile.length)
+              : 0;
+            let body = header + withFile.map((c) => '\n' + read(c.file, perSection)).join('\n');
+            if (body.length > LIMIT) body = body.slice(0, LIMIT) + '\n\n… (cut)';
+
+            await core.summary.addRaw(body).write();
+
+            const open = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+            const issue = open.find((i) => !i.pull_request && i.title === TITLE);
+
+            if (failed.length > 0) {
+              if (issue) {
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  body,
+                });
+                core.info(`Updated issue #${issue.number}`);
+              } else {
+                const created = await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: TITLE,
+                  body,
+                });
+                core.info(`Created issue #${created.data.number}`);
+              }
+            } else if (issue) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `All weekly checks passed. Closing. ([workflow run](${runUrl}))`,
+              });
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed',
+                state_reason: 'completed',
+              });
+              core.info(`Closed issue #${issue.number}`);
+            } else {
+              core.info('All checks passed. No open report issue.');
+            }
+
+      - name: Mark the run as failed if a check failed
+        if: always() && (steps.install.outcome != 'success' || steps.scripts.outcome != 'success' || steps.lychee.outcome != 'success' || steps.sitemap.outcome != 'success')
+        run: |
+          echo "One or more checks failed. See the 'Weekly docs quality report' issue."
+          exit 1
