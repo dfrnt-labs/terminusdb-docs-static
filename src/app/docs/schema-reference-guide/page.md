@@ -54,7 +54,7 @@ A key is one of two values, **keyword** or **property**, described in the table 
 
 {%/table%}
 
-Property names beginning with `@` (at-sign) are reserved for TerminusDB schema definition language keywords such as `@id`, `@type`, `@key`, `@base`, `@schema`, `@context`, `@inherits`, `@documentation`, `@subdocument`, `@abstract`, `@unfoldable`, `@metadata`, `@inherits`, `@oneOf`.
+Property names beginning with `@` (at-sign) are reserved for TerminusDB schema definition language keywords such as `@id`, `@type`, `@key`, `@base`, `@schema`, `@context`, `@inherits`, `@documentation`, `@subdocument`, `@abstract`, `@unfoldable`, `@metadata`, `@oneOf`.
 
 ## Class definition
 
@@ -1045,6 +1045,47 @@ An example of inheritance of properties and an object meeting this specification
     "right_hand" : "But this one is dexterous" 
 }
 ```
+
+#### Code: A mix-in example with two abstract parents
+
+A more everyday use of multiple inheritance is the mix-in. Put shared properties on small abstract classes, then let a concrete class inherit from all of them. Here `Project` gets `name` from `NamedEntity` and `created` from `Timestamped`:
+
+```json
+{
+    "@type"      : "@context",
+    "@base"      : "terminusdb://i/",
+    "@schema"    : "terminusdb://s#"
+}
+{
+    "@type"      : "Class",
+    "@abstract"  : [],
+    "@id"        : "NamedEntity",
+    "name"       : "xsd:string"
+}
+{
+    "@type"      : "Class",
+    "@abstract"  : [],
+    "@id"        : "Timestamped",
+    "created"    : "xsd:dateTime"
+}
+{
+    "@type"      : "Class",
+    "@id"        : "Project",
+    "@inherits"  : ["NamedEntity", "Timestamped"],
+    "status"     : "xsd:string"
+}
+```
+
+```json
+{
+    "@type"      : "Project",
+    "name"       : "Website renewal",
+    "created"    : "2026-11-01T09:00:00Z",
+    "status"     : "active"
+}
+```
+
+`NamedEntity` and `Timestamped` are abstract, so you cannot create them on their own. Another class, for example a `Dataset`, can reuse the same two parents. This is often a better fit than a deep "is a kind of" tree.
 
 ### @unfoldable
 
