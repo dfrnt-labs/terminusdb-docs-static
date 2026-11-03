@@ -86,3 +86,9 @@
   white-space: nowrap;
 }
 
+@keyframes consent-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
