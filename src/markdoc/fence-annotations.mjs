@@ -57,7 +57,97 @@ const FENCE_CAPTION_RE = /^(```\w+)[^\S\n]+caption="([^"]*)"[^\S\n]*$/gm
  */
 const FENCE_COPY_EVENT_RE = /^(```\w+)[^\S\n]+copyEvent="([a-z0-9_]+)"[^\S\n]*$/gm
 
-function transformFenceAnnotations(source) {
+/**
+ * Regex to match a heading that marks a walkthrough step:
+ *   ### 4. Find the old commit {% step %}
+ *   ## Guided tour {% step sequence="tour-2" %}
+ *
+ * The marker is stripped and the heading plus everything up to the next step
+ * heading (or the next heading of same-or-higher level) is wrapped in
+ * {% walkthrough-step %} containers, all inside one {% walkthrough %} per
+ * contiguous run of marked headings.
+ */
+const STEP_HEADING_RE = /^(#{2,6})[ \t]+(.+?)[ \t]*\{%[ \t]*step(?:[ \t]+sequence="([^"]*)")?[ \t]*%\}[ \t]*$/
+const ANY_HEADING_RE = /^(#{1,6})[ \t]+(.+?)[ \t]*$/
+const FENCE_TOGGLE_RE = /^\s*```/
+
+export function transformStepMarkers(source) {
+  const lines = source.split('\n')
+  const out = []
+  let inFence = false
+  let inStep = false
+  let stepLevel = 0
+  let inWalkthrough = false
+  let sequence = null
+  let lastH2 = null
+
+  const closeStep = () => {
+    if (inStep) {
+      out.push('{% /walkthrough-step %}')
+      inStep = false
+    }
+  }
+  const closeWalkthrough = () => {
+    if (inWalkthrough) {
+      out.push('{% /walkthrough %}')
+      inWalkthrough = false
+      sequence = null
+    }
+  }
+
+  for (const line of lines) {
+    if (FENCE_TOGGLE_RE.test(line)) {
+      inFence = !inFence
+      out.push(line)
+      continue
+    }
+    if (inFence) {
+      out.push(line)
+      continue
+    }
+
+    const sm = line.match(STEP_HEADING_RE)
+    if (sm) {
+      const level = sm[1].length
+      const title = sm[2]
+      const seq = sm[3] ?? null
+      closeStep()
+      if (!inWalkthrough || seq !== sequence) {
+        closeWalkthrough()
+        const titleAttr = lastH2 ? ` title="${lastH2.replace(/"/g, "'")}"` : ''
+        const nameAttr = seq ? ` name="${seq}"` : ''
+        out.push(`{% walkthrough${titleAttr}${nameAttr} %}`)
+        inWalkthrough = true
+        sequence = seq
+      }
+      out.push('{% walkthrough-step %}')
+      out.push(`${sm[1]} ${title}`)
+      inStep = true
+      stepLevel = level
+      continue
+    }
+
+    const hm = line.match(ANY_HEADING_RE)
+    if (hm) {
+      const level = hm[1].length
+      if (level === 2) lastH2 = hm[2]
+      // A non-step heading of same-or-higher level ends the step and the
+      // walkthrough — deeper headings fold into the current step's prose.
+      if (inStep && level <= stepLevel) {
+        closeStep()
+        closeWalkthrough()
+      }
+    }
+
+    out.push(line)
+  }
+
+  closeStep()
+  closeWalkthrough()
+  return out.join('\n')
+}
+
+export function transformFenceAnnotations(source) {
   // Reset regex lastIndex since it uses the global flag
   FENCE_TEST_EXAMPLE_RE.lastIndex = 0
   let result = source.replace(FENCE_TEST_EXAMPLE_RE, (match, fenceStart, rest) => {
@@ -103,6 +193,9 @@ function transformFenceAnnotations(source) {
   result = result.replace(FENCE_COPY_EVENT_RE, (match, fenceStart, eventName) => {
     return `${fenceStart} {% copyEvent="${eventName}" %}`
   })
+
+  // Wrap {% step %} heading markers into walkthrough containers
+  result = transformStepMarkers(result)
 
   return result
 }

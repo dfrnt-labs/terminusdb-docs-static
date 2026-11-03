@@ -12,6 +12,8 @@ import { RunButton } from "../RunnableFence/RunButton"
 import { ResultPanel } from "../RunnableFence/ResultPanel"
 import { FixtureBadge } from "../RunnableFence/FixtureBadge"
 import { useConnection } from "../ConnectionSettings/ConnectionContext"
+import { useStepLocation } from "../Walkthrough/context"
+import { OpenDemoButton } from "../Walkthrough/OpenDemoButton"
 import type { TabId, RunnableState, ExecutionResult, ExecutionError } from "./types"
 
 interface HttpExampleComponentProps {
@@ -39,7 +41,7 @@ const TIMEOUT_MS = 15000
  * - `/admin/` path segment → `/${user}/` (org/user segment)
  * - `/MyDatabase` → `/${db}` (database name, word-boundary aware)
  */
-function resolvePath(rawPath: string, user: string, db: string): string {
+export function resolvePath(rawPath: string, user: string, db: string): string {
   if (!rawPath) return rawPath
   return rawPath
     .replace(/\/admin\//, `/${user}/`)
@@ -73,6 +75,10 @@ export function HttpExample({
   const containerRef = useRef<HTMLDivElement>(null)
   const dialogRef = useRef<HTMLDialogElement>(null)
   const { settings, setConnectionStatus } = useConnection()
+  // Inside a walkthrough step, render minimal: tabs + copy + open-in-demo.
+  // Running and results live in the overlay.
+  const stepLocation = useStepLocation()
+  const inWalkthroughStep = Boolean(stepLocation && !stepLocation.inOverlay)
 
   // Parse extra headers from JSON string attribute
   const extraHeaders: Record<string, string> = (() => {
@@ -429,7 +435,8 @@ export function HttpExample({
               {state === "SERVER_OFFLINE" && (
                 <span className="w-2 h-2 rounded-full bg-amber-500 dark:bg-amber-400" aria-hidden="true" />
               )}
-              {runnable && <RunButton state={state} onRun={handleRun} />}
+              {runnable && !inWalkthroughStep && <RunButton state={state} onRun={handleRun} />}
+              {inWalkthroughStep && <OpenDemoButton />}
               <CopyButton copied={copied} onCopy={copyToClipboard} />
             </div>
           </div>
@@ -475,7 +482,7 @@ export function HttpExample({
       )}
 
       {/* Keyboard hint */}
-      {runnable && (
+      {runnable && !inWalkthroughStep && (
         <div className="hidden md:block absolute bottom-1 right-2 text-xs text-slate-400 opacity-0 focus-within:opacity-100 transition-opacity pointer-events-none">
           Ctrl+Enter to run
         </div>
@@ -489,19 +496,19 @@ export function HttpExample({
       </div>
 
       {/* Expected output display — from expect attribute or http-expected child tag */}
-      {expectedOutput && state === "IDLE" && (
+      {expectedOutput && state === "IDLE" && !inWalkthroughStep && (
         <ExpectedOutput content={expectedOutput} />
       )}
 
       {/* Result panel */}
-      <ResultPanel
+      {!inWalkthroughStep && <ResultPanel
         state={state}
         result={result}
         error={error}
         serverUrl={settings.serverUrl}
         fixture={fixture}
         onClear={handleClear}
-      />
+      />}
 
       {/* Confirmation dialog for destructive actions */}
       {confirmMessage && (
@@ -608,7 +615,7 @@ function ExpectedOutput({ content }: { content: string }) {
  * the parent's children tree. We detect them by prop sentinel, component reference,
  * or displayName — in that priority order.
  */
-function separateSpecialChildren(children: React.ReactNode): {
+export function separateSpecialChildren(children: React.ReactNode): {
   bodyChildren: React.ReactNode
   expectedChildren: React.ReactNode | undefined
   woqlChildren: React.ReactNode | undefined
@@ -721,7 +728,7 @@ function findSpecialInChildren(children: React.ReactNode): {
  * (especially in Next.js App Router with RSC where client components are referenced
  * by module ID rather than direct function reference).
  */
-function isHttpExpectedElement(node: React.ReactNode): boolean {
+export function isHttpExpectedElement(node: React.ReactNode): boolean {
   if (!React.isValidElement(node)) return false
 
   const props = node.props as Record<string, unknown>
@@ -766,7 +773,7 @@ function isHttpWoqlElement(node: React.ReactNode): boolean {
  * Markdoc fails to fully transform inline content (e.g., JSON with curly braces
  * that Markdoc misinterprets as variable/annotation syntax).
  */
-function extractTextFromChildren(children: React.ReactNode): string {
+export function extractTextFromChildren(children: React.ReactNode): string {
   if (children === null || children === undefined) return ""
   if (typeof children === "string") return children
   if (typeof children === "number") return String(children)
@@ -819,7 +826,7 @@ function extractTextFromChildren(children: React.ReactNode): string {
 // unwrapBindingRow — unwrap TerminusDB typed values { "@type": "xsd:*", "@value": v }
 // ---------------------------------------------------------------------------
 
-function unwrapValue(v: unknown): unknown {
+export function unwrapValue(v: unknown): unknown {
   if (v && typeof v === "object" && !Array.isArray(v)) {
     const obj = v as Record<string, unknown>
     if ("@value" in obj) return obj["@value"]
@@ -828,7 +835,7 @@ function unwrapValue(v: unknown): unknown {
   return v
 }
 
-function unwrapBindingRow(row: Record<string, unknown>): Record<string, unknown> {
+export function unwrapBindingRow(row: Record<string, unknown>): Record<string, unknown> {
   const result: Record<string, unknown> = {}
   for (const [key, val] of Object.entries(row)) {
     result[key] = unwrapValue(val)

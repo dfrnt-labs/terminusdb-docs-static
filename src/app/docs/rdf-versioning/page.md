@@ -109,22 +109,23 @@ The cost is that you version the whole database, not single statements. If your 
 
 The example uses the HTTP API on a local TerminusDB at `localhost:6363` with the default `admin:root` login. It uses the JSON document API, which is in the open source edition. TerminusDB stores each document as triples.
 
-You do not need to clone any data. Step 1 creates a new database for the example. To start TerminusDB, run the Docker command below and connect. Then you can run each example on this page. For other ways to install, see [Install with Docker](/docs/install-terminusdb-as-a-docker-container/).
-
-{% prerequisites-connected /%}
+You do not need to clone any data — step 1 creates a new database for the example. The interactive demo simulates every step without a server, or runs them live against your local TerminusDB; the demo's start screen shows the Docker command and a connect control. For other ways to install, see [Install with Docker](/docs/install-terminusdb-as-a-docker-container/).
 
 {% callout type="note" title="Turtle and RDF/XML" %}
 Turtle and RDF/XML import and export are in TerminusDB Enterprise. With Enterprise, you can post the same data as Turtle to the document endpoint. See [Turtle Support](/docs/enterprise-turtle/) and [JSON-LD Context Processing](/docs/enterprise-jsonld-context/).
 {% /callout %}
 
-### 1. Create a database with a schema and facts
-
+### 1. Create the database {% step %}
 {% http-example method="POST" path="/api/db/admin/RdfDemo" %}
 {"label": "RdfDemo", "comment": "RDF versioning demo"}
 {% http-expected %}
 {"@type":"api:DbCreateResponse","api:status":"api:success"}
 {% /http-expected %}
 {% /http-example %}
+
+### 2. Add the schema {% step %}
+
+The schema has two classes: `Organization` and `Person`. A person works for an organization.
 
 {% http-example method="POST" path="/api/document/admin/RdfDemo?graph_type=schema&author=alice@example.com&message=Add+schema" %}
 [{"@type": "Class", "@id": "Organization", "name": "xsd:string"},
@@ -134,6 +135,10 @@ Turtle and RDF/XML import and export are in TerminusDB Enterprise. With Enterpri
 {% /http-expected %}
 {% /http-example %}
 
+### 3. Add the first facts {% step %}
+
+One organization, Acme, and one person, Alice, who works there as an engineer.
+
 {% http-example method="POST" path="/api/document/admin/RdfDemo?author=alice@example.com&message=Add+first+facts" %}
 [{"@id": "Organization/acme", "@type": "Organization", "name": "Acme"},
  {"@id": "Person/alice", "@type": "Person", "name": "Alice", "role": "Engineer", "worksFor": "Organization/acme"}]
@@ -142,8 +147,7 @@ Turtle and RDF/XML import and export are in TerminusDB Enterprise. With Enterpri
 {% /http-expected %}
 {% /http-example %}
 
-### 2. Look at the triples
-
+### 4. Look at the triples {% step %}
 A WOQL query returns the triples for Alice. `Equals` sets `1_subject` to `Person/alice`. Then `Triple` finds every predicate and object for that subject. Each binding is one triple, with the variables in subject, predicate, object order.
 
 {% http-example method="POST" path="/api/woql/admin/RdfDemo/local/branch/main" %}
@@ -155,12 +159,18 @@ A WOQL query returns the triples for Alice. `Equals` sets `1_subject` to `Person
     "subject": {"@type": "NodeValue", "variable": "1_subject"},
     "predicate": {"@type": "NodeValue", "variable": "2_predicate"},
     "object": {"@type": "Value", "variable": "3_object"}}]}}
+{% http-expected %}
+{"@type":"api:WoqlResponse","api:status":"api:success","bindings":[
+ {"1_subject":"Person/alice","2_predicate":"rdf:type","3_object":"Person"},
+ {"1_subject":"Person/alice","2_predicate":"name","3_object":{"@type":"xsd:string","@value":"Alice"}},
+ {"1_subject":"Person/alice","2_predicate":"role","3_object":{"@type":"xsd:string","@value":"Engineer"}},
+ {"1_subject":"Person/alice","2_predicate":"worksFor","3_object":"Organization/acme"}]}
+{% /http-expected %}
 {% /http-example %}
 
 You should get one binding for each of `rdf:type`, `name`, `role` and `worksFor`. Node IDs such as `Person/alice` are short forms of full IRIs, such as `terminusdb:///data/Person/alice`. To query the same data with GraphQL and full IRIs, see [GraphQL with RDF URI/IRI](/docs/graphql-with-rdf-iri/).
 
-### 3. Change a fact
-
+### 5. Change a fact {% step %}
 Alice gets a new role. This write is a new commit. In triple terms, it removes the triple with `"Engineer"` and adds a triple with `"CTO"`.
 
 {% http-example method="PUT" path="/api/document/admin/RdfDemo?author=alice@example.com&message=New+role+for+Alice" %}
@@ -170,41 +180,70 @@ Alice gets a new role. This write is a new commit. In triple terms, it removes t
 {% /http-expected %}
 {% /http-example %}
 
-### 4. Find the old commit
+### 6. Find the old commit {% step %}
+The commit log lists each commit with an `identifier`, an `author`, a `message` and a `timestamp`, newest first. This query uses `start=1` to skip the newest entry — the role change — so it returns the "Add first facts" commit:
 
-Get the commit log. The newest commit is first. Each entry has an `identifier`, an `author`, a `message` and a `timestamp`.
+```bash publishes="rdf_demo_commit" publishColumn="identifier" publishLabel="message"
+curl -u admin:root "http://localhost:6363/api/log/admin/RdfDemo/local/branch/main?start=1&count=1"
+```
 
-{% http-example method="GET" path="/api/log/admin/RdfDemo/local/branch/main?count=5" /%}
+{% http-expected %}
+[{"@type":"Commit","author":"alice@example.com","identifier":"c8f2a1b394d6e7f0a1b2c3d4e5f6a7b8c9d0e1f2","message":"Add first facts","timestamp":1720000000.0}]
+{% /http-expected %}
 
-Find the entry with the message "Add first facts" and copy its `identifier`.
+Run it, and the `identifier` is filled into the examples below. To see the whole history, run the same query with `count=5` and no `start`.
 
-### 5. Query the old version
-
+### 7. Read the document at the old commit {% step %}
 Put `local/commit/<identifier>` in the path in place of `local/branch/main`. The document API then returns Alice as she was at that commit:
 
-```bash
+```bash slot="rdf_demo_commit" placeholder="<identifier>"
 curl -u admin:root "http://localhost:6363/api/document/admin/RdfDemo/local/commit/<identifier>?id=Person/alice"
 ```
 
-The `role` is `"Engineer"`. On `main`, it is `"CTO"`. You can also send a WOQL `Triple` query to the commit path to read the old triple:
+{% http-expected %}
+{"@id":"Person/alice","@type":"Person","name":"Alice","role":"Engineer","worksFor":"Organization/acme"}
+{% /http-expected %}
 
-```bash
+The `role` is `"Engineer"`. On `main`, it is `"CTO"`.
+
+### 8. Query the old triples {% step %}
+
+A WOQL `Triple` query to the same commit path reads the old triple:
+
+```bash slot="rdf_demo_commit" placeholder="<identifier>"
 curl -u admin:root -X POST "http://localhost:6363/api/woql/admin/RdfDemo/local/commit/<identifier>" \
   -H "Content-Type: application/json" \
   -d '{"query": {"@type": "Triple", "subject": {"@type": "NodeValue", "node": "Person/alice"}, "predicate": {"@type": "NodeValue", "node": "@schema:role"}, "object": {"@type": "Value", "variable": "Role"}}}'
 ```
 
+{% http-expected %}
+{"@type":"api:WoqlResponse","api:status":"api:success","bindings":[{"Role":{"@type":"xsd:string","@value":"Engineer"}}]}
+{% /http-expected %}
+
+### 9. Diff the change {% step %}
+
 A commit path is read-only, so you cannot change history by mistake. To see the change itself, diff the old commit against `main`:
 
-{% http-example method="POST" path="/api/diff/admin/RdfDemo" %}
-{"before_data_version": "<identifier>", "after_data_version": "main"}
-{% /http-example %}
+```bash slot="rdf_demo_commit" placeholder="<identifier>"
+curl -u admin:root -X POST "http://localhost:6363/api/diff/admin/RdfDemo" \
+  -H "Content-Type: application/json" \
+  -d '{"before_data_version": "<identifier>", "after_data_version": "main"}'
+```
+
+{% http-expected %}
+[{"@id":"Person/alice","role":{"@after":"CTO","@before":"Engineer","@op":"SwapValue"}}]
+{% /http-expected %}
 
 The result has a `SwapValue` for `role` on `Person/alice`, with `"Engineer"` before and `"CTO"` after. The [Time-Travel How-To](/docs/time-travel-howto/) has more ways to read and compare old versions.
+
+### 10. Clean up {% step %}
 
 When you are done, delete the demo database:
 
 {% http-example method="DELETE" path="/api/db/admin/RdfDemo" /%}
+{% http-expected %}
+{"@type":"api:DbDeleteResponse","api:status":"api:success"}
+{% /http-expected %}
 
 ## Where TerminusDB differs from a SPARQL triple store
 
