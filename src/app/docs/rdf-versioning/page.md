@@ -109,6 +109,10 @@ The cost is that you version the whole database, not single statements. If your 
 
 The example uses the HTTP API on a local TerminusDB at `localhost:6363` with the default `admin:root` login. It uses the JSON document API, which is in the open source edition. TerminusDB stores each document as triples.
 
+You do not need to clone any data. Step 1 creates a new database for the example. To start TerminusDB, run the Docker command below and connect. Then you can run each example on this page. For other ways to install, see [Install with Docker](/docs/install-terminusdb-as-a-docker-container/).
+
+{% prerequisites-connected /%}
+
 {% callout type="note" title="Turtle and RDF/XML" %}
 Turtle and RDF/XML import and export are in TerminusDB Enterprise. With Enterprise, you can post the same data as Turtle to the document endpoint. See [Turtle Support](/docs/enterprise-turtle/) and [JSON-LD Context Processing](/docs/enterprise-jsonld-context/).
 {% /callout %}
