@@ -144,13 +144,17 @@ Turtle and RDF/XML import and export are in TerminusDB Enterprise. With Enterpri
 
 ### 2. Look at the triples
 
-A WOQL `Triple` query returns the triples for Alice. Each binding is one triple.
+A WOQL query returns the triples for Alice. `Equals` sets `1_subject` to `Person/alice`. Then `Triple` finds every predicate and object for that subject. Each binding is one triple, with the variables in subject, predicate, object order.
 
 {% http-example method="POST" path="/api/woql/admin/RdfDemo/local/branch/main" %}
-{"query": {"@type": "Triple",
-  "subject": {"@type": "NodeValue", "node": "Person/alice"},
-  "predicate": {"@type": "NodeValue", "variable": "Predicate"},
-  "object": {"@type": "Value", "variable": "Object"}}}
+{"query": {"@type": "And", "and": [
+  {"@type": "Equals",
+    "left": {"@type": "Value", "variable": "1_subject"},
+    "right": {"@type": "Value", "node": "Person/alice"}},
+  {"@type": "Triple",
+    "subject": {"@type": "NodeValue", "variable": "1_subject"},
+    "predicate": {"@type": "NodeValue", "variable": "2_predicate"},
+    "object": {"@type": "Value", "variable": "3_object"}}]}}
 {% /http-example %}
 
 You should get one binding for each of `rdf:type`, `name`, `role` and `worksFor`. Node IDs such as `Person/alice` are short forms of full IRIs, such as `terminusdb:///data/Person/alice`. To query the same data with GraphQL and full IRIs, see [GraphQL with RDF URI/IRI](/docs/graphql-with-rdf-iri/).
