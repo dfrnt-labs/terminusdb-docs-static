@@ -74,7 +74,7 @@ TerminusDB uses both levels. It stores each commit as a [delta layer](/docs/immu
 
 The example uses the HTTP API on a local TerminusDB at `localhost:6363` with the default `admin:root` login. It is a tiny graph: one person who works for one organization.
 
-### 1. Set up a small graph
+### 1. Set up a small graph {% step %}
 
 Create a database, a schema and the first facts. Each write is a commit.
 
@@ -101,7 +101,7 @@ Create a database, a schema and the first facts. Each write is a commit.
 {% /http-expected %}
 {% /http-example %}
 
-### 2. Make a branch and change a fact
+### 2. Make a branch and change a fact {% step %}
 
 {% http-example method="POST" path="/api/branch/admin/MyDatabase/local/branch/update" %}
 {"origin": "admin/MyDatabase/local/branch/main"}
@@ -117,7 +117,7 @@ Create a database, a schema and the first facts. Each write is a commit.
 {% /http-expected %}
 {% /http-example %}
 
-### 3. Diff the branches
+### 3. Diff the branches {% step %}
 
 Send the two branch names. The diff lists each changed document, and in it each changed field.
 
@@ -130,23 +130,32 @@ Send the two branch names. The diff lists each changed document, and in it each 
 
 To diff only one document, add `"document_id"`. The [JSON Diff and Patch](/docs/json-diff-and-patch/) page lists all the request forms and options, such as `keep` and `unfold`.
 
-## Diff two commits
+## Diff two commits {% step %}
 
-You can also diff any two commits, not only branch heads. Get the commit IDs from the log of the `update` branch. Each entry has an `identifier`:
+You can also diff any two commits, not only branch heads. Fetch the identifier of the commit just before the branch head — `start=1` skips the newest entry in the `update` branch log:
 
-{% http-example method="GET" path="/api/log/admin/MyDatabase/local/branch/update?count=5" /%}
-
-Put two identifiers in the diff request, in place of the branch names:
-
-```bash
-curl -u admin:root -X POST "http://localhost:6363/api/diff/admin/MyDatabase" \
-  -H "Content-Type: application/json" \
-  -d '{"before_data_version": "<older identifier>", "after_data_version": "<newer identifier>"}'
+```bash publishes="commit_identifiers" publishColumn="identifier" publishLabel="message"
+curl -s -u admin:root \
+  "http://localhost:6363/api/log/admin/MyDatabase/local/branch/update?count=1&start=1"
 ```
+{% http-expected %}
+[ {"@id":"ValidCommit/25gy6q68b4rjjvp3ho5dd5v0oaat3zl","@type":"ValidCommit","author":"alice@example.com","identifier":"25gy6q68b4rjjvp3ho5dd5v0oaat3zl","instance":"layer_data:Layer_c5491b86be05f7d2b151c1a54ac74f72b0bc28be52a227de0deaf1dcabe4a485","message":"Add first facts","parent":"ValidCommit/hntjhfrd97tsogctcx8si1dwpzc5v63","schema":"layer_data:Layer_8ef99ffe6623c06abd7bb37d3dea93f9a07e910079b85576807cec918c26a8e3","timestamp":1793755629.152878,"user":"terminusdb://system/data/User/admin"} ]
+{% /http-expected %}
 
-If you compare the "Add first facts" commit with the "New role for Alice" commit, you get the same `SwapValue` for `Person/alice`. The [audit tutorial](/docs/audit-tutorial/) uses commit diffs to find out who changed a value and when.
+Then diff that commit against the branch — the identifier flows in automatically. `after_data_version` takes a branch name just as well as a commit ID:
 
-## Turn a diff into a patch and apply it
+```bash slot="commit_identifiers" placeholder="OLDER_COMMIT"
+curl -s -u admin:root -X POST "http://localhost:6363/api/diff/admin/MyDatabase" \
+  -H "Content-Type: application/json" \
+  -d '{"before_data_version": "OLDER_COMMIT", "after_data_version": "update"}'
+```
+{% http-expected %}
+[ {"@id":"Person/alice","role": {"@after":"CTO","@before":"Engineer","@op":"SwapValue"}} ]
+{% /http-expected %}
+
+Comparing the "Add first facts" commit with the "New role for Alice" commit gives the same `SwapValue` for `Person/alice`. You can also pass two commit identifiers instead of a branch name. The [audit tutorial](/docs/audit-tutorial/) uses commit diffs to find out who changed a value and when.
+
+## Turn a diff into a patch and apply it {% step %}
 
 The diff output is also a patch. You can send it to the patch endpoint to make the same change on another branch. Here we apply it to `main`. This makes a new commit on `main` with its own author and message.
 
@@ -166,6 +175,9 @@ To take all the changes from a branch at once, use a merge instead. The [merge h
 When you are done, delete the demo database:
 
 {% http-example method="DELETE" path="/api/db/admin/MyDatabase" /%}
+{% http-expected %}
+{"@type":"api:DbDeleteResponse","api:status":"api:success"}
+{% /http-expected %}
 
 ## Using diffs for review and CI
 
