@@ -33,8 +33,9 @@ export function consumerBlocked(req: StepRequestDescriptor, slotValue: string | 
 }
 
 /**
- * If the request is a `POST /api/db/<user>/<db>` create, returns the URL that
- * a DELETE would remove — used by the "database already exists" retry flow.
+ * If the request creates a database — `POST /api/db/<org>/<db>` or
+ * `POST /api/clone/<org>/<db>` — returns the URL a DELETE would remove;
+ * used by the "database already exists" retry flow.
  */
 export function dbCreateUrl(
   req: StepRequestDescriptor,
@@ -43,7 +44,11 @@ export function dbCreateUrl(
 ): string | null {
   const resolved = resolveRequest(req, settings, slotValue)
   if (!resolved || resolved.method !== "POST") return null
-  return /\/api\/db\/[^/?]+\/[^/?]+/.test(resolved.url) ? resolved.url : null
+  if (/\/api\/db\/[^/?]+\/[^/?]+/.test(resolved.url)) return resolved.url
+  if (/\/api\/clone\/[^/?]+\/[^/?]+/.test(resolved.url)) {
+    return resolved.url.replace("/api/clone/", "/api/db/")
+  }
+  return null
 }
 
 export function isDbExistsError(error: ExecutionError | null | undefined): boolean {

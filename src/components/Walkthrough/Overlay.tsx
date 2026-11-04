@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react"
 import { Switch } from "@headlessui/react"
-import { useWalkthrough } from "./context"
+import { useWalkthrough, StepLocationContext } from "./context"
 import type { WalkthroughStepInfo } from "./context"
 import { useStepRunners, RequestCard, ResultArea } from "./RequestPanel"
 import { useConnection } from "../ConnectionSettings/ConnectionContext"
@@ -59,33 +59,22 @@ function Overview() {
 
   return (
     <div className="flex flex-1 overflow-auto p-6">
-      <div className="m-auto w-full max-w-lg">
+      <div className="mx-auto mt-[8vh] w-full max-w-4xl">
         <div className="rounded-2xl bg-gradient-to-br from-sky-500/10 via-indigo-500/10 to-slate-500/5 p-[1px]">
-          <div className="flex flex-col rounded-2xl bg-white p-6 dark:bg-slate-900">
-            <p className="text-xs font-semibold uppercase tracking-widest text-sky-600 dark:text-sky-400">
-              TerminusDB interactive demo
-            </p>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-              {ctx.title || "Walkthrough"}
-            </h2>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-              Step through {ctx.steps.length} request{ctx.steps.length === 1 ? "" : "s"} — simulated
-              responses by default, or flip the toggle to run against your local TerminusDB.
-            </p>
-
-            <button
-              onClick={() => ctx.openStep(0)}
-              className="mt-4 w-full rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
-            >
-              Start the walkthrough
-            </button>
-
-            {/* Connection — only needed for live runs; last item on mobile */}
-            <div className="order-last mt-4 md:order-none">
-              <OverviewConnection />
+          <div className="grid gap-5 rounded-2xl bg-white p-6 dark:bg-slate-900 md:grid-cols-2">
+            {/* Title + intro — spans both columns */}
+            <div className="md:col-span-2">
+              <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                {ctx.title || "Walkthrough"}
+              </h2>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                Step through {ctx.steps.length} request{ctx.steps.length === 1 ? "" : "s"} — simulated
+                responses by default, or flip the toggle to run against your local TerminusDB.
+              </p>
             </div>
 
-            <ol className="mt-4 max-h-64 list-none space-y-1 overflow-y-auto pr-1">
+            {/* Step items — left column */}
+            <ol className="order-3 max-h-80 list-none space-y-1 self-start overflow-y-auto pr-1 md:col-start-1 md:row-start-2">
               {ctx.steps.map((s, i) => (
                 <li key={s.id}>
                   <button
@@ -101,6 +90,29 @@ function Overview() {
                 </li>
               ))}
             </ol>
+
+            {/* Actions — right column, stable layout: the button label swaps in
+                place and the live checklist expands below it */}
+            <div className="order-2 flex flex-col gap-4 self-start md:col-start-2 md:row-start-2">
+              <button
+                onClick={() => ctx.openStep(0)}
+                className="w-full rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
+              >
+                {ctx.live ? "Run the walkthrough live" : "Simulate the walkthrough"}
+              </button>
+              {ctx.live ? (
+                <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
+                  <OverviewConnection bare />
+                </div>
+              ) : (
+                <button
+                  onClick={() => ctx.setLive(true)}
+                  className="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:border-sky-400 hover:text-sky-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:border-slate-700 dark:text-slate-300 dark:hover:border-sky-600 dark:hover:text-sky-300"
+                >
+                  Run live against your TerminusDB
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -112,7 +124,7 @@ const DOCKER_CMD = "docker run --rm -p 6363:6363 terminusdb/terminusdb-server"
 
 // Connection card — status + connect/disconnect + docker hint + settings edit.
 // Shown in the overview; live mode is optional.
-function OverviewConnection() {
+function OverviewConnection({ bare }: { bare?: boolean }) {
   const { settings, connectionStatus, testConnection, disconnect } = useConnection()
   const [connOpen, setConnOpen] = useState(false)
   const [copied, setCopied] = useState(false)
@@ -129,7 +141,7 @@ function OverviewConnection() {
   const failed = connectionStatus === "failed"
 
   return (
-    <div className="relative rounded-lg border border-slate-200 dark:border-slate-700">
+    <div className={bare ? "relative" : "relative rounded-lg border border-slate-200 dark:border-slate-700"}>
       {/* Connection row */}
       <div className="flex items-center gap-3 px-4 py-3">
         <ConnectionIcon status={connectionStatus} />
@@ -164,7 +176,7 @@ function OverviewConnection() {
         <div className="border-t border-slate-200 px-4 py-3 dark:border-slate-700">
           <p className="mb-2 text-xs text-slate-500 dark:text-slate-400">Start TerminusDB locally:</p>
           <div className="flex items-center gap-2 rounded-md bg-slate-900 px-3 py-2 dark:bg-slate-800">
-            <code className="min-w-0 flex-1 overflow-x-auto font-mono text-xs text-slate-200">{DOCKER_CMD}</code>
+            <span className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap font-mono text-xs text-slate-200">{DOCKER_CMD}</span>
             <button
               onClick={async () => {
                 await navigator.clipboard.writeText(DOCKER_CMD).catch(() => {})
@@ -265,7 +277,9 @@ function StepSlide({ step, index, active }: { step: WalkthroughStepInfo; index: 
             </h3>
           )}
           <div className="prose prose-sm max-w-none text-slate-700 dark:prose-invert dark:text-slate-300">
-            {step.content}
+            <StepLocationContext.Provider value={{ stepId: step.id, inOverlay: true }}>
+              {step.content}
+            </StepLocationContext.Provider>
           </div>
         </div>
         <div className="min-h-0 overflow-y-auto">{requestArea}</div>
@@ -284,7 +298,9 @@ function StepSlide({ step, index, active }: { step: WalkthroughStepInfo; index: 
             </h3>
           )}
           <div className="prose prose-sm max-w-none text-slate-700 dark:prose-invert dark:text-slate-300">
-            {step.content}
+            <StepLocationContext.Provider value={{ stepId: step.id, inOverlay: true }}>
+              {step.content}
+            </StepLocationContext.Provider>
           </div>
         </div>
         <div className="mt-3 flex gap-1 border-b border-slate-200 px-4 dark:border-slate-800">

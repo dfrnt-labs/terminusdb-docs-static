@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react"
 import { useConnection } from "./ConnectionSettings/ConnectionContext"
+import { useStepLocation, useWalkthrough } from "./Walkthrough/context"
 
 /**
  * Clone API: POST /api/clone/{organization}/{database}
@@ -30,11 +31,21 @@ export function QuickstartClone({
   description = "Get the project tracker example on your local TerminusDB — ready to branch and diff.",
 }: QuickstartCloneProps) {
   const { settings } = useConnection()
+  const stepLocation = useStepLocation()
+  const walkthrough = useWalkthrough()
+  // Inside the walkthrough overlay in simulated mode the clone can't be real —
+  // fake a short clone so the setup step works end to end
+  const simulated = Boolean(stepLocation?.inOverlay && walkthrough && !walkthrough.live)
   const [state, setState] = useState<CloneState>("idle")
   const [errorDetail, setErrorDetail] = useState<string>("")
 
   const handleClone = useCallback(async () => {
     setState("loading")
+
+    if (simulated) {
+      setTimeout(() => setState("success"), 600)
+      return
+    }
     setErrorDetail("")
 
     const cloneUrl = `${settings.serverUrl}/api/clone/admin/${localPath}`
@@ -84,7 +95,7 @@ export function QuickstartClone({
         setState("error-other")
       }
     }
-  }, [settings, localPath, remoteUrl])
+  }, [settings, localPath, remoteUrl, simulated])
 
   const handleRetry = useCallback(() => {
     setState("idle")
@@ -110,7 +121,7 @@ export function QuickstartClone({
             <svg className="h-4 w-4 text-sky-600 dark:text-sky-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path d="M7 2a1 1 0 000 2h1v11.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V4h1a1 1 0 100-2H7z" />
             </svg>
-            Clone database
+            {simulated ? "Simulate clone" : "Clone database"}
           </button>
         </div>
       )}
@@ -142,11 +153,7 @@ export function QuickstartClone({
             <p className="font-display text-xl text-sky-900 dark:text-sky-200">Local cloned data is ready</p>
           </div>
           <p className="text-sm text-sky-800 dark:text-slate-300">
-            You have data. Skip ahead to{" "}
-            <a href="#step-4-create-a-branch" className="font-medium text-sky-900 underline decoration-sky-300 hover:decoration-sky-500 dark:text-sky-300 dark:decoration-sky-700 dark:hover:decoration-sky-500">
-              Step 4 — branching
-            </a>
-            , or continue reading below.
+            You have data — continue with the next step below.
           </p>
         </div>
       )}
@@ -221,10 +228,7 @@ export function QuickstartClone({
             </svg>
           </span>
           <p className="text-sm text-sky-800 dark:text-slate-300">
-            Database already exists — you&apos;re ready.{" "}
-            <a href="#step-4-create-a-branch" className="font-medium text-sky-900 underline decoration-sky-300 hover:decoration-sky-500 dark:text-sky-300 dark:decoration-sky-700 dark:hover:decoration-sky-500">
-              Skip to branching →
-            </a>
+            Database already exists — you&apos;re ready.
           </p>
         </div>
       )}

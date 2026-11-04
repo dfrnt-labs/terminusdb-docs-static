@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useState, useCallback, useRef, useEffect } from "react"
+import { createPortal } from "react-dom"
 import { WalkthroughContext } from "./context"
 import type { WalkthroughStepInfo, StepStatus } from "./context"
 import { WalkthroughOverlay } from "./Overlay"
-import { useConnection } from "../ConnectionSettings/ConnectionContext"
 
 interface WalkthroughProps {
   name?: string
@@ -21,9 +21,11 @@ export function Walkthrough({ title, children }: WalkthroughProps) {
   const [steps, setSteps] = useState<WalkthroughStepInfo[]>([])
   const [view, setView] = useState<"closed" | "overview" | number>("closed")
   const [live, setLiveState] = useState(false)
-  const { testConnection } = useConnection()
   const [stepStates, setStepStates] = useState<Record<string, StepStatus | undefined>>({})
   const openedFromHash = useRef(false)
+  // Portals need document.body — unavailable during SSR
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
 
   const registerStep = useCallback((step: WalkthroughStepInfo) => {
     setSteps((prev) => {
@@ -57,14 +59,9 @@ export function Walkthrough({ title, children }: WalkthroughProps) {
   const openOverview = useCallback(() => setView("overview"), [])
   const close = useCallback(() => setView("closed"), [])
 
-  // Enabling live mode attempts the connection immediately
-  const setLive = useCallback(
-    (v: boolean) => {
-      setLiveState(v)
-      if (v) void testConnection()
-    },
-    [testConnection]
-  )
+  // Live mode just selects execution mode — connecting happens in the
+  // overview's connection card, not on toggle
+  const setLive = useCallback((v: boolean) => setLiveState(v), [])
 
   // A run invalidates every later step — their results may have depended on it
   const setStepStatus = useCallback((id: string, s: StepStatus | undefined) => {
@@ -135,7 +132,8 @@ export function Walkthrough({ title, children }: WalkthroughProps) {
         </span>
       </div>
       {children}
-      {view !== "closed" && <WalkthroughOverlay />}
+      {/* Portal escapes #mainContent prose styles and the site's stacking context */}
+      {view !== "closed" && mounted && createPortal(<WalkthroughOverlay />, document.body)}
     </WalkthroughContext.Provider>
   )
 }
