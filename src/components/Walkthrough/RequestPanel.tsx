@@ -170,9 +170,10 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
   }
 
   const isRunning = state === "RUNNING"
-  const displayCode = request.kind === "curl"
-    ? substituteSlotValue(request.code || "", request.slot, request.placeholder, slotValue).trim()
-    : generateCurl({
+  const displayCode =
+    request.kind === "curl" || request.kind === "woql"
+      ? substituteSlotValue(request.code || "", request.slot, request.placeholder, slotValue).trim()
+      : generateCurl({
         method: request.method || "GET",
         path: request.path || "",
         headers: request.headers || {},
@@ -182,10 +183,24 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
         password: settings.password,
       })
 
-  // Structured HTTP view — parse curl kind, synthesise for http-example kind
+  // Structured HTTP view — parse curl kind, synthesise for http-example/woql kinds
   let parsedHttp: ParsedCurl | null = null
   if (request.kind === "curl") {
     parsedHttp = parseCurlToFetch(displayCode)
+  } else if (request.kind === "woql") {
+    const db = request.database || "_system"
+    const woqlPath = request.anonymous
+      ? "/api/woql"
+      : db === "_system"
+        ? "/api/woql/_system"
+        : `/api/woql/${settings.user}/${db}/local/branch/main`
+    parsedHttp = {
+      method: "POST",
+      url: `${settings.serverUrl.replace(/\/+$/, "")}${woqlPath}`,
+      headers: { "Content-Type": "application/json" },
+      body: request.body,
+      userCredentials: request.anonymous ? undefined : `${settings.user}:${settings.password}`,
+    }
   } else {
     parsedHttp = {
       method: (request.method || "GET").toUpperCase(),
@@ -197,7 +212,7 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
   }
 
   const tabs: { id: RequestTab; label: string }[] = [
-    { id: "curl", label: "curl" },
+    { id: "curl", label: request.kind === "woql" ? "WOQL" : "curl" },
     ...(parsedHttp ? [{ id: "http" as RequestTab, label: "HTTP" }] : []),
     ...(request.expected ? [{ id: "expected" as RequestTab, label: "expected" }] : []),
   ]
@@ -245,7 +260,7 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
         </div>
         <div className="max-h-72 overflow-auto bg-slate-900">
           {activeTab === "curl" && (
-            <Highlight code={displayCode} language="bash" theme={themes.vsDark}>
+            <Highlight code={displayCode} language={request.kind === "woql" ? "javascript" : "bash"} theme={themes.vsDark}>
               {({ className, style, tokens, getTokenProps }) => (
                 <pre
                   className={`${className} !m-0 whitespace-pre-wrap break-all !bg-transparent p-4 font-mono text-xs leading-relaxed`}

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useCallback, useRef, useEffect } from "react"
+import React, { useState, useCallback, useRef, useEffect, useMemo } from "react"
 import { createPortal } from "react-dom"
 import { WalkthroughContext } from "./context"
 import type { WalkthroughStepInfo, StepStatus } from "./context"
@@ -87,9 +87,22 @@ export function Walkthrough({ title, children }: WalkthroughProps) {
     }
   }, [steps])
 
+  // Sub-steps (level 3+) inherit the title of their enclosing level-2
+  // step — rendered as a section breadcrumb on the slide and overview
+  const decoratedSteps = useMemo(() => {
+    let section: string | undefined
+    return steps.map((s) => {
+      if ((s.level ?? 2) <= 2) {
+        section = s.title
+        return s
+      }
+      return { ...s, section }
+    })
+  }, [steps])
+
   const ctx = {
     title,
-    steps,
+    steps: decoratedSteps,
     registerStep,
     view,
     openStep,

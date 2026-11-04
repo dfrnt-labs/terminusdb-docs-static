@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 // @ts-ignore - terminusdb-client doesn't have TypeScript definitions
 import TerminusClient from 'terminusdb'
+import { OpenDemoButton } from './Walkthrough/OpenDemoButton'
 
 const WOQL = TerminusClient.WOQL
 
@@ -34,6 +35,45 @@ function asQuery(obj: any) {
     return new TerminusClient.WOQLQuery(obj)
   }
   return obj
+}
+
+/** Evaluate playground WOQL source into a JSON-LD query — shared with the walkthrough executor */
+export function evalWoqlCode(code: string): JsonLd {
+  const fns = buildWoqlFunctions()
+  const fnNames = Object.keys(fns)
+  const fnValues = Object.values(fns)
+
+  // The user code should return a WOQL query object. Automatically add
+  // 'return' before the last expression if missing.
+  let wrappedCode = code.trim()
+  if (!wrappedCode.includes('return ')) {
+    const lines = wrappedCode.split('\n')
+    let lastExprIdx = -1
+    let depth = 0
+    for (let i = 0; i < lines.length; i++) {
+      const trimmed = lines[i].trim()
+      if (depth === 0 && trimmed && !trimmed.startsWith('//')) {
+        if (!trimmed.startsWith('let ') && !trimmed.startsWith('const ') && !trimmed.startsWith('var ')) {
+          lastExprIdx = i
+        }
+      }
+      for (const ch of trimmed) {
+        if (ch === '(' || ch === '{' || ch === '[') depth++
+        if (ch === ')' || ch === '}' || ch === ']') depth--
+      }
+    }
+    if (lastExprIdx >= 0) {
+      lines[lastExprIdx] = 'return ' + lines[lastExprIdx]
+      wrappedCode = lines.join('\n')
+    }
+  }
+
+  const evalFn = new Function(...fnNames, `"use strict";\n${wrappedCode}\n`)
+  const queryObj: any = evalFn(...fnValues)
+  if (!queryObj || typeof queryObj !== 'object') {
+    throw new Error('The code must return a WOQL query (the last expression should be a WOQL call like eq(), and(), triple(), etc.)')
+  }
+  return queryObj
 }
 
 function buildWoqlFunctions() {
@@ -252,63 +292,14 @@ export function WoqlPlayground({
     setResult(null)
 
     try {
-      // Build WOQL functions
-      const fns = buildWoqlFunctions()
-
-      // Evaluate the user's code in a sandbox with WOQL functions available
-      const fnNames = Object.keys(fns)
-      const fnValues = Object.values(fns)
-
-      // The user code should return a WOQL query object.
-      // Automatically add 'return' before the last expression if missing,
-      // so users can write "eq(...)" or "let v = Vars(...)\nand(...)" naturally.
-      let wrappedCode = code.trim()
-      if (!wrappedCode.includes('return ')) {
-        const lines = wrappedCode.split('\n')
-        // Find the last non-empty line that starts a top-level expression
-        // (not a let/const/var declaration)
-        let lastExprIdx = -1
-        let depth = 0
-        for (let i = 0; i < lines.length; i++) {
-          const trimmed = lines[i].trim()
-          if (depth === 0 && trimmed && !trimmed.startsWith('//')) {
-            if (!trimmed.startsWith('let ') && !trimmed.startsWith('const ') && !trimmed.startsWith('var ')) {
-              lastExprIdx = i
-            }
-          }
-          // Track brace/paren depth to avoid treating continuation lines as new expressions
-          for (const ch of trimmed) {
-            if (ch === '(' || ch === '{' || ch === '[') depth++
-            if (ch === ')' || ch === '}' || ch === ']') depth--
-          }
-        }
-        if (lastExprIdx >= 0) {
-          lines[lastExprIdx] = 'return ' + lines[lastExprIdx]
-          wrappedCode = lines.join('\n')
-        }
-      }
-
-      const evalFn = new Function(
-        ...fnNames,
-        `"use strict";\n${wrappedCode}\n`
-      )
-
-      let queryObj: any
+      let jsonLd: JsonLd
       try {
-        queryObj = evalFn(...fnValues)
+        jsonLd = evalWoqlCode(code)
       } catch (e: any) {
         setError(`Syntax error: ${e.message}`)
         setRunning(false)
         return
       }
-
-      if (!queryObj || typeof queryObj !== 'object') {
-        setError('The code must return a WOQL query (the last expression should be a WOQL call like eq(), and(), triple(), etc.)')
-        setRunning(false)
-        return
-      }
-
-      const jsonLd = queryObj
 
       // Build the API URL
       const { serverUrl, organization, database, user, password } = settings
@@ -426,13 +417,16 @@ export function WoqlPlayground({
             {title || 'WOQL Playground'}
           </span>
         </div>
-        <button
-          onClick={() => setShowSettings(!showSettings)}
-          className="text-xs text-sky-600 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-200 transition-colors"
-          title="Connection settings"
-        >
-          {showSettings ? 'Hide Settings' : 'Settings'}
-        </button>
+        <div className="flex items-center gap-2">
+          <OpenDemoButton />
+          <button
+            onClick={() => setShowSettings(!showSettings)}
+            className="text-xs text-sky-600 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-200 transition-colors"
+            title="Connection settings"
+          >
+            {showSettings ? 'Hide Settings' : 'Settings'}
+          </button>
+        </div>
       </div>
 
       {/* Settings panel */}

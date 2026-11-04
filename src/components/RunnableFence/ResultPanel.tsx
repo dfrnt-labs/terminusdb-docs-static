@@ -29,8 +29,12 @@ const MAX_VISIBLE_ROWS = 20
 
 export function ResultPanel({ state, result, error, serverUrl, fixture, onClear, publishes, publishColumn, publishLabel, onPublish }: ResultPanelProps) {
   const [showAllRows, setShowAllRows] = useState(false)
+  const [rawView, setRawView] = useState(false)
   const headerRef = useRef<HTMLDivElement>(null)
   const hasPublished = useRef(false)
+
+  // New result → back to rendered view
+  useEffect(() => { setRawView(false) }, [result])
 
   // Focus the result panel header after execution completes
   useEffect(() => {
@@ -88,6 +92,9 @@ export function ResultPanel({ state, result, error, serverUrl, fixture, onClear,
       >
         <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
           {state === "SUCCESS" && result && <SuccessHeader result={result} />}
+          {state === "SUCCESS" && result?.simulated && (
+            <span className="ml-2 text-xs font-normal text-slate-400 dark:text-slate-500">· simulated</span>
+          )}
           {state === "ERROR" && (
             <span className="text-red-700 dark:text-red-400 font-bold">Error</span>
           )}
@@ -97,24 +104,41 @@ export function ResultPanel({ state, result, error, serverUrl, fixture, onClear,
             </span>
           )}
         </span>
-        <button
-          onClick={onClear}
-          className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
-          aria-label="Clear execution result"
-        >
-          ✕ Clear
-        </button>
+        <span className="flex items-center gap-3">
+          {state === "SUCCESS" && result && rendersRichResult(result) && (
+            <button
+              onClick={() => setRawView((v) => !v)}
+              className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
+              aria-pressed={rawView}
+            >
+              {rawView ? "Rendered" : "{ } Raw"}
+            </button>
+          )}
+          <button
+            onClick={onClear}
+            className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
+            aria-label="Clear execution result"
+          >
+            ✕ Clear
+          </button>
+        </span>
       </div>
 
       {/* Panel body */}
       <div className="px-3 py-3">
-        {state === "SUCCESS" && result && (
+        {state === "SUCCESS" && result && (rawView ? (
+          <div className="overflow-x-auto max-h-64 overflow-y-auto">
+            <pre className="text-xs text-slate-700 dark:text-slate-300 font-mono whitespace-pre-wrap">
+              {typeof result.raw === "string" ? result.raw : JSON.stringify(result.raw, null, 2)}
+            </pre>
+          </div>
+        ) : (
           <SuccessBody
             result={result}
             showAllRows={showAllRows}
             onShowAll={() => setShowAllRows(true)}
           />
-        )}
+        ))}
         {state === "ERROR" && error && (
           <ErrorBody error={error} fixture={fixture} />
         )}
@@ -260,6 +284,21 @@ function isDiffResult(raw: unknown): boolean {
 }
 
 /**
+ * True when SuccessBody renders a structured view (table, history, diff,
+ * predicate state) rather than the pretty-JSON fallback — i.e. when a
+ * rendered/raw toggle is worth showing.
+ */
+function rendersRichResult(result: ExecutionResult): boolean {
+  if (result.bindings && result.bindings.length > 0) return true
+  const rawBindings =
+    result.raw && typeof result.raw === "object" && !Array.isArray(result.raw)
+      ? (result.raw as Record<string, unknown>)["bindings"]
+      : undefined
+  if (Array.isArray(rawBindings)) return true
+  return isHistoryArray(result.raw) || isDiffResult(result.raw)
+}
+
+/**
  * Detects whether a raw response is a history/log array: an array of objects
  * where entries have an `identifier` field. May optionally have `diff` or
  * `message` fields.
@@ -338,6 +377,19 @@ function SuccessBody({
 }) {
   const hasBindings = result.bindings && result.bindings.length > 0
 
+  // WOQL predicate result — bindings: [] means the query was not satisfied
+  const rawBindings =
+    result.raw && typeof result.raw === "object" && !Array.isArray(result.raw)
+      ? (result.raw as Record<string, unknown>)["bindings"]
+      : undefined
+  if (!hasBindings && Array.isArray(rawBindings) && rawBindings.length === 0) {
+    return (
+      <p className="text-sm font-medium text-amber-700 dark:text-amber-400">
+        ✗ Query not satisfied — the predicate returned no results (false)
+      </p>
+    )
+  }
+
   // If no bindings but raw data is present, check for structured rendering
   if (!hasBindings && result.raw !== undefined) {
     // History array — render with commit headers and CellValue diff rendering
@@ -383,6 +435,14 @@ function SuccessBody({
   }
 
   const columns = Object.keys(result.bindings![0])
+  // bindings: [{}] — a predicate satisfied with nothing bound (true)
+  if (columns.length === 0 && result.bindings!.every((r) => Object.keys(r).length === 0)) {
+    return (
+      <p className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
+        ✓ Query satisfied — the predicate holds (true)
+      </p>
+    )
+  }
   const totalRows = result.bindings!.length
   const visibleRows = showAllRows ? result.bindings! : result.bindings!.slice(0, MAX_VISIBLE_ROWS)
 

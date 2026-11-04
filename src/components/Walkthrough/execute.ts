@@ -1,5 +1,6 @@
 import { parseCurlToFetch, extractUrlPath } from "../RunnableFence/parseCurl"
 import { resolvePath, unwrapBindingRow } from "../HttpExample"
+import { evalWoqlCode } from "../WoqlPlayground"
 import type { StepRequestDescriptor } from "./context"
 import type { ExecutionResult, ExecutionError } from "../RunnableFence/types"
 
@@ -14,6 +15,8 @@ export interface ResolvedRequest {
   url: string
   headers: Record<string, string>
   body?: string
+  /** Skip the Authorization header (anonymous endpoints like /api/woql) */
+  noAuth?: boolean
 }
 
 interface ConnectionSettings {
@@ -69,6 +72,34 @@ export function resolveRequest(
   slotValue: string | undefined
 ): ResolvedRequest | null {
   const baseUrl = settings.serverUrl.replace(/\/+$/, "")
+
+  if (req.kind === "woql") {
+    if (!req.code?.trim()) return null
+    let query: unknown
+    try {
+      query = evalWoqlCode(req.code)
+    } catch {
+      return null
+    }
+    const db = req.database || "_system"
+    const url = req.anonymous
+      ? `${baseUrl}/api/woql`
+      : db === "_system"
+        ? `${baseUrl}/api/woql/_system`
+        : `${baseUrl}/api/woql/${settings.user}/${db}/local/branch/main`
+    const headers: Record<string, string> = { "Content-Type": "application/json" }
+    return {
+      method: "POST",
+      url,
+      headers,
+      noAuth: req.anonymous,
+      body: JSON.stringify({
+        query,
+        all_witnesses: true,
+        commit_info: { author: settings.user, message: "Docs walkthrough query" },
+      }),
+    }
+  }
 
   if (req.kind === "http-example") {
     const path = resolvePath(req.path || "", settings.user, settings.db)
@@ -167,7 +198,7 @@ export async function executeLive(
     }
 
     const headers: Record<string, string> = {
-      Authorization: authHeader,
+      ...(resolved.noAuth ? {} : { Authorization: authHeader }),
       ...resolved.headers,
     }
     if (resolved.body && !Object.keys(headers).some((k) => k.toLowerCase() === "content-type")) {
@@ -234,11 +265,7 @@ export async function simulate(req: StepRequestDescriptor, signal: AbortSignal):
   await new Promise((r) => setTimeout(r, SIMULATED_DELAY_MS))
   if (signal.aborted) return null
   if (!req.expected || !req.expected.trim()) {
-    return { raw: { simulated: true, message: "No canned response for this step." } }
+    return { raw: { message: "No canned response for this step." }, simulated: true }
   }
-  const result = shapeResultBody(req.expected.trim())
-  if (result.raw && typeof result.raw === "object" && !Array.isArray(result.raw)) {
-    ;(result.raw as Record<string, unknown>).simulated = true
-  }
-  return result
+  return { ...shapeResultBody(req.expected.trim()), simulated: true }
 }

@@ -9,9 +9,14 @@ import type { ReactNode } from "react"
 
 /** Structured request descriptor extracted from a RunnableFence or HttpExample element */
 export interface StepRequestDescriptor {
-  kind: "curl" | "http-example"
-  /** curl kind: raw bash source (may contain a slot placeholder) */
+  kind: "curl" | "http-example" | "woql"
+  /** curl kind: raw bash source (may contain a slot placeholder).
+      woql kind: playground WOQL source (evaluated to JSON-LD at run time) */
   code?: string
+  /** woql kind: hit the anonymous /api/woql endpoint (no auth, no database) */
+  anonymous?: boolean
+  /** woql kind: target database name (defaults to _system) */
+  database?: string
   /** http-example kind: structured fields */
   method?: string
   path?: string
@@ -32,12 +37,18 @@ export interface StepRequestDescriptor {
 export interface WalkthroughStepInfo {
   id: string
   title: string
+  /** Heading level — 2 marks a section/Part step, 3+ a sub-step inside it */
+  level?: number
+  /** Title of the enclosing level-2 step (breadcrumb on sub-steps) */
+  section?: string
   /** The step's own heading element (rendered inline and in the slide) */
   heading?: ReactNode
   /** Prose children (heading, runnable elements and expected blocks removed) */
   content: ReactNode
   /** Every runnable request in the step, in document order */
   requests: StepRequestDescriptor[]
+  /** "longform": prose gets the whole left column; request | response split the right */
+  layout?: string
 }
 
 export type StepStatus = "success" | "error"
