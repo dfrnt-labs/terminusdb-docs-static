@@ -25,7 +25,7 @@ export function DocsHeader({
 
   return (
     <header className="mb-9 space-y-1">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div className="flex-1 space-y-1">
           {section && (
             <p className="font-display text-sm font-medium text-sky-500">

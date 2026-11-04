@@ -83,6 +83,11 @@ export function useSlot(name: string | undefined): ReadonlyArray<SlotValue> | un
 // Hook: useSlotPublish — producer publishes values to a named slot
 // ---------------------------------------------------------------------------
 
+/** Raw context access — for components that read many slots at once */
+export function useSlotContext(): SlotContextValue | null {
+  return useContext(SlotContext)
+}
+
 export function useSlotPublish(): (name: string, values: ReadonlyArray<SlotValue>) => void {
   const ctx = useContext(SlotContext)
   return useCallback(

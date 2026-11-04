@@ -57,25 +57,21 @@ This matters for some common jobs:
 There is no single standard for this. Teams use one of these four approaches, or a mix.
 
 ### 1. Full snapshots
-
 You copy the whole graph at set times, for example every night. Each copy is one version.
 
 This is easy to understand and easy to read. But storage grows with every copy, even if only one fact changed. You also lose the changes made between two snapshots.
 
 ### 2. Change logs (deltas)
-
 You store a base version, then a log of each change: which facts were added and which were removed. To read an old version, you start from the base and apply the changes up to that point.
 
 This uses much less storage. Reading an old version can be slow if the log is long, unless the system keeps extra copies or indexes to help.
 
 ### 3. Timestamps on facts or named graphs
-
 You put the time in the data itself. Each fact, or each group of facts, gets a "valid from" and "valid to" value. In RDF, people often use a named graph per version, or extra statements about each triple.
 
 This lets you ask "what was true at time T" in a normal query. But every query must filter on time, and the data model gets more complex. It is also easy to forget the filter and mix versions by mistake.
 
 ### 4. A commit graph
-
 This is how Git works. Each change is a commit. A commit points to the commit before it, and it records who made the change, when and why. A branch is a name that points to the newest commit in one line of history.
 
 Under the hood, a commit graph usually stores deltas. On top of that, it gives you branches, diffs and merges. It is the most complete approach, but you need a store that supports it.
@@ -119,9 +115,8 @@ TerminusDB uses a commit graph. Every write is an [immutable commit](/docs/immut
 
 The example below uses the HTTP API on a local TerminusDB at `localhost:6363` with the default `admin:root` login. It is a tiny graph: one person who works for one organization.
 
-### 1. Set up a small graph
-
-Create a database, add a schema with two linked classes, and add the first facts. Each write is a commit.
+### 1. Create the database {% step %}
+Create the database first. Each write is a commit.
 
 {% http-example method="POST" path="/api/db/admin/MyDatabase" %}
 {"label": "MyDatabase", "comment": "Knowledge graph versioning demo"}
@@ -129,6 +124,10 @@ Create a database, add a schema with two linked classes, and add the first facts
 {"@type":"api:DbCreateResponse","api:status":"api:success"}
 {% /http-expected %}
 {% /http-example %}
+
+### 2. Add the schema {% step %}
+
+The schema has two linked classes: `Organization` and `Person`. A person works for an organization.
 
 {% http-example method="POST" path="/api/document/admin/MyDatabase?graph_type=schema&author=alice@example.com&message=Add+schema" %}
 [{"@type": "Class", "@id": "Organization", "name": "xsd:string"},
@@ -138,6 +137,10 @@ Create a database, add a schema with two linked classes, and add the first facts
 {% /http-expected %}
 {% /http-example %}
 
+### 3. Add the first facts {% step %}
+
+One organization, Acme, and one person, Alice, who works there as an engineer.
+
 {% http-example method="POST" path="/api/document/admin/MyDatabase?author=alice@example.com&message=Add+first+facts" %}
 [{"@id": "Organization/acme", "@type": "Organization", "name": "Acme"},
  {"@id": "Person/alice", "@type": "Person", "name": "Alice", "role": "Engineer", "worksFor": "Organization/acme"}]
@@ -146,8 +149,7 @@ Create a database, add a schema with two linked classes, and add the first facts
 {% /http-expected %}
 {% /http-example %}
 
-### 2. Make a branch
-
+### 4. Make a branch {% step %}
 The branch starts with the same data as `main`. It shares history with `main`, so the data is not copied.
 
 {% http-example method="POST" path="/api/branch/admin/MyDatabase/local/branch/update" %}
@@ -157,8 +159,7 @@ The branch starts with the same data as `main`. It shares history with `main`, s
 {% /http-expected %}
 {% /http-example %}
 
-### 3. Change a fact on the branch
-
+### 5. Change a fact on the branch {% step %}
 Alice gets a new role. Only the `update` branch changes. `main` still says "Engineer".
 
 {% http-example method="PUT" path="/api/document/admin/MyDatabase/local/branch/update?author=alice@example.com&message=New+role+for+Alice" %}
@@ -168,8 +169,7 @@ Alice gets a new role. Only the `update` branch changes. `main` still says "Engi
 {% /http-expected %}
 {% /http-example %}
 
-### 4. Diff the two versions
-
+### 6. Diff the two versions {% step %}
 The diff shows the one field that changed, with its old and new value.
 
 {% http-example method="POST" path="/api/diff/admin/MyDatabase" %}
@@ -179,8 +179,7 @@ The diff shows the one field that changed, with its old and new value.
 {% /http-expected %}
 {% /http-example %}
 
-### 5. Merge, and keep the old version
-
+### 7. Merge into main {% step %}
 Merge the branch into `main`. Here `main` has not changed since the branch was made, so `main` is the right merge base. If both branches had changed the same field, the merge would return HTTP 409 with a conflict report.
 
 {% http-example method="POST" path="/api/apply/admin/MyDatabase/local/branch/main" %}
@@ -190,22 +189,41 @@ Merge the branch into `main`. Here `main` has not changed since the branch was m
 {% /http-expected %}
 {% /http-example %}
 
-`main` now says "CTO". The old version is still there. The commit log lists each commit with its `identifier`, author and message:
+### 8. Find the old commit {% step %}
 
-{% http-example method="GET" path="/api/log/admin/MyDatabase/local/branch/main?count=5" /%}
+`main` now says "CTO". The old version is still there. The commit log lists each commit with an `identifier`, an author and a message, newest first. This query uses `start=1` to skip the merge commit, so it returns the "Add first facts" commit:
 
-To read the graph as it was before the change, put a commit `identifier` from the log in the path, in place of `branch/main`:
+```bash publishes="kg_commit" publishColumn="identifier" publishLabel="message"
+curl -u admin:root "http://localhost:6363/api/log/admin/MyDatabase/local/branch/main?start=1&count=1"
+```
 
-```bash
+{% http-expected %}
+[{"@type":"Commit","author":"alice@example.com","identifier":"b7e3d9f1a2c4567890abcdef1234567890abcd34","message":"Add first facts","timestamp":1720000000.0}]
+{% /http-expected %}
+
+### 9. Read the graph at the old commit {% step %}
+
+To read the graph as it was before the change, put a commit `identifier` in the path in place of `branch/main`. Run the query above and the `identifier` is filled in for you:
+
+```bash slot="kg_commit" placeholder="<identifier>"
 curl -u admin:root \
   "http://localhost:6363/api/document/admin/MyDatabase/local/commit/<identifier>?id=Person/alice"
 ```
 
+{% http-expected %}
+{"@id":"Person/alice","@type":"Person","name":"Alice","role":"Engineer","worksFor":"Organization/acme"}
+{% /http-expected %}
+
 This is a normal read. TerminusDB does not rebuild the past from a log. See [time travel queries](/docs/graph-database-with-time-travel-queries/) for more.
+
+### 10. Clean up {% step %}
 
 When you are done, delete the demo database:
 
 {% http-example method="DELETE" path="/api/db/admin/MyDatabase" /%}
+{% http-expected %}
+{"@type":"api:DbDeleteResponse","api:status":"api:success"}
+{% /http-expected %}
 
 The [time travel how-to](/docs/time-travel-howto/) and the [merge how-to](/docs/merge-howto/) show the same ideas with the TypeScript and Python clients.
 
@@ -227,3 +245,4 @@ Also keep in mind that history uses disk storage. And if a branch has many small
 - [Knowledge Graph Diff](/docs/knowledge-graph-diff/) — compare two versions of a graph, and apply the change as a patch
 - [JSON Diff and Patch](/docs/json-diff-and-patch/) — how structural diffs work
 - [Delta Rollup](/docs/delta-rollup/) — how layers are compacted
+

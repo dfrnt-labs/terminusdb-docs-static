@@ -68,30 +68,35 @@ export function collectSections(
 ) {
   let sections: Array<Section> = []
 
-  for (let node of nodes) {
-    if (isH2Node(node) || isH3Node(node)) {
-      let title = getNodeText(node)
-      if (title) {
-        let id = slugify(title)
-        if (isH3Node(node)) {
-          if (!sections[sections.length - 1]) {
-            throw new Error(
-              'Cannot add `h3` to table of contents without a preceding `h2`',
-            )
+  // Shared-sections walk — h2/h3 inside container tags (e.g. walkthrough-step)
+  // attach to the enclosing section context instead of a fresh array.
+  const walk = (items: Array<Node>) => {
+    for (let node of items) {
+      if (isH2Node(node) || isH3Node(node)) {
+        let title = getNodeText(node)
+        if (title) {
+          let id = slugify(title)
+          if (isH3Node(node)) {
+            if (!sections[sections.length - 1]) {
+              throw new Error(
+                'Cannot add `h3` to table of contents without a preceding `h2`',
+              )
+            }
+            sections[sections.length - 1].children.push({
+              ...node.attributes,
+              id,
+              title,
+            })
+          } else {
+            sections.push({ ...node.attributes, id, title, children: [] })
           }
-          sections[sections.length - 1].children.push({
-            ...node.attributes,
-            id,
-            title,
-          })
-        } else {
-          sections.push({ ...node.attributes, id, title, children: [] })
         }
       }
-    }
 
-    sections.push(...collectSections(node.children ?? [], slugify))
+      walk(node.children ?? [])
+    }
   }
 
+  walk(nodes)
   return sections
 }

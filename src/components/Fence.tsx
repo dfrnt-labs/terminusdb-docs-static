@@ -12,6 +12,8 @@ import { ResultPanel } from "./RunnableFence/ResultPanel"
 import { parseCurlToFetch, formatHttpMessage, extractUrlPath, generateAuthHeader } from "./RunnableFence/parseCurl"
 import { useConnection } from "./ConnectionSettings/ConnectionContext"
 import { useSlot, useSlotPublish } from "./RunnableFence/SlotContext"
+import { useStepLocation } from "./Walkthrough/context"
+import { OpenDemoButton } from "./Walkthrough/OpenDemoButton"
 import type { TabId } from "./RunnableFence/TabBar"
 import type { RunnableState, ExecutionResult, ExecutionError } from "./RunnableFence/types"
 
@@ -99,6 +101,10 @@ export function Fence({
   const { settings, setConnectionStatus } = useConnection()
   const slotValues = useSlot(slot)
   const publishSlot = useSlotPublish()
+  // Inside a walkthrough step, the example renders minimal: code + copy +
+  // an open-in-demo control. Running and results live in the overlay.
+  const stepLocation = useStepLocation()
+  const inWalkthroughStep = Boolean(stepLocation && !stepLocation.inOverlay)
 
   // Consumer state: is this a slot consumer and is the slot populated?
   const isConsumer = Boolean(slot && placeholder)
@@ -401,7 +407,8 @@ export function Fence({
             {runState === "SERVER_OFFLINE" && (
               <span className="w-2 h-2 rounded-full bg-amber-500 dark:bg-amber-400" aria-hidden="true" />
             )}
-            {parsedCurl && !isConsumerBlocked && <RunButton state={runState} onRun={executeRequest} />}
+            {parsedCurl && !isConsumerBlocked && !inWalkthroughStep && <RunButton state={runState} onRun={executeRequest} />}
+            {inWalkthroughStep && <OpenDemoButton />}
             <button
               onClick={copyToClipboard}
               className="flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
@@ -443,7 +450,7 @@ export function Fence({
               theme={themes.vsDark}
             >
               {({ className, style, tokens, getTokenProps }) => (
-                <pre className={`${className} !m-0 !rounded-none !bg-slate-900 !text-sm !py-3 !px-4 max-h-64 overflow-x-auto overflow-y-auto`} style={style}>
+                <pre className={`${className} !m-0 !rounded-none !bg-slate-900 !text-xs !py-3 !px-4 max-h-64 overflow-x-auto overflow-y-auto`} style={style}>
                   <code>
                     {tokens.map((line, lineIndex) => (
                       <Fragment key={lineIndex}>
@@ -482,7 +489,7 @@ export function Fence({
       )}
 
       {/* Result panel — shown below the code block after execution */}
-      {parsedCurl && !isConsumerBlocked && (
+      {parsedCurl && !isConsumerBlocked && !inWalkthroughStep && (
         <ResultPanel
           state={runState}
           result={runResult}

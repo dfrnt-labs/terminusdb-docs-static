@@ -22,6 +22,7 @@ import { PrerequisitesClone } from '@/components/PrerequisitesClone'
 import { ResourceSetup } from '@/components/ResourceSetup'
 import { GhMark, Tnum } from '@/components/InlineMarks'
 import { CtaLink } from '@/components/CtaLink'
+import { Walkthrough, WalkthroughStep } from '@/components/Walkthrough'
 
 const tags = {
   gh: {
@@ -359,6 +360,17 @@ const tags = {
       fixture: { type: String, required: true },
     },
     selfClosing: true,
+  },
+  walkthrough: {
+    render: Walkthrough,
+    attributes: {
+      name: { type: String },
+      title: { type: String },
+    },
+  },
+  'walkthrough-step': {
+    render: WalkthroughStep,
+    attributes: {},
   },
   'code-tabs': {
     render: CodeTabs,
