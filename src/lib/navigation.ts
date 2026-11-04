@@ -46,6 +46,10 @@ export const navigation: Navigation[] = [
         title: 'Quickstart',
         links: [
           {
+            title: 'Set up with an AI agent',
+            href: '/docs/ai-agent-setup',
+          },
+          {
             title: 'First 10 Minutes (clone)',
             href: '/docs/get-started',
           },
@@ -876,6 +880,10 @@ export const navigation: Navigation[] = [
           {
             title: 'Data Types',
             href: '/docs/xsd-data-types',
+          },
+          {
+            title: 'QName and SQName',
+            href: '/docs/qname-sqname-data-types',
           },
           {
             title: 'WOQL Reference',

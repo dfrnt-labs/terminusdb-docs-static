@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useCallback, useRef, useEffect } from "react"
+import React, { useState, useCallback, useRef, useEffect, useMemo } from "react"
 import { createPortal } from "react-dom"
 import { WalkthroughContext } from "./context"
 import type { WalkthroughStepInfo, StepStatus } from "./context"
@@ -23,9 +23,11 @@ export function Walkthrough({ title, children }: WalkthroughProps) {
   const [live, setLiveState] = useState(false)
   const [stepStates, setStepStates] = useState<Record<string, StepStatus | undefined>>({})
   const openedFromHash = useRef(false)
+  const launcherRef = useRef<HTMLDivElement>(null)
   // Portals need document.body — unavailable during SSR
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
+  useEffect(() => { launcherRef.current?.focus() }, [])
 
   const registerStep = useCallback((step: WalkthroughStepInfo) => {
     setSteps((prev) => {
@@ -75,21 +77,65 @@ export function Walkthrough({ title, children }: WalkthroughProps) {
     })
   }, [steps])
 
-  // Deep-link: #<step-heading-id> opens the overlay at that step
+  // Sub-steps (level 3+) inherit the title of their enclosing level-2
+  // step — rendered as a section breadcrumb on the slide and overview.
+  // A Part heading with neither prose nor requests gets no slide of its
+  // own — it still names the section its sub-steps belong to.
+  const decoratedSteps = useMemo(() => {
+    let section: string | undefined
+    const out: WalkthroughStepInfo[] = []
+    for (const s of steps) {
+      const empty =
+        s.requests.length === 0 &&
+        !React.Children.toArray(s.content).some(
+          (n) => !(typeof n === "string" && n.trim() === "")
+        )
+      if ((s.level ?? 2) <= 2) {
+        section = s.title
+      }
+      if (empty) continue
+      out.push((s.level ?? 2) <= 2 ? s : { ...s, section })
+    }
+    return out
+  }, [steps])
+
+  // Deep-link: #<step-heading-id> opens the overlay at that step,
+  // #walkthrough opens the overview
   useEffect(() => {
     if (openedFromHash.current || steps.length === 0 || typeof window === "undefined") return
     const hash = window.location.hash.slice(1)
     if (!hash) return
-    const idx = steps.findIndex((s) => s.id === hash)
-    if (idx >= 0) {
-      openedFromHash.current = true
-      setView(idx)
+    openedFromHash.current = true
+    if (hash === "walkthrough") {
+      setView("overview")
+      return
     }
+    const idx = decoratedSteps.findIndex((s) => s.id === hash)
+    if (idx >= 0) setView(idx)
   }, [steps])
+
+  // Keep the URL hash pointing at the current step so a copied link
+  // reopens the walkthrough exactly here. On close, the previous hash
+  // (e.g. a page heading anchor) is restored.
+  const prevHash = useRef<string | null>(null)
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    if (view === "closed") {
+      if (prevHash.current !== null) {
+        window.history.replaceState(null, "", prevHash.current || window.location.pathname + window.location.search)
+        prevHash.current = null
+      }
+      return
+    }
+    if (prevHash.current === null) prevHash.current = window.location.hash
+    const step = typeof view === "number" ? decoratedSteps[view] : undefined
+    const hash = step ? `#${step.id}` : "#walkthrough"
+    if (window.location.hash !== hash) window.history.replaceState(null, "", hash)
+  }, [view, decoratedSteps])
 
   const ctx = {
     title,
-    steps,
+    steps: decoratedSteps,
     registerStep,
     view,
     openStep,
@@ -105,6 +151,7 @@ export function Walkthrough({ title, children }: WalkthroughProps) {
     <WalkthroughContext.Provider value={ctx}>
       {/* Launcher — click or Enter opens the overview screen */}
       <div
+        ref={launcherRef}
         role="button"
         tabIndex={0}
         aria-label="Open the interactive walkthrough"

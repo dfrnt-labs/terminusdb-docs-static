@@ -9,6 +9,7 @@ import {
   extractTextFromChildren,
 } from "../HttpExample"
 import { StepLocationContext, useWalkthrough } from "./context"
+import { parseCurlToFetch } from "../RunnableFence/parseCurl"
 import type { StepRequestDescriptor } from "./context"
 
 // ---------------------------------------------------------------------------
@@ -21,7 +22,16 @@ import type { StepRequestDescriptor } from "./context"
  * unreliable. Fall back to prop shape: http-example always has method+path,
  * a fence always has language + string children.
  */
-function runnableKind(node: React.ReactNode): "fence" | "http-example" | null {
+
+/** {% http-expected %} accepts bare JSON or a fenced ```json block — strip the fence */
+function stripExpectedFence(text: string): string {
+  return text
+    .replace(/^\s*```[a-zA-Z]*[ \t]*\n/, "")
+    .replace(/\n?```[ \t]*$/, "")
+    .trim()
+}
+
+function runnableKind(node: React.ReactNode): "fence" | "http-example" | "woql" | null {
   if (!React.isValidElement(node)) return null
   const props = node.props as Record<string, unknown>
   const t = node.type as { name?: string; displayName?: string }
@@ -30,13 +40,38 @@ function runnableKind(node: React.ReactNode): "fence" | "http-example" | null {
   const name = (t?.name || t?.displayName || "") as string
   if (/RunnableFence|RunnableFenceInner|^Fence$/.test(name)) return "fence"
   if (/HttpExample/.test(name)) return "http-example"
+  if (/WoqlPlayground/.test(name)) return "woql"
+  // woql-playground's distinguishing prop is `code` combined with `title`
+  if (typeof props.code === "string" && typeof props.title === "string") return "woql"
   if (typeof props.method === "string" && typeof props.path === "string") return "http-example"
   if (typeof props.language === "string" && typeof props.children === "string") return "fence"
   return null
 }
 
 function isRunnableElement(node: React.ReactNode): boolean {
-  return runnableKind(node) !== null
+  const kind = runnableKind(node)
+  // A fenced block only becomes a request if it actually parses as a curl
+  // command — docker run / docker stop blocks inside a step stay prose
+  if (kind === "fence") {
+    const code = (node as React.ReactElement).props as { children?: unknown }
+    return typeof code.children === "string" && parseCurlToFetch(code.children.trim()) !== null
+  }
+  // runnable=false http-examples are reference cards — stay inline prose
+  if (kind === "http-example") {
+    return (node as React.ReactElement).props?.runnable !== false
+  }
+  return kind !== null
+}
+
+function buildWoqlDescriptor(el: React.ReactElement, siblingExpected?: string): StepRequestDescriptor {
+  const props = el.props as Record<string, unknown>
+  return {
+    kind: "woql",
+    code: typeof props.code === "string" ? props.code : "",
+    anonymous: props.anonymous === true || props.anonymous === "true",
+    database: typeof props.database === "string" ? props.database : undefined,
+    expected: siblingExpected,
+  }
 }
 
 function isHeadingElement(node: React.ReactNode): node is React.ReactElement {
@@ -65,7 +100,7 @@ function buildDescriptor(el: React.ReactElement, siblingExpected?: string): Step
   // http-example — body and expected live in its children via marker tags
   const { bodyChildren, expectedChildren } = separateSpecialChildren(props.children as React.ReactNode)
   const bodyText = extractTextFromChildren(bodyChildren).trim()
-  const expectedText = siblingExpected ?? (expectedChildren ? extractTextFromChildren(expectedChildren).trim() : undefined)
+  const expectedText = siblingExpected ?? (expectedChildren ? stripExpectedFence(extractTextFromChildren(expectedChildren)) : undefined)
 
   let headers: Record<string, string> | undefined
   if (typeof props.headers === "string") {
@@ -100,6 +135,7 @@ function partitionStepChildren(children: React.ReactNode, fallbackId: string) {
 
   let id = fallbackId
   let title = ""
+  let level: number | undefined
   let heading: React.ReactNode | undefined
   const inline: React.ReactNode[] = []
   const prose: React.ReactNode[] = []
@@ -114,20 +150,29 @@ function partitionStepChildren(children: React.ReactNode, fallbackId: string) {
       const next = arr[i + 1]
       let siblingExpected: string | undefined
       if (next !== undefined && isHttpExpectedElement(next)) {
-        siblingExpected = extractTextFromChildren(
-          ((next as React.ReactElement).props as { children?: React.ReactNode }).children
+        siblingExpected = stripExpectedFence(
+          extractTextFromChildren(
+            ((next as React.ReactElement).props as { children?: React.ReactNode }).children
+          )
         )
         i++
       }
-      requests.push(buildDescriptor(child as React.ReactElement, siblingExpected))
+      requests.push(
+        runnableKind(child) === "woql"
+          ? buildWoqlDescriptor(child as React.ReactElement, siblingExpected)
+          : buildDescriptor(child as React.ReactElement, siblingExpected)
+      )
       continue
     }
 
     if (!heading && isHeadingElement(child)) {
       const props = child.props as { id?: string; children?: React.ReactNode }
       if (props.id) id = props.id
-      title = extractTextFromChildren(props.children)
+      title = extractTextFromChildren(props.children).replace(/\s*\{#[\w-]+\}\s*$/, "")
       heading = child
+      level = typeof (child as React.ReactElement).type === "string"
+        ? parseInt(((child as React.ReactElement).type as string).slice(1), 10)
+        : undefined
       inline.push(child)
       continue
     }
@@ -136,7 +181,7 @@ function partitionStepChildren(children: React.ReactNode, fallbackId: string) {
     inline.push(child)
   }
 
-  return { id, title, heading, inline, prose, requests }
+  return { id, title, level, heading, inline, prose, requests }
 }
 
 // ---------------------------------------------------------------------------
@@ -144,17 +189,17 @@ function partitionStepChildren(children: React.ReactNode, fallbackId: string) {
 // step inline (prose + minimal examples) on the page
 // ---------------------------------------------------------------------------
 
-export function WalkthroughStep({ children }: { children?: React.ReactNode }) {
+export function WalkthroughStep({ children, layout }: { children?: React.ReactNode; layout?: string }) {
   const ctx = useWalkthrough()
   const fallbackId = useId().replace(/:/g, "")
-  const { id, title, heading, inline, prose, requests } = useMemo(
+  const { id, title, level, heading, inline, prose, requests } = useMemo(
     () => partitionStepChildren(children, fallbackId),
     [children, fallbackId]
   )
 
   useEffect(() => {
-    ctx?.registerStep({ id, title, heading, content: prose, requests })
-  }, [ctx, id, title, heading, prose, requests])
+    ctx?.registerStep({ id, title, level, heading, content: prose, requests, layout })
+  }, [ctx, id, title, level, heading, prose, requests, layout])
 
   return (
     <StepLocationContext.Provider value={{ stepId: id, inOverlay: false }}>

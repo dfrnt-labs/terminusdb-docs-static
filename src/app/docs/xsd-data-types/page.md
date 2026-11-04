@@ -507,6 +507,14 @@ Non-colonized Name—XML Name without colons.
 
 ---
 
+## Qualified Name Types
+
+### xsd:QName
+
+Qualified name — a `prefix:localname` pair stored expanded in Clark notation (`{namespace}localname`). See [QName and SQName Data Types](/docs/qname-sqname-data-types/) for the storage form, grammar, and casting rules, and the related `xbrl:SQName` type for XBRL OIM.
+
+---
+
 ## XSD Binary Types
 
 ### xsd:base64Binary
@@ -956,9 +964,6 @@ The following XSD types are defined but **not implemented**:
 * `xsd:NOTATION`
 * Unimplemented
 ---
-* `xsd:QName`
-* Unimplemented
----
 * `xsd:ID`
 * Unimplemented
 ---
@@ -974,6 +979,7 @@ The following XSD types are defined but **not implemented**:
 ## See Also
 
 - [Schema Reference Guide](/docs/schema-reference-guide/) — Schema definition syntax and keywords
+- [QName and SQName Data Types](/docs/qname-sqname-data-types/) — Qualified names, Clark notation, XBRL OIM
 - [Numeric Precision Reference](/docs/numeric-precision-reference/) — Detailed numeric handling
 - [sys:JSON Reference](/docs/sysjson/) — Working with JSON types
 - [WOQL Class Reference](/docs/woql-class-reference-guide/) — Query language type handling

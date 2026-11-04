@@ -60,15 +60,18 @@ const FENCE_COPY_EVENT_RE = /^(```\w+)[^\S\n]+copyEvent="([a-z0-9_]+)"[^\S\n]*$/
 /**
  * Regex to match a heading that marks a walkthrough step:
  *   ### 4. Find the old commit {% step %}
- *   ## Guided tour {% step sequence="tour-2" %}
+ *   ## Guided tour {% step sequence="tour-2" layout="longform" %}
  *
  * The marker is stripped and the heading plus everything up to the next step
  * heading (or the next heading of same-or-higher level) is wrapped in
  * {% walkthrough-step %} containers, all inside one {% walkthrough %} per
  * contiguous run of marked headings.
  */
-const STEP_HEADING_RE = /^(#{2,6})[ \t]+(.+?)[ \t]*\{%[ \t]*step(?:[ \t]+sequence="([^"]*)")?[ \t]*%\}[ \t]*$/
+const STEP_HEADING_RE = /^(#{2,6})[ \t]+(.+?)[ \t]*\{%[ \t]*step(?:[ \t]+sequence="([^"]*)")?(?:[ \t]+layout="([^"]*)")?[ \t]*%\}[ \t]*$/
 const ANY_HEADING_RE = /^(#{1,6})[ \t]+(.+?)[ \t]*$/
+// Section headings that should never become the walkthrough's title —
+// boilerplate intros/outros, not the subject of the sequence
+const BOILERPLATE_H2_RE = /^(prerequisites?|before you (start|begin)|requirements?|setup|installation|overview|introduction|what you('| wi)ll learn|self[- ]check|what you (just )?(learned|did)|summary|next steps?|where to go next|related|see also)\b/i
 const FENCE_TOGGLE_RE = /^\s*```/
 
 export function transformStepMarkers(source) {
@@ -120,7 +123,8 @@ export function transformStepMarkers(source) {
         inWalkthrough = true
         sequence = seq
       }
-      out.push('{% walkthrough-step %}')
+      const layoutAttr = sm[4] ? ` layout="${sm[4]}"` : ''
+      out.push(`{% walkthrough-step${layoutAttr} %}`)
       out.push(`${sm[1]} ${title}`)
       inStep = true
       stepLevel = level
@@ -130,12 +134,13 @@ export function transformStepMarkers(source) {
     const hm = line.match(ANY_HEADING_RE)
     if (hm) {
       const level = hm[1].length
-      if (level === 2) lastH2 = hm[2]
-      // A non-step heading of same-or-higher level ends the step and the
-      // walkthrough — deeper headings fold into the current step's prose.
+      if (level === 2 && !BOILERPLATE_H2_RE.test(hm[2].replace(/\{#[\w-]+\}\s*$/, '').trim())) lastH2 = hm[2]
+      // A non-step heading closes the step; only a top-level boundary
+      // (## or higher) ends the walkthrough — ### subsections fold into
+      // the current step's prose instead of splitting the sequence.
       if (inStep && level <= stepLevel) {
         closeStep()
-        closeWalkthrough()
+        if (level <= 2) closeWalkthrough()
       }
     }
 

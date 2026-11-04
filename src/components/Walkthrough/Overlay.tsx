@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useMemo, useRef } from "react"
 import { Switch } from "@headlessui/react"
 import { useWalkthrough, StepLocationContext } from "./context"
 import type { WalkthroughStepInfo } from "./context"
@@ -79,10 +79,12 @@ function Overview() {
                 <li key={s.id}>
                   <button
                     onClick={() => ctx.openStep(i)}
-                    className="group flex w-full items-center gap-3 rounded-md px-2 py-1.5 text-left text-sm text-slate-700 transition-colors hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
+                    className={`group flex w-full items-center gap-3 rounded-md px-2 py-1.5 text-left transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 ${
+                      s.section ? "pl-5 text-[13px] text-slate-600 dark:text-slate-400" : "text-sm font-medium text-slate-700 dark:text-slate-300"
+                    }`}
                   >
                     <span
-                      className={`h-2.5 w-2.5 shrink-0 rounded-full ${dotColor(ctx.stepStates[s.id])}`}
+                      className={`shrink-0 rounded-full ${dotColor(ctx.stepStates[s.id])} ${s.section ? "h-2 w-2" : "h-2.5 w-2.5"}`}
                       aria-hidden="true"
                     />
                     <span className="flex-1 group-hover:text-slate-900 dark:group-hover:text-white">{s.title}</span>
@@ -212,7 +214,8 @@ function OverviewConnection({ bare }: { bare?: boolean }) {
 // StepSlide — one step: text + request on top, results full width below
 // ---------------------------------------------------------------------------
 
-function StepSlide({ step, index, active }: { step: WalkthroughStepInfo; index: number; active: boolean }) {
+function StepSlide({ step, index, total, active }: { step: WalkthroughStepInfo; index: number; total: number; active: boolean }) {
+  const ctx = useWalkthrough()
   const [tab, setTab] = useState<"request" | "response">("request")
   const { forIndex, reset } = useStepRunners(step.id, step.requests)
   const anyRunning = step.requests.some((_, i) => forIndex(i).state === "RUNNING")
@@ -239,24 +242,33 @@ function StepSlide({ step, index, active }: { step: WalkthroughStepInfo; index: 
       const el = e.target as HTMLElement | null
       if (el && /^(input|textarea|select|button|a)$/i.test(el.tagName)) return
       const i = step.requests.findIndex(
-        (_, j) => forIndex(j).state !== "RUNNING" && !(forIndex(j).live && forIndex(j).blocked)
+        (_, j) => forIndex(j).state !== "RUNNING" && !forIndex(j).result && !(forIndex(j).live && forIndex(j).blocked)
       )
       if (i >= 0) forIndex(i).run()
+      else if (index + 1 < total) ctx?.openStep(index + 1)
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [active, step.requests, forIndex])
+  }, [active, step.requests, forIndex, index, total, ctx])
 
-  const requestArea =
-    step.requests.length === 0 ? (
-      <RequestCard request={undefined} runner={forIndex(0)} />
-    ) : (
-      <div className="flex flex-col gap-4">
+  const hasRequests = step.requests.length > 0
+  const paired = step.requests.length > 1
+  const requestArea = hasRequests ? (
+    paired ? (
+      // Several requests: each card sits directly above its own result —
+      // keeps the request↔response pairing visible
+      <div className="flex flex-col gap-6">
         {step.requests.map((r, i) => (
-          <RequestCard key={i} request={r} runner={forIndex(i)} />
+          <div key={i} className="flex flex-col gap-3">
+            <RequestCard request={r} runner={forIndex(i)} />
+            <ResultArea request={r} runner={forIndex(i)} />
+          </div>
         ))}
       </div>
+    ) : (
+      <RequestCard request={step.requests[0]} runner={forIndex(0)} />
     )
+  ) : null
   const resultArea = (
     <div className="flex flex-col gap-4">
       {step.requests.map((r, i) => (
@@ -265,11 +277,20 @@ function StepSlide({ step, index, active }: { step: WalkthroughStepInfo; index: 
     </div>
   )
 
+  const longform = step.layout === "longform"
+
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
-      {/* Desktop: two columns on top, results full width below */}
+      {/* Desktop: two columns on top, results full width below.
+          longform: prose owns the left column; the right column splits
+          request | response side by side. */}
       <div className="hidden flex-1 grid-cols-2 gap-6 overflow-hidden p-6 md:grid">
-        <div className="overflow-auto pr-2">
+        <div className={`overflow-auto pr-2 ${hasRequests ? "" : "col-span-2"}`}>
+          {step.section && (
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-sky-600 dark:text-sky-400">
+              {step.section}
+            </p>
+          )}
           {step.heading ?? (
             <h3 className="mb-3 text-lg font-semibold text-slate-900 dark:text-white">
               <span className="mr-2 text-slate-400">{index + 1}.</span>
@@ -282,15 +303,31 @@ function StepSlide({ step, index, active }: { step: WalkthroughStepInfo; index: 
             </StepLocationContext.Provider>
           </div>
         </div>
-        <div className="min-h-0 overflow-y-auto">{requestArea}</div>
+        {longform && hasRequests && !paired ? (
+          <div className="grid min-h-0 grid-cols-2 gap-4 overflow-hidden">
+            <div className="flex min-h-0 flex-col overflow-hidden">{requestArea}</div>
+            <div className="min-h-0 overflow-y-auto">{resultArea}</div>
+          </div>
+        ) : hasRequests ? (
+          // Single request: card pins in place, only the pane's contents scroll.
+          // Paired requests: the column itself scrolls so pairs stack naturally.
+          <div className={paired ? "min-h-0 overflow-y-auto" : "flex min-h-0 flex-col overflow-hidden"}>{requestArea}</div>
+        ) : null}
       </div>
-      <div className="hidden min-h-0 flex-[1.2] overflow-auto border-t border-slate-200 p-6 dark:border-slate-800 md:block">
-        {resultArea}
-      </div>
+      {!longform && !paired && hasRequests && (
+        <div className="hidden min-h-0 flex-[1.2] overflow-auto border-t border-slate-200 p-6 dark:border-slate-800 md:block">
+          {resultArea}
+        </div>
+      )}
 
       {/* Mobile: text on top, then Request/Response tabs */}
       <div className="flex flex-1 flex-col overflow-hidden md:hidden">
-        <div className="max-h-[40%] overflow-auto px-4 pt-4">
+        <div className={`${hasRequests ? "max-h-[40%]" : "flex-1"} overflow-auto px-4 pt-4`}>
+          {step.section && (
+            <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-sky-600 dark:text-sky-400">
+              {step.section}
+            </p>
+          )}
           {step.heading ?? (
             <h3 className="mb-2 text-base font-semibold text-slate-900 dark:text-white">
               <span className="mr-2 text-slate-400">{index + 1}.</span>
@@ -303,26 +340,35 @@ function StepSlide({ step, index, active }: { step: WalkthroughStepInfo; index: 
             </StepLocationContext.Provider>
           </div>
         </div>
-        <div className="mt-3 flex gap-1 border-b border-slate-200 px-4 dark:border-slate-800">
-          {(["request", "response"] as const).map((t) => (
-            <button
-              key={t}
-              onClick={() => setTab(t)}
-              aria-selected={tab === t}
-              role="tab"
-              className={`-mb-px border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
-                tab === t
-                  ? "border-sky-600 text-sky-700 dark:border-sky-400 dark:text-sky-300"
-                  : "border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400"
-              }`}
+        {hasRequests && paired ? (
+          <div className="min-h-0 flex-1 overflow-auto p-4">{requestArea}</div>
+        ) : hasRequests ? (
+          <>
+            <div className="mt-3 flex gap-1 border-b border-slate-200 px-4 dark:border-slate-800">
+              {(["request", "response"] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setTab(t)}
+                  aria-selected={tab === t}
+                  role="tab"
+                  className={`-mb-px border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
+                    tab === t
+                      ? "border-sky-600 text-sky-700 dark:border-sky-400 dark:text-sky-300"
+                      : "border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400"
+                  }`}
+                >
+                  {t === "request" ? "Request" : "Response"}
+                </button>
+              ))}
+            </div>
+            <div
+              className={tab === "request" ? "flex min-h-0 flex-1 flex-col overflow-hidden p-4" : "min-h-0 flex-1 overflow-auto p-4"}
+              role="tabpanel"
             >
-              {t === "request" ? "Request" : "Response"}
-            </button>
-          ))}
-        </div>
-        <div className="min-h-0 flex-1 overflow-auto p-4" role="tabpanel">
-          {tab === "request" ? requestArea : resultArea}
-        </div>
+              {tab === "request" ? requestArea : resultArea}
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   )
@@ -335,7 +381,7 @@ function StepSlide({ step, index, active }: { step: WalkthroughStepInfo; index: 
 export function WalkthroughOverlay() {
   const ctx = useWalkthrough()
   const dialogRef = useRef<HTMLDivElement>(null)
-  const slides = ctx?.steps ?? []
+  const slides = useMemo(() => ctx?.steps ?? [], [ctx?.steps])
   const isOverview = ctx?.view === "overview"
   const stepIndex = typeof ctx?.view === "number" ? ctx.view : -1
   const step = ctx && stepIndex >= 0 ? slides[stepIndex] : undefined
@@ -428,7 +474,7 @@ export function WalkthroughOverlay() {
         {!isOverview &&
           slides.map((s, i) => (
             <div key={s.id} data-active={i === stepIndex || undefined} className={i === stepIndex ? "flex min-h-0 flex-1 flex-col" : "hidden"}>
-              <StepSlide step={s} index={i} active={i === stepIndex} />
+              <StepSlide step={s} index={i} total={slides.length} active={i === stepIndex} />
             </div>
           ))}
 

@@ -370,7 +370,9 @@ const tags = {
   },
   'walkthrough-step': {
     render: WalkthroughStep,
-    attributes: {},
+    attributes: {
+      layout: { type: String },
+    },
   },
   'code-tabs': {
     render: CodeTabs,
