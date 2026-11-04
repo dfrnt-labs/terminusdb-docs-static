@@ -214,7 +214,8 @@ function OverviewConnection({ bare }: { bare?: boolean }) {
 // StepSlide — one step: text + request on top, results full width below
 // ---------------------------------------------------------------------------
 
-function StepSlide({ step, index, active }: { step: WalkthroughStepInfo; index: number; active: boolean }) {
+function StepSlide({ step, index, total, active }: { step: WalkthroughStepInfo; index: number; total: number; active: boolean }) {
+  const ctx = useWalkthrough()
   const [tab, setTab] = useState<"request" | "response">("request")
   const { forIndex, reset } = useStepRunners(step.id, step.requests)
   const anyRunning = step.requests.some((_, i) => forIndex(i).state === "RUNNING")
@@ -241,13 +242,14 @@ function StepSlide({ step, index, active }: { step: WalkthroughStepInfo; index: 
       const el = e.target as HTMLElement | null
       if (el && /^(input|textarea|select|button|a)$/i.test(el.tagName)) return
       const i = step.requests.findIndex(
-        (_, j) => forIndex(j).state !== "RUNNING" && !(forIndex(j).live && forIndex(j).blocked)
+        (_, j) => forIndex(j).state !== "RUNNING" && !forIndex(j).result && !(forIndex(j).live && forIndex(j).blocked)
       )
       if (i >= 0) forIndex(i).run()
+      else if (index + 1 < total) ctx?.openStep(index + 1)
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [active, step.requests, forIndex])
+  }, [active, step.requests, forIndex, index, total, ctx])
 
   const hasRequests = step.requests.length > 0
   const paired = step.requests.length > 1
@@ -472,7 +474,7 @@ export function WalkthroughOverlay() {
         {!isOverview &&
           slides.map((s, i) => (
             <div key={s.id} data-active={i === stepIndex || undefined} className={i === stepIndex ? "flex min-h-0 flex-1 flex-col" : "hidden"}>
-              <StepSlide step={s} index={i} active={i === stepIndex} />
+              <StepSlide step={s} index={i} total={slides.length} active={i === stepIndex} />
             </div>
           ))}
 

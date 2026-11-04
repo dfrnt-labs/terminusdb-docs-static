@@ -23,9 +23,11 @@ export function Walkthrough({ title, children }: WalkthroughProps) {
   const [live, setLiveState] = useState(false)
   const [stepStates, setStepStates] = useState<Record<string, StepStatus | undefined>>({})
   const openedFromHash = useRef(false)
+  const launcherRef = useRef<HTMLDivElement>(null)
   // Portals need document.body — unavailable during SSR
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
+  useEffect(() => { launcherRef.current?.focus() }, [])
 
   const registerStep = useCallback((step: WalkthroughStepInfo) => {
     setSteps((prev) => {
@@ -149,6 +151,7 @@ export function Walkthrough({ title, children }: WalkthroughProps) {
     <WalkthroughContext.Provider value={ctx}>
       {/* Launcher — click or Enter opens the overview screen */}
       <div
+        ref={launcherRef}
         role="button"
         tabIndex={0}
         aria-label="Open the interactive walkthrough"

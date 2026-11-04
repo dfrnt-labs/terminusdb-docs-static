@@ -28,7 +28,7 @@ Make HTTP requests to the TerminusDB API from browser JavaScript without CORS er
 
 **TerminusDB allows all CORS origins by default.** The server reflects the request's `Origin` header back as `Access-Control-Allow-Origin`, so any browser origin can make requests without additional configuration. There is no environment variable to set and no allow-list to configure.
 
-## Step 1 — Verify CORS is working
+## Step 1 — Verify CORS is working {% step %}
 
 Open your browser's developer console and run:
 
@@ -42,14 +42,14 @@ console.log(data);
 
 If you see a JSON response with `"authority": "admin"`, CORS is working. No server configuration needed.
 
-## Step 2 — Fetch documents from your application
+## Step 2 — Fetch documents from your application {% step %}
 
 A minimal example using the Fetch API (works in any framework):
 
 ```javascript test-example file="examples/browser-fetch.example.ts"
 ```
 
-## Step 3 — Insert a document from the browser
+## Step 3 — Insert a document from the browser {% step %}
 
 ```javascript
 async function insertDocument(database, doc, message) {
