@@ -29,7 +29,7 @@ export interface StepRunner {
   state: RunnableState
   result: ExecutionResult | null
   error: ExecutionError | null
-  run: () => void
+  run: (codeOverride?: string) => void
   clear: () => void
   live: boolean
   blocked: boolean
@@ -67,8 +67,8 @@ export function useStepRunners(stepId: string, requests: StepRequestDescriptor[]
   }, [])
 
   const run = useCallback(
-    async (i: number) => {
-      const request = requests[i]
+    async (i: number, codeOverride?: string) => {
+      const request = codeOverride !== undefined && requests[i] ? { ...requests[i], code: codeOverride } : requests[i]
       if (!request) return
 
       patchRun(i, { state: "RUNNING", result: null, error: null })
@@ -138,7 +138,7 @@ export function useStepRunners(stepId: string, requests: StepRequestDescriptor[]
         state: r?.state ?? "IDLE",
         result: r?.result ?? null,
         error: r?.error ?? null,
-        run: () => run(i),
+        run: (codeOverride?: string) => run(i, codeOverride),
         clear: () => clear(i),
         live,
         blocked: request ? consumerBlocked(request, slotValue) : false,
@@ -160,8 +160,9 @@ export function useStepRunners(stepId: string, requests: StepRequestDescriptor[]
 type RequestTab = "curl" | "http" | "expected"
 
 export function RequestCard({ request, runner }: { request?: StepRequestDescriptor; runner: StepRunner }) {
-  const { state, run, live, blocked, slotValue, settings } = runner
+  const { state, run, clear, live, blocked, slotValue, settings } = runner
   const [tab, setTab] = useState<RequestTab>("curl")
+  const [editedCode, setEditedCode] = useState<string | null>(null)
 
   if (!request) {
     return (
@@ -172,8 +173,12 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
   }
 
   const isRunning = state === "RUNNING"
+  const code = editedCode ?? (request.code || "")
+  const edited = editedCode !== null && editedCode !== (request.code || "")
   const displayCode =
-    request.kind === "curl" || request.kind === "woql"
+    request.kind === "woql"
+      ? code
+      : request.kind === "curl"
       ? substituteSlotValue(request.code || "", request.slot, request.placeholder, slotValue).trim()
       : generateCurl({
         method: request.method || "GET",
@@ -200,7 +205,7 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
       method: "POST",
       url: `${settings.serverUrl.replace(/\/+$/, "")}${woqlPath}`,
       headers: { "Content-Type": "application/json" },
-      body: woqlRequestBody(request, settings),
+      body: woqlRequestBody({ ...request, code }, settings),
       userCredentials: request.anonymous ? undefined : `${settings.user}:${settings.password}`,
     }
   } else {
@@ -216,7 +221,7 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
   const tabs: { id: RequestTab; label: string }[] = [
     { id: "curl", label: request.kind === "woql" ? "WOQL" : "curl" },
     ...(parsedHttp ? [{ id: "http" as RequestTab, label: "HTTP" }] : []),
-    ...(request.expected ? [{ id: "expected" as RequestTab, label: "expected" }] : []),
+    ...(request.expected && !edited ? [{ id: "expected" as RequestTab, label: "expected" }] : []),
   ]
   const activeTab = tabs.some((t) => t.id === tab) ? tab : "curl"
 
@@ -229,7 +234,7 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
     }
   }
 
-  const runDisabled = isRunning || (live && blocked)
+  const runDisabled = isRunning || (live && blocked) || (!live && edited)
 
   return (
     <div className="flex h-full min-h-0 flex-col">
@@ -255,11 +260,59 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
             ))}
           </>
         }
-        actions={<RunButton state={state} onRun={run} label={live ? "Run" : "Simulate"} disabled={runDisabled} />}
+        actions={
+          <>
+            {edited && (
+              <button
+                onClick={() => { setEditedCode(null); clear() }}
+                className="rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-500 transition-colors hover:bg-slate-200 hover:text-slate-700 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-200"
+              >
+                Reset
+              </button>
+            )}
+            <RunButton state={state} onRun={() => run(edited ? code : undefined)} label={live ? "Run" : "Simulate"} disabled={runDisabled} />
+          </>
+        }
       >
         <div className="min-h-0 flex-1 overflow-auto bg-slate-900">
-          {activeTab === "curl" && (
-            <Highlight code={displayCode} language={request.kind === "woql" ? "javascript" : "bash"} theme={themes.vsDark}>
+          {activeTab === "curl" && request.kind === "woql" ? (
+            <div className="relative h-full">
+              <Highlight code={code} language="javascript" theme={themes.vsDark}>
+                {({ className, style, tokens, getTokenProps }) => (
+                  <pre
+                    aria-hidden
+                    className={`${className} pointer-events-none absolute inset-0 !m-0 overflow-hidden whitespace-pre-wrap break-all !bg-transparent p-4 font-mono text-xs leading-relaxed`}
+                    style={{ ...style, background: "transparent" }}
+                  >
+                    <code>
+                      {tokens.map((line, lineIndex) => (
+                        <Fragment key={lineIndex}>
+                          {line
+                            .filter((token) => !token.empty)
+                            .map((token, tokenIndex) => (
+                              <span key={tokenIndex} {...getTokenProps({ token })} />
+                            ))}
+                          {lineIndex < tokens.length - 1 && "\n"}
+                        </Fragment>
+                      ))}
+                      {"\n"}
+                    </code>
+                  </pre>
+                )}
+              </Highlight>
+              <textarea
+                value={code}
+                onChange={(e) => setEditedCode(e.target.value)}
+                onScroll={(e) => {
+                  const pre = (e.currentTarget.previousElementSibling as HTMLElement | null)
+                  if (pre) { pre.scrollTop = e.currentTarget.scrollTop; pre.scrollLeft = e.currentTarget.scrollLeft }
+                }}
+                spellCheck={false}
+                className="absolute inset-0 h-full w-full resize-none overflow-auto bg-transparent p-4 font-mono text-xs leading-relaxed text-transparent caret-slate-200 selection:text-transparent focus:outline-none"
+              />
+            </div>
+          ) : activeTab === "curl" && (
+            <Highlight code={displayCode} language="bash" theme={themes.vsDark}>
               {({ className, style, tokens, getTokenProps }) => (
                 <pre
                   className={`${className} !m-0 whitespace-pre-wrap break-all !bg-transparent p-4 font-mono text-xs leading-relaxed`}
@@ -290,6 +343,11 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
       {live && blocked && (
         <p className="mt-2 text-xs text-amber-600 dark:text-amber-400">
           Run the earlier step first — this request needs its result.
+        </p>
+      )}
+      {!live && edited && (
+        <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+          Edited — run live to execute it, or reset for the original.
         </p>
       )}
     </div>
