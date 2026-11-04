@@ -46,6 +46,10 @@ export const navigation: Navigation[] = [
         title: 'Quickstart',
         links: [
           {
+            title: 'Set up with an AI agent',
+            href: '/docs/ai-agent-setup',
+          },
+          {
             title: 'First 10 Minutes (clone)',
             href: '/docs/get-started',
           },
