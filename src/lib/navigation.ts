@@ -882,6 +882,10 @@ export const navigation: Navigation[] = [
             href: '/docs/xsd-data-types',
           },
           {
+            title: 'QName and SQName',
+            href: '/docs/qname-sqname-data-types',
+          },
+          {
             title: 'WOQL Reference',
             href: '/docs/woql-class-reference-guide',
           },
