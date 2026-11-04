@@ -75,12 +75,8 @@ export function resolveRequest(
 
   if (req.kind === "woql") {
     if (!req.code?.trim()) return null
-    let query: unknown
-    try {
-      query = evalWoqlCode(req.code)
-    } catch {
-      return null
-    }
+    const body = woqlRequestBody(req, settings)
+    if (!body) return null
     const db = req.database || "_system"
     const url = req.anonymous
       ? `${baseUrl}/api/woql`
@@ -93,11 +89,7 @@ export function resolveRequest(
       url,
       headers,
       noAuth: req.anonymous,
-      body: JSON.stringify({
-        query,
-        all_witnesses: true,
-        commit_info: { author: settings.user, message: "Docs walkthrough query" },
-      }),
+      body,
     }
   }
 
@@ -133,6 +125,22 @@ export function resolveRequest(
   }
 
   return { method: parsed.method.toUpperCase(), url, headers, body: parsed.body }
+}
+
+/** The real POST body a WOQL request sends — the JSON-LD AST the HTTP tab shows */
+export function woqlRequestBody(
+  req: StepRequestDescriptor,
+  settings: { user: string }
+): string | undefined {
+  try {
+    return JSON.stringify({
+      query: evalWoqlCode(req.code || ""),
+      all_witnesses: true,
+      commit_info: { author: settings.user, message: "Docs walkthrough query" },
+    })
+  } catch {
+    return undefined
+  }
 }
 
 // ---------------------------------------------------------------------------

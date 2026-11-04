@@ -5,15 +5,18 @@ import type { RunnableState } from "./types"
 interface RunButtonProps {
   state: RunnableState
   onRun: () => void
+  /** Button label — defaults to "Run" (walkthrough passes "Simulate") */
+  label?: string
+  disabled?: boolean
 }
 
-export function RunButton({ state, onRun }: RunButtonProps) {
+export function RunButton({ state, onRun, label = "Run", disabled }: RunButtonProps) {
   const isRunning = state === "RUNNING"
 
   return (
     <button
       onClick={onRun}
-      disabled={isRunning}
+      disabled={isRunning || disabled}
       className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold bg-sky-600 text-white hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-400 dark:text-slate-900 shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
       aria-label="Run this code example against your local TerminusDB"
       aria-keyshortcuts="Control+Enter"
@@ -31,7 +34,7 @@ export function RunButton({ state, onRun }: RunButtonProps) {
           <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 12 12">
             <path d="M3 1.5v9l7-4.5-7-4.5z" />
           </svg>
-          <span>Run</span>
+          <span>{label}</span>
         </>
       )}
     </button>

@@ -4,6 +4,11 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 // @ts-ignore - terminusdb-client doesn't have TypeScript definitions
 import TerminusClient from 'terminusdb'
 import { OpenDemoButton } from './Walkthrough/OpenDemoButton'
+import { ExecutorShell } from './RunnableFence/ExecutorShell'
+import { RunButton } from './RunnableFence/RunButton'
+import { ResultPanel } from './RunnableFence/ResultPanel'
+import { unwrapBindingRow } from './HttpExample'
+import type { RunnableState, ExecutionResult, ExecutionError } from './RunnableFence/types'
 
 const WOQL = TerminusClient.WOQL
 
@@ -191,54 +196,6 @@ function saveSettings(settings: ConnectionSettings) {
 }
 
 // ---------------------------------------------------------------------------
-// Result display
-// ---------------------------------------------------------------------------
-
-function ResultTable({ bindings }: { bindings: Record<string, any>[] }) {
-  if (!bindings || bindings.length === 0) {
-    return <p className="text-sm text-slate-500 italic">No results returned.</p>
-  }
-
-  const columns = Object.keys(bindings[0])
-
-  return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full text-sm">
-        <thead>
-          <tr className="border-b border-slate-300 dark:border-slate-600">
-            {columns.map(col => (
-              <th key={col} className="px-3 py-1.5 text-left font-semibold text-slate-700 dark:text-slate-300">
-                {col}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {bindings.map((row, i) => (
-            <tr key={i} className="border-b border-slate-200 dark:border-slate-700">
-              {columns.map(col => (
-                <td key={col} className="px-3 py-1.5 text-slate-600 dark:text-slate-400 font-mono text-xs whitespace-pre-wrap max-w-xs">
-                  {formatValue(row[col])}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  )
-}
-
-function formatValue(v: any): string {
-  if (v === null || v === undefined) return ''
-  if (typeof v === 'object') {
-    if ('@value' in v) return String(v['@value'])
-    return JSON.stringify(v, null, 2)
-  }
-  return String(v)
-}
-
-// ---------------------------------------------------------------------------
 // Main component
 // ---------------------------------------------------------------------------
 
@@ -257,12 +214,11 @@ export function WoqlPlayground({
   description,
   anonymous = false,
   database,
-  showResultOnly = false,
 }: WoqlPlaygroundProps) {
   const [code, setCode] = useState(initialCode.trim())
-  const [result, setResult] = useState<any>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [running, setRunning] = useState(false)
+  const [state, setState] = useState<RunnableState>("IDLE")
+  const [result, setResult] = useState<ExecutionResult | null>(null)
+  const [error, setError] = useState<ExecutionError | null>(null)
   const [showSettings, setShowSettings] = useState(false)
   const [settings, setSettings] = useState<ConnectionSettings>(DEFAULT_SETTINGS)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -287,7 +243,7 @@ export function WoqlPlayground({
   }, [])
 
   const runQuery = useCallback(async () => {
-    setRunning(true)
+    setState("RUNNING")
     setError(null)
     setResult(null)
 
@@ -296,8 +252,8 @@ export function WoqlPlayground({
       try {
         jsonLd = evalWoqlCode(code)
       } catch (e: any) {
-        setError(`Syntax error: ${e.message}`)
-        setRunning(false)
+        setError({ message: `Syntax error: ${e.message}`, isNetworkError: false, isCorsError: false, isTimeout: false })
+        setState("ERROR")
         return
       }
 
@@ -343,25 +299,30 @@ export function WoqlPlayground({
         } catch {
           msg += '\n' + text.slice(0, 500)
         }
-        setError(msg)
-        setRunning(false)
+        setError({ message: msg, isNetworkError: false, isCorsError: false, isTimeout: false })
+        setState("ERROR")
         return
       }
 
       const data = await response.json()
-      setResult(data)
+      setResult({
+        bindings: Array.isArray(data?.bindings) ? data.bindings.map(unwrapBindingRow) : undefined,
+        raw: data,
+      })
+      setState("SUCCESS")
     } catch (e: any) {
-      if (e.message?.includes('Failed to fetch') || e.message?.includes('NetworkError')) {
-        setError(
-          'Could not connect to TerminusDB. Make sure the server is running:\n\n' +
-          `  docker run --rm -p 6363:6363 terminusdb/terminusdb-server\n\n` +
-          `Server URL: ${settings.serverUrl}`
-        )
-      } else {
-        setError(e.message || String(e))
-      }
-    } finally {
-      setRunning(false)
+      const network = e.message?.includes('Failed to fetch') || e.message?.includes('NetworkError')
+      setError({
+        message: network
+          ? 'Could not connect to TerminusDB. Make sure the server is running:\n\n' +
+            `  docker run --rm -p 6363:6363 terminusdb/terminusdb-server\n\n` +
+            `Server URL: ${settings.serverUrl}`
+          : e.message || String(e),
+        isNetworkError: network,
+        isCorsError: false,
+        isTimeout: false,
+      })
+      setState(network ? "SERVER_OFFLINE" : "ERROR")
     }
   }, [code, settings, anonymous])
 
@@ -377,6 +338,19 @@ export function WoqlPlayground({
   useEffect(() => {
     adjustHeight()
   }, [code, adjustHeight])
+
+  const handleClear = useCallback(() => {
+    setState("IDLE")
+    setResult(null)
+    setError(null)
+  }, [])
+
+  const handleReset = useCallback(() => {
+    setCode(initialCode.trim())
+    setState("IDLE")
+    setResult(null)
+    setError(null)
+  }, [initialCode])
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     // Ctrl/Cmd+Enter to run
@@ -396,193 +370,117 @@ export function WoqlPlayground({
         ta.selectionStart = ta.selectionEnd = start + 2
       }, 0)
     }
-  }, [code, runQuery])
-
-  const handleReset = useCallback(() => {
-    setCode(initialCode.trim())
-    setResult(null)
-    setError(null)
-  }, [initialCode])
+    // Escape clears the result, matching the standard executors
+    if (e.key === "Escape" && (state === "SUCCESS" || state === "ERROR" || state === "SERVER_OFFLINE")) {
+      e.preventDefault()
+      handleClear()
+    }
+  }, [code, runQuery, state, handleClear])
 
   return (
-    <div className="my-6 rounded-lg border border-sky-200 dark:border-sky-800 overflow-hidden bg-white dark:bg-slate-900 shadow-sm">
-      {/* Header */}
-      <div className="flex items-center justify-between px-4 py-2 bg-sky-50 dark:bg-sky-950 border-b border-sky-200 dark:border-sky-800">
-        <div className="flex items-center gap-2">
-          <svg className="w-4 h-4 text-sky-600 dark:text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span className="text-sm font-semibold text-sky-800 dark:text-sky-300">
-            {title || 'WOQL Playground'}
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <OpenDemoButton />
-          <button
-            onClick={() => setShowSettings(!showSettings)}
-            className="text-xs text-sky-600 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-200 transition-colors"
-            title="Connection settings"
-          >
-            {showSettings ? 'Hide Settings' : 'Settings'}
-          </button>
-        </div>
-      </div>
-
-      {/* Settings panel */}
-      {showSettings && (
-        <div className="px-4 py-3 bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 grid grid-cols-2 md:grid-cols-3 gap-2">
-          <label className="text-xs">
-            <span className="text-slate-500 dark:text-slate-400">Server URL</span>
-            <input
-              type="text"
-              value={settings.serverUrl}
-              onChange={e => updateSetting('serverUrl', e.target.value)}
-              className="mt-0.5 block w-full rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-2 py-1 text-xs text-slate-800 dark:text-slate-200"
-            />
-          </label>
-          <label className="text-xs">
-            <span className="text-slate-500 dark:text-slate-400">Organization</span>
-            <input
-              type="text"
-              value={settings.organization}
-              onChange={e => updateSetting('organization', e.target.value)}
-              className="mt-0.5 block w-full rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-2 py-1 text-xs text-slate-800 dark:text-slate-200"
-            />
-          </label>
-          <label className="text-xs">
-            <span className="text-slate-500 dark:text-slate-400">Database</span>
-            <input
-              type="text"
-              value={settings.database}
-              onChange={e => updateSetting('database', e.target.value)}
-              className="mt-0.5 block w-full rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-2 py-1 text-xs text-slate-800 dark:text-slate-200"
-            />
-          </label>
-          <label className="text-xs">
-            <span className="text-slate-500 dark:text-slate-400">User</span>
-            <input
-              type="text"
-              value={settings.user}
-              onChange={e => updateSetting('user', e.target.value)}
-              className="mt-0.5 block w-full rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-2 py-1 text-xs text-slate-800 dark:text-slate-200"
-            />
-          </label>
-          <label className="text-xs">
-            <span className="text-slate-500 dark:text-slate-400">Password</span>
-            <input
-              type="password"
-              value={settings.password}
-              onChange={e => updateSetting('password', e.target.value)}
-              className="mt-0.5 block w-full rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-2 py-1 text-xs text-slate-800 dark:text-slate-200"
-            />
-          </label>
-        </div>
-      )}
-
-      {/* Description */}
-      {description && (
-        <p className="px-4 pt-3 text-sm text-slate-600 dark:text-slate-400">{description}</p>
-      )}
-
-      {/* Editor */}
-      <div className="p-4">
-        <textarea
-          ref={textareaRef}
-          value={code}
-          onChange={e => setCode(e.target.value)}
-          onKeyDown={handleKeyDown}
-          spellCheck={false}
-          className="w-full font-mono text-sm bg-slate-900 text-emerald-300 rounded-md p-3 border border-slate-700 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 outline-none resize-none leading-relaxed"
-          style={{ minHeight: 80 }}
-        />
-        <div className="flex items-center justify-between mt-2">
-          <div className="flex items-center gap-2">
+    <div className="my-6">
+      <ExecutorShell
+        state={state}
+        title={title || 'WOQL Playground'}
+        actions={
+          <>
+            <OpenDemoButton />
             <button
-              onClick={runQuery}
-              disabled={running}
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-md text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              onClick={() => setShowSettings(!showSettings)}
+              className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
+              title="Connection settings"
             >
-              {running ? (
-                <>
-                  <svg className="animate-spin w-3.5 h-3.5" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                  </svg>
-                  Running...
-                </>
-              ) : (
-                <>
-                  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                  </svg>
-                  Run
-                </>
-              )}
+              {showSettings ? 'Hide Settings' : 'Settings'}
             </button>
+            <RunButton state={state} onRun={runQuery} />
+          </>
+        }
+      >
+        {/* Settings panel */}
+        {showSettings && (
+          <div className="px-4 py-3 bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 grid grid-cols-2 md:grid-cols-3 gap-2">
+            <label className="text-xs">
+              <span className="text-slate-500 dark:text-slate-400">Server URL</span>
+              <input
+                type="text"
+                value={settings.serverUrl}
+                onChange={e => updateSetting('serverUrl', e.target.value)}
+                className="mt-0.5 block w-full rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-2 py-1 text-xs text-slate-800 dark:text-slate-200"
+              />
+            </label>
+            <label className="text-xs">
+              <span className="text-slate-500 dark:text-slate-400">Organization</span>
+              <input
+                type="text"
+                value={settings.organization}
+                onChange={e => updateSetting('organization', e.target.value)}
+                className="mt-0.5 block w-full rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-2 py-1 text-xs text-slate-800 dark:text-slate-200"
+              />
+            </label>
+            <label className="text-xs">
+              <span className="text-slate-500 dark:text-slate-400">Database</span>
+              <input
+                type="text"
+                value={settings.database}
+                onChange={e => updateSetting('database', e.target.value)}
+                className="mt-0.5 block w-full rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-2 py-1 text-xs text-slate-800 dark:text-slate-200"
+              />
+            </label>
+            <label className="text-xs">
+              <span className="text-slate-500 dark:text-slate-400">User</span>
+              <input
+                type="text"
+                value={settings.user}
+                onChange={e => updateSetting('user', e.target.value)}
+                className="mt-0.5 block w-full rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-2 py-1 text-xs text-slate-800 dark:text-slate-200"
+              />
+            </label>
+            <label className="text-xs">
+              <span className="text-slate-500 dark:text-slate-400">Password</span>
+              <input
+                type="password"
+                value={settings.password}
+                onChange={e => updateSetting('password', e.target.value)}
+                className="mt-0.5 block w-full rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-2 py-1 text-xs text-slate-800 dark:text-slate-200"
+              />
+            </label>
+          </div>
+        )}
+
+        {/* Description */}
+        {description && (
+          <p className="px-3 py-2 text-sm text-slate-600 dark:text-slate-400">{description}</p>
+        )}
+
+        {/* Editor — same dark body as the code panes, textarea instead of static highlight */}
+        <div className="bg-slate-900 p-3">
+          <textarea
+            ref={textareaRef}
+            value={code}
+            onChange={e => setCode(e.target.value)}
+            onKeyDown={handleKeyDown}
+            spellCheck={false}
+            className="w-full font-mono text-xs bg-transparent text-slate-200 outline-none resize-none leading-relaxed"
+            style={{ minHeight: 80 }}
+          />
+          <div className="flex items-center justify-between">
             <button
               onClick={handleReset}
-              className="px-3 py-1.5 rounded-md text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="text-xs text-slate-500 hover:text-slate-300 transition-colors"
             >
               Reset
             </button>
+            <span className="text-xs text-slate-500">Ctrl+Enter to run</span>
           </div>
-          <span className="text-xs text-slate-400">Ctrl+Enter to run</span>
         </div>
-      </div>
-
-      {/* Results */}
-      {(result || error) && (
-        <div className="px-4 pb-4">
-          {error ? (
-            <div className="rounded-md bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 p-3">
-              <p className="text-sm font-medium text-red-800 dark:text-red-300">Error</p>
-              <pre className="mt-1 text-xs text-red-700 dark:text-red-400 whitespace-pre-wrap font-mono">{error}</pre>
-            </div>
-          ) : result ? (
-            <div className="rounded-md bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                  Results ({result.bindings?.length ?? 0} row{(result.bindings?.length ?? 0) !== 1 ? 's' : ''})
-                </p>
-                {result.inserts !== undefined && (
-                  <span className="text-xs text-emerald-600 dark:text-emerald-400">
-                    {result.inserts} insert{result.inserts !== 1 ? 's' : ''}, {result.deletes} delete{result.deletes !== 1 ? 's' : ''}
-                  </span>
-                )}
-              </div>
-              {showResultOnly ? (
-                <div className="text-center py-4">
-                  {(result.bindings?.length ?? 0) === 1 ? (
-                    <p className="text-lg font-semibold">
-                      Result: <span className="text-emerald-600 dark:text-emerald-400">
-                        true
-                      </span>
-                    </p>
-                  ) : (result.bindings?.length ?? 0) === 0 ? (
-                    <p className="text-lg font-semibold">
-                      Result: <span className="text-red-600 dark:text-red-400">
-                        false
-                      </span>
-                    </p>
-                  ) : (
-                    <div>
-                      <p className="text-lg font-semibold text-amber-600 dark:text-amber-400">
-                        Multiple results ({result.bindings?.length} rows)
-                      </p>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                        Validation query returned unexpected multiple rows
-                      </p>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <ResultTable bindings={result.bindings || []} />
-              )}
-            </div>
-          ) : null}
-        </div>
-      )}
+      </ExecutorShell>
+      <ResultPanel
+        state={state}
+        result={result}
+        error={error}
+        serverUrl={settings.serverUrl}
+        onClear={handleClear}
+      />
     </div>
   )
 }

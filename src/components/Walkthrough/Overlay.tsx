@@ -303,11 +303,13 @@ function StepSlide({ step, index, active }: { step: WalkthroughStepInfo; index: 
         </div>
         {longform && hasRequests && !paired ? (
           <div className="grid min-h-0 grid-cols-2 gap-4 overflow-hidden">
-            <div className="min-h-0 overflow-y-auto">{requestArea}</div>
+            <div className="flex min-h-0 flex-col overflow-hidden">{requestArea}</div>
             <div className="min-h-0 overflow-y-auto">{resultArea}</div>
           </div>
         ) : hasRequests ? (
-          <div className="min-h-0 overflow-y-auto">{requestArea}</div>
+          // Single request: card pins in place, only the pane's contents scroll.
+          // Paired requests: the column itself scrolls so pairs stack naturally.
+          <div className={paired ? "min-h-0 overflow-y-auto" : "flex min-h-0 flex-col overflow-hidden"}>{requestArea}</div>
         ) : null}
       </div>
       {!longform && !paired && hasRequests && (
@@ -357,7 +359,10 @@ function StepSlide({ step, index, active }: { step: WalkthroughStepInfo; index: 
                 </button>
               ))}
             </div>
-            <div className="min-h-0 flex-1 overflow-auto p-4" role="tabpanel">
+            <div
+              className={tab === "request" ? "flex min-h-0 flex-1 flex-col overflow-hidden p-4" : "min-h-0 flex-1 overflow-auto p-4"}
+              role="tabpanel"
+            >
               {tab === "request" ? requestArea : resultArea}
             </div>
           </>

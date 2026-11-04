@@ -5,9 +5,11 @@ import { Highlight, themes } from "prism-react-renderer"
 import { useConnection } from "../ConnectionSettings/ConnectionContext"
 import { useSlotContext, useSlotPublish } from "../RunnableFence/SlotContext"
 import { ResultPanel } from "../RunnableFence/ResultPanel"
+import { ExecutorShell } from "../RunnableFence/ExecutorShell"
+import { RunButton } from "../RunnableFence/RunButton"
 import { useWalkthrough } from "./context"
 import type { StepRequestDescriptor } from "./context"
-import { resolveRequest, executeLive, simulate, substituteSlotValue, consumerBlocked, dbCreateUrl, isDbExistsError, deleteDatabase } from "./execute"
+import { resolveRequest, executeLive, simulate, substituteSlotValue, consumerBlocked, dbCreateUrl, isDbExistsError, deleteDatabase, woqlRequestBody } from "./execute"
 import { generateCurl } from "../HttpExample/curlGenerator"
 import { resolvePath } from "../HttpExample"
 import { HttpView } from "../RunnableFence/HttpView"
@@ -198,7 +200,7 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
       method: "POST",
       url: `${settings.serverUrl.replace(/\/+$/, "")}${woqlPath}`,
       headers: { "Content-Type": "application/json" },
-      body: request.body,
+      body: woqlRequestBody(request, settings),
       userCredentials: request.anonymous ? undefined : `${settings.user}:${settings.password}`,
     }
   } else {
@@ -230,10 +232,12 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
   const runDisabled = isRunning || (live && blocked)
 
   return (
-    <div className="flex flex-col">
-      <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
-        <div className="flex items-center justify-between gap-4 bg-slate-100 px-3 py-1.5 dark:bg-slate-800">
-          <div className="flex items-center gap-4">
+    <div className="flex h-full min-h-0 flex-col">
+      <ExecutorShell
+        state={state}
+        className="min-h-0 flex-1"
+        header={
+          <>
             {tabs.map((t) => (
               <button
                 key={t.id}
@@ -249,16 +253,11 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
                 {t.label}
               </button>
             ))}
-          </div>
-          <button
-            onClick={run}
-            disabled={runDisabled}
-            className="inline-flex items-center gap-1.5 rounded-md bg-sky-600 px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
-          >
-            {isRunning ? "Running…" : live ? "Run" : "Simulate"}
-          </button>
-        </div>
-        <div className="max-h-72 overflow-auto bg-slate-900">
+          </>
+        }
+        actions={<RunButton state={state} onRun={run} label={live ? "Run" : "Simulate"} disabled={runDisabled} />}
+      >
+        <div className="min-h-0 flex-1 overflow-auto bg-slate-900">
           {activeTab === "curl" && (
             <Highlight code={displayCode} language={request.kind === "woql" ? "javascript" : "bash"} theme={themes.vsDark}>
               {({ className, style, tokens, getTokenProps }) => (
@@ -287,7 +286,7 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
             <pre className="whitespace-pre-wrap break-all p-4 font-mono text-xs leading-relaxed text-slate-200">{formattedExpected}</pre>
           )}
         </div>
-      </div>
+      </ExecutorShell>
       {live && blocked && (
         <p className="mt-2 text-xs text-amber-600 dark:text-amber-400">
           Run the earlier step first — this request needs its result.

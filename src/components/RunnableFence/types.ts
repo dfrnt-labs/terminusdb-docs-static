@@ -5,6 +5,7 @@ export interface ExecutionResult {
   inserts?: number
   deletes?: number
   raw?: unknown
+  simulated?: boolean
 }
 
 export interface ExecutionError {

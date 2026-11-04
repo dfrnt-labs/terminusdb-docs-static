@@ -4,6 +4,7 @@ import { useState, useCallback, useRef, useEffect, useId, Fragment } from "react
 import { Highlight, themes } from "prism-react-renderer"
 import { Fence } from "./Fence"
 import { RunButton } from "./RunnableFence/RunButton"
+import { ExecutorShell } from "./RunnableFence/ExecutorShell"
 import { ResultPanel } from "./RunnableFence/ResultPanel"
 import { FixtureBadge } from "./RunnableFence/FixtureBadge"
 import { TabBar } from "./RunnableFence/TabBar"
@@ -689,27 +690,14 @@ function RunnableFenceInner({
     >
       {/* Code block with tabs and run button */}
       <div className={`transition-opacity duration-200 ${isRunning ? "opacity-70" : "opacity-100"}`}>
-        <div className="group relative rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
-          {/* Header with tabs (or label), run button, and copy button */}
-          <div className="flex items-center justify-between px-3 py-1.5 bg-slate-100 dark:bg-slate-800">
-            {hasTabs ? (
-              <TabBar activeTab={activeTab} onTabChange={setActiveTab} instanceId={instanceId} />
-            ) : (
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-white">
-                {title || (lang ? lang.toUpperCase() : "Code")}
-              </span>
-            )}
-            <div className="flex items-center gap-1">
-              {/* Status dot */}
-              {state === "SUCCESS" && (
-                <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400" aria-hidden="true" />
-              )}
-              {state === "ERROR" && (
-                <span className="w-2 h-2 rounded-full bg-red-500 dark:bg-red-400" aria-hidden="true" />
-              )}
-              {state === "SERVER_OFFLINE" && (
-                <span className="w-2 h-2 rounded-full bg-amber-500 dark:bg-amber-400" aria-hidden="true" />
-              )}
+        <ExecutorShell
+          state={state}
+          header={hasTabs ? (
+            <TabBar activeTab={activeTab} onTabChange={setActiveTab} instanceId={instanceId} />
+          ) : undefined}
+          title={title || (lang ? lang.toUpperCase() : "Code")}
+          actions={
+            <>
               {nonBrowserMessage ? (
                 <span className="text-xs text-slate-500 dark:text-slate-400" title={nonBrowserMessage}>
                   Run locally
@@ -718,9 +706,9 @@ function RunnableFenceInner({
                 <RunButton state={state} onRun={runWithTimeout} />
               )}
               <CopyButton copied={copied} onCopy={copyToClipboard} />
-            </div>
-          </div>
-
+            </>
+          }
+        >
           {/* Tab panel content */}
           <div
             role="tabpanel"
@@ -756,7 +744,7 @@ function RunnableFenceInner({
               </div>
             )}
           </div>
-        </div>
+        </ExecutorShell>
       </div>
 
       {/* Fixture badge */}
