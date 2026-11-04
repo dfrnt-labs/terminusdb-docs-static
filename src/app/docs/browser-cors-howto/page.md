@@ -40,6 +40,14 @@ const data = await response.json();
 console.log(data);
 ```
 
+Or run the same check as a request — this is exactly what the browser sends:
+
+{% http-example method="GET" path="/api/info" %}
+{% http-expected %}
+{"@type":"api:InfoResponse","api:info":{"authority":"terminusdb://system/data/User/admin","edition":"community","http_engine":"metal","indexer":{"available":false,"backend":"none","configured":false,"endpoint_available":true,"tokenizer_available":true},"storage":{"version":"2"},"terminusdb":{"git_hash":"49927308af982525557466a57daac82d3d4cd14d","version":"12.1.0-rc2"},"terminusdb_store":{"version":"0.19.8"}},"api:status":"api:success"}
+{% /http-expected %}
+{% /http-example %}
+
 If you see a JSON response with `"authority": "admin"`, CORS is working. No server configuration needed.
 
 ## Step 2 — Fetch documents from your application {% step %}

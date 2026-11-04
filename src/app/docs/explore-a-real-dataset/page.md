@@ -17,19 +17,9 @@ media: []
 lastUpdated: "2026-04-30"
 ---
 
-Clone a pre-populated Star Wars database to your local TerminusDB instance and explore it with queries, branches, and diffs — in 15 minutes. This tutorial focuses on **querying relationships** across documents — something the [10 Minute quickstart](/docs/get-started/) does not cover.
+Clone a pre-populated Star Wars database to your local TerminusDB instance and explore it with queries, branches, and diffs — in 15 minutes. This tutorial focuses on **querying relationships** across documents — the graph traversal that distinguishes TerminusDB from a plain document store.
 
-{% callout type="note" %}
-**Prerequisites**
-- **TerminusDB running on localhost:6363.** Verify: `curl -s -u admin:root http://localhost:6363/api/info` should return JSON containing `"authority": "admin"`. If you get "connection refused", [start TerminusDB first](/docs/get-started/#step-1).
-- **Completed the [First 10 Minutes quickstart](/docs/get-started/)** — you should be comfortable with branches and diffs. This tutorial builds on those concepts with a richer dataset.
-{% /callout %}
-
-{% callout type="note" title="How this differs from other tutorials" %}
-- **[Your First 10 Minutes](/docs/get-started/)** teaches the branch/diff/merge workflow on a cloned dataset.
-- **[Your First 15 Minutes](/docs/first-15-minutes/)** builds a database from scratch — schema, insert, branch, diff, merge.
-- **This tutorial** adds WOQL queries that traverse relationships between documents (films → characters, characters → planets) — showing the graph query power that distinguishes TerminusDB from a plain document store.
-{% /callout %}
+New to TerminusDB? Do the [First 10 Minutes quickstart](/docs/get-started/) first — it teaches the branch/diff/merge workflow this tutorial builds on. To build a database from scratch instead, see [Your First 15 Minutes](/docs/first-15-minutes/).
 
 ## What you will build
 
