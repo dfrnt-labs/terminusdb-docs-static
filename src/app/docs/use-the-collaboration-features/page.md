@@ -20,7 +20,6 @@ TerminusDB provides **git-like collaboration** for data — clone databases betw
 
 * [Collaboration with JS](/docs/collaboration-with-javascript-client/)
 * [Collaboration with Python](/docs/collaboration-with-python-client/)
-* [Collaboration Dashboard](/docs/collaboration-with-dashboard/)
 
 ## Next steps
 

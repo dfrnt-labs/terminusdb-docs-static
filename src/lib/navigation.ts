@@ -143,28 +143,6 @@ export const navigation: Navigation[] = [
             href: '/docs/how-to-connect-terminusdb-cloud',
           },
         ],
-        // links: [
-        //   {
-        //     title: 'Get Your API Key',
-        //     href: '/docs/get-your-api-key',
-        //   },
-        //   {
-        //     title: 'Create a Project',
-        //     href: '/docs/create-a-project',
-        //   },
-        //   {
-        //     title: 'Create a Team',
-        //     href: '/docs/create-a-team',
-        //   },
-        //   {
-        //     title: 'Invite Users',
-        //     href: '/docs/invite-users',
-        //   },
-        //   {
-        //     title: 'Manage Projects',
-        //     href: '/docs/manage-projects',
-        //   },
-        // ],
       },
       {
         title: 'Browse by Topic',
@@ -777,14 +755,6 @@ export const navigation: Navigation[] = [
         title: 'Data Import & Export',
         links: [
           {
-            title: 'Dashboard Import',
-            href: '/docs/use-the-admin-ui-curate-and-import-data',
-          },
-          {
-            title: 'Curate & Import Data',
-            href: '/docs/curate-and-import-data',
-          },
-          {
             title: 'Extract Table from JSON',
             href: '/docs/extract-table-from-json-with-woql',
           },
@@ -1040,10 +1010,6 @@ export const navigation: Navigation[] = [
             href: '/docs/time-travel',
           },
           {
-            title: 'Collaboration',
-            href: '/docs/collaboration-with-dashboard',
-          },
-          {
             title: 'Change Requests',
             href: '/docs/change-request-workflows',
           },
@@ -1104,7 +1070,6 @@ export const navigation: Navigation[] = [
           },
           {
             title: 'Data Types',
-            href: '/docs/terminusdb-data-types',
             links: [
               {
                 title: 'Array',
@@ -1131,14 +1096,6 @@ export const navigation: Navigation[] = [
                 href: '/docs/oneof',
               },
               {
-                title: 'Choice Document',
-                href: '/docs/choice-document',
-              },
-              {
-                title: 'Choice Subdocuments',
-                href: '/docs/choice-subdocuments',
-              },
-              {
                 title: 'sys:JSON',
                 href: '/docs/sysjson',
               },
@@ -1161,42 +1118,20 @@ export const navigation: Navigation[] = [
                 href: '/docs/tdb-react-table',
               },
               {
-                title: 'useTDBDocuments',
-                href: '/docs/usetdbdocuments',
+                title: 'Documents GraphQL Table',
+                href: '/docs/documentsgraphqltable',
               },
               {
-                title: 'useTDBGraphQLQuery',
-                href: '/docs/usetdbgraphqlquery',
+                title: 'Edit Document',
+                href: '/docs/edit-document-component',
               },
               {
-                title: 'UI Components',
-                href: '/docs/ui-components',
-                links: [
-                  {
-                    title: 'Document Classes Summary',
-                    href: '/docs/documentclassessummary',
-                  },
-                  {
-                    title: 'Documents GraphQL Table',
-                    href: '/docs/documentsgraphqltable',
-                  },
-                  {
-                    title: 'Edit Document',
-                    href: '/docs/edit-document-component',
-                  },
-                  {
-                    title: 'List Documents',
-                    href: '/docs/list-documents-component',
-                  },
-                  {
-                    title: 'New Document',
-                    href: '/docs/newdocumentcomponent',
-                  },
-                  {
-                    title: 'View Document',
-                    href: '/docs/viewdocumentcomponent',
-                  },
-                ],
+                title: 'List Documents',
+                href: '/docs/list-documents-component',
+              },
+              {
+                title: 'New Document',
+                href: '/docs/newdocumentcomponent',
               },
             ],
           },
@@ -1205,6 +1140,10 @@ export const navigation: Navigation[] = [
       {
         title: 'Glossary',
         href: '/docs/glossary',
+      },
+      {
+        title: 'Legacy: TerminusCMS and DFRNT Hub',
+        href: '/docs/legacy',
       },
     ],
   },
