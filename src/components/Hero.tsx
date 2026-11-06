@@ -75,7 +75,7 @@ export function Hero() {
                   eventProps={{ placement: 'hero', intent: 'enterprise' }}
                   className={buttonClass('outline-on-dark', 'lg', 'inline-flex items-center')}
                 >
-                  Talk to sales
+                  Talk to us
                 </TrackedLink>
               </div>
               <FreshnessIndicator
