@@ -32,6 +32,7 @@ const footerLinks = {
   ],
   dfrnt: [
     { title: 'Contact Us', href: 'https://gettier.ai/connect' },
+    { title: 'Who Maintains TerminusDB', href: '/docs/about-gettier' },
     { title: 'About Gettier', href: 'https://gettier.ai' },
     { title: 'Support', href: 'https://support.dfrnt.com' },
     { title: 'Privacy Policy', href: 'https://gettier.ai/privacy' },
