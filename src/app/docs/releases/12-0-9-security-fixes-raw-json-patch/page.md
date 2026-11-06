@@ -31,7 +31,7 @@ TerminusDB 12.0.9 is a security release. All users are recommended to update to 
 
 ### What changed
 
-- Fixed an issue (CVSS 7.5/6.5) that allowed users with read access to a database to use the apply API. Reported by @Santoshkumarpuppala.
+- Fixed an issue (CVSS 7.5/6.5) that allowed users with read access to a database to use the apply API. Reported by @Santoshkumarpuppala. See the advisory [GHSA-pg23-jx8g-vq9w](https://github.com/terminusdb/terminusdb/security/advisories/GHSA-pg23-jx8g-vq9w).
 - The path-less `api_patch/6` and `api_diff/6` endpoints now require read access on at least one database. This prevents anonymous resource exhaustion.
 - Hardened JWT claim validation against type confusion (CVE-2026-25537) ([#2597](https://github.com/terminusdb/terminusdb/pull/2597)).
 
