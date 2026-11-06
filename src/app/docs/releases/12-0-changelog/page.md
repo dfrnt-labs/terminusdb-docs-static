@@ -17,6 +17,39 @@ nextjs:
 
 Every open-source release in the TerminusDB 12.0 line, newest first. Releases marked with a feature page link have a dedicated write-up of what shipped.
 
+## v12.0.9 {% #v12-0-9 %}
+
+Released 28 October 2026 · [GitHub release](https://github.com/terminusdb/terminusdb/releases/tag/v12.0.9) · [Feature page](/docs/releases/12-0-9-security-fixes-raw-json-patch/) · [Full changelog](https://github.com/terminusdb/terminusdb/compare/v12.0.8...v12.0.9)
+
+This is a security release with important security updates. All users are recommended to update to v12.0.9 or later versions.
+
+### New functionality
+
+- Apply and patch on schemaless (raw_json) documents ([#2571](https://github.com/terminusdb/terminusdb/pull/2571))
+- Canonical ISO8604 interval semantics, timezone offsets, and typecasting with xdd:dateRange ([#2574](https://github.com/terminusdb/terminusdb/pull/2574))
+
+### Security
+
+- Fix an issue (CVSS 7.5/6.5) that allowed users with read access to a database to use apply API, reported by @Santoshkumarpuppala
+- Require read access on at least one database for the path-less `api_patch/6` and `api_diff/6` endpoints, preventing anonymous resource exhaustion
+- Harden JWT claim validation against type confusion (CVE-2026-25537) ([#2597](https://github.com/terminusdb/terminusdb/pull/2597))
+
+### Bugfixes
+
+- Intervals handling improvements ([#2569](https://github.com/terminusdb/terminusdb/pull/2569))
+- Denied JWT-scoped authorization now returns 403 `access_not_authorised` instead of crashing; the caller falls back to anonymous capabilities
+
+### Maintenance
+
+- Remove dead anonymous guard from `api_info`: community serves the info payload to any caller including anonymous, enterprise redacts it for anonymous instead
+- Pin terminus-store to v0.21.8 for forward-compatible pack import (to prepare for faster intervals) ([#2568](https://github.com/terminusdb/terminusdb/pull/2568))
+- Neat starting experience: quieter GC plugin logging and JWT opt-in at runtime ([#2573](https://github.com/terminusdb/terminusdb/pull/2573))
+- Bump follow-redirects from 1.16.0 to 1.16.1 in /tests ([#2581](https://github.com/terminusdb/terminusdb/pull/2581))
+- Bump qs from 6.16.0 to 6.17.0 in /tests ([#2599](https://github.com/terminusdb/terminusdb/pull/2599))
+- Bump serialize-javascript from 7.0.7 to 7.1.4 in /tests ([#2600](https://github.com/terminusdb/terminusdb/pull/2600))
+- Bump rustls from 0.23.45 to 0.23.46 in /src/rust ([#2598](https://github.com/terminusdb/terminusdb/pull/2598))
+
+
 ## v12.0.8 {% #v12-0-8 %}
 
 Released 12 October 2026 · [GitHub release](https://github.com/terminusdb/terminusdb/releases/tag/v12.0.8) · [Feature page](/docs/releases/12-0-8-uuid-v7-faster-json-loading/) · [Full changelog](https://github.com/terminusdb/terminusdb/compare/v12.0.7...v12.0.8)
