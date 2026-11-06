@@ -19,7 +19,7 @@ TerminusDB is the open-source knowledge graph database with git-like version con
 
 This page explains the product: how it works, what makes it different, and who it is for. It stores JSON documents in a schema-enforced graph, tracks every change as an immutable delta layer, and supports branch, diff, merge, clone, and time-travel operations — like Git, but for structured data rather than files.
 
-TerminusDB is maintained by the team at [Gettier](https://gettier.ai) in collaboration with the open-source community. Gettier assumed stewardship of the project in 2025.
+TerminusDB is maintained by the team at [Gettier](https://gettier.ai) in collaboration with the open-source community. Gettier assumed stewardship of the project in 2025. See [who maintains TerminusDB](/docs/about-gettier/) for recent releases and how Gettier uses it.
 
 New to knowledge graphs? Read [What is a knowledge graph database?](/docs/knowledge-graph-database/) first. Want the short feature list? See [TerminusDB features at a glance](/docs/at-a-glance/). For how versioning works, see [knowledge graph version control](/docs/knowledge-graph-database-version-control/).
 
