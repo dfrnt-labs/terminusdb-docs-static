@@ -59,7 +59,7 @@ You can have several teams with different projects and collaborators.
 
 Teams are a way to group your projects and team members. For example you may have different teams in your organization looking after different functions, so you could have teams for Personnel, Marketing, Finance, and Operations for example. These teams would include the relevant people and projects.
 
-[Learn how to create a team here](/docs/create-a-team/).
+[Learn how to create a team here](/docs/access-control/).
 
 ### Collaborators/Users
 
@@ -67,7 +67,7 @@ Collaborators are invited by the team admin to work with the projects within tha
 
 ### Permissions
 
-There are [five permission levels](/docs/invite-users/) for users ranging from admin down to info reader. The team permissions for a user are inherited by the projects within that team.
+There are [five permission levels](/docs/access-control/) for users ranging from admin down to info reader. The team permissions for a user are inherited by the projects within that team.
 
 Individual project permissions can be granted in the team management section. Project-specific permissions can only be higher than team permissions. For example, if you want a user to be a collaborator for one project, set their team privilege to a lower permission level such as info-reader or data-reader.
 

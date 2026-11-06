@@ -123,7 +123,7 @@ That is what `@subdocument` and `@shared` are for. They tell the database which 
 
 ## The class system
 
-Every entity in TerminusDB is an instance of a [class](/docs/schema-reference-guide/). A class declares its properties, each with a type — a primitive like `xsd:string`, a [collection](/docs/terminusdb-data-types/) like `Set` or `List`, an [optional](/docs/optional/) or [mandatory](/docs/mandatory/) field, a [`@oneof`](/docs/oneof/) choice, or a link to another class.
+Every entity in TerminusDB is an instance of a [class](/docs/schema-reference-guide/). A class declares its properties, each with a type — a primitive like `xsd:string`, a [collection](/docs/set/) like `Set` or `List`, an [optional](/docs/optional/) or [mandatory](/docs/mandatory/) field, a [`@oneof`](/docs/oneof/) choice, or a link to another class.
 
 Inheritance is supported, so common properties can live on a parent class. Because the schema is itself a graph, you can [query the schema with WOQL](/docs/schema-queries-with-woql/) the same way you query the data.
 
@@ -137,7 +137,7 @@ A class marked `@subdocument` is **owned** by its parent. Its triples are part o
 
 That is how a contract owns its clauses, an order owns its line items, an invoice owns its tax breakdown.
 
-The practical consequence is that **cascading deletes are trivial**. There is no `ON DELETE CASCADE` to remember to add, no application-side cleanup, no orphaned rows. Deleting the root deletes the whole tree, by construction, because the subdocument triples are part of the parent's lifecycle. See [**The Document Model**](/docs/documents-explanation/) and [**Choice Subdocuments**](/docs/choice-subdocuments/) for the full mechanics.
+The practical consequence is that **cascading deletes are trivial**. There is no `ON DELETE CASCADE` to remember to add, no application-side cleanup, no orphaned rows. Deleting the root deletes the whole tree, by construction, because the subdocument triples are part of the parent's lifecycle. See [**The Document Model**](/docs/documents-explanation/) and [**@oneof**](/docs/oneof/) for the full mechanics.
 
 ### `@shared` — reference-counted lifecycle
 
