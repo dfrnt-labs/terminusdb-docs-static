@@ -230,7 +230,7 @@ Turtle and RDF/XML express exactly the same RDF graph — they are alternative s
 Turtle is the right format choice when working with:
 
 - **Human review workflows** where data stewards need to read and verify RDF content
-- **Version control** where line-oriented diffs make changes easy to review in pull requests
+- **Version control** where line-oriented diffs make changes easy to review in pull requests. TerminusDB also keeps the history of the triples themselves, see [RDF Versioning](/docs/rdf-versioning/)
 - **SPARQL tooling** that accepts Turtle as a data exchange format
 - **Academic and research** data exchange where Turtle is the de facto standard
 - **Debugging and diagnostics** where compact, readable output helps trace data issues

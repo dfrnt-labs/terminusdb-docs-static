@@ -41,7 +41,7 @@ The steps below run unchanged against a local TerminusDB. The demonstration: a b
 
 {% prerequisites-connected /%}
 
-### 1. Create a database
+### 1. Create a database {% step %}
 
 {% http-example method="POST" path="/api/db/admin/MyDatabase" %}
 {"label": "MyDatabase", "comment": "ACID demo"}
@@ -50,7 +50,7 @@ The steps below run unchanged against a local TerminusDB. The demonstration: a b
 {% /http-expected %}
 {% /http-example %}
 
-### 2. Define a schema with a required field
+### 2. Define a schema with a required field {% step %}
 
 A `Product` class where `price` is mandatory — this is the consistency rule the transaction will be checked against.
 
@@ -61,7 +61,7 @@ A `Product` class where `price` is mandatory — this is the consistency rule th
 {% /http-expected %}
 {% /http-example %}
 
-### 3. Send a batch where one document violates the schema
+### 3. Send a batch where one document violates the schema {% step %}
 
 `Product/A` is valid; `Product/B` is missing the required `price`. One request, two documents — the invalid one rejects the whole commit.
 
@@ -91,7 +91,7 @@ A `Product` class where `price` is mandatory — this is the consistency rule th
 
 The request fails with a schema-check failure naming the offending document and field.
 
-### 4. Verify nothing landed — including the valid document
+### 4. Verify nothing landed — including the valid document {% step %}
 
 This is the atomicity guarantee: the valid `Product/A` was not stored either.
 
@@ -108,7 +108,7 @@ This is the atomicity guarantee: the valid `Product/A` was not stored either.
 
 HTTP 404 — the database is exactly as it was before the batch. No partial state, no cleanup query.
 
-### 5. Retry with a valid batch — one commit, both documents
+### 5. Retry with a valid batch — one commit, both documents {% step %}
 
 {% http-example method="POST" path="/api/document/admin/MyDatabase?author=ops@example.com&message=Batch+insert+fixed" %}
 [
@@ -122,11 +122,14 @@ HTTP 404 — the database is exactly as it was before the batch. No partial stat
 
 Both documents now exist — written in a single commit, so a reader never sees `Product/A` without `Product/B`.
 
-### Clean up
+### Clean up {% step %}
 
 {% http-example method="DELETE" path="/api/db/admin/MyDatabase" /%}
+{% http-expected %}
+{"@type":"api:DbDeleteResponse","api:status":"api:success"}
+{% /http-expected %}
 
-## Same demo in TypeScript
+## Same demo in TypeScript {% step %}
 
 The JavaScript client surfaces the same guarantee — a rejected `addDocument` throws, and the earlier state is untouched.
 

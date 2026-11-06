@@ -51,7 +51,7 @@ The one deliberate difference is granularity: Git versions lines in files, Termi
 
 The examples below run unchanged against a local TerminusDB — the same operations your application would issue in production: schema, write, branch, change, review, merge.
 
-### 1. Create a database
+### 1. Create a database {% step %}
 
 {% http-example method="POST" path="/api/db/admin/MyDatabase" %}
 {"label": "MyDatabase", "comment": "Production versioning demo"}
@@ -60,7 +60,7 @@ The examples below run unchanged against a local TerminusDB — the same operati
 {% /http-expected %}
 {% /http-example %}
 
-### 2. Define a schema
+### 2. Define a schema {% step %}
 
 Production data carries a schema: a `Product` class with typed fields. Schema writes are commits too — they appear in the same history and diff the same way.
 
@@ -75,7 +75,7 @@ Production data carries a schema: a `Product` class with typed fields. Schema wr
 Three-way merge (`apply`, step 7) schema-checks the result. On a schemaless `raw_json` database the merge fails validation because documents have no class — define a schema before relying on merges in production.
 {% /callout %}
 
-### 3. Write data — every write is a commit
+### 3. Write data — every write is a commit {% step %}
 
 {% http-example method="POST" path="/api/document/admin/MyDatabase?author=ops@example.com&message=Add+product" %}
 {"@id": "Product/SKU-001", "@type": "Product", "name": "Mechanical Keyboard", "price": 149.99, "stock": 42}
@@ -86,7 +86,7 @@ Three-way merge (`apply`, step 7) schema-checks the result. On a schemaless `raw
 
 Each response carries a `TerminusDB-Data-Version` header with the resulting commit ID — capture it if you need a merge base later.
 
-### 4. Branch before changing production data
+### 4. Branch before changing production data {% step %}
 
 {% http-example method="POST" path="/api/branch/admin/MyDatabase/local/branch/reprice" %}
 {"origin": "admin/MyDatabase/local/branch/main"}
@@ -95,7 +95,7 @@ Each response carries a `TerminusDB-Data-Version` header with the resulting comm
 {% /http-expected %}
 {% /http-example %}
 
-### 5. Change data on the branch — main is untouched
+### 5. Change data on the branch — main is untouched {% step %}
 
 {% http-example method="PUT" path="/api/document/admin/MyDatabase/local/branch/reprice?author=ops@example.com&message=Reprice+SKU-001" %}
 {"@id": "Product/SKU-001", "@type": "Product", "name": "Mechanical Keyboard", "price": 179.99, "stock": 42}
@@ -104,7 +104,7 @@ Each response carries a `TerminusDB-Data-Version` header with the resulting comm
 {% /http-expected %}
 {% /http-example %}
 
-### 6. Review the diff before merging
+### 6. Review the diff before merging {% step %}
 
 {% http-example method="POST" path="/api/diff/admin/MyDatabase" %}
 {"before_data_version": "main", "after_data_version": "reprice"}
@@ -113,7 +113,7 @@ Each response carries a `TerminusDB-Data-Version` header with the resulting comm
 {% /http-expected %}
 {% /http-example %}
 
-### 7. Merge the branch into main
+### 7. Merge the branch into main {% step %}
 
 `apply` performs a three-way merge. `before_commit` is the common ancestor — here `main` has not moved since the branch was created, so its head is the correct merge base. In a live application, capture the head commit at branch-creation time rather than re-reading `main`.
 
@@ -129,19 +129,21 @@ If two branches had changed the same field, `apply` would return HTTP 409 with a
 Verify the merge landed on main:
 
 {% http-example method="GET" path="/api/document/admin/MyDatabase?id=Product/SKU-001" /%}
-
-```json
+{% http-expected %}
 {"@id":"Product/SKU-001","@type":"Product","name":"Mechanical Keyboard","price":179.99,"stock":42}
-```
+{% /http-expected %}
 
-### Same workflow in TypeScript
+### Same workflow in TypeScript {% step %}
 
 ```typescript test-example file="examples/production-workflow.example.ts"
 ```
 
-### Clean up
+### Clean up {% step %}
 
 {% http-example method="DELETE" path="/api/db/admin/MyDatabase" /%}
+{% http-expected %}
+{"@type":"api:DbDeleteResponse","api:status":"api:success"}
+{% /http-expected %}
 
 ## Built for production, not just demos
 
