@@ -447,6 +447,8 @@ Time of day without date component.
 * `"P5DT3H"`
 {% /table %}
 
+Durations keep their denominations — `P2W` ≠ `P14D`, and a leading `-` negates the whole duration (`-P1D` is legal). The full `xsd:duration` specification — grammar, ordering and the 12.1 storage format — is available for study under NDA together with the interval specification below.
+
 ### Gregorian Types
 
 {% table %}
@@ -760,11 +762,11 @@ Range types store a pair of values representing a range.
 
 ### xdd:dateTimeInterval
 
-ISO 8601 time interval with half-open semantics `[start, end)`. Inherits from `xsd:duration` and supports all four ISO 8601 interval forms. Designed for temporal algebra (Allen's Interval Algebra) and clean interval partitioning.
+ISO 8601 time interval with half-open semantics `[start, end)`, inheriting from `xsd:duration`. The supplied spelling is part of the value: a bare `dateTime` is a zero-length instant, a bare `date` is its whole local day, and a `date/date` pair is inclusive of both dates — all read back as written. Designed for XBRL periods, temporal algebra (Allen's Interval Algebra) and clean interval partitioning.
 
-When an endpoint is supplied as a plain `xsd:date` without a time component, TerminusDB stores it as the start of the next calendar day at `00:00:00Z`. Fully qualified `xsd:dateTime` endpoints are stored exactly as given. All stored intervals are returned as fully qualified UTC datetime strings.
-
-> **Deconstruction returns `xsd:dateTime`.** The `interval(Start, End, Interval)` predicate always binds `Start` and `End` to `xsd:dateTime` values, even when the interval was built from `xsd:date` inputs. Use `typecast` to `xsd:date` (for a single endpoint) or to `xdd:dateRange` (for the whole interval) if you need the original inclusive date form.
+{% callout type="warning" title="Experimental" %}
+`xdd:dateTimeInterval` is experimental. The value semantics and lexical round-trips documented here are stable, but the on-disk index format may still change in a future release.
+{% /callout %}
 
 {% table %}
 * Property
@@ -779,44 +781,23 @@ When an endpoint is supplied as a plain `xsd:date` without a time component, Ter
 * **Semantics**
 * Half-open interval `[start, end)` — start is included, end is excluded
 ---
+* **Example input → stored form**
+* `"2025-01-01/2025-03-31"` → `"2025-01-01/2025-03-31"` (spelling preserved)
+---
 * **Forms**
-* Start/end: `2025-01-01T00:00:00Z/2025-04-01T00:00:00Z`, Start/duration: `2025-01-01T00:00:00Z/P3M`, Duration/end: `P3M/2025-04-01T00:00:00Z`, Duration only: `P3M`
----
-* **Example input**
-* `"2025-01-01T00:00:00Z/2025-04-01T00:00:00Z"`
----
-* **Stored/retrieved form**
-* `"2025-01-01T00:00:00Z/2025-04-01T00:00:00Z"`
+* Point `T`, `D`; pair `T/T`, `D/D`, mixed; anchored duration `T/P`, `P/T`; declared period `T/T/P`; open `../F`; unknown `F/`; unspecified `F/X*` (where `F` = any finite endpoint)
 {% /table %}
 
-Internally, ISO datetime intervals are stored retaining the specific duration format when specified in the interval. A duration is calculated if only start and end are specified. Having start, end and specific duration enables proper reasoning and having a specific window, i.e. as P90D and P3M can be both the same and not the same time depending on circumstances.
+The supported processing modes, briefly:
 
-**Typecasting:**
+- A single ISO **date** is processed as a local-time *day duration* — `2025-01-01` is the whole local calendar day, not a midnight instant.
+- `date/date` is processed as the inclusive duration from the beginning of the start date through the end of the end date — `2025-01-01/2025-03-31` covers all of Q1, internally `[Jan 1@00:00, Apr 1@00:00)`.
+- A single **dateTime** is supported in local time without a zone specifier, and both `Z` and `±HH:MM` timezone forms are supported — as are start/end timestamp pairs in any mix of the three forms.
+- Intervals with **durations** are supported: `2025-01-01/P3M` (the quarter starting January), `P3M/2025-03-31` (the quarter ending March), and `2025-01-01/2025-04-01/P90D` (a pair with a declared period). Negative durations are not valid inside intervals — `-P1D/T` is rejected.
 
-{% table %}
-* Direction
-* Behavior
----
-* `xsd:string → xdd:dateTimeInterval`
-* Parses ISO 8601 interval notation (all four forms)
----
-* `xdd:dateTimeInterval → xsd:string`
-* Formats to ISO 8601 interval notation
----
-* `xdd:dateRange → xdd:dateTimeInterval`
-* Converts inclusive end to exclusive by adding one day: `[Jan 1, Mar 31]` → `2025-01-01T00:00:00Z/2025-04-01T00:00:00Z`
----
-* `xdd:dateTimeInterval → xdd:dateRange`
-* Converts exclusive end to inclusive by subtracting one day: `2025-01-01T00:00:00Z/2025-04-01T00:00:00Z` → `[Jan 1, Mar 31]`
----
-* `xsd:duration → xdd:dateTimeInterval`
-* Wraps duration as a form-4 (duration-only) interval
----
-* `xdd:dateTimeInterval → xsd:duration`
-* Extracts the duration component from the interval
-{% /table %}
+A bare `P…` is `xsd:duration`, not an interval — a duration has no anchor. For usage, see the [Allen's Interval Algebra guide](/docs/woql-interval-algebra/).
 
-For detailed usage, see the [Allen's Interval Algebra guide](/docs/woql-interval-algebra/) and the [dateTimeInterval semantics reference](/docs/datetime-interval-semantics/).
+The complete `xdd:dateTimeInterval` specification — lexical grammar, timezone and local-time rules, durations, open/unknown/unspecified endpoints, ordering and storage format — is available for study, contact the Gettier team.
 
 ---
 
