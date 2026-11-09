@@ -126,6 +126,10 @@ export const navigation: Navigation[] = [
             title: 'Deploy on Azure',
             href: '/docs/deploy-on-azure',
           },
+          {
+            title: 'Security',
+            href: '/docs/security',
+          },
         ],
       },
       // {
