@@ -27,7 +27,7 @@ Include, if you can:
 - How to reproduce the issue
 - Proof of concept code
 
-We coordinate all security issues through GitHub, from the first report to the published advisory.
+We coordinate security issues through GitHub, from the first report to a published advisory if applicable.
 
 ## Supported versions
 
@@ -42,15 +42,15 @@ Security fixes are released in three steps.
 
 ### 1. Early access for customers, under NDA
 
-Customers get the draft advisory and early access to the patch, so they can run regression tests on their own systems before the fix is public. Early access is under NDA.
+Customers may register to get draft advisories and early access to patches, so they can run regression tests on their own systems before the fix is public. Early access is under NDA.
 
 ### 2. Coordinated customer release
 
-Customers get the patched release first, in a coordinated release. Timelines follow the policies in each customer agreement. TerminusDB on Azure releases are part of this coordinated release.
+Customers get the patched release first, in a coordinated release, still under NDA. Timelines follow the policies in each customer agreement. TerminusDB on Azure releases are part of this coordinated release.
 
 ### 3. Community release
 
-The fix is then released in the open source version of TerminusDB. The CVE and the security advisory are published at the same time as the community release.
+The fix is then released as an open source version of TerminusDB in a regular release. The CVE and the security advisory are published at the same time as the community release.
 
 ## Past security releases
 
