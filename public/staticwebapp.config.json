@@ -46,6 +46,51 @@
       "statusCode": 301
     },
     {
+      "route": "/docs/how-to-connect-terminuscms",
+      "redirect": "/docs/how-to-connect-terminusdb-cloud/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/terminuscms-dashboard-reference",
+      "redirect": "/docs/terminusdb-cms-dashboard-reference/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/clone-a-demo-terminuscms-project",
+      "redirect": "/docs/clone-a-demo-project/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/create-a-project-with-terminuscms",
+      "redirect": "/docs/create-a-database/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/create-a-team-with-terminuscms",
+      "redirect": "/docs/access-control/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/get-your-api-key-from-terminuscms",
+      "redirect": "/docs/get-your-api-key/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/invite-users-using-terminuscms",
+      "redirect": "/docs/access-control/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/manage-projects-with-terminuscms",
+      "redirect": "/docs/legacy/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/collaboration-with-terminuscms-dashboard",
+      "redirect": "/docs/use-the-collaboration-features/",
+      "statusCode": 301
+    },
+    {
       "route": "/docs/terminusdb-data-types",
       "redirect": "/docs/xsd-data-types/",
       "statusCode": 301
