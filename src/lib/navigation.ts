@@ -186,6 +186,10 @@ export const navigation: Navigation[] = [
         href: '/docs/at-a-glance',
       },
       {
+        title: 'Who Maintains TerminusDB',
+        href: '/docs/about-gettier',
+      },
+      {
         title: 'Knowledge Graph Database',
         href: '/docs/knowledge-graph-database',
       },
