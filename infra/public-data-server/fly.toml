@@ -1,5 +1,5 @@
 app = "dfrnt-data-terminusdb"
-primary_region = "lhr"
+primary_region = "ams"
 
 [build]
   dockerfile = "Dockerfile"
@@ -45,5 +45,5 @@ primary_region = "lhr"
   memory = "2048mb"
 
 [mounts]
-  source = "terminusdb_data"
+  source = "terminusdb_data3"
   destination = "/app/terminusdb/storage"
