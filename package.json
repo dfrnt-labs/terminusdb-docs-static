@@ -13,6 +13,7 @@
     "postbuild": "npm run sitemap && node scripts/export-page-markdown.mjs && node scripts/copy-llms-txt.mjs",
     "start": "next start",
     "lint": "next lint",
+    "test": "npm run pr",
     "test:examples": "npx mocha scripts/docs-example-tests/run-colocated-examples.test.mjs scripts/docs-example-tests/run-http-examples.test.mjs scripts/docs-example-tests/run-vectorlink-examples.test.mjs --timeout 120000",
     "test:examples:legacy": "node scripts/docs-example-tests/extract-examples.mjs && npx mocha scripts/docs-example-tests/run-examples.test.mjs --timeout 30000",
     "examples:migrate": "node scripts/docs-example-tests/extract-examples.mjs && node scripts/docs-example-tests/migrate-annotations.mjs",
