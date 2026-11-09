@@ -24,21 +24,51 @@ nextjs:
       description: TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit.
       images:
         - https://assets.terminusdb.com/docs/terminusdb-knowledge-graph-database-og.png
+faq:
+  - question: What is TerminusDB?
+    answer: TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit. It runs in a single Docker container.
+  - question: How is TerminusDB different from Neo4j?
+    answer: Neo4j is a property graph database. TerminusDB stores JSON documents as an RDF graph and keeps every change as a commit, so you can branch, diff, merge and query any point in history.
+  - question: Is TerminusDB open source?
+    answer: Yes. TerminusDB is licensed under Apache 2.0 and free to self-host.
+  - question: What does TerminusDB cost?
+    answer: Self-hosting is free. A pay-as-you-go Azure Marketplace offer and managed options are coming; talk to us for details.
+  - question: What is VectorLink?
+    answer: VectorLink is the vector and hybrid search built into TerminusDB. It lets you search documents by meaning and by structure, as of any commit.
 ---
 
 TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit. {% .lead %}
 
+**3,400+ GitHub stars** ([GitHub](https://github.com/terminusdb/terminusdb)) · **850,000+ Docker pulls** ([Docker Hub](https://hub.docker.com/r/terminusdb/terminusdb-server)) · **latest release [12.0.9](https://github.com/terminusdb/terminusdb/releases/tag/v12.0.9)** · **[Release 12.1](https://github.com/terminusdb/terminusdb/releases) coming soon!** — as of November 2026.
+
 ## What makes it different
 
-- **Knowledge graph version control — branch, diff and merge your data.** Work on a branch, review the structural diff, merge it back — the git workflow, applied to graph documents. [How knowledge graph version control works →](/docs/knowledge-graph-database-version-control/)
-- **Audit trail built in.** Every write is an immutable commit. Time-travel to any point; nothing is ever overwritten.
-- **Small and fast.** Succinct, auto-indexed immutable database structures keep the footprint tiny and queries quick — the whole database runs in a single Docker container.
+- **Git for your graph.** Branch, diff and merge your data, then review the change before it lands. [How knowledge graph version control works →](/docs/knowledge-graph-database-version-control/)
+- **Time travel and audit.** Every write is an immutable commit, so you can query any point in history and see who changed what. [Git-like version control for graph data →](/docs/graph-database-with-git-like-version-control/)
+- **Hybrid and vector search with VectorLink.** Search your documents by meaning and by structure, as of any commit. [How to use VectorLink →](/docs/use-vectorlink/)
+- **Documents and graph in one store.** JSON documents and RDF triples in one database, queried with Datalog (WOQL) or GraphQL. [About the documents API →](/docs/documents-explanation/)
 
-New to graph databases? Read [what a knowledge graph database is, and how TerminusDB does it](/docs/knowledge-graph-database/).
+## Use cases
 
-Looking for database version control for production data? See [how TerminusDB does git-like version control](/docs/graph-database-with-git-like-version-control/).
+{% quick-links %}
 
-## Quickstart in 5 minutes
+{% quick-link title="AI agents and GraphRAG" icon="lightbulb" href="/docs/use-vectorlink/" description="Give agents a memory they can trust: vector and hybrid search over versioned documents, as of any commit." /%}
+
+{% quick-link title="Regulated reference data" icon="presets" href="/docs/audit-tutorial/" description="Every write is an immutable commit with author and timestamp, so audits answer who changed what, and when." /%}
+
+{% quick-link title="Product and configuration data" icon="theming" href="/docs/schema-reference-guide/" description="A schema-enforced document graph keeps catalogues and configuration consistent on every write." /%}
+
+{% quick-link title="Research and history" icon="plugins" href="https://seshatdatabank.info/" description="TerminusDB began as the store behind the Seshat Global History Databank, built for contested, evolving records." /%}
+
+{% /quick-links %}
+
+## Three ways to run it
+
+- **Self-host, free.** Docker on your own machine or server. [Start in 5 minutes →](#quickstart)
+- **Azure Marketplace.** Pay as you go, inside your own Azure tenant. Not live yet — [join the waitlist](https://bookings.gettier.ai/discovery).
+- **Managed or design partner.** We run it with you. [Talk to us](https://bookings.gettier.ai/discovery).
+
+## Quickstart in 5 minutes {% #quickstart %}
 
 ```bash
 docker run --pull always -d -p 127.0.0.1:6363:6363 \
@@ -48,26 +78,14 @@ docker run --pull always -d -p 127.0.0.1:6363:6363 \
 
 Then clone a ready-made dataset and diff your first branch: [First 10 minutes →](/docs/get-started/)
 
-{% quick-links %}
+## Where it comes from
 
-{% quick-link title="Installation" icon="installation" href="/docs/get-started/" description="Step-by-step guides to setting up your system and installing the library." /%}
-
-{% quick-link title="Query unification" icon="presets" href="/docs/what-is-unification/" description="Learn about the core differentiator of the query engine: query variable unification." /%}
-
-{% quick-link title="TerminusDB Open Source" icon="plugins" href="/docs/terminusdb-explanation/" description="Learn more about the Apache 2.0 licensed TerminusDB database." /%}
-
-{% quick-link title="Documents and Git-for-Data" icon="theming" href="/docs/documents-explanation/" description="Learn about the RDF Graph Documents API and Git-for-Data features." /%}
-
-{% /quick-links %}
+TerminusDB started as the data store for the [Seshat Global History Databank](https://seshatdatabank.info/), where historians needed to track who said what about the past, and change their minds without losing the old version.
 
 ## Community
 
-Join the TerminusDB Community on [Discord](https://discord.gg/GZ5gaCmBHc).
-
-More ways to connect: [GitHub](https://github.com/terminusdb/terminusdb).
-
-TerminusDB is open source and free to use under the Apache 2.0 license. Get started with the open source community version on your own computer, by [getting started with Docker](/docs/install-terminusdb-as-a-docker-container/).
+Ask questions and share what you build on [Discord](https://discord.gg/GZ5gaCmBHc) or [GitHub](https://github.com/terminusdb/terminusdb).
 
 TerminusDB is maintained and offered by [Gettier](https://gettier.ai/) since 2025. We provide the simplest way for subject matter experts to build AI-ready, defensible data foundations. Gettier is a proof layer powered by TerminusDB. We offer Enterprises what they need to run TerminusDB data foundations in production, with or without the Gettier proof layer.
 
-Want to talk to the people behind TerminusDB? [Contact us](https://gettier.ai/connect).
+[Start in 5 minutes](#quickstart) · [Talk to us](https://bookings.gettier.ai/discovery)

@@ -53,9 +53,9 @@ export function Hero() {
               priority
             />
             <div className="relative">
-              <p className="inline bg-linear-to-r from-indigo-200 via-sky-400 to-indigo-200 bg-clip-text font-display text-5xl tracking-tight text-transparent">
+              <h1 className="inline bg-linear-to-r from-indigo-200 via-sky-400 to-indigo-200 bg-clip-text font-display text-5xl tracking-tight text-transparent">
                 Knowledge Graph Database with Version Control
-              </p>
+              </h1>
               <p className="mt-3 text-2xl tracking-tight text-slate-400">
                 TerminusDB is the open-source knowledge graph database with
                 git-like version control for graphs and vectors. Branch, merge,
@@ -63,11 +63,11 @@ export function Hero() {
               </p>
               <div className="mt-8 flex gap-4 md:justify-center lg:justify-start">
                 <Button
-                  href="/docs/start-here"
+                  href="#quickstart"
                   variant="primary-inverted"
                   size="lg"
                   >
-                  Get Started
+                  Start in 5 minutes
                 </Button>
                 <TrackedLink
                   href="https://bookings.gettier.ai/discovery"
@@ -78,6 +78,9 @@ export function Hero() {
                   Talk to us
                 </TrackedLink>
               </div>
+              <p className="mt-4 text-sm text-slate-400">
+                Open source, Apache-2.0 — free to self-host.
+              </p>
               <FreshnessIndicator
                 count={freshnessCount}
                 href="/docs/whats-new/"
