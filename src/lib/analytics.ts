@@ -32,6 +32,8 @@ export function trackEvent(name: string, props: EventProps = {}) {
  */
 const linkEvents: { match: RegExp; event: string }[] = [
   { match: /^https?:\/\/(www\.)?(discord\.gg\/|discord\.com\/invite\/)/i, event: 'discord_join' },
+  { match: /^https?:\/\/(www\.)?github\.com\/terminusdb\//i, event: 'github_click' },
+  { match: /^https:\/\/bookings\.gettier\.ai\//i, event: 'contact_cta' },
 ]
 
 export function eventForHref(href: string | undefined): string | undefined {

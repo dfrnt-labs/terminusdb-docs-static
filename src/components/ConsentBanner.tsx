@@ -12,7 +12,7 @@ import {
 } from '@/lib/consent'
 
 const PRIVACY_URL = 'https://gettier.ai/privacy'
-// Equal size and weight for both choices.
+// Shared shape for both choices; Accept carries the primary weight.
 const choiceButton =
   'min-h-11 flex-1 cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition-colors focus:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2'
 
@@ -95,6 +95,16 @@ export function ConsentBanner() {
       </p>
       <div className="mt-3 flex gap-3 sm:mt-4">
         <button
+          type="button"
+          onClick={() => choose(false)}
+          className={clsx(
+            choiceButton,
+            'border border-slate-300 bg-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-slate-500 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white dark:focus-visible:outline-slate-300',
+          )}
+        >
+          Only necessary
+        </button>
+        <button
           ref={acceptRef}
           type="button"
           onClick={() => choose(true)}
@@ -104,16 +114,6 @@ export function ConsentBanner() {
           )}
         >
           Accept
-        </button>
-        <button
-          type="button"
-          onClick={() => choose(false)}
-          className={clsx(
-            choiceButton,
-            'bg-slate-800 text-white hover:bg-slate-700 focus-visible:outline-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:focus-visible:outline-slate-300',
-          )}
-        >
-          Only necessary
         </button>
       </div>
     </div>
