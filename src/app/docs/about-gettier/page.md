@@ -48,6 +48,8 @@ Financial reporting needs the same things TerminusDB is built for:
 - **Data is checked before it counts.** The schema checks every document when it is written.
 - **History is kept.** You can go back to any earlier commit and compare it with today.
 
+Learn more about [Gettier](https://gettier.ai) and try today.
+
 ## Next steps
 
 - New to TerminusDB? Start with [What is TerminusDB?](/docs/terminusdb-explanation/) and the [Quickstart](/docs/get-started/).
