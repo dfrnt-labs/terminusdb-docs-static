@@ -7,7 +7,7 @@
   "routes": [
     {
       "route": "/docs/terminuscms-data-types",
-      "redirect": "/docs/data-types/",
+      "redirect": "/docs/xsd-data-types/",
       "statusCode": 301
     },
     {
@@ -37,12 +37,87 @@
     },
     {
       "route": "/docs/dfrnt-data-types",
-      "redirect": "/docs/terminusdb-data-types/",
+      "redirect": "/docs/xsd-data-types/",
       "statusCode": 301
     },
     {
       "route": "/docs/topics/dfrnt-cloud",
       "redirect": "/docs/topics/terminusdb-cloud/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/terminusdb-data-types",
+      "redirect": "/docs/xsd-data-types/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/create-a-project",
+      "redirect": "/docs/create-a-database/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/create-a-team",
+      "redirect": "/docs/access-control/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/invite-users",
+      "redirect": "/docs/access-control/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/manage-projects",
+      "redirect": "/docs/legacy/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/collaboration-with-dashboard",
+      "redirect": "/docs/use-the-collaboration-features/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/curate-and-import-data",
+      "redirect": "/docs/legacy/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/use-the-admin-ui-curate-and-import-data",
+      "redirect": "/docs/legacy/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/ui-components",
+      "redirect": "/docs/document-ui-template/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/usetdbdocuments",
+      "redirect": "/docs/document-ui-template/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/usetdbgraphqlquery",
+      "redirect": "/docs/document-ui-template/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/viewdocumentcomponent",
+      "redirect": "/docs/document-ui-template/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/documentclassessummary",
+      "redirect": "/docs/document-ui-template/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/choice-document",
+      "redirect": "/docs/legacy/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/choice-subdocuments",
+      "redirect": "/docs/legacy/",
       "statusCode": 301
     },
     {

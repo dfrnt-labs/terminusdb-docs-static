@@ -75,7 +75,7 @@ TerminusDB is maintained by [Gettier](https://gettier.ai) in collaboration with 
 ### Data model and schema management
 
 * [schema migration](/docs/schema-migration-reference-guide/)
-* [XML Datatypes for its data structures](/docs/terminusdb-data-types/)
+* [XML Datatypes for its data structures](/docs/xsd-data-types/)
 * [schema reference](/docs/schema-reference-guide/)
 
 ### Git-for-data
