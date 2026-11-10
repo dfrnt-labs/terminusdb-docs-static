@@ -9,7 +9,7 @@ techArticle: true
 nextjs:
   metadata:
     title: Knowledge Graph Versioning — Approaches and Trade-offs
-    description: What knowledge graph versioning is, four ways to do it, the snapshot vs delta trade-off, and a short working example with TerminusDB.
+    description: What knowledge graph versioning is, four ways to do it, and the snapshot vs delta trade-off. For diffs or git-like version control, see the linked guides.
     keywords: knowledge graph versioning, versioning knowledge graphs, versioned knowledge graph, graph versioning, snapshot vs delta, named graphs, commit graph, graph diff, branch and merge, time travel, terminusdb
     openGraph:
       images: https://assets.terminusdb.com/docs/terminusdb-knowledge-graph-database-og.png
@@ -35,8 +35,9 @@ faq:
 
 This page explains the common ways to do graph versioning and what each one costs. At the end, it shows how TerminusDB does it, with a short example you can run.
 
-{% callout type="note" title="Try it in TerminusDB" %}
-TerminusDB is a knowledge graph database with versioning built in. For a tour of the git-like commands, see [Knowledge Graph Version Control](/docs/knowledge-graph-database-version-control/).
+{% callout type="note" title="Looking for something else?" %}
+- To compare two versions of a graph, read [Knowledge Graph Diff](/docs/knowledge-graph-diff/).
+- To version control a knowledge graph in TerminusDB (commits, branches, merge, rollback), read [Knowledge Graph Version Control](/docs/knowledge-graph-database-version-control/).
 {% /callout %}
 
 ## What is knowledge graph versioning?
