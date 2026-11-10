@@ -9,8 +9,8 @@ title: Knowledge Graph Diff
 techArticle: true
 nextjs:
   metadata:
-    title: Knowledge Graph Diff — Compare Two Versions of a Graph
-    description: A knowledge graph diff shows which facts changed between two versions. Triple vs document diffs, and how to diff and patch a graph in TerminusDB.
+    title: Knowledge Graph Diff — How to Diff Two Versions of a Graph
+    description: How to diff two versions of a knowledge graph. See which facts changed, triple vs document diffs, and how to diff and patch a graph in TerminusDB.
     keywords: knowledge graph diff, graph diff, compare two versions of a graph, rdf diff, triple diff, document diff, structural diff, patch, json diff and patch, branch diff, commit diff, terminusdb
     openGraph:
       images: https://assets.terminusdb.com/docs/terminusdb-knowledge-graph-database-og.png

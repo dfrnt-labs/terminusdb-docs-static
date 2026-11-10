@@ -7,8 +7,8 @@ tags:
 title: Knowledge Graph Database with Git-like Version Control
 nextjs:
   metadata:
-    title: Knowledge Graph Database with Git-like Version Control
-    description: An instructional overview of TerminusDB as a git-for-data knowledge graph database — covering commits, branches, merges, rollback, diff and patch, time travel, and the similarities and differences with Git.
+    title: Version Control for a Knowledge Graph — Git-like, in TerminusDB
+    description: How to version control a knowledge graph in TerminusDB with git-like commits, branches, merges, rollback, diff and patch, and time travel.
     keywords: terminusdb, knowledge graph database, git for data, git-like version control, version-controlled database, commit and rollback, RDF triples, branching database, time travel database, diff and patch, data provenance, immutable database, knowledge graph version control
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
