@@ -79,7 +79,7 @@ export function Hero() {
                 </TrackedLink>
               </div>
               <p className="mt-4 text-sm text-slate-400">
-                Open source, Apache-2.0 — free to self-host.
+                Open source, Apache-2.0. Free to run locally or self-host.
               </p>
               <FreshnessIndicator
                 count={freshnessCount}
