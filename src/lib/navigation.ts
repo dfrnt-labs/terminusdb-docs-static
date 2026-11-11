@@ -421,6 +421,10 @@ export const navigation: Navigation[] = [
                 title: 'Schema CRUD Operations',
                 href: '/docs/schema-crud-operations',
               },
+              {
+                title: 'JSON Schema Export',
+                href: '/docs/json-schema-export',
+              },
             ],
           },
           {
