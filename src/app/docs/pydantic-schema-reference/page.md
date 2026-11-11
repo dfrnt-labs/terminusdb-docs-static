@@ -16,11 +16,9 @@ nextjs:
 media: []
 ---
 
-# Pydantic Schema Reference
-
 {% callout type="note" %}
 Pydantic support ships with the upcoming TerminusDB 12.1 server release together with an updated Python client. Until then, the interface described here is available on the client's pydantic branch.
-{% endcallout %}
+{% /callout %}
 
 Complete reference for the pydantic schema layer (`terminusdb_client.schema.pydantic`). For the guided walkthrough see [Pydantic Schema Management](/docs/pydantic-schema-management); for the step-by-step tutorial see the [Pydantic Quickstart](/docs/pydantic-quickstart).
 
