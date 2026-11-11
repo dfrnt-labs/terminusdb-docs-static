@@ -11,7 +11,7 @@ async function deleteDb() {
   await fetch(`${server}/api/db/${user}/${db}?force=true`, { method: "DELETE", headers: { Authorization: auth } })
 }
 
-async function sleep(ms) { return new Promise((resolve) => setTimeout(resolve, ms)) }
+async function sleep(ms: number) { return new Promise((resolve) => setTimeout(resolve, ms)) }
 
 export default async function run() {
   await deleteDb()

@@ -27,7 +27,7 @@ This guide uses **TypeScript**. Also available in [Python](/docs/connect-with-py
 ## Prerequisites
 
 - TerminusDB running locally ([Install guide →](/docs/install-terminusdb-as-a-docker-container))
-- Node.js 20+ installed
+- Node.js 22+ installed
 - A terminal
 
 If you haven't run the [curl quickstart](/docs/get-started/) yet, do that first — it takes 5 minutes and introduces the branch/diff/merge concepts this guide builds on.

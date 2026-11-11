@@ -1,5 +1,5 @@
 // Query characters who appear in "A New Hope" (Episode IV)
-import TerminusClient from "@terminusdb/terminusdb-client";
+import TerminusClient from "terminusdb";
 
 const client = new TerminusClient.WOQLClient("http://localhost:6363", {
   user: "admin",

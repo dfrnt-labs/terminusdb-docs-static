@@ -6,7 +6,7 @@ const DB = process.env.TERMINUSDB_DB || "MyDatabase"
 const AUTH = "Basic " + Buffer.from(`${USER}:${KEY}`).toString("base64")
 
 // region: display
-async function getDocuments(database, type) {
+async function getDocuments(database: string, type: string) {
   const response = await fetch(
     `${SERVER}/api/document/admin/${database}?type=${type}&as_list=true`,
     { headers: { "Authorization": AUTH, "Accept": "application/json" } }
@@ -19,3 +19,5 @@ async function getDocuments(database, type) {
 const products = await getDocuments(DB, "Product")
 console.log(products)
 // endregion
+
+export {}
