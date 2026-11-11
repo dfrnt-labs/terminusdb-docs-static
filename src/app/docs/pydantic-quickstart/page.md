@@ -18,11 +18,9 @@ nextjs:
 media: []
 ---
 
-# Your First TerminusDB App with Pydantic
-
 {% callout type="note" %}
 Pydantic support ships with the upcoming TerminusDB 12.1 server release together with an updated Python client. Until then, the interface described here is available on the client's pydantic branch.
-{% endcallout %}
+{% /callout %}
 
 Build a small product-information-management (PIM) catalogue end to end: a category taxonomy, products with typed attributes, seeded test data, and queries in GraphQL. By the end you will know the model layer well enough to design your own schema — and where to go deeper when you need it.
 
