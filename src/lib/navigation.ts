@@ -205,6 +205,10 @@ export const navigation: Navigation[] = [
             href: '/docs/document-types-comparison',
           },
           {
+            title: 'Document Type Inference',
+            href: '/docs/document-type-inference',
+          },
+          {
             title: 'Schema Weakening',
             href: '/docs/what-is-schema-weakening',
           },
@@ -316,6 +320,10 @@ export const navigation: Navigation[] = [
             href: '/docs/acid-transactions-explanation',
           },
           {
+            title: 'ACID Verification (ALICE + Jepsen)',
+            href: '/docs/acid-verification-alice-jepsen',
+          },
+          {
             title: 'Open-Source ACID Graph DB',
             href: '/docs/open-source-graph-database-with-acid-transactions',
           },
@@ -360,6 +368,10 @@ export const navigation: Navigation[] = [
           {
             title: 'TerminusDB vs MongoDB',
             href: '/docs/terminusdb-vs-mongodb',
+          },
+          {
+            title: 'Migrate from MongoDB',
+            href: '/docs/migrate-from-mongodb',
           },
         ],
       },
@@ -467,6 +479,14 @@ export const navigation: Navigation[] = [
             href: '/docs/use-the-javascript-client',
           },
           {
+            title: 'TypeScript Client',
+            href: '/docs/typescript-with-the-javascript-client',
+          },
+          {
+            title: 'JS Client Typedefs',
+            href: '/docs/javascript-client-typedefs',
+          },
+          {
             title: 'Python Client',
             href: '/docs/use-the-python-client',
           },
@@ -490,6 +510,18 @@ export const navigation: Navigation[] = [
           {
             title: 'Import Data (CSV, JSON, Pandas)',
             href: '/docs/import-data-with-python-client',
+          },
+          {
+            title: 'Pydantic Quickstart',
+            href: '/docs/pydantic-quickstart',
+          },
+          {
+            title: 'Pydantic Schema Management',
+            href: '/docs/pydantic-schema-management',
+          },
+          {
+            title: 'Pydantic Schema Reference',
+            href: '/docs/pydantic-schema-reference',
           },
           {
             title: 'Certificate Issues',
@@ -634,10 +666,6 @@ export const navigation: Navigation[] = [
               {
                 title: 'Allen\'s Interval Algebra',
                 href: '/docs/woql-interval-algebra',
-              },
-              {
-                title: 'DateTime Interval Semantics',
-                href: '/docs/datetime-interval-semantics',
               },
               {
                 title: 'EOM Preservation Rules',
@@ -858,6 +886,10 @@ export const navigation: Navigation[] = [
           {
             title: 'Data Types',
             href: '/docs/xsd-data-types',
+          },
+          {
+            title: 'A Tour of All of Time',
+            href: '/docs/xdd-datetimeinterval-time-tour',
           },
           {
             title: 'QName and SQName',

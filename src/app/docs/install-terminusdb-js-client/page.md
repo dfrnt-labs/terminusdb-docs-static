@@ -29,7 +29,7 @@ This page covers installing the **client library** — the SDK you use to talk t
 {% code-tabs %}
 {% code-tab label="TypeScript / Node.js" %}
 
-**Requirements:** Node.js 18+
+**Requirements:** Node.js 22+
 
 ```bash
 npm install terminusdb
