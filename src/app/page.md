@@ -30,7 +30,7 @@ faq:
   - question: How is TerminusDB different from Neo4j?
     answer: Neo4j is a property graph database. TerminusDB stores JSON documents as an RDF graph and keeps every change as a commit, so you can branch, diff, merge and query any point in history.
   - question: Is TerminusDB open source?
-    answer: Yes. TerminusDB is licensed under Apache 2.0 and free to self-host.
+    answer: Yes. TerminusDB is licensed under Apache 2.0 and free to run locally or self-host.
   - question: What does TerminusDB cost?
     answer: Self-hosting is free. A pay-as-you-go Azure Marketplace offer and managed options are coming; talk to us for details.
   - question: What is VectorLink?
