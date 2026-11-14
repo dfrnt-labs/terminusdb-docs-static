@@ -37,6 +37,7 @@ const WOQL_PREDICATES = [
   "concat",
 ] as const
 
+// @ts-ignore - git-pinned terminusdb ships no generated d.ts (npm tarball only)
 type TerminusClientModule = typeof import("terminusdb")
 
 function asQuery(obj: unknown, client: TerminusClientModule) {

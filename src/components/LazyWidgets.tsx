@@ -21,10 +21,12 @@ export const LazyWalkthroughStep = dynamic(
 )
 
 type WoqlPlaygroundProps = {
-  code?: string
-  database?: string
+  code: string
   title?: string
   description?: string
+  anonymous?: boolean
+  database?: string
+  showResultOnly?: boolean
 }
 
 // Reserve approximate space in the static HTML so the late-mounting playground
