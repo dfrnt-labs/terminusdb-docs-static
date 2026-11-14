@@ -4,6 +4,7 @@
 .next
 .env
 bun.lock
+deno.lock
 # Currently not built from TerminusCMS
 # src/menu.json
 

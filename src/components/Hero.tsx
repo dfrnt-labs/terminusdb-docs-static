@@ -7,8 +7,13 @@ import { TrackedLink } from '@/components/TrackedLink'
 import { FreshnessIndicator } from '@/components/FreshnessIndicator'
 import { HeroBackground } from '@/components/HeroBackground'
 import { countPagesUpdatedThisMonth } from '@/lib/freshnessCount'
-import blurCyanImage from '@/images/blur-cyan.webp'
-import blurIndigoImage from '@/images/blur-indigo.webp'
+// Decorative glows, sampled from the retired blur-*.webp images.
+// Pure CSS keeps them off the LCP path — a background-image counts as an
+// LCP candidate and can out-paint the hero text.
+const blurCyan =
+  'radial-gradient(circle, rgb(35 209 241 / 20%), transparent 70%)'
+const blurIndigo =
+  'radial-gradient(circle, rgb(127 142 246 / 20%), transparent 70%)'
 
 const codeLanguage = 'typescript'
 const code = `{
@@ -45,7 +50,7 @@ export function Hero() {
             <div
               aria-hidden="true"
               className="absolute right-full bottom-full -mr-72 -mb-56 h-[530px] w-[530px] bg-cover bg-center opacity-50"
-              style={{ backgroundImage: `url(${blurCyanImage.src})` }}
+              style={{ backgroundImage: blurCyan }}
             />
             <div className="relative">
               <h1 className="inline bg-linear-to-r from-indigo-200 via-sky-400 to-indigo-200 bg-clip-text font-display text-5xl tracking-tight text-transparent">
@@ -90,12 +95,12 @@ export function Hero() {
               <div
                 aria-hidden="true"
                 className="absolute -top-64 -right-64 h-[530px] w-[530px] bg-cover bg-center"
-                style={{ backgroundImage: `url(${blurCyanImage.src})` }}
+                style={{ backgroundImage: blurCyan }}
               />
               <div
                 aria-hidden="true"
                 className="absolute -right-44 -bottom-40 h-[567px] w-[567px] bg-cover bg-center"
-                style={{ backgroundImage: `url(${blurIndigoImage.src})` }}
+                style={{ backgroundImage: blurIndigo }}
               />
               <div className="absolute inset-0 rounded-2xl bg-linear-to-tr from-sky-300 via-sky-300/70 to-blue-300 opacity-10 blur-lg" />
               <div className="absolute inset-0 rounded-2xl bg-linear-to-tr from-sky-300 via-sky-300/70 to-blue-300 opacity-10" />
