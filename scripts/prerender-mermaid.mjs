@@ -20,7 +20,20 @@ for (const file of files) {
 }
 console.log(`Found ${charts.size} unique mermaid diagram(s) in ${files.length} markdown files`)
 
-const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
+// bun/npm block postinstall in CI, so puppeteer's browser may be absent —
+// install on demand rather than fail the whole build.
+async function launch() {
+  try {
+    return await puppeteer.launch({ args: ['--no-sandbox'] })
+  } catch (e) {
+    if (!/Could not find Chrome|executable/i.test(e.message || '')) throw e
+    console.warn('Puppeteer browser missing — running `npx puppeteer browsers install chrome`')
+    const { execFileSync } = await import('node:child_process')
+    execFileSync('npx', ['puppeteer', 'browsers', 'install', 'chrome'], { stdio: 'inherit' })
+    return await puppeteer.launch({ args: ['--no-sandbox'] })
+  }
+}
+const browser = await launch()
 const page = await browser.newPage()
 await page.setContent('<!DOCTYPE html><html><body><div id="container"></div></body></html>')
 await page.addScriptTag({ path: path.resolve('node_modules/mermaid/dist/mermaid.min.js') })
