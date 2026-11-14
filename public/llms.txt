@@ -42,6 +42,22 @@ curl -u admin:root -X POST \
   -d '{"@type": "Person", "@id": "terminusdb:///data/jane", "name": "Jane Smith", "age": 30}'
 ```
 
+## Migrate from MongoDB
+
+- [Migrate from MongoDB](https://terminusdb.com/docs/migrate-from-mongodb/): full guide — licensing, verbatim raw JSON, prefix collections, WOQL and path queries, gradual schema contracts, and the missing mechanisms to plan for.
+
+The migration path in one paragraph: TerminusDB is Apache 2.0 (MongoDB's SSPLv1 is not OSI-approved and copylefts hosted-service stacks); `raw_json=true` inserts store `sys:JSONDocument`s that read back semantically verbatim since 12.1 — content `@id`/`@type` members are data, `raw_id=false` is the default, `identifiers=false` no longer strips raw content. A MongoDB collection maps to an IRI prefix: name documents `orders/<key>` and `id_prefix=orders/` lists them via a sorted-dictionary range seek (`format=ids`, `counted=true`). Query with WOQL over `/api/woql` (Datalog: triple patterns, `group_by`, `order_by`, `path`). Raw JSON structure navigates with `json:`-predicated path hops, but `{"@id"}` members store the IRI as a string — first-class document-to-document link traversal needs schema'd class fields, which is the gradual-contracts path: schemaless (`schema_check:false`) → declared classes → linked traversable graphs. Missing for MongoDB users (issue candidates): field-level updates, aggregation-pipeline stages, `$text` search, TTL/capped collections, per-document change streams, listing sort/projection, geospatial, mixed bulk writes.
+
+```bash
+# Insert + verbatim read of a raw JSON document named under a prefix
+curl -u admin:root -X POST \
+  "http://localhost:6363/api/document/admin/shop/local/branch/main?author=you&message=order&raw_json=true" \
+  -H 'Content-Type: application/json' \
+  -d '{"@id": "orders/2024-001", "customer": "Alice", "total": 19.98}'
+curl -u admin:root \
+  "http://localhost:6363/api/document/admin/shop/local/branch/main?id_prefix=orders/&as_list=true"
+```
+
 ## WOQL
 
 - [WOQL basics](https://terminusdb.com/docs/woql-basics/): pattern matching and graph traversal with the Datalog query language.

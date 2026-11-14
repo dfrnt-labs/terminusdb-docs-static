@@ -11,13 +11,12 @@ type IndicatorStyle = 'plusMinus' | 'chevron' | 'border'
 export function Navigation({
   className,
   onLinkClick,
-}: {
+}: Readonly<{
   className?: string
   onLinkClick?: React.MouseEventHandler<HTMLAnchorElement>
-}) {
-  // State for indicator style selection
-  const [indicatorStyle, setIndicatorStyle] =
-    useState<IndicatorStyle>('plusMinus')
+}>) {
+  // Indicator style for nested sections
+  const indicatorStyle: IndicatorStyle = 'plusMinus'
   let pathname = usePathname()
 
   // State for which main sections are open
@@ -69,15 +68,6 @@ export function Navigation({
     })
   }
 
-  // Toggle between indicator styles
-  const toggleIndicatorStyle = () => {
-    setIndicatorStyle((current) => {
-      if (current === 'plusMinus') return 'chevron'
-      if (current === 'chevron') return 'border'
-      return 'plusMinus'
-    })
-  }
-
   return (
     <nav className={clsx('text-base lg:text-sm', className)}>
       <ul role="list" className="space-y-4">
@@ -87,28 +77,23 @@ export function Navigation({
           
           return (
             <li key={section.title}>
-              <h2
-                className={clsx(
-                  "font-display font-medium cursor-pointer flex items-center justify-between py-2 px-2 rounded transition-colors focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none",
-                  isActive
-                    ? "text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-900/20"
-                    : "text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50"
-                )}
-                role="button"
-                tabIndex={0}
-                aria-expanded={isOpen}
-                onClick={() => toggleMainSection(section.title)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault()
-                    toggleMainSection(section.title)
-                  }
-                }}
-              >
-                <span>{section.title}</span>
-                <span className="text-sm text-slate-500 dark:text-slate-400">
-                  {isOpen ? '−' : '+'}
-                </span>
+              <h2 className="font-display font-medium">
+                <button
+                  type="button"
+                  className={clsx(
+                    "cursor-pointer flex w-full items-center justify-between py-2 px-2 rounded transition-colors focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none",
+                    isActive
+                      ? "text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-900/20"
+                      : "text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                  )}
+                  aria-expanded={isOpen}
+                  onClick={() => toggleMainSection(section.title)}
+                >
+                  <span>{section.title}</span>
+                  <span className="text-sm text-slate-500 dark:text-slate-400">
+                    {isOpen ? '−' : '+'}
+                  </span>
+                </button>
               </h2>
               {isOpen && (
                 <SubNavigationMap
@@ -129,11 +114,11 @@ function SubNavigationMap({
   links,
   onLinkClick,
   indicatorStyle = 'border',
-}: {
+}: Readonly<{
   links: SubNavigation[]
   onLinkClick?: React.MouseEventHandler<HTMLAnchorElement>
   indicatorStyle?: IndicatorStyle
-}) {
+}>) {
   const pathname = usePathname()
 
   // Helper function to check if a link or any of its children are active
@@ -218,7 +203,9 @@ function SubNavigationMap({
             )}
             {link.links && (
               <>
-                <div
+                <h3 className="font-display font-medium">
+                <button
+                  type="button"
                   className={clsx(
                     'ml-3.5 flex cursor-pointer items-center rounded text-slate-900 transition-all hover:bg-slate-50 dark:text-white dark:hover:bg-slate-800/50 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none',
                     indicatorStyle === 'border' && [
@@ -228,8 +215,6 @@ function SubNavigationMap({
                         : 'border-transparent hover:border-slate-200 dark:hover:border-slate-700',
                     ],
                   )}
-                  role="button"
-                  tabIndex={0}
                   aria-expanded={isOpen}
                   onClick={(e) => {
                     if (link.href) {
@@ -241,18 +226,7 @@ function SubNavigationMap({
                     }
                     toggleSection(key, e);
                   }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault()
-                      if (link.href) {
-                        window.scrollTo(0, 0)
-                        router.push(link.href)
-                      }
-                      toggleSection(key, e as unknown as React.MouseEvent)
-                    }
-                  }}
                 >
-                  <h2 className="font-display font-medium">
                     <span className={clsx(isOpen ? "text-sky-700 dark:text-sky-300 font-bold" : "text-slate-900 dark:text-white")}>{link.title}</span>
                     {/* Indicator based on selected style */}
                     {indicatorStyle === 'plusMinus' && (
@@ -277,8 +251,8 @@ function SubNavigationMap({
                         ></span>
                       </span>
                     )}
-                  </h2>
-                </div>
+                </button>
+                </h3>
                 {isOpen && (
                   <div className="pl-4">
                     <SubNavigationMap

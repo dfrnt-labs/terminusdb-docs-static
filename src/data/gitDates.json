@@ -33,7 +33,7 @@
   },
   "blog/2022-06-24-blank-nodes-in-rdf": {
     "created": "2025-10-24T14:36:32+02:00",
-    "updated": "2026-01-02T22:14:58+01:00"
+    "updated": "2026-10-26T09:09:05+01:00"
   },
   "blog/2022-11-07-terminusdb-internals": {
     "created": "2026-01-02T22:14:15+01:00",
@@ -63,9 +63,101 @@
     "created": null,
     "updated": null
   },
+  "blog/2026-11-05-intervals-and-durations": {
+    "created": null,
+    "updated": null
+  },
+  "blog/a-blogging-platform-in-terminusdb": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/ai-entity-resolution": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/big-graph": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/content-revolution": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/distributed-database-with-collaboration-model": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/entity-resolution-with-ai-dblp-and-acm-publication-benchmark": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/excel-as-code": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/graph-query-optimization": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/graphql-query": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/graphql-rdf-bridge-using-star-wars-dataset": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/implement-graphql-in-fourteen-days": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/json-as-rdf": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/knowledge-graph-schema-design": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/object-relational-impedance-mismatch": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/straight-through-processing-insurance-claims": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/syntax-directed-query-using-typescript-with-graphql-and-terminusdb": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/table-diff-is-np-hard": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/terminusdb-from-the-command-line-introducing-tdb-cli": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/the-semantic-web-is-dead": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/type-tagging-strings-in-rust": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-21T18:45:13+02:00"
+  },
+  "blog/vector-database-and-vector-embeddings": {
+    "created": "2026-10-21T18:45:13+02:00",
+    "updated": "2026-10-31T09:04:25+01:00"
+  },
   "docs": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-10-12T06:40:42+02:00"
+    "updated": "2026-10-21T15:02:46+02:00"
+  },
+  "docs/about-gettier": {
+    "created": "2026-11-06T12:24:25+01:00",
+    "updated": "2026-11-09T20:51:33+01:00"
   },
   "docs/access-control": {
     "created": "2026-04-30T10:51:49+02:00",
@@ -85,11 +177,15 @@
   },
   "docs/access-control-with-javascript": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-10-11T13:38:35+02:00"
+    "updated": "2026-10-23T11:43:39+02:00"
   },
   "docs/acid-transactions-explanation": {
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-05-01T15:13:29+02:00"
+  },
+  "docs/acid-verification-alice-jepsen": {
+    "created": null,
+    "updated": null
   },
   "docs/add-a-document": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -111,25 +207,33 @@
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-05-01T20:38:01+02:00"
   },
+  "docs/ai-agent-setup": {
+    "created": "2026-11-04T07:00:52+01:00",
+    "updated": "2026-11-04T07:00:52+01:00"
+  },
   "docs/array": {
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-05-01T20:47:43+02:00"
   },
   "docs/at-a-glance": {
     "created": "2025-09-03T10:41:28+02:00",
-    "updated": "2026-10-12T06:40:42+02:00"
+    "updated": "2026-11-06T12:10:58+01:00"
   },
   "docs/audit-tutorial": {
     "created": "2026-04-30T10:51:49+02:00",
-    "updated": "2026-10-16T19:07:57+02:00"
+    "updated": "2026-11-14T20:49:19+01:00"
   },
   "docs/back-links-in-graphql": {
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-10-16T19:07:57+02:00"
   },
+  "docs/bike-tutorial": {
+    "created": null,
+    "updated": null
+  },
   "docs/branch": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-18T14:09:48+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/branch-howto": {
     "created": "2026-05-01T15:20:59+02:00",
@@ -137,7 +241,7 @@
   },
   "docs/browser-cors-howto": {
     "created": "2026-04-30T10:51:49+02:00",
-    "updated": "2026-05-18T20:47:54+02:00"
+    "updated": "2026-11-14T20:49:19+01:00"
   },
   "docs/capabilities-api-modes": {
     "created": "2026-05-15T18:27:44+02:00",
@@ -145,35 +249,23 @@
   },
   "docs/change-request-workflows": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T16:43:16+02:00"
-  },
-  "docs/choice-document": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T16:43:16+02:00"
-  },
-  "docs/choice-subdocuments": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:47:43+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/clone": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-18T14:09:48+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/clone-a-demo-project": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:47:43+02:00"
+    "updated": "2026-10-24T20:10:59+02:00"
   },
   "docs/clone-a-project": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:38:01+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/cloud": {
-    "created": null,
-    "updated": null
-  },
-  "docs/collaboration-with-dashboard": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:47:43+02:00"
+    "created": "2026-10-16T22:16:30+02:00",
+    "updated": "2026-10-17T00:06:12+02:00"
   },
   "docs/collaboration-with-javascript-client": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -185,7 +277,7 @@
   },
   "docs/commit-message-howto": {
     "created": "2026-05-01T00:00:48+02:00",
-    "updated": "2026-05-18T20:47:54+02:00"
+    "updated": "2026-11-04T06:54:02+01:00"
   },
   "docs/compare-csv-values-with-woql": {
     "created": "2025-12-14T09:24:35+01:00",
@@ -193,23 +285,23 @@
   },
   "docs/connect-with-apollo-client": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-18T14:09:48+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/connect-with-python-client": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-02T09:31:44+02:00"
+    "updated": "2026-11-04T06:54:02+01:00"
   },
   "docs/connect-with-the-javascript-client": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-02T09:31:44+02:00"
+    "updated": "2026-11-11T08:05:23+01:00"
   },
   "docs/connecting-to-graphql-reference": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:38:01+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/cookbook-taxonomy-inheritance": {
     "created": "2025-07-12T23:47:49+02:00",
-    "updated": "2026-05-01T09:13:20+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/cookbook-woql-arrays": {
     "created": "2025-08-23T21:36:30+02:00",
@@ -223,29 +315,13 @@
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-05-18T20:32:58+02:00"
   },
-  "docs/create-a-project": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:47:43+02:00"
-  },
-  "docs/create-a-team": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:47:43+02:00"
-  },
-  "docs/curate-and-import-data": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:47:43+02:00"
-  },
   "docs/dashboard": {
     "created": "2025-10-28T09:43:05+01:00",
-    "updated": "2026-10-15T21:40:14+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/datalog-queries-between-data-products": {
     "created": "2025-07-12T15:05:41+02:00",
-    "updated": "2026-05-18T14:09:48+02:00"
-  },
-  "docs/datetime-interval-semantics": {
-    "created": "2026-08-04T10:04:20+02:00",
-    "updated": "2026-10-15T15:55:30+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/delete-a-document": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -257,19 +333,11 @@
   },
   "docs/delta-rollup": {
     "created": "2026-04-30T10:51:49+02:00",
-    "updated": "2026-05-01T16:43:55+02:00"
+    "updated": "2026-10-18T09:55:28+02:00"
   },
   "docs/deploy-on-azure": {
-    "created": null,
-    "updated": null
-  },
-  "docs/dfrnt-dashboard-reference": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:47:43+02:00"
-  },
-  "docs/dfrnt-data-types": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:50:08+02:00"
+    "created": "2026-10-16T22:16:30+02:00",
+    "updated": "2026-10-17T00:06:12+02:00"
   },
   "docs/diff-and-patch-operations": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -291,6 +359,10 @@
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-05-01T20:50:08+02:00"
   },
+  "docs/document-type-inference": {
+    "created": null,
+    "updated": null
+  },
   "docs/document-types-comparison": {
     "created": "2026-04-30T10:51:49+02:00",
     "updated": "2026-05-01T20:38:01+02:00"
@@ -301,19 +373,15 @@
   },
   "docs/document-ui-sdk-data-types": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T16:43:55+02:00"
+    "updated": "2026-11-06T12:10:58+01:00"
   },
   "docs/document-ui-template": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:50:08+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/document-unfolding-reference": {
     "created": "2025-11-01T00:11:27+01:00",
     "updated": "2026-10-16T19:07:57+02:00"
-  },
-  "docs/documentclassessummary": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T16:43:55+02:00"
   },
   "docs/documents-explanation": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -365,19 +433,19 @@
   },
   "docs/enterprise-rdfxml": {
     "created": "2026-03-03T09:20:36+01:00",
-    "updated": "2026-10-12T20:09:05+02:00"
+    "updated": "2026-10-26T09:09:05+01:00"
   },
   "docs/enterprise-turtle": {
     "created": "2026-03-03T09:20:36+01:00",
-    "updated": "2026-10-12T20:09:05+02:00"
+    "updated": "2026-10-26T09:09:05+01:00"
   },
   "docs/explore-a-real-dataset": {
     "created": "2026-04-30T11:06:02+02:00",
-    "updated": "2026-05-02T08:10:52+02:00"
+    "updated": "2026-11-14T20:49:19+01:00"
   },
   "docs/explore-ecommerce-dataset": {
     "created": "2026-05-01T00:00:48+02:00",
-    "updated": "2026-05-02T08:10:52+02:00"
+    "updated": "2026-11-14T20:49:19+01:00"
   },
   "docs/extract-table-from-json-with-woql": {
     "created": "2025-12-14T09:24:35+01:00",
@@ -393,35 +461,35 @@
   },
   "docs/first-15-minutes": {
     "created": "2026-04-30T10:19:26+02:00",
-    "updated": "2026-05-18T14:09:48+02:00"
+    "updated": "2026-11-04T06:57:42+01:00"
   },
   "docs/get-documents": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-18T20:32:58+02:00"
+    "updated": "2026-10-28T23:26:18+01:00"
   },
   "docs/get-started": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-10-12T12:42:57+02:00"
-  },
-  "docs/get-started-with-terminusdb": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-10-12T06:40:42+02:00"
+    "updated": "2026-11-14T20:49:19+01:00"
   },
   "docs/get-your-api-key": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:50:08+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/git-for-data-reference": {
     "created": "2025-05-15T21:30:55+02:00",
-    "updated": "2026-05-18T20:32:58+02:00"
+    "updated": "2026-10-21T09:03:03+02:00"
   },
   "docs/glossary": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:50:08+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/graph-database-with-git-like-version-control": {
     "created": "2026-10-15T22:08:20+02:00",
-    "updated": "2026-10-15T22:40:56+02:00"
+    "updated": "2026-11-04T06:57:42+01:00"
+  },
+  "docs/graph-database-with-time-travel-queries": {
+    "created": "2026-10-17T09:05:42+02:00",
+    "updated": "2026-10-22T15:05:04+02:00"
   },
   "docs/graph-spec-db-spec-database-path-identifiers": {
     "created": "2025-10-08T06:55:14+02:00",
@@ -441,11 +509,11 @@
   },
   "docs/graphql-query-reference": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:50:08+02:00"
+    "updated": "2026-10-28T23:26:18+01:00"
   },
   "docs/graphql-subscriptions": {
     "created": "2026-08-04T09:59:17+02:00",
-    "updated": "2026-10-11T14:15:32+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/graphql-with-rdf-iri": {
     "created": "2025-09-03T11:26:16+02:00",
@@ -459,9 +527,9 @@
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-05-01T16:45:07+02:00"
   },
-  "docs/how-to-connect-dfrnt-hub": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:50:08+02:00"
+  "docs/how-to-connect-terminusdb-cloud": {
+    "created": "2026-10-16T22:16:30+02:00",
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/how-to-query-with-graphql": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -473,19 +541,19 @@
   },
   "docs/how-to-version-json-data": {
     "created": "2026-10-15T22:08:20+02:00",
-    "updated": "2026-10-15T22:40:56+02:00"
+    "updated": "2026-11-14T20:49:19+01:00"
   },
   "docs/http-documents-api": {
     "created": "2025-07-15T22:32:15+02:00",
-    "updated": "2026-10-11T13:38:35+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/immutability-and-concurrency": {
     "created": "2026-04-30T10:51:49+02:00",
-    "updated": "2026-05-01T09:18:53+02:00"
+    "updated": "2026-10-18T09:59:22+02:00"
   },
   "docs/immutability-explanation": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-10-12T06:40:42+02:00"
+    "updated": "2026-10-24T01:46:10+02:00"
   },
   "docs/import-data-with-python-client": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -497,11 +565,11 @@
   },
   "docs/index-your-data": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-18T14:09:48+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/install-on-kubernetes": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:50:08+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/install-terminusdb-as-a-docker-container": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -509,7 +577,7 @@
   },
   "docs/install-terminusdb-docker-windows": {
     "created": "2025-12-14T09:24:35+01:00",
-    "updated": "2026-05-01T16:45:07+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/install-terminusdb-from-source-code": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -517,11 +585,15 @@
   },
   "docs/install-terminusdb-js-client": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:50:08+02:00"
+    "updated": "2026-11-11T08:05:23+01:00"
   },
-  "docs/invite-users": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:50:08+02:00"
+  "docs/iris-prefixes-and-minting": {
+    "created": "2026-10-30T15:14:14+01:00",
+    "updated": "2026-10-30T15:17:29+01:00"
+  },
+  "docs/javascript-client-typedefs": {
+    "created": "2026-11-11T08:05:23+01:00",
+    "updated": "2026-11-11T08:05:23+01:00"
   },
   "docs/js-access-control": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -529,19 +601,35 @@
   },
   "docs/json-diff-and-patch": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-10-16T19:07:57+02:00"
+    "updated": "2026-11-04T06:51:05+01:00"
   },
   "docs/knowledge-graph-database": {
     "created": "2026-05-15T22:41:23+02:00",
-    "updated": "2026-10-15T22:40:15+02:00"
+    "updated": "2026-11-06T12:10:58+01:00"
   },
   "docs/knowledge-graph-database-version-control": {
     "created": "2026-05-15T22:41:23+02:00",
-    "updated": "2026-10-15T09:58:32+02:00"
+    "updated": "2026-11-10T09:03:01+01:00"
+  },
+  "docs/knowledge-graph-diff": {
+    "created": "2026-10-24T09:06:29+02:00",
+    "updated": "2026-11-10T09:03:01+01:00"
+  },
+  "docs/knowledge-graph-for-ai-agents": {
+    "created": "2026-10-22T15:05:04+02:00",
+    "updated": "2026-10-24T03:12:23+02:00"
+  },
+  "docs/knowledge-graph-versioning": {
+    "created": "2026-10-23T09:10:03+02:00",
+    "updated": "2026-11-10T09:03:01+01:00"
   },
   "docs/language-strings-with-curl": {
     "created": "2026-04-06T21:13:20+02:00",
     "updated": "2026-10-11T14:15:32+02:00"
+  },
+  "docs/legacy": {
+    "created": "2026-11-06T12:10:58+01:00",
+    "updated": "2026-11-06T12:10:58+01:00"
   },
   "docs/limit-results-in-graphql": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -554,10 +642,6 @@
   "docs/list-documents-component": {
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-05-01T16:47:30+02:00"
-  },
-  "docs/manage-projects": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:52:11+02:00"
   },
   "docs/managing-users-and-invitations": {
     "created": "2026-01-04T19:17:21+01:00",
@@ -579,9 +663,13 @@
     "created": "2026-05-01T15:20:59+02:00",
     "updated": "2026-10-11T15:06:45+02:00"
   },
+  "docs/migrate-from-mongodb": {
+    "created": null,
+    "updated": null
+  },
   "docs/model-schema": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:52:11+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/newdocumentcomponent": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -589,7 +677,7 @@
   },
   "docs/numeric-precision-reference": {
     "created": "2025-10-28T17:11:55+01:00",
-    "updated": "2026-05-01T20:52:11+02:00"
+    "updated": "2026-11-06T12:10:58+01:00"
   },
   "docs/offset-to-provide-paging": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -599,13 +687,17 @@
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-05-01T09:18:53+02:00"
   },
+  "docs/ontology-versioning": {
+    "created": "2026-10-25T09:23:20+01:00",
+    "updated": "2026-10-27T22:10:59+01:00"
+  },
   "docs/open-source-graph-database-with-acid-transactions": {
     "created": "2026-10-15T22:08:20+02:00",
-    "updated": "2026-10-15T22:40:56+02:00"
+    "updated": "2026-11-04T06:51:05+01:00"
   },
   "docs/openai-handlebars-config": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-10-11T13:38:35+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/operational-technologies-transfer": {
     "created": "2025-05-15T21:30:55+02:00",
@@ -651,21 +743,41 @@
     "created": "2026-01-06T18:02:57+01:00",
     "updated": "2026-05-01T17:01:39+02:00"
   },
+  "docs/proving-acid-commits-jepsen-alice": {
+    "created": null,
+    "updated": null
+  },
   "docs/pull-from-project": {
     "created": "2026-05-01T20:38:01+02:00",
     "updated": "2026-05-01T20:38:01+02:00"
   },
   "docs/push-to-project": {
     "created": "2026-05-01T20:38:01+02:00",
-    "updated": "2026-05-01T20:38:01+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
+  },
+  "docs/pydantic-quickstart": {
+    "created": "2026-11-11T08:05:23+01:00",
+    "updated": "2026-11-11T09:24:25+01:00"
+  },
+  "docs/pydantic-schema-management": {
+    "created": "2026-11-11T08:05:23+01:00",
+    "updated": "2026-11-11T09:24:25+01:00"
+  },
+  "docs/pydantic-schema-reference": {
+    "created": "2026-11-11T08:05:23+01:00",
+    "updated": "2026-11-11T09:24:25+01:00"
   },
   "docs/python-certificate-issues": {
     "created": "2026-04-30T10:51:49+02:00",
-    "updated": "2026-05-01T09:18:53+02:00"
+    "updated": "2026-10-18T09:02:31+02:00"
   },
   "docs/python-woql-customer-data-processing-example": {
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-05-01T09:46:47+02:00"
+  },
+  "docs/qname-sqname-data-types": {
+    "created": "2026-11-04T07:05:14+01:00",
+    "updated": "2026-11-04T07:05:14+01:00"
   },
   "docs/query-arrays-and-sets-in-woql": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -685,7 +797,11 @@
   },
   "docs/quickstart-example": {
     "created": "2025-12-14T09:24:35+01:00",
-    "updated": "2026-05-01T16:47:30+02:00"
+    "updated": "2026-10-23T11:44:55+02:00"
+  },
+  "docs/rdf-versioning": {
+    "created": "2026-10-26T09:09:05+01:00",
+    "updated": "2026-11-14T20:49:19+01:00"
   },
   "docs/read-documents-with-woql": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -693,11 +809,11 @@
   },
   "docs/recovery-tutorial": {
     "created": "2026-04-30T10:51:49+02:00",
-    "updated": "2026-05-01T21:26:04+02:00"
+    "updated": "2026-11-14T20:49:19+01:00"
   },
   "docs/releases": {
     "created": "2026-10-16T18:21:36+02:00",
-    "updated": "2026-10-16T18:21:36+02:00"
+    "updated": "2026-10-29T13:23:30+01:00"
   },
   "docs/releases/1-to-4-changelog": {
     "created": "2026-10-16T18:21:36+02:00",
@@ -821,7 +937,7 @@
   },
   "docs/releases/12-0-0-precise-numbers-free-form-json": {
     "created": "2026-10-16T18:21:36+02:00",
-    "updated": "2026-10-16T19:07:57+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/releases/12-0-1-graphql-count-woql-set-operators": {
     "created": "2026-10-16T18:21:36+02:00",
@@ -845,19 +961,27 @@
   },
   "docs/releases/12-0-8-uuid-v7-faster-json-loading": {
     "created": "2026-10-16T18:21:36+02:00",
-    "updated": "2026-10-16T19:07:57+02:00"
+    "updated": "2026-10-29T13:23:30+01:00"
+  },
+  "docs/releases/12-0-9-security-fixes-raw-json-patch": {
+    "created": "2026-10-29T13:23:30+01:00",
+    "updated": "2026-11-06T11:50:40+01:00"
   },
   "docs/releases/12-0-changelog": {
     "created": "2026-10-16T18:21:36+02:00",
-    "updated": "2026-10-16T18:21:36+02:00"
+    "updated": "2026-10-29T13:23:30+01:00"
+  },
+  "docs/releases/12-1-0-rc2-indexed-counting": {
+    "created": "2026-10-28T23:26:18+01:00",
+    "updated": "2026-10-28T23:26:18+01:00"
   },
   "docs/render-as": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T16:47:30+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/reset": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-18T14:09:48+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/reset-a-project": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -881,7 +1005,7 @@
   },
   "docs/schema-migration-reference-guide": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-18T20:32:58+02:00"
+    "updated": "2026-10-30T15:07:14+01:00"
   },
   "docs/schema-queries-with-woql": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -889,7 +1013,11 @@
   },
   "docs/schema-reference-guide": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-10-12T06:40:42+02:00"
+    "updated": "2026-11-01T10:23:20+01:00"
+  },
+  "docs/security": {
+    "created": "2026-11-02T09:24:14+01:00",
+    "updated": "2026-11-09T20:43:45+01:00"
   },
   "docs/self-hosted-installation": {
     "created": "2026-04-30T11:06:02+02:00",
@@ -901,11 +1029,11 @@
   },
   "docs/set-up-vectorlink": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-18T14:09:48+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/squash": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-18T14:09:48+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/squash-projects": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -913,7 +1041,7 @@
   },
   "docs/start-here": {
     "created": "2025-12-14T09:24:35+01:00",
-    "updated": "2026-10-12T06:40:42+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/sysjson": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -931,13 +1059,17 @@
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-10-11T13:38:35+02:00"
   },
+  "docs/terminusdb-cms-dashboard-reference": {
+    "created": "2025-04-06T21:53:36+02:00",
+    "updated": "2026-11-06T12:10:58+01:00"
+  },
   "docs/terminusdb-db-cli-querying": {
     "created": "2025-07-15T22:32:15+02:00",
-    "updated": "2026-05-01T16:47:30+02:00"
+    "updated": "2026-10-21T15:02:46+02:00"
   },
   "docs/terminusdb-explanation": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-10-12T06:40:42+02:00"
+    "updated": "2026-11-06T12:24:25+01:00"
   },
   "docs/terminusdb-install-options": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -951,9 +1083,17 @@
     "created": "2025-11-13T22:26:52+01:00",
     "updated": "2026-10-15T21:40:14+02:00"
   },
+  "docs/terminusdb-mcp": {
+    "created": null,
+    "updated": null
+  },
+  "docs/terminusdb-mcp-reference": {
+    "created": null,
+    "updated": null
+  },
   "docs/terminusdb-query-cookbook": {
     "created": "2025-07-12T23:18:49+02:00",
-    "updated": "2026-05-01T09:18:53+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/terminusdb-vs-mongodb": {
     "created": "2026-05-01T15:13:29+02:00",
@@ -965,39 +1105,39 @@
   },
   "docs/terminusdb-write-path": {
     "created": "2026-10-11T14:15:32+02:00",
-    "updated": "2026-10-11T14:15:32+02:00"
+    "updated": "2026-11-14T20:49:19+01:00"
   },
   "docs/time-processing": {
     "created": "2026-03-03T06:57:51+01:00",
-    "updated": "2026-10-11T14:15:32+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/time-travel": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-18T14:09:48+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/time-travel-howto": {
     "created": "2026-05-01T15:20:59+02:00",
-    "updated": "2026-05-18T20:32:58+02:00"
+    "updated": "2026-10-17T09:05:42+02:00"
   },
   "docs/time-tutorial-dates": {
     "created": "2026-03-03T06:57:51+01:00",
-    "updated": "2026-05-01T09:18:53+02:00"
+    "updated": "2026-11-04T06:35:38+01:00"
   },
   "docs/time-tutorial-durations": {
     "created": "2026-03-03T06:57:51+01:00",
-    "updated": "2026-05-01T09:18:53+02:00"
+    "updated": "2026-11-04T06:35:38+01:00"
   },
   "docs/time-tutorial-intervals": {
     "created": "2026-03-03T06:57:51+01:00",
-    "updated": "2026-10-11T14:15:32+02:00"
+    "updated": "2026-11-04T06:35:38+01:00"
   },
   "docs/time-tutorial-patterns": {
     "created": "2026-03-03T06:57:51+01:00",
-    "updated": "2026-05-01T09:18:53+02:00"
+    "updated": "2026-11-04T06:35:38+01:00"
   },
   "docs/troubleshooting-auth": {
     "created": "2026-04-30T10:51:49+02:00",
-    "updated": "2026-10-16T19:07:57+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/troubleshooting-connection": {
     "created": "2026-04-30T10:51:49+02:00",
@@ -1019,21 +1159,21 @@
     "created": "2026-04-30T10:51:49+02:00",
     "updated": "2026-10-11T14:15:32+02:00"
   },
-  "docs/ui-components": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T16:47:30+02:00"
+  "docs/typescript-with-the-javascript-client": {
+    "created": "2026-11-11T08:05:23+01:00",
+    "updated": "2026-11-11T08:05:23+01:00"
   },
   "docs/ui-sdk-geojson": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T14:04:45+02:00"
+    "updated": "2026-10-23T11:30:46+02:00"
   },
   "docs/undo-reset-howto": {
     "created": "2026-05-01T15:20:59+02:00",
     "updated": "2026-05-18T20:32:58+02:00"
   },
-  "docs/use-the-admin-ui-curate-and-import-data": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T17:01:39+02:00"
+  "docs/use-terminusdb-mcp": {
+    "created": null,
+    "updated": null
   },
   "docs/use-the-clients": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -1041,19 +1181,19 @@
   },
   "docs/use-the-collaboration-features": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:52:11+02:00"
+    "updated": "2026-11-06T12:10:58+01:00"
   },
   "docs/use-the-javascript-client": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T20:52:11+02:00"
+    "updated": "2026-11-11T08:05:23+01:00"
   },
   "docs/use-the-json-editor": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T16:47:30+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/use-the-model-builder-ui": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T16:47:30+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/use-the-python-client": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -1063,29 +1203,25 @@
     "created": "2025-04-06T21:53:36+02:00",
     "updated": "2026-05-01T16:47:30+02:00"
   },
-  "docs/usetdbdocuments": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T16:47:30+02:00"
-  },
-  "docs/usetdbgraphqlquery": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T16:47:30+02:00"
-  },
   "docs/version-control-operations": {
     "created": "2026-05-01T15:13:29+02:00",
-    "updated": "2026-10-11T15:06:45+02:00"
+    "updated": "2026-11-04T06:51:05+01:00"
   },
   "docs/version-controlled-json": {
     "created": "2026-05-18T13:40:08+02:00",
-    "updated": "2026-10-12T18:17:43+02:00"
+    "updated": "2026-11-14T20:49:19+01:00"
   },
   "docs/versioned-search": {
     "created": "2026-10-11T14:15:32+02:00",
-    "updated": "2026-10-14T08:54:04+02:00"
+    "updated": "2026-10-22T15:05:04+02:00"
   },
   "docs/versioned-search-api-reference": {
     "created": "2026-10-11T14:15:32+02:00",
     "updated": "2026-10-14T08:54:04+02:00"
+  },
+  "docs/versioned-search-automatic-indexing": {
+    "created": "2026-10-21T20:38:50+02:00",
+    "updated": "2026-10-21T21:30:24+02:00"
   },
   "docs/versioned-search-clustering": {
     "created": "2026-10-11T14:15:32+02:00",
@@ -1113,7 +1249,7 @@
   },
   "docs/versioned-search-indexing": {
     "created": "2026-10-11T14:15:32+02:00",
-    "updated": "2026-10-14T08:54:04+02:00"
+    "updated": "2026-10-21T20:38:50+02:00"
   },
   "docs/versioned-search-querying": {
     "created": "2026-10-11T14:15:32+02:00",
@@ -1123,17 +1259,13 @@
     "created": "2026-10-11T14:15:32+02:00",
     "updated": "2026-10-15T09:58:32+02:00"
   },
-  "docs/viewdocumentcomponent": {
-    "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T16:47:30+02:00"
-  },
   "docs/what-is-datalog": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-05-01T15:13:29+02:00"
+    "updated": "2026-10-16T09:01:56+02:00"
   },
   "docs/what-is-dfrnt": {
     "created": "2025-12-14T09:24:35+01:00",
-    "updated": "2026-05-01T09:18:53+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/what-is-schema-weakening": {
     "created": "2025-04-06T21:53:36+02:00",
@@ -1177,7 +1309,7 @@
   },
   "docs/woql-getting-started": {
     "created": "2025-05-01T21:32:44+02:00",
-    "updated": "2026-05-01T20:52:11+02:00"
+    "updated": "2026-10-16T22:16:30+02:00"
   },
   "docs/woql-interval-algebra": {
     "created": "2026-03-03T06:57:51+01:00",
@@ -1221,7 +1353,7 @@
   },
   "docs/woql-subdocument-handling": {
     "created": "2026-02-22T08:23:53+01:00",
-    "updated": "2026-05-18T14:09:48+02:00"
+    "updated": "2026-10-18T15:05:39+02:00"
   },
   "docs/woql-time-handling": {
     "created": "2026-03-03T06:57:51+01:00",
@@ -1237,7 +1369,7 @@
   },
   "docs/woql-tutorial": {
     "created": "2026-02-22T22:08:20+01:00",
-    "updated": "2026-05-01T09:18:53+02:00"
+    "updated": "2026-11-14T20:49:19+01:00"
   },
   "docs/woql-variable-generation": {
     "created": "2025-10-10T06:44:21+02:00",
@@ -1247,12 +1379,16 @@
     "created": "2025-11-01T00:11:27+01:00",
     "updated": "2026-10-15T21:40:14+02:00"
   },
+  "docs/xdd-datetimeinterval-time-tour": {
+    "created": null,
+    "updated": null
+  },
   "docs/xsd-data-types": {
     "created": "2026-02-22T08:23:53+01:00",
-    "updated": "2026-10-12T07:38:29+02:00"
+    "updated": "2026-11-08T14:15:28+01:00"
   },
   "page.md": {
     "created": "2025-04-06T21:53:36+02:00",
-    "updated": "2026-10-15T21:40:14+02:00"
+    "updated": "2026-11-11T18:50:46+01:00"
   }
 }

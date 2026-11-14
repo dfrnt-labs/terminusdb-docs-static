@@ -4,7 +4,7 @@ import { resolvePath, unwrapBindingRow } from "../HttpExample"
 // fetched when a WOQL request is actually shown or run.
 let evalWoql: typeof import("@/lib/woqlEval").evalWoqlCode | undefined
 export async function loadWoqlEval(): Promise<void> {
-  if (!evalWoql) evalWoql = (await import("@/lib/woqlEval")).evalWoqlCode
+  evalWoql ??= (await import("@/lib/woqlEval")).evalWoqlCode
 }
 import type { StepRequestDescriptor } from "./context"
 import type { ExecutionResult, ExecutionError } from "../RunnableFence/types"

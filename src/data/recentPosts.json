@@ -1,5 +1,15 @@
 [
   {
+    "title": "Intervals That Remember How You Spelled Them",
+    "href": "/blog/2026-11-05-intervals-and-durations",
+    "date": "2026-11-05"
+  },
+  {
+    "title": "Live Commit Streams: Watching the Graph Change in Real Time",
+    "href": "/blog/2026-01-20-live-commit-streams",
+    "date": "2026-07-09"
+  },
+  {
     "title": "TerminusDB 12: Precision, JSON Freedom, and a New Chapter",
     "href": "/blog/2025-12-08-terminusdb-12-release",
     "date": "2025-12-08"
@@ -23,15 +33,5 @@
     "title": "Syntax Directed Query: Using TypeScript with GraphQL and TerminusDB",
     "href": "/blog/syntax-directed-query-using-typescript-with-graphql-and-terminusdb",
     "date": "2023-10-27"
-  },
-  {
-    "title": "Type-tagging strings in Rust",
-    "href": "/blog/type-tagging-strings-in-rust",
-    "date": "2023-10-27"
-  },
-  {
-    "title": "Smaller Is Better: Ultra-Compact Graph Representations for a Big Graph",
-    "href": "/blog/big-graph",
-    "date": "2023-07-10"
   }
 ]

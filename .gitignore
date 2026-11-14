@@ -55,3 +55,6 @@ next-env.d.ts
 /scripts/docs-example-tests/coverage-audit.json
 src/app/docs/*/tests/blocks.test.mjs
 /test-results/
+
+# agent tooling (local)
+.claude/

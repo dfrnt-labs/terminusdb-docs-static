@@ -421,6 +421,9 @@
       "statusCode": 301
     },
     {
+      "route": "/t/data/*"
+    },
+    {
       "route": "/t/*",
       "redirect": "https://discord.gg/GZ5gaCmBHc",
       "statusCode": 301

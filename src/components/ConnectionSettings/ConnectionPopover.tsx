@@ -155,7 +155,7 @@ export function ConnectionPopover({ isOpen, onClose }: ConnectionPopoverProps) {
         <button
           onClick={handleTestConnection}
           disabled={connectionStatus === "connecting"}
-          className="w-full rounded bg-slate-900 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-sky-600 dark:hover:bg-sky-500 dark:focus-visible:ring-offset-slate-900"
+          className="w-full rounded bg-slate-900 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-sky-700 dark:hover:bg-sky-600 dark:focus-visible:ring-offset-slate-900"
         >
           {connectionStatus === "connecting" ? "Testing..." : "Test Connection"}
         </button>

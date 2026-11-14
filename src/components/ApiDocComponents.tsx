@@ -293,7 +293,7 @@ export function MethodCard({
       <a 
         href={`#${id}`}
         onClick={handleAnchorClick}
-        className="absolute lg:-left-12 mt-6 hidden lg:flex items-center justify-center w-8 h-8 rounded-full bg-sky-600 hover:bg-sky-500 text-white shadow-sm transition-colors"
+        className="absolute lg:-left-12 mt-6 hidden lg:flex items-center justify-center w-8 h-8 rounded-full bg-sky-700 hover:bg-sky-600 text-white shadow-sm transition-colors"
         title="Link to this method"
       >
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -307,7 +307,7 @@ export function MethodCard({
         <a 
           href={`#${id}`}
           onClick={handleAnchorClick}
-          className="lg:hidden flex items-center justify-center w-6 h-6 rounded-full bg-sky-600 hover:bg-sky-500 text-white transition-colors shrink-0"
+          className="lg:hidden flex items-center justify-center w-6 h-6 rounded-full bg-sky-700 hover:bg-sky-600 text-white transition-colors shrink-0"
           title="Link to this method"
         >
           <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -422,7 +422,7 @@ export function ClassSection({
             </svg>
             <span className="hidden sm:inline">Filter</span>
             {filter && (
-              <span className="bg-sky-500 text-white text-[10px] px-1.5 py-0.5 rounded-full ml-1">
+              <span className="bg-sky-700 text-white text-[10px] px-1.5 py-0.5 rounded-full ml-1">
                 {filteredCount}
               </span>
             )}

@@ -173,7 +173,7 @@ export function PrerequisitesConnected({
 
         <button
           onClick={handleConnect}
-          className="w-full rounded-md bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 sm:w-auto dark:bg-sky-600 dark:hover:bg-sky-500 dark:focus-visible:ring-offset-slate-900"
+          className="w-full rounded-md bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 sm:w-auto dark:bg-sky-700 dark:hover:bg-sky-600 dark:focus-visible:ring-offset-slate-900"
         >
           Retry connection
         </button>
@@ -226,7 +226,7 @@ export function PrerequisitesConnected({
         <ConnectionIcon status="untested" />
         <button
           onClick={handleConnect}
-          className="w-full rounded-md bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 sm:w-auto dark:bg-sky-600 dark:hover:bg-sky-500 dark:focus-visible:ring-offset-slate-900"
+          className="w-full rounded-md bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 sm:w-auto dark:bg-sky-700 dark:hover:bg-sky-600 dark:focus-visible:ring-offset-slate-900"
           aria-label={`Connect to ${host}`}
         >
           Connect to {host}

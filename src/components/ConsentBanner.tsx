@@ -132,7 +132,7 @@ export function ConsentBanner() {
 }
 
 /** Footer link that reopens the banner. */
-export function CookieSettingsButton({ className }: { className?: string }) {
+export function CookieSettingsButton({ className }: Readonly<{ className?: string }>) {
   return (
     <button type="button" onClick={openConsentSettings} className={className}>
       Cookie settings
