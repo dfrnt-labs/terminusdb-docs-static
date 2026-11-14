@@ -37,7 +37,8 @@ async function main() {
   // Load all tagged pages to get lastUpdated frontmatter
   // Since tags.ts uses fast-glob + fs, we replicate its file discovery here
   const fg = await import("fast-glob")
-  const globSync = fg.globSync ?? fg.default?.globSync
+  // fast-glob 3.3 renamed the sync export from `sync` to `globSync`; accept both
+  const globSync = fg.globSync ?? fg.default?.globSync ?? fg.default?.sync
   const { readFileSync } = await import("node:fs")
 
   const pageFiles = globSync("src/app/docs/**/page.md", { cwd: ROOT })

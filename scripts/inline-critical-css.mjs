@@ -1,9 +1,9 @@
-// Inline critical CSS into exported HTML and defer the full stylesheet.
-// React's data-precedence stylesheet links stay render-blocking in static
-// export, so this runs critters over out/**/*.html as a postbuild step.
+// Inline stylesheets into exported HTML.
+// A deferred link (media/onload swap) applies the sheet late and visibly
+// reflows the page on slow connections (CLS). Inlining the full sheet in
+// place removes the request, the render block and the style-change entirely.
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import Critters from "critters";
 
 const outDir = "out";
 
@@ -17,34 +17,28 @@ const walk = (dir) => {
 };
 walk(outDir);
 
-const critters = new Critters({
-  path: outDir,
-  publicPath: "/",
-  // 'swap'/'media' mutate links buggily in critters 0.0.x (no rel=preload,
-  // broken noscript copies); defer the sheets ourselves below instead.
-  preload: false,
-  noscriptFallback: false,
-  compress: true,
-  // pruneSource would shrink the deferred sheet per-page and drop rules
-  // other pages still need; keep the shared file intact.
-  pruneSource: false,
-  reduceInlineStyles: false,
-  logLevel: "silent",
-});
+const cssCache = new Map();
+const readCss = (href) => {
+  if (!cssCache.has(href)) {
+    cssCache.set(href, readFileSync(join(outDir, href.replace(/^\//, "")), "utf8"));
+  }
+  return cssCache.get(href);
+};
 
 let done = 0;
-const queue = [...htmlFiles];
-const worker = async () => {
-  let file;
-  while ((file = queue.shift())) {
-    let html = await critters.process(readFileSync(file, "utf8"));
-    html = html.replace(
-      /<link rel="stylesheet" href="([^"]+\.css)"[^>]*>/g,
-      '<link rel="preload" as="style" href="$1" onload="this.onload=null;this.rel=\'stylesheet\'"><noscript><link rel="stylesheet" href="$1"></noscript>'
-    );
-    writeFileSync(file, html);
-    if (++done % 50 === 0) console.log(`inline-critical-css: ${done}/${htmlFiles.length}`);
-  }
-};
-await Promise.all(Array.from({ length: 8 }, worker));
+for (const file of htmlFiles) {
+  const html = readFileSync(file, "utf8");
+  const inlined = html.replace(
+    /<link rel="stylesheet" href="([^"]+\.css)"[^>]*>/g,
+    (match, href) => {
+      try {
+        return `<style data-inline-css>${readCss(href)}</style>`;
+      } catch {
+        return match;
+      }
+    }
+  );
+  writeFileSync(file, inlined);
+  if (++done % 50 === 0) console.log(`inline-critical-css: ${done}/${htmlFiles.length}`);
+}
 console.log(`inline-critical-css: ${done} pages`);
