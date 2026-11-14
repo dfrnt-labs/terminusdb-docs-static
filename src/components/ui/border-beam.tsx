@@ -1,7 +1,5 @@
 "use client"
 
-import { motion, MotionStyle, Transition } from "motion/react"
-
 import { cn } from "@/lib/utils"
 
 interface BorderBeamProps {
@@ -25,10 +23,6 @@ interface BorderBeamProps {
    * The color of the border beam to.
    */
   colorTo?: string
-  /**
-   * The motion transition of the border beam.
-   */
-  transition?: Transition
   /**
    * The class name of the border beam.
    */
@@ -58,12 +52,13 @@ export const BorderBeam = ({
   duration = 6,
   colorFrom = "#ffaa40",
   colorTo = "#9c40ff",
-  transition,
   style,
   reverse = false,
   initialOffset = 0,
   borderWidth = 1,
 }: BorderBeamProps) => {
+  // Pure CSS offset-path spin — no JS animation runtime needed.
+  const startDelay = -(delay + (initialOffset / 100) * duration)
   return (
     <div
       className="pointer-events-none absolute inset-0 rounded-[inherit] border-(length:--border-beam-width) border-transparent [mask-image:linear-gradient(transparent,transparent),linear-gradient(#000,#000)] [mask-composite:intersect] [mask-clip:padding-box,border-box]"
@@ -73,7 +68,7 @@ export const BorderBeam = ({
         } as React.CSSProperties
       }
     >
-      <motion.div
+      <div
         className={cn(
           "absolute aspect-square",
           "bg-gradient-to-l from-[var(--color-from)] via-[var(--color-to)] to-transparent",
@@ -83,24 +78,13 @@ export const BorderBeam = ({
           {
             width: size,
             offsetPath: `rect(0 auto auto 0 round ${size}px)`,
+            animation: `border-beam-spin ${duration}s linear ${startDelay}s infinite`,
+            animationDirection: reverse ? "reverse" : undefined,
             "--color-from": colorFrom,
             "--color-to": colorTo,
             ...style,
-          } as MotionStyle
+          } as React.CSSProperties
         }
-        initial={{ offsetDistance: `${initialOffset}%` }}
-        animate={{
-          offsetDistance: reverse
-            ? [`${100 - initialOffset}%`, `${-initialOffset}%`]
-            : [`${initialOffset}%`, `${100 + initialOffset}%`],
-        }}
-        transition={{
-          repeat: Infinity,
-          ease: "linear",
-          duration,
-          delay: -delay,
-          ...transition,
-        }}
       />
     </div>
   )

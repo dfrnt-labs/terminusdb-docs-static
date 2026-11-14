@@ -86,6 +86,12 @@
   white-space: nowrap;
 }
 
+@keyframes border-beam-spin {
+  to {
+    offset-distance: 100%;
+  }
+}
+
 @keyframes consent-in {
   from {
     opacity: 0;

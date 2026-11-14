@@ -555,6 +555,10 @@ export const navigation: Navigation[] = [
                 href: '/docs/woql-tutorial',
               },
               {
+                title: 'Bike Share Tutorial',
+                href: '/docs/bike-tutorial',
+              },
+              {
                 title: 'WOQL Basics',
                 href: '/docs/woql-basics',
               },
