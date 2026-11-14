@@ -128,7 +128,7 @@ The diff endpoint compares any two states — two branches, two commits, or a br
 {% http-example method="POST" path="/api/diff/admin/MyDatabase" %}
 {"before_data_version": "main", "after_data_version": "reprice"}
 {% http-expected %}
-[{"@id":"product/SKU-001","price":{"@after":179.99,"@before":149.99,"@op":"SwapValue"}}]
+[{"@id":"terminusdb:///data/product/SKU-001","price":{"@after":179.99,"@before":149.99,"@op":"SwapValue"}}]
 {% /http-expected %}
 {% /http-example %}
 

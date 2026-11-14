@@ -41,7 +41,7 @@ export function RecentBlogPosts({ className, posts }: RecentBlogPostsProps) {
                 >
                   <time 
                     dateTime={post.date}
-                    className="block text-xs text-slate-400 dark:text-slate-500"
+                    className="block text-xs text-slate-600 dark:text-slate-400"
                   >
                     {post.date}
                   </time>
@@ -63,7 +63,7 @@ export function RecentBlogPosts({ className, posts }: RecentBlogPostsProps) {
         <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700">
           <ScrollLink
             href="/blog"
-            className="text-sm font-medium text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
+            className="text-sm font-medium text-sky-700 hover:text-sky-800 dark:text-sky-400 dark:hover:text-sky-300"
           >
             View all posts →
           </ScrollLink>

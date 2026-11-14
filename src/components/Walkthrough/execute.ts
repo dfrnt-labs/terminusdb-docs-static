@@ -1,6 +1,11 @@
 import { parseCurlToFetch, extractUrlPath } from "../RunnableFence/parseCurl"
 import { resolvePath, unwrapBindingRow } from "../HttpExample"
-import { evalWoqlCode } from "../WoqlPlayground"
+// evalWoqlCode lives behind a lazy import so the terminusdb client is only
+// fetched when a WOQL request is actually shown or run.
+let evalWoql: typeof import("@/lib/woqlEval").evalWoqlCode | undefined
+export async function loadWoqlEval(): Promise<void> {
+  if (!evalWoql) evalWoql = (await import("@/lib/woqlEval")).evalWoqlCode
+}
 import type { StepRequestDescriptor } from "./context"
 import type { ExecutionResult, ExecutionError } from "../RunnableFence/types"
 
@@ -132,9 +137,10 @@ export function woqlRequestBody(
   req: StepRequestDescriptor,
   settings: { user: string }
 ): string | undefined {
+  if (!evalWoql) return undefined
   try {
     return JSON.stringify({
-      query: evalWoqlCode(req.code || ""),
+      query: evalWoql(req.code || ""),
       all_witnesses: true,
       commit_info: { author: settings.user, message: "Docs walkthrough query" },
     })

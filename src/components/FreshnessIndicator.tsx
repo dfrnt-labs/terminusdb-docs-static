@@ -39,15 +39,15 @@ export function FreshnessIndicator({ count, href }: FreshnessIndicatorProps) {
 
   return (
     <div className="mt-6 text-center md:text-center lg:text-left">
-      <p className="py-2 text-[0.8125rem] text-slate-400 dark:text-slate-500">
-        <span className="font-medium text-slate-500 dark:text-slate-400">
+      <p className="py-2 text-[0.8125rem] text-slate-400">
+        <span className="font-medium text-slate-300">
           {countText} new {pagesText}
         </span>{" "}
         in the last 30 days:{" "}
         <a
           href={href}
-          className="italic text-slate-500 underline decoration-1 underline-offset-2 transition-colors hover:text-slate-700 focus-visible:rounded focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:text-slate-400 dark:hover:text-slate-300"
-          aria-label={`${countText} new ${pagesText} in the last 30 days — view all recent changes`}
+          className="italic text-slate-300 underline decoration-1 underline-offset-2 transition-colors hover:text-white focus-visible:rounded focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"
+          aria-label={`What's new? ${countText} new ${pagesText} in the last 30 days — view all recent changes`}
         >
           What&apos;s new?
         </a>

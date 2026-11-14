@@ -93,7 +93,7 @@ export function ResultPanel({ state, result, error, serverUrl, fixture, onClear,
         <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
           {state === "SUCCESS" && result && <SuccessHeader result={result} />}
           {state === "SUCCESS" && result?.simulated && (
-            <span className="ml-2 text-xs font-normal text-slate-400 dark:text-slate-500">· simulated</span>
+            <span className="ml-2 text-xs font-normal text-slate-500 dark:text-slate-400">· simulated</span>
           )}
           {state === "ERROR" && (
             <span className="text-red-700 dark:text-red-400 font-bold">Error</span>
@@ -108,7 +108,7 @@ export function ResultPanel({ state, result, error, serverUrl, fixture, onClear,
           {state === "SUCCESS" && result && rendersRichResult(result) && (
             <button
               onClick={() => setRawView((v) => !v)}
-              className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
+              className="text-xs text-slate-600 hover:text-slate-800 dark:text-slate-300 dark:hover:text-slate-100 transition-colors"
               aria-pressed={rawView}
             >
               {rawView ? "Rendered" : "{ } Raw"}
@@ -116,7 +116,7 @@ export function ResultPanel({ state, result, error, serverUrl, fixture, onClear,
           )}
           <button
             onClick={onClear}
-            className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
+            className="text-xs text-slate-600 hover:text-slate-800 dark:text-slate-300 dark:hover:text-slate-100 transition-colors"
             aria-label="Clear execution result"
           >
             ✕ Clear
@@ -341,13 +341,13 @@ function HistoryBody({ entries }: { entries: ReadonlyArray<HistoryEntry> }) {
             {entry.timestamp && (
               <time
                 dateTime={String(entry.timestamp)}
-                className="text-[0.65rem] text-slate-400 dark:text-slate-500"
+                className="text-[0.65rem] text-slate-500 dark:text-slate-400"
                 title={String(entry.timestamp)}
               >
                 {String(entry.timestamp)}
               </time>
             )}
-            <span className="group/cell inline-flex items-center text-[0.6rem] font-mono text-slate-400 dark:text-slate-500" title={entry.identifier}>
+            <span className="group/cell inline-flex items-center text-[0.6rem] font-mono text-slate-500 dark:text-slate-400" title={entry.identifier}>
               <span className="truncate max-w-[12ch]">{entry.identifier.slice(0, 8)}</span>
               <CellCopyButton value={entry.identifier} />
             </span>
@@ -358,7 +358,7 @@ function HistoryBody({ entries }: { entries: ReadonlyArray<HistoryEntry> }) {
               <CellValue value={entry.diff} />
             </div>
           ) : (
-            <p className="text-[0.65rem] italic text-slate-400 dark:text-slate-500">No changes</p>
+            <p className="text-[0.65rem] italic text-slate-500 dark:text-slate-400">No changes</p>
           )}
         </div>
       ))}
@@ -486,7 +486,7 @@ function SuccessBody({
       {!showAllRows && totalRows > MAX_VISIBLE_ROWS && (
         <button
           onClick={onShowAll}
-          className="mt-2 text-xs text-sky-600 dark:text-sky-400 hover:underline"
+          className="mt-2 text-xs text-sky-700 dark:text-sky-400 hover:underline"
         >
           Show all {totalRows} rows
         </button>
@@ -508,7 +508,7 @@ function ErrorBody({ error, fixture }: { error: ExecutionError; fixture?: string
         <div>
           <button
             onClick={() => setExpanded((v) => !v)}
-            className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors flex items-center gap-1"
+            className="text-xs text-slate-600 hover:text-slate-800 dark:text-slate-300 dark:hover:text-slate-100 transition-colors flex items-center gap-1"
           >
             <svg
               className={`w-3 h-3 transition-transform ${expanded ? "rotate-90" : ""}`}
@@ -526,7 +526,7 @@ function ErrorBody({ error, fixture }: { error: ExecutionError; fixture?: string
         </div>
       )}
       {showFixtureHint && (
-        <p className="text-xs text-slate-500 dark:text-slate-400 italic">
+        <p className="text-xs text-slate-600 dark:text-slate-300 italic">
           Hint: This example requires the &ldquo;{fixture}&rdquo; database. Run the setup example earlier on this page first.
         </p>
       )}
@@ -634,7 +634,7 @@ function CellValue({ value }: { value: unknown }) {
     if (obj["@op"] === "Insert") {
       return (
         <span className="inline-flex items-baseline gap-1 flex-wrap">
-          <span className="text-emerald-600 dark:text-emerald-400 text-[0.6rem] uppercase tracking-wide">Insert</span>
+          <span className="text-emerald-700 dark:text-emerald-400 text-[0.6rem] uppercase tracking-wide">Insert</span>
           <DiffAtom value={obj["@insert"]} className="text-emerald-700 dark:text-emerald-400" />
         </span>
       )
@@ -644,7 +644,7 @@ function CellValue({ value }: { value: unknown }) {
     if ("@op" in obj) {
       return (
         <div>
-          <span className="text-sky-600 dark:text-sky-400 text-[0.6rem] uppercase tracking-wide">{String(obj["@op"])}</span>
+          <span className="text-sky-700 dark:text-sky-400 text-[0.6rem] uppercase tracking-wide">{String(obj["@op"])}</span>
           <pre className="text-[0.65rem] leading-tight whitespace-pre-wrap break-words max-w-xs">
             {JSON.stringify(value, null, 2)}
           </pre>

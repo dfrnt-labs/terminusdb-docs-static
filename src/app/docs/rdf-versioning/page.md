@@ -161,10 +161,10 @@ A WOQL query returns the triples for Alice. `Equals` sets `1_subject` to `Person
     "object": {"@type": "Value", "variable": "3_object"}}]}}
 {% http-expected %}
 {"@type":"api:WoqlResponse","api:status":"api:success","bindings":[
- {"1_subject":"Person/alice","2_predicate":"rdf:type","3_object":"Person"},
- {"1_subject":"Person/alice","2_predicate":"name","3_object":{"@type":"xsd:string","@value":"Alice"}},
- {"1_subject":"Person/alice","2_predicate":"role","3_object":{"@type":"xsd:string","@value":"Engineer"}},
- {"1_subject":"Person/alice","2_predicate":"worksFor","3_object":"Organization/acme"}]}
+ {"1_subject":"Person/alice","2_predicate":"rdf:type","3_object":"@schema:Person"},
+ {"1_subject":"Person/alice","2_predicate":"@schema:name","3_object":{"@type":"xsd:string","@value":"Alice"}},
+ {"1_subject":"Person/alice","2_predicate":"@schema:role","3_object":{"@type":"xsd:string","@value":"Engineer"}},
+ {"1_subject":"Person/alice","2_predicate":"@schema:worksFor","3_object":"Organization/acme"}]}
 {% /http-expected %}
 {% /http-example %}
 
@@ -231,7 +231,7 @@ curl -u admin:root -X POST "http://localhost:6363/api/diff/admin/RdfDemo" \
 ```
 
 {% http-expected %}
-[{"@id":"Person/alice","role":{"@after":"CTO","@before":"Engineer","@op":"SwapValue"}}]
+[{"@id":"terminusdb:///data/Person/alice","role":{"@after":"CTO","@before":"Engineer","@op":"SwapValue"}}]
 {% /http-expected %}
 
 The result has a `SwapValue` for `role` on `Person/alice`, with `"Engineer"` before and `"CTO"` after. The [Time-Travel How-To](/docs/time-travel-howto/) has more ways to read and compare old versions.

@@ -9,7 +9,7 @@ import { ExecutorShell } from "../RunnableFence/ExecutorShell"
 import { RunButton } from "../RunnableFence/RunButton"
 import { useWalkthrough } from "./context"
 import type { StepRequestDescriptor } from "./context"
-import { resolveRequest, executeLive, simulate, substituteSlotValue, consumerBlocked, dbCreateUrl, isDbExistsError, deleteDatabase, woqlRequestBody } from "./execute"
+import { resolveRequest, executeLive, simulate, substituteSlotValue, consumerBlocked, dbCreateUrl, isDbExistsError, deleteDatabase, woqlRequestBody, loadWoqlEval } from "./execute"
 import { generateCurl } from "../HttpExample/curlGenerator"
 import { resolvePath } from "../HttpExample"
 import { HttpView } from "../RunnableFence/HttpView"
@@ -45,6 +45,13 @@ interface RequestRunState {
 }
 
 export function useStepRunners(stepId: string, requests: StepRequestDescriptor[]) {
+  const [, setWoqlLoaded] = useState(0)
+  useEffect(() => {
+    if (requests.some((r) => r.kind === "woql")) {
+      void loadWoqlEval().then(() => setWoqlLoaded((v) => v + 1))
+    }
+  }, [requests])
+
   const ctx = useWalkthrough()
   const { settings, setConnectionStatus } = useConnection()
   const slotCtx = useSlotContext()
@@ -88,6 +95,7 @@ export function useStepRunners(stepId: string, requests: StepRequestDescriptor[]
         return
       }
 
+      if (request.kind === "woql") await loadWoqlEval()
       const resolved = resolveRequest(request, settings, slotValue)
       if (!resolved) {
         clearTimeout(timeoutId)
@@ -166,7 +174,7 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
 
   if (!request) {
     return (
-      <div className="flex items-center justify-center rounded-lg border border-dashed border-slate-300 p-6 text-xs text-slate-400 dark:border-slate-700 dark:text-slate-500">
+      <div className="flex items-center justify-center rounded-lg border border-dashed border-slate-300 p-6 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
         No request in this step
       </div>
     )
@@ -252,7 +260,7 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
                 className={`relative border-b-2 px-1 pb-1.5 text-xs font-semibold uppercase tracking-wider transition-colors ${
                   activeTab === t.id
                     ? "border-sky-500 text-slate-900 dark:text-white"
-                    : "border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                    : "border-transparent text-slate-600 hover:text-slate-800 dark:text-slate-300 dark:hover:text-slate-100"
                 }`}
               >
                 {t.label}
@@ -265,7 +273,7 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
             {edited && (
               <button
                 onClick={() => { setEditedCode(null); clear() }}
-                className="rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-500 transition-colors hover:bg-slate-200 hover:text-slate-700 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-200"
+                className="rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:bg-slate-200 hover:text-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-slate-100"
               >
                 Reset
               </button>
@@ -346,7 +354,7 @@ export function RequestCard({ request, runner }: { request?: StepRequestDescript
         </p>
       )}
       {!live && edited && (
-        <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+        <p className="mt-2 text-xs text-slate-600 dark:text-slate-300">
           Edited — run live to execute it, or reset for the original.
         </p>
       )}
@@ -364,7 +372,7 @@ export function ResultArea({ request, runner }: { request?: StepRequestDescripto
 
   if (state === "IDLE" || state === "RUNNING") {
     return (
-      <div className="flex items-center justify-center rounded-lg border border-dashed border-slate-300 p-6 text-xs text-slate-400 dark:border-slate-700 dark:text-slate-500">
+      <div className="flex items-center justify-center rounded-lg border border-dashed border-slate-300 p-6 text-xs text-slate-500 dark:border-slate-700 dark:text-slate-400">
         {state === "RUNNING" ? "Running…" : "Run the request to see the response"}
       </div>
     )

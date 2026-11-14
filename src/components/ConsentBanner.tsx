@@ -21,9 +21,18 @@ const choiceButton =
  * PageSense loads only after "Accept"; Plausible (cookieless) is not gated.
  */
 export function ConsentBanner() {
-  const [open, setOpen] = useState(false)
+  // The dialog is always in the static markup; an inline head script and React
+  // reveal it via data-consent-visible on <html>, so it shows at first paint
+  // instead of waiting for hydration. `open` only drives focus and dismissal.
+  const [open, setOpen] = useState(() =>
+    typeof window === 'undefined' ? false : !getConsent(),
+  )
   const acceptRef = useRef<HTMLButtonElement>(null)
   const returnFocusRef = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    document.documentElement.toggleAttribute('data-consent-visible', open)
+  }, [open])
 
   // Reads localStorage and injects a third-party script: browser-only, so it runs after mount.
   useEffect(() => {
@@ -59,10 +68,12 @@ export function ConsentBanner() {
     returnFocusRef.current = null
   }
 
-  if (!open) return null
-
+  // `hidden` stays in the DOM on every render — visibility is CSS-driven by
+  // data-consent-visible so the markup is identical before and after hydration.
   return (
     <div
+      id="consent-banner"
+      hidden
       role="dialog"
       aria-label="Cookie consent"
       aria-describedby="consent-banner-text"
@@ -88,7 +99,7 @@ export function ConsentBanner() {
           href={PRIVACY_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-medium text-sky-600 underline decoration-sky-600/30 underline-offset-2 hover:decoration-sky-600 dark:text-sky-400 dark:decoration-sky-400/30 dark:hover:decoration-sky-400"
+          className="font-medium text-sky-700 underline decoration-sky-700/30 underline-offset-2 hover:decoration-sky-700 dark:text-sky-400 dark:decoration-sky-400/30 dark:hover:decoration-sky-400"
         >
           Privacy
         </a>

@@ -5,6 +5,7 @@ import yaml from 'js-yaml'
 import { DocsLayout } from '@/components/DocsLayout'
 import { RunnableFence } from '@/components/RunnableFence'
 import { TableWrapper } from '@/components/TableWrapper'
+import { Mermaid } from '@/components/Mermaid'
 import { TrackedLink } from '@/components/TrackedLink'
 
 let documentSlugifyMap = new Map()
@@ -66,8 +67,27 @@ const nodes = {
       },
     },
   },
+  'mermaid-chart': {
+    render: Mermaid,
+    attributes: {
+      chart: { type: String, required: true },
+      title: { type: String },
+      caption: { type: String },
+    },
+  },
   fence: {
     render: RunnableFence,
+    transform(node, config) {
+      const attrs = node.transformAttributes(config)
+      if (attrs.language?.toLowerCase() === 'mermaid') {
+        return new Tag('MermaidChart', {
+          chart: node.attributes.content,
+          title: attrs.title,
+          caption: attrs.caption,
+        })
+      }
+      return new Tag(this.render, attrs, node.transformChildren(config))
+    },
     attributes: {
       language: {
         type: String,

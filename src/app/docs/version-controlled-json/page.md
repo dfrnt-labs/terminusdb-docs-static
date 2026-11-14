@@ -213,7 +213,7 @@ Compare `main` and `price-update` to see exactly what diverged:
 {% http-example method="POST" path="/api/diff/admin/inventory" %}
 {"before_data_version": "main", "after_data_version": "price-update"}
 {% http-expected %}
-[{"@id":"product/SKU-001","price":{"@op":"SwapValue","@before":149.99,"@after":179.99},"tags":{"@op":"CopyList","@to":2,"@rest":{"@op":"SwapList","@before":[],"@after":["premium"],"@rest":{"@op":"KeepList"}}}}]
+[{"@id":"terminusdb:///data/product/SKU-001","price":{"@op":"SwapValue","@before":149.99,"@after":179.99},"tags":{"@op":"CopyList","@to":2,"@rest":{"@op":"SwapList","@before":[],"@after":["premium"],"@rest":{"@op":"KeepList"}}}}]
 {% /http-expected %}
 {% /http-example %}
 
@@ -240,7 +240,7 @@ curl -s -u admin:root -X POST \
   }'
 ```
 {% http-expected %}
-[{"@id":"product/SKU-001","price":{"@op":"SwapValue","@before":149.99,"@after":179.99},"tags":{"@op":"CopyList","@to":2,"@rest":{"@op":"SwapList","@before":[],"@after":["premium"],"@rest":{"@op":"KeepList"}}}}]
+[{"@id":"terminusdb:///data/product/SKU-001","price":{"@op":"SwapValue","@before":149.99,"@after":179.99},"tags":{"@op":"CopyList","@to":2,"@rest":{"@op":"SwapList","@before":[],"@after":["premium"],"@rest":{"@op":"KeepList"}}}}]
 {% /http-expected %}
 
 ## Step 13 — Commit another change {% step %}

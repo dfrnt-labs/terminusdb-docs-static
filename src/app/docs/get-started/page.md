@@ -50,9 +50,7 @@ If the command hangs or returns a connection error: Docker may not be running, p
 Skip the manual database creation — one POST pulls a complete Star Wars dataset from the public server. `Authorization-Remote` carries the public server's anonymous credentials (`public:public`):
 
 {% http-example method="POST" path="/api/clone/admin/star-wars" headers="{\"Authorization-Remote\": \"Basic cHVibGljOnB1YmxpYw==\"}" %}
-```json
 {"remote_url": "https://data.terminusdb.org/public/star-wars", "label": "star-wars", "comment": "Cloned star-wars from data.terminusdb.org"}
-```
 {% http-expected %}
 {"@type":"api:CloneResponse","api:status":"api:success"}
 {% /http-expected %}

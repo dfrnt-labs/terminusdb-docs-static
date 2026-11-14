@@ -65,7 +65,7 @@ export function TabBar({ activeTab, onTabChange, instanceId }: TabBarProps) {
             className={`relative text-xs font-semibold uppercase tracking-wider px-1 pb-1.5 border-b-2 transition-colors duration-150 ease-out rounded-sm focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none ${
               isActive
                 ? "text-slate-900 dark:text-white border-sky-500"
-                : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 border-transparent"
+                : "text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100 border-transparent"
             }`}
           >
             {tab.label}

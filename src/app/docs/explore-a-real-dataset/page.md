@@ -30,9 +30,7 @@ You will clone a complete Star Wars database (characters, films, planets, starsh
 Pull the entire Star Wars dataset from the public templates server to your local instance — one POST is all it takes. `Authorization-Remote` carries the public server's anonymous credentials (`public:public`):
 
 {% http-example method="POST" path="/api/clone/admin/star-wars" headers="{\"Authorization-Remote\": \"Basic cHVibGljOnB1YmxpYw==\"}" %}
-```json
 {"remote_url": "https://data.terminusdb.org/public/star-wars", "label": "star-wars", "comment": "Cloned star-wars from data.terminusdb.org"}
-```
 {% http-expected %}
 {"@type":"api:CloneResponse","api:status":"api:success"}
 {% /http-expected %}

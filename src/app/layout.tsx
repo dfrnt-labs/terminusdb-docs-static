@@ -13,14 +13,14 @@ import '@/styles/tailwind.css'
 
 const inter = Inter({
   subsets: ['latin'],
-  display: 'swap',
+  display: 'optional',
   variable: '--font-inter',
 })
 
 // Use local version of Lexend so that we can use OpenType features
 const lexend = localFont({
   src: '../fonts/lexend.woff2',
-  display: 'swap',
+  display: 'optional',
   variable: '--font-lexend',
 })
 
@@ -66,7 +66,15 @@ export default function RootLayout({
       className={clsx('h-full antialiased', inter.variable, lexend.variable)}
       suppressHydrationWarning
     >
-      <head></head>
+      <head>
+        {/* Reveals the SSR'd consent banner before hydration when the visitor
+            has no stored choice; mirrors parseConsent in src/lib/consent.ts. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var c=JSON.parse(localStorage.getItem('tdb-consent'));if(!(c&&c.v===1&&typeof c.analytics==='boolean'&&typeof c.at==='string'))document.documentElement.dataset.consentVisible=''}catch(e){document.documentElement.dataset.consentVisible=''}`,
+          }}
+        />
+      </head>
       <body className="flex min-h-full bg-white dark:bg-slate-900">
         <Providers>
           <Layout>{children}</Layout>

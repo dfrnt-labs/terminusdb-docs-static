@@ -47,9 +47,9 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5 lg:gap-12">
           {/* Getting Started */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100">
               Getting Started
-            </h3>
+            </h2>
             <ul className="mt-4 space-y-3">
               {footerLinks.gettingStarted.map((link) => (
                 <li key={link.href}>
@@ -66,9 +66,9 @@ export function Footer() {
 
           {/* Developers */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100">
               Developers
-            </h3>
+            </h2>
             <ul className="mt-4 space-y-3">
               {footerLinks.developers.map((link) => (
                 <li key={link.href}>
@@ -85,9 +85,9 @@ export function Footer() {
 
           {/* Learn */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100">
               Learn
-            </h3>
+            </h2>
             <ul className="mt-4 space-y-3">
               {footerLinks.learn.map((link) => (
                 <li key={link.href}>
@@ -104,9 +104,9 @@ export function Footer() {
 
           {/* Reference */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100">
               Reference
-            </h3>
+            </h2>
             <ul className="mt-4 space-y-3">
               {footerLinks.reference.map((link) => (
                 <li key={link.href}>
@@ -123,9 +123,9 @@ export function Footer() {
 
           {/* DFRNT Links */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100">
               Gettier
-            </h3>
+            </h2>
             <ul className="mt-4 space-y-3">
               {footerLinks.dfrnt.map((link) => (
                 <li key={link.href}>
@@ -204,7 +204,7 @@ export function Footer() {
               </TrackedLink>
               <CtaLink
                 href="/docs/cloud"
-                className="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-sky-500 hover:shadow-md dark:bg-sky-500 dark:hover:bg-sky-400"
+                className="rounded-md bg-sky-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-sky-600 hover:shadow-md dark:bg-sky-500 dark:text-slate-900 dark:hover:bg-sky-400"
               >
                 Try TerminusDB Cloud
               </CtaLink>

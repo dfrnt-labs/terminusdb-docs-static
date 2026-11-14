@@ -72,7 +72,7 @@ export function TabBar({ activeTab, onTabChange, instanceId, hasWoql = false }: 
             className={`relative text-xs font-semibold uppercase tracking-wider px-1 pb-1.5 border-b-2 transition-colors duration-150 ease-out ${
               isActive
                 ? "text-slate-900 dark:text-white border-sky-500"
-                : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 border-transparent"
+                : "text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100 border-transparent"
             }`}
           >
             {tab.label}

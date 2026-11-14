@@ -129,7 +129,7 @@ export function RightSidebar({ tableOfContents, topContent }: RightSidebarProps)
                   "px-2 py-1.5 text-xs transition-colors",
                   isActive
                     ? "border-b-2 border-sky-500 font-medium text-slate-900 dark:text-white"
-                    : "cursor-pointer font-normal text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300",
+                    : "cursor-pointer font-normal text-slate-600 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-300",
                 )}
               >
                 {tab.label}
@@ -139,7 +139,7 @@ export function RightSidebar({ tableOfContents, topContent }: RightSidebarProps)
                       "text-[10px]",
                       isActive
                         ? "text-slate-900 dark:text-white"
-                        : "text-slate-400 dark:text-slate-500",
+                        : "text-slate-600 dark:text-slate-400",
                     )}
                   >
                     {badge}

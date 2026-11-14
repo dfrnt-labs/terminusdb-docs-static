@@ -40,9 +40,7 @@ You will clone a complete ecommerce database (customers, orders, order lines, pr
 Pull the entire ecommerce dataset from the public templates server to your local instance — one POST is all it takes. `Authorization-Remote` carries the public server's anonymous credentials (`public:public`):
 
 {% http-example method="POST" path="/api/clone/admin/ecommerce" headers="{\"Authorization-Remote\": \"Basic cHVibGljOnB1YmxpYw==\"}" %}
-```json
 {"remote_url": "https://data.terminusdb.org/public/ecommerce", "label": "ecommerce", "comment": "Cloned ecommerce from data.terminusdb.org"}
-```
 {% http-expected %}
 {"@type":"api:CloneResponse","api:status":"api:success"}
 {% /http-expected %}

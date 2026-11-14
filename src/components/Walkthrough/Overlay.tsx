@@ -98,7 +98,7 @@ function Overview() {
             <div className="order-2 flex flex-col gap-4 self-start md:col-start-2 md:row-start-2">
               <button
                 onClick={() => ctx.openStep(0)}
-                className="w-full rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
+                className="w-full rounded-lg bg-sky-700 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
               >
                 {ctx.live ? "Run the walkthrough live" : "Simulate the walkthrough"}
               </button>
@@ -158,7 +158,7 @@ function OverviewConnection({ bare }: { bare?: boolean }) {
         {connected ? (
           <button
             onClick={disconnect}
-            className="shrink-0 rounded text-xs font-medium text-slate-400 transition-colors hover:text-slate-600 dark:hover:text-slate-300"
+            className="shrink-0 rounded text-xs font-medium text-slate-500 transition-colors hover:text-slate-600 dark:hover:text-slate-300"
           >
             Disconnect
           </button>
@@ -166,7 +166,7 @@ function OverviewConnection({ bare }: { bare?: boolean }) {
           <button
             onClick={() => void testConnection()}
             disabled={connecting}
-            className="shrink-0 rounded-md bg-sky-600 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-sky-700 disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
+            className="shrink-0 rounded-md bg-sky-700 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-sky-800 disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
           >
             {connecting ? "Connecting…" : failed ? "Retry" : "Connect"}
           </button>
@@ -195,7 +195,7 @@ function OverviewConnection({ bare }: { bare?: boolean }) {
 
       {/* Footer — current settings + edit */}
       <div className="flex items-center justify-between gap-2 border-t border-slate-200 px-4 py-2 text-xs dark:border-slate-700">
-        <span className="truncate font-mono text-slate-400 dark:text-slate-500">
+        <span className="truncate font-mono text-slate-500 dark:text-slate-400">
           {settings.serverUrl} · {settings.user} · {settings.db}
         </span>
         <button
@@ -447,7 +447,7 @@ export function WalkthroughOverlay() {
               <Switch
                 checked={ctx.live}
                 onChange={ctx.setLive}
-                className="group relative inline-flex h-5 w-9 items-center rounded-full bg-slate-300 shadow-inner transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 data-[checked]:bg-sky-600 dark:bg-slate-600 dark:focus-visible:ring-offset-slate-950"
+                className="group relative inline-flex h-5 w-9 items-center rounded-full bg-slate-300 shadow-inner transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 data-[checked]:bg-sky-700 dark:bg-slate-600 dark:focus-visible:ring-offset-slate-950"
               >
                 <span className="sr-only">Run against your local TerminusDB</span>
                 <span

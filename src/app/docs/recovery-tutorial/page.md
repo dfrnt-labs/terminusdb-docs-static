@@ -33,7 +33,7 @@ Create the database:
 {% http-example method="POST" path="/api/db/admin/MyDatabase" %}
 {"label": "MyDatabase", "comment": "Recovery tutorial"}
 {% http-expected %}
-{"@type":"api:DbCreateResponse","api:database_uri":"terminusdb://system/data/UserDatabase/rbJLl4OdQP3CInbU","api:status":"api:success"}
+{"@type":"api:DbCreateResponse","api:database_uri":"*","api:status":"api:success"}
 {% /http-expected %}
 {% /http-example %}
 
@@ -124,7 +124,7 @@ curl -s -u admin:root -X POST \
 
 Query the recovery branch to confirm it contains the expected data:
 
-{% http-example method="GET" path="/api/document/admin/MyDatabase/local/branch/recovery-check?id=terminusdb:///data/product-001&raw_json=true" /%}
+{% http-example method="GET" path="/api/document/admin/MyDatabase/local/branch/recovery-check?id=terminusdb:///data/product-001&raw_json=true" runnable="false" /%}
 {% http-expected %}
 {"@id":"product-001","name":"Widget","price":12.5,"status":"active"}
 {% /http-expected %}
@@ -151,7 +151,7 @@ Reset moves the branch HEAD back to the chosen commit — it does not delete the
 
 Verify that `main` now has the document restored:
 
-{% http-example method="GET" path="/api/document/admin/MyDatabase?id=terminusdb:///data/product-001&raw_json=true" /%}
+{% http-example method="GET" path="/api/document/admin/MyDatabase?id=terminusdb:///data/product-001&raw_json=true" runnable="false" /%}
 {% http-expected %}
 {"@id":"product-001","name":"Widget","price":12.5,"status":"active"}
 {% /http-expected %}

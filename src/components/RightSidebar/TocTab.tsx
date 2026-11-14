@@ -80,8 +80,8 @@ export function TocTab({ tableOfContents }: TocTabProps) {
                 onClick={handleAnchorClick}
                 className={
                   isActive(section)
-                    ? "text-sky-500"
-                    : "font-normal text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
+                    ? "text-sky-700 dark:text-sky-400"
+                    : "font-normal text-slate-600 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-300"
                 }
               >
                 {section.title}
@@ -90,7 +90,7 @@ export function TocTab({ tableOfContents }: TocTabProps) {
             {section.children.length > 0 && (
               <ol
                 role="list"
-                className="mt-2 space-y-3 pl-5 text-slate-500 dark:text-slate-400"
+                className="mt-2 space-y-3 pl-5 text-slate-600 dark:text-slate-400"
               >
                 {section.children.map((subSection) => (
                   <li key={subSection.id}>
@@ -99,7 +99,7 @@ export function TocTab({ tableOfContents }: TocTabProps) {
                       onClick={handleAnchorClick}
                       className={
                         isActive(subSection)
-                          ? "text-sky-500"
+                          ? "text-sky-700 dark:text-sky-400"
                           : "hover:text-slate-600 dark:hover:text-slate-300"
                       }
                     >

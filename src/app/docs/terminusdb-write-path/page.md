@@ -45,7 +45,7 @@ flowchart TD
     E --> F[Per-branch commit queue]
     F --> G[Sequential commit pipeline]
     G --> H[New immutable layer commit]
-    H --> I{Apply to main (via combined merge)?}
+    H --> I{"Apply to main (via combined merge)?"}
     I -->|Yes| J[Single merge commit on main]
     I -->|No| K[Commit remains on branch]
 ```

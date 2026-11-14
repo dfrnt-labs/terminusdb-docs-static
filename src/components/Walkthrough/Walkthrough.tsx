@@ -4,7 +4,14 @@ import React, { useState, useCallback, useRef, useEffect, useMemo } from "react"
 import { createPortal } from "react-dom"
 import { WalkthroughContext } from "./context"
 import type { WalkthroughStepInfo, StepStatus } from "./context"
-import { WalkthroughOverlay } from "./Overlay"
+import dynamic from "next/dynamic"
+
+// The overlay pulls in RequestPanel → execute → the lazy WOQL eval. It only
+// renders after the user opens the walkthrough, so keep it out of the page bundle.
+const WalkthroughOverlay = dynamic(
+  () => import("./Overlay").then((m) => m.WalkthroughOverlay),
+  { ssr: false }
+)
 
 interface WalkthroughProps {
   name?: string
@@ -154,8 +161,7 @@ export function Walkthrough({ title, children }: WalkthroughProps) {
         ref={launcherRef}
         role="button"
         tabIndex={0}
-        aria-label="Open the interactive walkthrough"
-        onClick={openOverview}
+                onClick={openOverview}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault()
@@ -174,7 +180,7 @@ export function Walkthrough({ title, children }: WalkthroughProps) {
             <span className="hidden sm:inline text-slate-500 dark:text-slate-400"> · works with or without a local TerminusDB</span>
           </span>
         </div>
-        <span className="shrink-0 rounded-md bg-sky-600 px-3 py-1.5 text-sm font-medium text-white transition-colors group-hover:bg-sky-700">
+        <span className="shrink-0 rounded-md bg-sky-700 px-3 py-1.5 text-sm font-medium text-white transition-colors group-hover:bg-sky-800">
           Open walkthrough
         </span>
       </div>

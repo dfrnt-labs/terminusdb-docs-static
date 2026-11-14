@@ -13,10 +13,9 @@ import { parseCurlToFetch, formatHttpMessage } from "./RunnableFence/parseCurl"
 import type { TabId } from "./RunnableFence/TabBar"
 import { useConnection } from "./ConnectionSettings/ConnectionContext"
 import type { RunnableState, ExecutionResult, ExecutionError } from "./RunnableFence/types"
-// @ts-ignore - terminusdb-client doesn't have TypeScript definitions
-import TerminusClient from "terminusdb"
 
-const WOQL = TerminusClient.WOQL
+// The terminusdb client is only needed to build WOQL JSON-LD when a user runs
+// a query, so it is imported on demand instead of shipped in the page bundle.
 
 // ---------------------------------------------------------------------------
 // WOQL functions for code evaluation, replicating WoqlPlayground's pattern.
@@ -38,15 +37,18 @@ const WOQL_PREDICATES = [
   "concat",
 ] as const
 
-function asQuery(obj: unknown) {
+type TerminusClientModule = typeof import("terminusdb")
+
+function asQuery(obj: unknown, client: TerminusClientModule) {
   if (obj && typeof obj === "object" && !("json" in obj)) {
-    return new TerminusClient.WOQLQuery(obj)
+    return new client.WOQLQuery(obj)
   }
   return obj
 }
 
 // @ts-ignore - terminusdb-client doesn't have TypeScript definitions
-function buildWoqlFunctions(): Record<string, (...args: unknown[]) => unknown> {
+function buildWoqlFunctions(client: TerminusClientModule): Record<string, (...args: unknown[]) => unknown> {
+  const WOQL = client.WOQL
   const fns: Record<string, (...args: unknown[]) => unknown> = {}
 
   for (const name of WOQL_PREDICATES) {
@@ -57,7 +59,7 @@ function buildWoqlFunctions(): Record<string, (...args: unknown[]) => unknown> {
   // Predicates whose last argument is a sub-query need wrapping
   for (const name of ["select", "not", "opt", "limit", "order_by"] as const) {
     fns[name] = (...args: unknown[]) => {
-      args[args.length - 1] = asQuery(args[args.length - 1])
+      args[args.length - 1] = asQuery(args[args.length - 1], client)
       // @ts-ignore - WOQL predicates are dynamically typed
       return WOQL[name](...args).json()
     }
@@ -66,7 +68,7 @@ function buildWoqlFunctions(): Record<string, (...args: unknown[]) => unknown> {
   // group_by: 4th arg is the sub-query
   fns.group_by = (groupBy: unknown, template: unknown, output: unknown, query: unknown) =>
     // @ts-ignore - WOQL predicates are dynamically typed
-    WOQL.group_by(groupBy, template, output, asQuery(query)).json()
+    WOQL.group_by(groupBy, template, output, asQuery(query, client)).json()
 
   // Aliases
   fns.gt = fns.greater
@@ -455,7 +457,9 @@ function RunnableFenceInner({
       }
 
       // Build WOQL helper functions (same pattern as WoqlPlayground)
-      const fns = buildWoqlFunctions()
+      // @ts-ignore - terminusdb-client doesn't have TypeScript definitions
+      const { default: TerminusClient } = await import("terminusdb")
+      const fns = buildWoqlFunctions(TerminusClient)
       const fnNames = Object.keys(fns)
       const fnValues = Object.values(fns)
 
@@ -785,7 +789,7 @@ function CopyButton({ copied, onCopy }: { copied: boolean; onCopy: () => void })
   return (
     <button
       onClick={onCopy}
-      className="flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+      className="flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium text-slate-600 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
       title="Copy code"
     >
       {copied ? (
@@ -793,7 +797,7 @@ function CopyButton({ copied, onCopy }: { copied: boolean; onCopy: () => void })
           <svg className="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
-          <span className="text-emerald-600 dark:text-emerald-400">Copied!</span>
+          <span className="text-emerald-700 dark:text-emerald-400">Copied!</span>
         </>
       ) : (
         <>

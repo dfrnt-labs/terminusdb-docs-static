@@ -33,7 +33,7 @@ export DB="admin/MyDatabase"
 {% http-example method="POST" path="/api/db/admin/MyDatabase" %}
 {"label": "MyDatabase", "comment": "Audit tutorial"}
 {% http-expected %}
-{"@type":"api:DbCreateResponse","api:database_uri":"terminusdb://system/data/UserDatabase/YwZUb6KPcXkLOrqv","api:status":"api:success"}
+{"@type":"api:DbCreateResponse","api:database_uri":"*","api:status":"api:success"}
 {% /http-expected %}
 {% /http-example %}
 

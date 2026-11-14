@@ -50,11 +50,12 @@ export function PageFeedback() {
                 ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 ring-2 ring-green-500 dark:ring-green-400 cursor-not-allowed'
                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
             }`}
-            aria-label="This page was helpful"
+            aria-label="Yes, this page was helpful"
             aria-pressed={feedback === 'positive'}
           >
             <svg
               className="h-5 w-5"
+              aria-hidden="true"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -77,11 +78,12 @@ export function PageFeedback() {
                 ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 ring-2 ring-red-500 dark:ring-red-400 cursor-not-allowed'
                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
             }`}
-            aria-label="This page was not helpful"
+            aria-label="No, this page was not helpful"
             aria-pressed={feedback === 'negative'}
           >
             <svg
               className="h-5 w-5"
+              aria-hidden="true"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

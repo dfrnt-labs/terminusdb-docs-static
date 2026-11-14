@@ -249,7 +249,7 @@ export function CodeTabs({ children }: CodeTabsProps) {
         {/* Copy button — matches Fence icon + text pattern */}
         <button
           onClick={() => handleCopy(activeTab)}
-          className="flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
+          className="flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium text-slate-600 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none"
           aria-label="Copy code"
           title="Copy code to clipboard"
         >
@@ -258,7 +258,7 @@ export function CodeTabs({ children }: CodeTabsProps) {
               <svg className="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              <span className="text-emerald-600 dark:text-emerald-400">Copied!</span>
+              <span className="text-emerald-700 dark:text-emerald-400">Copied!</span>
             </>
           ) : (
             <>

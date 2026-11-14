@@ -191,9 +191,9 @@ export function SearchResultsPage() {
   }
 
   return (
-    <div className="max-w-2xl min-w-0 flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
+    <main className="max-w-2xl min-w-0 flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-12">
-        <div className="min-w-0 max-w-3xl">
+        <div className="min-w-0 max-w-3xl min-h-[50vh]">
         <h1 className="font-display text-3xl tracking-tight text-slate-900 dark:text-white">
           Search
         </h1>
@@ -272,7 +272,7 @@ export function SearchResultsPage() {
             <button
               type="button"
               onClick={() => setRetryNonce((n) => n + 1)}
-              className="mt-3 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700"
+              className="mt-3 rounded-lg bg-sky-700 px-4 py-2 text-sm font-medium text-white hover:bg-sky-800"
             >
               Retry
             </button>
@@ -331,7 +331,7 @@ export function SearchResultsPage() {
           </div>
         )}
 
-        <div className="mt-10 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-4 text-xs text-slate-400 dark:border-slate-800 dark:text-slate-500">
+        <div className="mt-10 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
           <PoweredByTerminusDB />
           <span>
             Dynamically scales up from zero to save resources — the first query
@@ -389,6 +389,6 @@ export function SearchResultsPage() {
           </aside>
         )}
       </div>
-    </div>
+    </main>
   )
 }

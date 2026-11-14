@@ -10,7 +10,8 @@ import { CallToAction } from '@/components/CallToAction'
 import { TopicCard, TopicGrid } from '@/components/TopicGrid'
 import { CTAButtons } from '@/components/CTAButtons'
 import { TaskHeading } from '@/components/TaskHeading'
-import { WoqlPlayground } from '@/components/WoqlPlayground'
+import { LazyWoqlPlayground as WoqlPlayground } from '@/components/LazyWidgets'
+import { Walkthrough, WalkthroughStep } from '@/components/Walkthrough'
 import { ApiStep } from '@/components/ApiStep'
 import { QuickstartClone } from '@/components/QuickstartClone'
 import { HttpExample } from '@/components/HttpExample'
@@ -22,7 +23,6 @@ import { PrerequisitesClone } from '@/components/PrerequisitesClone'
 import { ResourceSetup } from '@/components/ResourceSetup'
 import { GhMark, Tnum } from '@/components/InlineMarks'
 import { CtaLink } from '@/components/CtaLink'
-import { Walkthrough, WalkthroughStep } from '@/components/Walkthrough'
 
 const tags = {
   gh: {

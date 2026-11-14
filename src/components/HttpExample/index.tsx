@@ -558,7 +558,7 @@ function CopyButton({ copied, onCopy }: { copied: boolean; onCopy: () => void })
   return (
     <button
       onClick={onCopy}
-      className="flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+      className="flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium text-slate-600 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
       title="Copy code"
     >
       {copied ? (
@@ -566,7 +566,7 @@ function CopyButton({ copied, onCopy }: { copied: boolean; onCopy: () => void })
           <svg className="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
-          <span className="text-emerald-600 dark:text-emerald-400">Copied!</span>
+          <span className="text-emerald-700 dark:text-emerald-400">Copied!</span>
         </>
       ) : (
         <>

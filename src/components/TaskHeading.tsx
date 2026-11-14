@@ -114,7 +114,7 @@ export function TaskHeading({
               'hover:scale-110 active:scale-95',
               'focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2',
               completed
-                ? 'bg-sky-600 border-sky-600 dark:bg-sky-500 dark:border-sky-500'
+                ? 'bg-sky-700 border-sky-700 dark:bg-sky-500 dark:border-sky-500'
                 : 'bg-white border-slate-300 hover:border-sky-400 dark:bg-slate-800 dark:border-slate-600 dark:hover:border-sky-500'
             )}
             aria-label={completed ? 'Mark as incomplete' : 'Mark as complete'}

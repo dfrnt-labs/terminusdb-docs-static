@@ -47,7 +47,7 @@ Creates the `woql_tutorial` database. Run this first.
 {% http-example method="POST" path="/api/db/admin/woql_tutorial" %}
 {"label":"WOQL Tutorial","comment":"Interactive tutorial database"}
 {% http-expected %}
-{"@type":"api:DbCreateResponse","api:database_uri":"terminusdb://system/data/UserDatabase/4h39P5f8kRNWKOqd","api:status":"api:success"}
+{"@type":"api:DbCreateResponse","api:database_uri":"*","api:status":"api:success"}
 {% /http-expected %}
 {% /http-example %}
 

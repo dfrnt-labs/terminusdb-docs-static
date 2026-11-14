@@ -166,7 +166,7 @@ export function TopicsTabBar({ activeRoute }: TopicsTabBarProps) {
                 "px-3 py-3 text-xs transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 focus-visible:outline-none",
                 isActive
                   ? "border-b-2 border-sky-500 font-medium text-sky-600 dark:text-sky-400"
-                  : "cursor-pointer font-normal text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300",
+                  : "cursor-pointer font-normal text-slate-600 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-300",
               )}
             >
               {tab.label}
@@ -176,7 +176,7 @@ export function TopicsTabBar({ activeRoute }: TopicsTabBarProps) {
                     "text-[10px]",
                     isActive
                       ? "text-sky-600 dark:text-sky-400"
-                      : "text-slate-500 dark:text-slate-400",
+                      : "text-slate-600 dark:text-slate-400",
                   )}
                 >
                   {badge}
