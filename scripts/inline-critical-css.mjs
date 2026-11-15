@@ -1,7 +1,10 @@
 // Inline stylesheets into exported HTML.
 // A deferred link (media/onload swap) applies the sheet late and visibly
 // reflows the page on slow connections (CLS). Inlining the full sheet in
-// place removes the request, the render block and the style-change entirely.
+// place removes the render block and the style-change entirely — but React
+// re-inserts a normal (blocking) stylesheet link on hydration unless a
+// matching link already exists, so each link is kept as media="print": the
+// browser dedups/fetches it without blocking paint and never applies it.
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -32,7 +35,7 @@ for (const file of htmlFiles) {
     /<link rel="stylesheet" href="([^"]+\.css)"[^>]*>/g,
     (match, href) => {
       try {
-        return `<style data-inline-css>${readCss(href)}</style>`;
+        return `<link rel="stylesheet" href="${href}" media="print"><style data-inline-css>${readCss(href)}</style>`;
       } catch {
         return match;
       }

@@ -86,7 +86,6 @@
     "js-yaml": "^4.1.0",
     "lightningcss": "^1.32.0",
     "lucide-react": "^0.561.0",
-    "motion": "^12.23.26",
     "next": "^14.0.4",
     "next-themes": "^0.2.1",
     "prism-react-renderer": "^2.0.6",

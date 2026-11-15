@@ -4,6 +4,8 @@ import yaml from 'js-yaml'
 
 import { DocsLayout } from '@/components/DocsLayout'
 import { RunnableFence } from '@/components/RunnableFence'
+import { StaticFence } from '@/components/StaticFence'
+import { parseCurlToFetch } from '@/components/RunnableFence/parseCurl'
 import { TableWrapper } from '@/components/TableWrapper'
 import { Mermaid } from '@/components/Mermaid'
 import { TrackedLink } from '@/components/TrackedLink'
@@ -86,7 +88,21 @@ const nodes = {
           caption: attrs.caption,
         })
       }
-      return new Tag(this.render, attrs, node.transformChildren(config))
+      // Interactive blocks (runnable curl, testExample, slot/publish wiring)
+      // keep the client component; everything else renders server-side with
+      // only a small copy-button island — prism stays out of the page bundle.
+      const lang = (attrs.language || '').toLowerCase()
+      const isBashLang = ['bash', 'shell', 'curl', 'sh'].includes(lang)
+      const code = typeof node.attributes.content === 'string' ? node.attributes.content.trim() : ''
+      const interactive =
+        attrs.testExample ||
+        attrs.slot ||
+        attrs.placeholder ||
+        attrs.publishes ||
+        attrs.publishColumn ||
+        attrs.publishLabel ||
+        (isBashLang && code !== '' && parseCurlToFetch(code) !== null)
+      return new Tag(interactive ? 'Fence' : 'StaticFence', attrs, node.transformChildren(config))
     },
     attributes: {
       language: {
@@ -118,6 +134,22 @@ const nodes = {
         type: String,
       },
       caption: {
+        type: String,
+      },
+      copyEvent: {
+        type: String,
+      },
+    },
+  },
+  // Registers StaticFence in the markdoc components map; the fence transform
+  // emits Tag('StaticFence') for blocks that need no client interactivity.
+  'static-fence': {
+    render: StaticFence,
+    attributes: {
+      language: {
+        type: String,
+      },
+      title: {
         type: String,
       },
       copyEvent: {
