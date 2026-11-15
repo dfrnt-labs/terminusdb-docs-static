@@ -6,6 +6,12 @@
   },
   "routes": [
     {
+      "route": "/_next/static/*",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
       "route": "/docs/terminuscms-data-types",
       "redirect": "/docs/xsd-data-types/",
       "statusCode": 301

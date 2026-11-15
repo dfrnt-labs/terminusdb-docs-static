@@ -120,6 +120,7 @@
     "postcss": "^8.4.24",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "purgecss": "^6.0.0",
     "sharp": "0.33.1"
   }
 }
