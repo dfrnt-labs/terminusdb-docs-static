@@ -6,13 +6,14 @@
 // matching link already exists, so each link is kept as media="print": the
 // browser dedups/fetches it without blocking paint and never applies it.
 //
-// Each page inlines only the CSS it can use: PurgeCSS matches the sheet
-// against the page HTML plus every client chunk (lazy components render
-// markup that is absent from the SSR HTML). The print link keeps the full
-// sheet reachable for printing and as a dedup anchor.
+// Each page inlines only the CSS it can use: a selector survives when every
+// class/id/tag it names appears in the page HTML plus every client chunk
+// (lazy components render markup absent from the SSR HTML). The print link
+// keeps the full sheet reachable for printing and as a dedup anchor.
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { PurgeCSS } from "purgecss";
+import postcss from "postcss";
+import selectorParser from "postcss-selector-parser";
 
 const outDir = "out";
 
@@ -32,11 +33,62 @@ const jsFiles = [];
 walk(join(outDir, "_next/static"), (path, name) => {
   if (name.endsWith(".js")) jsFiles.push(path);
 });
-// The raw chunk text goes in as purge content: lazy components render markup
+// The raw chunk text goes in as candidates: lazy components render markup
 // absent from the SSR HTML, so their classes live only in the JS. Extracting
 // just string literals is unsafe — a regex literal containing a quote char
 // desyncs every subsequent string pairing and silently drops class tokens.
 const chunkBlob = jsFiles.map((f) => readFileSync(f, "utf8")).join("\n");
+
+// Classes added imperatively at runtime (classList.add / the theme provider's
+// <html class="dark">) that appear in no markup or JS string literal. Without
+// 'dark' every compound .dark .dark\:x rule dies and dark mode breaks.
+const runtimeClasses = "dark hidden active relative group/cell";
+
+const tokenize = (text) => text.match(/[^\s"'`{}<>()]+/g) || [];
+const baseCandidates = new Set(tokenize(chunkBlob + "\n" + runtimeClasses));
+
+// Keep a selector when every class/id/tag it names is a candidate — including
+// classes nested inside :where()/:not()/:is(), which PurgeCSS skips entirely
+// and so deletes every Tailwind v4 :where()-wrapped rule (space-y-*, variants).
+// Attribute selectors pass unchecked: data-state="open" tokenises without the
+// attribute name, and a kept unused rule costs bytes while a dropped used one
+// breaks UI. :root/html/body/universal always survive.
+const alwaysKeep = new Set(["html", "body", "*", ":root"]);
+
+const pruneCss = (cssText, candidates) => {
+  const root = postcss.parse(cssText);
+  root.walkRules((rule) => {
+    // Keyframe selectors (from/to/%) are not class candidates.
+    let parent = rule.parent;
+    while (parent && parent.type !== "atrule") parent = parent.parent;
+    if (parent && parent.name.endsWith("keyframes")) return;
+    let selector;
+    try {
+      selector = selectorParser().astSync(rule.selector);
+    } catch {
+      return; // keep rules with selectors we cannot parse
+    }
+    selector.each((sel) => {
+      let keep = true;
+      sel.walk((node) => {
+        if (!keep) return;
+        if (
+          (node.type === "class" || node.type === "id" || node.type === "tag") &&
+          !alwaysKeep.has(node.value) &&
+          !candidates.has(node.value)
+        ) {
+          keep = false;
+        }
+      });
+      if (!keep) sel.remove();
+    });
+    if (!selector.first) rule.remove();
+  });
+  root.walkAtRules((at) => {
+    if (at.nodes && at.nodes.length === 0) at.remove();
+  });
+  return root.toString();
+};
 
 const cssCache = new Map();
 const readCss = (href) => {
@@ -46,18 +98,11 @@ const readCss = (href) => {
   return cssCache.get(href);
 };
 
-const purge = new PurgeCSS();
-// Classes added imperatively at runtime (classList.add / the theme provider's
-// <html class="dark">) that appear in no markup or JS string literal PurgeCSS
-// can see. They are fed as content so they act as candidates — without 'dark'
-// every compound .dark .dark\:x rule is purged and dark mode breaks.
-const runtimeClasses = "dark hidden active relative group/cell";
-
 let done = 0;
 let failed = 0;
 for (const file of htmlFiles) {
   const html = readFileSync(file, "utf8");
-  const content = [{ raw: chunkBlob + "\n" + html + "\n" + runtimeClasses, extension: "html" }];
+  const candidates = new Set([...baseCandidates, ...tokenize(html)]);
   // (?![^>]*media=) skips the media="print" links emitted by an earlier run,
   // so the script is idempotent on an already-processed out/.
   const links = [
@@ -66,22 +111,13 @@ for (const file of htmlFiles) {
   let inlined = html;
   for (const [match, href] of links) {
     try {
-      const [result] = await purge.purge({
-        css: [{ raw: readCss(href) }],
-        content,
-        // The default extractor splits tokens at ':' and '/', so Tailwind
-        // variants (dark:bg-…, group/cell, data-[…]:…) never match their
-        // selectors and get stripped. A broad token charset errs towards
-        // keeping CSS — a false positive costs bytes, a false negative
-        // breaks styling.
-        defaultExtractor: (text) => text.match(/[^\s"'`{}<>]+/g) || [],
-      });
+      const pruned = pruneCss(readCss(href), candidates);
       inlined = inlined.replace(
         match,
-        () => `<link rel="stylesheet" href="${href}" media="print"><style data-inline-css>${result.css}</style>`
+        () => `<link rel="stylesheet" href="${href}" media="print"><style data-inline-css>${pruned}</style>`
       );
     } catch (err) {
-      console.error(`inline-critical-css: failed to purge ${href} for ${file}:`, err);
+      console.error(`inline-critical-css: failed to prune ${href} for ${file}:`, err);
       failed++;
     }
   }
