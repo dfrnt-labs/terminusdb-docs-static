@@ -84,7 +84,6 @@ export function ConsentBanner() {
         'fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-[560px] sm:bottom-6',
         'rounded-2xl border-2 border-sky-300 bg-white/95 p-4 shadow-xl shadow-slate-900/10 backdrop-blur-sm sm:p-5',
         'dark:border-sky-400/70 dark:bg-slate-800/95 dark:shadow-black/40',
-        'motion-safe:animate-[consent-in_200ms_ease-out]',
       )}
     >
       <p

@@ -92,13 +92,6 @@
   }
 }
 
-@keyframes consent-in {
-  from {
-    opacity: 0;
-    transform: translateY(0.5rem);
-  }
-}
-
 /* The consent dialog ships in the static markup; a head script and React set
    data-consent-visible on <html> to reveal it without waiting for hydration. */
 html[data-consent-visible] #consent-banner {
