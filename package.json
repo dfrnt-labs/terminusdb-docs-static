@@ -56,6 +56,14 @@
     "child_process": false,
     "perf_hooks": false
   },
+  "browserslist": [
+    "chrome >= 109",
+    "edge >= 109",
+    "firefox >= 115",
+    "safari >= 16.4",
+    "ios_saf >= 16.4",
+    "and_chr >= 109"
+  ],
   "dependencies": {
     "@algolia/autocomplete-core": "^1.9.2",
     "@headlessui/react": "^2.1.0",

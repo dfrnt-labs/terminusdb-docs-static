@@ -1,4 +1,7 @@
+import { createRequire } from 'node:module'
 import withMarkdoc from '@markdoc/next.js'
+
+const require = createRequire(import.meta.url)
 
 import withMetadataEnhancer from './src/markdoc/metadata-enhancer.mjs'
 import withFenceAnnotations from './src/markdoc/fence-annotations.mjs'
@@ -147,6 +150,21 @@ const nextConfig = {
       { source: '/t/:path*', destination: 'https://discord.gg/GZ5gaCmBHc', permanent: true },
       { source: '/u/:path*', destination: 'https://discord.gg/GZ5gaCmBHc', permanent: true },
     ]
+  },
+  webpack: (config, { webpack: wp, isServer }) => {
+    if (!isServer) {
+      // Next injects next/dist/build/polyfills/polyfill-module.js into the main
+      // runtime chunk unconditionally — ~11.5KB of ||-guarded ES2019+ fallbacks
+      // every modern browser already has. The browserslist config targets
+      // Baseline browsers, so replace it with an empty module.
+      config.plugins.push(
+        new wp.NormalModuleReplacementPlugin(
+          /build[\\/]polyfills[\\/]polyfill-module\.js$/,
+          require.resolve('./scripts/empty-polyfill.js')
+        )
+      )
+    }
+    return config
   },
 }
 
