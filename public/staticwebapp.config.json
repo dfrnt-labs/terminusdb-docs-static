@@ -12,43 +12,136 @@
       }
     },
     {
-      "route": "/docs/terminuscms-data-types",
-      "redirect": "/docs/xsd-data-types/",
+      "route": "/t/data/*"
+    },
+    {
+      "route": "/docs/use-the-clients",
+      "redirect": "/docs/install-terminusdb-js-client/",
       "statusCode": 301
     },
     {
-      "route": "/docs/terminusdb-cloud",
-      "redirect": "/docs/cloud/",
+      "route": "/docs/use-the-javascript-client",
+      "redirect": "/docs/connect-with-the-javascript-client/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/use-the-python-client",
+      "redirect": "/docs/connect-with-python-client/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/collaboration-with-javascript-client",
+      "redirect": "/docs/clone-a-project/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/collaboration-with-python-client",
+      "redirect": "/docs/clone-a-project/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/terminusdb-install-options",
+      "redirect": "/docs/install-terminusdb-as-a-docker-container/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/terminusdb-query-cookbook",
+      "redirect": "/docs/how-to-query-with-woql/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/woql",
+      "redirect": "/docs/woql-explanation/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/add-documents-with-python-client",
+      "redirect": "/docs/add-a-document/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/get-documents-with-python-client",
+      "redirect": "/docs/get-documents/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/edit-documents-with-python-client",
+      "redirect": "/docs/edit-a-document/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/delete-documents-with-python-client",
+      "redirect": "/docs/delete-a-document/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/create-database-with-python-client",
+      "redirect": "/docs/create-a-database/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/add-a-schema-with-the-python-client",
+      "redirect": "/docs/add-a-schema/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/woql-query-with-python-client",
+      "redirect": "/docs/run-woql-query/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/clone-a-database-with-python",
+      "redirect": "/docs/clone-a-project/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/reset-to-a-commit-with-python",
+      "redirect": "/docs/reset-a-project/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/squash-a-project-with-python",
+      "redirect": "/docs/squash-projects/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/branch-a-project",
+      "redirect": "/docs/branch-howto/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/branch-a-project-with-the-python-client",
+      "redirect": "/docs/branch-howto/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/install-the-python-client",
+      "redirect": "/docs/install-terminusdb-js-client/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/connect-to-a-database",
+      "redirect": "/docs/connect-with-the-javascript-client/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/connect-to-a-database-with-python-client",
+      "redirect": "/docs/connect-with-python-client/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/time-travel-to-previous-commits",
+      "redirect": "/docs/time-travel-howto/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/time-travel-with-python",
+      "redirect": "/docs/time-travel-howto/",
       "statusCode": 301
     },
     {
       "route": "/docs/get-started-with-terminusdb",
       "redirect": "/docs/get-started/",
-      "statusCode": 301
-    },
-    {
-      "route": "/docs/what-is-dfrnt",
-      "redirect": "/docs/cloud/",
-      "statusCode": 301
-    },
-    {
-      "route": "/docs/how-to-connect-dfrnt-hub",
-      "redirect": "/docs/how-to-connect-terminusdb-cloud/",
-      "statusCode": 301
-    },
-    {
-      "route": "/docs/dfrnt-dashboard-reference",
-      "redirect": "/docs/terminusdb-cms-dashboard-reference/",
-      "statusCode": 301
-    },
-    {
-      "route": "/docs/dfrnt-data-types",
-      "redirect": "/docs/xsd-data-types/",
-      "statusCode": 301
-    },
-    {
-      "route": "/docs/topics/dfrnt-cloud",
-      "redirect": "/docs/topics/terminusdb-cloud/",
       "statusCode": 301
     },
     {
@@ -59,6 +152,11 @@
     {
       "route": "/docs/terminuscms-dashboard-reference",
       "redirect": "/docs/terminusdb-cms-dashboard-reference/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/terminuscms-data-types",
+      "redirect": "/docs/xsd-data-types/",
       "statusCode": 301
     },
     {
@@ -172,23 +270,33 @@
       "statusCode": 301
     },
     {
-      "route": "/docs/knowledge-graph-version-control",
-      "redirect": "/docs/knowledge-graph-database-version-control/",
+      "route": "/docs/terminusdb-cloud",
+      "redirect": "/docs/cloud/",
       "statusCode": 301
     },
     {
-      "route": "/docs/unification-of-variables-in-datalog",
-      "redirect": "/docs/what-is-unification/",
+      "route": "/docs/what-is-dfrnt",
+      "redirect": "/docs/cloud/",
       "statusCode": 301
     },
     {
-      "route": "/docs/data-types/",
+      "route": "/docs/how-to-connect-dfrnt-hub",
+      "redirect": "/docs/how-to-connect-terminusdb-cloud/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/dfrnt-dashboard-reference",
+      "redirect": "/docs/terminusdb-cms-dashboard-reference/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/dfrnt-data-types",
       "redirect": "/docs/xsd-data-types/",
       "statusCode": 301
     },
     {
-      "route": "/docs/datalog-explanation",
-      "redirect": "/docs/what-is-datalog/",
+      "route": "/docs/topics/dfrnt-cloud",
+      "redirect": "/docs/topics/terminusdb-cloud/",
       "statusCode": 301
     },
     {
@@ -422,12 +530,69 @@
       "statusCode": 301
     },
     {
-      "route": "/c/*",
-      "redirect": "https://discord.gg/GZ5gaCmBHc",
+      "route": "/blog/tag/*",
+      "redirect": "/blog/",
       "statusCode": 301
     },
     {
-      "route": "/t/data/*"
+      "route": "/contact",
+      "redirect": "/#community",
+      "statusCode": 301
+    },
+    {
+      "route": "/terminuscms",
+      "redirect": "/docs/cloud/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/2020/09/20/hackathon-work-with-terminusdb-and-terminushub-to-built-a-versioned-controlled-knowledge-graph-of-all-of-human-history",
+      "redirect": "/blog/human-history-knowledge-graph/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/2020/05/29/continuous-everything-as-code",
+      "redirect": "/blog/continuous-everything-as-code/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/2021/03/15/terminusdb-closes-a-eur-3-6-million-seed-round",
+      "redirect": "/blog/terminusdb-closes-a-eur-3-6-million-seed-round/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/2020/03/20/deploy-heroku",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/2019/06/11/prolog-meta-interpretation-for-syntax-checking",
+      "redirect": "/blog/prolog-meta-interpretation-for-syntax-checking/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/knowledge-graph-version-control",
+      "redirect": "/docs/knowledge-graph-database-version-control/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/unification-of-variables-in-datalog",
+      "redirect": "/docs/what-is-unification/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/data-types",
+      "redirect": "/docs/xsd-data-types/",
+      "statusCode": 301
+    },
+    {
+      "route": "/docs/datalog-explanation",
+      "redirect": "/docs/what-is-datalog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/c/*",
+      "redirect": "https://discord.gg/GZ5gaCmBHc",
+      "statusCode": 301
     },
     {
       "route": "/t/*",

@@ -11,7 +11,7 @@
     "build": "next build",
     "cmsdev": "next dev",
     "cmsbuild": "next build",
-    "postbuild": "npm run sitemap && node scripts/export-page-markdown.mjs && node scripts/copy-llms-txt.mjs && node scripts/inline-critical-css.mjs",
+    "postbuild": "npm run sitemap && node scripts/export-page-markdown.mjs && node scripts/copy-llms-txt.mjs && node scripts/inline-critical-css.mjs && node scripts/sync-swa-redirects.mjs",
     "start": "next start",
     "lint": "next lint",
     "test": "npm run pr",

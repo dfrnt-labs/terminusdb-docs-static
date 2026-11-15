@@ -145,6 +145,21 @@ const nextConfig = {
       { source: '/blog/archive/', destination: '/blog/', permanent: true },
       { source: '/blog/all-posts/', destination: '/blog/', permanent: true },
       { source: '/blog/category/:path*', destination: '/blog/', permanent: true },
+      { source: '/blog/tag/:path*', destination: '/blog/', permanent: true },
+      // Legacy top-level pages
+      { source: '/contact/', destination: '/#community', permanent: true },
+      { source: '/terminuscms/', destination: '/docs/cloud/', permanent: true },
+      // WordPress dated-path URLs for restored posts
+      { source: '/blog/2020/09/20/hackathon-work-with-terminusdb-and-terminushub-to-built-a-versioned-controlled-knowledge-graph-of-all-of-human-history/', destination: '/blog/human-history-knowledge-graph/', permanent: true },
+      { source: '/blog/2020/05/29/continuous-everything-as-code/', destination: '/blog/continuous-everything-as-code/', permanent: true },
+      { source: '/blog/2021/03/15/terminusdb-closes-a-eur-3-6-million-seed-round/', destination: '/blog/terminusdb-closes-a-eur-3-6-million-seed-round/', permanent: true },
+      { source: '/blog/2020/03/20/deploy-heroku/', destination: '/blog/', permanent: true },
+      { source: '/blog/2019/06/11/prolog-meta-interpretation-for-syntax-checking/', destination: '/blog/prolog-meta-interpretation-for-syntax-checking/', permanent: true },
+      // Renamed docs pages that predated this redirects() list
+      { source: '/docs/knowledge-graph-version-control/', destination: '/docs/knowledge-graph-database-version-control/', permanent: true },
+      { source: '/docs/unification-of-variables-in-datalog/', destination: '/docs/what-is-unification/', permanent: true },
+      { source: '/docs/data-types/', destination: '/docs/xsd-data-types/', permanent: true },
+      { source: '/docs/datalog-explanation/', destination: '/docs/what-is-datalog/', permanent: true },
       // Old community forum paths
       { source: '/c/:path*', destination: 'https://discord.gg/GZ5gaCmBHc', permanent: true },
       { source: '/t/:path*', destination: 'https://discord.gg/GZ5gaCmBHc', permanent: true },
