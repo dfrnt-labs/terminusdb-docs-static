@@ -32,12 +32,11 @@ const jsFiles = [];
 walk(join(outDir, "_next/static"), (path, name) => {
   if (name.endsWith(".js")) jsFiles.push(path);
 });
+// The raw chunk text goes in as purge content: lazy components render markup
+// absent from the SSR HTML, so their classes live only in the JS. Extracting
+// just string literals is unsafe — a regex literal containing a quote char
+// desyncs every subsequent string pairing and silently drops class tokens.
 const chunkBlob = jsFiles.map((f) => readFileSync(f, "utf8")).join("\n");
-// Only quoted string literals can hold class names in compiled JS; feeding
-// the raw source makes every identifier a candidate and defeats the purge.
-const chunkStrings = [...chunkBlob.matchAll(/(["'`])((?:(?!\1)[^\\]|\\.){0,500})\1/g)]
-  .map((m) => m[2])
-  .join("\n");
 
 const cssCache = new Map();
 const readCss = (href) => {
@@ -58,7 +57,7 @@ let done = 0;
 let failed = 0;
 for (const file of htmlFiles) {
   const html = readFileSync(file, "utf8");
-  const content = [{ raw: chunkStrings + "\n" + html + "\n" + runtimeClasses, extension: "html" }];
+  const content = [{ raw: chunkBlob + "\n" + html + "\n" + runtimeClasses, extension: "html" }];
   // (?![^>]*media=) skips the media="print" links emitted by an earlier run,
   // so the script is idempotent on an already-processed out/.
   const links = [
