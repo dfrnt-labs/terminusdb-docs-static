@@ -5,6 +5,7 @@ tags:
   - knowledge-graph
   - beginner
 title: Knowledge Graph Database with Git-like Version Control
+techArticle: true
 nextjs:
   metadata:
     title: Version Control for a Knowledge Graph — Git-like, in TerminusDB
@@ -17,7 +18,7 @@ nextjs:
 media: []
 ---
 
-TerminusDB is a **knowledge graph database with git-like version control**. It stores data as a connected graph of [RDF triples](/docs/graphs-explanation/) and treats every change to that graph the same way Git treats changes to source code: as an immutable, attributable, branchable, and reversible commit. If you have ever used Git to clone a repository, create a branch, commit a change, or roll back a mistake, you already understand most of how TerminusDB manages data.
+TerminusDB is the open-source **knowledge graph database with git-like version control** for graphs and vectors. Branch, merge, diff and hybrid search any commit. It stores data as a connected graph of [RDF triples](/docs/graphs-explanation/) and treats every change to that graph the same way Git treats changes to source code: as an immutable, attributable, branchable, and reversible commit. If you have ever used Git to clone a repository, create a branch, commit a change, or roll back a mistake, you already understand most of how TerminusDB manages data.
 
 This page introduces the core concepts of **git-for-data** version control in TerminusDB, maps each one to its Git counterpart, and points you to the deeper guides for each operation.
 

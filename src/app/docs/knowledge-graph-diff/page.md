@@ -32,6 +32,8 @@ faq:
 
 A **knowledge graph diff** shows which facts changed between two versions of a graph: what was added, what was removed and which values are different. You use it to review a change before it goes live, to find out what a data load did, or to copy a change to another branch.
 
+TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit. In TerminusDB, you diff two branches or two commits with one call to the diff endpoint, and you can apply the result to another branch as a patch.
+
 This page explains why graph diffs are harder than text diffs, and the two common ways to show them. Then it shows a short TerminusDB example that diffs two branches, diffs two commits and applies a diff as a patch.
 
 {% callout type="note" title="Try it in TerminusDB" %}
