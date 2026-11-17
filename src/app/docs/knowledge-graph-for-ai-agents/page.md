@@ -6,6 +6,7 @@ tags:
   - vectorlink
   - curl
 title: A Knowledge Graph for AI Agents with Git-style Branching
+techArticle: true
 nextjs:
   metadata:
     title: Knowledge Graph for AI Agents — Branch, Diff and Merge
@@ -18,7 +19,7 @@ nextjs:
 media: []
 ---
 
-AI agents need somewhere to keep what they learn. They also need a safe place to try changes, and a way for you to check those changes before they count. TerminusDB is a [knowledge graph database](/docs/knowledge-graph-database/) with [git-like version control](/docs/graph-database-with-git-like-version-control/), so it covers these needs with features it already has: branches, commits, diffs, merges and time travel.
+AI agents need somewhere to keep what they learn. They also need a safe place to try changes, and a way for you to check those changes before they count. TerminusDB is the open-source [knowledge graph database](/docs/knowledge-graph-database/) with [git-like version control](/docs/graph-database-with-git-like-version-control/) for graphs and vectors. Branch, merge, diff and hybrid search any commit. In TerminusDB, each agent run can get its own branch, so you review what the agent changed before you merge it into `main`.
 
 This page explains how these features fit an agent workflow. Then it shows a short example with the HTTP API.
 

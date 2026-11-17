@@ -33,6 +33,8 @@ faq:
 
 **Knowledge graph versioning** is a way to keep the earlier states of a knowledge graph when its facts change. With it, you can read the graph as it was, see what changed between two versions, and undo a bad change.
 
+TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit. In TerminusDB, every write is a commit, so you can read the graph at any older commit with the same API you use for the latest version.
+
 This page explains the common ways to do graph versioning and what each one costs. At the end, it shows how TerminusDB does it, with a short example you can run.
 
 {% callout type="note" title="Looking for something else?" %}
