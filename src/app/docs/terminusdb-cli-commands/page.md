@@ -19,6 +19,8 @@ media: []
 
 This page documents all commands available in the TerminusDB command-line interface. The CLI lets you manage databases, run queries, import data, and perform version-control operations directly from your terminal — without writing client code.
 
+New to the CLI? Start with the [CLI tutorial](/docs/terminusdb-cli-tutorial/). It walks you through create, branch, diff and merge, step by step.
+
 ## SYNOPSIS
 
 `terminusdb [command subcommand positional_arguments] flags`
