@@ -964,6 +964,10 @@ export const navigation: Navigation[] = [
         href: '/docs/terminusdb-cli-commands',
         links: [
           {
+            title: 'CLI Tutorial',
+            href: '/docs/terminusdb-cli-tutorial',
+          },
+          {
             title: 'CLI Querying',
             href: '/docs/terminusdb-db-cli-querying',
           },
