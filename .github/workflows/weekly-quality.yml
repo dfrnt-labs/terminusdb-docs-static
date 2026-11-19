@@ -92,9 +92,11 @@ jobs:
         continue-on-error: true
         uses: lycheeverse/lychee-action@v2
         with:
-          # Only http(s) links. Internal /docs/ links are covered by test:links.
+          # Only http(s) links. Root-relative links (/docs/, /blog/, /images/)
+          # are checked against the live site via --base-url.
           args: >-
             --no-progress
+            --base-url https://terminusdb.com
             --cache --max-cache-age 1d
             --scheme https --scheme http
             --accept '200..=299,429'
