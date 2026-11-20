@@ -31,7 +31,7 @@ import { scrollToHashOnLoad } from '@/utils/scroll'
 
 export function DocsLayout({
   children,
-  frontmatter: { title, tags, faq: rawFaq, techArticle, nextjs, draft, status },
+  frontmatter: { title, tags, faq: rawFaq, techArticle, nextjs, draft, status, date },
   nodes,
 }: {
   children: React.ReactNode
@@ -43,6 +43,7 @@ export function DocsLayout({
     nextjs?: { metadata?: Record<string, any> }
     draft?: boolean
     status?: string
+    date?: string | Date
   }
   nodes: Array<Node>
 }) {
@@ -58,7 +59,19 @@ export function DocsLayout({
   // Derive page slug for git dates lookup (e.g. "/docs/woql-basics/" → "docs/woql-basics")
   const rawSlug = pathname?.startsWith('/') ? pathname.slice(1) : pathname ?? ''
   const pageSlug = rawSlug.endsWith('/') ? rawSlug.slice(0, -1) : rawSlug
-  const pageDates = getPageDates(pageSlug)
+  const gitDates = getPageDates(pageSlug)
+  // A front-matter `date` (blog posts) is the original publish date. Git
+  // then only tells us when the page was last changed here, so a restored
+  // old post shows "Published <original> · Updated <restore date>".
+  const frontmatterDate =
+    date instanceof Date
+      ? date.toISOString().slice(0, 10)
+      : typeof date === 'string' && /^\d{4}-\d{2}-\d{2}/.test(date)
+        ? date.slice(0, 10)
+        : null
+  const pageDates = frontmatterDate
+    ? { created: frontmatterDate, updated: gitDates.updated }
+    : gitDates
 
   // Optional FAQ and JSON-LD from front matter (see PageStructuredData.tsx)
   const faq = normalizeFaq(rawFaq)
