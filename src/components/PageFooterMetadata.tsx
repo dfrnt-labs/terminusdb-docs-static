@@ -89,15 +89,15 @@ export function PageFooterMetadata({
           className={`text-xs text-slate-500 dark:text-slate-400${hasTags ? " mt-3" : ""}`}
         >
           {formattedCreated && (
-            <time dateTime={createdDate!.slice(0, 10)}>
+            <time dateTime={createdDate!.slice(0, 10)} className="block">
               Published {formattedCreated}
             </time>
           )}
-          {formattedCreated && showUpdated && (
-            <span aria-hidden="true"> · </span>
-          )}
           {showUpdated && (
-            <time dateTime={updatedDate!.slice(0, 10)}>
+            <time
+              dateTime={updatedDate!.slice(0, 10)}
+              className={formattedCreated ? "mt-1 block" : undefined}
+            >
               Updated {formattedUpdated}
             </time>
           )}
