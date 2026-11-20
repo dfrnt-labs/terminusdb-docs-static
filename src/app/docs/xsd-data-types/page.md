@@ -198,7 +198,7 @@ Arbitrary-precision decimal numbers. TerminusDB stores these internally as **rat
 * Arbitrary-precision rationals
 ---
 * **JSON Serialization**
-* JSON number (20 significant digits)
+* JSON number (arbitrary precision, up to 20 decimal places)
 ---
 * **String Serialization**
 * Minimal form without trailing zeros (e.g., `33` → `"33"`)
@@ -206,7 +206,7 @@ Arbitrary-precision decimal numbers. TerminusDB stores these internally as **rat
 
 **Precision Notes:**
 - Input values are parsed as exact rationals (e.g., `0.5679` → `5679/10000`)
-- JSON output uses 20 significant digits for decimal representation
+- JSON output keeps all integer digits and up to 20 decimal places, so a number can have more than 20 significant digits
 - Round-trip conversion preserves exactness within precision limits
 
 ### xsd:double
