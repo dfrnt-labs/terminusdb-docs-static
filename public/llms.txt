@@ -6,7 +6,9 @@ TerminusDB stores JSON documents as a typed graph with a schema. Every write is 
 
 Notes for agents:
 
-- Load [llms-full.txt](https://terminusdb.com/llms-full.txt) (all docs pages in one file) when you write non-trivial WOQL, build document schemas, use the version-control API (clone/push/pull/rebase), configure TerminusDB Enterprise document formats (Turtle, RDF/XML, JSON-LD), or work with VectorLink search.
+- Load [llms-full.txt](https://terminusdb.com/llms-full.txt) (all docs pages in one file) when you write non-trivial WOQL, build document schemas, use the version-control API (clone/push/pull/rebase), configure TerminusDB Enterprise document formats (Turtle, RDF/XML, JSON-LD), work with VectorLink search, or write date, time, duration or interval queries (`xdd:dateTimeInterval`, Allen's relations).
+- For exact WOQL predicate names, argument order and argument types, start from the [WOQL class reference](https://terminusdb.com/docs/woql-class-reference-guide/). It is generated from the WOQL schema, so it lists every predicate.
+- When a query, insert or schema change fails, see [Troubleshooting](#troubleshooting) below before you guess.
 - Every docs page is also served as raw Markdown at `<page-url>/page.md`, for example `https://terminusdb.com/docs/glossary/page.md`.
 
 ## Get started
@@ -28,6 +30,34 @@ Default credentials for local development: user `admin`, password `root`.
 
 - [Schema reference](https://terminusdb.com/docs/schema-reference-guide/): the most important page for building on TerminusDB. Classes, properties, subdocuments, key strategies, enums and type rules.
 - [Document model](https://terminusdb.com/docs/documents-explanation/): documents, subdocuments and graph relationships.
+- [Schema CRUD operations](https://terminusdb.com/docs/schema-crud-operations/): create, read, update and delete classes with the Document API and `graph_type=schema`.
+- [Prefix management](https://terminusdb.com/docs/prefix-management/): the `@context` object, `@base` (document IRIs) and `@schema` (class and property IRIs).
+- [XSD data types](https://terminusdb.com/docs/xsd-data-types/): the `xsd:` types you can use for fields.
+- [Schema migration reference](https://terminusdb.com/docs/schema-migration-reference-guide/): add fields, rename properties, change types and re-key documents.
+- [Troubleshooting the data model](https://terminusdb.com/docs/troubleshooting-data-model/): wrong `@id` format, Set vs Array, Optional fields and `@key` problems.
+
+Key strategies (`@key`): `Lexical` (IRI from the `@fields` values), `Hash` (SHA-256 of the `@fields` values), `ValueHash` (hash of the whole document), `Random`, `UuidV7` (time-ordered UUID, accepts any supplied `@id`). A `@subdocument` class must use `Random`, `UuidV7` or `ValueHash`.
+
+A minimal schema: a plain field, an `Optional` field, a `Set` of links, and a subdocument. Post it to the schema graph:
+
+```bash
+curl -u admin:root -X POST \
+  "http://localhost:6363/api/document/admin/MyDatabase?graph_type=schema&author=admin&message=Add+classes" \
+  -H 'Content-Type: application/json' \
+  -d '[
+    {"@type": "Class", "@id": "Person",
+     "@key": {"@type": "Lexical", "@fields": ["name"]},
+     "name": "xsd:string",
+     "nickname": {"@type": "Optional", "@class": "xsd:string"},
+     "friends": {"@type": "Set", "@class": "Person"},
+     "address": "Address"},
+    {"@type": "Class", "@id": "Address",
+     "@key": {"@type": "Random"},
+     "@subdocument": [],
+     "street": "xsd:string",
+     "country": "xsd:string"}
+  ]'
+```
 
 ## Documents API
 
@@ -65,6 +95,17 @@ curl -u admin:root \
 - [Learn WOQL](https://terminusdb.com/docs/woql-tutorial/): interactive tutorial with runnable examples.
 - [WOQL how-to](https://terminusdb.com/docs/how-to-query-with-woql/): common query tasks.
 - [Path queries](https://terminusdb.com/docs/path-queries-in-woql/): follow chains of relationships across the graph.
+- [WOQL class reference](https://terminusdb.com/docs/woql-class-reference-guide/): every WOQL predicate with its exact arguments. Check names here.
+- [WOQL as raw JSON-LD](https://terminusdb.com/docs/woql-json-ld-queries/): the wire format (`Triple`, `NodeValue`, `DataValue`, `And`). Post WOQL over HTTP without a client.
+- [Run a WOQL query](https://terminusdb.com/docs/run-woql-query/): over HTTP, TypeScript or Python.
+- [Common WOQL patterns](https://terminusdb.com/docs/woql-common-patterns/): filter, join, aggregate, path, insert, update, delete and time-travel queries to adapt.
+- [WOQL data handling](https://terminusdb.com/docs/woql-data-handling/): data types, variable binding, typecasting, dicts, lists, `group_by`, CSV and JSON.
+- [WOQL control flow](https://terminusdb.com/docs/woql-control-flow/): backtracking, variable scope across sub-queries, and query performance.
+- [Path query reference](https://terminusdb.com/docs/path-query-reference-guide/): the full path pattern grammar.
+- [What is unification?](https://terminusdb.com/docs/what-is-unification/): how WOQL variables bind.
+- [Query cookbook](https://terminusdb.com/docs/terminusdb-query-cookbook/): recipes for WOQL and GraphQL.
+- [WOQL tips and tricks](https://terminusdb.com/docs/woql-tips-and-tricks-1/): optional bindings, debugging and query composition.
+- [Numeric precision](https://terminusdb.com/docs/numeric-precision-reference/): exact `xsd:decimal` arithmetic versus IEEE 754 `xsd:double` and `xsd:float`.
 
 ```javascript
 // triple: subject, predicate, object — 'v:name' declares a variable
@@ -73,12 +114,43 @@ WOQL.triple('v:person', 'name', 'v:name')
 WOQL.read_document('Person/Jane', 'v:doc')
 ```
 
+The same kind of query as raw JSON-LD over HTTP (from [Run a WOQL query](https://terminusdb.com/docs/run-woql-query/)). It returns every triple, with variables `Subject`, `Predicate` and `Object`:
+
+```bash
+curl -u admin:root -X POST http://localhost:6363/api/woql/admin/MyDatabase/local/branch/main \
+  -H 'Content-Type: application/json' \
+  -d '{"query": {"@type": "Triple", "subject": {"@type": "NodeValue", "variable": "Subject"}, "predicate": {"@type": "NodeValue", "variable": "Predicate"}, "object": {"@type": "Value", "variable": "Object"}}}'
+```
+
 Common pitfalls (stale training data):
 
 - Do not use string concatenation in queries. Use WOQL variables (`v:name`) and unification.
-- Do not assume floats. Numbers are precise rationals in TerminusDB 12; `xsd:decimal` is exact.
-- The `path()` operator traverses predicates: `path('v:a', '(<pilot,pilot>)+', 'v:b')`.
+- Pick the numeric type on purpose. `xsd:decimal` and `xsd:integer` are stored as rationals and their arithmetic is exact (`0.1 + 0.2 = 0.3`; decimals are capped at 20 digits). `xsd:double` and `xsd:float` are IEEE 754 floats, and if any operand is a float the result is `xsd:double`.
+- The `path()` operator takes a pattern over field names: `A,B` sequence, `A|B` choice, `F+`, `F*`, `F{n,m}`, `.` any field, `(A)` group, `F>` forward (same as `F`) and `<F` backward. Example: `path('v:a', '(<pilot,pilot>)+', 'v:b')` goes back along `pilot` to a vehicle, then forward to another pilot, one or more times.
 - Document IDs are IRIs such as `'Person/Jane'`, not bare strings or numeric keys.
+- In raw JSON-LD WOQL, a variable is `{"@type": "NodeValue", "variable": "Person"}`, without the `v:` prefix, and the key is `variable`, not `var`.
+
+## Time, dates and intervals
+
+TerminusDB has ISO 8601 time types and WOQL predicates for comparison, ranges, sequences, durations and Allen's interval algebra. They shipped in [TerminusDB 12.0.4](https://terminusdb.com/docs/releases/12-0-4-range-queries-time-intervals/).
+
+- [WOQL time handling](https://terminusdb.com/docs/woql-time-handling/): ISO 8601 types, comparators (`gte`, `lte`, `in_range`), `sequence`, durations and the "inclusive in, half-open inside" pattern.
+- [Allen's interval algebra](https://terminusdb.com/docs/woql-interval-algebra/): the `xdd:dateTimeInterval` type, inclusive versus half-open intervals, `interval_relation` and `interval_relation_typed`, and worked examples of all 13 Allen relations.
+- [dateTimeInterval semantics](https://terminusdb.com/docs/datetime-interval-semantics/): how plain date endpoints are stored as UTC datetimes.
+- [End-of-month rules](https://terminusdb.com/docs/woql-eom-rules/): month-based duration arithmetic that keeps month-end dates on month-end.
+- [Time processing tutorials](https://terminusdb.com/docs/time-processing/): four tutorials, from [dates](https://terminusdb.com/docs/time-tutorial-dates/) and [durations](https://terminusdb.com/docs/time-tutorial-durations/) to [intervals](https://terminusdb.com/docs/time-tutorial-intervals/) and [temporal patterns](https://terminusdb.com/docs/time-tutorial-patterns/).
+
+Intervals are half-open: the start is included and the end is not. `interval_relation(Rel, XStart, XEnd, YStart, YEnd)` checks one of the 13 relations (`before`, `after`, `meets`, `met_by`, `overlaps`, `overlapped_by`, `starts`, `started_by`, `during`, `contains`, `finishes`, `finished_by`, `equals`). Leave `Rel` as a variable to find which relation holds.
+
+```javascript
+// Q1 [Jan 1, Apr 1) meets Q2 [Apr 1, Jul 1): no gap, no overlap
+WOQL.interval_relation("meets",
+  literal("2025-01-01", "xsd:date"), literal("2025-04-01", "xsd:date"),
+  literal("2025-04-01", "xsd:date"), literal("2025-07-01", "xsd:date"))
+// Succeeds
+```
+
+For two `xdd:dateTimeInterval` values, use `interval_relation_typed(Rel, X, Y)`.
 
 ## GraphQL
 
@@ -141,6 +213,13 @@ curl -u admin:root -X POST http://localhost:6363/api/branch/admin/MyDatabase/loc
 - [Kubernetes](https://terminusdb.com/docs/install-on-kubernetes/): run TerminusDB on a cluster.
 - [Self-hosted in production](https://terminusdb.com/docs/self-hosted-installation/): production configuration for Docker, Compose and bare metal.
 - [TerminusDB Cloud](https://terminusdb.com/docs/cloud/): hosting options.
+
+## Troubleshooting
+
+- [Troubleshooting queries](https://terminusdb.com/docs/troubleshooting-queries/): anyURI vs string mismatches, unbound variables, empty results and path query syntax.
+- [Troubleshooting schemas](https://terminusdb.com/docs/troubleshooting-schema/): type mismatches on insert, missing required fields, class not found and enum errors.
+- [Troubleshooting the data model](https://terminusdb.com/docs/troubleshooting-data-model/): `@id` format, Set vs Array, Optional and `@key` problems.
+- [Your first 15 minutes](https://terminusdb.com/docs/first-15-minutes/): a known-good curl walkthrough to check your setup.
 
 ## Optional
 
