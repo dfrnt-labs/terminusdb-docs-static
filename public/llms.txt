@@ -6,8 +6,8 @@ TerminusDB stores JSON documents as a typed graph with a schema. Every write is 
 
 Notes for agents:
 
-- Load [llms-full.txt](https://terminusdb.com/llms-full.txt) (all docs pages in one file) when you write non-trivial WOQL, build document schemas, use the version-control API (clone/push/pull/rebase), configure TerminusDB Enterprise document formats (Turtle, RDF/XML, JSON-LD), work with VectorLink search, or write date, time, duration or interval queries (`xdd:dateTimeInterval`, Allen's relations).
-- For exact WOQL predicate names, argument order and argument types, start from the [WOQL class reference](https://terminusdb.com/docs/woql-class-reference-guide/). It is generated from the WOQL schema, so it lists every predicate.
+- Load [llms-full.txt](https://terminusdb.com/llms-full.txt) (all docs pages in one file) for non-trivial WOQL, schemas, version control (clone/push/pull/rebase), Enterprise formats (Turtle, RDF/XML, JSON-LD), VectorLink search, or date, time and interval queries (`xdd:dateTimeInterval`, Allen's relations).
+- For exact WOQL predicate names, argument order and argument types, start from the [WOQL class reference](https://terminusdb.com/docs/woql-class-reference-guide/).
 - When a query, insert or schema change fails, see [Troubleshooting](#troubleshooting) below before you guess.
 - Every docs page is also served as raw Markdown at `<page-url>/page.md`, for example `https://terminusdb.com/docs/glossary/page.md`.
 
@@ -15,7 +15,6 @@ Notes for agents:
 
 - [Get started in 10 minutes](https://terminusdb.com/docs/get-started/): run TerminusDB with Docker, clone a sample dataset, then branch, diff and merge it. Includes a paste-in prompt to set it up with an AI coding agent.
 - [Clone a demo dataset](https://terminusdb.com/docs/clone-a-demo-project/): start from Star Wars or Ecommerce data.
-- [Documentation home](https://terminusdb.com/docs/start-here/): pick a quickstart by language and role.
 - [What is TerminusDB?](https://terminusdb.com/docs/terminusdb-explanation/): how it works and who it is for.
 
 ```bash
@@ -34,7 +33,6 @@ Default credentials for local development: user `admin`, password `root`.
 - [Prefix management](https://terminusdb.com/docs/prefix-management/): the `@context` object, `@base` (document IRIs) and `@schema` (class and property IRIs).
 - [XSD data types](https://terminusdb.com/docs/xsd-data-types/): the `xsd:` types you can use for fields.
 - [Schema migration reference](https://terminusdb.com/docs/schema-migration-reference-guide/): add fields, rename properties, change types and re-key documents.
-- [Troubleshooting the data model](https://terminusdb.com/docs/troubleshooting-data-model/): wrong `@id` format, Set vs Array, Optional fields and `@key` problems.
 
 Key strategies (`@key`): `Lexical` (IRI from the `@fields` values), `Hash` (SHA-256 of the `@fields` values), `ValueHash` (hash of the whole document), `Random`, `UuidV7` (time-ordered UUID, accepts any supplied `@id`). A `@subdocument` class must use `Random`, `UuidV7` or `ValueHash`.
 
@@ -76,7 +74,7 @@ curl -u admin:root -X POST \
 
 - [Migrate from MongoDB](https://terminusdb.com/docs/migrate-from-mongodb/): full guide — licensing, verbatim raw JSON, prefix collections, WOQL and path queries, gradual schema contracts, and the missing mechanisms to plan for.
 
-The migration path in one paragraph: TerminusDB is Apache 2.0 (MongoDB's SSPLv1 is not OSI-approved and copylefts hosted-service stacks); `raw_json=true` inserts store `sys:JSONDocument`s that read back semantically verbatim since 12.1 — content `@id`/`@type` members are data, `raw_id=false` is the default, `identifiers=false` no longer strips raw content. A MongoDB collection maps to an IRI prefix: name documents `orders/<key>` and `id_prefix=orders/` lists them via a sorted-dictionary range seek (`format=ids`, `counted=true`). Query with WOQL over `/api/woql` (Datalog: triple patterns, `group_by`, `order_by`, `path`). Raw JSON structure navigates with `json:`-predicated path hops, but `{"@id"}` members store the IRI as a string — first-class document-to-document link traversal needs schema'd class fields, which is the gradual-contracts path: schemaless (`schema_check:false`) → declared classes → linked traversable graphs. Missing for MongoDB users (issue candidates): field-level updates, aggregation-pipeline stages, `$text` search, TTL/capped collections, per-document change streams, listing sort/projection, geospatial, mixed bulk writes.
+The migration path in one paragraph: TerminusDB is Apache 2.0 (MongoDB's SSPLv1 is not OSI-approved and copylefts hosted-service stacks); `raw_json=true` inserts store `sys:JSONDocument`s that read back semantically verbatim since 12.1 — content `@id`/`@type` members are data, `raw_id=false` is the default, `identifiers=false` no longer strips raw content. A MongoDB collection maps to an IRI prefix: name documents `orders/<key>` and `id_prefix=orders/` lists them via a sorted-dictionary range seek (`format=ids`, `counted=true`). Query with WOQL over `/api/woql` (Datalog: triple patterns, `group_by`, `order_by`, `path`). Raw JSON structure navigates with `json:`-predicated path hops, but `{"@id"}` members store the IRI as a string — first-class document-to-document link traversal needs schema'd class fields, which is the gradual-contracts path: schemaless (`schema_check:false`) → declared classes → linked traversable graphs.
 
 ```bash
 # Insert + verbatim read of a raw JSON document named under a prefix
@@ -93,18 +91,14 @@ curl -u admin:root \
 - [WOQL basics](https://terminusdb.com/docs/woql-basics/): pattern matching and graph traversal with the Datalog query language.
 - [WOQL overview](https://terminusdb.com/docs/woql-explanation/): how WOQL works. Available in the JS and Python clients and as JSON over `/api/woql`.
 - [Learn WOQL](https://terminusdb.com/docs/woql-tutorial/): interactive tutorial with runnable examples.
-- [WOQL how-to](https://terminusdb.com/docs/how-to-query-with-woql/): common query tasks.
 - [Path queries](https://terminusdb.com/docs/path-queries-in-woql/): follow chains of relationships across the graph.
 - [WOQL class reference](https://terminusdb.com/docs/woql-class-reference-guide/): every WOQL predicate with its exact arguments. Check names here.
 - [WOQL as raw JSON-LD](https://terminusdb.com/docs/woql-json-ld-queries/): the wire format (`Triple`, `NodeValue`, `DataValue`, `And`). Post WOQL over HTTP without a client.
-- [Run a WOQL query](https://terminusdb.com/docs/run-woql-query/): over HTTP, TypeScript or Python.
 - [Common WOQL patterns](https://terminusdb.com/docs/woql-common-patterns/): filter, join, aggregate, path, insert, update, delete and time-travel queries to adapt.
 - [WOQL data handling](https://terminusdb.com/docs/woql-data-handling/): data types, variable binding, typecasting, dicts, lists, `group_by`, CSV and JSON.
 - [WOQL control flow](https://terminusdb.com/docs/woql-control-flow/): backtracking, variable scope across sub-queries, and query performance.
 - [Path query reference](https://terminusdb.com/docs/path-query-reference-guide/): the full path pattern grammar.
-- [What is unification?](https://terminusdb.com/docs/what-is-unification/): how WOQL variables bind.
 - [Query cookbook](https://terminusdb.com/docs/terminusdb-query-cookbook/): recipes for WOQL and GraphQL.
-- [WOQL tips and tricks](https://terminusdb.com/docs/woql-tips-and-tricks-1/): optional bindings, debugging and query composition.
 - [Numeric precision](https://terminusdb.com/docs/numeric-precision-reference/): exact `xsd:decimal` arithmetic versus IEEE 754 `xsd:double` and `xsd:float`.
 
 ```javascript
@@ -114,7 +108,7 @@ WOQL.triple('v:person', 'name', 'v:name')
 WOQL.read_document('Person/Jane', 'v:doc')
 ```
 
-The same kind of query as raw JSON-LD over HTTP (from [Run a WOQL query](https://terminusdb.com/docs/run-woql-query/)). It returns every triple, with variables `Subject`, `Predicate` and `Object`:
+The same query as raw JSON-LD over HTTP ([Run a WOQL query](https://terminusdb.com/docs/run-woql-query/)), returning every triple:
 
 ```bash
 curl -u admin:root -X POST http://localhost:6363/api/woql/admin/MyDatabase/local/branch/main \
@@ -138,9 +132,9 @@ TerminusDB has ISO 8601 time types and WOQL predicates for comparison, ranges, s
 - [Allen's interval algebra](https://terminusdb.com/docs/woql-interval-algebra/): the `xdd:dateTimeInterval` type, inclusive versus half-open intervals, `interval_relation` and `interval_relation_typed`, and worked examples of all 13 Allen relations.
 - [dateTimeInterval semantics](https://terminusdb.com/docs/datetime-interval-semantics/): how plain date endpoints are stored as UTC datetimes.
 - [End-of-month rules](https://terminusdb.com/docs/woql-eom-rules/): month-based duration arithmetic that keeps month-end dates on month-end.
-- [Time processing tutorials](https://terminusdb.com/docs/time-processing/): four tutorials, from [dates](https://terminusdb.com/docs/time-tutorial-dates/) and [durations](https://terminusdb.com/docs/time-tutorial-durations/) to [intervals](https://terminusdb.com/docs/time-tutorial-intervals/) and [temporal patterns](https://terminusdb.com/docs/time-tutorial-patterns/).
+- [Time processing tutorials](https://terminusdb.com/docs/time-processing/): dates, durations, intervals and temporal patterns.
 
-Intervals are half-open: the start is included and the end is not. `interval_relation(Rel, XStart, XEnd, YStart, YEnd)` checks one of the 13 relations (`before`, `after`, `meets`, `met_by`, `overlaps`, `overlapped_by`, `starts`, `started_by`, `during`, `contains`, `finishes`, `finished_by`, `equals`). Leave `Rel` as a variable to find which relation holds.
+Intervals are half-open (start included, end not). `interval_relation(Rel, XStart, XEnd, YStart, YEnd)` checks one of 13 relations (`before`, `after`, `meets`, `met_by`, `overlaps`, `overlapped_by`, `starts`, `started_by`, `during`, `contains`, `finishes`, `finished_by`, `equals`). Leave `Rel` as a variable to find which relation holds.
 
 ```javascript
 // Q1 [Jan 1, Apr 1) meets Q2 [Apr 1, Jul 1): no gap, no overlap
@@ -209,10 +203,8 @@ curl -u admin:root -X POST http://localhost:6363/api/branch/admin/MyDatabase/loc
 
 - [Install with Docker Compose](https://terminusdb.com/docs/install-terminusdb-as-a-docker-container/): the `docker-compose.yml` in the main repo starts TerminusDB on port 6363.
 - [Snap package](https://snapcraft.io/terminusdb): TerminusDB on the command line, as a git-for-data client and server for push and pull.
-- [Installation options](https://terminusdb.com/docs/terminusdb-install-options/): Docker, Kubernetes and source.
-- [Kubernetes](https://terminusdb.com/docs/install-on-kubernetes/): run TerminusDB on a cluster.
+- [Installation options](https://terminusdb.com/docs/terminusdb-install-options/): Docker, Kubernetes, source and Cloud.
 - [Self-hosted in production](https://terminusdb.com/docs/self-hosted-installation/): production configuration for Docker, Compose and bare metal.
-- [TerminusDB Cloud](https://terminusdb.com/docs/cloud/): hosting options.
 
 ## Troubleshooting
 
@@ -227,4 +219,3 @@ curl -u admin:root -X POST http://localhost:6363/api/branch/admin/MyDatabase/loc
 - [Enterprise](https://terminusdb.com/docs/enterprise/): document format endpoints (Turtle, RDF/XML, JSON-LD), observability and backup.
 - [Install from source](https://terminusdb.com/docs/install-terminusdb-from-source-code/): build with SWI-Prolog and Rust.
 - [Releases](https://terminusdb.com/docs/releases/): release notes for each version.
-- [Full docs corpus](https://terminusdb.com/llms-full.txt): every docs page in one Markdown file.
