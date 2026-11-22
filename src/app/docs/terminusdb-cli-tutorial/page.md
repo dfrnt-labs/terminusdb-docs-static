@@ -32,6 +32,8 @@ docker run --pull always -d -p 127.0.0.1:6363:6363 \
   --name terminusdb terminusdb/terminusdb-server:v12
 ```
 
+If you already have a container called `terminusdb`, this command fails with a name conflict. Remove the old container first with `docker rm -f terminusdb`, or use a different `--name` (and use the same name in the alias below).
+
 The `terminusdb` command is inside the container. Make a shell alias, so the rest of the commands look the same as on a native install:
 
 ```bash
@@ -128,7 +130,9 @@ The email is now `jane.smith@company.com`.
 terminusdb log admin/MyDatabase
 ```
 
-You see one commit per change, with the author and message you gave. Add `--json` to get the log as JSON.
+On `main` you see three commits: *Add schema*, *Add Jane* and *Merge feature into main*. The *Update Jane email* commit is not there. `apply` works like `git merge --squash`: it takes the changes from `feature` and adds them to `main` as one new commit. The original commit stays on `feature`. To see it, run `terminusdb log admin/MyDatabase/local/branch/feature`.
+
+Add `--json` to get the log as JSON.
 
 ## What you did
 
@@ -147,6 +151,16 @@ You see one commit per change, with the author and message you gave. Add `--json
 ```bash
 terminusdb db delete admin/MyDatabase
 docker stop terminusdb && docker rm terminusdb
+```
+
+The container is gone now, but the `terminusdb_storage` volume is still there. If you want to remove it too:
+
+{% callout type="warning" title="This deletes all your data" %}
+`docker volume rm` permanently deletes everything in the volume: all databases in this TerminusDB, not only `MyDatabase`. You cannot undo it. Skip this step if you keep other data there.
+{% /callout %}
+
+```bash
+docker volume rm terminusdb_storage
 ```
 
 ## Next steps
