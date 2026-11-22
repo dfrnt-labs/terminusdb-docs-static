@@ -68,12 +68,13 @@ export function ConsentBanner() {
     returnFocusRef.current = null
   }
 
-  // `hidden` stays in the DOM on every render — visibility is CSS-driven by
-  // data-consent-visible so the markup is identical before and after hydration.
+  // No `hidden` attribute here: Tailwind's preflight sets [hidden] to
+  // display:none !important, which no other rule can override. Visibility is
+  // CSS-driven by data-consent-visible (see tailwind.css), so the markup is
+  // identical before and after hydration.
   return (
     <div
       id="consent-banner"
-      hidden
       role="dialog"
       aria-label="Cookie consent"
       aria-describedby="consent-banner-text"
