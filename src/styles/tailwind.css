@@ -94,6 +94,10 @@
 
 /* The consent dialog ships in the static markup; a head script and React set
    data-consent-visible on <html> to reveal it without waiting for hydration. */
+#consent-banner {
+  display: none;
+}
+
 html[data-consent-visible] #consent-banner {
   display: block;
 }
