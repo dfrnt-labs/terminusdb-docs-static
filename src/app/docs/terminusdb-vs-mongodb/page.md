@@ -5,9 +5,9 @@ tags:
 title: TerminusDB vs MongoDB
 nextjs:
   metadata:
-    title: TerminusDB vs MongoDB — Document Database Comparison
-    description: A neutral, factual comparison of TerminusDB and MongoDB — data model, schema enforcement, version control, querying, and when to choose each document database.
-    keywords: terminusdb vs mongodb, document database comparison, mongodb alternative, json database version control, schema enforcement, knowledge graph database
+    title: TerminusDB vs MongoDB — MongoDB Alternative for Graph Workloads
+    description: A neutral comparison of TerminusDB and MongoDB. A MongoDB alternative for graph workloads — data model, schema, version control, querying, and when to choose each.
+    keywords: terminusdb vs mongodb, document database comparison, mongodb alternative, mongodb alternative graph, multi-hop traversal, json database version control, schema enforcement, knowledge graph database
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -17,6 +17,18 @@ lastUpdated: "2026-05-01"
 ---
 
 A factual comparison of TerminusDB and MongoDB for developers evaluating document databases. Both store JSON documents, but they make fundamentally different architectural trade-offs.
+
+## MongoDB alternative for graph workloads
+
+TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit. If your MongoDB data is full of links between documents, TerminusDB is a MongoDB alternative for graph workloads.
+
+- **Documents link to each other.** In TerminusDB, a link from one JSON document to another is a typed link that the database checks. The documents form a document graph, and TerminusDB follows links without JOINs.
+- **Multi-hop traversal is native.** TerminusDB uses WOQL path queries to follow links over many hops. For example, `path("ceo_jane", "(manages>)+", "v:Employee")` finds everyone in a reporting chain, at any depth. See [path queries in WOQL](/docs/path-queries-in-woql/) and the [path query reference](/docs/path-query-reference-guide/).
+- **The data model can be flexible.** TerminusDB lets you use a schema for the parts that need structure. For the parts that do not, the `sys:JSON` type and `raw_json` let you store arbitrary JSON, and WOQL can still search it. See the [schema reference](/docs/schema-reference-guide/).
+
+MongoDB also has a way to do this: `$graphLookup` is an aggregation stage for recursive lookups. The sections below compare it with WOQL. To learn more about the graph model, read [What is a knowledge graph database?](/docs/knowledge-graph-database/).
+
+---
 
 ## Executive summary
 
