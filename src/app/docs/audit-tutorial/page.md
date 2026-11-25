@@ -195,4 +195,5 @@ Now only the tier upgrade appears — everything before the anchor commit is exc
 
 - [Set Commit Messages](/docs/commit-message-howto/) — quick reference for the `author` and `message` parameters
 - [Recover Data from Version History](/docs/recovery-tutorial/) — using the log to identify and roll back to a good state
+- [How to Run Time Travel Queries](/docs/time-travel-howto/) — read the data as it was at an earlier commit ("what did we know then?"), with TypeScript and Python examples
 - [Diff and Patch Operations](/docs/diff-and-patch-operations/) — advanced diff usage with the JS client
