@@ -10,7 +10,7 @@ nextjs:
   metadata:
     title: An Open-Source Graph Database with ACID Transactions — TerminusDB
     description: "TerminusDB is an Apache 2.0 open-source graph database where every write is an ACID commit: atomic, schema-checked, isolated and durable. With runnable proof."
-    keywords: open source graph database, acid transactions, graph database acid, acid compliant database, document graph database, apache 2.0 database, atomic transactions, schema validation, immutable database, terminusdb
+    keywords: open source graph database, acid transactions, consistent reads, concurrent agents, snapshot isolation, graph database acid, acid compliant database, document graph database, apache 2.0 database, atomic transactions, schema validation, immutable database, terminusdb
     openGraph:
       images: https://assets.terminusdb.com/docs/terminusdb-knowledge-graph-database-og.png
     alternates:
@@ -19,6 +19,16 @@ media: []
 ---
 
 TerminusDB is an open-source graph database — Apache 2.0 licensed — with full ACID transactions on every write. It stores linked JSON documents as a property graph, and each insert, update or delete lands as a single atomic commit: schema-validated, isolated from concurrent readers, and durable on an append-only layer store. As a bonus, the same commit machinery gives you Git-style branching, diffs and history on your data.
+
+## Consistent reads for concurrent agents
+
+TerminusDB gives every reader one consistent snapshot of graph and document data, even while other agents write. This is useful when many AI agents or services query the same data at the same time.
+
+- **One snapshot for graph and documents.** In TerminusDB, documents and the edges between them are stored in the same graph. A read sees one commit, so a document query and a graph traversal in that read agree with each other.
+- **Writers do not block readers.** A write adds a new immutable layer and then moves the branch head. Readers that already started keep their own layer and are not affected. See [Immutability and Concurrency](/docs/immutability-and-concurrency/).
+- **Write conflicts retry, no locks.** Concurrent writes to the same branch use optimistic concurrency. The server retries a write when the branch changed while it ran.
+- **Pin a commit for repeatable reads.** An agent can read at a fixed commit with `local/commit/<id>` instead of `local/branch/main`. Every agent that uses the same commit id sees the same data. See [How to Run Time Travel Queries](/docs/time-travel-howto/).
+- **Give each agent its own branch.** Agents can write on separate branches without conflicts, and you merge the results later. See [Knowledge Graph for AI Agents](/docs/knowledge-graph-for-ai-agents/).
 
 ## Why ACID matters for a graph database
 
