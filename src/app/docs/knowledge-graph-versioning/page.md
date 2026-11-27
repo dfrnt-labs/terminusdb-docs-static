@@ -33,13 +33,13 @@ faq:
 
 **Knowledge graph versioning** is a way to keep the earlier states of a knowledge graph when its facts change. With it, you can read the graph as it was, see what changed between two versions, and undo a bad change.
 
-TerminusDB is the open-source knowledge graph database with git-like version control for graphs and vectors. Branch, merge, diff and hybrid search any commit. In TerminusDB, every write is a commit, so you can read the graph at any older commit with the same API you use for the latest version.
+Versioning is the first step. If you also need branches, merges, rollback and a log of who changed what, read about [version control for a knowledge graph](/docs/knowledge-graph-database-version-control/).
 
 This page explains the common ways to do graph versioning and what each one costs. At the end, it shows how TerminusDB does it, with a short example you can run.
 
 {% callout type="note" title="Looking for something else?" %}
 - To compare two versions of a graph, read [Knowledge Graph Diff](/docs/knowledge-graph-diff/).
-- To version control a knowledge graph in TerminusDB (commits, branches, merge, rollback), read [Knowledge Graph Version Control](/docs/knowledge-graph-database-version-control/).
+- For commits, branches, merge and rollback, read [Version Control for a Knowledge Graph](/docs/knowledge-graph-database-version-control/).
 {% /callout %}
 
 ## What is knowledge graph versioning?
@@ -97,7 +97,7 @@ Most real systems mix the two. They store deltas, and from time to time they als
 
 TerminusDB works this way. Each commit adds a [delta layer](/docs/immutability-explanation/) with the triples it added and removed. A [delta rollup](/docs/delta-rollup/) combines many layers into fewer cached layers. In standard setups the rollup runs automatically, so reads stay fast as history grows. The cost is a bit of disk storage.
 
-## What a versioned knowledge graph should let you do
+## What to look for in a versioning approach
 
 Keeping old versions is only the first step. To be useful, versioning should let you:
 
@@ -242,7 +242,7 @@ Also keep in mind that history uses disk storage. And if a branch has many small
 
 ## Next steps
 
-- [Knowledge Graph Version Control](/docs/knowledge-graph-database-version-control/) — clone, commits, branch, merge, diff, push, pull and time travel, one by one
+- [Version Control for a Knowledge Graph](/docs/knowledge-graph-database-version-control/) — clone, commits, branch, merge, diff, push, pull and time travel, one by one
 - [Time Travel Queries](/docs/graph-database-with-time-travel-queries/) — read the graph at any commit
 - [Immutability](/docs/immutability-explanation/) — why TerminusDB never changes data in place
 - [Knowledge Graph Diff](/docs/knowledge-graph-diff/) — compare two versions of a graph, and apply the change as a patch

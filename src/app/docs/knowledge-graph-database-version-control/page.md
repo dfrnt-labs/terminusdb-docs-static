@@ -4,7 +4,7 @@ tags:
   - version-control
   - knowledge-graph
   - beginner
-title: Knowledge Graph Database with Git-like Version Control
+title: Version Control for a Knowledge Graph
 techArticle: true
 nextjs:
   metadata:
@@ -33,7 +33,7 @@ A traditional database overwrites data in place. The previous state is lost the 
 
 A **version-controlled knowledge graph database** solves all four. TerminusDB keeps every commit, every branch, and every author on an [immutable](/docs/immutability-explanation/) append-only store, so the full history of your data is queryable, reversible, and shareable — just like a Git repository, but for facts instead of files.
 
-## The mental model: Git for data
+## Git for data: the mental model
 
 If you replace "file" with "RDF triple" and "repository" with "knowledge graph", the Git mental model carries over almost line for line.
 
