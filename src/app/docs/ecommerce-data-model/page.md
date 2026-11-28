@@ -353,7 +353,7 @@ To pay cash on delivery, you would send `"payment": {"@type": "PaymentMethod", "
 
 This order sets both `card` and `invoice`. TerminusDB rejects it, and nothing is written:
 
-{% http-example method="POST" path="/api/document/admin/shop_model?author=admin&message=Add+invalid+order" %}
+{% http-example method="POST" path="/api/document/admin/shop_model?author=admin&message=Add+invalid+order" runnable=false %}
 {"@type": "Order", "order_number": "ORD-1003",
  "products": ["Product/TS-002"],
  "total": {"@type": "Money", "amount": 24.5, "currency": "EUR"},
@@ -361,11 +361,11 @@ This order sets both `card` and `invoice`. TerminusDB rejects it, and nothing is
    "card": {"@type": "Card", "brand": "Visa", "last4": "4242", "expiry": "2028-09"},
    "invoice": {"@type": "Invoice", "terms_days": 30, "billing_email": "billing@example.com"}}}
 {% http-expected %}
-{"@type":"api:InsertDocumentErrorResponse","api:status":"api:failure","api:message":"Schema check failure","api:error":{"@type":"api:SchemaCheckFailure","api:witnesses":[{"@type":"choice_has_too_many_answers"}]}}
+{"@type":"api:InsertDocumentErrorResponse","api:status":"api:failure","api:message":"Schema check failure","api:error":{"@type":"api:SchemaCheckFailure","api:witnesses":[{"terminusdb:///schema#payment":{"@type":"choice_has_too_many_answers"}}]}}
 {% /http-expected %}
 {% /http-example %}
 
-We shortened the response. The witness also has a `choice` field with the choices of the union, and a `document` field with the value you sent. The details can look a little different on your version. If you send a `PaymentMethod` with no choice at all, the witness type is `no_choice_is_cardinality_one` instead.
+We shortened the response. The witness value also has a `choice` field with the choices of the union, and a `document` field with the value you sent. The details can look a little different on your version. If you send a `PaymentMethod` with no choice at all, the witness type is `no_choice_is_cardinality_one` instead.
 
 ## Evolve the model safely
 
@@ -429,7 +429,7 @@ The diff shows the document change: one field, from `active` to `discontinued`. 
 
 {% http-example method="GET" path="/api/document/admin/shop_model/local/branch/new-fields?graph_type=schema&id=Product" /%}
 {% http-expected %}
-{"@id":"Product","@inherits":["Sellable"],"@key":{"@fields":["sku"],"@type":"Lexical"},"@type":"Class","brand":"Brand","categories":{"@class":"Category","@type":"Set"},"description":{"@class":"xsd:string","@type":"Optional"},"metadata":{"@class":"sys:JSON","@type":"Optional"},"sku":"xsd:string","variants":{"@class":"Variant","@type":"Set"},"weight_grams":{"@class":"xsd:integer","@type":"Optional"}}
+{"@id":"Product","@inherits":"Sellable","@key":{"@fields":["sku"],"@type":"Lexical"},"@type":"Class","brand":"Brand","categories":{"@class":"Category","@type":"Set"},"description":{"@class":"xsd:string","@type":"Optional"},"metadata":{"@class":"sys:JSON","@type":"Optional"},"sku":"xsd:string","variants":{"@class":"Variant","@type":"Set"},"weight_grams":{"@class":"xsd:integer","@type":"Optional"}}
 {% /http-expected %}
 
 When you are happy with the change, you can bring it to main with a merge (see [Branch](/docs/branch/)). For bigger changes, such as renaming a field or making an optional field required, have a look at the [Schema Migration Reference](/docs/schema-migration-reference-guide/). If your data does not fit the schema, the [Data Model Mismatches](/docs/troubleshooting-data-model/) page may help.
