@@ -24,7 +24,12 @@ Start with the [product taxonomy data model](/docs/product-taxonomy-data-model/)
 
 ## One tree, many traits
 
-We keep two things apart:
+There are two ways to build a taxonomy in TerminusDB:
+
+- **As classes.** Each taxonomy node is a class in the schema, and items are documents of those classes. This is the simpler way, and it is what this page shows. The classes can inherit fields and traits from each other.
+- **As data.** Each taxonomy node is a document, and products link to the node they sit in. The nodes carry their own data attributes. This is the more advanced way. You can change the taxonomy without a schema change, which suits taxonomies that change often. The [product taxonomy data model](/docs/product-taxonomy-data-model/) builds the tree in this way.
+
+In the class model on this page, we keep two things apart:
 
 1. **The taxonomy tree.** Each taxonomy class has exactly one parent in the tree, for example *Item → Grocery → Dairy → Cheese*. The tree stays strict and simple.
 2. **Behavioral traits.** A trait describes how an item behaves, for example *Perishable*, *Fragile* or *AgeRestricted*. A trait has its own attributes, such as `shelf_life_days` or `min_age`. A trait is not a place in the tree.

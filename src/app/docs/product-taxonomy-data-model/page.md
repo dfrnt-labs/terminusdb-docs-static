@@ -9,7 +9,7 @@ title: Product Taxonomy Data Model
 nextjs:
   metadata:
     title: "Product Taxonomy Data Model: Category Trees, Breadcrumbs and Safe Changes"
-    description: Build a product taxonomy data model step by step with curl and JSON. A simple category tree, products in one category, subtree and breadcrumb queries, and taxonomy changes on a branch.
+    description: Build a product taxonomy data model step by step with curl and JSON. A category tree with UUID v7 keys, reads with and without children, products in one category, subtree and breadcrumb queries, and taxonomy changes on a branch.
     keywords: product taxonomy data model, product taxonomy, category hierarchy, product classification schema, taxonomy schema
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
@@ -35,17 +35,24 @@ We keep the tree strict and simple: each category has at most one parent. A stri
 
 ## Modelling the category tree
 
-We model a category as a document of its own. It has a link to its parent, `parent_category`, which is `Optional`, because top-level categories have no parent. This is the same field name as in the [ecommerce dataset](/docs/explore-ecommerce-dataset/).
+We model a category as a document of its own. Each category holds a `Set` of its child categories in a `children` field. So the tree is stored from the top down.
 
-`Optional` holds zero or one value. So the schema itself makes sure that a category never has two parents.
+Two annotations make this work well:
+
+- **`@shared` on the `Category` class.** A [shared document](/docs/schema-reference-guide/#shared-reference-counted-documents) is a normal document with its own `@id`, so you can read and update each category on its own. TerminusDB also removes it when nothing links to it any more. When you take a category out of the tree and nothing else links to it, it is deleted at commit, and so are its children that nothing else links to.
+- **`@unfold` on the `children` field.** When you read a category, TerminusDB [unfolds](/docs/document-unfolding-reference/) its children into the response, and their children too. So one read of the top category returns the whole taxonomy as one JSON document, with all attributes. One read of any other category returns that subtree.
+
+The schema does not stop you from listing a category as a child of two parents. We keep the tree strict by convention: each category is in the `children` of at most one other category. When you move a category, you take it out of the old parent and add it to the new parent in the same request.
 
 A product has one link, `category`, to the category it sits in. It is a required field, so each product must have exactly one category.
 
-## Identity: a slug as the key
+## Identity: UUID v7 keys
 
-Each category uses a `Lexical` key on a `slug` field, such as `running-shoes`. The `@id` of the category is made from the slug, so it becomes `Category/running-shoes`.
+Each category uses a `UuidV7` key. The `@id` of a category is a GUID-style UUID, such as `Category/01a2220d-213d-705d-b24c-1dd5e0ef083d`. If you leave out `@id`, TerminusDB creates a new UUID v7 for you. UUID v7 values start with a timestamp, so new IDs sort by creation time. You can also send your own `@id`, for example a GUID from your PIM or ERP system. TerminusDB keeps it as it is (see [UuidV7 keys](/docs/schema-reference-guide/#uuidv7)).
 
-The display `name` is a normal field. You can rename *Footwear* to *Shoes* and the `@id` stays `Category/footwear`. Products keep their links. Try to keep slugs stable once products link to them. If you need a new slug, it is a new category.
+On this page we send fixed IDs, so that you can copy the calls and get the same responses.
+
+The `@id` does not depend on the name. You can rename *Footwear* to *Shoes* and the `@id` stays the same. Products keep their links. The `slug` is a normal field for URLs, and you can change it too.
 
 ## Build the taxonomy step by step
 
@@ -55,7 +62,7 @@ The model looks like this:
 
 | Type | Kind | Key | What it holds |
 |------|------|-----|---------------|
-| `Category` | document | Lexical on `slug` | slug, name, parent (optional) |
+| `Category` | shared document | `UuidV7` | slug, name, children (a set of categories, unfolded) |
 | `Product` | document | Lexical on `sku` | sku, name, price, category |
 
 {% prerequisites-connected /%}
@@ -71,14 +78,14 @@ The model looks like this:
 
 ### Step 2 — Add the schema {% step %}
 
-`Category` links to its own class for the parent. `Product` links to `Category`:
+`Category` holds a set of its own class for the children. `Product` links to `Category`:
 
 {% http-example method="POST" path="/api/document/admin/taxonomy_model?graph_type=schema&author=admin&message=Add+taxonomy+schema" %}
 [
-  {"@type": "Class", "@id": "Category",
-   "@key": {"@type": "Lexical", "@fields": ["slug"]},
+  {"@type": "Class", "@id": "Category", "@shared": [],
+   "@key": {"@type": "UuidV7"},
    "slug": "xsd:string", "name": "xsd:string",
-   "parent_category": {"@type": "Optional", "@class": "Category"}},
+   "children": {"@type": "Set", "@class": "Category", "@unfold": true}},
   {"@type": "Class", "@id": "Product",
    "@key": {"@type": "Lexical", "@fields": ["sku"]},
    "sku": "xsd:string", "name": "xsd:string", "price": "xsd:decimal",
@@ -91,42 +98,55 @@ The model looks like this:
 
 ### Step 3 — Insert the categories {% step %}
 
-This is the tree we build:
+This is the tree we build. *All products* is the top category:
 
 ```text
-Clothing
-├── Tops
-│   └── T-shirts
-└── Footwear
-    └── Running shoes
-Sports
-└── Fitness
-    └── Yoga mats
+All products
+├── Clothing
+│   ├── Tops
+│   │   └── T-shirts
+│   └── Footwear
+│       └── Running shoes
+└── Sports
+    └── Fitness
+        └── Yoga mats
 ```
 
-You can send all categories in one request, and they can link to each other:
+You can send all categories in one request, and they can link to each other. Each category lists its children by `@id`:
 
 {% http-example method="POST" path="/api/document/admin/taxonomy_model?author=admin&message=Add+category+tree" %}
 [
-  {"@type": "Category", "slug": "clothing", "name": "Clothing"},
-  {"@type": "Category", "slug": "clothing-tops", "name": "Tops",
-   "parent_category": "Category/clothing"},
-  {"@type": "Category", "slug": "t-shirts", "name": "T-shirts",
-   "parent_category": "Category/clothing-tops"},
-  {"@type": "Category", "slug": "footwear", "name": "Footwear",
-   "parent_category": "Category/clothing"},
-  {"@type": "Category", "slug": "running-shoes", "name": "Running shoes",
-   "parent_category": "Category/footwear"},
-  {"@type": "Category", "slug": "sports", "name": "Sports"},
-  {"@type": "Category", "slug": "fitness", "name": "Fitness",
-   "parent_category": "Category/sports"},
-  {"@type": "Category", "slug": "yoga-mats", "name": "Yoga mats",
-   "parent_category": "Category/fitness"}
+  {"@type": "Category", "@id": "Category/01a2220d-2138-7486-97b4-6e440bbb184e",
+   "slug": "all", "name": "All products",
+   "children": ["Category/01a2220d-2139-77f8-bdcf-70a767d0de32", "Category/01a2220d-213e-7a96-bb59-2d680de34104"]},
+  {"@type": "Category", "@id": "Category/01a2220d-2139-77f8-bdcf-70a767d0de32",
+   "slug": "clothing", "name": "Clothing",
+   "children": ["Category/01a2220d-213a-7fc8-b5ab-f7199d9087b4", "Category/01a2220d-213c-7973-bdcb-5d151b295187"]},
+  {"@type": "Category", "@id": "Category/01a2220d-213a-7fc8-b5ab-f7199d9087b4",
+   "slug": "clothing-tops", "name": "Tops",
+   "children": ["Category/01a2220d-213b-71c0-9d01-3033944ecd5a"]},
+  {"@type": "Category", "@id": "Category/01a2220d-213b-71c0-9d01-3033944ecd5a",
+   "slug": "t-shirts", "name": "T-shirts"},
+  {"@type": "Category", "@id": "Category/01a2220d-213c-7973-bdcb-5d151b295187",
+   "slug": "footwear", "name": "Footwear",
+   "children": ["Category/01a2220d-213d-705d-b24c-1dd5e0ef083d"]},
+  {"@type": "Category", "@id": "Category/01a2220d-213d-705d-b24c-1dd5e0ef083d",
+   "slug": "running-shoes", "name": "Running shoes"},
+  {"@type": "Category", "@id": "Category/01a2220d-213e-7a96-bb59-2d680de34104",
+   "slug": "sports", "name": "Sports",
+   "children": ["Category/01a2220d-213f-720c-9b03-902c68236c15"]},
+  {"@type": "Category", "@id": "Category/01a2220d-213f-720c-9b03-902c68236c15",
+   "slug": "fitness", "name": "Fitness",
+   "children": ["Category/01a2220d-2140-7fa0-a69e-9101b7b4b1c9"]},
+  {"@type": "Category", "@id": "Category/01a2220d-2140-7fa0-a69e-9101b7b4b1c9",
+   "slug": "yoga-mats", "name": "Yoga mats"}
 ]
 {% http-expected %}
-["Category/clothing", "Category/clothing-tops", "Category/t-shirts", "Category/footwear", "Category/running-shoes", "Category/sports", "Category/fitness", "Category/yoga-mats"]
+["Category/01a2220d-2138-7486-97b4-6e440bbb184e", "Category/01a2220d-2139-77f8-bdcf-70a767d0de32", "Category/01a2220d-213a-7fc8-b5ab-f7199d9087b4", "Category/01a2220d-213b-71c0-9d01-3033944ecd5a", "Category/01a2220d-213c-7973-bdcb-5d151b295187", "Category/01a2220d-213d-705d-b24c-1dd5e0ef083d", "Category/01a2220d-213e-7a96-bb59-2d680de34104", "Category/01a2220d-213f-720c-9b03-902c68236c15", "Category/01a2220d-2140-7fa0-a69e-9101b7b4b1c9"]
 {% /http-expected %}
 {% /http-example %}
+
+A category with no children, such as *T-shirts*, simply leaves out `children`.
 
 ### Step 4 — Insert products {% step %}
 
@@ -135,25 +155,83 @@ Each product links to the one category it sits in. We use the lowest category in
 {% http-example method="POST" path="/api/document/admin/taxonomy_model?author=admin&message=Add+products" %}
 [
   {"@type": "Product", "sku": "TS-001", "name": "Basic T-shirt", "price": 19.5,
-   "category": "Category/t-shirts"},
+   "category": "Category/01a2220d-213b-71c0-9d01-3033944ecd5a"},
   {"@type": "Product", "sku": "RS-100", "name": "Trail runner", "price": 129,
-   "category": "Category/running-shoes"},
+   "category": "Category/01a2220d-213d-705d-b24c-1dd5e0ef083d"},
   {"@type": "Product", "sku": "YM-200", "name": "Cork yoga mat", "price": 45,
-   "category": "Category/yoga-mats"}
+   "category": "Category/01a2220d-2140-7fa0-a69e-9101b7b4b1c9"}
 ]
 {% http-expected %}
 ["Product/TS-001", "Product/RS-100", "Product/YM-200"]
 {% /http-expected %}
 {% /http-example %}
 
-### Step 5 — Read a category back {% step %}
+## Read categories with and without children
 
-{% http-example method="GET" path="/api/document/admin/taxonomy_model?id=Category/running-shoes" /%}
+Because `children` is unfolded, you choose how much of the tree you get back. The document interface returns the full subtree by default, and only the child IDs with `unfold=false`. In GraphQL, you get exactly the fields you ask for.
+
+### Step 5 — Read the whole taxonomy in one call {% step %}
+
+Read the top category. The response is the whole tree as one document:
+
+{% http-example method="GET" path="/api/document/admin/taxonomy_model?id=Category/01a2220d-2138-7486-97b4-6e440bbb184e" /%}
 {% http-expected %}
-{"@id":"Category/running-shoes","@type":"Category","name":"Running shoes","parent_category":"Category/footwear","slug":"running-shoes"}
+{"@id":"Category/01a2220d-2138-7486-97b4-6e440bbb184e","@type":"Category",
+ "children":[
+  {"@id":"Category/01a2220d-2139-77f8-bdcf-70a767d0de32","@type":"Category",
+   "children":[
+    {"@id":"Category/01a2220d-213a-7fc8-b5ab-f7199d9087b4","@type":"Category",
+     "children":[{"@id":"Category/01a2220d-213b-71c0-9d01-3033944ecd5a","@type":"Category","name":"T-shirts","slug":"t-shirts"}],
+     "name":"Tops","slug":"clothing-tops"},
+    {"@id":"Category/01a2220d-213c-7973-bdcb-5d151b295187","@type":"Category",
+     "children":[{"@id":"Category/01a2220d-213d-705d-b24c-1dd5e0ef083d","@type":"Category","name":"Running shoes","slug":"running-shoes"}],
+     "name":"Footwear","slug":"footwear"}],
+   "name":"Clothing","slug":"clothing"},
+  {"@id":"Category/01a2220d-213e-7a96-bb59-2d680de34104","@type":"Category",
+   "children":[
+    {"@id":"Category/01a2220d-213f-720c-9b03-902c68236c15","@type":"Category",
+     "children":[{"@id":"Category/01a2220d-2140-7fa0-a69e-9101b7b4b1c9","@type":"Category","name":"Yoga mats","slug":"yoga-mats"}],
+     "name":"Fitness","slug":"fitness"}],
+   "name":"Sports","slug":"sports"}],
+ "name":"All products","slug":"all"}
 {% /http-expected %}
 
-The parent is a link to the `@id` of the parent category. The category does not store its children. You find them by following `parent_category` backwards, as in the next step.
+Read any other category in the same way to get its subtree. The order of the children in your response can be different.
+
+### Step 6 — Read one category without its children {% step %}
+
+Add `unfold=false` to get the category with only the `@id` of each child:
+
+{% http-example method="GET" path="/api/document/admin/taxonomy_model?id=Category/01a2220d-2139-77f8-bdcf-70a767d0de32&unfold=false" /%}
+{% http-expected %}
+{"@id":"Category/01a2220d-2139-77f8-bdcf-70a767d0de32","@type":"Category","children":["Category/01a2220d-213a-7fc8-b5ab-f7199d9087b4","Category/01a2220d-213c-7973-bdcb-5d151b295187"],"name":"Clothing","slug":"clothing"}
+{% /http-expected %}
+
+Use this when you only need one level, for example to edit one category. Each category is still its own document, so you change it on its own with a PUT.
+
+### Step 7 — Read a category in GraphQL, without children {% step %}
+
+GraphQL returns only the fields you name. Leave out `children` to get the category on its own:
+
+{% http-example method="POST" path="/api/graphql/admin/taxonomy_model" %}
+{"query": "{ Category(filter: {slug: {eq: \"footwear\"}}) { _id name slug } }"}
+{% http-expected %}
+{"data":{"Category":[{"_id":"Category/01a2220d-213c-7973-bdcb-5d151b295187","name":"Footwear","slug":"footwear"}]}}
+{% /http-expected %}
+{% /http-example %}
+
+### Step 8 — Read a category in GraphQL, with children {% step %}
+
+Name `children` and the fields you want inside it. Each level you nest goes one level deeper in the tree:
+
+{% http-example method="POST" path="/api/graphql/admin/taxonomy_model" %}
+{"query": "{ Category(filter: {slug: {eq: \"clothing\"}}) { name children { name children { name } } } }"}
+{% http-expected %}
+{"data":{"Category":[{"name":"Clothing","children":[{"name":"Tops","children":[{"name":"T-shirts"}]},{"name":"Footwear","children":[{"name":"Running shoes"}]}]}]}}
+{% /http-expected %}
+{% /http-example %}
+
+In GraphQL you choose the depth in the query. To get every level below a category, whatever the depth, use a path query as in the next step.
 
 ## Query the tree
 
@@ -161,25 +239,25 @@ Two questions come up all the time for a taxonomy: "what is below this category?
 
 In a path, a `<` in front of a field means "follow the link backwards". A `+` means "one or more times", and a `*` means "zero or more times". A `,` joins two steps.
 
-### Step 6 — List all categories below Clothing {% step %}
+### Step 9 — List all categories below Clothing {% step %}
 
-The path `(<parent_category)+` walks down the tree, as deep as it goes:
+The path `(children)+` walks down the tree, as deep as it goes:
 
 {% http-example method="POST" path="/api/graphql/admin/taxonomy_model" %}
-{"query": "{ Category(filter: {slug: {eq: \"clothing\"}}) { name _path_to_Category(path: \"(<parent_category)+\") { name } } }"}
+{"query": "{ Category(filter: {slug: {eq: \"clothing\"}}) { name _path_to_Category(path: \"(children)+\") { name } } }"}
 {% http-expected %}
-{"data":{"Category":[{"name":"Clothing","_path_to_Category":[{"name":"Tops"},{"name":"T-shirts"},{"name":"Footwear"},{"name":"Running shoes"}]}]}}
+{"data":{"Category":[{"name":"Clothing","_path_to_Category":[{"name":"Tops"},{"name":"Footwear"},{"name":"T-shirts"},{"name":"Running shoes"}]}]}}
 {% /http-expected %}
 {% /http-example %}
 
 The order of the names in your response can be different.
 
-### Step 7 — Find all products under Clothing {% step %}
+### Step 10 — Find all products under Clothing {% step %}
 
 No product links to *Clothing* directly. The path first walks down the tree with `*`, so it also includes *Clothing* itself. Then it follows `category` backwards to the products:
 
 {% http-example method="POST" path="/api/graphql/admin/taxonomy_model" %}
-{"query": "{ Category(filter: {slug: {eq: \"clothing\"}}) { name _path_to_Product(path: \"(<parent_category)*,<category\") { sku name } } }"}
+{"query": "{ Category(filter: {slug: {eq: \"clothing\"}}) { name _path_to_Product(path: \"(children)*,<category\") { sku name } } }"}
 {% http-expected %}
 {"data":{"Category":[{"name":"Clothing","_path_to_Product":[{"sku":"TS-001","name":"Basic T-shirt"},{"sku":"RS-100","name":"Trail runner"}]}]}}
 {% /http-expected %}
@@ -187,18 +265,18 @@ No product links to *Clothing* directly. The path first walks down the tree with
 
 The yoga mat is not in the result, because *Sports* is a different branch of the tree. The order of the products can be different.
 
-### Step 8 — Build a breadcrumb for a product {% step %}
+### Step 11 — Build a breadcrumb for a product {% step %}
 
-Now go up the tree. The path starts at the product, follows `category` to its category, and then follows `parent_category` up to the top:
+Now go up the tree. The path starts at the product, follows `category` to its category, and then follows `children` backwards up to the top:
 
 {% http-example method="POST" path="/api/graphql/admin/taxonomy_model" %}
-{"query": "{ Product(filter: {sku: {eq: \"RS-100\"}}) { name _path_to_Category(path: \"category,(parent_category)*\") { name } } }"}
+{"query": "{ Product(filter: {sku: {eq: \"RS-100\"}}) { name _path_to_Category(path: \"category,(<children)*\") { name } } }"}
 {% http-expected %}
-{"data":{"Product":[{"name":"Trail runner","_path_to_Category":[{"name":"Running shoes"},{"name":"Footwear"},{"name":"Clothing"}]}]}}
+{"data":{"Product":[{"name":"Trail runner","_path_to_Category":[{"name":"Running shoes"},{"name":"Footwear"},{"name":"Clothing"},{"name":"All products"}]}]}}
 {% /http-expected %}
 {% /http-example %}
 
-Because each category has only one parent, there is exactly one way up. This gives one clear breadcrumb: *Clothing › Footwear › Running shoes*. We think the response lists the categories from the product upwards, but please do not depend on the order. If the order matters, you can sort the result in your application, for example by the number of steps from the top. You can write the same queries in WOQL with the `path` keyword, see [Path queries in WOQL](/docs/path-queries-in-woql/).
+Because each category has only one parent, there is exactly one way up. This gives one clear breadcrumb: *All products › Clothing › Footwear › Running shoes*. We think the response lists the categories from the product upwards, but please do not depend on the order. If the order matters, you can sort the result in your application, for example by the number of steps from the top. You can write the same queries in WOQL with the `path` keyword, see [Path queries in WOQL](/docs/path-queries-in-woql/).
 
 ## Change the taxonomy on a branch
 
@@ -206,7 +284,7 @@ Taxonomies change all the time: a category gets a new name, or a level in the tr
 
 Here the merchandising team wants two changes: rename *Footwear* to *Shoes*, and move *T-shirts* directly under *Clothing*.
 
-### Step 9 — Create a branch {% step %}
+### Step 12 — Create a branch {% step %}
 
 {% http-example method="POST" path="/api/branch/admin/taxonomy_model/local/branch/taxonomy-update" %}
 {"origin": "admin/taxonomy_model/local/branch/main"}
@@ -215,40 +293,46 @@ Here the merchandising team wants two changes: rename *Footwear* to *Shoes*, and
 {% /http-expected %}
 {% /http-example %}
 
-### Step 10 — Rename and move categories on the branch {% step %}
+### Step 13 — Rename and move categories on the branch {% step %}
 
-A PUT replaces the whole document, so we send each category in full:
+A PUT replaces the whole document, so we send each changed category in full. To move *T-shirts*, we add it to the `children` of *Clothing* and take it out of *Tops*, in the same request:
 
 {% http-example method="PUT" path="/api/document/admin/taxonomy_model/local/branch/taxonomy-update?author=admin&message=Rename+Footwear+and+flatten+Tops" %}
 [
-  {"@id": "Category/footwear", "@type": "Category", "slug": "footwear", "name": "Shoes",
-   "parent_category": "Category/clothing"},
-  {"@id": "Category/t-shirts", "@type": "Category", "slug": "t-shirts", "name": "T-shirts",
-   "parent_category": "Category/clothing"}
+  {"@type": "Category", "@id": "Category/01a2220d-2139-77f8-bdcf-70a767d0de32",
+   "slug": "clothing", "name": "Clothing",
+   "children": ["Category/01a2220d-213a-7fc8-b5ab-f7199d9087b4", "Category/01a2220d-213c-7973-bdcb-5d151b295187", "Category/01a2220d-213b-71c0-9d01-3033944ecd5a"]},
+  {"@type": "Category", "@id": "Category/01a2220d-213a-7fc8-b5ab-f7199d9087b4",
+   "slug": "clothing-tops", "name": "Tops"},
+  {"@type": "Category", "@id": "Category/01a2220d-213c-7973-bdcb-5d151b295187",
+   "slug": "footwear", "name": "Shoes",
+   "children": ["Category/01a2220d-213d-705d-b24c-1dd5e0ef083d"]}
 ]
 {% http-expected %}
-["Category/footwear", "Category/t-shirts"]
+["Category/01a2220d-2139-77f8-bdcf-70a767d0de32", "Category/01a2220d-213a-7fc8-b5ab-f7199d9087b4", "Category/01a2220d-213c-7973-bdcb-5d151b295187"]
 {% /http-expected %}
 {% /http-example %}
 
-The `@id` of *Footwear* does not change, because it comes from the slug. The products still link to the same categories. You did not touch them.
+The `@id` of *Footwear* does not change, because it does not depend on the name. The products still link to the same categories. You did not touch them. Everything below a category moves with it.
 
-To move a category, you only change its one `parent_category` link. Everything below it moves with it.
+Take care when you remove a category from `children`. A `@shared` category that nothing links to any more is deleted when you commit, and so are its children that nothing else links to. A product that links to a category keeps that category alive. Here *T-shirts* stays, because *Clothing* now links to it.
 
-### Step 11 — See what changed {% step %}
+### Step 14 — See what changed {% step %}
 
-Compare the branch with main:
+Compare the branch with main. With `"unfold": false`, the diff shows child categories by `@id`, not in full:
 
 {% http-example method="POST" path="/api/diff/admin/taxonomy_model" %}
-{"before_data_version": "main", "after_data_version": "taxonomy-update"}
+{"before_data_version": "main", "after_data_version": "taxonomy-update", "unfold": false}
 {% http-expected %}
-[{"@id": "Category/footwear", "name": {"@op": "SwapValue", "@before": "Footwear", "@after": "Shoes"}}, {"@id": "Category/t-shirts", "parent_category": {"@op": "SwapValue", "@before": "Category/clothing-tops", "@after": "Category/clothing"}}]
+[{"@id":"Category/01a2220d-2139-77f8-bdcf-70a767d0de32","children":{"@op":"CopyList","@rest":{"@after":["Category/01a2220d-213b-71c0-9d01-3033944ecd5a"],"@before":[],"@op":"SwapList","@rest":{"@op":"KeepList"}},"@to":1}},
+ {"@id":"Category/01a2220d-213a-7fc8-b5ab-f7199d9087b4","children":{"@after":null,"@before":["Category/01a2220d-213b-71c0-9d01-3033944ecd5a"],"@op":"SwapValue"}},
+ {"@id":"Category/01a2220d-213c-7973-bdcb-5d151b295187","name":{"@after":"Shoes","@before":"Footwear","@op":"SwapValue"}}]
 {% /http-expected %}
 {% /http-example %}
 
-The diff shows one field per category: the new name, and the new parent. This is the change a reviewer needs to see. When the team agrees, you can bring the change to main with a merge (see [Branch](/docs/branch/)). The empty *Tops* category is still there on the branch, so you can delete it in the same branch if you no longer need it.
+The diff shows what a reviewer needs to see: *T-shirts* is added to *Clothing* and taken out of *Tops*, and *Footwear* has a new name. When the team agrees, you can bring the change to main with a merge (see [Branch](/docs/branch/)). The empty *Tops* category is still there on the branch. To delete it, take it out of the `children` of *Clothing* in the same branch.
 
-### Step 12 — Clean up {% step %}
+### Step 15 — Clean up {% step %}
 
 This deletes the **taxonomy_model** database. Only run it when you are done:
 
@@ -258,6 +342,8 @@ This deletes the **taxonomy_model** database. Only run it when you are done:
 {% /http-expected %}
 
 ## Next step: traits and inheritance
+
+The taxonomy on this page is data: categories are documents, and you change them like any other data. This is what makes a dynamic taxonomy possible. Teams can add, rename and move categories while the shop runs, without a schema change. With TerminusDB you can also review those changes in a pull request workflow: make them on a branch, look at the diff, and merge when the team agrees (see [Change request workflows](/docs/change-request-workflows/)). Both matter for a product taxonomy that many people work on. Want help with your own taxonomy? {% cta-link href="https://gettier.ai/connect" event="product_taxonomy_contact" %}Contact us{% /cta-link %} and tell us what you are building.
 
 A strict tree is a good start. Real shops also need rules that cut across the tree: cheese and juice both spoil, wine and glasses both break. The next page shows how to model these as traits that the taxonomy classes inherit, and how to query them with WOQL:
 
