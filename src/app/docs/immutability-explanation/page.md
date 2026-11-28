@@ -6,9 +6,9 @@ tags:
 title: Immutable Database Explained
 nextjs:
   metadata:
-    title: "Immutable Database — How TerminusDB Keeps Every Version"
-    description: "Immutable database explained: what it is, how TerminusDB stores each change as an immutable commit, and what you get from it — audit, time travel, branches."
-    keywords: immutable database, immutable databases, immutable db, append-only database, immutable storage, database audit trail, db, knowledge graph database, layers, json-ld
+    title: "Immutable Database: What It Is and How It Works"
+    description: "Immutable database explained: what it is, how it keeps every change without overwriting data, what you get from it — audit, time travel, branches — and how it compares to logs and history tables."
+    keywords: immutable database, immutable databases, immutable db, append-only database, immutable storage, database audit trail, layers, json-ld
     openGraph:
       images: https://assets.terminusdb.com/docs/technical-documentation-terminuscms-og.png
     alternates:
@@ -18,18 +18,7 @@ media: []
 
 An **immutable database** is a database that never changes stored data in place. An update or a delete does not overwrite the old value. Instead, the database writes the change as new data and keeps the old state. So you can always see what the data was before, and who changed it.
 
-TerminusDB is an immutable database with git-like version control for its RDF document graph. When you write, new data layers are appended on top of existing ones. When you delete, a new layer records the removed triples, and they stop showing in the current state. The original data remains intact and untouched underneath. This append-only architecture is what makes branching, time travel, and safe concurrent access possible.
-
-## How immutable storage works in TerminusDB
-
-TerminusDB stores data as a stack of **immutable delta layers**. Here is the short version:
-
-- **A commit adds a layer.** Each commit writes one new layer that includes the triples it added, and the triples it removed. Once written, a layer is never modified.
-- **Old layers stay as they were.** The layers under the new one do not change. Readers that still use them are not affected by any later changes.
-- **Each commit has metadata.** A commit has an `identifier`, an author, a timestamp and a message. You get these from the commit log.
-- **A branch is a pointer.** A branch points to the latest commit in a line of history. A write moves the pointer to a new commit. It does not touch older commits.
-
-Because every past layer is still there, the state at any previous commit is readable. TerminusDB does not need to rebuild the past by replaying a log. The [graphs explanation](/docs/graphs-explanation/) shows how layers fit into the graph hierarchy, and [Immutability and Concurrency](/docs/immutability-and-concurrency/) goes deeper into the storage design and architecture.
+This page explains how that works, what you get from it, how it compares to other ways of keeping history, and when it is a good fit. The last part shows how TerminusDB does it.
 
 ## Advantages of immutability
 
@@ -78,16 +67,6 @@ There are several ways to keep history. Each one is good at something. This is a
 - A **mutable database with history tables** (for example, SQL temporal or system-versioned tables) is good at "what did this row look like at time T". You turn it on for each table.
 - An **immutable database** like TerminusDB keeps the whole graph versioned at once. One commit is one consistent state of all your documents. The whole world, one commit at a time.
 
-## What about performance?
-
-Read and write speed amazingly does not suffer as history grows. Changes are stored as delta layers, and [delta rollup](/docs/delta-rollup/) runs automatically in the standard setup to compact them. Together with the layer cache, this keeps reads to at near constant time as history grows. Rollup builds storage layer caches at precise and controlled intervals in a way that keeps constant time. Time travel, branches and the full commit graph stay as they are.
-
-The cost is disk storage. Old layers are kept, so storage grows as you commit more changes. If you do not need every step on a branch, you can [squash](/docs/squash-projects/) its commits into one.
-
-## Is search enabled on historic versions?
-
-Every historical version is enabled for hybrid search (full text and vector search) using the built in TerminusDB VectorLink search engine which works in a similar way for compact complete history, making every TerminusDB version, branch and commit fully searchable. The automatic document text embeddings, rendered using GraphQL queries and handlebars templates, get rendered by layer into vectors and made full text searchable.
-
 ## When an immutable database fits, and when it does not
 
 An immutable database that includes versioned search is a good fit when:
@@ -104,6 +83,29 @@ It may not be the best fit when:
 - You never need old states, and disk space matters more than history (although you don't need that much disk space with succinct data structures).
 - You must remove a value from all past versions. A delete in a new commit removes the value from the current state, but older commits still contain it. Plan for this before you load such data. For example, keep it in its own database. Deleting a database (`DELETE /api/db/<org>/<db>`) removes it with its full commit history.
 - You need to store personal information or identifiers that may need to be removed later. Use unique and non-personal identifiers.
+
+## How immutable storage works in TerminusDB
+
+TerminusDB is an immutable database with git-like version control for its RDF document graph. When you write, new data layers are appended on top of existing ones. When you delete, a new layer records the removed triples, and they stop showing in the current state. The original data remains intact and untouched underneath. This append-only architecture is what makes branching, time travel, and safe concurrent access possible.
+
+It stores data as a stack of **immutable delta layers**. Here is the short version:
+
+- **A commit adds a layer.** Each commit writes one new layer that includes the triples it added, and the triples it removed. Once written, a layer is never modified.
+- **Old layers stay as they were.** The layers under the new one do not change. Readers that still use them are not affected by any later changes.
+- **Each commit has metadata.** A commit has an `identifier`, an author, a timestamp and a message. You get these from the commit log.
+- **A branch is a pointer.** A branch points to the latest commit in a line of history. A write moves the pointer to a new commit. It does not touch older commits.
+
+Because every past layer is still there, the state at any previous commit is readable. TerminusDB does not need to rebuild the past by replaying a log. The [graphs explanation](/docs/graphs-explanation/) shows how layers fit into the graph hierarchy, and [Immutability and Concurrency](/docs/immutability-and-concurrency/) goes deeper into the storage design and architecture.
+
+## What about performance?
+
+Read and write speed amazingly does not suffer as history grows. Changes are stored as delta layers, and [delta rollup](/docs/delta-rollup/) runs automatically in the standard setup to compact them. Together with the layer cache, this keeps reads to at near constant time as history grows. Rollup builds storage layer caches at precise and controlled intervals in a way that keeps constant time. Time travel, branches and the full commit graph stay as they are.
+
+The cost is disk storage. Old layers are kept, so storage grows as you commit more changes. If you do not need every step on a branch, you can [squash](/docs/squash-projects/) its commits into one.
+
+## Is search enabled on historic versions?
+
+Every historical version is enabled for hybrid search (full text and vector search) using the built in TerminusDB VectorLink search engine which works in a similar way for compact complete history, making every TerminusDB version, branch and commit fully searchable. The automatic document text embeddings, rendered using GraphQL queries and handlebars templates, get rendered by layer into vectors and made full text searchable.
 
 ## A small example: commit, then read an older commit
 
