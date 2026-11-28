@@ -71,7 +71,7 @@ When a field can only have a few fixed values, use an `Enum`. A product status i
 {"@type": "Enum", "@id": "Status", "@value": ["draft", "active", "discontinued"]}
 ```
 
-When a field can have **one of several shapes**, use a `TaggedUnion`. For example, a delivery can be a shipping address or a download link, but never both. A `TaggedUnion` has one field per choice, and a document sets exactly one of them. The starter model below does not need one, so we only link to [TaggedUnion in the Schema Reference Guide](/docs/schema-reference-guide/).
+When a field can have **one of several shapes**, use a `TaggedUnion`. For example, a delivery can be a shipping address or a download link, but never both. A `TaggedUnion` has one field per choice, and a document sets exactly one of them. The starter model uses one for the payment method of an order. You can try it in [Steps 9 to 11](#one-payment-method-per-order-a-tagged-union). The [Schema Reference Guide](/docs/schema-reference-guide/) has the full syntax.
 
 ## Identity: picking a key
 
@@ -100,8 +100,10 @@ The model looks like this:
 | `Product` | document, inherits `Sellable` | Lexical on `sku` | sku, brand, categories, variants, optional metadata |
 | `Service` | document, inherits `Sellable` | Lexical on `code` | code, duration, booking required |
 | `Assortment` | document | Lexical on `name` | name, market, dates, products |
+| `PaymentMethod` | tagged union, subdocument | Random | exactly one of: card, invoice, gift card, cash on delivery |
+| `Order` | document | Lexical on `order_number` | order number, products, total, payment |
 
-Customers and orders are not part of this model. The [ecommerce dataset tutorial](/docs/explore-ecommerce-dataset/) has a ready-made model with customers and orders.
+We add `Order` and `PaymentMethod` later, in [Step 9](#one-payment-method-per-order-a-tagged-union). Customers are not part of this model, and the orders are kept small. The [ecommerce dataset tutorial](/docs/explore-ecommerce-dataset/) has a ready-made model with customers and fuller orders.
 
 {% prerequisites-connected /%}
 
@@ -286,11 +288,90 @@ You can add a field like this to any class. It is a small escape hatch, so use i
 
 The [Schema Reference Guide](/docs/schema-reference-guide/) has more on `sys:JSON` and `sys:JSONDocument`.
 
+## One payment method per order: a tagged union
+
+An order is paid in one way: by card, by invoice, with a gift card, or cash on delivery. It should never have two payment methods, and it should never have none. Each way also needs different data. A card has a brand and the last four digits. An invoice has payment terms and a billing email.
+
+A `TaggedUnion` models this directly. Each choice is one field, and a value sets exactly one of them. TerminusDB checks this rule when you commit, so your application code does not have to. Every program that writes orders gets the same check.
+
+### Step 9 — Add PaymentMethod and Order {% step %}
+
+`Card`, `Invoice` and `GiftCard` are subdocuments with the data for each choice. `PaymentMethod` is the tagged union. It is a subdocument too, because a payment method only makes sense inside its order. The `cash_on_delivery` choice has the type `sys:Unit`, which means "this choice has no data".
+
+{% http-example method="POST" path="/api/document/admin/shop_model?graph_type=schema&author=admin&message=Add+orders+and+payment+methods" %}
+[
+  {"@type": "Class", "@id": "Card", "@subdocument": [],
+   "@key": {"@type": "Random"},
+   "brand": "xsd:string", "last4": "xsd:string", "expiry": "xsd:string"},
+  {"@type": "Class", "@id": "Invoice", "@subdocument": [],
+   "@key": {"@type": "Random"},
+   "terms_days": "xsd:integer", "billing_email": "xsd:string"},
+  {"@type": "Class", "@id": "GiftCard", "@subdocument": [],
+   "@key": {"@type": "Random"},
+   "code": "xsd:string", "balance": "Money"},
+  {"@type": "TaggedUnion", "@id": "PaymentMethod", "@subdocument": [],
+   "@key": {"@type": "Random"},
+   "card": "Card", "invoice": "Invoice", "gift_card": "GiftCard",
+   "cash_on_delivery": "sys:Unit"},
+  {"@type": "Class", "@id": "Order",
+   "@key": {"@type": "Lexical", "@fields": ["order_number"]},
+   "order_number": "xsd:string",
+   "products": {"@type": "Set", "@class": "Product"},
+   "total": "Money",
+   "payment": "PaymentMethod"}
+]
+{% http-expected %}
+["Card", "Invoice", "GiftCard", "PaymentMethod", "Order"]
+{% /http-expected %}
+{% /http-example %}
+
+### Step 10 — Insert one order paid by card and one paid by invoice {% step %}
+
+Each `payment` sets one field only: `card` in the first order, `invoice` in the second.
+
+{% http-example method="POST" path="/api/document/admin/shop_model?author=admin&message=Add+first+orders" %}
+[
+  {"@type": "Order", "order_number": "ORD-1001",
+   "products": ["Product/TS-001"],
+   "total": {"@type": "Money", "amount": 19.5, "currency": "EUR"},
+   "payment": {"@type": "PaymentMethod",
+     "card": {"@type": "Card", "brand": "Visa", "last4": "4242", "expiry": "2028-09"}}},
+  {"@type": "Order", "order_number": "ORD-1002",
+   "products": ["Product/TS-001", "Product/TS-002"],
+   "total": {"@type": "Money", "amount": 44, "currency": "EUR"},
+   "payment": {"@type": "PaymentMethod",
+     "invoice": {"@type": "Invoice", "terms_days": 30, "billing_email": "billing@example.com"}}}
+]
+{% http-expected %}
+["Order/ORD-1001", "Order/ORD-1002"]
+{% /http-expected %}
+{% /http-example %}
+
+To pay cash on delivery, you would send `"payment": {"@type": "PaymentMethod", "cash_on_delivery": []}`. The empty list `[]` is the value of a `sys:Unit` field.
+
+### Step 11 — Try an order with two payment methods {% step %}
+
+This order sets both `card` and `invoice`. TerminusDB rejects it, and nothing is written:
+
+{% http-example method="POST" path="/api/document/admin/shop_model?author=admin&message=Add+invalid+order" %}
+{"@type": "Order", "order_number": "ORD-1003",
+ "products": ["Product/TS-002"],
+ "total": {"@type": "Money", "amount": 24.5, "currency": "EUR"},
+ "payment": {"@type": "PaymentMethod",
+   "card": {"@type": "Card", "brand": "Visa", "last4": "4242", "expiry": "2028-09"},
+   "invoice": {"@type": "Invoice", "terms_days": 30, "billing_email": "billing@example.com"}}}
+{% http-expected %}
+{"@type":"api:InsertDocumentErrorResponse","api:status":"api:failure","api:message":"Schema check failure","api:error":{"@type":"api:SchemaCheckFailure","api:witnesses":[{"@type":"choice_has_too_many_answers"}]}}
+{% /http-expected %}
+{% /http-example %}
+
+We shortened the response. The witness also has a `choice` field with the choices of the union, and a `document` field with the value you sent. The details can look a little different on your version. If you send a `PaymentMethod` with no choice at all, the witness type is `no_choice_is_cardinality_one` instead.
+
 ## Evolve the model safely
 
 Models change. A good habit is to change the schema on a branch, check the result, and only then bring it to main. Here we add an optional `weight_grams` field to `Product` on a branch, and mark one product as discontinued.
 
-### Step 9 — Create a branch {% step %}
+### Step 12 — Create a branch {% step %}
 
 {% http-example method="POST" path="/api/branch/admin/shop_model/local/branch/new-fields" %}
 {"origin": "admin/shop_model/local/branch/main"}
@@ -299,7 +380,7 @@ Models change. A good habit is to change the schema on a branch, check the resul
 {% /http-expected %}
 {% /http-example %}
 
-### Step 10 — Change the schema on the branch {% step %}
+### Step 13 — Change the schema on the branch {% step %}
 
 Replace the `Product` class with a version that has one more optional field. Because the new field is optional, the existing products stay valid.
 
@@ -318,7 +399,7 @@ Replace the `Product` class with a version that has one more optional field. Bec
 {% /http-expected %}
 {% /http-example %}
 
-### Step 11 — Change a product on the branch {% step %}
+### Step 14 — Change a product on the branch {% step %}
 
 {% http-example method="PUT" path="/api/document/admin/shop_model/local/branch/new-fields?author=admin&message=Discontinue+TS-002" %}
 {"@id": "Product/TS-002", "@type": "Product", "sku": "TS-002", "name": "Striped T-shirt",
@@ -333,7 +414,7 @@ Replace the `Product` class with a version that has one more optional field. Bec
 {% /http-expected %}
 {% /http-example %}
 
-### Step 12 — See what changed {% step %}
+### Step 15 — See what changed {% step %}
 
 Compare the branch with main:
 
@@ -353,7 +434,7 @@ The diff shows the document change: one field, from `active` to `discontinued`. 
 
 When you are happy with the change, you can bring it to main with a merge (see [Branch](/docs/branch/)). For bigger changes, such as renaming a field or making an optional field required, have a look at the [Schema Migration Reference](/docs/schema-migration-reference-guide/). If your data does not fit the schema, the [Data Model Mismatches](/docs/troubleshooting-data-model/) page may help.
 
-### Step 13 — Clean up {% step %}
+### Step 16 — Clean up {% step %}
 
 This deletes the **shop_model** database. Only run it when you are done:
 
