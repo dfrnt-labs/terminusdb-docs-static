@@ -361,6 +361,10 @@ export const navigation: Navigation[] = [
             href: '/docs/product-taxonomy-data-model/',
           },
           {
+            title: 'Advanced Product Taxonomy',
+            href: '/docs/advanced-product-taxonomy/',
+          },
+          {
             title: 'Segmented Environments',
             href: '/docs/operational-technologies-transfer',
           },
