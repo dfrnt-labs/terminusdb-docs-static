@@ -199,4 +199,5 @@ These operations — clone, query, branch, diff, merge — are the core of Termi
 - [Design an ecommerce data model](/docs/ecommerce-data-model/) — products, variants, categories, brands and services, step by step
 - [Time-travel to previous commits](/docs/time-travel-howto/) — view any previous state of your database
 - [WOQL query language](/docs/woql-getting-started/) — learn the full query language
+- [Model a product taxonomy](/docs/product-taxonomy-data-model/) — category trees, categories with more than one parent, and attributes per category
 - [Connect with TypeScript](/docs/connect-with-the-javascript-client/) — use the SDK in your application
