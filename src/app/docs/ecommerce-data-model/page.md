@@ -79,7 +79,14 @@ The `@key` decides how a document gets its `@id`. There are a few strategies:
 
 - **`Lexical`** builds the `@id` from fields you choose. A product with key field `sku` and SKU `TS-001` gets the `@id` `Product/TS-001`. Use it when the business already has a stable code, like a SKU.
 - **`Random`** makes a new random `@id`. Use it when nothing in the data is a natural key.
+- **`UuidV7`** makes the `@id` a UUID version 7, also called a GUID. Use it when you want GUID-style IDs, or when IDs come from other systems. If you leave out the `@id`, TerminusDB creates one like `Product/01a120f0-47a7-7f20-9295-b3034d7fc5d3`. If you send an `@id`, it is used as it is. A UUID v7 starts with a timestamp, so new IDs sort by creation time, and that suits TerminusDB's compact front-coded storage. See [UuidV7](/docs/schema-reference-guide/#uuid-v7) in the Schema Reference Guide.
 - **`Hash`** and **`ValueHash`** build the `@id` from a hash of some fields or of the whole value. Two documents with the same content get the same `@id`.
+
+To use a GUID key, set it on the class:
+
+```json
+{"@type": "Class", "@id": "Product", "@key": {"@type": "UuidV7"}, "name": "xsd:string"}
+```
 
 For subdocuments, we suggest you **prefer Lexical or Random keys for now**. The starter model uses `Lexical` keys everywhere, so the IDs in the examples are easy to read and the same on your machine. The [Schema Reference Guide](/docs/schema-reference-guide/) has the full list of key types.
 
@@ -132,7 +139,7 @@ We add `Order` and `PaymentMethod` later, in [Step 9](#one-payment-method-per-or
 {% /http-expected %}
 {% /http-example %}
 
-We use `xsd:decimal` for the amount, so prices stay exact and you do not get floating point rounding.
+We use `xsd:decimal` for the amount, so prices stay exact and you do not get floating point rounding. It is a standards-based type from XML Schema with well-known semantics, and it supports at least 20 digits of precision. See [XSD data types](/docs/xsd-data-types/) for details.
 
 ### Step 3 — Add Category and Brand {% step %}
 
@@ -442,6 +449,10 @@ This deletes the **shop_model** database. Only run it when you are done:
 {% http-expected %}
 {"@type":"api:DbDeleteResponse","api:status":"api:success"}
 {% /http-expected %}
+
+## Get help
+
+Need help with your own model? For dynamic assortments, hubs with pull request workflows and similar work, we and our partners can help. {% cta-link href="https://gettier.ai/connect" event="ecommerce_data_model_contact" %}Contact us{% /cta-link %} and tell us what you are building.
 
 ## Next steps
 
