@@ -44,6 +44,11 @@ Two annotations make this work well:
 
 The schema does not stop you from listing a category as a child of two parents. We keep the tree strict by convention: each category is in the `children` of at most one other category. When you move a category, you take it out of the old parent and add it to the new parent in the same request.
 
+{% callout type="note" %}
+**Parent links instead?**
+You can also build the tree the other way round. Each category then has a `parent` link to its parent. This works too, but a read of one category does not return its tree. You must render the taxonomy yourself with a GraphQL query that follows the links in reverse. TerminusDB makes the reverse field for you. For a `parent` link on `Category`, it is `_parent_of_Category` (see [GraphQL backlinks](/docs/back-links-in-graphql/)). With the children model on this page, the document interface returns the tree implicitly: one read with `@unfold`. We think this is the simpler way, so we use it here.
+{% /callout %}
+
 A product has one link, `category`, to the category it sits in. It is a required field, so each product must have exactly one category.
 
 ## Identity: UUID v7 keys
