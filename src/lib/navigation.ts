@@ -357,6 +357,10 @@ export const navigation: Navigation[] = [
             href: '/docs/cookbook-taxonomy-inheritance/',
           },
           {
+            title: 'Product Taxonomy Data Model',
+            href: '/docs/product-taxonomy-data-model/',
+          },
+          {
             title: 'Segmented Environments',
             href: '/docs/operational-technologies-transfer',
           },
