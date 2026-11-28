@@ -60,6 +60,8 @@ List the document types defined in the schema:
 
 The response lists 5 document types — `Category`, `Customer`, `Order`, `OrderLine`, and `Product`.
 
+Want to design a model like this yourself? The [ecommerce data model](/docs/ecommerce-data-model/) page builds a starter schema for products, categories, brands and services step by step.
+
 ## Step 3 — List the orders {% step %}
 
 List the first five orders (of 30 total):
@@ -194,6 +196,7 @@ These operations — clone, query, branch, diff, merge — are the core of Termi
 
 - [Explore the Star Wars dataset](/docs/explore-a-real-dataset/) — the same workflow with a fun dataset
 - [Write your own schema](/docs/schema-reference-guide/) — add validation and type safety to your documents
+- [Design an ecommerce data model](/docs/ecommerce-data-model/) — products, variants, categories, brands and services, step by step
 - [Time-travel to previous commits](/docs/time-travel-howto/) — view any previous state of your database
 - [WOQL query language](/docs/woql-getting-started/) — learn the full query language
 - [Connect with TypeScript](/docs/connect-with-the-javascript-client/) — use the SDK in your application

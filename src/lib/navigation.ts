@@ -353,6 +353,10 @@ export const navigation: Navigation[] = [
             href: '/docs/python-woql-customer-data-processing-example',
           },
           {
+            title: 'E-commerce Data Model',
+            href: '/docs/ecommerce-data-model/',
+          },
+          {
             title: 'Taxonomy Inheritance',
             href: '/docs/cookbook-taxonomy-inheritance/',
           },
