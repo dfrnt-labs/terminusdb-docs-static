@@ -21,3 +21,4 @@ TerminusDB schemas define the structure of your documents — their types, field
 
 * [Model Schema UI](/docs/use-the-model-builder-ui/)
 * [JSON Editor](/docs/use-the-json-editor/)
+* [E-commerce Data Model](/docs/ecommerce-data-model/) — a starter schema for products, categories and services, built step by step with curl
